@@ -5,7 +5,7 @@ project:
 website:
   title: "Dylan Rogers"
   navbar:
-    searcg: false
+    search: false
     background: "#1c4982"
     pinned: true
     left:
