@@ -1,0 +1,27 @@
+project:
+  type: website
+  output-dir: "."
+
+website:
+  title: "Dylan Rogers"
+  navbar:
+    background: "#1c4982"
+    pinned: true
+    left:
+      - text: Home
+        href: index.qmd
+        
+      - text: About
+        href: about.qmd
+        
+      - text: Projects
+        href: projects.qmd
+
+format:
+  html:
+    theme: 
+      light: flatly # flatly sandstone yeti united litera journal
+      dark: darkly #  darkly cyborg slate solra superhero
+    mainfont: system-ui; 
+    highlight-style: atom-one  # atom-one espresso
+    toc: false
