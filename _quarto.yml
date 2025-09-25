@@ -5,7 +5,7 @@ project:
 website:
   title: "Dylan Rogers"
   navbar:
-    search: true
+    search: false
     background: "#1c4982"
     pinned: true
     left:
@@ -18,11 +18,15 @@ website:
       #- text: Projects
       #  href: projects.qmd
 
+  page-footer: 
+      center: "Powered with GitHub, and RStudio<br>© Dylan Rogers, 2025"
+
 format:
   html:
     theme: 
       light: flatly # flatly sandstone yeti united litera journal
       dark: darkly #  darkly cyborg slate solra superhero
-    mainfont: system-ui; 
+    preferred-color-scheme: auto
+    mainfont: system-ui
     highlight-style: atom-one  # atom-one espresso
     toc: false
