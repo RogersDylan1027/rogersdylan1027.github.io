@@ -1,9 +1,30 @@
 ---
 title: "About"
+
+about: 
+  template: trestles  # jolla  trestles  solana  marquee  broadside
+  #image: img/profile.png
+  #image-width: 16em
+  #image-shape: rounded # rectangle  round  rounded
+    
+  links:
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/dylan-rogers-3917b0220/
+      
+    - icon: file-earmark-pdf
+      text: Resumé
+      href: Dylan Rogers Resume 12_31_24.pdf
+      target: _blank
+      
+    - icon: mailbox
+      text: Email
+      href: mailto:rogersdylan1027@gmail.com
 ---
 
 Dylan Rogers majors in Mathematics and minors in Data Analytics at SUNY Geneseo. When not working on math or data analytics, Dylan enjoys spending time skiing and snowboarding with his friends.
 
+### Education
 State University of New York at Geneseo | Geneseo, NY <br>
 B.A. in Mathematics | Aug 2022 - May 2026 <br>
 Minor in Data Analytics
