@@ -72,23 +72,23 @@
     "homeABV": "STL",
     "awayABV": "LAK",
     "homeGoalie": "STL: Jordan Binnington",
-    "awayGoalie": {},
+    "awayGoalie": "LAK: Darcy Kuemper",
     "homeScorers": {},
     "awayScorers": ["Kevin Fiala, LAK: 0.3796      (0.632666666666667)", "Adrian Kempe, LAK: 0.35846      (0.597433333333333)"],
-    "outcome": "LAK, STL: 1.05971 v LAK: 1.58572      Expected difference: 0.52601, (STL: 1.76618 v LAK: 2.64287) (STL: 40.06% , LAK: 59.94%)",
+    "outcome": "LAK, STL: 1.19231 v LAK: 1.58572      Expected difference: 0.39341, (STL: 1.98718 v LAK: 2.64287) (STL: 42.92% , LAK: 57.08%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "19:16:31"
+    "timeLastRun": "19:35:41"
   },
   {
     "homeABV": "NSH",
     "awayABV": "ANA",
     "homeGoalie": "NSH: Juuse Saros",
-    "awayGoalie": {},
+    "awayGoalie": "ANA: Lukas Dostal",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "ANA, NSH: 0.95582 v ANA: 1.59813      Expected difference: 0.64231, (NSH: 1.59303 v ANA: 2.66355) (NSH: 37.43% , ANA: 62.57%)",
+    "outcome": "ANA, NSH: 1.13908 v ANA: 1.59813      Expected difference: 0.45905, (NSH: 1.89847 v ANA: 2.66355) (NSH: 41.61% , ANA: 58.39%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "19:16:33"
+    "timeLastRun": "19:35:43"
   },
   {
     "homeABV": "DAL",
@@ -99,7 +99,7 @@
     "awayScorers": {},
     "outcome": "CBJ, DAL: 1.05569 v CBJ: 1.55541      Expected difference: 0.49972, (DAL: 1.75948 v CBJ: 2.59235) (DAL: 40.43% , CBJ: 59.57%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "19:16:34"
+    "timeLastRun": "19:35:45"
   },
   {
     "homeABV": "UTA",
@@ -110,6 +110,6 @@
     "awayScorers": ["Nathan MacKinnon, COL: 0.71507      (1.19178333333333)", "Cale Makar, COL: 0.39613      (0.660216666666667)"],
     "outcome": "COL, UTA: 1.81516 v COL: 2.54767      Expected difference: 0.73251, (UTA: 3.02527 v COL: 4.24612) (UTA: 41.61% , COL: 58.39%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "19:16:36"
+    "timeLastRun": "19:35:47"
   }
 ]
