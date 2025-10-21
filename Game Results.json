@@ -1,0 +1,112 @@
+[
+  {
+    "homeABV": "TOR",
+    "awayABV": "NJD",
+    "homeGoalie": "TOR: Anthony Stolarz",
+    "awayGoalie": "NJD: Jake Allen",
+    "homeScorers": ["William Nylander, TOR: 0.45679      (0.761316666666667)", "Auston Matthews, TOR: 0.63582      (1.0597)"],
+    "awayScorers": "Jack Hughes, NJD: 0.42632      (0.710533333333333)",
+    "outcome": "TOR, TOR: 2.17738 v NJD: 1.50834      Expected difference: 0.66904, (TOR: 3.62897 v NJD: 2.5139) (TOR: 59.08% , NJD: 40.92%)",
+    "startingTime": "19:05:00",
+    "timeLastRun": "12:05:31"
+  },
+  {
+    "homeABV": "OTT",
+    "awayABV": "EDM",
+    "homeGoalie": "OTT: Linus Ullmark",
+    "awayGoalie": {},
+    "homeScorers": {},
+    "awayScorers": "Leon Draisaitl, EDM: 0.39019      (0.650316666666667)",
+    "outcome": "OTT, OTT: 1.30168 v EDM: 1.05126      Expected difference: 0.25042, (OTT: 2.16947 v EDM: 1.7521) (OTT: 55.32% , EDM: 44.68%)",
+    "startingTime": "19:05:00",
+    "timeLastRun": "12:05:33"
+  },
+  {
+    "homeABV": "NYI",
+    "awayABV": "SJS",
+    "homeGoalie": "NYI: Ilya Sorokin",
+    "awayGoalie": "SJS: Yaroslav Askarov",
+    "homeScorers": {},
+    "awayScorers": {},
+    "outcome": "SJS, NYI: 0.01926 v SJS: 0.60056      Expected difference: 0.5813, (NYI: 0.0321 v SJS: 1.00093) (NYI: 3.11% , SJS: 96.89%)",
+    "startingTime": "19:05:00",
+    "timeLastRun": "12:05:35"
+  },
+  {
+    "homeABV": "PIT",
+    "awayABV": "VAN",
+    "homeGoalie": "PIT: Arturs Silovs",
+    "awayGoalie": {},
+    "homeScorers": {},
+    "awayScorers": {},
+    "outcome": "PIT, PIT: 1.47008 v VAN: 0.82962      Expected difference: 0.64046, (PIT: 2.45013 v VAN: 1.3827) (PIT: 63.92% , VAN: 36.08%)",
+    "startingTime": "19:05:00",
+    "timeLastRun": "12:05:37"
+  },
+  {
+    "homeABV": "WSH",
+    "awayABV": "SEA",
+    "homeGoalie": "WSH: Logan Thompson",
+    "awayGoalie": {},
+    "homeScorers": "Alex Ovechkin, WSH: 0.45149      (0.752483333333333)",
+    "awayScorers": {},
+    "outcome": "WSH, WSH: 1.43591 v SEA: 1.11006      Expected difference: 0.32585, (WSH: 2.39318 v SEA: 1.8501) (WSH: 56.4% , SEA: 43.6%)",
+    "startingTime": "19:05:00",
+    "timeLastRun": "12:05:39"
+  },
+  {
+    "homeABV": "BOS",
+    "awayABV": "FLA",
+    "homeGoalie": {},
+    "awayGoalie": {},
+    "homeScorers": "David Pastrnak, BOS: 0.56857      (0.947616666666667)",
+    "awayScorers": {},
+    "outcome": "FLA (OTW), BOS: 1.35417 v FLA: 1.35879      Expected difference: 0.0046199999999994, (BOS: 2.25695 v FLA: 2.26465) (BOS: 49.91% , FLA: 50.09%)",
+    "startingTime": "19:35:00",
+    "timeLastRun": "12:05:41"
+  },
+  {
+    "homeABV": "STL",
+    "awayABV": "LAK",
+    "homeGoalie": {},
+    "awayGoalie": {},
+    "homeScorers": {},
+    "awayScorers": {},
+    "outcome": "LAK, STL: 1.05971 v LAK: 1.31403      Expected difference: 0.25432, (STL: 1.76618 v LAK: 2.19005) (STL: 44.64% , LAK: 55.36%)",
+    "startingTime": "20:05:00",
+    "timeLastRun": "12:05:42"
+  },
+  {
+    "homeABV": "NSH",
+    "awayABV": "ANA",
+    "homeGoalie": {},
+    "awayGoalie": {},
+    "homeScorers": {},
+    "awayScorers": {},
+    "outcome": "ANA, NSH: 0.82475 v ANA: 1.43735      Expected difference: 0.6126, (NSH: 1.37458 v ANA: 2.39558) (NSH: 36.46% , ANA: 63.54%)",
+    "startingTime": "20:05:00",
+    "timeLastRun": "12:05:44"
+  },
+  {
+    "homeABV": "DAL",
+    "awayABV": "CBJ",
+    "homeGoalie": {},
+    "awayGoalie": {},
+    "homeScorers": {},
+    "awayScorers": {},
+    "outcome": "DAL (OTW), DAL: 1.40483 v CBJ: 1.38866      Expected difference: 0.01617, (DAL: 2.34138 v CBJ: 2.31443) (DAL: 50.29% , CBJ: 49.71%)",
+    "startingTime": "20:05:00",
+    "timeLastRun": "12:05:46"
+  },
+  {
+    "homeABV": "UTA",
+    "awayABV": "COL",
+    "homeGoalie": {},
+    "awayGoalie": {},
+    "homeScorers": "Dylan Guenther, UTA: 0.36967      (0.616116666666667)",
+    "awayScorers": ["Nathan MacKinnon, COL: 0.71671      (1.19451666666667)", "Cale Makar, COL: 0.39704      (0.661733333333333)"],
+    "outcome": "COL, UTA: 1.81516 v COL: 2.55351      Expected difference: 0.73835, (UTA: 3.02527 v COL: 4.25585) (UTA: 41.55% , COL: 58.45%)",
+    "startingTime": "22:05:00",
+    "timeLastRun": "12:05:48"
+  }
+]
