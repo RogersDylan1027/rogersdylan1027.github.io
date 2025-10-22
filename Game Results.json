@@ -110,7 +110,10 @@
     "homeGoalie": "UTA: Karel Vejmelka",
     "awayGoalie": {},
     "homeScorers": "Dylan Guenther, UTA: 0.36967      (0.616116666666667)",
-    "awayScorers": ["Nathan MacKinnon, COL: 0.71507      (1.19178333333333)", "Cale Makar, COL: 0.39613      (0.660216666666667)"],
+    "awayScorers": [
+      "Nathan MacKinnon, COL: 0.71507      (1.19178333333333)",
+      "Cale Makar, COL: 0.39613      (0.660216666666667)"
+    ],
     "outcome": "COL, UTA: 1.81516 v COL: 2.54767      Expected difference: 0.73251, (UTA: 3.02527 v COL: 4.24612) (UTA: 41.61% , COL: 58.39%)",
     "startingTime": "22:05:00",
     "timeLastRun": "21:05:04"
