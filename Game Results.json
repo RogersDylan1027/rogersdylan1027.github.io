@@ -74,7 +74,10 @@
     "homeGoalie": "STL: Jordan Binnington",
     "awayGoalie": "LAK: Darcy Kuemper",
     "homeScorers": {},
-    "awayScorers": ["Kevin Fiala, LAK: 0.3796      (0.632666666666667)", "Adrian Kempe, LAK: 0.35846      (0.597433333333333)"],
+    "awayScorers": [
+      "Kevin Fiala, LAK: 0.3796      (0.632666666666667)",
+      "Adrian Kempe, LAK: 0.35846      (0.597433333333333)"
+    ],
     "outcome": "LAK, STL: 1.19231 v LAK: 1.58572      Expected difference: 0.39341, (STL: 1.98718 v LAK: 2.64287) (STL: 42.92% , LAK: 57.08%)",
     "startingTime": "20:05:00",
     "timeLastRun": "19:35:41"
@@ -110,6 +113,6 @@
     "awayScorers": ["Nathan MacKinnon, COL: 0.71507      (1.19178333333333)", "Cale Makar, COL: 0.39613      (0.660216666666667)"],
     "outcome": "COL, UTA: 1.81516 v COL: 2.54767      Expected difference: 0.73251, (UTA: 3.02527 v COL: 4.24612) (UTA: 41.61% , COL: 58.39%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "19:35:47"
+    "timeLastRun": "21:05:04"
   }
 ]
