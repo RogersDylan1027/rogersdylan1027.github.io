@@ -8,28 +8,28 @@
     "awayScorers": ["Kirill Kaprizov, MIN: 0.65416      (1.09026666666667)", "Matt Boldy, MIN: 0.3578      (0.596333333333333)"],
     "outcome": "MIN, NJD: 1.19569 v MIN: 1.60527      Expected difference: 0.40958, (NJD: 1.99282 v MIN: 2.67545) (NJD: 42.69% , MIN: 57.31%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "11:16:52"
+    "timeLastRun": "11:39:20"
   },
   {
     "homeABV": "BUF",
     "awayABV": "DET",
     "homeGoalie": {},
-    "awayGoalie": {},
-    "homeScorers": "Tage Thompson, BUF: 0.43493      (0.724883333333333)",
+    "awayGoalie": "DET: John Gibson",
+    "homeScorers": {},
     "awayScorers": {},
-    "outcome": "BUF, BUF: 1.58161 v DET: 1.17176      Expected difference: 0.40985, (BUF: 2.63602 v DET: 1.95293) (BUF: 57.44% , DET: 42.56%)",
+    "outcome": "BUF (OTW), BUF: 1.21183 v DET: 1.17176      Expected difference: 0.0400700000000005, (BUF: 2.01972 v DET: 1.95293) (BUF: 50.84% , DET: 49.16%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "11:16:54"
+    "timeLastRun": "11:39:21"
   },
   {
     "homeABV": "CGY",
     "awayABV": "MTL",
-    "homeGoalie": {},
+    "homeGoalie": "CGY: Dustin Wolf",
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "CGY, CGY: 1.18703 v MTL: 0.70389      Expected difference: 0.48314, (CGY: 1.97838 v MTL: 1.17315) (CGY: 62.78% , MTL: 37.22%)",
+    "outcome": "CGY, CGY: 1.18703 v MTL: 0.46683      Expected difference: 0.7202, (CGY: 1.97838 v MTL: 0.77805) (CGY: 71.77% , MTL: 28.23%)",
     "startingTime": "20:35:00",
-    "timeLastRun": "11:16:57"
+    "timeLastRun": "11:39:24"
   }
 ]
