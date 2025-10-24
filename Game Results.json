@@ -5,7 +5,10 @@
     "homeGoalie": "BUF: Alex Lyon",
     "awayGoalie": "TOR: Anthony Stolarz",
     "homeScorers": {},
-    "awayScorers": ["William Nylander, TOR: 0.35282      (0.588033333333333)", "Auston Matthews, TOR: 0.49627      (0.827116666666667)"],
+    "awayScorers": [
+      "William Nylander, TOR: 0.35282      (0.588033333333333)",
+      "Auston Matthews, TOR: 0.49627      (0.827116666666667)"
+    ],
     "outcome": "TOR, BUF: 1.24647 v TOR: 1.6586      Expected difference: 0.41213, (BUF: 2.07745 v TOR: 2.76433) (BUF: 42.91% , TOR: 57.09%)",
     "startingTime": "19:05:00",
     "timeLastRun": "18:37:11"
@@ -26,7 +29,10 @@
     "awayABV": "WSH",
     "homeGoalie": "CBJ: Jet Greaves",
     "awayGoalie": "WSH: Logan Thompson",
-    "homeScorers": ["Zach Werenski, CBJ: 0.42281      (0.704683333333333)", "Kirill Marchenko, CBJ: 0.40454      (0.674233333333333)"],
+    "homeScorers": [
+      "Zach Werenski, CBJ: 0.42281      (0.704683333333333)",
+      "Kirill Marchenko, CBJ: 0.40454      (0.674233333333333)"
+    ],
     "awayScorers": "Alex Ovechkin, WSH: 0.48935      (0.815583333333333)",
     "outcome": "CBJ, CBJ: 2.27017 v WSH: 1.6777      Expected difference: 0.59247, (CBJ: 3.78362 v WSH: 2.79617) (CBJ: 57.5% , WSH: 42.5%)",
     "startingTime": "19:05:00",
@@ -41,6 +47,6 @@
     "awayScorers": {},
     "outcome": "CGY, WPG: 0.96926 v CGY: 1.57118      Expected difference: 0.60192, (WPG: 1.61543 v CGY: 2.61863) (WPG: 38.15% , CGY: 61.85%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "18:37:17"
+    "timeLastRun": "19:15:52"
   }
 ]
