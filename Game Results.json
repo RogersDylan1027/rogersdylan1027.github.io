@@ -108,23 +108,23 @@
     "homeABV": "DAL",
     "awayABV": "LAK",
     "homeGoalie": "DAL: Jake Oettinger",
-    "awayGoalie": {},
+    "awayGoalie": "LAK: Darcy Kuemper",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "LAK, DAL: 1.02323 v LAK: 1.10866      Expected difference: 0.0854299999999999, (DAL: 1.70538 v LAK: 1.84777) (DAL: 48% , LAK: 52%)",
+    "outcome": "DAL, DAL: 1.24095 v LAK: 1.10866      Expected difference: 0.13229, (DAL: 2.06825 v LAK: 1.84777) (DAL: 52.82% , LAK: 47.18%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "19:33:58"
+    "timeLastRun": "21:00:28"
   },
   {
     "homeABV": "COL",
     "awayABV": "CAR",
     "homeGoalie": "COL: Scott Wedgewood",
-    "awayGoalie": {},
-    "homeScorers": ["Nathan MacKinnon, COL: 0.61343      (1.02238333333333)", "Cale Makar, COL: 0.35529      (0.59215)"],
+    "awayGoalie": "CAR: Frederik Andersen",
+    "homeScorers": "Nathan MacKinnon, COL: 0.58536      (0.9756)",
     "awayScorers": "Seth Jarvis, CAR: 0.41205      (0.68675)",
-    "outcome": "COL, COL: 2.18329 v CAR: 1.74468      Expected difference: 0.43861, (COL: 3.63882 v CAR: 2.9078) (COL: 55.58% , CAR: 44.42%)",
+    "outcome": "COL, COL: 2.08333 v CAR: 1.74468      Expected difference: 0.33865, (COL: 3.47222 v CAR: 2.9078) (COL: 54.42% , CAR: 45.58%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "19:34:02"
+    "timeLastRun": "21:00:31"
   },
   {
     "homeABV": "EDM",
@@ -135,6 +135,6 @@
     "awayScorers": {},
     "outcome": "EDM, EDM: 1.2688 v MTL: 1.12336      Expected difference: 0.14544, (EDM: 2.11467 v MTL: 1.87227) (EDM: 53.04% , MTL: 46.96%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "19:34:04"
+    "timeLastRun": "21:00:33"
   }
 ]
