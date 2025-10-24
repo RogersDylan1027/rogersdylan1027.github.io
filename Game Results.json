@@ -8,7 +8,7 @@
     "awayScorers": "Auston Matthews, TOR: 0.48452      (0.807533333333333)",
     "outcome": "TOR, BUF: 0.91573 v TOR: 1.61933      Expected difference: 0.7036, (BUF: 1.52622 v TOR: 2.69888) (BUF: 36.12% , TOR: 63.88%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "10:18:18"
+    "timeLastRun": "10:41:47"
   },
   {
     "homeABV": "NJD",
@@ -19,18 +19,18 @@
     "awayScorers": "Macklin Celebrini, SJS: 0.39566      (0.659433333333333)",
     "outcome": "SJS, NJD: 0.0226 v SJS: 1.24476      Expected difference: 1.22216, (NJD: 0.03767 v SJS: 2.0746) (NJD: 1.78% , SJS: 98.22%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "10:18:20"
+    "timeLastRun": "10:41:49"
   },
   {
     "homeABV": "CBJ",
     "awayABV": "WSH",
-    "homeGoalie": {},
+    "homeGoalie": "CBJ: Jet Greaves",
     "awayGoalie": {},
     "homeScorers": ["Zach Werenski, CBJ: 0.42281      (0.704683333333333)", "Kirill Marchenko, CBJ: 0.40454      (0.674233333333333)"],
-    "awayScorers": "Alex Ovechkin, WSH: 0.42557      (0.709283333333333)",
-    "outcome": "CBJ, CBJ: 2.27017 v WSH: 1.45904      Expected difference: 0.811130000000001, (CBJ: 3.78362 v WSH: 2.43173) (CBJ: 60.88% , WSH: 39.12%)",
+    "awayScorers": "Alex Ovechkin, WSH: 0.49204      (0.820066666666667)",
+    "outcome": "CBJ, CBJ: 2.27017 v WSH: 1.68691      Expected difference: 0.58326, (CBJ: 3.78362 v WSH: 2.81152) (CBJ: 57.37% , WSH: 42.63%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "10:18:22"
+    "timeLastRun": "10:41:51"
   },
   {
     "homeABV": "WPG",
@@ -41,6 +41,6 @@
     "awayScorers": {},
     "outcome": "CGY, WPG: 1.01638 v CGY: 1.59682      Expected difference: 0.58044, (WPG: 1.69397 v CGY: 2.66137) (WPG: 38.89% , CGY: 61.11%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "10:18:25"
+    "timeLastRun": "10:41:53"
   }
 ]
