@@ -5,21 +5,21 @@
     "homeGoalie": {},
     "awayGoalie": {},
     "homeScorers": {},
-    "awayScorers": "Auston Matthews, TOR: 0.48452      (0.807533333333333)",
-    "outcome": "TOR, BUF: 0.91573 v TOR: 1.61933      Expected difference: 0.7036, (BUF: 1.52622 v TOR: 2.69888) (BUF: 36.12% , TOR: 63.88%)",
+    "awayScorers": ["William Nylander, TOR: 0.37288      (0.621466666666667)", "Auston Matthews, TOR: 0.5245      (0.874166666666667)"],
+    "outcome": "TOR, BUF: 1.11146 v TOR: 1.75295      Expected difference: 0.64149, (BUF: 1.85243 v TOR: 2.92158) (BUF: 38.8% , TOR: 61.2%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "10:41:47"
+    "timeLastRun": "11:16:19"
   },
   {
     "homeABV": "NJD",
     "awayABV": "SJS",
     "homeGoalie": {},
-    "awayGoalie": {},
+    "awayGoalie": "SJS: Yaroslav Askarov",
     "homeScorers": {},
-    "awayScorers": "Macklin Celebrini, SJS: 0.39566      (0.659433333333333)",
-    "outcome": "SJS, NJD: 0.0226 v SJS: 1.24476      Expected difference: 1.22216, (NJD: 0.03767 v SJS: 2.0746) (NJD: 1.78% , SJS: 98.22%)",
+    "awayScorers": "Macklin Celebrini, SJS: 0.40988      (0.683133333333333)",
+    "outcome": "SJS, NJD: 0.0226 v SJS: 1.28948      Expected difference: 1.26688, (NJD: 0.03767 v SJS: 2.14913) (NJD: 1.72% , SJS: 98.28%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "10:41:49"
+    "timeLastRun": "11:16:21"
   },
   {
     "homeABV": "CBJ",
@@ -27,20 +27,20 @@
     "homeGoalie": "CBJ: Jet Greaves",
     "awayGoalie": {},
     "homeScorers": ["Zach Werenski, CBJ: 0.42281      (0.704683333333333)", "Kirill Marchenko, CBJ: 0.40454      (0.674233333333333)"],
-    "awayScorers": "Alex Ovechkin, WSH: 0.49204      (0.820066666666667)",
-    "outcome": "CBJ, CBJ: 2.27017 v WSH: 1.68691      Expected difference: 0.58326, (CBJ: 3.78362 v WSH: 2.81152) (CBJ: 57.37% , WSH: 42.63%)",
+    "awayScorers": "Alex Ovechkin, WSH: 0.50558      (0.842633333333333)",
+    "outcome": "CBJ, CBJ: 2.27017 v WSH: 1.73336      Expected difference: 0.53681, (CBJ: 3.78362 v WSH: 2.88893) (CBJ: 56.7% , WSH: 43.3%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "10:41:51"
+    "timeLastRun": "11:16:23"
   },
   {
     "homeABV": "WPG",
     "awayABV": "CGY",
     "homeGoalie": {},
     "awayGoalie": {},
-    "homeScorers": {},
+    "homeScorers": "Kyle Connor, WPG: 0.36049      (0.600816666666667)",
     "awayScorers": {},
-    "outcome": "CGY, WPG: 1.01638 v CGY: 1.59682      Expected difference: 0.58044, (WPG: 1.69397 v CGY: 2.66137) (WPG: 38.89% , CGY: 61.11%)",
+    "outcome": "CGY, WPG: 1.1904 v CGY: 1.64457      Expected difference: 0.45417, (WPG: 1.984 v CGY: 2.74095) (WPG: 41.99% , CGY: 58.01%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "10:41:53"
+    "timeLastRun": "11:16:26"
   }
 ]
