@@ -13,13 +13,13 @@
   {
     "homeABV": "BOS",
     "awayABV": "COL",
-    "homeGoalie": {},
+    "homeGoalie": "BOS: Jeremy Swayman",
     "awayGoalie": {},
     "homeScorers": "David Pastrnak, BOS: 0.63126      (1.0521)",
-    "awayScorers": {},
-    "outcome": "BOS, BOS: 1.3623 v COL: 1.0215      Expected difference: 0.3408, (BOS: 2.2705 v COL: 1.7025) (BOS: 57.15% , COL: 42.85%)",
+    "awayScorers": "Nathan MacKinnon, COL: 0.39493      (0.658216666666667)",
+    "outcome": "COL, BOS: 1.3623 v COL: 1.4521      Expected difference: 0.0898000000000003, (BOS: 2.2705 v COL: 2.42017) (BOS: 48.4% , COL: 51.6%)",
     "startingTime": "15:05:00",
-    "timeLastRun": "13:34:38"
+    "timeLastRun": "14:20:24"
   },
   {
     "homeABV": "TBL",
@@ -30,7 +30,7 @@
     "awayScorers": {},
     "outcome": "ANA (OTW), TBL: 0.70101 v ANA: 0.71202      Expected difference: 0.0110100000000001, (TBL: 1.16835 v ANA: 1.1867) (TBL: 49.61% , ANA: 50.39%)",
     "startingTime": "17:05:00",
-    "timeLastRun": "13:34:40"
+    "timeLastRun": "14:20:25"
   },
   {
     "homeABV": "TOR",
@@ -41,7 +41,7 @@
     "awayScorers": {},
     "outcome": "TOR, TOR: 1.16638 v BUF: 0.28732      Expected difference: 0.87906, (TOR: 1.94397 v BUF: 0.47887) (TOR: 80.24% , BUF: 19.76%)",
     "startingTime": "17:05:00",
-    "timeLastRun": "13:34:42"
+    "timeLastRun": "14:20:26"
   },
   {
     "homeABV": "FLA",
@@ -52,7 +52,7 @@
     "awayScorers": {},
     "outcome": "FLA (OTW), FLA: 1.63483 v VGK: 1.58638      Expected difference: 0.0484500000000003, (FLA: 2.72472 v VGK: 2.64397) (FLA: 50.75% , VGK: 49.25%)",
     "startingTime": "18:05:00",
-    "timeLastRun": "13:34:43"
+    "timeLastRun": "14:20:27"
   },
   {
     "homeABV": "MIN",
@@ -63,7 +63,7 @@
     "awayScorers": {},
     "outcome": "MIN, MIN: 1.66185 v UTA: 0.95189      Expected difference: 0.70996, (MIN: 2.76975 v UTA: 1.58648) (MIN: 63.58% , UTA: 36.42%)",
     "startingTime": "18:05:00",
-    "timeLastRun": "13:34:45"
+    "timeLastRun": "14:20:28"
   },
   {
     "homeABV": "DET",
@@ -74,7 +74,7 @@
     "awayScorers": {},
     "outcome": "STL, DET: 1.01411 v STL: 1.0856      Expected difference: 0.0714899999999998, (DET: 1.69018 v STL: 1.80933) (DET: 48.3% , STL: 51.7%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "13:34:47"
+    "timeLastRun": "14:20:29"
   },
   {
     "homeABV": "PIT",
@@ -85,7 +85,7 @@
     "awayScorers": {},
     "outcome": "CBJ, PIT: 1.13787 v CBJ: 1.71084      Expected difference: 0.57297, (PIT: 1.89645 v CBJ: 2.8514) (PIT: 39.94% , CBJ: 60.06%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "13:34:49"
+    "timeLastRun": "14:20:31"
   },
   {
     "homeABV": "WSH",
@@ -96,7 +96,7 @@
     "awayScorers": {},
     "outcome": "OTT, WSH: 0.70724 v OTT: 1.54948      Expected difference: 0.84224, (WSH: 1.17873 v OTT: 2.58247) (WSH: 31.34% , OTT: 68.66%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "13:34:51"
+    "timeLastRun": "14:20:32"
   },
   {
     "homeABV": "VAN",
@@ -107,7 +107,7 @@
     "awayScorers": {},
     "outcome": "MTL, VAN: 0.78593 v MTL: 0.89753      Expected difference: 0.1116, (VAN: 1.30988 v MTL: 1.49588) (VAN: 46.69% , MTL: 53.31%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "13:34:53"
+    "timeLastRun": "14:20:34"
   },
   {
     "homeABV": "NSH",
@@ -118,7 +118,7 @@
     "awayScorers": {},
     "outcome": "LAK, NSH: 0.56281 v LAK: 1.10859      Expected difference: 0.54578, (NSH: 0.93802 v LAK: 1.84765) (NSH: 33.67% , LAK: 66.33%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "13:34:55"
+    "timeLastRun": "14:20:35"
   },
   {
     "homeABV": "DAL",
@@ -129,7 +129,7 @@
     "awayScorers": {},
     "outcome": "DAL, DAL: 1.21852 v CAR: 0.8499      Expected difference: 0.36862, (DAL: 2.03087 v CAR: 1.4165) (DAL: 58.91% , CAR: 41.09%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "13:34:57"
+    "timeLastRun": "14:20:36"
   },
   {
     "homeABV": "SEA",
@@ -140,6 +140,6 @@
     "awayScorers": "Leon Draisaitl, EDM: 0.57336      (0.9556)",
     "outcome": "EDM, SEA: 0.92232 v EDM: 1.68191      Expected difference: 0.75959, (SEA: 1.5372 v EDM: 2.80318) (SEA: 35.42% , EDM: 64.58%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "13:34:58"
+    "timeLastRun": "14:20:38"
   }
 ]
