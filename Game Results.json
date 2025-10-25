@@ -112,24 +112,24 @@
   {
     "homeABV": "NSH",
     "awayABV": "LAK",
-    "homeGoalie": {},
+    "homeGoalie": "NSH: Juuse Saros",
     "awayGoalie": "LAK: Darcy Kuemper",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "LAK, NSH: 0.77728 v LAK: 1.07817      Expected difference: 0.30089, (NSH: 1.29547 v LAK: 1.79695) (NSH: 41.89% , LAK: 58.11%)",
+    "outcome": "LAK, NSH: 0.77728 v LAK: 1.28409      Expected difference: 0.50681, (NSH: 1.29547 v LAK: 2.14015) (NSH: 37.71% , LAK: 62.29%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "19:13:42"
+    "timeLastRun": "19:32:57"
   },
   {
     "homeABV": "DAL",
     "awayABV": "CAR",
     "homeGoalie": "DAL: Jake Oettinger",
-    "awayGoalie": {},
+    "awayGoalie": "CAR: Brandon Bussi",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "DAL, DAL: 1.18494 v CAR: 0.82667      Expected difference: 0.35827, (DAL: 1.9749 v CAR: 1.37778) (DAL: 58.91% , CAR: 41.09%)",
+    "outcome": "DAL, DAL: 1.56917 v CAR: 0.82667      Expected difference: 0.7425, (DAL: 2.61528 v CAR: 1.37778) (DAL: 65.5% , CAR: 34.5%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "19:13:43"
+    "timeLastRun": "19:32:58"
   },
   {
     "homeABV": "SEA",
@@ -140,6 +140,6 @@
     "awayScorers": "Leon Draisaitl, EDM: 0.55754      (0.929233333333333)",
     "outcome": "EDM, SEA: 1.09507 v EDM: 1.63553      Expected difference: 0.540459999999999, (SEA: 1.82512 v EDM: 2.72588) (SEA: 40.1% , EDM: 59.9%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "19:13:45"
+    "timeLastRun": "19:33:00"
   }
 ]
