@@ -30,7 +30,7 @@
     "awayScorers": {},
     "outcome": "ANA (OTW), TBL: 0.70101 v ANA: 0.71202      Expected difference: 0.0110100000000001, (TBL: 1.16835 v ANA: 1.1867) (TBL: 49.61% , ANA: 50.39%)",
     "startingTime": "17:05:00",
-    "timeLastRun": "15:13:13"
+    "timeLastRun": "15:29:51"
   },
   {
     "homeABV": "TOR",
@@ -41,7 +41,7 @@
     "awayScorers": {},
     "outcome": "TOR, TOR: 1.16638 v BUF: 0.28732      Expected difference: 0.87906, (TOR: 1.94397 v BUF: 0.47887) (TOR: 80.24% , BUF: 19.76%)",
     "startingTime": "17:05:00",
-    "timeLastRun": "15:13:15"
+    "timeLastRun": "15:29:52"
   },
   {
     "homeABV": "FLA",
@@ -52,7 +52,7 @@
     "awayScorers": {},
     "outcome": "FLA (OTW), FLA: 1.63483 v VGK: 1.58638      Expected difference: 0.0484500000000003, (FLA: 2.72472 v VGK: 2.64397) (FLA: 50.75% , VGK: 49.25%)",
     "startingTime": "18:05:00",
-    "timeLastRun": "15:13:17"
+    "timeLastRun": "15:29:53"
   },
   {
     "homeABV": "MIN",
@@ -63,18 +63,18 @@
     "awayScorers": {},
     "outcome": "MIN, MIN: 1.66185 v UTA: 0.95189      Expected difference: 0.70996, (MIN: 2.76975 v UTA: 1.58648) (MIN: 63.58% , UTA: 36.42%)",
     "startingTime": "18:05:00",
-    "timeLastRun": "15:13:19"
+    "timeLastRun": "15:29:54"
   },
   {
     "homeABV": "DET",
     "awayABV": "STL",
-    "homeGoalie": {},
+    "homeGoalie": "DET: John Gibson",
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "STL, DET: 1.01411 v STL: 1.0856      Expected difference: 0.0714899999999998, (DET: 1.69018 v STL: 1.80933) (DET: 48.3% , STL: 51.7%)",
+    "outcome": "DET, DET: 1.01411 v STL: 0.94544      Expected difference: 0.0686699999999999, (DET: 1.69018 v STL: 1.57573) (DET: 51.75% , STL: 48.25%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "15:13:21"
+    "timeLastRun": "15:29:55"
   },
   {
     "homeABV": "PIT",
@@ -85,7 +85,7 @@
     "awayScorers": {},
     "outcome": "CBJ, PIT: 1.13787 v CBJ: 1.71084      Expected difference: 0.57297, (PIT: 1.89645 v CBJ: 2.8514) (PIT: 39.94% , CBJ: 60.06%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "15:13:23"
+    "timeLastRun": "15:29:56"
   },
   {
     "homeABV": "WSH",
@@ -96,7 +96,7 @@
     "awayScorers": {},
     "outcome": "OTT, WSH: 0.70724 v OTT: 1.54948      Expected difference: 0.84224, (WSH: 1.17873 v OTT: 2.58247) (WSH: 31.34% , OTT: 68.66%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "15:13:25"
+    "timeLastRun": "15:29:57"
   },
   {
     "homeABV": "VAN",
@@ -107,18 +107,18 @@
     "awayScorers": {},
     "outcome": "MTL, VAN: 0.78593 v MTL: 0.89753      Expected difference: 0.1116, (VAN: 1.30988 v MTL: 1.49588) (VAN: 46.69% , MTL: 53.31%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "15:13:27"
+    "timeLastRun": "15:29:58"
   },
   {
     "homeABV": "NSH",
     "awayABV": "LAK",
     "homeGoalie": {},
-    "awayGoalie": {},
+    "awayGoalie": "LAK: Darcy Kuemper",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "LAK, NSH: 0.56281 v LAK: 1.10859      Expected difference: 0.54578, (NSH: 0.93802 v LAK: 1.84765) (NSH: 33.67% , LAK: 66.33%)",
+    "outcome": "LAK, NSH: 0.79929 v LAK: 1.10859      Expected difference: 0.3093, (NSH: 1.33215 v LAK: 1.84765) (NSH: 41.89% , LAK: 58.11%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "15:13:28"
+    "timeLastRun": "15:30:00"
   },
   {
     "homeABV": "DAL",
@@ -129,7 +129,7 @@
     "awayScorers": {},
     "outcome": "DAL, DAL: 1.21852 v CAR: 0.8499      Expected difference: 0.36862, (DAL: 2.03087 v CAR: 1.4165) (DAL: 58.91% , CAR: 41.09%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "15:13:30"
+    "timeLastRun": "15:30:01"
   },
   {
     "homeABV": "SEA",
@@ -140,6 +140,6 @@
     "awayScorers": "Leon Draisaitl, EDM: 0.57336      (0.9556)",
     "outcome": "EDM, SEA: 1.12621 v EDM: 1.68191      Expected difference: 0.555700000000001, (SEA: 1.87702 v EDM: 2.80318) (SEA: 40.11% , EDM: 59.89%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "15:13:32"
+    "timeLastRun": "15:30:03"
   }
 ]
