@@ -4,7 +4,10 @@
     "awayABV": "COL",
     "homeGoalie": "NJD: Jake Allen",
     "awayGoalie": "COL: Trent Miner",
-    "homeScorers": ["Nico Hischier, NJD: 0.37413      (0.62355)", "Jack Hughes, NJD: 0.65426      (1.09043333333333)"],
+    "homeScorers": [
+      "Nico Hischier, NJD: 0.37413      (0.62355)",
+      "Jack Hughes, NJD: 0.65426      (1.09043333333333)"
+    ],
     "awayScorers": "Nathan MacKinnon, COL: 0.4926      (0.821)",
     "outcome": "NJD, NJD: 2.24098 v COL: 1.85719      Expected difference: 0.38379, (NJD: 3.73497 v COL: 3.09532) (NJD: 54.68% , COL: 45.32%)",
     "startingTime": "13:05:00",
@@ -17,9 +20,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "TBL, TBL: 1.22766 v VGK: 0.58987      Expected difference: 0.63779, (TBL: 2.0461 v VGK: 0.98312) (TBL: 67.55% , VGK: 32.45%)",
+    "outcome": "TBL, TBL: 1.35515 v VGK: 0.77527      Expected difference: 0.57988, (TBL: 2.25858 v VGK: 1.29212) (TBL: 63.61% , VGK: 36.39%)",
     "startingTime": "17:05:00",
-    "timeLastRun": "12:42:00"
+    "timeLastRun": "13:12:47"
   },
   {
     "homeABV": "MIN",
@@ -28,9 +31,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "SJS, MIN: 0.02215 v SJS: 0.41284      Expected difference: 0.39069, (MIN: 0.03692 v SJS: 0.68807) (MIN: 5.09% , SJS: 94.91%)",
+    "outcome": "SJS, MIN: 0.26162 v SJS: 0.52346      Expected difference: 0.26184, (MIN: 0.43603 v SJS: 0.87243) (MIN: 33.32% , SJS: 66.68%)",
     "startingTime": "18:05:00",
-    "timeLastRun": "12:42:01"
+    "timeLastRun": "13:12:49"
   },
   {
     "homeABV": "WPG",
@@ -39,9 +42,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "UTA, WPG: 0.86591 v UTA: 0.9959      Expected difference: 0.12999, (WPG: 1.44318 v UTA: 1.65983) (WPG: 46.51% , UTA: 53.49%)",
+    "outcome": "UTA, WPG: 0.97051 v UTA: 1.10175      Expected difference: 0.13124, (WPG: 1.61752 v UTA: 1.83625) (WPG: 46.83% , UTA: 53.17%)",
     "startingTime": "18:05:00",
-    "timeLastRun": "12:42:03"
+    "timeLastRun": "13:12:51"
   },
   {
     "homeABV": "CHI",
@@ -50,20 +53,20 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "LAK, CHI: 0.31427 v LAK: 0.91915      Expected difference: 0.60488, (CHI: 0.52378 v LAK: 1.53192) (CHI: 25.48% , LAK: 74.52%)",
+    "outcome": "LAK, CHI: 0.40607 v LAK: 1.04145      Expected difference: 0.63538, (CHI: 0.67678 v LAK: 1.73575) (CHI: 28.05% , LAK: 71.95%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "12:42:04"
+    "timeLastRun": "13:12:53"
   },
   {
     "homeABV": "NSH",
     "awayABV": "DAL",
     "homeGoalie": {},
-    "awayGoalie": {},
+    "awayGoalie": "DAL: Casey DeSmith",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "DAL, NSH: 0.39323 v DAL: 0.51999      Expected difference: 0.12676, (NSH: 0.65538 v DAL: 0.86665) (NSH: 43.06% , DAL: 56.94%)",
+    "outcome": "DAL, NSH: 0.015 v DAL: 0.64271      Expected difference: 0.62771, (NSH: 0.025 v DAL: 1.07118) (NSH: 2.28% , DAL: 97.72%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "12:42:05"
+    "timeLastRun": "13:12:55"
   },
   {
     "homeABV": "CGY",
@@ -72,9 +75,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "CGY, CGY: 1.03111 v NYR: 0.26322      Expected difference: 0.76789, (CGY: 1.71852 v NYR: 0.4387) (CGY: 79.66% , NYR: 20.34%)",
+    "outcome": "CGY, CGY: 1.11617 v NYR: 0.3706      Expected difference: 0.74557, (CGY: 1.86028 v NYR: 0.61767) (CGY: 75.07% , NYR: 24.93%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "12:42:07"
+    "timeLastRun": "13:12:57"
   },
   {
     "homeABV": "VAN",
@@ -83,8 +86,8 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "EDM, VAN: 0.54615 v EDM: 0.76377      Expected difference: 0.21762, (VAN: 0.91025 v EDM: 1.27295) (VAN: 41.69% , EDM: 58.31%)",
+    "outcome": "EDM, VAN: 0.63412 v EDM: 0.92535      Expected difference: 0.29123, (VAN: 1.05687 v EDM: 1.54225) (VAN: 40.66% , EDM: 59.34%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "12:42:08"
+    "timeLastRun": "13:12:59"
   }
 ]
