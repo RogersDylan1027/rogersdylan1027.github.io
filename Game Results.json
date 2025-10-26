@@ -43,7 +43,10 @@
     "awayABV": "UTA",
     "homeGoalie": "WPG: Connor Hellebuyck",
     "awayGoalie": "UTA: Vitek Vanecek",
-    "homeScorers": ["Mark Scheifele, WPG: 0.4004      (0.667333333333333)", "Kyle Connor, WPG: 0.53579      (0.892983333333333)"],
+    "homeScorers": [
+      "Mark Scheifele, WPG: 0.4004      (0.667333333333333)",
+      "Kyle Connor, WPG: 0.53579      (0.892983333333333)"
+    ],
     "awayScorers": {},
     "outcome": "UTA, WPG: 1.74279 v UTA: 1.81893      Expected difference: 0.0761399999999999, (WPG: 2.90465 v UTA: 3.03155) (WPG: 48.93% , UTA: 51.07%)",
     "startingTime": "18:05:00",
@@ -53,12 +56,12 @@
     "homeABV": "CHI",
     "awayABV": "LAK",
     "homeGoalie": {},
-    "awayGoalie": {},
+    "awayGoalie": "LAK: Anton Forsberg",
     "homeScorers": {},
     "awayScorers": "Adrian Kempe, LAK: 0.36956      (0.615933333333333)",
-    "outcome": "LAK, CHI: 0.62633 v LAK: 1.63995      Expected difference: 1.01362, (CHI: 1.04388 v LAK: 2.73325) (CHI: 27.64% , LAK: 72.36%)",
+    "outcome": "LAK, CHI: 0.33516 v LAK: 1.63995      Expected difference: 1.30479, (CHI: 0.5586 v LAK: 2.73325) (CHI: 16.97% , LAK: 83.03%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "17:32:55"
+    "timeLastRun": "18:14:50"
   },
   {
     "homeABV": "NSH",
@@ -69,18 +72,18 @@
     "awayScorers": {},
     "outcome": "DAL, NSH: 0.015 v DAL: 1.00981      Expected difference: 0.99481, (NSH: 0.025 v DAL: 1.68302) (NSH: 1.46% , DAL: 98.54%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "17:32:56"
+    "timeLastRun": "18:14:51"
   },
   {
     "homeABV": "CGY",
     "awayABV": "NYR",
     "homeGoalie": "CGY: Dustin Wolf",
-    "awayGoalie": {},
-    "homeScorers": "Nazem Kadri, CGY: 0.38118      (0.6353)",
+    "awayGoalie": "NYR: Igor Shesterkin",
+    "homeScorers": "Nazem Kadri, CGY: 0.38397      (0.63995)",
     "awayScorers": {},
-    "outcome": "CGY, CGY: 1.75983 v NYR: 0.58052      Expected difference: 1.17931, (CGY: 2.93305 v NYR: 0.96753) (CGY: 75.2% , NYR: 24.8%)",
+    "outcome": "CGY, CGY: 1.77272 v NYR: 0.58052      Expected difference: 1.1922, (CGY: 2.95453 v NYR: 0.96753) (CGY: 75.33% , NYR: 24.67%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "17:32:57"
+    "timeLastRun": "18:14:53"
   },
   {
     "homeABV": "VAN",
@@ -91,6 +94,6 @@
     "awayScorers": "Leon Draisaitl, EDM: 0.65398      (1.08996666666667)",
     "outcome": "EDM, VAN: 0.9979 v EDM: 1.92861      Expected difference: 0.93071, (VAN: 1.66317 v EDM: 3.21435) (VAN: 34.1% , EDM: 65.9%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "17:32:59"
+    "timeLastRun": "18:14:56"
   }
 ]
