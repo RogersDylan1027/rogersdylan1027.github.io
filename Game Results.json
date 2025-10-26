@@ -18,33 +18,33 @@
     "awayABV": "VGK",
     "homeGoalie": {},
     "awayGoalie": {},
-    "homeScorers": {},
+    "homeScorers": ["Nikita Kucherov, TBL: 0.42945      (0.71575)", "Jake Guentzel, TBL: 0.47055      (0.78425)"],
     "awayScorers": {},
-    "outcome": "TBL, TBL: 1.35515 v VGK: 0.77527      Expected difference: 0.57988, (TBL: 2.25858 v VGK: 1.29212) (TBL: 63.61% , VGK: 36.39%)",
+    "outcome": "TBL, TBL: 2.13547 v VGK: 1.2163      Expected difference: 0.91917, (TBL: 3.55912 v VGK: 2.02717) (TBL: 63.71% , VGK: 36.29%)",
     "startingTime": "17:05:00",
-    "timeLastRun": "15:31:31"
+    "timeLastRun": "16:17:39"
   },
   {
     "homeABV": "MIN",
     "awayABV": "SJS",
     "homeGoalie": {},
-    "awayGoalie": {},
+    "awayGoalie": "SJS: Yaroslav Askarov",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "SJS, MIN: 0.26162 v SJS: 0.52346      Expected difference: 0.26184, (MIN: 0.43603 v SJS: 0.87243) (MIN: 33.32% , SJS: 66.68%)",
+    "outcome": "SJS, MIN: 0.14281 v SJS: 0.82193      Expected difference: 0.67912, (MIN: 0.23802 v SJS: 1.36988) (MIN: 14.8% , SJS: 85.2%)",
     "startingTime": "18:05:00",
-    "timeLastRun": "15:31:33"
+    "timeLastRun": "16:17:41"
   },
   {
     "homeABV": "WPG",
     "awayABV": "UTA",
     "homeGoalie": {},
     "awayGoalie": {},
-    "homeScorers": {},
+    "homeScorers": ["Mark Scheifele, WPG: 0.35121      (0.58535)", "Kyle Connor, WPG: 0.46997      (0.783283333333333)"],
     "awayScorers": {},
-    "outcome": "UTA, WPG: 0.97051 v UTA: 1.10175      Expected difference: 0.13124, (WPG: 1.61752 v UTA: 1.83625) (WPG: 46.83% , UTA: 53.17%)",
+    "outcome": "UTA, WPG: 1.52868 v UTA: 1.73602      Expected difference: 0.20734, (WPG: 2.5478 v UTA: 2.89337) (WPG: 46.82% , UTA: 53.18%)",
     "startingTime": "18:05:00",
-    "timeLastRun": "15:31:35"
+    "timeLastRun": "16:17:42"
   },
   {
     "homeABV": "CHI",
@@ -52,10 +52,10 @@
     "homeGoalie": {},
     "awayGoalie": {},
     "homeScorers": {},
-    "awayScorers": {},
-    "outcome": "LAK, CHI: 0.40607 v LAK: 1.04145      Expected difference: 0.63538, (CHI: 0.67678 v LAK: 1.73575) (CHI: 28.05% , LAK: 71.95%)",
+    "awayScorers": "Adrian Kempe, LAK: 0.36956      (0.615933333333333)",
+    "outcome": "LAK, CHI: 0.63724 v LAK: 1.63995      Expected difference: 1.00271, (CHI: 1.06207 v LAK: 2.73325) (CHI: 27.98% , LAK: 72.02%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "15:31:37"
+    "timeLastRun": "16:17:43"
   },
   {
     "homeABV": "NSH",
@@ -64,30 +64,30 @@
     "awayGoalie": "DAL: Casey DeSmith",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "DAL, NSH: 0.015 v DAL: 0.64271      Expected difference: 0.62771, (NSH: 0.025 v DAL: 1.07118) (NSH: 2.28% , DAL: 97.72%)",
+    "outcome": "DAL, NSH: 0.015 v DAL: 1.00981      Expected difference: 0.99481, (NSH: 0.025 v DAL: 1.68302) (NSH: 1.46% , DAL: 98.54%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "15:31:38"
+    "timeLastRun": "16:17:44"
   },
   {
     "homeABV": "CGY",
     "awayABV": "NYR",
     "homeGoalie": "CGY: Dustin Wolf",
     "awayGoalie": {},
-    "homeScorers": {},
+    "homeScorers": "Nazem Kadri, CGY: 0.38118      (0.6353)",
     "awayScorers": {},
-    "outcome": "CGY, CGY: 1.11617 v NYR: 0.3706      Expected difference: 0.74557, (CGY: 1.86028 v NYR: 0.61767) (CGY: 75.07% , NYR: 24.93%)",
+    "outcome": "CGY, CGY: 1.75983 v NYR: 0.58052      Expected difference: 1.17931, (CGY: 2.93305 v NYR: 0.96753) (CGY: 75.2% , NYR: 24.8%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "15:31:40"
+    "timeLastRun": "16:17:45"
   },
   {
     "homeABV": "VAN",
     "awayABV": "EDM",
-    "homeGoalie": {},
+    "homeGoalie": "VAN: Thatcher Demko",
     "awayGoalie": {},
     "homeScorers": {},
-    "awayScorers": {},
-    "outcome": "EDM, VAN: 0.63412 v EDM: 0.92535      Expected difference: 0.29123, (VAN: 1.05687 v EDM: 1.54225) (VAN: 40.66% , EDM: 59.34%)",
+    "awayScorers": "Leon Draisaitl, EDM: 0.65398      (1.08996666666667)",
+    "outcome": "EDM, VAN: 0.9979 v EDM: 1.92861      Expected difference: 0.93071, (VAN: 1.66317 v EDM: 3.21435) (VAN: 34.1% , EDM: 65.9%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "15:31:46"
+    "timeLastRun": "16:17:47"
   }
 ]
