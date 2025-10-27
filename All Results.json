@@ -14,7 +14,9 @@
         "awayScorers": "Nathan MacKinnon, COL: 0.4926      (0.821)",
         "outcome": "NJD, NJD: 2.24098 v COL: 1.85719      Expected difference: 0.38379, (NJD: 3.73497 v COL: 3.09532) (NJD: 54.68% , COL: 45.32%)",
         "startingTime": "13:05:00",
-        "timeLastRun": "12:41:58"
+        "timeLastRun": "12:41:58",
+        "correctLines": 3,
+        "totalLines": 4
       },
       {
         "homeABV": "TBL",
@@ -28,7 +30,9 @@
         "awayScorers": {},
         "outcome": "TBL, TBL: 2.13547 v VGK: 1.12409      Expected difference: 1.01138, (TBL: 3.55912 v VGK: 1.87348) (TBL: 65.51% , VGK: 34.49%)",
         "startingTime": "17:05:00",
-        "timeLastRun": "16:37:21"
+        "timeLastRun": "16:37:21",
+        "correctLines": 3,
+        "totalLines": 3
       },
       {
         "homeABV": "MIN",
@@ -39,7 +43,9 @@
         "awayScorers": "Macklin Celebrini, SJS: 0.35084      (0.584733333333333)",
         "outcome": "SJS, MIN: 0.14009 v SJS: 1.10506      Expected difference: 0.96497, (MIN: 0.23348 v SJS: 1.84177) (MIN: 11.25% , SJS: 88.75%)",
         "startingTime": "18:05:00",
-        "timeLastRun": "17:32:53"
+        "timeLastRun": "17:32:53",
+        "correctLines": 2,
+        "totalLines": 2
       },
       {
         "homeABV": "WPG",
@@ -53,7 +59,9 @@
         "awayScorers": {},
         "outcome": "UTA, WPG: 1.74279 v UTA: 1.81893      Expected difference: 0.0761399999999999, (WPG: 2.90465 v UTA: 3.03155) (WPG: 48.93% , UTA: 51.07%)",
         "startingTime": "18:05:00",
-        "timeLastRun": "17:32:54"
+        "timeLastRun": "17:32:54",
+        "correctLines": 3,
+        "totalLines": 3
       },
       {
         "homeABV": "CHI",
@@ -64,7 +72,9 @@
         "awayScorers": {},
         "outcome": "LAK, CHI: 0.33516 v LAK: 0.94187      Expected difference: 0.60671, (CHI: 0.5586 v LAK: 1.56978) (CHI: 26.25% , LAK: 73.75%)",
         "startingTime": "19:05:00",
-        "timeLastRun": "18:37:35"
+        "timeLastRun": "18:37:35",
+        "correctLines": 1,
+        "totalLines": 1
       },
       {
         "homeABV": "NSH",
@@ -75,7 +85,9 @@
         "awayScorers": {},
         "outcome": "DAL (OTW), NSH: 0.015 v DAL: 0.01649      Expected difference: 0.00149, (NSH: 0.025 v DAL: 0.02748) (NSH: 47.63% , DAL: 52.37%)",
         "startingTime": "19:05:00",
-        "timeLastRun": "18:37:36"
+        "timeLastRun": "18:37:36",
+        "correctLines": 1,
+        "totalLines": 1
       },
       {
         "homeABV": "CGY",
@@ -86,7 +98,9 @@
         "awayScorers": {},
         "outcome": "CGY, CGY: 1.77272 v NYR: 0.58052      Expected difference: 1.1922, (CGY: 2.95453 v NYR: 0.96753) (CGY: 75.33% , NYR: 24.67%)",
         "startingTime": "20:05:00",
-        "timeLastRun": "19:33:40"
+        "timeLastRun": "19:33:40",
+        "correctLines": 2,
+        "totalLines": 2
       },
       {
         "homeABV": "VAN",
@@ -97,7 +111,9 @@
         "awayScorers": "Leon Draisaitl, EDM: 0.65398      (1.08996666666667)",
         "outcome": "EDM, VAN: 0.82287 v EDM: 1.92861      Expected difference: 1.10574, (VAN: 1.37145 v EDM: 3.21435) (VAN: 29.91% , EDM: 70.09%)",
         "startingTime": "22:05:00",
-        "timeLastRun": "21:09:48"
+        "timeLastRun": "21:09:48",
+        "correctLines": 1,
+        "totalLines": 2
       }
     ]
   }
