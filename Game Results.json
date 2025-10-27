@@ -3,12 +3,12 @@
     "homeABV": "PIT",
     "awayABV": "STL",
     "homeGoalie": "PIT: Tristan Jarry",
-    "awayGoalie": {},
+    "awayGoalie": "STL: Joel Hofer",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "STL, PIT: 1.00919 v STL: 1.33181      Expected difference: 0.322619999999999, (PIT: 1.68198 v STL: 2.21968) (PIT: 43.11% , STL: 56.89%)",
+    "outcome": "STL, PIT: 0.41045 v STL: 1.2426      Expected difference: 0.83215, (PIT: 0.68408 v STL: 2.071) (PIT: 24.83% , STL: 75.17%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "12:46:50",
+    "timeLastRun": "13:15:34",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -21,7 +21,7 @@
     "awayScorers": {},
     "outcome": "OTT, OTT: 0.79157 v BOS: 0.59985      Expected difference: 0.19172, (OTT: 1.31928 v BOS: 0.99975) (OTT: 56.89% , BOS: 43.11%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "12:46:52",
+    "timeLastRun": "13:15:35",
     "correctLines": 0,
     "totalLines": 1
   }
