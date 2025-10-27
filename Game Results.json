@@ -2,13 +2,13 @@
   {
     "homeABV": "PIT",
     "awayABV": "STL",
-    "homeGoalie": {},
+    "homeGoalie": "PIT: Tristan Jarry",
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "STL, PIT: 1.00919 v STL: 1.29945      Expected difference: 0.29026, (PIT: 1.68198 v STL: 2.16575) (PIT: 43.71% , STL: 56.29%)",
+    "outcome": "STL, PIT: 1.00919 v STL: 1.33181      Expected difference: 0.322619999999999, (PIT: 1.68198 v STL: 2.21968) (PIT: 43.11% , STL: 56.89%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "11:19:02"
+    "timeLastRun": "11:37:29"
   },
   {
     "homeABV": "OTT",
@@ -19,6 +19,6 @@
     "awayScorers": {},
     "outcome": "OTT, OTT: 0.79157 v BOS: 0.59985      Expected difference: 0.19172, (OTT: 1.31928 v BOS: 0.99975) (OTT: 56.89% , BOS: 43.11%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "11:19:04"
+    "timeLastRun": "11:37:31"
   }
 ]
