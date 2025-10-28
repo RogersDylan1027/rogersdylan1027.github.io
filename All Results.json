@@ -116,5 +116,36 @@
         "totalLines": 2
       }
     ]
+  },
+  {
+    "date": "2025-10-27",
+    "games": [
+      {
+        "homeABV": "PIT",
+        "awayABV": "STL",
+        "homeGoalie": "PIT: Tristan Jarry",
+        "awayGoalie": "STL: Joel Hofer",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "STL, PIT: 0.41122 v STL: 1.2426      Expected difference: 0.83138, (PIT: 0.68537 v STL: 2.071) (PIT: 24.86% , STL: 75.14%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "18:47:58",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "OTT",
+        "awayABV": "BOS",
+        "homeGoalie": {},
+        "awayGoalie": "BOS: Jeremy Swayman",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "OTT, OTT: 1.08343 v BOS: 0.59985      Expected difference: 0.48358, (OTT: 1.80572 v BOS: 0.99975) (OTT: 64.36% , BOS: 35.64%)",
+        "startingTime": "19:35:00",
+        "timeLastRun": "19:32:36",
+        "correctLines": 0,
+        "totalLines": 1
+      }
+    ]
   }
 ]
