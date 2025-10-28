@@ -73,20 +73,20 @@
     "awayScorers": {},
     "outcome": "BOS, BOS: 0.58016 v NYI: 0.5099      Expected difference: 0.0702599999999999, (BOS: 0.96693 v NYI: 0.84983) (BOS: 53.22% , NYI: 46.78%)",
     "startingTime": "19:20:00",
-    "timeLastRun": "18:39:28",
+    "timeLastRun": "19:17:02",
     "correctLines": 0,
     "totalLines": 1
   },
   {
     "homeABV": "NSH",
     "awayABV": "TBL",
-    "homeGoalie": {},
-    "awayGoalie": {},
+    "homeGoalie": "NSH: Juuse Saros",
+    "awayGoalie": "TBL: Andrei Vasilevskiy",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "TBL, NSH: 0.80458 v TBL: 1.2771      Expected difference: 0.47252, (NSH: 1.34097 v TBL: 2.1285) (NSH: 38.65% , TBL: 61.35%)",
+    "outcome": "TBL, NSH: 0.8144 v TBL: 1.44331      Expected difference: 0.62891, (NSH: 1.35733 v TBL: 2.40552) (NSH: 36.07% , TBL: 63.93%)",
     "startingTime": "19:50:00",
-    "timeLastRun": "18:39:29",
+    "timeLastRun": "19:17:04",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -99,7 +99,7 @@
     "awayScorers": {},
     "outcome": "MIN, MIN: 1.73709 v WPG: 0.81206      Expected difference: 0.92503, (MIN: 2.89515 v WPG: 1.35343) (MIN: 68.14% , WPG: 31.86%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "18:39:31",
+    "timeLastRun": "19:17:07",
     "correctLines": 0,
     "totalLines": 3
   },
@@ -112,7 +112,7 @@
     "awayScorers": {},
     "outcome": "DET, STL: 0.7725 v DET: 1.19488      Expected difference: 0.42238, (STL: 1.2875 v DET: 1.99147) (STL: 39.27% , DET: 60.73%)",
     "startingTime": "20:20:00",
-    "timeLastRun": "18:39:33",
+    "timeLastRun": "19:17:09",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -125,7 +125,7 @@
     "awayScorers": {},
     "outcome": "DAL, DAL: 1.66203 v WSH: 1.06566      Expected difference: 0.59637, (DAL: 2.77005 v WSH: 1.7761) (DAL: 60.93% , WSH: 39.07%)",
     "startingTime": "20:35:00",
-    "timeLastRun": "18:39:34",
+    "timeLastRun": "19:17:11",
     "correctLines": 0,
     "totalLines": 4
   },
@@ -138,7 +138,7 @@
     "awayScorers": {},
     "outcome": "OTT, CHI: 0.51529 v OTT: 1.38467      Expected difference: 0.86938, (CHI: 0.85882 v OTT: 2.30778) (CHI: 27.12% , OTT: 72.88%)",
     "startingTime": "20:50:00",
-    "timeLastRun": "18:39:36",
+    "timeLastRun": "19:17:13",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -151,7 +151,7 @@
     "awayScorers": {},
     "outcome": "COL, COL: 2.39193 v NJD: 1.2225      Expected difference: 1.16943, (COL: 3.98655 v NJD: 2.0375) (COL: 66.18% , NJD: 33.82%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "18:39:38",
+    "timeLastRun": "19:17:16",
     "correctLines": 0,
     "totalLines": 3
   },
@@ -164,7 +164,7 @@
     "awayScorers": {},
     "outcome": "EDM, EDM: 1.60813 v UTA: 1.48371      Expected difference: 0.12442, (EDM: 2.68022 v UTA: 2.47285) (EDM: 52.01% , UTA: 47.99%)",
     "startingTime": "21:35:00",
-    "timeLastRun": "18:39:40",
+    "timeLastRun": "19:17:18",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -175,9 +175,9 @@
     "awayGoalie": "NYR: Jonathan Quick",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "VAN, VAN: 0.97812 v NYR: 0.87871      Expected difference: 0.0994100000000001, (VAN: 1.6302 v NYR: 1.46452) (VAN: 52.68% , NYR: 47.32%)",
+    "outcome": "VAN, VAN: 0.97812 v NYR: 0.88089      Expected difference: 0.09723, (VAN: 1.6302 v NYR: 1.46815) (VAN: 52.62% , NYR: 47.38%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "18:39:41",
+    "timeLastRun": "19:17:21",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -190,7 +190,7 @@
     "awayScorers": {},
     "outcome": "SEA, SEA: 1.26259 v MTL: 1.1693      Expected difference: 0.0932899999999999, (SEA: 2.10432 v MTL: 1.94883) (SEA: 51.92% , MTL: 48.08%)",
     "startingTime": "22:35:00",
-    "timeLastRun": "18:39:43",
+    "timeLastRun": "19:17:23",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -203,7 +203,7 @@
     "awayScorers": {},
     "outcome": "SJS, SJS: 0.91678 v LAK: 0.0188      Expected difference: 0.89798, (SJS: 1.52797 v LAK: 0.03133) (SJS: 97.99% , LAK: 2.01%)",
     "startingTime": "23:05:00",
-    "timeLastRun": "18:39:46",
+    "timeLastRun": "19:17:25",
     "correctLines": 0,
     "totalLines": 1
   }
