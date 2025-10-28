@@ -3,12 +3,12 @@
     "homeABV": "PHI",
     "awayABV": "PIT",
     "homeGoalie": "PHI: Samuel Ersson",
-    "awayGoalie": {},
+    "awayGoalie": "PIT: Arturs Silovs",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "PHI, PHI: 0.90514 v PIT: 0.6198      Expected difference: 0.28534, (PHI: 1.50857 v PIT: 1.033) (PHI: 59.36% , PIT: 40.64%)",
+    "outcome": "PHI, PHI: 0.90632 v PIT: 0.6198      Expected difference: 0.28652, (PHI: 1.51053 v PIT: 1.033) (PHI: 59.39% , PIT: 40.61%)",
     "startingTime": "18:05:00",
-    "timeLastRun": "15:32:58",
+    "timeLastRun": "16:19:11",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -21,7 +21,7 @@
     "awayScorers": {},
     "outcome": "TOR (OTW), TOR: 0.87983 v CGY: 0.83074      Expected difference: 0.04909, (TOR: 1.46638 v CGY: 1.38457) (TOR: 51.43% , CGY: 48.57%)",
     "startingTime": "18:05:00",
-    "timeLastRun": "15:32:59",
+    "timeLastRun": "16:19:13",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -34,7 +34,7 @@
     "awayScorers": {},
     "outcome": "CAR, CAR: 1.576 v VGK: 1.47676      Expected difference: 0.09924, (CAR: 2.62667 v VGK: 2.46127) (CAR: 51.63% , VGK: 48.37%)",
     "startingTime": "18:35:00",
-    "timeLastRun": "15:33:02",
+    "timeLastRun": "16:19:17",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -47,7 +47,7 @@
     "awayScorers": {},
     "outcome": "CBJ, BUF: 1.18487 v CBJ: 1.45249      Expected difference: 0.26762, (BUF: 1.97478 v CBJ: 2.42082) (BUF: 44.93% , CBJ: 55.07%)",
     "startingTime": "18:50:00",
-    "timeLastRun": "15:33:05",
+    "timeLastRun": "16:19:20",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -60,7 +60,7 @@
     "awayScorers": {},
     "outcome": "ANA, FLA: 0.56895 v ANA: 0.87337      Expected difference: 0.30442, (FLA: 0.94825 v ANA: 1.45562) (FLA: 39.45% , ANA: 60.55%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "15:33:08",
+    "timeLastRun": "16:19:22",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -71,9 +71,9 @@
     "awayGoalie": "NYI: Ilya Sorokin",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "BOS (OTW), BOS: 0.51567 v NYI: 0.5099      Expected difference: 0.00576999999999994, (BOS: 0.85945 v NYI: 0.84983) (BOS: 50.28% , NYI: 49.72%)",
+    "outcome": "BOS, BOS: 0.58016 v NYI: 0.5099      Expected difference: 0.0702599999999999, (BOS: 0.96693 v NYI: 0.84983) (BOS: 53.22% , NYI: 46.78%)",
     "startingTime": "19:20:00",
-    "timeLastRun": "15:33:10",
+    "timeLastRun": "16:19:25",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -86,7 +86,7 @@
     "awayScorers": {},
     "outcome": "TBL, NSH: 0.80458 v TBL: 1.2771      Expected difference: 0.47252, (NSH: 1.34097 v TBL: 2.1285) (NSH: 38.65% , TBL: 61.35%)",
     "startingTime": "19:50:00",
-    "timeLastRun": "15:33:12",
+    "timeLastRun": "16:19:28",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -99,7 +99,7 @@
     "awayScorers": {},
     "outcome": "MIN, MIN: 1.73709 v WPG: 0.81206      Expected difference: 0.92503, (MIN: 2.89515 v WPG: 1.35343) (MIN: 68.14% , WPG: 31.86%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "15:33:14",
+    "timeLastRun": "16:19:31",
     "correctLines": 0,
     "totalLines": 3
   },
@@ -112,7 +112,7 @@
     "awayScorers": {},
     "outcome": "DET, STL: 0.7725 v DET: 0.89845      Expected difference: 0.12595, (STL: 1.2875 v DET: 1.49742) (STL: 46.23% , DET: 53.77%)",
     "startingTime": "20:20:00",
-    "timeLastRun": "15:33:17",
+    "timeLastRun": "16:19:34",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -125,7 +125,7 @@
     "awayScorers": {},
     "outcome": "DAL, DAL: 1.66203 v WSH: 1.06566      Expected difference: 0.59637, (DAL: 2.77005 v WSH: 1.7761) (DAL: 60.93% , WSH: 39.07%)",
     "startingTime": "20:35:00",
-    "timeLastRun": "15:33:19",
+    "timeLastRun": "16:19:37",
     "correctLines": 0,
     "totalLines": 4
   },
@@ -138,7 +138,7 @@
     "awayScorers": {},
     "outcome": "OTT, CHI: 0.51529 v OTT: 1.38467      Expected difference: 0.86938, (CHI: 0.85882 v OTT: 2.30778) (CHI: 27.12% , OTT: 72.88%)",
     "startingTime": "20:50:00",
-    "timeLastRun": "15:33:21",
+    "timeLastRun": "16:19:39",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -151,7 +151,7 @@
     "awayScorers": {},
     "outcome": "COL, COL: 2.39193 v NJD: 1.2225      Expected difference: 1.16943, (COL: 3.98655 v NJD: 2.0375) (COL: 66.18% , NJD: 33.82%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "15:33:23",
+    "timeLastRun": "16:19:42",
     "correctLines": 0,
     "totalLines": 3
   },
@@ -164,7 +164,7 @@
     "awayScorers": {},
     "outcome": "EDM, EDM: 1.69643 v UTA: 1.48371      Expected difference: 0.21272, (EDM: 2.82738 v UTA: 2.47285) (EDM: 53.34% , UTA: 46.66%)",
     "startingTime": "21:35:00",
-    "timeLastRun": "15:33:25",
+    "timeLastRun": "16:19:46",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -177,7 +177,7 @@
     "awayScorers": {},
     "outcome": "VAN, VAN: 0.97812 v NYR: 0.87871      Expected difference: 0.0994100000000001, (VAN: 1.6302 v NYR: 1.46452) (VAN: 52.68% , NYR: 47.32%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "15:33:27",
+    "timeLastRun": "16:19:49",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -190,7 +190,7 @@
     "awayScorers": {},
     "outcome": "SEA, SEA: 1.26259 v MTL: 1.1693      Expected difference: 0.0932899999999999, (SEA: 2.10432 v MTL: 1.94883) (SEA: 51.92% , MTL: 48.08%)",
     "startingTime": "22:35:00",
-    "timeLastRun": "15:33:31",
+    "timeLastRun": "16:19:51",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -203,7 +203,7 @@
     "awayScorers": {},
     "outcome": "SJS, SJS: 0.83334 v LAK: 0.0188      Expected difference: 0.81454, (SJS: 1.3889 v LAK: 0.03133) (SJS: 97.79% , LAK: 2.21%)",
     "startingTime": "23:05:00",
-    "timeLastRun": "15:33:33",
+    "timeLastRun": "16:19:54",
     "correctLines": 0,
     "totalLines": 1
   }
