@@ -95,7 +95,10 @@
     "awayABV": "WPG",
     "homeGoalie": "MIN: Filip Gustavsson",
     "awayGoalie": "WPG: Connor Hellebuyck",
-    "homeScorers": ["Kirill Kaprizov, MIN: 0.61615      (1.02691666666667)", "Matt Boldy, MIN: 0.39052      (0.650866666666667)"],
+    "homeScorers": [
+      "Kirill Kaprizov, MIN: 0.61615      (1.02691666666667)",
+      "Matt Boldy, MIN: 0.39052      (0.650866666666667)"
+    ],
     "awayScorers": {},
     "outcome": "MIN, MIN: 1.73709 v WPG: 0.81206      Expected difference: 0.92503, (MIN: 2.89515 v WPG: 1.35343) (MIN: 68.14% , WPG: 31.86%)",
     "startingTime": "20:05:00",
@@ -121,7 +124,11 @@
     "awayABV": "WSH",
     "homeGoalie": "DAL: Jake Oettinger",
     "awayGoalie": "WSH: Logan Thompson",
-    "homeScorers": ["Mikko Rantanen, DAL: 0.36588      (0.6098)", "Jason Robertson, DAL: 0.37168      (0.619466666666667)", "Wyatt Johnston, DAL: 0.36134      (0.602233333333333)"],
+    "homeScorers": [
+      "Mikko Rantanen, DAL: 0.36588      (0.6098)",
+      "Jason Robertson, DAL: 0.37168      (0.619466666666667)",
+      "Wyatt Johnston, DAL: 0.36134      (0.602233333333333)"
+    ],
     "awayScorers": {},
     "outcome": "DAL, DAL: 1.66203 v WSH: 1.06566      Expected difference: 0.59637, (DAL: 2.77005 v WSH: 1.7761) (DAL: 60.93% , WSH: 39.07%)",
     "startingTime": "20:35:00",
@@ -147,7 +154,10 @@
     "awayABV": "NJD",
     "homeGoalie": "COL: Scott Wedgewood",
     "awayGoalie": {},
-    "homeScorers": ["Nathan MacKinnon, COL: 0.64901      (1.08168333333333)", "Cale Makar, COL: 0.36652      (0.610866666666667)"],
+    "homeScorers": [
+      "Nathan MacKinnon, COL: 0.64901      (1.08168333333333)",
+      "Cale Makar, COL: 0.36652      (0.610866666666667)"
+    ],
     "awayScorers": {},
     "outcome": "COL, COL: 2.39193 v NJD: 1.2225      Expected difference: 1.16943, (COL: 3.98655 v NJD: 2.0375) (COL: 66.18% , NJD: 33.82%)",
     "startingTime": "21:05:00",
@@ -164,7 +174,7 @@
     "awayScorers": {},
     "outcome": "EDM, EDM: 1.60813 v UTA: 1.48371      Expected difference: 0.12442, (EDM: 2.68022 v UTA: 2.47285) (EDM: 52.01% , UTA: 47.99%)",
     "startingTime": "21:35:00",
-    "timeLastRun": "19:34:00",
+    "timeLastRun": "21:06:54",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -177,7 +187,7 @@
     "awayScorers": {},
     "outcome": "VAN, VAN: 0.97812 v NYR: 0.87871      Expected difference: 0.0994100000000001, (VAN: 1.6302 v NYR: 1.46452) (VAN: 52.68% , NYR: 47.32%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "19:34:02",
+    "timeLastRun": "21:06:56",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -190,7 +200,7 @@
     "awayScorers": {},
     "outcome": "SEA, SEA: 1.26259 v MTL: 1.1693      Expected difference: 0.0932899999999999, (SEA: 2.10432 v MTL: 1.94883) (SEA: 51.92% , MTL: 48.08%)",
     "startingTime": "22:35:00",
-    "timeLastRun": "19:34:04",
+    "timeLastRun": "21:06:58",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -203,7 +213,7 @@
     "awayScorers": {},
     "outcome": "SJS, SJS: 0.91678 v LAK: 0.0188      Expected difference: 0.89798, (SJS: 1.52797 v LAK: 0.03133) (SJS: 97.99% , LAK: 2.01%)",
     "startingTime": "23:05:00",
-    "timeLastRun": "19:34:07",
+    "timeLastRun": "21:07:02",
     "correctLines": 0,
     "totalLines": 1
   }
