@@ -370,5 +370,23 @@
         "totalLines": 1
       }
     ]
+  },
+  {
+    "date": "2025-10-29",
+    "games": [
+      {
+        "homeABV": "CBJ",
+        "awayABV": "TOR",
+        "homeGoalie": "CBJ: Elvis Merzlikins",
+        "awayGoalie": "TOR: Cayden Primeau",
+        "homeScorers": {},
+        "awayScorers": "Auston Matthews, TOR: 0.35962      (0.599366666666667)",
+        "outcome": "TOR, CBJ: 0.89438 v TOR: 1.02358      Expected difference: 0.1292, (CBJ: 1.49063 v TOR: 1.70597) (CBJ: 46.63% , TOR: 53.37%)",
+        "startingTime": "19:35:00",
+        "timeLastRun": "19:14:48",
+        "correctLines": 0,
+        "totalLines": 2
+      }
+    ]
   }
 ]
