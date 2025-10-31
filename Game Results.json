@@ -132,13 +132,13 @@
   {
     "homeABV": "LAK",
     "awayABV": "DET",
-    "homeGoalie": {},
+    "homeGoalie": "LAK: Darcy Kuemper",
     "awayGoalie": "DET: Cam Talbot",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "LAK, LAK: 1.04843 v DET: 0.7329      Expected difference: 0.31553, (LAK: 1.74738 v DET: 1.2215) (LAK: 58.86% , DET: 41.14%)",
+    "outcome": "LAK, LAK: 1.04843 v DET: 0.84055      Expected difference: 0.20788, (LAK: 1.74738 v DET: 1.40092) (LAK: 55.5% , DET: 44.5%)",
     "startingTime": "22:35:00",
-    "timeLastRun": "21:05:54",
+    "timeLastRun": "22:19:18",
     "correctLines": 0,
     "totalLines": 1
   }
