@@ -8,7 +8,7 @@
     "awayScorers": "Nathan MacKinnon, COL: 0.59771      (0.996183333333333)",
     "outcome": "COL, VGK: 1.58092 v COL: 2.1276      Expected difference: 0.54668, (VGK: 2.63487 v COL: 3.546) (VGK: 42.63% , COL: 57.37%)",
     "startingTime": "16:05:00",
-    "timeLastRun": "13:37:18",
+    "timeLastRun": "14:22:35",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -21,20 +21,20 @@
     "awayScorers": "Bo Horvat, NYI: 0.42963      (0.71605)",
     "outcome": "NYI, WSH: 0.34543 v NYI: 2.00849      Expected difference: 1.66306, (WSH: 0.57572 v NYI: 3.34748) (WSH: 14.67% , NYI: 85.33%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "13:37:20",
+    "timeLastRun": "14:22:37",
     "correctLines": 0,
     "totalLines": 2
   },
   {
     "homeABV": "ANA",
     "awayABV": "DET",
-    "homeGoalie": {},
+    "homeGoalie": "ANA: Lukas Dostal",
     "awayGoalie": "DET: John Gibson",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "ANA, ANA: 0.8028 v DET: 0.48728      Expected difference: 0.31552, (ANA: 1.338 v DET: 0.81213) (ANA: 62.23% , DET: 37.77%)",
+    "outcome": "DET, ANA: 0.8028 v DET: 0.8637      Expected difference: 0.0609000000000002, (ANA: 1.338 v DET: 1.4395) (ANA: 48.17% , DET: 51.83%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "13:37:21",
+    "timeLastRun": "14:22:40",
     "correctLines": 0,
     "totalLines": 1
   }
