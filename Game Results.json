@@ -96,7 +96,11 @@
     "homeGoalie": "PHI: Dan Vladar",
     "awayGoalie": "TOR: Anthony Stolarz",
     "homeScorers": {},
-    "awayScorers": ["John Tavares, TOR: 0.40186      (0.669766666666667)", "Sammy Blais, TOR: 0.54037      (0.900616666666667)", "Auston Matthews, TOR: 0.63005      (1.05008333333333)"],
+    "awayScorers": [
+      "John Tavares, TOR: 0.40186      (0.669766666666667)",
+      "Sammy Blais, TOR: 0.54037      (0.900616666666667)",
+      "Auston Matthews, TOR: 0.63005      (1.05008333333333)"
+    ],
     "outcome": "TOR, PHI: 0.60948 v TOR: 2.37487      Expected difference: 1.76539, (PHI: 1.0158 v TOR: 3.95812) (PHI: 20.42% , TOR: 79.58%)",
     "startingTime": "19:05:00",
     "timeLastRun": "18:57:43",
@@ -121,7 +125,10 @@
     "awayABV": "VAN",
     "homeGoalie": "MIN: Filip Gustavsson",
     "awayGoalie": "VAN: Thatcher Demko",
-    "homeScorers": ["Kirill Kaprizov, MIN: 0.67488      (1.1248)", "Matt Boldy, MIN: 0.37941      (0.63235)"],
+    "homeScorers": [
+      "Kirill Kaprizov, MIN: 0.67488      (1.1248)",
+      "Matt Boldy, MIN: 0.37941      (0.63235)"
+    ],
     "awayScorers": {},
     "outcome": "MIN, MIN: 1.89132 v VAN: 0.41551      Expected difference: 1.47581, (MIN: 3.1522 v VAN: 0.69252) (MIN: 81.99% , VAN: 18.01%)",
     "startingTime": "19:05:00",
@@ -138,7 +145,7 @@
     "awayScorers": {},
     "outcome": "LAK, LAK: 1.17765 v NJD: 0.88506      Expected difference: 0.29259, (LAK: 1.96275 v NJD: 1.4751) (LAK: 57.09% , NJD: 42.91%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "18:57:47",
+    "timeLastRun": "19:14:48",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -151,7 +158,7 @@
     "awayScorers": {},
     "outcome": "EDM, EDM: 1.54943 v CHI: 0.93523      Expected difference: 0.6142, (EDM: 2.58238 v CHI: 1.55872) (EDM: 62.36% , CHI: 37.64%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "18:57:49",
+    "timeLastRun": "19:14:50",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -164,7 +171,7 @@
     "awayScorers": {},
     "outcome": "SEA, SEA: 1.15563 v NYR: 1.05396      Expected difference: 0.10167, (SEA: 1.92605 v NYR: 1.7566) (SEA: 52.3% , NYR: 47.7%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "18:57:50",
+    "timeLastRun": "19:14:52",
     "correctLines": 0,
     "totalLines": 1
   }
