@@ -28,13 +28,13 @@
   {
     "homeABV": "PHI",
     "awayABV": "CGY",
-    "homeGoalie": {},
+    "homeGoalie": "PHI: Aleksei Kolosov",
     "awayGoalie": "CGY: Dustin Wolf",
     "homeScorers": {},
-    "awayScorers": "Nazem Kadri, CGY: 0.37812      (0.6302)",
-    "outcome": "CGY, PHI: 0.5024 v CGY: 1.70111      Expected difference: 1.19871, (PHI: 0.83733 v CGY: 2.83518) (PHI: 22.8% , CGY: 77.2%)",
+    "awayScorers": "Nazem Kadri, CGY: 0.41194      (0.686566666666667)",
+    "outcome": "CGY, PHI: 0.24148 v CGY: 1.85904      Expected difference: 1.61756, (PHI: 0.40247 v CGY: 3.0984) (PHI: 11.5% , CGY: 88.5%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "16:31:58",
+    "timeLastRun": "17:15:21",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -45,9 +45,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "ANA, ANA: 1.25148 v NJD: 0.579      Expected difference: 0.67248, (ANA: 2.0858 v NJD: 0.965) (ANA: 68.37% , NJD: 31.63%)",
+    "outcome": "ANA, ANA: 0.59419 v NJD: 0.27862      Expected difference: 0.31557, (ANA: 0.99032 v NJD: 0.46437) (ANA: 68.08% , NJD: 31.92%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "16:31:59",
+    "timeLastRun": "17:15:23",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -58,9 +58,9 @@
     "awayGoalie": "DET: Cam Talbot",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "SJS, SJS: 1.00608 v DET: 0.01819      Expected difference: 0.98789, (SJS: 1.6768 v DET: 0.03032) (SJS: 98.22% , DET: 1.78%)",
+    "outcome": "SJS, SJS: 0.47751 v DET: 0.01819      Expected difference: 0.45932, (SJS: 0.79585 v DET: 0.03032) (SJS: 96.33% , DET: 3.67%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "16:32:01",
+    "timeLastRun": "17:15:25",
     "correctLines": 0,
     "totalLines": 1
   }
