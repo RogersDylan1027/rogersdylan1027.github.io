@@ -8,7 +8,7 @@
     "awayScorers": ["Nikita Kucherov, TBL: 0.38791      (0.646516666666667)", "Jake Guentzel, TBL: 0.36944      (0.615733333333333)"],
     "outcome": "TBL, UTA: 1.32049 v TBL: 1.87308      Expected difference: 0.55259, (UTA: 2.20082 v TBL: 3.1218) (UTA: 41.35% , TBL: 58.65%)",
     "startingTime": "15:35:00",
-    "timeLastRun": "12:34:48",
+    "timeLastRun": "13:17:56",
     "correctLines": 0,
     "totalLines": 3
   },
@@ -21,7 +21,7 @@
     "awayScorers": {},
     "outcome": "NYI, NYI: 1.18703 v CBJ: 0.785      Expected difference: 0.40203, (NYI: 1.97838 v CBJ: 1.30833) (NYI: 60.19% , CBJ: 39.81%)",
     "startingTime": "17:05:00",
-    "timeLastRun": "12:34:50",
+    "timeLastRun": "13:17:58",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -32,9 +32,9 @@
     "awayGoalie": "CGY: Dustin Wolf",
     "homeScorers": {},
     "awayScorers": "Nazem Kadri, CGY: 0.37812      (0.6302)",
-    "outcome": "CGY, PHI: 0.5024 v CGY: 1.70644      Expected difference: 1.20404, (PHI: 0.83733 v CGY: 2.84407) (PHI: 22.74% , CGY: 77.26%)",
+    "outcome": "CGY, PHI: 0.5024 v CGY: 1.70111      Expected difference: 1.19871, (PHI: 0.83733 v CGY: 2.83518) (PHI: 22.8% , CGY: 77.2%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "12:34:52",
+    "timeLastRun": "13:18:00",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -47,7 +47,7 @@
     "awayScorers": {},
     "outcome": "ANA, ANA: 1.25148 v NJD: 0.579      Expected difference: 0.67248, (ANA: 2.0858 v NJD: 0.965) (ANA: 68.37% , NJD: 31.63%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "12:34:53",
+    "timeLastRun": "13:18:01",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -55,12 +55,12 @@
     "homeABV": "SJS",
     "awayABV": "DET",
     "homeGoalie": {},
-    "awayGoalie": {},
+    "awayGoalie": "DET: Cam Talbot",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "SJS, SJS: 0.82653 v DET: 0.01819      Expected difference: 0.80834, (SJS: 1.37755 v DET: 0.03032) (SJS: 97.85% , DET: 2.15%)",
+    "outcome": "SJS, SJS: 1.00608 v DET: 0.01819      Expected difference: 0.98789, (SJS: 1.6768 v DET: 0.03032) (SJS: 98.22% , DET: 1.78%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "12:34:55",
+    "timeLastRun": "13:18:03",
     "correctLines": 0,
     "totalLines": 1
   }
