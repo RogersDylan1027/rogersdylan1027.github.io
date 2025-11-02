@@ -2,26 +2,26 @@
   {
     "homeABV": "UTA",
     "awayABV": "TBL",
-    "homeGoalie": {},
-    "awayGoalie": {},
+    "homeGoalie": "UTA: Karel Vejmelka",
+    "awayGoalie": "TBL: Jonas Johansson",
     "homeScorers": {},
-    "awayScorers": ["Nikita Kucherov, TBL: 0.38791      (0.646516666666667)", "Jake Guentzel, TBL: 0.36944      (0.615733333333333)"],
-    "outcome": "TBL, UTA: 1.32049 v TBL: 1.87308      Expected difference: 0.55259, (UTA: 2.20082 v TBL: 3.1218) (UTA: 41.35% , TBL: 58.65%)",
+    "awayScorers": {},
+    "outcome": "TBL, UTA: 0.98548 v TBL: 1.61724      Expected difference: 0.63176, (UTA: 1.64247 v TBL: 2.6954) (UTA: 37.86% , TBL: 62.14%)",
     "startingTime": "15:35:00",
-    "timeLastRun": "14:30:48",
+    "timeLastRun": "15:16:29",
     "correctLines": 0,
-    "totalLines": 3
+    "totalLines": 1
   },
   {
     "homeABV": "NYI",
     "awayABV": "CBJ",
     "homeGoalie": {},
-    "awayGoalie": {},
+    "awayGoalie": "CBJ: Elvis Merzlikins",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "NYI, NYI: 1.18703 v CBJ: 0.785      Expected difference: 0.40203, (NYI: 1.97838 v CBJ: 1.30833) (NYI: 60.19% , CBJ: 39.81%)",
+    "outcome": "NYI, NYI: 0.98408 v CBJ: 0.785      Expected difference: 0.19908, (NYI: 1.64013 v CBJ: 1.30833) (NYI: 55.63% , CBJ: 44.37%)",
     "startingTime": "17:05:00",
-    "timeLastRun": "14:30:50",
+    "timeLastRun": "15:16:32",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -32,9 +32,9 @@
     "awayGoalie": "CGY: Dustin Wolf",
     "homeScorers": {},
     "awayScorers": "Nazem Kadri, CGY: 0.37812      (0.6302)",
-    "outcome": "CGY, PHI: 0.5024 v CGY: 1.70644      Expected difference: 1.20404, (PHI: 0.83733 v CGY: 2.84407) (PHI: 22.74% , CGY: 77.26%)",
+    "outcome": "CGY, PHI: 0.5024 v CGY: 1.70111      Expected difference: 1.19871, (PHI: 0.83733 v CGY: 2.83518) (PHI: 22.8% , CGY: 77.2%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "14:30:51",
+    "timeLastRun": "15:16:34",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -47,7 +47,7 @@
     "awayScorers": {},
     "outcome": "ANA, ANA: 1.25148 v NJD: 0.579      Expected difference: 0.67248, (ANA: 2.0858 v NJD: 0.965) (ANA: 68.37% , NJD: 31.63%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "14:30:52",
+    "timeLastRun": "15:16:36",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -60,7 +60,7 @@
     "awayScorers": {},
     "outcome": "SJS, SJS: 1.00608 v DET: 0.01819      Expected difference: 0.98789, (SJS: 1.6768 v DET: 0.03032) (SJS: 98.22% , DET: 1.78%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "14:30:54",
+    "timeLastRun": "15:16:38",
     "correctLines": 0,
     "totalLines": 1
   }
