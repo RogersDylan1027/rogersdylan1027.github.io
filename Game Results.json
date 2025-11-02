@@ -15,13 +15,13 @@
   {
     "homeABV": "NYI",
     "awayABV": "CBJ",
-    "homeGoalie": {},
+    "homeGoalie": "NYI: David Rittich",
     "awayGoalie": "CBJ: Elvis Merzlikins",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "NYI, NYI: 0.98408 v CBJ: 0.785      Expected difference: 0.19908, (NYI: 1.64013 v CBJ: 1.30833) (NYI: 55.63% , CBJ: 44.37%)",
+    "outcome": "NYI, NYI: 0.98408 v CBJ: 0.76819      Expected difference: 0.21589, (NYI: 1.64013 v CBJ: 1.28032) (NYI: 56.16% , CBJ: 43.84%)",
     "startingTime": "17:05:00",
-    "timeLastRun": "15:35:27",
+    "timeLastRun": "16:12:42",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -32,9 +32,9 @@
     "awayGoalie": "CGY: Dustin Wolf",
     "homeScorers": {},
     "awayScorers": "Nazem Kadri, CGY: 0.37812      (0.6302)",
-    "outcome": "CGY, PHI: 0.5024 v CGY: 1.70111      Expected difference: 1.19871, (PHI: 0.83733 v CGY: 2.83518) (PHI: 22.8% , CGY: 77.2%)",
+    "outcome": "CGY, PHI: 0.5024 v CGY: 1.70644      Expected difference: 1.20404, (PHI: 0.83733 v CGY: 2.84407) (PHI: 22.74% , CGY: 77.26%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "15:35:28",
+    "timeLastRun": "16:12:43",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -47,7 +47,7 @@
     "awayScorers": {},
     "outcome": "ANA, ANA: 1.25148 v NJD: 0.579      Expected difference: 0.67248, (ANA: 2.0858 v NJD: 0.965) (ANA: 68.37% , NJD: 31.63%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "15:35:29",
+    "timeLastRun": "16:12:44",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -60,7 +60,7 @@
     "awayScorers": {},
     "outcome": "SJS, SJS: 1.00608 v DET: 0.01819      Expected difference: 0.98789, (SJS: 1.6768 v DET: 0.03032) (SJS: 98.22% , DET: 1.78%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "15:35:31",
+    "timeLastRun": "16:12:46",
     "correctLines": 0,
     "totalLines": 1
   }
