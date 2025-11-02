@@ -580,5 +580,186 @@
         "totalLines": 1
       }
     ]
+  },
+  {
+    "date": "2025-11-01",
+    "games": [
+      {
+        "homeABV": "BOS",
+        "awayABV": "CAR",
+        "homeGoalie": "BOS: Jeremy Swayman",
+        "awayGoalie": "CAR: Frederik Andersen",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "BOS, BOS: 0.6136 v CAR: 0.46152      Expected difference: 0.15208, (BOS: 1.02267 v CAR: 0.7692) (BOS: 57.07% , CAR: 42.93%)",
+        "startingTime": "13:05:00",
+        "timeLastRun": "12:39:52",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "WPG",
+        "awayABV": "PIT",
+        "homeGoalie": {},
+        "awayGoalie": {},
+        "homeScorers": "Kyle Connor, WPG: 0.39082      (0.651366666666667)",
+        "awayScorers": {},
+        "outcome": "WPG (OTW), WPG: 1.26109 v PIT: 1.24308      Expected difference: 0.0180100000000003, (WPG: 2.10182 v PIT: 2.0718) (WPG: 50.36% , PIT: 49.64%)",
+        "startingTime": "15:05:00",
+        "timeLastRun": "13:12:42",
+        "correctLines": 0,
+        "totalLines": 2
+      },
+      {
+        "homeABV": "NSH",
+        "awayABV": "CGY",
+        "homeGoalie": {},
+        "awayGoalie": {},
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "CGY, NSH: 0.70557 v CGY: 0.82167      Expected difference: 0.116099999999999, (NSH: 1.17595 v CGY: 1.36945) (NSH: 46.2% , CGY: 53.8%)",
+        "startingTime": "15:35:00",
+        "timeLastRun": "13:12:44",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "SJS",
+        "awayABV": "COL",
+        "homeGoalie": {},
+        "awayGoalie": {},
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "SJS, SJS: 1.22209 v COL: 0.02954      Expected difference: 1.19255, (SJS: 2.03682 v COL: 0.04923) (SJS: 97.64% , COL: 2.36%)",
+        "startingTime": "16:05:00",
+        "timeLastRun": "13:12:46",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "FLA",
+        "awayABV": "DAL",
+        "homeGoalie": "FLA: Sergei Bobrovsky",
+        "awayGoalie": "DAL: Casey DeSmith",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "DAL, FLA: 0.79121 v DAL: 1.33675      Expected difference: 0.54554, (FLA: 1.31868 v DAL: 2.22792) (FLA: 37.18% , DAL: 62.82%)",
+        "startingTime": "18:05:00",
+        "timeLastRun": "17:55:57",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "BUF",
+        "awayABV": "WSH",
+        "homeGoalie": "BUF: Ukko-Pekka Luukkonen",
+        "awayGoalie": "WSH: Charlie Lindgren",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "BUF, BUF: 0.73762 v WSH: 0.43908      Expected difference: 0.29854, (BUF: 1.22937 v WSH: 0.7318) (BUF: 62.69% , WSH: 37.31%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "18:57:41",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "MTL",
+        "awayABV": "OTT",
+        "homeGoalie": "MTL: Sam Montembeault",
+        "awayGoalie": "OTT: Linus Ullmark",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "MTL, MTL: 0.73063 v OTT: 0.6662      Expected difference: 0.0644300000000001, (MTL: 1.21772 v OTT: 1.11033) (MTL: 52.31% , OTT: 47.69%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "18:57:42",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "PHI",
+        "awayABV": "TOR",
+        "homeGoalie": "PHI: Dan Vladar",
+        "awayGoalie": "TOR: Anthony Stolarz",
+        "homeScorers": {},
+        "awayScorers": [
+          "John Tavares, TOR: 0.40186      (0.669766666666667)",
+          "Sammy Blais, TOR: 0.54037      (0.900616666666667)",
+          "Auston Matthews, TOR: 0.63005      (1.05008333333333)"
+        ],
+        "outcome": "TOR, PHI: 0.60948 v TOR: 2.37487      Expected difference: 1.76539, (PHI: 1.0158 v TOR: 3.95812) (PHI: 20.42% , TOR: 79.58%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "18:57:43",
+        "correctLines": 0,
+        "totalLines": 4
+      },
+      {
+        "homeABV": "CBJ",
+        "awayABV": "STL",
+        "homeGoalie": "CBJ: Jet Greaves",
+        "awayGoalie": "STL: Joel Hofer",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "STL, CBJ: 0.41067 v STL: 0.96805      Expected difference: 0.55738, (CBJ: 0.68445 v STL: 1.61342) (CBJ: 29.79% , STL: 70.21%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "18:57:44",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "MIN",
+        "awayABV": "VAN",
+        "homeGoalie": "MIN: Filip Gustavsson",
+        "awayGoalie": "VAN: Thatcher Demko",
+        "homeScorers": [
+          "Kirill Kaprizov, MIN: 0.67488      (1.1248)",
+          "Matt Boldy, MIN: 0.37941      (0.63235)"
+        ],
+        "awayScorers": {},
+        "outcome": "MIN, MIN: 1.89132 v VAN: 0.41551      Expected difference: 1.47581, (MIN: 3.1522 v VAN: 0.69252) (MIN: 81.99% , VAN: 18.01%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "18:57:46",
+        "correctLines": 0,
+        "totalLines": 3
+      },
+      {
+        "homeABV": "LAK",
+        "awayABV": "NJD",
+        "homeGoalie": {},
+        "awayGoalie": {},
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "LAK, LAK: 1.0798 v NJD: 0.78867      Expected difference: 0.29113, (LAK: 1.79967 v NJD: 1.31445) (LAK: 57.79% , NJD: 42.21%)",
+        "startingTime": "21:05:00",
+        "timeLastRun": "19:31:15",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "EDM",
+        "awayABV": "CHI",
+        "homeGoalie": "EDM: Stuart Skinner",
+        "awayGoalie": "CHI: Spencer Knight",
+        "homeScorers": "Leon Draisaitl, EDM: 0.49136      (0.818933333333333)",
+        "awayScorers": {},
+        "outcome": "EDM, EDM: 1.44618 v CHI: 0.87781      Expected difference: 0.56837, (EDM: 2.4103 v CHI: 1.46302) (EDM: 62.23% , CHI: 37.77%)",
+        "startingTime": "22:05:00",
+        "timeLastRun": "21:10:44",
+        "correctLines": 0,
+        "totalLines": 2
+      },
+      {
+        "homeABV": "SEA",
+        "awayABV": "NYR",
+        "homeGoalie": {},
+        "awayGoalie": "NYR: Igor Shesterkin",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "SEA, SEA: 1.11041 v NYR: 1.00448      Expected difference: 0.10593, (SEA: 1.85068 v NYR: 1.67413) (SEA: 52.5% , NYR: 47.5%)",
+        "startingTime": "22:05:00",
+        "timeLastRun": "21:10:46",
+        "correctLines": 0,
+        "totalLines": 1
+      }
+    ]
   }
 ]
