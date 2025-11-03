@@ -8,22 +8,22 @@
     "awayScorers": {},
     "outcome": "TOR, TOR: 2.08409 v PIT: 0.68416      Expected difference: 1.39993, (TOR: 3.47348 v PIT: 1.14027) (TOR: 75.29% , PIT: 24.71%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "14:00:43",
+    "timeLastRun": "14:32:35",
     "correctLines": 0,
     "totalLines": 3
   },
   {
     "homeABV": "STL",
     "awayABV": "EDM",
-    "homeGoalie": {},
-    "awayGoalie": {},
+    "homeGoalie": "STL: Jordan Binnington",
+    "awayGoalie": "EDM: Calvin Pickard",
     "homeScorers": {},
-    "awayScorers": {},
-    "outcome": "STL, STL: 1.00542 v EDM: 0.84342      Expected difference: 0.162, (STL: 1.6757 v EDM: 1.4057) (STL: 54.38% , EDM: 45.62%)",
+    "awayScorers": "Leon Draisaitl, EDM: 0.46023      (0.76705)",
+    "outcome": "EDM, STL: 0.41813 v EDM: 1.35034      Expected difference: 0.93221, (STL: 0.69688 v EDM: 2.25057) (STL: 23.64% , EDM: 76.36%)",
     "startingTime": "20:35:00",
-    "timeLastRun": "14:00:44",
+    "timeLastRun": "14:32:37",
     "correctLines": 0,
-    "totalLines": 1
+    "totalLines": 2
   },
   {
     "homeABV": "NSH",
@@ -34,7 +34,7 @@
     "awayScorers": {},
     "outcome": "NSH, NSH: 0.92921 v VAN: 0.65088      Expected difference: 0.27833, (NSH: 1.54868 v VAN: 1.0848) (NSH: 58.81% , VAN: 41.19%)",
     "startingTime": "20:35:00",
-    "timeLastRun": "14:00:46",
+    "timeLastRun": "14:32:39",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -47,7 +47,7 @@
     "awayScorers": {},
     "outcome": "SEA (OTW), SEA: 0.94001 v CHI: 0.8992      Expected difference: 0.04081, (SEA: 1.56668 v CHI: 1.49867) (SEA: 51.11% , CHI: 48.89%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "14:00:48",
+    "timeLastRun": "14:32:42",
     "correctLines": 0,
     "totalLines": 1
   }
