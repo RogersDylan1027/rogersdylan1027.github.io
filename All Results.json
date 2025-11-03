@@ -761,5 +761,75 @@
         "totalLines": 1
       }
     ]
+  },
+  {
+    "date": "2025-11-02",
+    "games": [
+      {
+        "homeABV": "UTA",
+        "awayABV": "TBL",
+        "homeGoalie": "UTA: Karel Vejmelka",
+        "awayGoalie": "TBL: Jonas Johansson",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "TBL, UTA: 0.98548 v TBL: 1.61724      Expected difference: 0.63176, (UTA: 1.64247 v TBL: 2.6954) (UTA: 37.86% , TBL: 62.14%)",
+        "startingTime": "15:35:00",
+        "timeLastRun": "15:16:29",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "NYI",
+        "awayABV": "CBJ",
+        "homeGoalie": "NYI: David Rittich",
+        "awayGoalie": "CBJ: Elvis Merzlikins",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "NYI, NYI: 0.98408 v CBJ: 0.76819      Expected difference: 0.21589, (NYI: 1.64013 v CBJ: 1.28032) (NYI: 56.16% , CBJ: 43.84%)",
+        "startingTime": "17:05:00",
+        "timeLastRun": "16:31:57",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "PHI",
+        "awayABV": "CGY",
+        "homeGoalie": "PHI: Aleksei Kolosov",
+        "awayGoalie": "CGY: Dustin Wolf",
+        "homeScorers": {},
+        "awayScorers": "Nazem Kadri, CGY: 0.41194      (0.686566666666667)",
+        "outcome": "CGY, PHI: 0.12855 v CGY: 1.85323      Expected difference: 1.72468, (PHI: 0.21425 v CGY: 3.08872) (PHI: 6.49% , CGY: 93.51%)",
+        "startingTime": "20:05:00",
+        "timeLastRun": "19:01:25",
+        "correctLines": 0,
+        "totalLines": 2
+      },
+      {
+        "homeABV": "ANA",
+        "awayABV": "NJD",
+        "homeGoalie": {},
+        "awayGoalie": "NJD: Jake Allen",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "ANA, ANA: 0.66891 v NJD: 0.14358      Expected difference: 0.52533, (ANA: 1.11485 v NJD: 0.2393) (ANA: 82.33% , NJD: 17.67%)",
+        "startingTime": "21:05:00",
+        "timeLastRun": "19:01:27",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "SJS",
+        "awayABV": "DET",
+        "homeGoalie": "SJS: Alex Nedeljkovic",
+        "awayGoalie": "DET: Cam Talbot",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "SJS, SJS: 0.3373 v DET: 0.01819      Expected difference: 0.31911, (SJS: 0.56217 v DET: 0.03032) (SJS: 94.88% , DET: 5.12%)",
+        "startingTime": "21:05:00",
+        "timeLastRun": "19:01:30",
+        "correctLines": 0,
+        "totalLines": 1
+      }
+    ]
   }
 ]
