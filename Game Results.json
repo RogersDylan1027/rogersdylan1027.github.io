@@ -4,7 +4,10 @@
     "awayABV": "PIT",
     "homeGoalie": "TOR: Anthony Stolarz",
     "awayGoalie": "PIT: Tristan Jarry",
-    "homeScorers": ["William Nylander, TOR: 0.37237      (0.620616666666667)", "Auston Matthews, TOR: 0.5408      (0.901333333333333)"],
+    "homeScorers": [
+      "William Nylander, TOR: 0.37237      (0.620616666666667)",
+      "Auston Matthews, TOR: 0.5408      (0.901333333333333)"
+    ],
     "awayScorers": {},
     "outcome": "TOR, TOR: 2.08427 v PIT: 0.68458      Expected difference: 1.39969, (TOR: 3.47378 v PIT: 1.14097) (TOR: 75.28% , PIT: 24.72%)",
     "startingTime": "19:35:00",
@@ -47,7 +50,7 @@
     "awayScorers": {},
     "outcome": "CHI, SEA: 0.75709 v CHI: 0.89939      Expected difference: 0.1423, (SEA: 1.26182 v CHI: 1.49898) (SEA: 45.7% , CHI: 54.3%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "19:01:28",
+    "timeLastRun": "21:17:12",
     "correctLines": 0,
     "totalLines": 1
   }
