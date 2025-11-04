@@ -6,22 +6,22 @@
     "awayGoalie": {},
     "homeScorers": "Tage Thompson, BUF: 0.41928      (0.6988)",
     "awayScorers": {},
-    "outcome": "BUF, BUF: 1.3952 v UTA: 0.97201      Expected difference: 0.42319, (BUF: 2.32533 v UTA: 1.62002) (BUF: 58.94% , UTA: 41.06%)",
+    "outcome": "BUF, BUF: 1.3905 v UTA: 0.97201      Expected difference: 0.41849, (BUF: 2.3175 v UTA: 1.62002) (BUF: 58.86% , UTA: 41.14%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "10:42:42",
+    "timeLastRun": "11:02:32",
     "correctLines": 0,
     "totalLines": 2
   },
   {
     "homeABV": "MTL",
     "awayABV": "PHI",
-    "homeGoalie": {},
+    "homeGoalie": "MTL: Sam Montembeault",
     "awayGoalie": "PHI: Dan Vladar",
     "homeScorers": "Cole Caufield, MTL: 0.49484      (0.824733333333333)",
     "awayScorers": {},
-    "outcome": "MTL, MTL: 1.67481 v PHI: 0.68303      Expected difference: 0.99178, (MTL: 2.79135 v PHI: 1.13838) (MTL: 71.03% , PHI: 28.97%)",
+    "outcome": "MTL, MTL: 1.67481 v PHI: 0.17865      Expected difference: 1.49616, (MTL: 2.79135 v PHI: 0.29775) (MTL: 90.36% , PHI: 9.64%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "10:42:44",
+    "timeLastRun": "11:02:34",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -34,20 +34,20 @@
     "awayScorers": {},
     "outcome": "NYI, NYI: 0.65803 v BOS: 0.40782      Expected difference: 0.25021, (NYI: 1.09672 v BOS: 0.6797) (NYI: 61.74% , BOS: 38.26%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "10:42:46",
+    "timeLastRun": "11:02:36",
     "correctLines": 0,
     "totalLines": 1
   },
   {
     "homeABV": "NYR",
     "awayABV": "CAR",
-    "homeGoalie": {},
+    "homeGoalie": "NYR: Igor Shesterkin",
     "awayGoalie": {},
     "homeScorers": {},
-    "awayScorers": "Seth Jarvis, CAR: 0.43396      (0.723266666666667)",
-    "outcome": "CAR, NYR: 0.87011 v CAR: 1.91227      Expected difference: 1.04216, (NYR: 1.45018 v CAR: 3.18712) (NYR: 31.27% , CAR: 68.73%)",
+    "awayScorers": "Seth Jarvis, CAR: 0.37955      (0.632583333333333)",
+    "outcome": "CAR, NYR: 0.87011 v CAR: 1.67248      Expected difference: 0.80237, (NYR: 1.45018 v CAR: 2.78747) (NYR: 34.22% , CAR: 65.78%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "10:42:48",
+    "timeLastRun": "11:02:38",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -60,7 +60,7 @@
     "awayScorers": "Leon Draisaitl, EDM: 0.4478      (0.746333333333333)",
     "outcome": "EDM, DAL: 0.919 v EDM: 1.33511      Expected difference: 0.41611, (DAL: 1.53167 v EDM: 2.22518) (DAL: 40.77% , EDM: 59.23%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "10:42:49",
+    "timeLastRun": "11:02:41",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -73,7 +73,7 @@
     "awayScorers": {},
     "outcome": "MIN, MIN: 0.86192 v NSH: 0.50435      Expected difference: 0.35757, (MIN: 1.43653 v NSH: 0.84058) (MIN: 63.09% , NSH: 36.91%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "10:42:51",
+    "timeLastRun": "11:02:43",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -86,7 +86,7 @@
     "awayScorers": ["Nikita Kucherov, TBL: 0.40087      (0.668116666666667)", "Jake Guentzel, TBL: 0.39346      (0.655766666666667)"],
     "outcome": "TBL, COL: 1.8862 v TBL: 1.98391      Expected difference: 0.0977099999999993, (COL: 3.14367 v TBL: 3.30652) (COL: 48.74% , TBL: 51.26%)",
     "startingTime": "21:35:00",
-    "timeLastRun": "10:42:53",
+    "timeLastRun": "11:02:46",
     "correctLines": 0,
     "totalLines": 4
   },
@@ -99,7 +99,7 @@
     "awayScorers": "Dylan Larkin, DET: 0.36011      (0.600183333333333)",
     "outcome": "DET, VGK: 1.25052 v DET: 1.553      Expected difference: 0.30248, (VGK: 2.0842 v DET: 2.58833) (VGK: 44.61% , DET: 55.39%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "10:42:55",
+    "timeLastRun": "11:02:48",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -112,7 +112,7 @@
     "awayScorers": {},
     "outcome": "ANA, ANA: 1.4991 v FLA: 0.79548      Expected difference: 0.70362, (ANA: 2.4985 v FLA: 1.3258) (ANA: 65.33% , FLA: 34.67%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "10:42:57",
+    "timeLastRun": "11:02:50",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -125,7 +125,7 @@
     "awayScorers": {},
     "outcome": "LAK, LAK: 1.50705 v WPG: 0.86343      Expected difference: 0.64362, (LAK: 2.51175 v WPG: 1.43905) (LAK: 63.58% , WPG: 36.42%)",
     "startingTime": "22:35:00",
-    "timeLastRun": "10:42:59",
+    "timeLastRun": "11:02:52",
     "correctLines": 0,
     "totalLines": 1
   }
