@@ -8,7 +8,7 @@
     "awayScorers": {},
     "outcome": "TOR, TOR: 1.45335 v UTA: 0.40906      Expected difference: 1.04429, (TOR: 2.42225 v UTA: 0.68177) (TOR: 78.04% , UTA: 21.96%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "12:02:50",
+    "timeLastRun": "12:40:08",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -21,20 +21,20 @@
     "awayScorers": {},
     "outcome": "STL, WSH: 0.84644 v STL: 1.75284      Expected difference: 0.9064, (WSH: 1.41073 v STL: 2.9214) (WSH: 32.56% , STL: 67.44%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "12:02:52",
+    "timeLastRun": "12:40:10",
     "correctLines": 0,
     "totalLines": 1
   },
   {
     "homeABV": "CGY",
     "awayABV": "CBJ",
-    "homeGoalie": {},
+    "homeGoalie": "CGY: Dustin Wolf",
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "CBJ, CGY: 0.75263 v CBJ: 1.1472      Expected difference: 0.39457, (CGY: 1.25438 v CBJ: 1.912) (CGY: 39.62% , CBJ: 60.38%)",
+    "outcome": "CBJ (OTW), CGY: 0.75263 v CBJ: 0.77191      Expected difference: 0.0192799999999999, (CGY: 1.25438 v CBJ: 1.28652) (CGY: 49.37% , CBJ: 50.63%)",
     "startingTime": "21:35:00",
-    "timeLastRun": "12:02:54",
+    "timeLastRun": "12:40:11",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -47,7 +47,7 @@
     "awayScorers": {},
     "outcome": "VAN, VAN: 0.64278 v CHI: 0.51883      Expected difference: 0.12395, (VAN: 1.0713 v CHI: 0.86472) (VAN: 55.34% , CHI: 44.66%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "12:02:55",
+    "timeLastRun": "12:40:13",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -60,7 +60,7 @@
     "awayScorers": {},
     "outcome": "SJS, SEA: 0.01542 v SJS: 0.79465      Expected difference: 0.77923, (SEA: 0.0257 v SJS: 1.32442) (SEA: 1.9% , SJS: 98.1%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "12:02:56",
+    "timeLastRun": "12:40:14",
     "correctLines": 0,
     "totalLines": 1
   }
