@@ -3,14 +3,14 @@
     "homeABV": "TOR",
     "awayABV": "UTA",
     "homeGoalie": {},
-    "awayGoalie": {},
-    "homeScorers": "Auston Matthews, TOR: 0.44094      (0.7349)",
+    "awayGoalie": "UTA: Vitek Vanecek",
+    "homeScorers": ["William Nylander, TOR: 0.3965      (0.660833333333333)", "Auston Matthews, TOR: 0.5494      (0.915666666666667)"],
     "awayScorers": {},
-    "outcome": "TOR, TOR: 1.60613 v UTA: 0.64686      Expected difference: 0.95927, (TOR: 2.67688 v UTA: 1.0781) (TOR: 71.29% , UTA: 28.71%)",
+    "outcome": "TOR, TOR: 2.00118 v UTA: 0.64686      Expected difference: 1.35432, (TOR: 3.3353 v UTA: 1.0781) (TOR: 75.57% , UTA: 24.43%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "18:02:44",
+    "timeLastRun": "18:36:51",
     "correctLines": 0,
-    "totalLines": 2
+    "totalLines": 3
   },
   {
     "homeABV": "WSH",
@@ -21,7 +21,7 @@
     "awayScorers": {},
     "outcome": "STL, WSH: 0.9871 v STL: 1.75284      Expected difference: 0.76574, (WSH: 1.64517 v STL: 2.9214) (WSH: 36.03% , STL: 63.97%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "18:02:46",
+    "timeLastRun": "18:36:53",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -34,7 +34,7 @@
     "awayScorers": {},
     "outcome": "CGY, CGY: 1.03393 v CBJ: 0.97738      Expected difference: 0.0565500000000001, (CGY: 1.72322 v CBJ: 1.62897) (CGY: 51.41% , CBJ: 48.59%)",
     "startingTime": "21:35:00",
-    "timeLastRun": "18:02:47",
+    "timeLastRun": "18:36:55",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -47,7 +47,7 @@
     "awayScorers": {},
     "outcome": "VAN, VAN: 0.85461 v CHI: 0.32666      Expected difference: 0.52795, (VAN: 1.42435 v CHI: 0.54443) (VAN: 72.35% , CHI: 27.65%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "18:02:49",
+    "timeLastRun": "18:36:57",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -60,7 +60,7 @@
     "awayScorers": {},
     "outcome": "SJS, SEA: 0.01542 v SJS: 0.80855      Expected difference: 0.79313, (SEA: 0.0257 v SJS: 1.34758) (SEA: 1.87% , SJS: 98.13%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "18:02:51",
+    "timeLastRun": "18:36:59",
     "correctLines": 0,
     "totalLines": 1
   }
