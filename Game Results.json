@@ -8,7 +8,7 @@
     "awayScorers": {},
     "outcome": "TOR, TOR: 1.45335 v UTA: 0.40906      Expected difference: 1.04429, (TOR: 2.42225 v UTA: 0.68177) (TOR: 78.04% , UTA: 21.96%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "13:49:05",
+    "timeLastRun": "14:02:42",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -21,7 +21,7 @@
     "awayScorers": {},
     "outcome": "STL, WSH: 0.84644 v STL: 1.75284      Expected difference: 0.9064, (WSH: 1.41073 v STL: 2.9214) (WSH: 32.56% , STL: 67.44%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "13:49:07",
+    "timeLastRun": "14:02:44",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -34,33 +34,33 @@
     "awayScorers": {},
     "outcome": "CGY, CGY: 0.89243 v CBJ: 0.75474      Expected difference: 0.13769, (CGY: 1.48738 v CBJ: 1.2579) (CGY: 54.18% , CBJ: 45.82%)",
     "startingTime": "21:35:00",
-    "timeLastRun": "13:49:09",
+    "timeLastRun": "14:02:46",
     "correctLines": 0,
     "totalLines": 1
   },
   {
     "homeABV": "VAN",
     "awayABV": "CHI",
-    "homeGoalie": {},
+    "homeGoalie": "VAN: Kevin Lankinen",
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "VAN, VAN: 0.64278 v CHI: 0.51883      Expected difference: 0.12395, (VAN: 1.0713 v CHI: 0.86472) (VAN: 55.34% , CHI: 44.66%)",
+    "outcome": "VAN, VAN: 0.64278 v CHI: 0.14688      Expected difference: 0.4959, (VAN: 1.0713 v CHI: 0.2448) (VAN: 81.4% , CHI: 18.6%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "13:49:10",
+    "timeLastRun": "14:02:48",
     "correctLines": 0,
     "totalLines": 1
   },
   {
     "homeABV": "SEA",
     "awayABV": "SJS",
-    "homeGoalie": {},
+    "homeGoalie": "SEA: Joey Daccord",
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "SJS, SEA: 0.01542 v SJS: 0.79465      Expected difference: 0.77923, (SEA: 0.0257 v SJS: 1.32442) (SEA: 1.9% , SJS: 98.1%)",
+    "outcome": "SJS, SEA: 0.01542 v SJS: 0.72647      Expected difference: 0.71105, (SEA: 0.0257 v SJS: 1.21078) (SEA: 2.08% , SJS: 97.92%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "13:49:11",
+    "timeLastRun": "14:02:50",
     "correctLines": 0,
     "totalLines": 1
   }
