@@ -918,7 +918,7 @@
         "outcome": "MTL, MTL: 1.67481 v PHI: 0.23433      Expected difference: 1.44048, (MTL: 2.79135 v PHI: 0.39055) (MTL: 87.73% , PHI: 12.27%)",
         "startingTime": "19:05:00",
         "timeLastRun": "19:04:12",
-        "correctLines": 0,
+        "correctLines": 1,
         "totalLines": 2
       },
       {
@@ -957,7 +957,7 @@
         "outcome": "DAL, DAL: 1.18306 v EDM: 0.76548      Expected difference: 0.41758, (DAL: 1.97177 v EDM: 1.2758) (DAL: 60.72% , EDM: 39.28%)",
         "startingTime": "20:05:00",
         "timeLastRun": "19:04:16",
-        "correctLines": 0,
+        "correctLines": 1,
         "totalLines": 1
       },
       {
@@ -986,7 +986,7 @@
         "outcome": "COL (OTW), COL: 2.03639 v TBL: 1.99504      Expected difference: 0.0413499999999996, (COL: 3.39398 v TBL: 3.32507) (COL: 50.51% , TBL: 49.49%)",
         "startingTime": "21:35:00",
         "timeLastRun": "21:30:26",
-        "correctLines": 2,
+        "correctLines": 3,
         "totalLines": 4
       },
       {
