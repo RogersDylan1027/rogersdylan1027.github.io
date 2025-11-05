@@ -83,7 +83,10 @@
     "homeGoalie": "COL: Scott Wedgewood",
     "awayGoalie": "TBL: Andrei Vasilevskiy",
     "homeScorers": "Nathan MacKinnon, COL: 0.56594      (0.943233333333333)",
-    "awayScorers": ["Nikita Kucherov, TBL: 0.40312      (0.671866666666667)", "Jake Guentzel, TBL: 0.39566      (0.659433333333333)"],
+    "awayScorers": [
+      "Nikita Kucherov, TBL: 0.40312      (0.671866666666667)",
+      "Jake Guentzel, TBL: 0.39566      (0.659433333333333)"
+    ],
     "outcome": "COL (OTW), COL: 2.03639 v TBL: 1.99504      Expected difference: 0.0413499999999996, (COL: 3.39398 v TBL: 3.32507) (COL: 50.51% , TBL: 49.49%)",
     "startingTime": "21:35:00",
     "timeLastRun": "21:30:26",
@@ -119,13 +122,13 @@
   {
     "homeABV": "LAK",
     "awayABV": "WPG",
-    "homeGoalie": {},
-    "awayGoalie": {},
+    "homeGoalie": "LAK: Darcy Kuemper",
+    "awayGoalie": "WPG: Connor Hellebuyck",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "LAK, LAK: 1.52698 v WPG: 0.91626      Expected difference: 0.61072, (LAK: 2.54497 v WPG: 1.5271) (LAK: 62.5% , WPG: 37.5%)",
+    "outcome": "LAK, LAK: 0.77534 v WPG: 0.52295      Expected difference: 0.25239, (LAK: 1.29223 v WPG: 0.87158) (LAK: 59.72% , WPG: 40.28%)",
     "startingTime": "22:35:00",
-    "timeLastRun": "21:30:31",
+    "timeLastRun": "22:32:16",
     "correctLines": 0,
     "totalLines": 1
   }
