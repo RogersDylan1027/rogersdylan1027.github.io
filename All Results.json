@@ -1,8 +1,8 @@
 [
   {
-    "totalCorrectLines": 81,
-    "totalLines": 124,
-    "accuracy": "65.32%"
+    "totalCorrectLines": 88,
+    "totalLines": 135,
+    "accuracy": "65.19%"
   },
   {
     "date": "2025-10-26",
@@ -1104,6 +1104,128 @@
         "startingTime": "22:05:00",
         "timeLastRun": "21:32:25",
         "correctLines": 1,
+        "totalLines": 1
+      }
+    ]
+  },
+  {
+    "date": "2025-11-06",
+    "games": [
+      {
+        "homeABV": "BOS",
+        "awayABV": "OTT",
+        "homeGoalie": "BOS: Joonas Korpisalo",
+        "awayGoalie": "OTT: Linus Ullmark",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "BOS (OTW), BOS: 0.23581 v OTT: 0.22205      Expected difference: 0.01376, (BOS: 0.39302 v OTT: 0.37008) (BOS: 51.5% , OTT: 48.5%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "19:00:22",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "BUF",
+        "awayABV": "STL",
+        "homeGoalie": "BUF: Ukko-Pekka Luukkonen",
+        "awayGoalie": "STL: Joel Hofer",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "STL, BUF: 0.09597 v STL: 0.15513      Expected difference: 0.05916, (BUF: 0.15995 v STL: 0.25855) (BUF: 38.22% , STL: 61.78%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "19:00:24",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "NJD",
+        "awayABV": "MTL",
+        "homeGoalie": "NJD: Jacob Markstrom",
+        "awayGoalie": "MTL: Jakub Dobes",
+        "homeScorers": "Jack Hughes, NJD: 0.66309      (1.10515)",
+        "awayScorers": {},
+        "outcome": "NJD, NJD: 2.29844 v MTL: 0.0856      Expected difference: 2.21284, (NJD: 3.83073 v MTL: 0.14267) (NJD: 96.41% , MTL: 3.59%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "19:00:25",
+        "correctLines": 2,
+        "totalLines": 2
+      },
+      {
+        "homeABV": "CAR",
+        "awayABV": "MIN",
+        "homeGoalie": "CAR: Frederik Andersen",
+        "awayGoalie": "MIN: Filip Gustavsson",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "MIN, CAR: 0.69556 v MIN: 0.91664      Expected difference: 0.22108, (CAR: 1.15927 v MIN: 1.52773) (CAR: 43.14% , MIN: 56.86%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "19:00:27",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "PIT",
+        "awayABV": "WSH",
+        "homeGoalie": "PIT: Arturs Silovs",
+        "awayGoalie": "WSH: Charlie Lindgren",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "WSH, PIT: 0.18069 v WSH: 1.02135      Expected difference: 0.84066, (PIT: 0.30115 v WSH: 1.70225) (PIT: 15.03% , WSH: 84.97%)",
+        "startingTime": "19:35:00",
+        "timeLastRun": "19:00:28",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "NSH",
+        "awayABV": "PHI",
+        "homeGoalie": {},
+        "awayGoalie": "PHI: Dan Vladar",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "NSH, NSH: 1.48027 v PHI: 0.4016      Expected difference: 1.07867, (NSH: 2.46712 v PHI: 0.66933) (NSH: 78.66% , PHI: 21.34%)",
+        "startingTime": "20:05:00",
+        "timeLastRun": "19:00:29",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "DAL",
+        "awayABV": "ANA",
+        "homeGoalie": "DAL: Jake Oettinger",
+        "awayGoalie": "ANA: Lukas Dostal",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "ANA, DAL: 1.06997 v ANA: 1.26834      Expected difference: 0.19837, (DAL: 1.78328 v ANA: 2.1139) (DAL: 45.76% , ANA: 54.24%)",
+        "startingTime": "20:05:00",
+        "timeLastRun": "19:00:31",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "VGK",
+        "awayABV": "TBL",
+        "homeGoalie": "VGK: Carl Lindbom",
+        "awayGoalie": {},
+        "homeScorers": {},
+        "awayScorers": "Nikita Kucherov, TBL: 0.35395      (0.589916666666667)",
+        "outcome": "TBL, VGK: 1.30102 v TBL: 1.69282      Expected difference: 0.3918, (VGK: 2.16837 v TBL: 2.82137) (VGK: 43.46% , TBL: 56.54%)",
+        "startingTime": "22:05:00",
+        "timeLastRun": "21:28:20",
+        "correctLines": 2,
+        "totalLines": 2
+      },
+      {
+        "homeABV": "LAK",
+        "awayABV": "FLA",
+        "homeGoalie": {},
+        "awayGoalie": {},
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "LAK (OTW), LAK: 1.07498 v FLA: 1.04739      Expected difference: 0.0275900000000004, (LAK: 1.79163 v FLA: 1.74565) (LAK: 50.65% , FLA: 49.35%)",
+        "startingTime": "22:05:00",
+        "timeLastRun": "21:28:22",
+        "correctLines": 0,
         "totalLines": 1
       }
     ]
