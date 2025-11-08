@@ -53,5 +53,70 @@
     "timeLastRun": "21:22:13",
     "correctLines": 0,
     "totalLines": 1
+  },
+  {
+    "homeABV": "PIT",
+    "awayABV": "WSH",
+    "homeGoalie": "PIT: Arturs Silovs",
+    "awayGoalie": "WSH: Charlie Lindgren",
+    "homeScorers": {},
+    "awayScorers": {},
+    "outcome": "WSH, PIT: 0.18069 v WSH: 1.02135      Expected difference: 0.84066, (PIT: 0.30115 v WSH: 1.70225) (PIT: 15.03% , WSH: 84.97%)",
+    "startingTime": "19:35:00",
+    "timeLastRun": "19:00:28",
+    "correctLines": 0,
+    "totalLines": 1
+  },
+  {
+    "homeABV": "NSH",
+    "awayABV": "PHI",
+    "homeGoalie": {},
+    "awayGoalie": "PHI: Dan Vladar",
+    "homeScorers": {},
+    "awayScorers": {},
+    "outcome": "NSH, NSH: 1.48027 v PHI: 0.4016      Expected difference: 1.07867, (NSH: 2.46712 v PHI: 0.66933) (NSH: 78.66% , PHI: 21.34%)",
+    "startingTime": "20:05:00",
+    "timeLastRun": "19:00:29",
+    "correctLines": 0,
+    "totalLines": 1
+  },
+  {
+    "homeABV": "DAL",
+    "awayABV": "ANA",
+    "homeGoalie": "DAL: Jake Oettinger",
+    "awayGoalie": "ANA: Lukas Dostal",
+    "homeScorers": {},
+    "awayScorers": {},
+    "outcome": "ANA, DAL: 1.06997 v ANA: 1.26834      Expected difference: 0.19837, (DAL: 1.78328 v ANA: 2.1139) (DAL: 45.76% , ANA: 54.24%)",
+    "startingTime": "20:05:00",
+    "timeLastRun": "19:00:31",
+    "correctLines": 1,
+    "totalLines": 1
+  },
+  {
+    "homeABV": "VGK",
+    "awayABV": "TBL",
+    "homeGoalie": "VGK: Carl Lindbom",
+    "awayGoalie": {},
+    "homeScorers": {},
+    "awayScorers": "Nikita Kucherov, TBL: 0.35395      (0.589916666666667)",
+    "outcome": "TBL, VGK: 1.30102 v TBL: 1.69282      Expected difference: 0.3918, (VGK: 2.16837 v TBL: 2.82137) (VGK: 43.46% , TBL: 56.54%)",
+    "startingTime": "22:05:00",
+    "timeLastRun": "21:28:20",
+    "correctLines": 2,
+    "totalLines": 2
+  },
+  {
+    "homeABV": "LAK",
+    "awayABV": "FLA",
+    "homeGoalie": {},
+    "awayGoalie": {},
+    "homeScorers": {},
+    "awayScorers": {},
+    "outcome": "LAK (OTW), LAK: 1.07498 v FLA: 1.04739      Expected difference: 0.0275900000000004, (LAK: 1.79163 v FLA: 1.74565) (LAK: 50.65% , FLA: 49.35%)",
+    "startingTime": "22:05:00",
+    "timeLastRun": "21:28:22",
+    "correctLines": 0,
+    "totalLines": 1
   }
 ]
