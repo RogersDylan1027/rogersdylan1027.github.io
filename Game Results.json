@@ -125,7 +125,7 @@
     "awayScorers": "Nathan MacKinnon, COL: 0.43444      (0.724066666666667)",
     "outcome": "COL, EDM: 1.31651 v COL: 1.5758      Expected difference: 0.25929, (EDM: 2.19418 v COL: 2.62633) (EDM: 45.52% , COL: 54.48%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "19:00:56",
+    "timeLastRun": "21:24:04",
     "correctLines": 0,
     "totalLines": 3
   },
@@ -138,7 +138,7 @@
     "awayScorers": {},
     "outcome": "VAN (OTW), VAN: 0.81201 v CBJ: 0.76523      Expected difference: 0.0467800000000003, (VAN: 1.35335 v CBJ: 1.27538) (VAN: 51.48% , CBJ: 48.52%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "19:00:57",
+    "timeLastRun": "21:24:06",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -151,20 +151,20 @@
     "awayScorers": {},
     "outcome": "ANA, VGK: 0.02236 v ANA: 1.2255      Expected difference: 1.20314, (VGK: 0.03727 v ANA: 2.0425) (VGK: 1.79% , ANA: 98.21%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "19:00:59",
+    "timeLastRun": "21:24:08",
     "correctLines": 0,
     "totalLines": 1
   },
   {
     "homeABV": "SJS",
     "awayABV": "FLA",
-    "homeGoalie": {},
+    "homeGoalie": "SJS: Yaroslav Askarov",
     "awayGoalie": "FLA: Daniil Tarasov",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "FLA (OTW), SJS: 0.69735 v FLA: 0.73521      Expected difference: 0.0378599999999998, (SJS: 1.16225 v FLA: 1.22535) (SJS: 48.68% , FLA: 51.32%)",
+    "outcome": "SJS, SJS: 0.69735 v FLA: 0.59388      Expected difference: 0.10347, (SJS: 1.16225 v FLA: 0.9898) (SJS: 54.01% , FLA: 45.99%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "19:01:01",
+    "timeLastRun": "21:24:10",
     "correctLines": 0,
     "totalLines": 1
   }
