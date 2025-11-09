@@ -28,15 +28,15 @@
   {
     "homeABV": "TOR",
     "awayABV": "CAR",
-    "homeGoalie": {},
-    "awayGoalie": {},
+    "homeGoalie": "TOR: Dennis Hildeby",
+    "awayGoalie": "CAR: Brandon Bussi",
     "homeScorers": {},
-    "awayScorers": {},
-    "outcome": "TOR, TOR: 0.70845 v CAR: 0.48389      Expected difference: 0.22456, (TOR: 1.18075 v CAR: 0.80648) (TOR: 59.42% , CAR: 40.58%)",
+    "awayScorers": "Seth Jarvis, CAR: 0.45237      (0.75395)",
+    "outcome": "CAR, TOR: 1.17229 v CAR: 2.12327      Expected difference: 0.95098, (TOR: 1.95382 v CAR: 3.53878) (TOR: 35.57% , CAR: 64.43%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "16:32:27",
+    "timeLastRun": "17:02:33",
     "correctLines": 0,
-    "totalLines": 1
+    "totalLines": 2
   },
   {
     "homeABV": "OTT",
@@ -45,9 +45,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "OTT, OTT: 0.72664 v UTA: 0.01952      Expected difference: 0.70712, (OTT: 1.21107 v UTA: 0.03253) (OTT: 97.38% , UTA: 2.62%)",
+    "outcome": "OTT, OTT: 0.57997 v UTA: 0.01952      Expected difference: 0.56045, (OTT: 0.96662 v UTA: 0.03253) (OTT: 96.74% , UTA: 3.26%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "16:32:29",
+    "timeLastRun": "17:02:35",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -58,9 +58,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "DAL, DAL: 0.96614 v SEA: 0.30038      Expected difference: 0.66576, (DAL: 1.61023 v SEA: 0.50063) (DAL: 76.28% , SEA: 23.72%)",
+    "outcome": "DAL, DAL: 0.7687 v SEA: 0.24094      Expected difference: 0.52776, (DAL: 1.28117 v SEA: 0.40157) (DAL: 76.14% , SEA: 23.86%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "16:32:32",
+    "timeLastRun": "17:02:37",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -69,13 +69,13 @@
     "awayABV": "CGY",
     "homeGoalie": "MIN: Jesper Wallstedt",
     "awayGoalie": "CGY: Devin Cooley",
-    "homeScorers": ["Kirill Kaprizov, MIN: 0.75385      (1.25641666666667)", "Matt Boldy, MIN: 0.43849      (0.730816666666667)"],
+    "homeScorers": "Kirill Kaprizov, MIN: 0.59818      (0.996966666666667)",
     "awayScorers": {},
-    "outcome": "MIN, MIN: 2.36992 v CGY: 0.19541      Expected difference: 2.17451, (MIN: 3.94987 v CGY: 0.32568) (MIN: 92.38% , CGY: 7.62%)",
+    "outcome": "MIN, MIN: 1.88053 v CGY: 0.15842      Expected difference: 1.72211, (MIN: 3.13422 v CGY: 0.26403) (MIN: 92.23% , CGY: 7.77%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "16:32:33",
+    "timeLastRun": "17:02:38",
     "correctLines": 0,
-    "totalLines": 3
+    "totalLines": 2
   },
   {
     "homeABV": "VAN",
@@ -84,9 +84,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "VAN, VAN: 1.08713 v COL: 0.65729      Expected difference: 0.42984, (VAN: 1.81188 v COL: 1.09548) (VAN: 62.32% , COL: 37.68%)",
+    "outcome": "VAN, VAN: 0.86403 v COL: 0.52649      Expected difference: 0.33754, (VAN: 1.44005 v COL: 0.87748) (VAN: 62.14% , COL: 37.86%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "16:32:35",
+    "timeLastRun": "17:02:40",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -97,9 +97,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "ANA, ANA: 1.11939 v WPG: 0.20329      Expected difference: 0.9161, (ANA: 1.86565 v WPG: 0.33882) (ANA: 84.63% , WPG: 15.37%)",
+    "outcome": "ANA, ANA: 0.88999 v WPG: 0.16481      Expected difference: 0.72518, (ANA: 1.48332 v WPG: 0.27468) (ANA: 84.38% , WPG: 15.62%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "16:32:37",
+    "timeLastRun": "17:02:42",
     "correctLines": 0,
     "totalLines": 1
   }
