@@ -34,7 +34,7 @@
     "awayScorers": "Seth Jarvis, CAR: 0.45237      (0.75395)",
     "outcome": "CAR, TOR: 1.17229 v CAR: 2.12327      Expected difference: 0.95098, (TOR: 1.95382 v CAR: 3.53878) (TOR: 35.57% , CAR: 64.43%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "17:37:51",
+    "timeLastRun": "18:00:46",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -47,20 +47,20 @@
     "awayScorers": {},
     "outcome": "OTT, OTT: 0.57997 v UTA: 0.01952      Expected difference: 0.56045, (OTT: 0.96662 v UTA: 0.03253) (OTT: 96.74% , UTA: 3.26%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "17:37:53",
+    "timeLastRun": "18:00:48",
     "correctLines": 0,
     "totalLines": 1
   },
   {
     "homeABV": "DAL",
     "awayABV": "SEA",
-    "homeGoalie": {},
+    "homeGoalie": "DAL: Casey DeSmith",
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "DAL, DAL: 0.7687 v SEA: 0.24094      Expected difference: 0.52776, (DAL: 1.28117 v SEA: 0.40157) (DAL: 76.14% , SEA: 23.86%)",
+    "outcome": "DAL, DAL: 0.7687 v SEA: 0.13856      Expected difference: 0.63014, (DAL: 1.28117 v SEA: 0.23093) (DAL: 84.73% , SEA: 15.27%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "17:37:54",
+    "timeLastRun": "18:00:50",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -71,9 +71,9 @@
     "awayGoalie": "CGY: Devin Cooley",
     "homeScorers": "Kirill Kaprizov, MIN: 0.59818      (0.996966666666667)",
     "awayScorers": {},
-    "outcome": "MIN, MIN: 1.88053 v CGY: 0.15842      Expected difference: 1.72211, (MIN: 3.13422 v CGY: 0.26403) (MIN: 92.23% , CGY: 7.77%)",
+    "outcome": "MIN, MIN: 1.88053 v CGY: 0.15871      Expected difference: 1.72182, (MIN: 3.13422 v CGY: 0.26452) (MIN: 92.22% , CGY: 7.78%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "17:37:55",
+    "timeLastRun": "18:00:52",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -86,7 +86,7 @@
     "awayScorers": {},
     "outcome": "VAN, VAN: 0.86403 v COL: 0.52649      Expected difference: 0.33754, (VAN: 1.44005 v COL: 0.87748) (VAN: 62.14% , COL: 37.86%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "17:37:56",
+    "timeLastRun": "18:00:53",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -99,7 +99,7 @@
     "awayScorers": {},
     "outcome": "ANA, ANA: 0.88999 v WPG: 0.16481      Expected difference: 0.72518, (ANA: 1.48332 v WPG: 0.27468) (ANA: 84.38% , WPG: 15.62%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "17:37:57",
+    "timeLastRun": "18:00:55",
     "correctLines": 0,
     "totalLines": 1
   }
