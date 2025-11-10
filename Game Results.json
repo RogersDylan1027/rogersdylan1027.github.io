@@ -80,13 +80,13 @@
   {
     "homeABV": "VAN",
     "awayABV": "COL",
-    "homeGoalie": {},
+    "homeGoalie": "VAN: Kevin Lankinen",
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "VAN, VAN: 0.86403 v COL: 0.52649      Expected difference: 0.33754, (VAN: 1.44005 v COL: 0.87748) (VAN: 62.14% , COL: 37.86%)",
+    "outcome": "VAN, VAN: 0.91784 v COL: 0.03039      Expected difference: 0.88745, (VAN: 1.52973 v COL: 0.05065) (VAN: 96.8% , COL: 3.2%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "19:01:05",
+    "timeLastRun": "21:23:53",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -97,9 +97,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "ANA, ANA: 0.88999 v WPG: 0.16481      Expected difference: 0.72518, (ANA: 1.48332 v WPG: 0.27468) (ANA: 84.38% , WPG: 15.62%)",
+    "outcome": "ANA, ANA: 0.95485 v WPG: 0.2689      Expected difference: 0.68595, (ANA: 1.59142 v WPG: 0.44817) (ANA: 78.03% , WPG: 21.97%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "19:01:06",
+    "timeLastRun": "21:23:55",
     "correctLines": 0,
     "totalLines": 1
   }
