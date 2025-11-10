@@ -1463,5 +1463,114 @@
         "totalLines": 1
       }
     ]
+  },
+  {
+    "date": "2025-11-09",
+    "games": [
+      {
+        "homeABV": "DET",
+        "awayABV": "CHI",
+        "homeGoalie": "DET: John Gibson",
+        "awayGoalie": "CHI: Arvid Soderblom",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "DET, DET: 0.45596 v CHI: 0.36347      Expected difference: 0.09249, (DET: 0.75993 v CHI: 0.60578) (DET: 55.64% , CHI: 44.36%)",
+        "startingTime": "13:05:00",
+        "timeLastRun": "13:00:46",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "PIT",
+        "awayABV": "LAK",
+        "homeGoalie": {},
+        "awayGoalie": "LAK: Darcy Kuemper",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "LAK, PIT: 0.77739 v LAK: 0.86369      Expected difference: 0.0863000000000002, (PIT: 1.29565 v LAK: 1.43948) (PIT: 47.37% , LAK: 52.63%)",
+        "startingTime": "14:05:00",
+        "timeLastRun": "14:00:21",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "TOR",
+        "awayABV": "CAR",
+        "homeGoalie": "TOR: Dennis Hildeby",
+        "awayGoalie": "CAR: Brandon Bussi",
+        "homeScorers": {},
+        "awayScorers": "Seth Jarvis, CAR: 0.45237      (0.75395)",
+        "outcome": "CAR, TOR: 1.17229 v CAR: 2.12327      Expected difference: 0.95098, (TOR: 1.95382 v CAR: 3.53878) (TOR: 35.57% , CAR: 64.43%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "19:00:57",
+        "correctLines": 2,
+        "totalLines": 2
+      },
+      {
+        "homeABV": "OTT",
+        "awayABV": "UTA",
+        "homeGoalie": {},
+        "awayGoalie": "UTA: Vitek Vanecek",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "OTT, OTT: 0.84232 v UTA: 0.01952      Expected difference: 0.8228, (OTT: 1.40387 v UTA: 0.03253) (OTT: 97.74% , UTA: 2.26%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "19:00:59",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "DAL",
+        "awayABV": "SEA",
+        "homeGoalie": "DAL: Casey DeSmith",
+        "awayGoalie": "SEA: Matt Murray",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "DAL, DAL: 1.19743 v SEA: 0.13856      Expected difference: 1.05887, (DAL: 1.99572 v SEA: 0.23093) (DAL: 89.63% , SEA: 10.37%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "19:01:01",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "MIN",
+        "awayABV": "CGY",
+        "homeGoalie": "MIN: Jesper Wallstedt",
+        "awayGoalie": "CGY: Devin Cooley",
+        "homeScorers": "Kirill Kaprizov, MIN: 0.59818      (0.996966666666667)",
+        "awayScorers": {},
+        "outcome": "MIN, MIN: 1.88053 v CGY: 0.15842      Expected difference: 1.72211, (MIN: 3.13422 v CGY: 0.26403) (MIN: 92.23% , CGY: 7.77%)",
+        "startingTime": "20:05:00",
+        "timeLastRun": "19:01:03",
+        "correctLines": 2,
+        "totalLines": 2
+      },
+      {
+        "homeABV": "VAN",
+        "awayABV": "COL",
+        "homeGoalie": "VAN: Kevin Lankinen",
+        "awayGoalie": "COL: Mackenzie Blackwood",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "VAN, VAN: 0.4371 v COL: 0.03039      Expected difference: 0.40671, (VAN: 0.7285 v COL: 0.05065) (VAN: 93.5% , COL: 6.5%)",
+        "startingTime": "22:05:00",
+        "timeLastRun": "21:46:13",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "ANA",
+        "awayABV": "WPG",
+        "homeGoalie": "ANA: Lukas Dostal",
+        "awayGoalie": "WPG: Eric Comrie",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "ANA, ANA: 0.90019 v WPG: 0.55087      Expected difference: 0.34932, (ANA: 1.50032 v WPG: 0.91812) (ANA: 62.04% , WPG: 37.96%)",
+        "startingTime": "22:05:00",
+        "timeLastRun": "21:46:16",
+        "correctLines": 1,
+        "totalLines": 1
+      }
+    ]
   }
 ]
