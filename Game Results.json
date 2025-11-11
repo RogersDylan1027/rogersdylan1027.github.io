@@ -8,7 +8,7 @@
     "awayScorers": {},
     "outcome": "TOR, BOS: 0.29889 v TOR: 0.4925      Expected difference: 0.19361, (BOS: 0.49815 v TOR: 0.82083) (BOS: 37.77% , TOR: 62.23%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "14:03:03",
+    "timeLastRun": "14:32:23",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -21,7 +21,7 @@
     "awayScorers": {},
     "outcome": "MTL, MTL: 0.83642 v LAK: 0.40043      Expected difference: 0.43599, (MTL: 1.39403 v LAK: 0.66738) (MTL: 67.63% , LAK: 32.37%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "14:03:05",
+    "timeLastRun": "14:32:24",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -34,20 +34,20 @@
     "awayScorers": {},
     "outcome": "OTT, OTT: 0.52808 v DAL: 0.39022      Expected difference: 0.13786, (OTT: 0.88013 v DAL: 0.65037) (OTT: 57.51% , DAL: 42.49%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "14:03:07",
+    "timeLastRun": "14:32:26",
     "correctLines": 0,
     "totalLines": 1
   },
   {
     "homeABV": "CAR",
     "awayABV": "WSH",
-    "homeGoalie": {},
+    "homeGoalie": "CAR: Frederik Andersen",
     "awayGoalie": "WSH: Logan Thompson",
     "homeScorers": "Seth Jarvis, CAR: 0.37855      (0.630916666666667)",
     "awayScorers": {},
-    "outcome": "CAR, CAR: 1.7626 v WSH: 0.58049      Expected difference: 1.18211, (CAR: 2.93767 v WSH: 0.96748) (CAR: 75.23% , WSH: 24.77%)",
+    "outcome": "CAR, CAR: 1.7626 v WSH: 0.50836      Expected difference: 1.25424, (CAR: 2.93767 v WSH: 0.84727) (CAR: 77.61% , WSH: 22.39%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "14:03:09",
+    "timeLastRun": "14:32:27",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -58,9 +58,9 @@
     "awayGoalie": "CGY: Dustin Wolf",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "CGY, STL: 0.42298 v CGY: 0.60361      Expected difference: 0.18063, (STL: 0.70497 v CGY: 1.00602) (STL: 41.2% , CGY: 58.8%)",
+    "outcome": "CGY, STL: 0.42298 v CGY: 0.60456      Expected difference: 0.18158, (STL: 0.70497 v CGY: 1.0076) (STL: 41.16% , CGY: 58.84%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "14:03:11",
+    "timeLastRun": "14:32:29",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -73,7 +73,7 @@
     "awayScorers": {},
     "outcome": "MIN, MIN: 0.54461 v SJS: 0.30069      Expected difference: 0.24392, (MIN: 0.90768 v SJS: 0.50115) (MIN: 64.43% , SJS: 35.57%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "14:03:12",
+    "timeLastRun": "14:32:31",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -86,20 +86,20 @@
     "awayScorers": {},
     "outcome": "ANA, COL: 0.64103 v ANA: 1.32814      Expected difference: 0.68711, (COL: 1.06838 v ANA: 2.21357) (COL: 32.55% , ANA: 67.45%)",
     "startingTime": "21:35:00",
-    "timeLastRun": "14:03:14",
+    "timeLastRun": "14:32:32",
     "correctLines": 0,
     "totalLines": 1
   },
   {
     "homeABV": "VAN",
     "awayABV": "WPG",
-    "homeGoalie": {},
+    "homeGoalie": "VAN: Thatcher Demko",
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "VAN, VAN: 0.96304 v WPG: 0.39682      Expected difference: 0.56622, (VAN: 1.60507 v WPG: 0.66137) (VAN: 70.82% , WPG: 29.18%)",
+    "outcome": "VAN (OTW), VAN: 0.96304 v WPG: 0.94044      Expected difference: 0.0226000000000002, (VAN: 1.60507 v WPG: 1.5674) (VAN: 50.59% , WPG: 49.41%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "14:03:16",
+    "timeLastRun": "14:32:34",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -112,7 +112,7 @@
     "awayScorers": "Zach Werenski, CBJ: 0.3624      (0.604)",
     "outcome": "CBJ, SEA: 0.30835 v CBJ: 1.72513      Expected difference: 1.41678, (SEA: 0.51392 v CBJ: 2.87522) (SEA: 15.16% , CBJ: 84.84%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "14:03:18",
+    "timeLastRun": "14:32:36",
     "correctLines": 0,
     "totalLines": 2
   }
