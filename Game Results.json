@@ -87,7 +87,7 @@
     "outcome": "ANA (OTW), COL: 1.28387 v ANA: 1.32814      Expected difference: 0.0442700000000003, (COL: 2.13978 v ANA: 2.21357) (COL: 49.15% , ANA: 50.85%)",
     "startingTime": "21:35:00",
     "timeLastRun": "21:30:52",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 2
   },
   {
@@ -113,7 +113,7 @@
     "outcome": "CBJ, SEA: 0.30835 v CBJ: 1.72785      Expected difference: 1.4195, (SEA: 0.51392 v CBJ: 2.87975) (SEA: 15.14% , CBJ: 84.86%)",
     "startingTime": "22:05:00",
     "timeLastRun": "21:30:55",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 2
   }
 ]
