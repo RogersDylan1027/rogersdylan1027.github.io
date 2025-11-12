@@ -86,7 +86,7 @@
     "awayScorers": {},
     "outcome": "ANA (OTW), COL: 1.28387 v ANA: 1.32814      Expected difference: 0.0442700000000003, (COL: 2.13978 v ANA: 2.21357) (COL: 49.15% , ANA: 50.85%)",
     "startingTime": "21:35:00",
-    "timeLastRun": "19:01:49",
+    "timeLastRun": "21:18:24",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -99,7 +99,7 @@
     "awayScorers": {},
     "outcome": "VAN (OTW), VAN: 0.96304 v WPG: 0.93182      Expected difference: 0.0312200000000001, (VAN: 1.60507 v WPG: 1.55303) (VAN: 50.82% , WPG: 49.18%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "19:01:52",
+    "timeLastRun": "21:18:25",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -107,12 +107,12 @@
     "homeABV": "SEA",
     "awayABV": "CBJ",
     "homeGoalie": "SEA: Matt Murray",
-    "awayGoalie": {},
+    "awayGoalie": "CBJ: Jet Greaves",
     "homeScorers": {},
     "awayScorers": "Zach Werenski, CBJ: 0.3624      (0.604)",
     "outcome": "CBJ, SEA: 0.30835 v CBJ: 1.72785      Expected difference: 1.4195, (SEA: 0.51392 v CBJ: 2.87975) (SEA: 15.14% , CBJ: 84.86%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "19:01:54",
+    "timeLastRun": "21:18:26",
     "correctLines": 0,
     "totalLines": 2
   }
