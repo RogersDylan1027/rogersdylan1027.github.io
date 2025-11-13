@@ -1751,5 +1751,65 @@
         "totalLines": 2
       }
     ]
+  },
+  {
+    "date": "2025-11-12",
+    "games": [
+      {
+        "homeABV": "TBL",
+        "awayABV": "NYR",
+        "homeGoalie": "TBL: Andrei Vasilevskiy",
+        "awayGoalie": "NYR: Igor Shesterkin",
+        "homeScorers": "Nikita Kucherov, TBL: 0.35582      (0.593033333333333)",
+        "awayScorers": {},
+        "outcome": "TBL, TBL: 1.37694 v NYR: 0.89117      Expected difference: 0.48577, (TBL: 2.2949 v NYR: 1.48528) (TBL: 60.71% , NYR: 39.29%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "19:01:10",
+        "correctLines": 0,
+        "totalLines": 2
+      },
+      {
+        "homeABV": "PHI",
+        "awayABV": "EDM",
+        "homeGoalie": "PHI: Dan Vladar",
+        "awayGoalie": "EDM: Stuart Skinner",
+        "homeScorers": {},
+        "awayScorers": [
+          "Leon Draisaitl, EDM: 0.57558      (0.9593)",
+          "Connor McDavid, EDM: 0.36977      (0.616283333333333)"
+        ],
+        "outcome": "EDM, PHI: 0.58864 v EDM: 1.67194      Expected difference: 1.0833, (PHI: 0.98107 v EDM: 2.78657) (PHI: 26.04% , EDM: 73.96%)",
+        "startingTime": "19:35:00",
+        "timeLastRun": "19:01:12",
+        "correctLines": 2,
+        "totalLines": 3
+      },
+      {
+        "homeABV": "UTA",
+        "awayABV": "BUF",
+        "homeGoalie": "UTA: Karel Vejmelka",
+        "awayGoalie": "BUF: Colten Ellis",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "UTA, UTA: 1.5729 v BUF: 0.61027      Expected difference: 0.96263, (UTA: 2.6215 v BUF: 1.01712) (UTA: 72.05% , BUF: 27.95%)",
+        "startingTime": "21:05:00",
+        "timeLastRun": "19:01:13",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "CHI",
+        "awayABV": "NJD",
+        "homeGoalie": "CHI: Spencer Knight",
+        "awayGoalie": "NJD: Jacob Markstrom",
+        "homeScorers": {},
+        "awayScorers": "Jack Hughes, NJD: 0.49515      (0.82525)",
+        "outcome": "NJD, CHI: 0.23876 v NJD: 1.58621      Expected difference: 1.34745, (CHI: 0.39793 v NJD: 2.64368) (CHI: 13.08% , NJD: 86.92%)",
+        "startingTime": "21:35:00",
+        "timeLastRun": "21:21:16",
+        "correctLines": 2,
+        "totalLines": 2
+      }
+    ]
   }
 ]
