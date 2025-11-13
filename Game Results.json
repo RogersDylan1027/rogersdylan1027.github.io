@@ -25,7 +25,7 @@
     "outcome": "EDM, PHI: 0.58864 v EDM: 1.67194      Expected difference: 1.0833, (PHI: 0.98107 v EDM: 2.78657) (PHI: 26.04% , EDM: 73.96%)",
     "startingTime": "19:35:00",
     "timeLastRun": "19:01:12",
-    "correctLines": 0,
+    "correctLines": 2,
     "totalLines": 3
   },
   {
@@ -38,7 +38,7 @@
     "outcome": "UTA, UTA: 1.5729 v BUF: 0.61027      Expected difference: 0.96263, (UTA: 2.6215 v BUF: 1.01712) (UTA: 72.05% , BUF: 27.95%)",
     "startingTime": "21:05:00",
     "timeLastRun": "19:01:13",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -51,7 +51,7 @@
     "outcome": "NJD, CHI: 0.23876 v NJD: 1.58621      Expected difference: 1.34745, (CHI: 0.39793 v NJD: 2.64368) (CHI: 13.08% , NJD: 86.92%)",
     "startingTime": "21:35:00",
     "timeLastRun": "21:21:16",
-    "correctLines": 0,
+    "correctLines": 2,
     "totalLines": 2
   }
 ]
