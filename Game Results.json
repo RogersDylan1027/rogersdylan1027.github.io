@@ -18,7 +18,10 @@
     "homeGoalie": "PHI: Dan Vladar",
     "awayGoalie": "EDM: Stuart Skinner",
     "homeScorers": {},
-    "awayScorers": ["Leon Draisaitl, EDM: 0.57558      (0.9593)", "Connor McDavid, EDM: 0.36977      (0.616283333333333)"],
+    "awayScorers": [
+      "Leon Draisaitl, EDM: 0.57558      (0.9593)",
+      "Connor McDavid, EDM: 0.36977      (0.616283333333333)"
+    ],
     "outcome": "EDM, PHI: 0.58864 v EDM: 1.67194      Expected difference: 1.0833, (PHI: 0.98107 v EDM: 2.78657) (PHI: 26.04% , EDM: 73.96%)",
     "startingTime": "19:35:00",
     "timeLastRun": "19:01:12",
@@ -41,13 +44,13 @@
   {
     "homeABV": "CHI",
     "awayABV": "NJD",
-    "homeGoalie": {},
-    "awayGoalie": {},
+    "homeGoalie": "CHI: Spencer Knight",
+    "awayGoalie": "NJD: Jacob Markstrom",
     "homeScorers": {},
-    "awayScorers": "Jack Hughes, NJD: 0.44877      (0.74795)",
-    "outcome": "NJD, CHI: 0.64078 v NJD: 1.43764      Expected difference: 0.79686, (CHI: 1.06797 v NJD: 2.39607) (CHI: 30.83% , NJD: 69.17%)",
+    "awayScorers": "Jack Hughes, NJD: 0.49515      (0.82525)",
+    "outcome": "NJD, CHI: 0.23876 v NJD: 1.58621      Expected difference: 1.34745, (CHI: 0.39793 v NJD: 2.64368) (CHI: 13.08% , NJD: 86.92%)",
     "startingTime": "21:35:00",
-    "timeLastRun": "19:01:16",
+    "timeLastRun": "21:21:16",
     "correctLines": 0,
     "totalLines": 2
   }
