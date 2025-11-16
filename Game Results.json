@@ -19,9 +19,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "VAN, TBL: 0.26769 v VAN: 0.83991      Expected difference: 0.57222, (TBL: 0.44615 v VAN: 1.39985) (TBL: 24.17% , VAN: 75.83%)",
+    "outcome": "VAN, TBL: 0.26769 v VAN: 0.52906      Expected difference: 0.26137, (TBL: 0.44615 v VAN: 0.88177) (TBL: 33.6% , VAN: 66.4%)",
     "startingTime": "17:05:00",
-    "timeLastRun": "12:01:07",
+    "timeLastRun": "12:35:21",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -30,13 +30,13 @@
     "awayABV": "VGK",
     "homeGoalie": "MIN: Filip Gustavsson",
     "awayGoalie": {},
-    "homeScorers": "Kirill Kaprizov, MIN: 0.53815      (0.896916666666667)",
+    "homeScorers": {},
     "awayScorers": {},
-    "outcome": "MIN, MIN: 1.51625 v VGK: 0.56052      Expected difference: 0.95573, (MIN: 2.52708 v VGK: 0.9342) (MIN: 73.01% , VGK: 26.99%)",
+    "outcome": "MIN, MIN: 0.95265 v VGK: 0.56052      Expected difference: 0.39213, (MIN: 1.58775 v VGK: 0.9342) (MIN: 62.96% , VGK: 37.04%)",
     "startingTime": "18:05:00",
-    "timeLastRun": "12:01:09",
+    "timeLastRun": "12:35:22",
     "correctLines": 0,
-    "totalLines": 2
+    "totalLines": 1
   },
   {
     "homeABV": "NYR",
@@ -44,12 +44,12 @@
     "homeGoalie": {},
     "awayGoalie": {},
     "homeScorers": {},
-    "awayScorers": ["Dylan Larkin, DET: 0.38531      (0.642183333333333)", "Alex DeBrincat, DET: 0.38941      (0.649016666666667)"],
-    "outcome": "DET, NYR: 0.5874 v DET: 1.72473      Expected difference: 1.13733, (NYR: 0.979 v DET: 2.87455) (NYR: 25.41% , DET: 74.59%)",
+    "awayScorers": {},
+    "outcome": "DET, NYR: 0.3723 v DET: 1.21511      Expected difference: 0.84281, (NYR: 0.6205 v DET: 2.02518) (NYR: 23.45% , DET: 76.55%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "12:01:10",
+    "timeLastRun": "12:35:24",
     "correctLines": 0,
-    "totalLines": 3
+    "totalLines": 1
   },
   {
     "homeABV": "COL",
@@ -57,11 +57,11 @@
     "homeGoalie": "COL: Scott Wedgewood",
     "awayGoalie": {},
     "homeScorers": {},
-    "awayScorers": ["Bo Horvat, NYI: 0.38801      (0.646683333333333)", "Matthew Schaefer, NYI: 0.3519      (0.5865)"],
-    "outcome": "NYI, COL: 0.46452 v NYI: 1.70442      Expected difference: 1.2399, (COL: 0.7742 v NYI: 2.8407) (COL: 21.42% , NYI: 78.58%)",
+    "awayScorers": {},
+    "outcome": "NYI, COL: 0.41669 v NYI: 1.32203      Expected difference: 0.90534, (COL: 0.69448 v NYI: 2.20338) (COL: 23.97% , NYI: 76.03%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "12:01:12",
+    "timeLastRun": "12:35:25",
     "correctLines": 0,
-    "totalLines": 3
+    "totalLines": 1
   }
 ]
