@@ -17,13 +17,13 @@
     "awayABV": "VAN",
     "homeGoalie": "TBL: Jonas Johansson",
     "awayGoalie": "VAN: Kevin Lankinen",
-    "homeScorers": ["Nikita Kucherov, TBL: 0.51275      (0.854583333333333)", "Jake Guentzel, TBL: 0.45851      (0.764183333333333)"],
+    "homeScorers": ["Nikita Kucherov, TBL: 0.51275      (0.854583333333333)", "Jake Guentzel, TBL: 0.45851      (0.764183333333333)", "Brandon Hagel, TBL: 0.37469      (0.624483333333333)"],
     "awayScorers": {},
-    "outcome": "TBL, TBL: 1.7667 v VAN: 0.7392      Expected difference: 1.0275, (TBL: 2.9445 v VAN: 1.232) (TBL: 70.5% , VAN: 29.5%)",
+    "outcome": "TBL, TBL: 2.14139 v VAN: 0.7392      Expected difference: 1.40219, (TBL: 3.56898 v VAN: 1.232) (TBL: 74.34% , VAN: 25.66%)",
     "startingTime": "17:05:00",
-    "timeLastRun": "16:32:53",
+    "timeLastRun": "17:01:08",
     "correctLines": 0,
-    "totalLines": 3
+    "totalLines": 4
   },
   {
     "homeABV": "MIN",
@@ -34,7 +34,7 @@
     "awayScorers": {},
     "outcome": "MIN, MIN: 1.14765 v VGK: 0.60564      Expected difference: 0.54201, (MIN: 1.91275 v VGK: 1.0094) (MIN: 65.46% , VGK: 34.54%)",
     "startingTime": "18:05:00",
-    "timeLastRun": "16:32:54",
+    "timeLastRun": "17:01:09",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -45,9 +45,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "DET, NYR: 0.58932 v DET: 1.34756      Expected difference: 0.75824, (NYR: 0.9822 v DET: 2.24593) (NYR: 30.43% , DET: 69.57%)",
+    "outcome": "DET, NYR: 0.58961 v DET: 1.34756      Expected difference: 0.75795, (NYR: 0.98268 v DET: 2.24593) (NYR: 30.44% , DET: 69.56%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "16:32:55",
+    "timeLastRun": "17:01:11",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -60,7 +60,7 @@
     "awayScorers": {},
     "outcome": "NYI, COL: 0.70873 v NYI: 1.48296      Expected difference: 0.77423, (COL: 1.18122 v NYI: 2.4716) (COL: 32.34% , NYI: 67.66%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "16:32:57",
+    "timeLastRun": "17:01:13",
     "correctLines": 0,
     "totalLines": 1
   }
