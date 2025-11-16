@@ -45,13 +45,13 @@
   {
     "homeABV": "NYR",
     "awayABV": "DET",
-    "homeGoalie": {},
-    "awayGoalie": {},
+    "homeGoalie": "NYR: Jonathan Quick",
+    "awayGoalie": "DET: Cam Talbot",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "DET, NYR: 0.58932 v DET: 1.34756      Expected difference: 0.75824, (NYR: 0.9822 v DET: 2.24593) (NYR: 30.43% , DET: 69.57%)",
+    "outcome": "NYR, NYR: 0.74689 v DET: 0.02029      Expected difference: 0.7266, (NYR: 1.24482 v DET: 0.03382) (NYR: 97.36% , DET: 2.64%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "18:00:55",
+    "timeLastRun": "18:35:14",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -62,9 +62,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "NYI, COL: 0.70873 v NYI: 1.48296      Expected difference: 0.77423, (COL: 1.18122 v NYI: 2.4716) (COL: 32.34% , NYI: 67.66%)",
+    "outcome": "NYI, COL: 0.63855 v NYI: 1.3324      Expected difference: 0.69385, (COL: 1.06425 v NYI: 2.22067) (COL: 32.4% , NYI: 67.6%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "18:00:56",
+    "timeLastRun": "18:35:17",
     "correctLines": 0,
     "totalLines": 1
   }
