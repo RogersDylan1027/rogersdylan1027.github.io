@@ -17,7 +17,11 @@
     "awayABV": "VAN",
     "homeGoalie": "TBL: Jonas Johansson",
     "awayGoalie": "VAN: Kevin Lankinen",
-    "homeScorers": ["Nikita Kucherov, TBL: 0.51275      (0.854583333333333)", "Jake Guentzel, TBL: 0.45851      (0.764183333333333)", "Brandon Hagel, TBL: 0.37469      (0.624483333333333)"],
+    "homeScorers": [
+      "Nikita Kucherov, TBL: 0.51275      (0.854583333333333)",
+      "Jake Guentzel, TBL: 0.45851      (0.764183333333333)",
+      "Brandon Hagel, TBL: 0.37469      (0.624483333333333)"
+    ],
     "awayScorers": {},
     "outcome": "TBL, TBL: 2.14139 v VAN: 0.7392      Expected difference: 1.40219, (TBL: 3.56898 v VAN: 1.232) (TBL: 74.34% , VAN: 25.66%)",
     "startingTime": "17:05:00",
@@ -29,14 +33,14 @@
     "homeABV": "MIN",
     "awayABV": "VGK",
     "homeGoalie": "MIN: Filip Gustavsson",
-    "awayGoalie": {},
-    "homeScorers": "Kirill Kaprizov, MIN: 0.40733      (0.678883333333333)",
+    "awayGoalie": "VGK: Carl Lindbom",
+    "homeScorers": {},
     "awayScorers": {},
-    "outcome": "MIN, MIN: 1.14765 v VGK: 0.60564      Expected difference: 0.54201, (MIN: 1.91275 v VGK: 1.0094) (MIN: 65.46% , VGK: 34.54%)",
+    "outcome": "VGK, MIN: 0.33586 v VGK: 0.60564      Expected difference: 0.26978, (MIN: 0.55977 v VGK: 1.0094) (MIN: 35.67% , VGK: 64.33%)",
     "startingTime": "18:05:00",
-    "timeLastRun": "17:01:09",
+    "timeLastRun": "17:39:17",
     "correctLines": 0,
-    "totalLines": 2
+    "totalLines": 1
   },
   {
     "homeABV": "NYR",
@@ -45,9 +49,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "DET, NYR: 0.58961 v DET: 1.34756      Expected difference: 0.75795, (NYR: 0.98268 v DET: 2.24593) (NYR: 30.44% , DET: 69.56%)",
+    "outcome": "DET, NYR: 0.58932 v DET: 1.34756      Expected difference: 0.75824, (NYR: 0.9822 v DET: 2.24593) (NYR: 30.43% , DET: 69.57%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "17:01:11",
+    "timeLastRun": "17:39:19",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -60,7 +64,7 @@
     "awayScorers": {},
     "outcome": "NYI, COL: 0.70873 v NYI: 1.48296      Expected difference: 0.77423, (COL: 1.18122 v NYI: 2.4716) (COL: 32.34% , NYI: 67.66%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "17:01:13",
+    "timeLastRun": "17:39:21",
     "correctLines": 0,
     "totalLines": 1
   }
