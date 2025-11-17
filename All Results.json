@@ -2177,5 +2177,79 @@
         "totalLines": 2
       }
     ]
+  },
+  {
+    "date": "2025-11-16",
+    "games": [
+      {
+        "homeABV": "PIT",
+        "awayABV": "NSH",
+        "homeGoalie": "PIT: Sergei Murashov",
+        "awayGoalie": "NSH: Juuse Saros",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "PIT, PIT: 0.41705 v NSH: 0.35403      Expected difference: 0.06302, (PIT: 0.69508 v NSH: 0.59005) (PIT: 54.09% , NSH: 45.91%)",
+        "startingTime": "09:05:00",
+        "timeLastRun": "09:00:05",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "TBL",
+        "awayABV": "VAN",
+        "homeGoalie": "TBL: Jonas Johansson",
+        "awayGoalie": "VAN: Kevin Lankinen",
+        "homeScorers": [
+          "Nikita Kucherov, TBL: 0.51275      (0.854583333333333)",
+          "Jake Guentzel, TBL: 0.45851      (0.764183333333333)",
+          "Brandon Hagel, TBL: 0.37469      (0.624483333333333)"
+        ],
+        "awayScorers": {},
+        "outcome": "TBL, TBL: 2.14139 v VAN: 0.7392      Expected difference: 1.40219, (TBL: 3.56898 v VAN: 1.232) (TBL: 74.34% , VAN: 25.66%)",
+        "startingTime": "17:05:00",
+        "timeLastRun": "17:01:08",
+        "correctLines": 3,
+        "totalLines": 4
+      },
+      {
+        "homeABV": "MIN",
+        "awayABV": "VGK",
+        "homeGoalie": "MIN: Filip Gustavsson",
+        "awayGoalie": "VGK: Carl Lindbom",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "VGK, MIN: 0.33586 v VGK: 0.60564      Expected difference: 0.26978, (MIN: 0.55977 v VGK: 1.0094) (MIN: 35.67% , VGK: 64.33%)",
+        "startingTime": "18:05:00",
+        "timeLastRun": "18:00:53",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "NYR",
+        "awayABV": "DET",
+        "homeGoalie": "NYR: Jonathan Quick",
+        "awayGoalie": "DET: Cam Talbot",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "NYR, NYR: 0.74726 v DET: 0.02029      Expected difference: 0.72697, (NYR: 1.24543 v DET: 0.03382) (NYR: 97.36% , DET: 2.64%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "19:00:12",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "COL",
+        "awayABV": "NYI",
+        "homeGoalie": "COL: Scott Wedgewood",
+        "awayGoalie": {},
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "NYI, COL: 0.63855 v NYI: 1.3324      Expected difference: 0.69385, (COL: 1.06425 v NYI: 2.22067) (COL: 32.4% , NYI: 67.6%)",
+        "startingTime": "21:05:00",
+        "timeLastRun": "19:00:13",
+        "correctLines": 0,
+        "totalLines": 1
+      }
+    ]
   }
 ]
