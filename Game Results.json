@@ -8,7 +8,7 @@
     "awayScorers": {},
     "outcome": "CAR, BOS: 0.73573 v CAR: 0.86306      Expected difference: 0.12733, (BOS: 1.22622 v CAR: 1.43843) (BOS: 46.02% , CAR: 53.98%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "13:48:26",
+    "timeLastRun": "14:00:29",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -19,9 +19,9 @@
     "awayGoalie": "EDM: Stuart Skinner",
     "homeScorers": "Tage Thompson, BUF: 0.36869      (0.614483333333333)",
     "awayScorers": {},
-    "outcome": "BUF, BUF: 1.09857 v EDM: 0.42724      Expected difference: 0.67133, (BUF: 1.83095 v EDM: 0.71207) (BUF: 72% , EDM: 28%)",
+    "outcome": "BUF, BUF: 1.1053 v EDM: 0.42724      Expected difference: 0.67806, (BUF: 1.84217 v EDM: 0.71207) (BUF: 72.12% , EDM: 27.88%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "13:48:28",
+    "timeLastRun": "14:00:31",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -34,7 +34,7 @@
     "awayScorers": {},
     "outcome": "VAN, FLA: 0.78854 v VAN: 0.84146      Expected difference: 0.05292, (FLA: 1.31423 v VAN: 1.40243) (FLA: 48.38% , VAN: 51.62%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "13:48:31",
+    "timeLastRun": "14:00:33",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -47,7 +47,7 @@
     "awayScorers": ["Kevin Fiala, LAK: 0.43486      (0.724766666666667)", "Adrian Kempe, LAK: 0.39429      (0.65715)"],
     "outcome": "LAK, WSH: 1.28022 v LAK: 1.91751      Expected difference: 0.63729, (WSH: 2.1337 v LAK: 3.19585) (WSH: 40.04% , LAK: 59.96%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "13:48:34",
+    "timeLastRun": "14:00:35",
     "correctLines": 0,
     "totalLines": 3
   },
@@ -60,20 +60,20 @@
     "awayScorers": {},
     "outcome": "CBJ, CBJ: 1.43126 v MTL: 0.73504      Expected difference: 0.69622, (CBJ: 2.38543 v MTL: 1.22507) (CBJ: 66.07% , MTL: 33.93%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "13:48:36",
+    "timeLastRun": "14:00:37",
     "correctLines": 0,
     "totalLines": 1
   },
   {
     "homeABV": "ANA",
     "awayABV": "UTA",
-    "homeGoalie": {},
+    "homeGoalie": "ANA: Lukas Dostal",
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "ANA, ANA: 1.08608 v UTA: 0.73826      Expected difference: 0.34782, (ANA: 1.81013 v UTA: 1.23043) (ANA: 59.53% , UTA: 40.47%)",
+    "outcome": "ANA, ANA: 1.08608 v UTA: 1.01572      Expected difference: 0.07036, (ANA: 1.81013 v UTA: 1.69287) (ANA: 51.67% , UTA: 48.33%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "13:48:38",
+    "timeLastRun": "14:00:39",
     "correctLines": 0,
     "totalLines": 1
   }
