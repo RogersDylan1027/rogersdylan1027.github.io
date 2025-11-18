@@ -44,7 +44,10 @@
     "homeGoalie": "WSH: Charlie Lindgren",
     "awayGoalie": "LAK: Darcy Kuemper",
     "homeScorers": {},
-    "awayScorers": ["Kevin Fiala, LAK: 0.43486      (0.724766666666667)", "Adrian Kempe, LAK: 0.39429      (0.65715)"],
+    "awayScorers": [
+      "Kevin Fiala, LAK: 0.43486      (0.724766666666667)",
+      "Adrian Kempe, LAK: 0.39429      (0.65715)"
+    ],
     "outcome": "LAK, WSH: 1.04432 v LAK: 1.91751      Expected difference: 0.87319, (WSH: 1.74053 v LAK: 3.19585) (WSH: 35.26% , LAK: 64.74%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:00:55",
@@ -73,7 +76,7 @@
     "awayScorers": {},
     "outcome": "ANA (OTW), ANA: 0.72013 v UTA: 0.67417      Expected difference: 0.0459600000000002, (ANA: 1.20022 v UTA: 1.12362) (ANA: 51.65% , UTA: 48.35%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "19:01:01",
+    "timeLastRun": "21:18:20",
     "correctLines": 0,
     "totalLines": 1
   }
