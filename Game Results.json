@@ -2,28 +2,28 @@
   {
     "homeABV": "WSH",
     "awayABV": "EDM",
-    "homeGoalie": {},
+    "homeGoalie": "WSH: Logan Thompson",
     "awayGoalie": {},
     "homeScorers": {},
-    "awayScorers": "Leon Draisaitl, EDM: 0.35573      (0.592883333333333)",
-    "outcome": "EDM, WSH: 0.74365 v EDM: 1.20296      Expected difference: 0.45931, (WSH: 1.23942 v EDM: 2.00493) (WSH: 38.2% , EDM: 61.8%)",
+    "awayScorers": {},
+    "outcome": "WSH, WSH: 1.0098 v EDM: 0.02422      Expected difference: 0.98558, (WSH: 1.683 v EDM: 0.04037) (WSH: 97.66% , EDM: 2.34%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "10:01:22",
+    "timeLastRun": "10:39:23",
     "correctLines": 0,
-    "totalLines": 2
+    "totalLines": 1
   },
   {
     "homeABV": "BUF",
     "awayABV": "CGY",
     "homeGoalie": {},
     "awayGoalie": {},
-    "homeScorers": "Tage Thompson, BUF: 0.37576      (0.626266666666667)",
+    "homeScorers": {},
     "awayScorers": {},
-    "outcome": "BUF, BUF: 1.12004 v CGY: 0.5813      Expected difference: 0.53874, (BUF: 1.86673 v CGY: 0.96883) (BUF: 65.83% , CGY: 34.17%)",
+    "outcome": "BUF, BUF: 0.83264 v CGY: 0.43443      Expected difference: 0.39821, (BUF: 1.38773 v CGY: 0.72405) (BUF: 65.71% , CGY: 34.29%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "10:01:34",
+    "timeLastRun": "10:39:25",
     "correctLines": 0,
-    "totalLines": 2
+    "totalLines": 1
   },
   {
     "homeABV": "MIN",
@@ -32,9 +32,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "MIN, MIN: 0.8952 v CAR: 0.02114      Expected difference: 0.87406, (MIN: 1.492 v CAR: 0.03523) (MIN: 97.69% , CAR: 2.31%)",
+    "outcome": "CAR, MIN: 0.66719 v CAR: 1.55306      Expected difference: 0.88587, (MIN: 1.11198 v CAR: 2.58843) (MIN: 30.05% , CAR: 69.95%)",
     "startingTime": "21:35:00",
-    "timeLastRun": "10:01:36",
+    "timeLastRun": "10:39:26",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -45,9 +45,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "ANA, ANA: 1.39612 v BOS: 0.26029      Expected difference: 1.13583, (ANA: 2.32687 v BOS: 0.43382) (ANA: 84.29% , BOS: 15.71%)",
+    "outcome": "ANA, ANA: 1.52244 v BOS: 0.30007      Expected difference: 1.22237, (ANA: 2.5374 v BOS: 0.50012) (ANA: 83.54% , BOS: 16.46%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "10:01:38",
+    "timeLastRun": "10:39:28",
     "correctLines": 0,
     "totalLines": 1
   }
