@@ -30,7 +30,11 @@
     "awayABV": "NJD",
     "homeGoalie": "TBL: Andrei Vasilevskiy",
     "awayGoalie": "NJD: Jacob Markstrom",
-    "homeScorers": ["Nikita Kucherov, TBL: 0.51461      (0.857683333333333)", "Jake Guentzel, TBL: 0.46583      (0.776383333333333)", "Brandon Hagel, TBL: 0.37062      (0.6177)"],
+    "homeScorers": [
+      "Nikita Kucherov, TBL: 0.51461      (0.857683333333333)",
+      "Jake Guentzel, TBL: 0.46583      (0.776383333333333)",
+      "Brandon Hagel, TBL: 0.37062      (0.6177)"
+    ],
     "awayScorers": {},
     "outcome": "TBL, TBL: 2.31942 v NJD: 0.91502      Expected difference: 1.4044, (TBL: 3.8657 v NJD: 1.52503) (TBL: 71.71% , NJD: 28.29%)",
     "startingTime": "19:05:00",
@@ -86,7 +90,7 @@
     "awayScorers": {},
     "outcome": "VGK, VGK: 2.08817 v NYR: 1.29692      Expected difference: 0.79125, (VGK: 3.48028 v NYR: 2.16153) (VGK: 61.69% , NYR: 38.31%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "19:00:38",
+    "timeLastRun": "21:17:43",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -99,7 +103,7 @@
     "awayScorers": {},
     "outcome": "SJS, SJS: 0.64058 v UTA: 0.40308      Expected difference: 0.2375, (SJS: 1.06763 v UTA: 0.6718) (SJS: 61.38% , UTA: 38.62%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "19:00:40",
+    "timeLastRun": "21:17:47",
     "correctLines": 0,
     "totalLines": 1
   }
