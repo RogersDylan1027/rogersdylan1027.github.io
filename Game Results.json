@@ -9,7 +9,7 @@
     "outcome": "TOR, TOR: 0.53538 v STL: 0.4655      Expected difference: 0.0698799999999999, (TOR: 0.8923 v STL: 0.77583) (TOR: 53.49% , STL: 46.51%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:00:25",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -22,7 +22,7 @@
     "outcome": "DET (OTW), DET: 1.14229 v SEA: 1.10201      Expected difference: 0.0402800000000001, (DET: 1.90382 v SEA: 1.83668) (DET: 50.9% , SEA: 49.1%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:00:27",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -39,7 +39,7 @@
     "outcome": "TBL, TBL: 2.31942 v NJD: 0.91502      Expected difference: 1.4044, (TBL: 3.8657 v NJD: 1.52503) (TBL: 71.71% , NJD: 28.29%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:00:29",
-    "correctLines": 0,
+    "correctLines": 3,
     "totalLines": 4
   },
   {
@@ -52,7 +52,7 @@
     "outcome": "NYI, DAL: 0.29693 v NYI: 1.05887      Expected difference: 0.76194, (DAL: 0.49488 v NYI: 1.76478) (DAL: 21.9% , NYI: 78.1%)",
     "startingTime": "20:05:00",
     "timeLastRun": "19:00:32",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -91,7 +91,7 @@
     "outcome": "VGK, VGK: 2.08817 v NYR: 1.29738      Expected difference: 0.79079, (VGK: 3.48028 v NYR: 2.1623) (VGK: 61.68% , NYR: 38.32%)",
     "startingTime": "22:05:00",
     "timeLastRun": "21:28:31",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 2
   },
   {
@@ -104,7 +104,7 @@
     "outcome": "SJS, SJS: 0.64058 v UTA: 0.40308      Expected difference: 0.2375, (SJS: 1.06763 v UTA: 0.6718) (SJS: 61.38% , UTA: 38.62%)",
     "startingTime": "22:05:00",
     "timeLastRun": "21:28:33",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   }
 ]
