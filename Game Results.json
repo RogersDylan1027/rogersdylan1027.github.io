@@ -6,9 +6,9 @@
     "awayGoalie": "EDM: Stuart Skinner",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "WSH, WSH: 0.60901 v EDM: 0.02403      Expected difference: 0.58498, (WSH: 1.01502 v EDM: 0.04005) (WSH: 96.2% , EDM: 3.8%)",
+    "outcome": "WSH, WSH: 0.60589 v EDM: 0.02403      Expected difference: 0.58186, (WSH: 1.00982 v EDM: 0.04005) (WSH: 96.19% , EDM: 3.81%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "13:47:59",
+    "timeLastRun": "14:04:27",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -21,7 +21,7 @@
     "awayScorers": {},
     "outcome": "BUF, BUF: 0.83264 v CGY: 0.43443      Expected difference: 0.39821, (BUF: 1.38773 v CGY: 0.72405) (BUF: 65.71% , CGY: 34.29%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "13:48:03",
+    "timeLastRun": "14:04:30",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -34,20 +34,20 @@
     "awayScorers": {},
     "outcome": "CAR, MIN: 0.99528 v CAR: 1.55306      Expected difference: 0.55778, (MIN: 1.6588 v CAR: 2.58843) (MIN: 39.06% , CAR: 60.94%)",
     "startingTime": "21:35:00",
-    "timeLastRun": "13:48:05",
+    "timeLastRun": "14:04:32",
     "correctLines": 0,
     "totalLines": 2
   },
   {
     "homeABV": "ANA",
     "awayABV": "BOS",
-    "homeGoalie": {},
+    "homeGoalie": "ANA: Lukas Dostal",
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "ANA, ANA: 1.52244 v BOS: 0.30007      Expected difference: 1.22237, (ANA: 2.5374 v BOS: 0.50012) (ANA: 83.54% , BOS: 16.46%)",
+    "outcome": "ANA, ANA: 1.52244 v BOS: 0.60926      Expected difference: 0.91318, (ANA: 2.5374 v BOS: 1.01543) (ANA: 71.42% , BOS: 28.58%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "13:48:08",
+    "timeLastRun": "14:04:34",
     "correctLines": 0,
     "totalLines": 1
   }
