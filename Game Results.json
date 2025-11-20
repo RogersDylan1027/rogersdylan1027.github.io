@@ -3,12 +3,12 @@
     "homeABV": "TOR",
     "awayABV": "CBJ",
     "homeGoalie": {},
-    "awayGoalie": {},
+    "awayGoalie": "CBJ: Jet Greaves",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "CBJ, TOR: 0.32119 v CBJ: 0.49595      Expected difference: 0.17476, (TOR: 0.53532 v CBJ: 0.82658) (TOR: 39.31% , CBJ: 60.69%)",
+    "outcome": "TOR, TOR: 0.62221 v CBJ: 0.49595      Expected difference: 0.12626, (TOR: 1.03702 v CBJ: 0.82658) (TOR: 55.65% , CBJ: 44.35%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "11:48:08",
+    "timeLastRun": "12:02:36",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -21,7 +21,7 @@
     "awayScorers": {},
     "outcome": "MTL, MTL: 1.10315 v WSH: 0.39237      Expected difference: 0.71078, (MTL: 1.83858 v WSH: 0.65395) (MTL: 73.76% , WSH: 26.24%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "11:48:10",
+    "timeLastRun": "12:02:37",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -34,7 +34,7 @@
     "awayScorers": {},
     "outcome": "DET, DET: 0.73192 v NYI: 0.46601      Expected difference: 0.26591, (DET: 1.21987 v NYI: 0.77668) (DET: 61.1% , NYI: 38.9%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "11:48:11",
+    "timeLastRun": "12:02:39",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -47,7 +47,7 @@
     "awayScorers": {},
     "outcome": "FLA, FLA: 1.54069 v NJD: 0.86551      Expected difference: 0.67518, (FLA: 2.56782 v NJD: 1.44252) (FLA: 64.03% , NJD: 35.97%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "11:48:13",
+    "timeLastRun": "12:02:40",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -60,7 +60,7 @@
     "awayScorers": {},
     "outcome": "STL, PHI: 0.28293 v STL: 1.43731      Expected difference: 1.15438, (PHI: 0.47155 v STL: 2.39552) (PHI: 16.45% , STL: 83.55%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "11:48:15",
+    "timeLastRun": "12:02:42",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -73,7 +73,7 @@
     "awayScorers": "Leon Draisaitl, EDM: 0.48327      (0.80545)",
     "outcome": "EDM, TBL: 0.48111 v EDM: 1.61048      Expected difference: 1.12937, (TBL: 0.80185 v EDM: 2.68413) (TBL: 23% , EDM: 77%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "11:48:17",
+    "timeLastRun": "12:02:44",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -86,7 +86,7 @@
     "awayScorers": {},
     "outcome": "SEA (OTW), CHI: 1.00917 v SEA: 1.04804      Expected difference: 0.0388699999999997, (CHI: 1.68195 v SEA: 1.74673) (CHI: 49.06% , SEA: 50.94%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "11:48:19",
+    "timeLastRun": "12:02:46",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -99,7 +99,7 @@
     "awayScorers": {},
     "outcome": "COL, COL: 2.21504 v NYR: 1.3411      Expected difference: 0.87394, (COL: 3.69173 v NYR: 2.23517) (COL: 62.29% , NYR: 37.71%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "11:48:21",
+    "timeLastRun": "12:02:47",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -112,7 +112,7 @@
     "awayScorers": {},
     "outcome": "UTA, UTA: 1.54135 v VGK: 1.16162      Expected difference: 0.37973, (UTA: 2.56892 v VGK: 1.93603) (UTA: 57.02% , VGK: 42.98%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "11:48:22",
+    "timeLastRun": "12:02:49",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -125,7 +125,7 @@
     "awayScorers": {},
     "outcome": "VAN, VAN: 0.8305 v DAL: 0.3896      Expected difference: 0.4409, (VAN: 1.38417 v DAL: 0.64933) (VAN: 68.07% , DAL: 31.93%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "11:48:24",
+    "timeLastRun": "12:02:51",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -138,7 +138,7 @@
     "awayScorers": {},
     "outcome": "OTT (OTW), ANA: 0.38554 v OTT: 0.40332      Expected difference: 0.01778, (ANA: 0.64257 v OTT: 0.6722) (ANA: 48.87% , OTT: 51.13%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "11:48:26",
+    "timeLastRun": "12:02:53",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -151,7 +151,7 @@
     "awayScorers": {},
     "outcome": "SJS, SJS: 0.87213 v LAK: 0.49746      Expected difference: 0.37467, (SJS: 1.45355 v LAK: 0.8291) (SJS: 63.68% , LAK: 36.32%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "11:48:28",
+    "timeLastRun": "12:02:54",
     "correctLines": 0,
     "totalLines": 1
   }
