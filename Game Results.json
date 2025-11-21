@@ -8,7 +8,7 @@
     "awayScorers": {},
     "outcome": "BUF, BUF: 1.19942 v CHI: 0.285      Expected difference: 0.91442, (BUF: 1.99903 v CHI: 0.475) (BUF: 80.8% , CHI: 19.2%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "09:01:21",
+    "timeLastRun": "09:41:22",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -21,7 +21,7 @@
     "awayScorers": ["Kirill Kaprizov, MIN: 0.59531      (0.992183333333333)", "Matt Boldy, MIN: 0.38385      (0.63975)"],
     "outcome": "MIN, PIT: 0.76379 v MIN: 1.60314      Expected difference: 0.83935, (PIT: 1.27298 v MIN: 2.6719) (PIT: 32.27% , MIN: 67.73%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "09:01:22",
+    "timeLastRun": "09:41:23",
     "correctLines": 0,
     "totalLines": 3
   },
@@ -34,7 +34,7 @@
     "awayScorers": {},
     "outcome": "CAR, WPG: 0.98312 v CAR: 1.4482      Expected difference: 0.46508, (WPG: 1.63853 v CAR: 2.41367) (WPG: 40.44% , CAR: 59.56%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "09:01:25",
+    "timeLastRun": "09:41:26",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -44,11 +44,11 @@
     "homeGoalie": "LAK: Darcy Kuemper",
     "awayGoalie": {},
     "homeScorers": {},
-    "awayScorers": ["David Pastrnak, BOS: 0.52347      (0.87245)", "Riley Tufte, BOS: 0.61643      (1.02738333333333)"],
-    "outcome": "BOS, LAK: 0.38772 v BOS: 1.73703      Expected difference: 1.34931, (LAK: 0.6462 v BOS: 2.89505) (LAK: 18.25% , BOS: 81.75%)",
+    "awayScorers": "David Pastrnak, BOS: 0.52347      (0.87245)",
+    "outcome": "BOS, LAK: 0.38772 v BOS: 1.16927      Expected difference: 0.781549999999999, (LAK: 0.6462 v BOS: 1.94878) (LAK: 24.9% , BOS: 75.1%)",
     "startingTime": "22:35:00",
-    "timeLastRun": "09:01:27",
+    "timeLastRun": "09:41:27",
     "correctLines": 0,
-    "totalLines": 3
+    "totalLines": 2
   }
 ]
