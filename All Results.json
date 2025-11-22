@@ -2668,5 +2668,62 @@
         "totalLines": 1
       }
     ]
+  },
+  {
+    "date": "2025-11-21",
+    "games": [
+      {
+        "homeABV": "BUF",
+        "awayABV": "CHI",
+        "homeGoalie": "BUF: Ukko-Pekka Luukkonen",
+        "awayGoalie": "CHI: Arvid Soderblom",
+        "homeScorers": "Tage Thompson, BUF: 0.42675      (0.71125)",
+        "awayScorers": {},
+        "outcome": "BUF, BUF: 1.35232 v CHI: 0.34115      Expected difference: 1.01117, (BUF: 2.25387 v CHI: 0.56858) (BUF: 79.85% , CHI: 20.15%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "19:00:46",
+        "correctLines": 2,
+        "totalLines": 2
+      },
+      {
+        "homeABV": "PIT",
+        "awayABV": "MIN",
+        "homeGoalie": "PIT: Arturs Silovs",
+        "awayGoalie": "MIN: Filip Gustavsson",
+        "homeScorers": {},
+        "awayScorers": "Kirill Kaprizov, MIN: 0.52821      (0.88035)",
+        "outcome": "MIN, PIT: 0.37676 v MIN: 1.42881      Expected difference: 1.05205, (PIT: 0.62793 v MIN: 2.38135) (PIT: 20.87% , MIN: 79.13%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "19:00:48",
+        "correctLines": 2,
+        "totalLines": 2
+      },
+      {
+        "homeABV": "WPG",
+        "awayABV": "CAR",
+        "homeGoalie": {},
+        "awayGoalie": "CAR: Brandon Bussi",
+        "homeScorers": "Kyle Connor, WPG: 0.39235      (0.653916666666667)",
+        "awayScorers": {},
+        "outcome": "CAR, WPG: 1.36159 v CAR: 1.46971      Expected difference: 0.10812, (WPG: 2.26932 v CAR: 2.44952) (WPG: 48.09% , CAR: 51.91%)",
+        "startingTime": "20:05:00",
+        "timeLastRun": "19:00:51",
+        "correctLines": 2,
+        "totalLines": 2
+      },
+      {
+        "homeABV": "LAK",
+        "awayABV": "BOS",
+        "homeGoalie": "LAK: Darcy Kuemper",
+        "awayGoalie": "BOS: Jeremy Swayman",
+        "homeScorers": {},
+        "awayScorers": "David Pastrnak, BOS: 0.54326      (0.905433333333333)",
+        "outcome": "BOS, LAK: 0.6569 v BOS: 1.2135      Expected difference: 0.5566, (LAK: 1.09483 v BOS: 2.0225) (LAK: 35.12% , BOS: 64.88%)",
+        "startingTime": "22:35:00",
+        "timeLastRun": "22:17:37",
+        "correctLines": 2,
+        "totalLines": 2
+      }
+    ]
   }
 ]
