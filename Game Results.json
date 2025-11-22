@@ -34,7 +34,7 @@
     "awayScorers": {},
     "outcome": "MTL (OTW), MTL: 0.46007 v TOR: 0.44621      Expected difference: 0.01386, (MTL: 0.76678 v TOR: 0.74368) (MTL: 50.76% , TOR: 49.24%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "15:00:39",
+    "timeLastRun": "15:38:40",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -47,7 +47,7 @@
     "awayScorers": {},
     "outcome": "EDM, FLA: 0.37981 v EDM: 0.89261      Expected difference: 0.5128, (FLA: 0.63302 v EDM: 1.48768) (FLA: 29.85% , EDM: 70.15%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "15:00:40",
+    "timeLastRun": "15:38:41",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -60,7 +60,7 @@
     "awayScorers": {},
     "outcome": "PHI (OTW), PHI: 0.91986 v NJD: 0.87616      Expected difference: 0.0436999999999997, (PHI: 1.5331 v NJD: 1.46027) (PHI: 51.22% , NJD: 48.78%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "15:00:42",
+    "timeLastRun": "15:38:42",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -73,7 +73,7 @@
     "awayScorers": {},
     "outcome": "PIT, PIT: 1.38637 v SEA: 0.68673      Expected difference: 0.69964, (PIT: 2.31062 v SEA: 1.14455) (PIT: 66.87% , SEA: 33.13%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "15:00:44",
+    "timeLastRun": "15:38:44",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -86,7 +86,7 @@
     "awayScorers": ["Nikita Kucherov, TBL: 0.37541      (0.625683333333333)", "Jake Guentzel, TBL: 0.37606      (0.626766666666667)"],
     "outcome": "TBL, WSH: 0.82409 v TBL: 1.78705      Expected difference: 0.96296, (WSH: 1.37348 v TBL: 2.97842) (WSH: 31.56% , TBL: 68.44%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "15:00:46",
+    "timeLastRun": "15:38:46",
     "correctLines": 0,
     "totalLines": 3
   },
@@ -99,7 +99,7 @@
     "awayScorers": {},
     "outcome": "SJS (OTW), SJS: 0.26728 v OTT: 0.23968      Expected difference: 0.0276, (SJS: 0.44547 v OTT: 0.39947) (SJS: 52.72% , OTT: 47.28%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "15:00:48",
+    "timeLastRun": "15:38:48",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -112,7 +112,7 @@
     "awayScorers": {},
     "outcome": "COL, NSH: 0.34696 v COL: 0.44077      Expected difference: 0.09381, (NSH: 0.57827 v COL: 0.73462) (NSH: 44.05% , COL: 55.95%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "15:00:50",
+    "timeLastRun": "15:38:49",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -125,7 +125,7 @@
     "awayScorers": {},
     "outcome": "UTA, UTA: 1.50291 v NYR: 0.34564      Expected difference: 1.15727, (UTA: 2.50485 v NYR: 0.57607) (UTA: 81.3% , NYR: 18.7%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "15:00:53",
+    "timeLastRun": "15:38:51",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -138,7 +138,7 @@
     "awayScorers": "Jason Robertson, DAL: 0.38017      (0.633616666666667)",
     "outcome": "DAL, CGY: 0.95565 v DAL: 1.55501      Expected difference: 0.59936, (CGY: 1.59275 v DAL: 2.59168) (CGY: 38.06% , DAL: 61.94%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "15:00:55",
+    "timeLastRun": "15:38:53",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -146,12 +146,12 @@
     "homeABV": "ANA",
     "awayABV": "VGK",
     "homeGoalie": "ANA: Lukas Dostal",
-    "awayGoalie": {},
+    "awayGoalie": "VGK: Akira Schmid",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "ANA, ANA: 0.95761 v VGK: 0.68052      Expected difference: 0.27709, (ANA: 1.59602 v VGK: 1.1342) (ANA: 58.46% , VGK: 41.54%)",
+    "outcome": "ANA, ANA: 1.10494 v VGK: 0.68052      Expected difference: 0.42442, (ANA: 1.84157 v VGK: 1.1342) (ANA: 61.89% , VGK: 38.11%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "15:00:57",
+    "timeLastRun": "15:38:54",
     "correctLines": 0,
     "totalLines": 1
   }
