@@ -8,7 +8,7 @@
     "awayScorers": "Zach Werenski, CBJ: 0.44152      (0.735866666666667)",
     "outcome": "CBJ, NJD: 0.50141 v CBJ: 1.56914      Expected difference: 1.06773, (NJD: 0.83568 v CBJ: 2.61523) (NJD: 24.22% , CBJ: 75.78%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "14:39:25",
+    "timeLastRun": "15:00:22",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -21,7 +21,7 @@
     "awayScorers": {},
     "outcome": "PIT, PHI: 0.89964 v PIT: 1.33359      Expected difference: 0.43395, (PHI: 1.4994 v PIT: 2.22265) (PHI: 40.28% , PIT: 59.72%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "14:39:28",
+    "timeLastRun": "15:00:24",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -32,9 +32,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "BUF, BUF: 1.25181 v WPG: 0.76393      Expected difference: 0.48788, (BUF: 2.08635 v WPG: 1.27322) (BUF: 62.1% , WPG: 37.9%)",
+    "outcome": "BUF, BUF: 1.25233 v WPG: 0.76393      Expected difference: 0.4884, (BUF: 2.08722 v WPG: 1.27322) (BUF: 62.11% , WPG: 37.89%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "14:39:31",
+    "timeLastRun": "15:00:25",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -47,7 +47,7 @@
     "awayScorers": {},
     "outcome": "STL, STL: 1.0677 v ANA: 0.93482      Expected difference: 0.13288, (STL: 1.7795 v ANA: 1.55803) (STL: 53.32% , ANA: 46.68%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "14:39:33",
+    "timeLastRun": "15:00:27",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -55,12 +55,12 @@
     "homeABV": "SJS",
     "awayABV": "UTA",
     "homeGoalie": "SJS: Yaroslav Askarov",
-    "awayGoalie": {},
+    "awayGoalie": "UTA: Karel Vejmelka",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "SJS, SJS: 0.83328 v UTA: 0.71445      Expected difference: 0.11883, (SJS: 1.3888 v UTA: 1.19075) (SJS: 53.84% , UTA: 46.16%)",
+    "outcome": "SJS, SJS: 0.86799 v UTA: 0.71445      Expected difference: 0.15354, (SJS: 1.44665 v UTA: 1.19075) (SJS: 54.85% , UTA: 45.15%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "14:39:36",
+    "timeLastRun": "15:00:29",
     "correctLines": 0,
     "totalLines": 1
   }
