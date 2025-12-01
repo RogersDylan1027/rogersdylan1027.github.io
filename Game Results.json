@@ -8,7 +8,7 @@
     "awayScorers": "Zach Werenski, CBJ: 0.44152      (0.735866666666667)",
     "outcome": "CBJ, NJD: 0.50141 v CBJ: 1.56914      Expected difference: 1.06773, (NJD: 0.83568 v CBJ: 2.61523) (NJD: 24.22% , CBJ: 75.78%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "15:00:22",
+    "timeLastRun": "15:38:10",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -21,20 +21,20 @@
     "awayScorers": {},
     "outcome": "PIT, PHI: 0.89964 v PIT: 1.33359      Expected difference: 0.43395, (PHI: 1.4994 v PIT: 2.22265) (PHI: 40.28% , PIT: 59.72%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "15:00:24",
+    "timeLastRun": "15:38:11",
     "correctLines": 0,
     "totalLines": 1
   },
   {
     "homeABV": "BUF",
     "awayABV": "WPG",
-    "homeGoalie": {},
+    "homeGoalie": "BUF: Ukko-Pekka Luukkonen",
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "BUF, BUF: 1.25233 v WPG: 0.76393      Expected difference: 0.4884, (BUF: 2.08722 v WPG: 1.27322) (BUF: 62.11% , WPG: 37.89%)",
+    "outcome": "BUF, BUF: 1.25181 v WPG: 1.09733      Expected difference: 0.15448, (BUF: 2.08635 v WPG: 1.82888) (BUF: 53.29% , WPG: 46.71%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "15:00:25",
+    "timeLastRun": "15:38:13",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -47,7 +47,7 @@
     "awayScorers": {},
     "outcome": "STL, STL: 1.0677 v ANA: 0.93482      Expected difference: 0.13288, (STL: 1.7795 v ANA: 1.55803) (STL: 53.32% , ANA: 46.68%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "15:00:27",
+    "timeLastRun": "15:38:15",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -60,7 +60,7 @@
     "awayScorers": {},
     "outcome": "SJS, SJS: 0.86799 v UTA: 0.71445      Expected difference: 0.15354, (SJS: 1.44665 v UTA: 1.19075) (SJS: 54.85% , UTA: 45.15%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "15:00:29",
+    "timeLastRun": "15:38:17",
     "correctLines": 0,
     "totalLines": 1
   }
