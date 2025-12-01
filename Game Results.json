@@ -2,15 +2,15 @@
   {
     "homeABV": "NJD",
     "awayABV": "CBJ",
-    "homeGoalie": {},
+    "homeGoalie": "NJD: Jake Allen",
     "awayGoalie": {},
     "homeScorers": {},
-    "awayScorers": {},
-    "outcome": "CBJ, NJD: 0.35326 v CBJ: 0.78392      Expected difference: 0.43066, (NJD: 0.58877 v CBJ: 1.30653) (NJD: 31.06% , CBJ: 68.94%)",
+    "awayScorers": "Zach Werenski, CBJ: 0.42018      (0.7003)",
+    "outcome": "CBJ, NJD: 0.35326 v CBJ: 1.48874      Expected difference: 1.13548, (NJD: 0.58877 v CBJ: 2.48123) (NJD: 19.18% , CBJ: 80.82%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "11:01:12",
+    "timeLastRun": "11:51:07",
     "correctLines": 0,
-    "totalLines": 1
+    "totalLines": 2
   },
   {
     "homeABV": "PHI",
@@ -21,7 +21,7 @@
     "awayScorers": {},
     "outcome": "PIT, PHI: 0.83923 v PIT: 1.14015      Expected difference: 0.30092, (PHI: 1.39872 v PIT: 1.90025) (PHI: 42.4% , PIT: 57.6%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "11:01:13",
+    "timeLastRun": "11:51:09",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -34,7 +34,7 @@
     "awayScorers": {},
     "outcome": "BUF, BUF: 0.82508 v WPG: 0.46363      Expected difference: 0.36145, (BUF: 1.37513 v WPG: 0.77272) (BUF: 64.02% , WPG: 35.98%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "11:01:14",
+    "timeLastRun": "11:51:11",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -47,7 +47,7 @@
     "awayScorers": {},
     "outcome": "ANA, STL: 0.29775 v ANA: 0.58384      Expected difference: 0.28609, (STL: 0.49625 v ANA: 0.97307) (STL: 33.77% , ANA: 66.23%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "11:01:15",
+    "timeLastRun": "11:51:14",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -60,7 +60,7 @@
     "awayScorers": {},
     "outcome": "SJS, SJS: 0.50316 v UTA: 0.41245      Expected difference: 0.09071, (SJS: 0.8386 v UTA: 0.68742) (SJS: 54.95% , UTA: 45.05%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "11:01:16",
+    "timeLastRun": "11:51:17",
     "correctLines": 0,
     "totalLines": 1
   }
