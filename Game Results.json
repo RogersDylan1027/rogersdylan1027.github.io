@@ -9,7 +9,7 @@
     "outcome": "CBJ, NJD: 0.50141 v CBJ: 1.56914      Expected difference: 1.06773, (NJD: 0.83568 v CBJ: 2.61523) (NJD: 24.22% , CBJ: 75.78%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:01:05",
-    "correctLines": 0,
+    "correctLines": 2,
     "totalLines": 2
   },
   {
@@ -22,7 +22,7 @@
     "outcome": "PIT, PHI: 0.89964 v PIT: 1.33359      Expected difference: 0.43395, (PHI: 1.4994 v PIT: 2.22265) (PHI: 40.28% , PIT: 59.72%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:01:07",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -35,7 +35,7 @@
     "outcome": "BUF, BUF: 1.25334 v WPG: 1.09848      Expected difference: 0.15486, (BUF: 2.0889 v WPG: 1.8308) (BUF: 53.29% , WPG: 46.71%)",
     "startingTime": "19:35:00",
     "timeLastRun": "19:01:09",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -61,7 +61,7 @@
     "outcome": "SJS (OTW), SJS: 0.86799 v UTA: 0.82846      Expected difference: 0.0395300000000001, (SJS: 1.44665 v UTA: 1.38077) (SJS: 51.17% , UTA: 48.83%)",
     "startingTime": "22:05:00",
     "timeLastRun": "21:45:48",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   }
 ]
