@@ -8,7 +8,7 @@
     "awayScorers": {},
     "outcome": "NJD, NJD: 1.05354 v DAL: 0.40213      Expected difference: 0.65141, (NJD: 1.7559 v DAL: 0.67022) (NJD: 72.37% , DAL: 27.63%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "13:00:26",
+    "timeLastRun": "13:51:26",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -21,7 +21,7 @@
     "awayScorers": {},
     "outcome": "MTL, MTL: 0.84424 v WPG: 0.31927      Expected difference: 0.52497, (MTL: 1.40707 v WPG: 0.53212) (MTL: 72.56% , WPG: 27.44%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "13:00:28",
+    "timeLastRun": "13:51:28",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -32,9 +32,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "BUF (OTW), PHI: 0.41686 v BUF: 0.45694      Expected difference: 0.0400800000000001, (PHI: 0.69477 v BUF: 0.76157) (PHI: 47.71% , BUF: 52.29%)",
+    "outcome": "BUF (OTW), PHI: 0.41686 v BUF: 0.45916      Expected difference: 0.0423000000000001, (PHI: 0.69477 v BUF: 0.76527) (PHI: 47.59% , BUF: 52.41%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "13:00:30",
+    "timeLastRun": "13:51:30",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -47,20 +47,20 @@
     "awayScorers": {},
     "outcome": "ANA, ANA: 0.81676 v UTA: 0.6045      Expected difference: 0.21226, (ANA: 1.36127 v UTA: 1.0075) (ANA: 57.47% , UTA: 42.53%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "13:00:31",
+    "timeLastRun": "13:51:32",
     "correctLines": 0,
     "totalLines": 1
   },
   {
     "homeABV": "SJS",
     "awayABV": "WSH",
-    "homeGoalie": {},
+    "homeGoalie": "SJS: Yaroslav Askarov",
     "awayGoalie": {},
     "homeScorers": "Pavol Regenda, SJS: 0.46323      (0.77205)",
     "awayScorers": {},
-    "outcome": "SJS, SJS: 1.63361 v WSH: 0.65591      Expected difference: 0.9777, (SJS: 2.72268 v WSH: 1.09318) (SJS: 71.35% , WSH: 28.65%)",
+    "outcome": "SJS, SJS: 1.59524 v WSH: 0.70804      Expected difference: 0.8872, (SJS: 2.65873 v WSH: 1.18007) (SJS: 69.26% , WSH: 30.74%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "13:00:33",
+    "timeLastRun": "13:51:34",
     "correctLines": 0,
     "totalLines": 2
   }
