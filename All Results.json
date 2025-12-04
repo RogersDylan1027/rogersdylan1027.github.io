@@ -2933,5 +2933,75 @@
         "totalLines": 1
       }
     ]
+  },
+  {
+    "date": "2025-12-03",
+    "games": [
+      {
+        "homeABV": "NJD",
+        "awayABV": "DAL",
+        "homeGoalie": "NJD: Jacob Markstrom",
+        "awayGoalie": "DAL: Jake Oettinger",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "NJD, NJD: 1.05354 v DAL: 0.40213      Expected difference: 0.65141, (NJD: 1.7559 v DAL: 0.67022) (NJD: 72.37% , DAL: 27.63%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "19:00:14",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "MTL",
+        "awayABV": "WPG",
+        "homeGoalie": "MTL: Jakub Dobes",
+        "awayGoalie": {},
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "MTL, MTL: 0.84466 v WPG: 0.44235      Expected difference: 0.40231, (MTL: 1.40777 v WPG: 0.73725) (MTL: 65.63% , WPG: 34.37%)",
+        "startingTime": "19:35:00",
+        "timeLastRun": "19:00:16",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "PHI",
+        "awayABV": "BUF",
+        "homeGoalie": "PHI: Samuel Ersson",
+        "awayGoalie": {},
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "BUF (OTW), PHI: 0.41686 v BUF: 0.45713      Expected difference: 0.04027, (PHI: 0.69477 v BUF: 0.76188) (PHI: 47.7% , BUF: 52.3%)",
+        "startingTime": "19:35:00",
+        "timeLastRun": "19:00:18",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "ANA",
+        "awayABV": "UTA",
+        "homeGoalie": "ANA: Ville Husso",
+        "awayGoalie": "UTA: Karel Vejmelka",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "UTA, ANA: 0.90471 v UTA: 1.46452      Expected difference: 0.55981, (ANA: 1.50785 v UTA: 2.44087) (ANA: 38.19% , UTA: 61.81%)",
+        "startingTime": "22:05:00",
+        "timeLastRun": "21:45:46",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "SJS",
+        "awayABV": "WSH",
+        "homeGoalie": "SJS: Yaroslav Askarov",
+        "awayGoalie": "WSH: Charlie Lindgren",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "WSH, SJS: 0.61535 v WSH: 0.71059      Expected difference: 0.0952400000000001, (SJS: 1.02558 v WSH: 1.18432) (SJS: 46.41% , WSH: 53.59%)",
+        "startingTime": "22:05:00",
+        "timeLastRun": "21:45:48",
+        "correctLines": 1,
+        "totalLines": 1
+      }
+    ]
   }
 ]
