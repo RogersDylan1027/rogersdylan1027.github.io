@@ -8,7 +8,7 @@
     "awayScorers": {},
     "outcome": "NJD, NJD: 1.50178 v VGK: 0.50205      Expected difference: 0.99973, (NJD: 2.50297 v VGK: 0.83675) (NJD: 74.95% , VGK: 25.05%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "12:02:40",
+    "timeLastRun": "12:40:41",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -16,25 +16,25 @@
     "homeABV": "WPG",
     "awayABV": "BUF",
     "homeGoalie": {},
-    "awayGoalie": {},
-    "homeScorers": {},
+    "awayGoalie": "BUF: Ukko-Pekka Luukkonen",
+    "homeScorers": "Kyle Connor, WPG: 0.3708      (0.618)",
     "awayScorers": {},
-    "outcome": "BUF, WPG: 0.57532 v BUF: 1.13969      Expected difference: 0.56437, (WPG: 0.95887 v BUF: 1.89948) (WPG: 33.55% , BUF: 66.45%)",
+    "outcome": "WPG, WPG: 1.27138 v BUF: 1.13925      Expected difference: 0.13213, (WPG: 2.11897 v BUF: 1.89875) (WPG: 52.74% , BUF: 47.26%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "12:02:42",
+    "timeLastRun": "12:40:43",
     "correctLines": 0,
-    "totalLines": 1
+    "totalLines": 2
   },
   {
     "homeABV": "DAL",
     "awayABV": "SJS",
-    "homeGoalie": {},
-    "awayGoalie": {},
+    "homeGoalie": "DAL: Jake Oettinger",
+    "awayGoalie": "SJS: Yaroslav Askarov",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "SJS, DAL: 0.5784 v SJS: 1.27887      Expected difference: 0.70047, (DAL: 0.964 v SJS: 2.13145) (DAL: 31.14% , SJS: 68.86%)",
+    "outcome": "SJS, DAL: 0.56474 v SJS: 1.07605      Expected difference: 0.51131, (DAL: 0.94123 v SJS: 1.79342) (DAL: 34.42% , SJS: 65.58%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "12:02:44",
+    "timeLastRun": "12:40:46",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -47,7 +47,7 @@
     "awayScorers": {},
     "outcome": "VAN, VAN: 0.76391 v UTA: 0.3957      Expected difference: 0.36821, (VAN: 1.27318 v UTA: 0.6595) (VAN: 65.88% , UTA: 34.12%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "12:02:47",
+    "timeLastRun": "12:40:48",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -60,7 +60,7 @@
     "awayScorers": {},
     "outcome": "ANA, ANA: 1.60186 v WSH: 0.64712      Expected difference: 0.95474, (ANA: 2.66977 v WSH: 1.07853) (ANA: 71.23% , WSH: 28.77%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "12:02:49",
+    "timeLastRun": "12:40:51",
     "correctLines": 0,
     "totalLines": 1
   }
