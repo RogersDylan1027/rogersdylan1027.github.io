@@ -3138,5 +3138,75 @@
         "totalLines": 1
       }
     ]
+  },
+  {
+    "date": "2025-12-05",
+    "games": [
+      {
+        "homeABV": "NJD",
+        "awayABV": "VGK",
+        "homeGoalie": "NJD: Jacob Markstrom",
+        "awayGoalie": "VGK: Akira Schmid",
+        "homeScorers": "Jack Hughes, NJD: 0.43527      (0.72545)",
+        "awayScorers": {},
+        "outcome": "NJD, NJD: 1.62022 v VGK: 0.50205      Expected difference: 1.11817, (NJD: 2.70037 v VGK: 0.83675) (NJD: 76.34% , VGK: 23.66%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "19:00:16",
+        "correctLines": 0,
+        "totalLines": 2
+      },
+      {
+        "homeABV": "WPG",
+        "awayABV": "BUF",
+        "homeGoalie": "WPG: Eric Comrie",
+        "awayGoalie": "BUF: Ukko-Pekka Luukkonen",
+        "homeScorers": "Kyle Connor, WPG: 0.36041      (0.600683333333333)",
+        "awayScorers": {},
+        "outcome": "WPG, WPG: 1.25238 v BUF: 0.89706      Expected difference: 0.35532, (WPG: 2.0873 v BUF: 1.4951) (WPG: 58.27% , BUF: 41.73%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "19:00:18",
+        "correctLines": 2,
+        "totalLines": 2
+      },
+      {
+        "homeABV": "DAL",
+        "awayABV": "SJS",
+        "homeGoalie": "DAL: Jake Oettinger",
+        "awayGoalie": "SJS: Yaroslav Askarov",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "SJS, DAL: 0.57312 v SJS: 1.05293      Expected difference: 0.47981, (DAL: 0.9552 v SJS: 1.75488) (DAL: 35.25% , SJS: 64.75%)",
+        "startingTime": "20:05:00",
+        "timeLastRun": "19:00:19",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "VAN",
+        "awayABV": "UTA",
+        "homeGoalie": "VAN: Kevin Lankinen",
+        "awayGoalie": {},
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "VAN, VAN: 0.84441 v UTA: 0.3957      Expected difference: 0.44871, (VAN: 1.40735 v UTA: 0.6595) (VAN: 68.09% , UTA: 31.91%)",
+        "startingTime": "21:05:00",
+        "timeLastRun": "19:00:21",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "ANA",
+        "awayABV": "WSH",
+        "homeGoalie": "ANA: Ville Husso",
+        "awayGoalie": "WSH: Logan Thompson",
+        "homeScorers": {},
+        "awayScorers": "Alex Ovechkin, WSH: 0.35778      (0.5963)",
+        "outcome": "ANA, ANA: 1.69572 v WSH: 1.43661      Expected difference: 0.25911, (ANA: 2.8262 v WSH: 2.39435) (ANA: 54.14% , WSH: 45.86%)",
+        "startingTime": "22:05:00",
+        "timeLastRun": "21:26:55",
+        "correctLines": 1,
+        "totalLines": 2
+      }
+    ]
   }
 ]
