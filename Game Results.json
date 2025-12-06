@@ -22,7 +22,7 @@
     "outcome": "WPG, WPG: 1.25238 v BUF: 0.89706      Expected difference: 0.35532, (WPG: 2.0873 v BUF: 1.4951) (WPG: 58.27% , BUF: 41.73%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:00:18",
-    "correctLines": 0,
+    "correctLines": 2,
     "totalLines": 2
   },
   {
@@ -61,7 +61,7 @@
     "outcome": "ANA, ANA: 1.69572 v WSH: 1.43661      Expected difference: 0.25911, (ANA: 2.8262 v WSH: 2.39435) (ANA: 54.14% , WSH: 45.86%)",
     "startingTime": "22:05:00",
     "timeLastRun": "21:26:55",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 2
   }
 ]
