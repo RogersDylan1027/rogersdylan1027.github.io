@@ -21,7 +21,7 @@
     "awayScorers": {},
     "outcome": "CBJ, FLA: 0.39358 v CBJ: 1.28319      Expected difference: 0.88961, (FLA: 0.65597 v CBJ: 2.13865) (FLA: 23.47% , CBJ: 76.53%)",
     "startingTime": "15:35:00",
-    "timeLastRun": "14:32:19",
+    "timeLastRun": "15:00:16",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -34,7 +34,7 @@
     "awayScorers": {},
     "outcome": "NJD, BOS: 0.62453 v NJD: 1.25686      Expected difference: 0.63233, (BOS: 1.04088 v NJD: 2.09477) (BOS: 33.2% , NJD: 66.8%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "14:32:21",
+    "timeLastRun": "15:00:18",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -47,7 +47,7 @@
     "awayScorers": {},
     "outcome": "MTL, TOR: 0.99499 v MTL: 1.4574      Expected difference: 0.46241, (TOR: 1.65832 v MTL: 2.429) (TOR: 40.57% , MTL: 59.43%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "14:32:22",
+    "timeLastRun": "15:00:19",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -60,7 +60,7 @@
     "awayScorers": {},
     "outcome": "OTT, OTT: 0.66607 v STL: 0.53387      Expected difference: 0.1322, (OTT: 1.11012 v STL: 0.88978) (OTT: 55.51% , STL: 44.49%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "14:32:24",
+    "timeLastRun": "15:00:21",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -73,7 +73,7 @@
     "awayScorers": {},
     "outcome": "TBL, TBL: 1.24092 v NYI: 0.9452      Expected difference: 0.29572, (TBL: 2.0682 v NYI: 1.57533) (TBL: 56.76% , NYI: 43.24%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "14:32:25",
+    "timeLastRun": "15:00:22",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -86,7 +86,7 @@
     "awayScorers": {},
     "outcome": "NSH, CAR: 0.91714 v NSH: 1.04637      Expected difference: 0.12923, (CAR: 1.52857 v NSH: 1.74395) (CAR: 46.71% , NSH: 53.29%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "14:32:27",
+    "timeLastRun": "15:00:23",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -99,7 +99,7 @@
     "awayScorers": {},
     "outcome": "UTA (OTW), CGY: 1.14346 v UTA: 1.1725      Expected difference: 0.0290400000000002, (CGY: 1.90577 v UTA: 1.95417) (CGY: 49.37% , UTA: 50.63%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "14:32:28",
+    "timeLastRun": "15:00:25",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -112,7 +112,7 @@
     "awayScorers": {},
     "outcome": "CHI (OTW), LAK: 0.98281 v CHI: 1.02031      Expected difference: 0.0375, (LAK: 1.63802 v CHI: 1.70052) (LAK: 49.06% , CHI: 50.94%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "14:32:29",
+    "timeLastRun": "15:00:26",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -125,7 +125,7 @@
     "awayScorers": {},
     "outcome": "EDM, EDM: 1.44481 v WPG: 1.12729      Expected difference: 0.31752, (EDM: 2.40802 v WPG: 1.87882) (EDM: 56.17% , WPG: 43.83%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "14:32:31",
+    "timeLastRun": "15:00:28",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -138,21 +138,21 @@
     "awayScorers": {},
     "outcome": "VAN, VAN: 1.22783 v MIN: 0.57466      Expected difference: 0.653169999999999, (VAN: 2.04638 v MIN: 0.95777) (VAN: 68.12% , MIN: 31.88%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "14:32:32",
+    "timeLastRun": "15:00:30",
     "correctLines": 0,
     "totalLines": 1
   },
   {
     "homeABV": "SEA",
     "awayABV": "DET",
-    "homeGoalie": {},
+    "homeGoalie": "SEA: Joey Daccord",
     "awayGoalie": "DET: John Gibson",
     "homeScorers": {},
-    "awayScorers": ["Dylan Larkin, DET: 0.35464      (0.591066666666667)", "Alex DeBrincat, DET: 0.37135      (0.618916666666667)"],
-    "outcome": "DET, SEA: 0.2351 v DET: 1.42764      Expected difference: 1.19254, (SEA: 0.39183 v DET: 2.3794) (SEA: 14.14% , DET: 85.86%)",
+    "awayScorers": {},
+    "outcome": "DET, SEA: 0.2351 v DET: 1.02789      Expected difference: 0.79279, (SEA: 0.39183 v DET: 1.71315) (SEA: 18.61% , DET: 81.39%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "14:32:34",
+    "timeLastRun": "15:00:32",
     "correctLines": 0,
-    "totalLines": 3
+    "totalLines": 1
   }
 ]
