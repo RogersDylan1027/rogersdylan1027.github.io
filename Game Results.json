@@ -45,22 +45,22 @@
     "awayGoalie": "PIT: Tristan Jarry",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "DAL, DAL: 0.76811 v PIT: 0.62795      Expected difference: 0.14016, (DAL: 1.28018 v PIT: 1.04658) (DAL: 55.02% , PIT: 44.98%)",
+    "outcome": "DAL, DAL: 0.76842 v PIT: 0.62795      Expected difference: 0.14047, (DAL: 1.2807 v PIT: 1.04658) (DAL: 55.03% , PIT: 44.97%)",
     "startingTime": "18:05:00",
-    "timeLastRun": "17:00:39",
+    "timeLastRun": "17:38:35",
     "correctLines": 0,
     "totalLines": 1
   },
   {
     "homeABV": "MTL",
     "awayABV": "STL",
-    "homeGoalie": {},
+    "homeGoalie": "MTL: Jakub Dobes",
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "MTL, MTL: 0.39075 v STL: 0.23407      Expected difference: 0.15668, (MTL: 0.65125 v STL: 0.39012) (MTL: 62.54% , STL: 37.46%)",
+    "outcome": "MTL, MTL: 0.39075 v STL: 0.22027      Expected difference: 0.17048, (MTL: 0.65125 v STL: 0.36712) (MTL: 63.95% , STL: 36.05%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "17:00:41",
+    "timeLastRun": "17:38:36",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -71,9 +71,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "VGK, NYR: 0.67151 v VGK: 1.16555      Expected difference: 0.49404, (NYR: 1.11918 v VGK: 1.94258) (NYR: 36.55% , VGK: 63.45%)",
+    "outcome": "VGK, NYR: 0.67052 v VGK: 1.16555      Expected difference: 0.49503, (NYR: 1.11753 v VGK: 1.94258) (NYR: 36.52% , VGK: 63.48%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "17:00:42",
+    "timeLastRun": "17:38:38",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -86,7 +86,7 @@
     "awayScorers": {},
     "outcome": "CBJ, WSH: 0.3632 v CBJ: 1.4672      Expected difference: 1.104, (WSH: 0.60533 v CBJ: 2.44533) (WSH: 19.84% , CBJ: 80.16%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "17:00:43",
+    "timeLastRun": "17:38:39",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -99,7 +99,7 @@
     "awayScorers": {},
     "outcome": "ANA, ANA: 0.34296 v CHI: 0.28347      Expected difference: 0.0594900000000001, (ANA: 0.5716 v CHI: 0.47245) (ANA: 54.75% , CHI: 45.25%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "17:00:44",
+    "timeLastRun": "17:38:40",
     "correctLines": 0,
     "totalLines": 1
   }
