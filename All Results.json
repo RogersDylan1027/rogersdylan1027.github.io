@@ -3208,5 +3208,166 @@
         "totalLines": 2
       }
     ]
+  },
+  {
+    "date": "2025-12-06",
+    "games": [
+      {
+        "homeABV": "NYR",
+        "awayABV": "COL",
+        "homeGoalie": "NYR: Igor Shesterkin",
+        "awayGoalie": "COL: Mackenzie Blackwood",
+        "homeScorers": {},
+        "awayScorers": "Nathan MacKinnon, COL: 0.63762      (1.0627)",
+        "outcome": "COL, NYR: 1.16097 v COL: 2.13276      Expected difference: 0.97179, (NYR: 1.93495 v COL: 3.5546) (NYR: 35.25% , COL: 64.75%)",
+        "startingTime": "12:35:00",
+        "timeLastRun": "12:00:15",
+        "correctLines": 2,
+        "totalLines": 2
+      },
+      {
+        "homeABV": "FLA",
+        "awayABV": "CBJ",
+        "homeGoalie": "FLA: Sergei Bobrovsky",
+        "awayGoalie": "CBJ: Elvis Merzlikins",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "CBJ, FLA: 0.39358 v CBJ: 1.28319      Expected difference: 0.88961, (FLA: 0.65597 v CBJ: 2.13865) (FLA: 23.47% , CBJ: 76.53%)",
+        "startingTime": "15:35:00",
+        "timeLastRun": "15:00:16",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "BOS",
+        "awayABV": "NJD",
+        "homeGoalie": "BOS: Jeremy Swayman",
+        "awayGoalie": "NJD: Jake Allen",
+        "homeScorers": {},
+        "awayScorers": "Jack Hughes, NJD: 0.36518      (0.608633333333333)",
+        "outcome": "NJD, BOS: 0.89646 v NJD: 1.34217      Expected difference: 0.44571, (BOS: 1.4941 v NJD: 2.23695) (BOS: 40.05% , NJD: 59.95%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "19:00:44",
+        "correctLines": 0,
+        "totalLines": 2
+      },
+      {
+        "homeABV": "TOR",
+        "awayABV": "MTL",
+        "homeGoalie": "TOR: Dennis Hildeby",
+        "awayGoalie": "MTL: Jakub Dobes",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "MTL, TOR: 1.13221 v MTL: 1.4574      Expected difference: 0.32519, (TOR: 1.88702 v MTL: 2.429) (TOR: 43.72% , MTL: 56.28%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "19:00:46",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "OTT",
+        "awayABV": "STL",
+        "homeGoalie": "OTT: Linus Ullmark",
+        "awayGoalie": "STL: Joel Hofer",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "OTT, OTT: 0.71155 v STL: 0.63072      Expected difference: 0.08083, (OTT: 1.18592 v STL: 1.0512) (OTT: 53.01% , STL: 46.99%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "19:00:48",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "TBL",
+        "awayABV": "NYI",
+        "homeGoalie": "TBL: Jonas Johansson",
+        "awayGoalie": "NYI: Ilya Sorokin",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "TBL, TBL: 1.25958 v NYI: 0.9962      Expected difference: 0.26338, (TBL: 2.0993 v NYI: 1.66033) (TBL: 55.84% , NYI: 44.16%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "19:00:50",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "CAR",
+        "awayABV": "NSH",
+        "homeGoalie": "CAR: Brandon Bussi",
+        "awayGoalie": "NSH: Juuse Saros",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "NSH, CAR: 1.20859 v NSH: 1.42108      Expected difference: 0.21249, (CAR: 2.01432 v NSH: 2.36847) (CAR: 45.96% , NSH: 54.04%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "19:00:52",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "CGY",
+        "awayABV": "UTA",
+        "homeGoalie": "CGY: Dustin Wolf",
+        "awayGoalie": "UTA: Vitek Vanecek",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "UTA, CGY: 0.89409 v UTA: 1.05499      Expected difference: 0.1609, (CGY: 1.49015 v UTA: 1.75832) (CGY: 45.87% , UTA: 54.13%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "19:00:53",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "LAK",
+        "awayABV": "CHI",
+        "homeGoalie": {},
+        "awayGoalie": {},
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "LAK (OTW), LAK: 1.04754 v CHI: 1.01679      Expected difference: 0.0307500000000003, (LAK: 1.7459 v CHI: 1.69465) (LAK: 50.74% , CHI: 49.26%)",
+        "startingTime": "21:05:00",
+        "timeLastRun": "19:00:55",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "EDM",
+        "awayABV": "WPG",
+        "homeGoalie": "EDM: Stuart Skinner",
+        "awayGoalie": "WPG: Eric Comrie",
+        "homeScorers": "Leon Draisaitl, EDM: 0.41267      (0.687783333333333)",
+        "awayScorers": {},
+        "outcome": "EDM, EDM: 1.41481 v WPG: 1.18443      Expected difference: 0.23038, (EDM: 2.35802 v WPG: 1.97405) (EDM: 54.43% , WPG: 45.57%)",
+        "startingTime": "22:05:00",
+        "timeLastRun": "21:54:19",
+        "correctLines": 2,
+        "totalLines": 2
+      },
+      {
+        "homeABV": "VAN",
+        "awayABV": "MIN",
+        "homeGoalie": "VAN: Nikita Tolopilo",
+        "awayGoalie": "MIN: Jesper Wallstedt",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "VAN, VAN: 1.22093 v MIN: 0.46263      Expected difference: 0.7583, (VAN: 2.03488 v MIN: 0.77105) (VAN: 72.52% , MIN: 27.48%)",
+        "startingTime": "22:05:00",
+        "timeLastRun": "21:54:21",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "SEA",
+        "awayABV": "DET",
+        "homeGoalie": "SEA: Joey Daccord",
+        "awayGoalie": "DET: John Gibson",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "DET, SEA: 0.40173 v DET: 1.198      Expected difference: 0.79627, (SEA: 0.66955 v DET: 1.99667) (SEA: 25.11% , DET: 74.89%)",
+        "startingTime": "22:05:00",
+        "timeLastRun": "21:54:23",
+        "correctLines": 1,
+        "totalLines": 1
+      }
+    ]
   }
 ]
