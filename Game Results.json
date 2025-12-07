@@ -21,7 +21,7 @@
     "awayScorers": {},
     "outcome": "NYI (OTW), FLA: 0.69819 v NYI: 0.72563      Expected difference: 0.0274399999999999, (FLA: 1.16365 v NYI: 1.20938) (FLA: 49.04% , NYI: 50.96%)",
     "startingTime": "17:05:00",
-    "timeLastRun": "16:00:24",
+    "timeLastRun": "16:32:56",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -34,7 +34,7 @@
     "awayScorers": {},
     "outcome": "SJS, CAR: 0.38031 v SJS: 1.55895      Expected difference: 1.17864, (CAR: 0.63385 v SJS: 2.59825) (CAR: 19.61% , SJS: 80.39%)",
     "startingTime": "17:05:00",
-    "timeLastRun": "16:00:25",
+    "timeLastRun": "16:32:58",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -42,12 +42,12 @@
     "homeABV": "DAL",
     "awayABV": "PIT",
     "homeGoalie": {},
-    "awayGoalie": {},
+    "awayGoalie": "PIT: Tristan Jarry",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "DAL (OTW), DAL: 0.88088 v PIT: 0.83999      Expected difference: 0.04089, (DAL: 1.46813 v PIT: 1.39998) (DAL: 51.19% , PIT: 48.81%)",
+    "outcome": "PIT (OTW), DAL: 0.86078 v PIT: 0.87679      Expected difference: 0.0160099999999999, (DAL: 1.43463 v PIT: 1.46132) (DAL: 49.54% , PIT: 50.46%)",
     "startingTime": "18:05:00",
-    "timeLastRun": "16:00:27",
+    "timeLastRun": "16:32:59",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -60,7 +60,7 @@
     "awayScorers": {},
     "outcome": "MTL, MTL: 0.49343 v STL: 0.18502      Expected difference: 0.30841, (MTL: 0.82238 v STL: 0.30837) (MTL: 72.73% , STL: 27.27%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "16:00:28",
+    "timeLastRun": "16:33:01",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -73,7 +73,7 @@
     "awayScorers": {},
     "outcome": "VGK, NYR: 0.73941 v VGK: 1.25703      Expected difference: 0.51762, (NYR: 1.23235 v VGK: 2.09505) (NYR: 37.04% , VGK: 62.96%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "16:00:29",
+    "timeLastRun": "16:33:03",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -86,7 +86,7 @@
     "awayScorers": {},
     "outcome": "CBJ, WSH: 0.41514 v CBJ: 1.52261      Expected difference: 1.10747, (WSH: 0.6919 v CBJ: 2.53768) (WSH: 21.42% , CBJ: 78.58%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "16:00:31",
+    "timeLastRun": "16:33:04",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -99,7 +99,7 @@
     "awayScorers": {},
     "outcome": "ANA, ANA: 0.47125 v CHI: 0.28419      Expected difference: 0.18706, (ANA: 0.78542 v CHI: 0.47365) (ANA: 62.38% , CHI: 37.62%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "16:00:32",
+    "timeLastRun": "16:33:06",
     "correctLines": 0,
     "totalLines": 1
   }
