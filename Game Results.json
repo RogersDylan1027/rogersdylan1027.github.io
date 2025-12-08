@@ -35,7 +35,7 @@
     "outcome": "SJS, CAR: 0.42678 v SJS: 1.55895      Expected difference: 1.13217, (CAR: 0.7113 v SJS: 2.59825) (CAR: 21.49% , SJS: 78.51%)",
     "startingTime": "17:05:00",
     "timeLastRun": "17:00:38",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -48,7 +48,7 @@
     "outcome": "DAL, DAL: 0.76811 v PIT: 0.62795      Expected difference: 0.14016, (DAL: 1.28018 v PIT: 1.04658) (DAL: 55.02% , PIT: 44.98%)",
     "startingTime": "18:05:00",
     "timeLastRun": "18:00:54",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -74,7 +74,7 @@
     "outcome": "VGK, NYR: 0.32827 v VGK: 1.95767      Expected difference: 1.6294, (NYR: 0.54712 v VGK: 3.26278) (NYR: 14.36% , VGK: 85.64%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:00:14",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -100,7 +100,7 @@
     "outcome": "ANA, ANA: 0.34296 v CHI: 0.28347      Expected difference: 0.0594900000000001, (ANA: 0.5716 v CHI: 0.47245) (ANA: 54.75% , CHI: 45.25%)",
     "startingTime": "20:05:00",
     "timeLastRun": "19:00:17",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   }
 ]
