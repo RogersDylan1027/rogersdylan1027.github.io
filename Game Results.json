@@ -8,20 +8,20 @@
     "awayScorers": ["Nikita Kucherov, TBL: 0.41933      (0.698883333333333)", "Jake Guentzel, TBL: 0.37883      (0.631383333333333)", "Brandon Hagel, TBL: 0.39138      (0.6523)"],
     "outcome": "TBL, TOR: 1.20044 v TBL: 2.15382      Expected difference: 0.95338, (TOR: 2.00073 v TBL: 3.5897) (TOR: 35.79% , TBL: 64.21%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "13:00:20",
+    "timeLastRun": "13:51:19",
     "correctLines": 0,
     "totalLines": 4
   },
   {
     "homeABV": "UTA",
     "awayABV": "LAK",
-    "homeGoalie": {},
+    "homeGoalie": "UTA: Karel Vejmelka",
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "UTA, UTA: 1.06146 v LAK: 0.94499      Expected difference: 0.11647, (UTA: 1.7691 v LAK: 1.57498) (UTA: 52.9% , LAK: 47.1%)",
+    "outcome": "UTA (OTW), UTA: 1.06146 v LAK: 1.02883      Expected difference: 0.0326299999999997, (UTA: 1.7691 v LAK: 1.71472) (UTA: 50.78% , LAK: 49.22%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "13:00:22",
+    "timeLastRun": "13:51:21",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -32,9 +32,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "BUF, CGY: 0.40154 v BUF: 1.13971      Expected difference: 0.73817, (CGY: 0.66923 v BUF: 1.89952) (CGY: 26.05% , BUF: 73.95%)",
+    "outcome": "BUF, CGY: 0.39892 v BUF: 1.14382      Expected difference: 0.7449, (CGY: 0.66487 v BUF: 1.90637) (CGY: 25.86% , BUF: 74.14%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "13:00:23",
+    "timeLastRun": "13:51:23",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -47,7 +47,7 @@
     "awayScorers": {},
     "outcome": "DET, VAN: 0.23032 v DET: 0.4138      Expected difference: 0.18348, (VAN: 0.38387 v DET: 0.68967) (VAN: 35.76% , DET: 64.24%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "13:00:25",
+    "timeLastRun": "13:51:25",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -60,7 +60,7 @@
     "awayScorers": "Kirill Kaprizov, MIN: 0.46127      (0.768783333333333)",
     "outcome": "MIN, SEA: 0.808 v MIN: 1.31406      Expected difference: 0.50606, (SEA: 1.34667 v MIN: 2.1901) (SEA: 38.08% , MIN: 61.92%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "13:00:26",
+    "timeLastRun": "13:51:27",
     "correctLines": 0,
     "totalLines": 2
   }
