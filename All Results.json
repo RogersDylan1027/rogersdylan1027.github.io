@@ -3478,5 +3478,82 @@
         "totalLines": 1
       }
     ]
+  },
+  {
+    "date": "2025-12-08",
+    "games": [
+      {
+        "homeABV": "TOR",
+        "awayABV": "TBL",
+        "homeGoalie": "TOR: Dennis Hildeby",
+        "awayGoalie": "TBL: Jonas Johansson",
+        "homeScorers": {},
+        "awayScorers": [
+          "Nikita Kucherov, TBL: 0.41933      (0.698883333333333)",
+          "Jake Guentzel, TBL: 0.37883      (0.631383333333333)",
+          "Brandon Hagel, TBL: 0.39138      (0.6523)"
+        ],
+        "outcome": "TBL, TOR: 1.28235 v TBL: 2.1542      Expected difference: 0.87185, (TOR: 2.13725 v TBL: 3.59033) (TOR: 37.32% , TBL: 62.68%)",
+        "startingTime": "19:35:00",
+        "timeLastRun": "19:01:08",
+        "correctLines": 0,
+        "totalLines": 4
+      },
+      {
+        "homeABV": "UTA",
+        "awayABV": "LAK",
+        "homeGoalie": "UTA: Karel Vejmelka",
+        "awayGoalie": "LAK: Darcy Kuemper",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "UTA, UTA: 1.25663 v LAK: 1.08761      Expected difference: 0.16902, (UTA: 2.09438 v LAK: 1.81268) (UTA: 53.61% , LAK: 46.39%)",
+        "startingTime": "21:05:00",
+        "timeLastRun": "19:01:10",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "CGY",
+        "awayABV": "BUF",
+        "homeGoalie": "CGY: Dustin Wolf",
+        "awayGoalie": "BUF: Ukko-Pekka Luukkonen",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "BUF, CGY: 1.02477 v BUF: 1.21181      Expected difference: 0.18704, (CGY: 1.70795 v BUF: 2.01968) (CGY: 45.82% , BUF: 54.18%)",
+        "startingTime": "21:05:00",
+        "timeLastRun": "19:01:11",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "VAN",
+        "awayABV": "DET",
+        "homeGoalie": "VAN: Kevin Lankinen",
+        "awayGoalie": "DET: John Gibson",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "DET, VAN: 0.29449 v DET: 0.4138      Expected difference: 0.11931, (VAN: 0.49082 v DET: 0.68967) (VAN: 41.58% , DET: 58.42%)",
+        "startingTime": "22:05:00",
+        "timeLastRun": "21:45:56",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "SEA",
+        "awayABV": "MIN",
+        "homeGoalie": "SEA: Philipp Grubauer",
+        "awayGoalie": "MIN: Filip Gustavsson",
+        "homeScorers": {},
+        "awayScorers": [
+          "Kirill Kaprizov, MIN: 0.61906      (1.03176666666667)",
+          "Matt Boldy, MIN: 0.41352      (0.6892)"
+        ],
+        "outcome": "MIN, SEA: 0.57805 v MIN: 1.76358      Expected difference: 1.18553, (SEA: 0.96342 v MIN: 2.9393) (SEA: 24.69% , MIN: 75.31%)",
+        "startingTime": "22:05:00",
+        "timeLastRun": "21:45:57",
+        "correctLines": 3,
+        "totalLines": 3
+      }
+    ]
   }
 ]
