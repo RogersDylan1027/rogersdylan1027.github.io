@@ -8,33 +8,33 @@
     "awayScorers": {},
     "outcome": "MTL, MTL: 1.35 v TBL: 0.42838      Expected difference: 0.921619999999999, (MTL: 2.25 v TBL: 0.71397) (MTL: 75.91% , TBL: 24.09%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "10:42:18",
+    "timeLastRun": "11:01:03",
     "correctLines": 0,
     "totalLines": 1
   },
   {
     "homeABV": "OTT",
     "awayABV": "NJD",
-    "homeGoalie": {},
+    "homeGoalie": "OTT: Linus Ullmark",
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "OTT, OTT: 0.45532 v NJD: 0.38263      Expected difference: 0.07269, (OTT: 0.75887 v NJD: 0.63772) (OTT: 54.34% , NJD: 45.66%)",
+    "outcome": "NJD (OTW), OTT: 0.45532 v NJD: 0.49982      Expected difference: 0.0445000000000002, (OTT: 0.75887 v NJD: 0.83303) (OTT: 47.67% , NJD: 52.33%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "10:42:20",
+    "timeLastRun": "11:01:05",
     "correctLines": 0,
     "totalLines": 1
   },
   {
     "homeABV": "NYI",
     "awayABV": "VGK",
-    "homeGoalie": {},
+    "homeGoalie": "NYI: Ilya Sorokin",
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "VGK, NYI: 1.10122 v VGK: 1.37834      Expected difference: 0.27712, (NYI: 1.83537 v VGK: 2.29723) (NYI: 44.41% , VGK: 55.59%)",
+    "outcome": "VGK, NYI: 1.10122 v VGK: 1.52653      Expected difference: 0.42531, (NYI: 1.83537 v VGK: 2.54422) (NYI: 41.91% , VGK: 58.09%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "10:42:21",
+    "timeLastRun": "11:01:07",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -47,7 +47,7 @@
     "awayScorers": {},
     "outcome": "SJS, PHI: 0.35248 v SJS: 1.08033      Expected difference: 0.72785, (PHI: 0.58747 v SJS: 1.80055) (PHI: 24.6% , SJS: 75.4%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "10:42:23",
+    "timeLastRun": "11:01:08",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -60,7 +60,7 @@
     "awayScorers": {},
     "outcome": "ANA, PIT: 0.49942 v ANA: 1.34919      Expected difference: 0.84977, (PIT: 0.83237 v ANA: 2.24865) (PIT: 27.02% , ANA: 72.98%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "10:42:25",
+    "timeLastRun": "11:01:09",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -73,7 +73,7 @@
     "awayScorers": {},
     "outcome": "CBJ, CAR: 0.42043 v CBJ: 1.02635      Expected difference: 0.60592, (CAR: 0.70072 v CBJ: 1.71058) (CAR: 29.06% , CBJ: 70.94%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "10:42:26",
+    "timeLastRun": "11:01:11",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -86,7 +86,7 @@
     "awayScorers": {},
     "outcome": "BOS, STL: 0.35962 v BOS: 0.43725      Expected difference: 0.07763, (STL: 0.59937 v BOS: 0.72875) (STL: 45.13% , BOS: 54.87%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "10:42:28",
+    "timeLastRun": "11:01:12",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -99,7 +99,7 @@
     "awayScorers": {},
     "outcome": "WPG, WPG: 1.32968 v DAL: 1.02579      Expected difference: 0.30389, (WPG: 2.21613 v DAL: 1.70965) (WPG: 56.45% , DAL: 43.55%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "10:42:31",
+    "timeLastRun": "11:01:16",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -110,9 +110,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "EDM, EDM: 0.6164 v BUF: 0.44852      Expected difference: 0.16788, (EDM: 1.02733 v BUF: 0.74753) (EDM: 57.88% , BUF: 42.12%)",
+    "outcome": "EDM, EDM: 0.6164 v BUF: 0.44833      Expected difference: 0.16807, (EDM: 1.02733 v BUF: 0.74722) (EDM: 57.89% , BUF: 42.11%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "10:42:32",
+    "timeLastRun": "11:01:18",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -125,7 +125,7 @@
     "awayScorers": {},
     "outcome": "NSH, NSH: 1.37937 v COL: 0.91262      Expected difference: 0.46675, (NSH: 2.29895 v COL: 1.52103) (NSH: 60.18% , COL: 39.82%)",
     "startingTime": "21:35:00",
-    "timeLastRun": "10:42:34",
+    "timeLastRun": "11:01:19",
     "correctLines": 0,
     "totalLines": 1
   }
