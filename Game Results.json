@@ -52,7 +52,7 @@
     "outcome": "DET, VAN: 0.29449 v DET: 0.4138      Expected difference: 0.11931, (VAN: 0.49082 v DET: 0.68967) (VAN: 41.58% , DET: 58.42%)",
     "startingTime": "22:05:00",
     "timeLastRun": "21:45:56",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -68,7 +68,7 @@
     "outcome": "MIN, SEA: 0.57805 v MIN: 1.76358      Expected difference: 1.18553, (SEA: 0.96342 v MIN: 2.9393) (SEA: 24.69% , MIN: 75.31%)",
     "startingTime": "22:05:00",
     "timeLastRun": "21:45:57",
-    "correctLines": 0,
+    "correctLines": 3,
     "totalLines": 3
   }
 ]
