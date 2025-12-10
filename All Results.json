@@ -3555,5 +3555,140 @@
         "totalLines": 3
       }
     ]
+  },
+  {
+    "date": "2025-12-09",
+    "games": [
+      {
+        "homeABV": "MTL",
+        "awayABV": "TBL",
+        "homeGoalie": "MTL: Jakub Dobes",
+        "awayGoalie": "TBL: Jonas Johansson",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "MTL, MTL: 1.18377 v TBL: 0.78901      Expected difference: 0.39476, (MTL: 1.97295 v TBL: 1.31502) (MTL: 60.01% , TBL: 39.99%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "18:41:47",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "OTT",
+        "awayABV": "NJD",
+        "homeGoalie": "OTT: Linus Ullmark",
+        "awayGoalie": "NJD: Jacob Markstrom",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "NJD, OTT: 0.26143 v NJD: 0.57657      Expected difference: 0.31514, (OTT: 0.43572 v NJD: 0.96095) (OTT: 31.2% , NJD: 68.8%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "18:41:49",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "NYI",
+        "awayABV": "VGK",
+        "homeGoalie": "NYI: Ilya Sorokin",
+        "awayGoalie": "VGK: Carter Hart",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "VGK, NYI: 1.04764 v VGK: 1.51005      Expected difference: 0.46241, (NYI: 1.74607 v VGK: 2.51675) (NYI: 40.96% , VGK: 59.04%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "18:41:51",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "PHI",
+        "awayABV": "SJS",
+        "homeGoalie": "PHI: Dan Vladar",
+        "awayGoalie": "SJS: Alex Nedeljkovic",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "SJS, PHI: 0.4446 v SJS: 1.07129      Expected difference: 0.62669, (PHI: 0.741 v SJS: 1.78548) (PHI: 29.33% , SJS: 70.67%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "18:41:52",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "PIT",
+        "awayABV": "ANA",
+        "homeGoalie": "PIT: Arturs Silovs",
+        "awayGoalie": "ANA: Ville Husso",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "PIT, PIT: 1.26047 v ANA: 0.93193      Expected difference: 0.32854, (PIT: 2.10078 v ANA: 1.55322) (PIT: 57.49% , ANA: 42.51%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "18:41:54",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "CAR",
+        "awayABV": "CBJ",
+        "homeGoalie": "CAR: Brandon Bussi",
+        "awayGoalie": "CBJ: Jet Greaves",
+        "homeScorers": {},
+        "awayScorers": "Zach Werenski, CBJ: 0.39498      (0.6583)",
+        "outcome": "CBJ, CAR: 0.83439 v CBJ: 1.8107      Expected difference: 0.97631, (CAR: 1.39065 v CBJ: 3.01783) (CAR: 31.54% , CBJ: 68.46%)",
+        "startingTime": "19:35:00",
+        "timeLastRun": "19:11:21",
+        "correctLines": 0,
+        "totalLines": 2
+      },
+      {
+        "homeABV": "STL",
+        "awayABV": "BOS",
+        "homeGoalie": "STL: Joel Hofer",
+        "awayGoalie": "BOS: Jeremy Swayman",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "BOS (OTW), STL: 0.53178 v BOS: 0.56769      Expected difference: 0.0359099999999999, (STL: 0.8863 v BOS: 0.94615) (STL: 48.37% , BOS: 51.63%)",
+        "startingTime": "20:05:00",
+        "timeLastRun": "19:11:22",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "WPG",
+        "awayABV": "DAL",
+        "homeGoalie": {},
+        "awayGoalie": "DAL: Casey DeSmith",
+        "homeScorers": "Kyle Connor, WPG: 0.45536      (0.758933333333333)",
+        "awayScorers": {},
+        "outcome": "WPG, WPG: 1.57657 v DAL: 1.0944      Expected difference: 0.48217, (WPG: 2.62762 v DAL: 1.824) (WPG: 59.03% , DAL: 40.97%)",
+        "startingTime": "20:05:00",
+        "timeLastRun": "19:11:24",
+        "correctLines": 1,
+        "totalLines": 2
+      },
+      {
+        "homeABV": "EDM",
+        "awayABV": "BUF",
+        "homeGoalie": "EDM: Stuart Skinner",
+        "awayGoalie": {},
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "BUF, EDM: 0.67607 v BUF: 0.95947      Expected difference: 0.2834, (EDM: 1.12678 v BUF: 1.59912) (EDM: 41.34% , BUF: 58.66%)",
+        "startingTime": "21:05:00",
+        "timeLastRun": "19:11:26",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "NSH",
+        "awayABV": "COL",
+        "homeGoalie": {},
+        "awayGoalie": "COL: Scott Wedgewood",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "NSH, NSH: 1.37937 v COL: 0.90306      Expected difference: 0.47631, (NSH: 2.29895 v COL: 1.5051) (NSH: 60.43% , COL: 39.57%)",
+        "startingTime": "21:35:00",
+        "timeLastRun": "19:11:27",
+        "correctLines": 1,
+        "totalLines": 1
+      }
+    ]
   }
 ]
