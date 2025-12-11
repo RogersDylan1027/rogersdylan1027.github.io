@@ -44,13 +44,13 @@
   {
     "homeABV": "SEA",
     "awayABV": "LAK",
-    "homeGoalie": {},
+    "homeGoalie": "SEA: Joey Daccord",
     "awayGoalie": "LAK: Anton Forsberg",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "LAK, SEA: 0.55861 v LAK: 1.15298      Expected difference: 0.59437, (SEA: 0.93102 v LAK: 1.92163) (SEA: 32.64% , LAK: 67.36%)",
+    "outcome": "LAK, SEA: 0.55861 v LAK: 0.61948      Expected difference: 0.0608699999999999, (SEA: 0.93102 v LAK: 1.03247) (SEA: 47.42% , LAK: 52.58%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "21:27:12",
+    "timeLastRun": "21:50:44",
     "correctLines": 0,
     "totalLines": 1
   }
