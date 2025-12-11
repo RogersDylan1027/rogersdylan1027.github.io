@@ -3690,5 +3690,65 @@
         "totalLines": 1
       }
     ]
+  },
+  {
+    "date": "2025-12-10",
+    "games": [
+      {
+        "homeABV": "CHI",
+        "awayABV": "NYR",
+        "homeGoalie": {},
+        "awayGoalie": "NYR: Igor Shesterkin",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "CHI, CHI: 0.83972 v NYR: 0.246      Expected difference: 0.59372, (CHI: 1.39953 v NYR: 0.41) (CHI: 77.34% , NYR: 22.66%)",
+        "startingTime": "19:35:00",
+        "timeLastRun": "19:00:47",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "CGY",
+        "awayABV": "DET",
+        "homeGoalie": "CGY: Devin Cooley",
+        "awayGoalie": "DET: John Gibson",
+        "homeScorers": {},
+        "awayScorers": [
+          "Dylan Larkin, DET: 0.36364      (0.606066666666667)",
+          "Alex DeBrincat, DET: 0.3674      (0.612333333333333)"
+        ],
+        "outcome": "DET, CGY: 0.37517 v DET: 1.65026      Expected difference: 1.27509, (CGY: 0.62528 v DET: 2.75043) (CGY: 18.52% , DET: 81.48%)",
+        "startingTime": "20:35:00",
+        "timeLastRun": "19:00:49",
+        "correctLines": 3,
+        "totalLines": 3
+      },
+      {
+        "homeABV": "UTA",
+        "awayABV": "FLA",
+        "homeGoalie": {},
+        "awayGoalie": "FLA: Sergei Bobrovsky",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "FLA, UTA: 0.48962 v FLA: 0.98876      Expected difference: 0.49914, (UTA: 0.81603 v FLA: 1.64793) (UTA: 33.12% , FLA: 66.88%)",
+        "startingTime": "21:05:00",
+        "timeLastRun": "19:00:51",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "SEA",
+        "awayABV": "LAK",
+        "homeGoalie": "SEA: Joey Daccord",
+        "awayGoalie": "LAK: Anton Forsberg",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "LAK, SEA: 0.55861 v LAK: 0.61948      Expected difference: 0.0608699999999999, (SEA: 0.93102 v LAK: 1.03247) (SEA: 47.42% , LAK: 52.58%)",
+        "startingTime": "22:05:00",
+        "timeLastRun": "21:50:44",
+        "correctLines": 0,
+        "totalLines": 1
+      }
+    ]
   }
 ]
