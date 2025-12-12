@@ -3,12 +3,12 @@
     "homeABV": "STL",
     "awayABV": "CHI",
     "homeGoalie": {},
-    "awayGoalie": {},
+    "awayGoalie": "CHI: Spencer Knight",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "CHI, STL: 0.2917 v CHI: 0.40906      Expected difference: 0.11736, (STL: 0.48617 v CHI: 0.68177) (STL: 41.63% , CHI: 58.37%)",
+    "outcome": "STL, STL: 0.74996 v CHI: 0.40906      Expected difference: 0.3409, (STL: 1.24993 v CHI: 0.68177) (STL: 64.71% , CHI: 35.29%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "12:42:01",
+    "timeLastRun": "13:01:13",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -21,7 +21,7 @@
     "awayScorers": {},
     "outcome": "UTA, UTA: 1.12797 v SEA: 0.59684      Expected difference: 0.53113, (UTA: 1.87995 v SEA: 0.99473) (UTA: 65.4% , SEA: 34.6%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "12:42:03",
+    "timeLastRun": "13:01:16",
     "correctLines": 0,
     "totalLines": 1
   }
