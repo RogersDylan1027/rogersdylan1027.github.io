@@ -3924,5 +3924,36 @@
         "totalLines": 1
       }
     ]
+  },
+  {
+    "date": "2025-12-12",
+    "games": [
+      {
+        "homeABV": "STL",
+        "awayABV": "CHI",
+        "homeGoalie": {},
+        "awayGoalie": "CHI: Spencer Knight",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "STL, STL: 0.71121 v CHI: 0.38836      Expected difference: 0.32285, (STL: 1.18535 v CHI: 0.64727) (STL: 64.68% , CHI: 35.32%)",
+        "startingTime": "20:05:00",
+        "timeLastRun": "19:00:31",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "UTA",
+        "awayABV": "SEA",
+        "homeGoalie": "UTA: Karel Vejmelka",
+        "awayGoalie": {},
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "UTA, UTA: 1.062 v SEA: 0.60099      Expected difference: 0.46101, (UTA: 1.77 v SEA: 1.00165) (UTA: 63.86% , SEA: 36.14%)",
+        "startingTime": "21:05:00",
+        "timeLastRun": "19:00:33",
+        "correctLines": 1,
+        "totalLines": 1
+      }
+    ]
   }
 ]
