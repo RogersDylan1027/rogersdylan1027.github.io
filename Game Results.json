@@ -21,20 +21,20 @@
     "awayScorers": {},
     "outcome": "UTA, PIT: 0.8796 v UTA: 1.35466      Expected difference: 0.47506, (PIT: 1.466 v UTA: 2.25777) (PIT: 39.37% , UTA: 60.63%)",
     "startingTime": "15:05:00",
-    "timeLastRun": "14:32:23",
+    "timeLastRun": "15:00:23",
     "correctLines": 0,
     "totalLines": 1
   },
   {
     "homeABV": "CAR",
     "awayABV": "PHI",
-    "homeGoalie": {},
+    "homeGoalie": "CAR: Brandon Bussi",
     "awayGoalie": "PHI: Dan Vladar",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "CAR, CAR: 1.10009 v PHI: 0.62375      Expected difference: 0.47634, (CAR: 1.83348 v PHI: 1.03958) (CAR: 63.82% , PHI: 36.18%)",
+    "outcome": "PHI (OTW), CAR: 1.10009 v PHI: 1.12833      Expected difference: 0.02824, (CAR: 1.83348 v PHI: 1.88055) (CAR: 49.37% , PHI: 50.63%)",
     "startingTime": "17:05:00",
-    "timeLastRun": "14:32:25",
+    "timeLastRun": "15:00:24",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -47,7 +47,7 @@
     "awayScorers": {},
     "outcome": "BOS, MIN: 0.59391 v BOS: 0.70327      Expected difference: 0.10936, (MIN: 0.98985 v BOS: 1.17212) (MIN: 45.78% , BOS: 54.22%)",
     "startingTime": "18:05:00",
-    "timeLastRun": "14:32:26",
+    "timeLastRun": "15:00:25",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -60,7 +60,7 @@
     "awayScorers": {},
     "outcome": "EDM, MTL: 0.31084 v EDM: 0.47409      Expected difference: 0.16325, (MTL: 0.51807 v EDM: 0.79015) (MTL: 39.6% , EDM: 60.4%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "14:32:27",
+    "timeLastRun": "15:00:27",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -73,7 +73,7 @@
     "awayScorers": {},
     "outcome": "BUF, SEA: 0.38867 v BUF: 0.87553      Expected difference: 0.48686, (SEA: 0.64778 v BUF: 1.45922) (SEA: 30.74% , BUF: 69.26%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "14:32:28",
+    "timeLastRun": "15:00:28",
     "correctLines": 0,
     "totalLines": 1
   }
