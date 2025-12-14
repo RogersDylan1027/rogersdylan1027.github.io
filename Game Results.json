@@ -3,12 +3,12 @@
     "homeABV": "NJD",
     "awayABV": "VAN",
     "homeGoalie": "NJD: Jacob Markstrom",
-    "awayGoalie": {},
+    "awayGoalie": "VAN: Thatcher Demko",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "NJD (OTW), NJD: 0.31974 v VAN: 0.2727      Expected difference: 0.0470400000000001, (NJD: 0.5329 v VAN: 0.4545) (NJD: 53.97% , VAN: 46.03%)",
+    "outcome": "NJD, NJD: 0.96982 v VAN: 0.2727      Expected difference: 0.69712, (NJD: 1.61637 v VAN: 0.4545) (NJD: 78.05% , VAN: 21.95%)",
     "startingTime": "12:35:00",
-    "timeLastRun": "11:44:17",
+    "timeLastRun": "12:00:58",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -21,7 +21,7 @@
     "awayScorers": {},
     "outcome": "PIT, PIT: 1.0023 v UTA: 0.77038      Expected difference: 0.23192, (PIT: 1.6705 v UTA: 1.28397) (PIT: 56.54% , UTA: 43.46%)",
     "startingTime": "15:05:00",
-    "timeLastRun": "11:44:20",
+    "timeLastRun": "12:01:00",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -34,7 +34,7 @@
     "awayScorers": {},
     "outcome": "CAR, CAR: 1.31137 v PHI: 0.74232      Expected difference: 0.56905, (CAR: 2.18562 v PHI: 1.2372) (CAR: 63.85% , PHI: 36.15%)",
     "startingTime": "17:05:00",
-    "timeLastRun": "11:44:22",
+    "timeLastRun": "12:01:01",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -47,7 +47,7 @@
     "awayScorers": {},
     "outcome": "BOS, MIN: 0.70597 v BOS: 0.8376      Expected difference: 0.13163, (MIN: 1.17662 v BOS: 1.396) (MIN: 45.74% , BOS: 54.26%)",
     "startingTime": "18:05:00",
-    "timeLastRun": "11:44:24",
+    "timeLastRun": "12:01:03",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -60,7 +60,7 @@
     "awayScorers": {},
     "outcome": "EDM (OTW), MTL: 0.36821 v EDM: 0.38001      Expected difference: 0.0118, (MTL: 0.61368 v EDM: 0.63335) (MTL: 49.21% , EDM: 50.79%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "11:44:26",
+    "timeLastRun": "12:01:05",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -73,7 +73,7 @@
     "awayScorers": "Tage Thompson, BUF: 0.36524      (0.608733333333333)",
     "outcome": "BUF, SEA: 0.46234 v BUF: 1.04393      Expected difference: 0.58159, (SEA: 0.77057 v BUF: 1.73988) (SEA: 30.69% , BUF: 69.31%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "11:44:28",
+    "timeLastRun": "12:01:06",
     "correctLines": 0,
     "totalLines": 2
   }
