@@ -54,13 +54,13 @@
   {
     "homeABV": "MTL",
     "awayABV": "EDM",
-    "homeGoalie": {},
+    "homeGoalie": "MTL: Jakub Dobes",
     "awayGoalie": "EDM: Calvin Pickard",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "EDM, MTL: 0.36251 v EDM: 0.69776      Expected difference: 0.33525, (MTL: 0.60418 v EDM: 1.16293) (MTL: 34.19% , EDM: 65.81%)",
+    "outcome": "EDM, MTL: 0.36251 v EDM: 1.02493      Expected difference: 0.66242, (MTL: 0.60418 v EDM: 1.70822) (MTL: 26.13% , EDM: 73.87%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "18:00:53",
+    "timeLastRun": "18:37:28",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -70,10 +70,10 @@
     "homeGoalie": {},
     "awayGoalie": {},
     "homeScorers": {},
-    "awayScorers": "Tage Thompson, BUF: 0.35359      (0.589316666666667)",
-    "outcome": "BUF, SEA: 0.55382 v BUF: 1.01064      Expected difference: 0.45682, (SEA: 0.92303 v BUF: 1.6844) (SEA: 35.4% , BUF: 64.6%)",
+    "awayScorers": "Tage Thompson, BUF: 0.40716      (0.6786)",
+    "outcome": "BUF, SEA: 0.63709 v BUF: 1.16375      Expected difference: 0.52666, (SEA: 1.06182 v BUF: 1.93958) (SEA: 35.38% , BUF: 64.62%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "18:00:55",
+    "timeLastRun": "18:37:29",
     "correctLines": 0,
     "totalLines": 2
   }
