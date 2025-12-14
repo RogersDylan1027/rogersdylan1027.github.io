@@ -57,7 +57,10 @@
     "homeGoalie": "TOR: Dennis Hildeby",
     "awayGoalie": "EDM: Tristan Jarry",
     "homeScorers": {},
-    "awayScorers": ["Leon Draisaitl, EDM: 0.52775      (0.879583333333333)", "Connor McDavid, EDM: 0.41004      (0.6834)"],
+    "awayScorers": [
+      "Leon Draisaitl, EDM: 0.52775      (0.879583333333333)",
+      "Connor McDavid, EDM: 0.41004      (0.6834)"
+    ],
     "outcome": "EDM, TOR: 0.89245 v EDM: 1.873      Expected difference: 0.980549999999999, (TOR: 1.48742 v EDM: 3.12167) (TOR: 32.27% , EDM: 67.73%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:00:34",
@@ -162,9 +165,9 @@
     "awayGoalie": "CGY: Dustin Wolf",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "CGY, LAK: 0.68214 v CGY: 1.12245      Expected difference: 0.44031, (LAK: 1.1369 v CGY: 1.87075) (LAK: 37.8% , CGY: 62.2%)",
+    "outcome": "CGY, LAK: 1.06391 v CGY: 1.35948      Expected difference: 0.29557, (LAK: 1.77318 v CGY: 2.2658) (LAK: 43.9% , CGY: 56.1%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "19:00:47",
+    "timeLastRun": "21:33:58",
     "correctLines": 0,
     "totalLines": 1
   }
