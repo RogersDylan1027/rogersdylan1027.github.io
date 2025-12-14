@@ -16,12 +16,12 @@
     "homeABV": "PIT",
     "awayABV": "UTA",
     "homeGoalie": "PIT: Sergei Murashov",
-    "awayGoalie": {},
+    "awayGoalie": "UTA: Karel Vejmelka",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "UTA, PIT: 0.84146 v UTA: 1.35466      Expected difference: 0.5132, (PIT: 1.40243 v UTA: 2.25777) (PIT: 38.32% , UTA: 61.68%)",
+    "outcome": "UTA, PIT: 0.8796 v UTA: 1.35466      Expected difference: 0.47506, (PIT: 1.466 v UTA: 2.25777) (PIT: 39.37% , UTA: 60.63%)",
     "startingTime": "15:05:00",
-    "timeLastRun": "14:00:14",
+    "timeLastRun": "14:32:23",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -32,9 +32,9 @@
     "awayGoalie": "PHI: Dan Vladar",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "CAR, CAR: 1.10009 v PHI: 0.62311      Expected difference: 0.47698, (CAR: 1.83348 v PHI: 1.03852) (CAR: 63.84% , PHI: 36.16%)",
+    "outcome": "CAR, CAR: 1.10009 v PHI: 0.62375      Expected difference: 0.47634, (CAR: 1.83348 v PHI: 1.03958) (CAR: 63.82% , PHI: 36.18%)",
     "startingTime": "17:05:00",
-    "timeLastRun": "14:00:16",
+    "timeLastRun": "14:32:25",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -45,9 +45,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "BOS, MIN: 0.59391 v BOS: 0.71515      Expected difference: 0.12124, (MIN: 0.98985 v BOS: 1.19192) (MIN: 45.37% , BOS: 54.63%)",
+    "outcome": "BOS, MIN: 0.59391 v BOS: 0.70327      Expected difference: 0.10936, (MIN: 0.98985 v BOS: 1.17212) (MIN: 45.78% , BOS: 54.22%)",
     "startingTime": "18:05:00",
-    "timeLastRun": "14:00:18",
+    "timeLastRun": "14:32:26",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -60,7 +60,7 @@
     "awayScorers": {},
     "outcome": "EDM, MTL: 0.31084 v EDM: 0.47409      Expected difference: 0.16325, (MTL: 0.51807 v EDM: 0.79015) (MTL: 39.6% , EDM: 60.4%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "14:00:20",
+    "timeLastRun": "14:32:27",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -73,7 +73,7 @@
     "awayScorers": {},
     "outcome": "BUF, SEA: 0.38867 v BUF: 0.87553      Expected difference: 0.48686, (SEA: 0.64778 v BUF: 1.45922) (SEA: 30.74% , BUF: 69.26%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "14:00:21",
+    "timeLastRun": "14:32:28",
     "correctLines": 0,
     "totalLines": 1
   }
