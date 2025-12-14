@@ -15,13 +15,13 @@
   {
     "homeABV": "PIT",
     "awayABV": "UTA",
-    "homeGoalie": {},
+    "homeGoalie": "PIT: Sergei Murashov",
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "PIT, PIT: 1.0023 v UTA: 0.77038      Expected difference: 0.23192, (PIT: 1.6705 v UTA: 1.28397) (PIT: 56.54% , UTA: 43.46%)",
+    "outcome": "UTA, PIT: 0.84146 v UTA: 1.35466      Expected difference: 0.5132, (PIT: 1.40243 v UTA: 2.25777) (PIT: 38.32% , UTA: 61.68%)",
     "startingTime": "15:05:00",
-    "timeLastRun": "13:00:12",
+    "timeLastRun": "13:47:14",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -32,9 +32,9 @@
     "awayGoalie": "PHI: Dan Vladar",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "CAR, CAR: 1.31137 v PHI: 0.74232      Expected difference: 0.56905, (CAR: 2.18562 v PHI: 1.2372) (CAR: 63.85% , PHI: 36.15%)",
+    "outcome": "CAR, CAR: 1.10009 v PHI: 0.62311      Expected difference: 0.47698, (CAR: 1.83348 v PHI: 1.03852) (CAR: 63.84% , PHI: 36.16%)",
     "startingTime": "17:05:00",
-    "timeLastRun": "13:00:14",
+    "timeLastRun": "13:47:16",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -45,9 +45,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "BOS, MIN: 0.70597 v BOS: 0.8376      Expected difference: 0.13163, (MIN: 1.17662 v BOS: 1.396) (MIN: 45.74% , BOS: 54.26%)",
+    "outcome": "BOS, MIN: 0.59391 v BOS: 0.70327      Expected difference: 0.10936, (MIN: 0.98985 v BOS: 1.17212) (MIN: 45.78% , BOS: 54.22%)",
     "startingTime": "18:05:00",
-    "timeLastRun": "13:00:16",
+    "timeLastRun": "13:47:18",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -58,9 +58,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "EDM (OTW), MTL: 0.36821 v EDM: 0.38001      Expected difference: 0.0118, (MTL: 0.61368 v EDM: 0.63335) (MTL: 49.21% , EDM: 50.79%)",
+    "outcome": "EDM, MTL: 0.31084 v EDM: 0.47409      Expected difference: 0.16325, (MTL: 0.51807 v EDM: 0.79015) (MTL: 39.6% , EDM: 60.4%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "13:00:17",
+    "timeLastRun": "13:47:21",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -70,11 +70,11 @@
     "homeGoalie": {},
     "awayGoalie": {},
     "homeScorers": {},
-    "awayScorers": "Tage Thompson, BUF: 0.36524      (0.608733333333333)",
-    "outcome": "BUF, SEA: 0.4638 v BUF: 1.04393      Expected difference: 0.58013, (SEA: 0.773 v BUF: 1.73988) (SEA: 30.76% , BUF: 69.24%)",
+    "awayScorers": {},
+    "outcome": "BUF, SEA: 0.38867 v BUF: 0.87586      Expected difference: 0.48719, (SEA: 0.64778 v BUF: 1.45977) (SEA: 30.74% , BUF: 69.26%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "13:00:19",
+    "timeLastRun": "13:47:22",
     "correctLines": 0,
-    "totalLines": 2
+    "totalLines": 1
   }
 ]
