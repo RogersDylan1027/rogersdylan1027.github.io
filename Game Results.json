@@ -43,24 +43,24 @@
     "awayABV": "BOS",
     "homeGoalie": "MIN: Filip Gustavsson",
     "awayGoalie": "BOS: Jeremy Swayman",
-    "homeScorers": {},
+    "homeScorers": "Kirill Kaprizov, MIN: 0.37375      (0.622916666666667)",
     "awayScorers": {},
-    "outcome": "MIN, MIN: 0.77236 v BOS: 0.65695      Expected difference: 0.11541, (MIN: 1.28727 v BOS: 1.09492) (MIN: 54.04% , BOS: 45.96%)",
+    "outcome": "MIN, MIN: 1.10157 v BOS: 0.89868      Expected difference: 0.20289, (MIN: 1.83595 v BOS: 1.4978) (MIN: 55.07% , BOS: 44.93%)",
     "startingTime": "18:05:00",
-    "timeLastRun": "17:39:35",
+    "timeLastRun": "18:00:51",
     "correctLines": 0,
-    "totalLines": 1
+    "totalLines": 2
   },
   {
     "homeABV": "MTL",
     "awayABV": "EDM",
     "homeGoalie": {},
-    "awayGoalie": {},
+    "awayGoalie": "EDM: Calvin Pickard",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "EDM, MTL: 0.36251 v EDM: 0.47409      Expected difference: 0.11158, (MTL: 0.60418 v EDM: 0.79015) (MTL: 43.33% , EDM: 56.67%)",
+    "outcome": "EDM, MTL: 0.36251 v EDM: 0.69776      Expected difference: 0.33525, (MTL: 0.60418 v EDM: 1.16293) (MTL: 34.19% , EDM: 65.81%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "17:39:36",
+    "timeLastRun": "18:00:53",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -70,11 +70,11 @@
     "homeGoalie": {},
     "awayGoalie": {},
     "homeScorers": {},
-    "awayScorers": {},
-    "outcome": "BUF, SEA: 0.34031 v BUF: 0.84011      Expected difference: 0.4998, (SEA: 0.56718 v BUF: 1.40018) (SEA: 28.83% , BUF: 71.17%)",
+    "awayScorers": "Tage Thompson, BUF: 0.35359      (0.589316666666667)",
+    "outcome": "BUF, SEA: 0.55382 v BUF: 1.01064      Expected difference: 0.45682, (SEA: 0.92303 v BUF: 1.6844) (SEA: 35.4% , BUF: 64.6%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "17:39:38",
+    "timeLastRun": "18:00:55",
     "correctLines": 0,
-    "totalLines": 1
+    "totalLines": 2
   }
 ]
