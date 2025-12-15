@@ -2,13 +2,13 @@
   {
     "homeABV": "TBL",
     "awayABV": "FLA",
-    "homeGoalie": {},
+    "homeGoalie": "TBL: Jonas Johansson",
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "FLA, TBL: 0.98279 v FLA: 1.53098      Expected difference: 0.548189999999999, (TBL: 1.63798 v FLA: 2.55163) (TBL: 39.1% , FLA: 60.9%)",
+    "outcome": "FLA, TBL: 0.98279 v FLA: 1.27582      Expected difference: 0.29303, (TBL: 1.63798 v FLA: 2.12637) (TBL: 43.51% , FLA: 56.49%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "10:45:38",
+    "timeLastRun": "11:03:13",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -21,7 +21,7 @@
     "awayScorers": {},
     "outcome": "ANA, NYR: 0.31314 v ANA: 1.37287      Expected difference: 1.05973, (NYR: 0.5219 v ANA: 2.28812) (NYR: 18.57% , ANA: 81.43%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "10:45:39",
+    "timeLastRun": "11:03:14",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -34,7 +34,7 @@
     "awayScorers": {},
     "outcome": "OTT, WPG: 0.39572 v OTT: 0.86078      Expected difference: 0.46506, (WPG: 0.65953 v OTT: 1.43463) (WPG: 31.49% , OTT: 68.51%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "10:45:41",
+    "timeLastRun": "11:03:16",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -47,7 +47,7 @@
     "awayScorers": {},
     "outcome": "NSH, STL: 0.29101 v NSH: 0.4858      Expected difference: 0.19479, (STL: 0.48502 v NSH: 0.80967) (STL: 37.46% , NSH: 62.54%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "10:45:43",
+    "timeLastRun": "11:03:18",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -60,7 +60,7 @@
     "awayScorers": {},
     "outcome": "DAL, DAL: 1.36253 v LAK: 1.09239      Expected difference: 0.27014, (DAL: 2.27088 v LAK: 1.82065) (DAL: 55.5% , LAK: 44.5%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "10:45:44",
+    "timeLastRun": "11:03:20",
     "correctLines": 0,
     "totalLines": 1
   }
