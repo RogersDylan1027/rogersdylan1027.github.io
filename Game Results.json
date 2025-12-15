@@ -22,7 +22,7 @@
     "outcome": "UTA, PIT: 0.8796 v UTA: 1.35466      Expected difference: 0.47506, (PIT: 1.466 v UTA: 2.25777) (PIT: 39.37% , UTA: 60.63%)",
     "startingTime": "15:05:00",
     "timeLastRun": "15:00:23",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -48,7 +48,7 @@
     "outcome": "MIN, MIN: 1.10157 v BOS: 0.89868      Expected difference: 0.20289, (MIN: 1.83595 v BOS: 1.4978) (MIN: 55.07% , BOS: 44.93%)",
     "startingTime": "18:05:00",
     "timeLastRun": "18:00:51",
-    "correctLines": 0,
+    "correctLines": 2,
     "totalLines": 2
   },
   {
@@ -74,7 +74,7 @@
     "outcome": "BUF, SEA: 0.63911 v BUF: 1.16948      Expected difference: 0.53037, (SEA: 1.06518 v BUF: 1.94913) (SEA: 35.34% , BUF: 64.66%)",
     "startingTime": "20:05:00",
     "timeLastRun": "19:00:21",
-    "correctLines": 0,
+    "correctLines": 2,
     "totalLines": 2
   }
 ]
