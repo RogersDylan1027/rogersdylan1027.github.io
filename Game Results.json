@@ -3,12 +3,12 @@
     "homeABV": "TBL",
     "awayABV": "FLA",
     "homeGoalie": "TBL: Jonas Johansson",
-    "awayGoalie": {},
+    "awayGoalie": "FLA: Sergei Bobrovsky",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "FLA, TBL: 0.97133 v FLA: 1.27582      Expected difference: 0.30449, (TBL: 1.61888 v FLA: 2.12637) (TBL: 43.22% , FLA: 56.78%)",
+    "outcome": "FLA, TBL: 0.9496 v FLA: 1.27582      Expected difference: 0.32622, (TBL: 1.58267 v FLA: 2.12637) (TBL: 42.67% , FLA: 57.33%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "12:16:14",
+    "timeLastRun": "12:45:52",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -19,9 +19,9 @@
     "awayGoalie": "ANA: Lukas Dostal",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "ANA, NYR: 0.46492 v ANA: 1.1364      Expected difference: 0.67148, (NYR: 0.77487 v ANA: 1.894) (NYR: 29.03% , ANA: 70.97%)",
+    "outcome": "ANA, NYR: 0.39274 v ANA: 1.1364      Expected difference: 0.74366, (NYR: 0.65457 v ANA: 1.894) (NYR: 25.68% , ANA: 74.32%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "12:16:15",
+    "timeLastRun": "12:45:54",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -34,7 +34,7 @@
     "awayScorers": {},
     "outcome": "OTT, WPG: 0.39572 v OTT: 0.86078      Expected difference: 0.46506, (WPG: 0.65953 v OTT: 1.43463) (WPG: 31.49% , OTT: 68.51%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "12:16:18",
+    "timeLastRun": "12:45:56",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -45,9 +45,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "NSH, STL: 0.29431 v NSH: 0.4858      Expected difference: 0.19149, (STL: 0.49052 v NSH: 0.80967) (STL: 37.73% , NSH: 62.27%)",
+    "outcome": "NSH, STL: 0.29566 v NSH: 0.4858      Expected difference: 0.19014, (STL: 0.49277 v NSH: 0.80967) (STL: 37.83% , NSH: 62.17%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "12:16:20",
+    "timeLastRun": "12:45:58",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -60,7 +60,7 @@
     "awayScorers": {},
     "outcome": "DAL (OTW), DAL: 1.37066 v LAK: 1.34239      Expected difference: 0.0282700000000002, (DAL: 2.28443 v LAK: 2.23732) (DAL: 50.52% , LAK: 49.48%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "12:16:22",
+    "timeLastRun": "12:45:59",
     "correctLines": 0,
     "totalLines": 1
   }
