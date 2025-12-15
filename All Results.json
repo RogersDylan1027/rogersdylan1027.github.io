@@ -4132,5 +4132,88 @@
         "totalLines": 1
       }
     ]
+  },
+  {
+    "date": "2025-12-14",
+    "games": [
+      {
+        "homeABV": "NJD",
+        "awayABV": "VAN",
+        "homeGoalie": "NJD: Jacob Markstrom",
+        "awayGoalie": "VAN: Thatcher Demko",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "NJD, NJD: 0.96982 v VAN: 0.2727      Expected difference: 0.69712, (NJD: 1.61637 v VAN: 0.4545) (NJD: 78.05% , VAN: 21.95%)",
+        "startingTime": "12:35:00",
+        "timeLastRun": "12:00:58",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "PIT",
+        "awayABV": "UTA",
+        "homeGoalie": "PIT: Sergei Murashov",
+        "awayGoalie": "UTA: Karel Vejmelka",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "UTA, PIT: 0.8796 v UTA: 1.35466      Expected difference: 0.47506, (PIT: 1.466 v UTA: 2.25777) (PIT: 39.37% , UTA: 60.63%)",
+        "startingTime": "15:05:00",
+        "timeLastRun": "15:00:23",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "CAR",
+        "awayABV": "PHI",
+        "homeGoalie": "CAR: Brandon Bussi",
+        "awayGoalie": "PHI: Dan Vladar",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "PHI, CAR: 1.04122 v PHI: 1.12526      Expected difference: 0.0840400000000001, (CAR: 1.73537 v PHI: 1.87543) (CAR: 48.06% , PHI: 51.94%)",
+        "startingTime": "17:05:00",
+        "timeLastRun": "17:00:09",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "MIN",
+        "awayABV": "BOS",
+        "homeGoalie": "MIN: Filip Gustavsson",
+        "awayGoalie": "BOS: Jeremy Swayman",
+        "homeScorers": "Kirill Kaprizov, MIN: 0.37375      (0.622916666666667)",
+        "awayScorers": {},
+        "outcome": "MIN, MIN: 1.10157 v BOS: 0.89868      Expected difference: 0.20289, (MIN: 1.83595 v BOS: 1.4978) (MIN: 55.07% , BOS: 44.93%)",
+        "startingTime": "18:05:00",
+        "timeLastRun": "18:00:51",
+        "correctLines": 2,
+        "totalLines": 2
+      },
+      {
+        "homeABV": "MTL",
+        "awayABV": "EDM",
+        "homeGoalie": "MTL: Jakub Dobes",
+        "awayGoalie": "EDM: Calvin Pickard",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "EDM, MTL: 0.36251 v EDM: 1.02493      Expected difference: 0.66242, (MTL: 0.60418 v EDM: 1.70822) (MTL: 26.13% , EDM: 73.87%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "19:00:19",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "SEA",
+        "awayABV": "BUF",
+        "homeGoalie": {},
+        "awayGoalie": {},
+        "homeScorers": {},
+        "awayScorers": "Tage Thompson, BUF: 0.40716      (0.6786)",
+        "outcome": "BUF, SEA: 0.63911 v BUF: 1.16948      Expected difference: 0.53037, (SEA: 1.06518 v BUF: 1.94913) (SEA: 35.34% , BUF: 64.66%)",
+        "startingTime": "20:05:00",
+        "timeLastRun": "19:00:21",
+        "correctLines": 2,
+        "totalLines": 2
+      }
+    ]
   }
 ]
