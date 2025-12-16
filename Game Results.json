@@ -6,9 +6,9 @@
     "awayGoalie": "UTA: Vitek Vanecek",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "BOS, BOS: 0.89908 v UTA: 0.77524      Expected difference: 0.12384, (BOS: 1.49847 v UTA: 1.29207) (BOS: 53.7% , UTA: 46.3%)",
+    "outcome": "BOS, BOS: 0.91442 v UTA: 0.77524      Expected difference: 0.13918, (BOS: 1.52403 v UTA: 1.29207) (BOS: 54.12% , UTA: 45.88%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "12:45:49",
+    "timeLastRun": "13:01:08",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -16,14 +16,14 @@
     "homeABV": "TOR",
     "awayABV": "CHI",
     "homeGoalie": "TOR: Joseph Woll",
-    "awayGoalie": {},
-    "homeScorers": {},
+    "awayGoalie": "CHI: Spencer Knight",
+    "homeScorers": "Auston Matthews, TOR: 0.38659      (0.644316666666667)",
     "awayScorers": {},
-    "outcome": "TOR, TOR: 0.85981 v CHI: 0.78942      Expected difference: 0.0703900000000001, (TOR: 1.43302 v CHI: 1.3157) (TOR: 52.13% , CHI: 47.87%)",
+    "outcome": "TOR, TOR: 1.41385 v CHI: 0.78942      Expected difference: 0.62443, (TOR: 2.35642 v CHI: 1.3157) (TOR: 64.17% , CHI: 35.83%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "12:45:50",
+    "timeLastRun": "13:01:09",
     "correctLines": 0,
-    "totalLines": 1
+    "totalLines": 2
   },
   {
     "homeABV": "MTL",
@@ -34,7 +34,7 @@
     "awayScorers": {},
     "outcome": "MTL, MTL: 1.1838 v PHI: 0.29732      Expected difference: 0.88648, (MTL: 1.973 v PHI: 0.49553) (MTL: 79.93% , PHI: 20.07%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "12:45:52",
+    "timeLastRun": "13:01:11",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -47,7 +47,7 @@
     "awayScorers": {},
     "outcome": "DET, DET: 1.19829 v NYI: 0.394      Expected difference: 0.80429, (DET: 1.99715 v NYI: 0.65667) (DET: 75.26% , NYI: 24.74%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "12:45:54",
+    "timeLastRun": "13:01:12",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -60,7 +60,7 @@
     "awayScorers": {},
     "outcome": "NYR (OTW), NYR: 0.90873 v VAN: 0.872      Expected difference: 0.0367300000000002, (NYR: 1.51455 v VAN: 1.45333) (NYR: 51.03% , VAN: 48.97%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "12:45:56",
+    "timeLastRun": "13:01:13",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -73,7 +73,7 @@
     "awayScorers": {},
     "outcome": "ANA, CBJ: 0.88849 v ANA: 1.05776      Expected difference: 0.16927, (CBJ: 1.48082 v ANA: 1.76293) (CBJ: 45.65% , ANA: 54.35%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "12:45:57",
+    "timeLastRun": "13:01:15",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -86,7 +86,7 @@
     "awayScorers": "Leon Draisaitl, EDM: 0.3558      (0.593)",
     "outcome": "EDM, PIT: 1.21703 v EDM: 1.30022      Expected difference: 0.0831900000000001, (PIT: 2.02838 v EDM: 2.16703) (PIT: 48.35% , EDM: 51.65%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "12:45:59",
+    "timeLastRun": "13:01:17",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -99,7 +99,7 @@
     "awayScorers": {},
     "outcome": "WSH, MIN: 1.03547 v WSH: 1.22972      Expected difference: 0.19425, (MIN: 1.72578 v WSH: 2.04953) (MIN: 45.71% , WSH: 54.29%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "12:46:01",
+    "timeLastRun": "13:01:18",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -112,7 +112,7 @@
     "awayScorers": {},
     "outcome": "SJS, SJS: 1.30976 v CGY: 0.65228      Expected difference: 0.65748, (SJS: 2.18293 v CGY: 1.08713) (SJS: 66.76% , CGY: 33.24%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "12:46:03",
+    "timeLastRun": "13:01:20",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -125,7 +125,7 @@
     "awayScorers": "Nathan MacKinnon, COL: 0.71501      (1.19168333333333)",
     "outcome": "COL, SEA: 0.76708 v COL: 2.32132      Expected difference: 1.55424, (SEA: 1.27847 v COL: 3.86887) (SEA: 24.84% , COL: 75.16%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "12:46:05",
+    "timeLastRun": "13:01:22",
     "correctLines": 0,
     "totalLines": 2
   }
