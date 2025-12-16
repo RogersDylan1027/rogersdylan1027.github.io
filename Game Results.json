@@ -6,9 +6,9 @@
     "awayGoalie": "UTA: Vitek Vanecek",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "BOS, BOS: 0.88431 v UTA: 0.74531      Expected difference: 0.139, (BOS: 1.47385 v UTA: 1.24218) (BOS: 54.26% , UTA: 45.74%)",
+    "outcome": "BOS, BOS: 0.86957 v UTA: 0.74531      Expected difference: 0.12426, (BOS: 1.44928 v UTA: 1.24218) (BOS: 53.85% , UTA: 46.15%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "18:00:25",
+    "timeLastRun": "18:38:26",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -21,7 +21,7 @@
     "awayScorers": {},
     "outcome": "TOR, TOR: 1.3589 v CHI: 0.75863      Expected difference: 0.60027, (TOR: 2.26483 v CHI: 1.26438) (TOR: 64.17% , CHI: 35.83%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "18:00:26",
+    "timeLastRun": "18:38:27",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -34,7 +34,7 @@
     "awayScorers": {},
     "outcome": "MTL, MTL: 1.13774 v PHI: 0.29732      Expected difference: 0.84042, (MTL: 1.89623 v PHI: 0.49553) (MTL: 79.28% , PHI: 20.72%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "18:00:28",
+    "timeLastRun": "18:38:29",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -47,7 +47,7 @@
     "awayScorers": {},
     "outcome": "DET, DET: 1.12808 v NYI: 0.3789      Expected difference: 0.74918, (DET: 1.88013 v NYI: 0.6315) (DET: 74.86% , NYI: 25.14%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "18:00:29",
+    "timeLastRun": "18:38:31",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -60,7 +60,7 @@
     "awayScorers": {},
     "outcome": "NYR (OTW), NYR: 1.03154 v VAN: 0.99366      Expected difference: 0.0378800000000001, (NYR: 1.71923 v VAN: 1.6561) (NYR: 50.94% , VAN: 49.06%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "18:00:31",
+    "timeLastRun": "18:38:32",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -68,12 +68,12 @@
     "homeABV": "CBJ",
     "awayABV": "ANA",
     "homeGoalie": "CBJ: Jet Greaves",
-    "awayGoalie": {},
+    "awayGoalie": "ANA: Ville Husso",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "ANA, CBJ: 0.85427 v ANA: 1.01682      Expected difference: 0.16255, (CBJ: 1.42378 v ANA: 1.6947) (CBJ: 45.66% , ANA: 54.34%)",
+    "outcome": "CBJ, CBJ: 1.10346 v ANA: 1.01682      Expected difference: 0.0866400000000001, (CBJ: 1.8391 v ANA: 1.6947) (CBJ: 52.04% , ANA: 47.96%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "18:00:32",
+    "timeLastRun": "18:38:34",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -86,7 +86,7 @@
     "awayScorers": {},
     "outcome": "EDM, PIT: 1.16978 v EDM: 1.24978      Expected difference: 0.0800000000000001, (PIT: 1.94963 v EDM: 2.08297) (PIT: 48.35% , EDM: 51.65%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "18:00:34",
+    "timeLastRun": "18:38:36",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -99,7 +99,7 @@
     "awayScorers": {},
     "outcome": "WSH, MIN: 0.99544 v WSH: 1.18194      Expected difference: 0.1865, (MIN: 1.65907 v WSH: 1.9699) (MIN: 45.72% , WSH: 54.28%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "18:00:36",
+    "timeLastRun": "18:38:37",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -112,7 +112,7 @@
     "awayScorers": {},
     "outcome": "SJS, SJS: 1.06859 v CGY: 0.54057      Expected difference: 0.52802, (SJS: 1.78098 v CGY: 0.90095) (SJS: 66.41% , CGY: 33.59%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "18:00:37",
+    "timeLastRun": "18:38:39",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -125,7 +125,7 @@
     "awayScorers": "Nathan MacKinnon, COL: 0.68716      (1.14526666666667)",
     "outcome": "COL, SEA: 0.7712 v COL: 2.23089      Expected difference: 1.45969, (SEA: 1.28533 v COL: 3.71815) (SEA: 25.69% , COL: 74.31%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "18:00:39",
+    "timeLastRun": "18:38:41",
     "correctLines": 0,
     "totalLines": 2
   }
