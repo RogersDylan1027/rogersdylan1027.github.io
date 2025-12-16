@@ -4215,5 +4215,75 @@
         "totalLines": 2
       }
     ]
+  },
+  {
+    "date": "2025-12-15",
+    "games": [
+      {
+        "homeABV": "TBL",
+        "awayABV": "FLA",
+        "homeGoalie": "TBL: Jonas Johansson",
+        "awayGoalie": "FLA: Sergei Bobrovsky",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "FLA, TBL: 0.94921 v FLA: 1.276      Expected difference: 0.32679, (TBL: 1.58202 v FLA: 2.12667) (TBL: 42.66% , FLA: 57.34%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "19:00:49",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "NYR",
+        "awayABV": "ANA",
+        "homeGoalie": "NYR: Igor Shesterkin",
+        "awayGoalie": "ANA: Lukas Dostal",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "ANA, NYR: 0.39621 v ANA: 1.1366      Expected difference: 0.74039, (NYR: 0.66035 v ANA: 1.89433) (NYR: 25.85% , ANA: 74.15%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "19:00:51",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "WPG",
+        "awayABV": "OTT",
+        "homeGoalie": "WPG: Connor Hellebuyck",
+        "awayGoalie": {},
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "OTT, WPG: 0.39571 v OTT: 0.86093      Expected difference: 0.46522, (WPG: 0.65952 v OTT: 1.43488) (WPG: 31.49% , OTT: 68.51%)",
+        "startingTime": "19:35:00",
+        "timeLastRun": "19:00:53",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "STL",
+        "awayABV": "NSH",
+        "homeGoalie": "STL: Joel Hofer",
+        "awayGoalie": "NSH: Juuse Saros",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "NSH, STL: 0.31098 v NSH: 0.81237      Expected difference: 0.50139, (STL: 0.5183 v NSH: 1.35395) (STL: 27.68% , NSH: 72.32%)",
+        "startingTime": "20:05:00",
+        "timeLastRun": "19:00:54",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "DAL",
+        "awayABV": "LAK",
+        "homeGoalie": "DAL: Casey DeSmith",
+        "awayGoalie": "LAK: Darcy Kuemper",
+        "homeScorers": "Jason Robertson, DAL: 0.3934      (0.655666666666667)",
+        "awayScorers": {},
+        "outcome": "DAL, DAL: 1.63191 v LAK: 1.23215      Expected difference: 0.39976, (DAL: 2.71985 v LAK: 2.05358) (DAL: 56.98% , LAK: 43.02%)",
+        "startingTime": "20:05:00",
+        "timeLastRun": "19:00:55",
+        "correctLines": 1,
+        "totalLines": 2
+      }
+    ]
   }
 ]
