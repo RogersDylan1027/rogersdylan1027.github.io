@@ -9,7 +9,7 @@
     "outcome": "BOS, BOS: 0.86957 v UTA: 0.74531      Expected difference: 0.12426, (BOS: 1.44928 v UTA: 1.24218) (BOS: 53.85% , UTA: 46.15%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:00:29",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -22,7 +22,7 @@
     "outcome": "TOR, TOR: 1.3589 v CHI: 0.75863      Expected difference: 0.60027, (TOR: 2.26483 v CHI: 1.26438) (TOR: 64.17% , CHI: 35.83%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:00:30",
-    "correctLines": 0,
+    "correctLines": 2,
     "totalLines": 2
   },
   {
@@ -48,7 +48,7 @@
     "outcome": "DET, DET: 1.12808 v NYI: 0.45195      Expected difference: 0.67613, (DET: 1.88013 v NYI: 0.75325) (DET: 71.4% , NYI: 28.6%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:00:34",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -74,7 +74,7 @@
     "outcome": "CBJ, CBJ: 1.10346 v ANA: 1.01682      Expected difference: 0.0866400000000001, (CBJ: 1.8391 v ANA: 1.6947) (CBJ: 52.04% , ANA: 47.96%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:00:37",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -87,7 +87,7 @@
     "outcome": "EDM, PIT: 1.16978 v EDM: 1.24978      Expected difference: 0.0800000000000001, (PIT: 1.94963 v EDM: 2.08297) (PIT: 48.35% , EDM: 51.65%)",
     "startingTime": "19:35:00",
     "timeLastRun": "19:00:38",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -100,7 +100,7 @@
     "outcome": "WSH, MIN: 0.99544 v WSH: 1.18194      Expected difference: 0.1865, (MIN: 1.65907 v WSH: 1.9699) (MIN: 45.72% , WSH: 54.28%)",
     "startingTime": "20:05:00",
     "timeLastRun": "19:00:40",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 2
   },
   {
@@ -113,7 +113,7 @@
     "outcome": "SJS, SJS: 1.06859 v CGY: 0.54057      Expected difference: 0.52802, (SJS: 1.78098 v CGY: 0.90095) (SJS: 66.41% , CGY: 33.59%)",
     "startingTime": "22:05:00",
     "timeLastRun": "21:46:42",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -129,7 +129,7 @@
     "outcome": "COL, SEA: 0.76708 v COL: 2.68179      Expected difference: 1.91471, (SEA: 1.27847 v COL: 4.46965) (SEA: 22.24% , COL: 77.76%)",
     "startingTime": "22:05:00",
     "timeLastRun": "21:46:43",
-    "correctLines": 0,
+    "correctLines": 3,
     "totalLines": 3
   }
 ]
