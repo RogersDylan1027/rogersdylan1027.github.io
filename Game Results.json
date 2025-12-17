@@ -6,22 +6,22 @@
     "awayGoalie": "LAK: Anton Forsberg",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "FLA (OTW), FLA: 0.60673 v LAK: 0.58714      Expected difference: 0.0195900000000001, (FLA: 1.01122 v LAK: 0.97857) (FLA: 50.82% , LAK: 49.18%)",
+    "outcome": "LAK (OTW), FLA: 0.60673 v LAK: 0.64074      Expected difference: 0.03401, (FLA: 1.01122 v LAK: 1.0679) (FLA: 48.64% , LAK: 51.36%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "13:53:28",
+    "timeLastRun": "14:12:00",
     "correctLines": 0,
     "totalLines": 1
   },
   {
     "homeABV": "DET",
     "awayABV": "UTA",
-    "homeGoalie": {},
+    "homeGoalie": "DET: Cam Talbot",
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "DET, DET: 0.62485 v UTA: 0.40549      Expected difference: 0.21936, (DET: 1.04142 v UTA: 0.67582) (DET: 60.65% , UTA: 39.35%)",
+    "outcome": "DET, DET: 0.62485 v UTA: 0.49692      Expected difference: 0.12793, (DET: 1.04142 v UTA: 0.8282) (DET: 55.7% , UTA: 44.3%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "13:53:30",
+    "timeLastRun": "14:12:02",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -34,7 +34,7 @@
     "awayScorers": {},
     "outcome": "WPG, STL: 0.42995 v WPG: 0.70164      Expected difference: 0.27169, (STL: 0.71658 v WPG: 1.1694) (STL: 38% , WPG: 62%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "13:53:31",
+    "timeLastRun": "14:12:04",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -47,7 +47,7 @@
     "awayScorers": {},
     "outcome": "NSH, NSH: 1.42228 v CAR: 0.52017      Expected difference: 0.90211, (NSH: 2.37047 v CAR: 0.86695) (NSH: 73.22% , CAR: 26.78%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "13:53:33",
+    "timeLastRun": "14:12:06",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -60,7 +60,7 @@
     "awayScorers": "Jack Hughes, NJD: 0.35442      (0.5907)",
     "outcome": "NJD, VGK: 0.5124 v NJD: 1.01574      Expected difference: 0.50334, (VGK: 0.854 v NJD: 1.6929) (VGK: 33.53% , NJD: 66.47%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "13:53:35",
+    "timeLastRun": "14:12:08",
     "correctLines": 0,
     "totalLines": 2
   }
