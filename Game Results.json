@@ -122,7 +122,10 @@
     "homeGoalie": "SEA: Philipp Grubauer",
     "awayGoalie": "COL: Mackenzie Blackwood",
     "homeScorers": {},
-    "awayScorers": ["Nathan MacKinnon, COL: 0.82605      (1.37675)", "Cale Makar, COL: 0.35433      (0.59055)"],
+    "awayScorers": [
+      "Nathan MacKinnon, COL: 0.82605      (1.37675)",
+      "Cale Makar, COL: 0.35433      (0.59055)"
+    ],
     "outcome": "COL, SEA: 0.76708 v COL: 2.68179      Expected difference: 1.91471, (SEA: 1.27847 v COL: 4.46965) (SEA: 22.24% , COL: 77.76%)",
     "startingTime": "22:05:00",
     "timeLastRun": "21:46:43",
