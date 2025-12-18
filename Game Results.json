@@ -8,7 +8,7 @@
     "awayScorers": {},
     "outcome": "EDM, BOS: 0.59487 v EDM: 0.68637      Expected difference: 0.0914999999999998, (BOS: 0.99145 v EDM: 1.14395) (BOS: 46.43% , EDM: 53.57%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "14:10:59",
+    "timeLastRun": "14:32:05",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -21,7 +21,7 @@
     "awayScorers": {},
     "outcome": "MTL, MTL: 0.7571 v CHI: 0.2248      Expected difference: 0.5323, (MTL: 1.26183 v CHI: 0.37467) (MTL: 77.11% , CHI: 22.89%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "14:11:02",
+    "timeLastRun": "14:32:06",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -34,7 +34,7 @@
     "awayScorers": {},
     "outcome": "PIT, OTT: 0.27512 v PIT: 0.41644      Expected difference: 0.14132, (OTT: 0.45853 v PIT: 0.69407) (OTT: 39.78% , PIT: 60.22%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "14:11:04",
+    "timeLastRun": "14:32:08",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -45,9 +45,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "TBL, TBL: 1.40149 v LAK: 1.22087      Expected difference: 0.180619999999999, (TBL: 2.33582 v LAK: 2.03478) (TBL: 53.44% , LAK: 46.56%)",
+    "outcome": "TBL, TBL: 1.40173 v LAK: 1.22087      Expected difference: 0.180859999999999, (TBL: 2.33622 v LAK: 2.03478) (TBL: 53.45% , LAK: 46.55%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "14:11:07",
+    "timeLastRun": "14:32:10",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -60,7 +60,7 @@
     "awayScorers": "Auston Matthews, TOR: 0.51035      (0.850583333333333)",
     "outcome": "TOR, WSH: 1.69417 v TOR: 1.84635      Expected difference: 0.15218, (WSH: 2.82362 v TOR: 3.07725) (WSH: 47.85% , TOR: 52.15%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "14:11:09",
+    "timeLastRun": "14:32:11",
     "correctLines": 0,
     "totalLines": 3
   },
@@ -73,7 +73,7 @@
     "awayScorers": {},
     "outcome": "CBJ, CBJ: 1.79414 v MIN: 0.57466      Expected difference: 1.21948, (CBJ: 2.99023 v MIN: 0.95777) (CBJ: 75.74% , MIN: 24.26%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "14:11:11",
+    "timeLastRun": "14:32:13",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -84,9 +84,9 @@
     "awayGoalie": "PHI: Samuel Ersson",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "BUF, BUF: 0.42272 v PHI: 0.36554      Expected difference: 0.0571799999999999, (BUF: 0.70453 v PHI: 0.60923) (BUF: 53.63% , PHI: 46.37%)",
+    "outcome": "BUF, BUF: 0.42468 v PHI: 0.36554      Expected difference: 0.0591399999999999, (BUF: 0.7078 v PHI: 0.60923) (BUF: 53.74% , PHI: 46.26%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "14:11:14",
+    "timeLastRun": "14:32:15",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -99,7 +99,7 @@
     "awayScorers": {},
     "outcome": "STL, STL: 0.5563 v NYR: 0.24217      Expected difference: 0.31413, (STL: 0.92717 v NYR: 0.40362) (STL: 69.67% , NYR: 30.33%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "14:11:17",
+    "timeLastRun": "14:32:17",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -110,9 +110,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "CGY, CGY: 1.03731 v SEA: 0.42339      Expected difference: 0.61392, (CGY: 1.72885 v SEA: 0.70565) (CGY: 71.01% , SEA: 28.99%)",
+    "outcome": "CGY, CGY: 1.03565 v SEA: 0.42339      Expected difference: 0.61226, (CGY: 1.72608 v SEA: 0.70565) (CGY: 70.98% , SEA: 29.02%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "14:11:19",
+    "timeLastRun": "14:32:19",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -120,12 +120,12 @@
     "homeABV": "SJS",
     "awayABV": "DAL",
     "homeGoalie": "SJS: Alex Nedeljkovic",
-    "awayGoalie": {},
+    "awayGoalie": "DAL: Jake Oettinger",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "SJS, SJS: 1.07681 v DAL: 0.48252      Expected difference: 0.59429, (SJS: 1.79468 v DAL: 0.8042) (SJS: 69.06% , DAL: 30.94%)",
+    "outcome": "SJS, SJS: 0.86272 v DAL: 0.48241      Expected difference: 0.38031, (SJS: 1.43787 v DAL: 0.80402) (SJS: 64.14% , DAL: 35.86%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "14:11:21",
+    "timeLastRun": "14:32:21",
     "correctLines": 0,
     "totalLines": 1
   }
