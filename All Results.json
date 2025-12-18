@@ -4423,5 +4423,75 @@
         "totalLines": 3
       }
     ]
+  },
+  {
+    "date": "2025-12-17",
+    "games": [
+      {
+        "homeABV": "FLA",
+        "awayABV": "LAK",
+        "homeGoalie": "FLA: Daniil Tarasov",
+        "awayGoalie": "LAK: Anton Forsberg",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "LAK (OTW), FLA: 0.60673 v LAK: 0.64074      Expected difference: 0.03401, (FLA: 1.01122 v LAK: 1.0679) (FLA: 48.64% , LAK: 51.36%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "19:00:45",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "DET",
+        "awayABV": "UTA",
+        "homeGoalie": "DET: Cam Talbot",
+        "awayGoalie": {},
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "DET, DET: 0.62485 v UTA: 0.49692      Expected difference: 0.12793, (DET: 1.04142 v UTA: 0.8282) (DET: 55.7% , UTA: 44.3%)",
+        "startingTime": "19:35:00",
+        "timeLastRun": "19:00:47",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "STL",
+        "awayABV": "WPG",
+        "homeGoalie": "STL: Joel Hofer",
+        "awayGoalie": {},
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "WPG, STL: 0.42995 v WPG: 0.70164      Expected difference: 0.27169, (STL: 0.71658 v WPG: 1.1694) (STL: 38% , WPG: 62%)",
+        "startingTime": "20:05:00",
+        "timeLastRun": "19:00:49",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "NSH",
+        "awayABV": "CAR",
+        "homeGoalie": {},
+        "awayGoalie": "CAR: Pyotr Kochetkov",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "NSH, NSH: 1.42228 v CAR: 0.52017      Expected difference: 0.90211, (NSH: 2.37047 v CAR: 0.86695) (NSH: 73.22% , CAR: 26.78%)",
+        "startingTime": "20:05:00",
+        "timeLastRun": "19:00:51",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "VGK",
+        "awayABV": "NJD",
+        "homeGoalie": "VGK: Carter Hart",
+        "awayGoalie": "NJD: Jake Allen",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "VGK, VGK: 1.10159 v NJD: 0.61297      Expected difference: 0.48862, (VGK: 1.83598 v NJD: 1.02162) (VGK: 64.25% , NJD: 35.75%)",
+        "startingTime": "22:05:00",
+        "timeLastRun": "21:47:05",
+        "correctLines": 0,
+        "totalLines": 1
+      }
+    ]
   }
 ]
