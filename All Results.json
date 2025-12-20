@@ -4628,5 +4628,75 @@
         "totalLines": 1
       }
     ]
+  },
+  {
+    "date": "2025-12-19",
+    "games": [
+      {
+        "homeABV": "FLA",
+        "awayABV": "CAR",
+        "homeGoalie": "FLA: Sergei Bobrovsky",
+        "awayGoalie": "CAR: Brandon Bussi",
+        "homeScorers": "Sam Reinhart, FLA: 0.37775      (0.629583333333333)",
+        "awayScorers": {},
+        "outcome": "FLA, FLA: 1.64245 v CAR: 0.86287      Expected difference: 0.77958, (FLA: 2.73742 v CAR: 1.43812) (FLA: 65.56% , CAR: 34.44%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "19:00:11",
+        "correctLines": 2,
+        "totalLines": 2
+      },
+      {
+        "homeABV": "NYI",
+        "awayABV": "VAN",
+        "homeGoalie": "NYI: Ilya Sorokin",
+        "awayGoalie": "VAN: Thatcher Demko",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "NYI, NYI: 0.96903 v VAN: 0.67417      Expected difference: 0.29486, (NYI: 1.61505 v VAN: 1.12362) (NYI: 58.97% , VAN: 41.03%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "19:00:13",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "COL",
+        "awayABV": "WPG",
+        "homeGoalie": "COL: Scott Wedgewood",
+        "awayGoalie": {},
+        "homeScorers": "Nathan MacKinnon, COL: 0.46875      (0.78125)",
+        "awayScorers": "Kyle Connor, WPG: 0.42973      (0.716216666666667)",
+        "outcome": "WPG, COL: 1.47712 v WPG: 1.53983      Expected difference: 0.0627099999999998, (COL: 2.46187 v WPG: 2.56638) (COL: 48.96% , WPG: 51.04%)",
+        "startingTime": "21:05:00",
+        "timeLastRun": "19:00:14",
+        "correctLines": 1,
+        "totalLines": 3
+      },
+      {
+        "homeABV": "UTA",
+        "awayABV": "NJD",
+        "homeGoalie": "UTA: Karel Vejmelka",
+        "awayGoalie": {},
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "NJD, UTA: 0.59947 v NJD: 0.93388      Expected difference: 0.33441, (UTA: 0.99912 v NJD: 1.55647) (UTA: 39.1% , NJD: 60.9%)",
+        "startingTime": "21:05:00",
+        "timeLastRun": "19:00:16",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "ANA",
+        "awayABV": "DAL",
+        "homeGoalie": "ANA: Lukas Dostal",
+        "awayGoalie": "DAL: Casey DeSmith",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "ANA, ANA: 1.78423 v DAL: 0.79064      Expected difference: 0.99359, (ANA: 2.97372 v DAL: 1.31773) (ANA: 69.29% , DAL: 30.71%)",
+        "startingTime": "22:05:00",
+        "timeLastRun": "21:31:02",
+        "correctLines": 0,
+        "totalLines": 1
+      }
+    ]
   }
 ]
