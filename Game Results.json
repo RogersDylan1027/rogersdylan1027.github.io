@@ -2,13 +2,13 @@
   {
     "homeABV": "DET",
     "awayABV": "WSH",
-    "homeGoalie": {},
-    "awayGoalie": {},
+    "homeGoalie": "DET: Cam Talbot",
+    "awayGoalie": "WSH: Charlie Lindgren",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "DET, DET: 1.21356 v WSH: 0.54905      Expected difference: 0.66451, (DET: 2.0226 v WSH: 0.91508) (DET: 68.85% , WSH: 31.15%)",
+    "outcome": "WSH, DET: 0.32209 v WSH: 0.57549      Expected difference: 0.2534, (DET: 0.53682 v WSH: 0.95915) (DET: 35.88% , WSH: 64.12%)",
     "startingTime": "13:05:00",
-    "timeLastRun": "12:00:23",
+    "timeLastRun": "12:38:35",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -21,7 +21,7 @@
     "awayScorers": "Nathan MacKinnon, COL: 0.82008      (1.3668)",
     "outcome": "COL, MIN: 2.04352 v COL: 2.61042      Expected difference: 0.5669, (MIN: 3.40587 v COL: 4.3507) (MIN: 43.91% , COL: 56.09%)",
     "startingTime": "18:05:00",
-    "timeLastRun": "12:00:24",
+    "timeLastRun": "12:38:37",
     "correctLines": 0,
     "totalLines": 4
   },
@@ -34,7 +34,7 @@
     "awayScorers": {},
     "outcome": "OTT (OTW), BOS: 0.28661 v OTT: 0.31417      Expected difference: 0.0275600000000001, (BOS: 0.47768 v OTT: 0.52362) (BOS: 47.71% , OTT: 52.29%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "12:00:25",
+    "timeLastRun": "12:38:38",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -47,7 +47,7 @@
     "awayScorers": {},
     "outcome": "BUF, NJD: 0.83412 v BUF: 1.22211      Expected difference: 0.38799, (NJD: 1.3902 v BUF: 2.03685) (NJD: 40.57% , BUF: 59.43%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "12:00:27",
+    "timeLastRun": "12:38:40",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -60,7 +60,7 @@
     "awayScorers": {},
     "outcome": "MTL (OTW), PIT: 0.49226 v MTL: 0.49623      Expected difference: 0.00396999999999992, (PIT: 0.82043 v MTL: 0.82705) (PIT: 49.8% , MTL: 50.2%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "12:00:29",
+    "timeLastRun": "12:38:42",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -71,9 +71,9 @@
     "awayGoalie": "NYR: Jonathan Quick",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "NSH, NSH: 1.18119 v NYR: 0.37968      Expected difference: 0.80151, (NSH: 1.96865 v NYR: 0.6328) (NSH: 75.68% , NYR: 24.32%)",
+    "outcome": "NSH, NSH: 1.18119 v NYR: 0.37924      Expected difference: 0.80195, (NSH: 1.96865 v NYR: 0.63207) (NSH: 75.7% , NYR: 24.3%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "12:00:31",
+    "timeLastRun": "12:38:43",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -84,9 +84,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "TOR, DAL: 1.04965 v TOR: 1.10489      Expected difference: 0.05524, (DAL: 1.74942 v TOR: 1.84148) (DAL: 48.72% , TOR: 51.28%)",
+    "outcome": "TOR, DAL: 1.04941 v TOR: 1.10489      Expected difference: 0.05548, (DAL: 1.74902 v TOR: 1.84148) (DAL: 48.71% , TOR: 51.29%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "12:00:32",
+    "timeLastRun": "12:38:46",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -99,7 +99,7 @@
     "awayScorers": {},
     "outcome": "WPG, UTA: 0.73395 v WPG: 0.80348      Expected difference: 0.06953, (UTA: 1.22325 v WPG: 1.33913) (UTA: 47.74% , WPG: 52.26%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "12:00:34",
+    "timeLastRun": "12:38:48",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -110,9 +110,9 @@
     "awayGoalie": "VGK: Carter Hart",
     "homeScorers": ["Leon Draisaitl, EDM: 0.37603      (0.626716666666667)", "Connor McDavid, EDM: 0.35019      (0.58365)"],
     "awayScorers": {},
-    "outcome": "EDM, EDM: 1.46171 v VGK: 0.38433      Expected difference: 1.07738, (EDM: 2.43618 v VGK: 0.64055) (EDM: 79.18% , VGK: 20.82%)",
+    "outcome": "EDM, EDM: 1.45799 v VGK: 0.38433      Expected difference: 1.07366, (EDM: 2.42998 v VGK: 0.64055) (EDM: 79.14% , VGK: 20.86%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "12:00:35",
+    "timeLastRun": "12:38:49",
     "correctLines": 0,
     "totalLines": 3
   }
