@@ -25,7 +25,7 @@
     "outcome": "COL, MIN: 2.04352 v COL: 2.61042      Expected difference: 0.5669, (MIN: 3.40587 v COL: 4.3507) (MIN: 43.91% , COL: 56.09%)",
     "startingTime": "18:05:00",
     "timeLastRun": "18:00:27",
-    "correctLines": 0,
+    "correctLines": 3,
     "totalLines": 4
   },
   {
@@ -51,7 +51,7 @@
     "outcome": "BUF, NJD: 0.80949 v BUF: 1.22211      Expected difference: 0.41262, (NJD: 1.34915 v BUF: 2.03685) (NJD: 39.84% , BUF: 60.16%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:00:39",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -64,7 +64,7 @@
     "outcome": "PIT, PIT: 0.75193 v MTL: 0.33138      Expected difference: 0.42055, (PIT: 1.25322 v MTL: 0.5523) (PIT: 69.41% , MTL: 30.59%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:00:41",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -77,7 +77,7 @@
     "outcome": "NSH, NSH: 1.18119 v NYR: 0.30539      Expected difference: 0.8758, (NSH: 1.96865 v NYR: 0.50898) (NSH: 79.46% , NYR: 20.54%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:00:42",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -90,7 +90,7 @@
     "outcome": "DAL, DAL: 1.3899 v TOR: 1.10489      Expected difference: 0.28501, (DAL: 2.3165 v TOR: 1.84148) (DAL: 55.71% , TOR: 44.29%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:00:43",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -103,7 +103,7 @@
     "outcome": "UTA, UTA: 1.07124 v WPG: 0.90305      Expected difference: 0.16819, (UTA: 1.7854 v WPG: 1.50508) (UTA: 54.26% , WPG: 45.74%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:00:46",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -119,7 +119,7 @@
     "outcome": "EDM, EDM: 1.55948 v VGK: 0.38433      Expected difference: 1.17515, (EDM: 2.59913 v VGK: 0.64055) (EDM: 80.23% , VGK: 19.77%)",
     "startingTime": "20:05:00",
     "timeLastRun": "19:00:47",
-    "correctLines": 0,
+    "correctLines": 3,
     "totalLines": 3
   }
 ]
