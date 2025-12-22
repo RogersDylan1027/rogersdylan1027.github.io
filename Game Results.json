@@ -37,7 +37,7 @@
     "awayScorers": {},
     "outcome": "BOS, BOS: 0.43011 v OTT: 0.28946      Expected difference: 0.14065, (BOS: 0.71685 v OTT: 0.48243) (BOS: 59.77% , OTT: 40.23%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "18:36:45",
+    "timeLastRun": "19:00:38",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -50,7 +50,7 @@
     "awayScorers": {},
     "outcome": "BUF, NJD: 0.80949 v BUF: 1.22211      Expected difference: 0.41262, (NJD: 1.34915 v BUF: 2.03685) (NJD: 39.84% , BUF: 60.16%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "18:36:47",
+    "timeLastRun": "19:00:39",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -63,7 +63,7 @@
     "awayScorers": {},
     "outcome": "PIT, PIT: 0.75193 v MTL: 0.33138      Expected difference: 0.42055, (PIT: 1.25322 v MTL: 0.5523) (PIT: 69.41% , MTL: 30.59%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "18:36:49",
+    "timeLastRun": "19:00:41",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -74,9 +74,9 @@
     "awayGoalie": "NYR: Jonathan Quick",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "NSH, NSH: 1.18119 v NYR: 0.31207      Expected difference: 0.86912, (NSH: 1.96865 v NYR: 0.52012) (NSH: 79.1% , NYR: 20.9%)",
+    "outcome": "NSH, NSH: 1.18119 v NYR: 0.30539      Expected difference: 0.8758, (NSH: 1.96865 v NYR: 0.50898) (NSH: 79.46% , NYR: 20.54%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "18:36:50",
+    "timeLastRun": "19:00:42",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -89,7 +89,7 @@
     "awayScorers": {},
     "outcome": "DAL, DAL: 1.3899 v TOR: 1.10489      Expected difference: 0.28501, (DAL: 2.3165 v TOR: 1.84148) (DAL: 55.71% , TOR: 44.29%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "18:36:52",
+    "timeLastRun": "19:00:43",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -97,12 +97,12 @@
     "homeABV": "UTA",
     "awayABV": "WPG",
     "homeGoalie": "UTA: Karel Vejmelka",
-    "awayGoalie": {},
+    "awayGoalie": "WPG: Connor Hellebuyck",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "WPG, UTA: 0.73395 v WPG: 0.90305      Expected difference: 0.1691, (UTA: 1.22325 v WPG: 1.50508) (UTA: 44.84% , WPG: 55.16%)",
+    "outcome": "UTA, UTA: 1.07124 v WPG: 0.90305      Expected difference: 0.16819, (UTA: 1.7854 v WPG: 1.50508) (UTA: 54.26% , WPG: 45.74%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "18:36:53",
+    "timeLastRun": "19:00:46",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -115,7 +115,7 @@
     "awayScorers": {},
     "outcome": "EDM, EDM: 1.55948 v VGK: 0.38433      Expected difference: 1.17515, (EDM: 2.59913 v VGK: 0.64055) (EDM: 80.23% , VGK: 19.77%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "18:36:55",
+    "timeLastRun": "19:00:47",
     "correctLines": 0,
     "totalLines": 3
   }
