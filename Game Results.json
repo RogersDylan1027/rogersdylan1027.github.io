@@ -6,9 +6,9 @@
     "awayGoalie": "STL: Jordan Binnington",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "STL, TBL: 0.3623 v STL: 0.82003      Expected difference: 0.45773, (TBL: 0.60383 v STL: 1.36672) (TBL: 30.64% , STL: 69.36%)",
+    "outcome": "STL, TBL: 0.42534 v STL: 0.76537      Expected difference: 0.34003, (TBL: 0.7089 v STL: 1.27562) (TBL: 35.72% , STL: 64.28%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "14:03:02",
+    "timeLastRun": "14:34:23",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -19,9 +19,9 @@
     "awayGoalie": "VAN: Thatcher Demko",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "PHI, PHI: 1.08719 v VAN: 0.80625      Expected difference: 0.28094, (PHI: 1.81198 v VAN: 1.34375) (PHI: 57.42% , VAN: 42.58%)",
+    "outcome": "PHI, PHI: 1.05022 v VAN: 0.74525      Expected difference: 0.30497, (PHI: 1.75037 v VAN: 1.24208) (PHI: 58.49% , VAN: 41.51%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "14:03:04",
+    "timeLastRun": "14:34:24",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -32,9 +32,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "ANA, ANA: 1.11758 v SEA: 0.30136      Expected difference: 0.81622, (ANA: 1.86263 v SEA: 0.50227) (ANA: 78.76% , SEA: 21.24%)",
+    "outcome": "ANA, ANA: 1.0092 v SEA: 0.2129      Expected difference: 0.7963, (ANA: 1.682 v SEA: 0.35483) (ANA: 82.58% , SEA: 17.42%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "14:03:06",
+    "timeLastRun": "14:34:26",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -42,13 +42,13 @@
     "homeABV": "LAK",
     "awayABV": "CBJ",
     "homeGoalie": {},
-    "awayGoalie": {},
+    "awayGoalie": "CBJ: Jet Greaves",
     "homeScorers": {},
-    "awayScorers": "Zach Werenski, CBJ: 0.4091      (0.681833333333333)",
-    "outcome": "CBJ, LAK: 0.35883 v CBJ: 1.64917      Expected difference: 1.29034, (LAK: 0.59805 v CBJ: 2.74862) (LAK: 17.87% , CBJ: 82.13%)",
+    "awayScorers": {},
+    "outcome": "CBJ, LAK: 0.4483 v CBJ: 1.22613      Expected difference: 0.77783, (LAK: 0.74717 v CBJ: 2.04355) (LAK: 26.77% , CBJ: 73.23%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "14:03:08",
+    "timeLastRun": "14:34:27",
     "correctLines": 0,
-    "totalLines": 2
+    "totalLines": 1
   }
 ]
