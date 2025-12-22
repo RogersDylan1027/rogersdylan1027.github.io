@@ -8,7 +8,7 @@
     "awayScorers": {},
     "outcome": "STL, TBL: 0.3623 v STL: 0.82003      Expected difference: 0.45773, (TBL: 0.60383 v STL: 1.36672) (TBL: 30.64% , STL: 69.36%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "13:00:51",
+    "timeLastRun": "13:51:34",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -21,20 +21,20 @@
     "awayScorers": {},
     "outcome": "PHI, PHI: 1.08719 v VAN: 0.80625      Expected difference: 0.28094, (PHI: 1.81198 v VAN: 1.34375) (PHI: 57.42% , VAN: 42.58%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "13:00:53",
+    "timeLastRun": "13:51:36",
     "correctLines": 0,
     "totalLines": 1
   },
   {
     "homeABV": "ANA",
     "awayABV": "SEA",
-    "homeGoalie": {},
+    "homeGoalie": "ANA: Lukas Dostal",
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "ANA, ANA: 1.25615 v SEA: 0.17246      Expected difference: 1.08369, (ANA: 2.09358 v SEA: 0.28743) (ANA: 87.93% , SEA: 12.07%)",
+    "outcome": "ANA, ANA: 1.25615 v SEA: 0.30255      Expected difference: 0.9536, (ANA: 2.09358 v SEA: 0.50425) (ANA: 80.59% , SEA: 19.41%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "13:00:54",
+    "timeLastRun": "13:51:39",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -47,7 +47,7 @@
     "awayScorers": "Zach Werenski, CBJ: 0.4091      (0.681833333333333)",
     "outcome": "CBJ, LAK: 0.35883 v CBJ: 1.64917      Expected difference: 1.29034, (LAK: 0.59805 v CBJ: 2.74862) (LAK: 17.87% , CBJ: 82.13%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "13:00:56",
+    "timeLastRun": "13:51:41",
     "correctLines": 0,
     "totalLines": 2
   }
