@@ -22,7 +22,7 @@
     "outcome": "PHI, PHI: 1.05022 v VAN: 0.74525      Expected difference: 0.30497, (PHI: 1.75037 v VAN: 1.24208) (PHI: 58.49% , VAN: 41.51%)",
     "startingTime": "19:35:00",
     "timeLastRun": "19:00:18",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -48,7 +48,7 @@
     "outcome": "CBJ, LAK: 0.4483 v CBJ: 0.6523      Expected difference: 0.204, (LAK: 0.74717 v CBJ: 1.08717) (LAK: 40.73% , CBJ: 59.27%)",
     "startingTime": "22:05:00",
     "timeLastRun": "21:52:05",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   }
 ]
