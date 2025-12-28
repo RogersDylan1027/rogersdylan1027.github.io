@@ -34,7 +34,7 @@
     "awayScorers": {},
     "outcome": "DET, DET: 0.71321 v TOR: 0.30965      Expected difference: 0.40356, (DET: 1.18868 v TOR: 0.51608) (DET: 69.73% , TOR: 30.27%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "17:41:32",
+    "timeLastRun": "18:00:58",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -47,7 +47,7 @@
     "awayScorers": {},
     "outcome": "PIT, CHI: 0.16849 v PIT: 0.41032      Expected difference: 0.24183, (CHI: 0.28082 v PIT: 0.68387) (CHI: 29.11% , PIT: 70.89%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "17:41:34",
+    "timeLastRun": "18:01:01",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -55,12 +55,12 @@
     "homeABV": "SEA",
     "awayABV": "PHI",
     "homeGoalie": {},
-    "awayGoalie": {},
+    "awayGoalie": "PHI: Dan Vladar",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "PHI, SEA: 0.49875 v PHI: 0.80871      Expected difference: 0.30996, (SEA: 0.83125 v PHI: 1.34785) (SEA: 38.15% , PHI: 61.85%)",
+    "outcome": "PHI, SEA: 0.66015 v PHI: 0.80871      Expected difference: 0.14856, (SEA: 1.10025 v PHI: 1.34785) (SEA: 44.94% , PHI: 55.06%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "17:41:35",
+    "timeLastRun": "18:01:03",
     "correctLines": 0,
     "totalLines": 1
   }
