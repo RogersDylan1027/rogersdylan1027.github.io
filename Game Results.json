@@ -28,26 +28,26 @@
   {
     "homeABV": "DET",
     "awayABV": "TOR",
-    "homeGoalie": {},
-    "awayGoalie": {},
+    "homeGoalie": "DET: Cam Talbot",
+    "awayGoalie": "TOR: Dennis Hildeby",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "DET, DET: 0.71321 v TOR: 0.30965      Expected difference: 0.40356, (DET: 1.18868 v TOR: 0.51608) (DET: 69.73% , TOR: 30.27%)",
+    "outcome": "DET, DET: 1.08104 v TOR: 0.43119      Expected difference: 0.64985, (DET: 1.80173 v TOR: 0.71865) (DET: 71.49% , TOR: 28.51%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "18:00:58",
+    "timeLastRun": "18:38:41",
     "correctLines": 0,
     "totalLines": 1
   },
   {
     "homeABV": "CHI",
     "awayABV": "PIT",
-    "homeGoalie": {},
+    "homeGoalie": "CHI: Spencer Knight",
     "awayGoalie": "PIT: Arturs Silovs",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "PIT, CHI: 0.16849 v PIT: 0.41032      Expected difference: 0.24183, (CHI: 0.28082 v PIT: 0.68387) (CHI: 29.11% , PIT: 70.89%)",
+    "outcome": "PIT, CHI: 0.16849 v PIT: 0.9025      Expected difference: 0.73401, (CHI: 0.28082 v PIT: 1.50417) (CHI: 15.73% , PIT: 84.27%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "18:01:01",
+    "timeLastRun": "18:38:42",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -60,7 +60,7 @@
     "awayScorers": {},
     "outcome": "PHI, SEA: 0.66015 v PHI: 0.80871      Expected difference: 0.14856, (SEA: 1.10025 v PHI: 1.34785) (SEA: 44.94% , PHI: 55.06%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "18:01:03",
+    "timeLastRun": "18:38:44",
     "correctLines": 0,
     "totalLines": 1
   }
