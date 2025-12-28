@@ -70,7 +70,10 @@
     "homeGoalie": "CAR: Brandon Bussi",
     "awayGoalie": "DET: John Gibson",
     "homeScorers": {},
-    "awayScorers": ["Dylan Larkin, DET: 0.37504      (0.625066666666667)", "Alex DeBrincat, DET: 0.41621      (0.693683333333333)"],
+    "awayScorers": [
+      "Dylan Larkin, DET: 0.37504      (0.625066666666667)",
+      "Alex DeBrincat, DET: 0.41621      (0.693683333333333)"
+    ],
     "outcome": "DET, CAR: 0.46966 v DET: 1.66678      Expected difference: 1.19712, (CAR: 0.78277 v DET: 2.77797) (CAR: 21.98% , DET: 78.02%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:01:19",
@@ -135,12 +138,12 @@
     "homeGoalie": "CGY: Dustin Wolf",
     "awayGoalie": "EDM: Connor Ingram",
     "homeScorers": {},
-    "awayScorers": {},
-    "outcome": "CGY, CGY: 1.50584 v EDM: 1.13201      Expected difference: 0.37383, (CGY: 2.50973 v EDM: 1.88668) (CGY: 57.09% , EDM: 42.91%)",
+    "awayScorers": ["Leon Draisaitl, EDM: 0.40788      (0.6798)", "Connor McDavid, EDM: 0.3699      (0.6165)"],
+    "outcome": "EDM, CGY: 1.50584 v EDM: 1.63267      Expected difference: 0.12683, (CGY: 2.50973 v EDM: 2.72112) (CGY: 47.98% , EDM: 52.02%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "19:01:28",
+    "timeLastRun": "21:40:56",
     "correctLines": 0,
-    "totalLines": 1
+    "totalLines": 3
   },
   {
     "homeABV": "VAN",
@@ -148,23 +151,23 @@
     "homeGoalie": "VAN: Thatcher Demko",
     "awayGoalie": "SJS: Yaroslav Askarov",
     "homeScorers": {},
-    "awayScorers": {},
-    "outcome": "SJS, VAN: 0.27975 v SJS: 1.25905      Expected difference: 0.9793, (VAN: 0.46625 v SJS: 2.09842) (VAN: 18.18% , SJS: 81.82%)",
+    "awayScorers": "Macklin Celebrini, SJS: 0.3813      (0.6355)",
+    "outcome": "SJS, VAN: 0.6063 v SJS: 1.44446      Expected difference: 0.83816, (VAN: 1.0105 v SJS: 2.40743) (VAN: 29.56% , SJS: 70.44%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "19:01:31",
+    "timeLastRun": "21:40:57",
     "correctLines": 0,
-    "totalLines": 1
+    "totalLines": 2
   },
   {
     "homeABV": "VGK",
     "awayABV": "COL",
     "homeGoalie": "VGK: Carter Hart",
-    "awayGoalie": {},
+    "awayGoalie": "COL: Scott Wedgewood",
     "homeScorers": {},
-    "awayScorers": "Nathan MacKinnon, COL: 0.53448      (0.8908)",
-    "outcome": "COL, VGK: 1.53758 v COL: 1.6834      Expected difference: 0.145820000000001, (VGK: 2.56263 v COL: 2.80567) (VGK: 47.74% , COL: 52.26%)",
+    "awayScorers": "Nathan MacKinnon, COL: 0.7025      (1.17083333333333)",
+    "outcome": "COL, VGK: 1.53758 v COL: 2.2126      Expected difference: 0.67502, (VGK: 2.56263 v COL: 3.68767) (VGK: 41% , COL: 59%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "19:01:33",
+    "timeLastRun": "21:40:59",
     "correctLines": 0,
     "totalLines": 2
   }
