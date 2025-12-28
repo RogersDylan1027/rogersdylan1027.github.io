@@ -9,7 +9,7 @@
     "outcome": "NYI, NYI: 0.92326 v NYR: 0.86253      Expected difference: 0.0607300000000002, (NYI: 1.53877 v NYR: 1.43755) (NYI: 51.7% , NYR: 48.3%)",
     "startingTime": "18:05:00",
     "timeLastRun": "18:00:38",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -48,7 +48,7 @@
     "outcome": "FLA, FLA: 1.51245 v TBL: 0.89263      Expected difference: 0.61982, (FLA: 2.52075 v TBL: 1.48772) (FLA: 62.89% , TBL: 37.11%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:01:16",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 2
   },
   {
@@ -90,7 +90,7 @@
     "outcome": "WPG (OTW), WPG: 1.49463 v MIN: 1.4655      Expected difference: 0.0291299999999994, (WPG: 2.49105 v MIN: 2.4425) (WPG: 50.49% , MIN: 49.51%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:01:21",
-    "correctLines": 0,
+    "correctLines": 2,
     "totalLines": 3
   },
   {
@@ -116,7 +116,7 @@
     "outcome": "CHI, DAL: 0.39997 v CHI: 0.50182      Expected difference: 0.10185, (DAL: 0.66662 v CHI: 0.83637) (DAL: 44.35% , CHI: 55.65%)",
     "startingTime": "20:05:00",
     "timeLastRun": "19:01:24",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -145,7 +145,7 @@
     "outcome": "EDM, CGY: 1.50823 v EDM: 1.63267      Expected difference: 0.12444, (CGY: 2.51372 v EDM: 2.72112) (CGY: 48.02% , EDM: 51.98%)",
     "startingTime": "22:05:00",
     "timeLastRun": "22:03:19",
-    "correctLines": 0,
+    "correctLines": 2,
     "totalLines": 3
   },
   {
@@ -158,7 +158,7 @@
     "outcome": "SJS, VAN: 0.6063 v SJS: 1.44446      Expected difference: 0.83816, (VAN: 1.0105 v SJS: 2.40743) (VAN: 29.56% , SJS: 70.44%)",
     "startingTime": "22:05:00",
     "timeLastRun": "22:03:21",
-    "correctLines": 0,
+    "correctLines": 2,
     "totalLines": 2
   },
   {
@@ -171,7 +171,7 @@
     "outcome": "COL, VGK: 1.53758 v COL: 2.2126      Expected difference: 0.67502, (VGK: 2.56263 v COL: 3.68767) (VGK: 41% , COL: 59%)",
     "startingTime": "22:05:00",
     "timeLastRun": "22:03:23",
-    "correctLines": 0,
+    "correctLines": 2,
     "totalLines": 2
   }
 ]
