@@ -6110,5 +6110,75 @@
         "totalLines": 2
       }
     ]
+  },
+  {
+    "date": "2025-12-28",
+    "games": [
+      {
+        "homeABV": "TBL",
+        "awayABV": "MTL",
+        "homeGoalie": "TBL: Jonas Johansson",
+        "awayGoalie": "MTL: Jacob Fowler",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "TBL, TBL: 1.49386 v MTL: 0.72015      Expected difference: 0.77371, (TBL: 2.48977 v MTL: 1.20025) (TBL: 67.47% , MTL: 32.53%)",
+        "startingTime": "17:05:00",
+        "timeLastRun": "17:00:41",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "CBJ",
+        "awayABV": "NYI",
+        "homeGoalie": "CBJ: Jet Greaves",
+        "awayGoalie": "NYI: David Rittich",
+        "homeScorers": "Zach Werenski, CBJ: 0.39969      (0.66615)",
+        "awayScorers": {},
+        "outcome": "CBJ, CBJ: 1.67424 v NYI: 0.58242      Expected difference: 1.09182, (CBJ: 2.7904 v NYI: 0.9707) (CBJ: 74.19% , NYI: 25.81%)",
+        "startingTime": "17:05:00",
+        "timeLastRun": "17:00:43",
+        "correctLines": 1,
+        "totalLines": 2
+      },
+      {
+        "homeABV": "DET",
+        "awayABV": "TOR",
+        "homeGoalie": "DET: Cam Talbot",
+        "awayGoalie": "TOR: Dennis Hildeby",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "DET, DET: 1.08104 v TOR: 0.43119      Expected difference: 0.64985, (DET: 1.80173 v TOR: 0.71865) (DET: 71.49% , TOR: 28.51%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "19:00:36",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "CHI",
+        "awayABV": "PIT",
+        "homeGoalie": "CHI: Spencer Knight",
+        "awayGoalie": "PIT: Arturs Silovs",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "PIT, CHI: 0.16849 v PIT: 0.9025      Expected difference: 0.73401, (CHI: 0.28082 v PIT: 1.50417) (CHI: 15.73% , PIT: 84.27%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "19:00:38",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "SEA",
+        "awayABV": "PHI",
+        "homeGoalie": {},
+        "awayGoalie": "PHI: Dan Vladar",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "PHI, SEA: 0.66408 v PHI: 0.80871      Expected difference: 0.14463, (SEA: 1.1068 v PHI: 1.34785) (SEA: 45.09% , PHI: 54.91%)",
+        "startingTime": "20:05:00",
+        "timeLastRun": "19:00:39",
+        "correctLines": 0,
+        "totalLines": 1
+      }
+    ]
   }
 ]
