@@ -8,7 +8,7 @@
     "awayScorers": {},
     "outcome": "CBJ, OTT: 0.31295 v CBJ: 0.74051      Expected difference: 0.42756, (OTT: 0.52158 v CBJ: 1.23418) (OTT: 29.71% , CBJ: 70.29%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "13:50:09",
+    "timeLastRun": "14:02:01",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -21,7 +21,7 @@
     "awayScorers": {},
     "outcome": "FLA, FLA: 1.61917 v WSH: 1.06657      Expected difference: 0.5526, (FLA: 2.69862 v WSH: 1.77762) (FLA: 60.29% , WSH: 39.71%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "13:50:11",
+    "timeLastRun": "14:02:03",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -32,9 +32,9 @@
     "awayGoalie": "NYR: Igor Shesterkin",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "CAR, CAR: 0.99142 v NYR: 0.72111      Expected difference: 0.27031, (CAR: 1.65237 v NYR: 1.20185) (CAR: 57.89% , NYR: 42.11%)",
+    "outcome": "CAR, CAR: 0.99142 v NYR: 0.72112      Expected difference: 0.2703, (CAR: 1.65237 v NYR: 1.20187) (CAR: 57.89% , NYR: 42.11%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "13:50:13",
+    "timeLastRun": "14:02:04",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -47,7 +47,7 @@
     "awayScorers": ["Leon Draisaitl, EDM: 0.37291      (0.621516666666667)", "Connor McDavid, EDM: 0.35432      (0.590533333333333)"],
     "outcome": "EDM, WPG: 0.35756 v EDM: 1.52932      Expected difference: 1.17176, (WPG: 0.59593 v EDM: 2.54887) (WPG: 18.95% , EDM: 81.05%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "13:50:16",
+    "timeLastRun": "14:02:06",
     "correctLines": 0,
     "totalLines": 3
   },
@@ -58,9 +58,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "BUF, STL: 0.74945 v BUF: 1.28086      Expected difference: 0.53141, (STL: 1.24908 v BUF: 2.13477) (STL: 36.91% , BUF: 63.09%)",
+    "outcome": "BUF, STL: 0.74945 v BUF: 1.27282      Expected difference: 0.52337, (STL: 1.24908 v BUF: 2.12137) (STL: 37.06% , BUF: 62.94%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "13:50:18",
+    "timeLastRun": "14:02:08",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -73,7 +73,7 @@
     "awayScorers": {},
     "outcome": "COL, COL: 2.4148 v LAK: 1.43475      Expected difference: 0.98005, (COL: 4.02467 v LAK: 2.39125) (COL: 62.73% , LAK: 37.27%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "13:50:20",
+    "timeLastRun": "14:02:09",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -86,7 +86,7 @@
     "awayScorers": {},
     "outcome": "NSH (OTW), UTA: 0.72233 v NSH: 0.77087      Expected difference: 0.04854, (UTA: 1.20388 v NSH: 1.28478) (UTA: 48.37% , NSH: 51.63%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "13:50:22",
+    "timeLastRun": "14:02:11",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -97,9 +97,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "BOS, CGY: 0.53177 v BOS: 0.90786      Expected difference: 0.37609, (CGY: 0.88628 v BOS: 1.5131) (CGY: 36.94% , BOS: 63.06%)",
+    "outcome": "BOS, CGY: 0.53177 v BOS: 0.92279      Expected difference: 0.39102, (CGY: 0.88628 v BOS: 1.53798) (CGY: 36.56% , BOS: 63.44%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "13:50:24",
+    "timeLastRun": "14:02:13",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -112,20 +112,20 @@
     "awayScorers": "Kirill Kaprizov, MIN: 0.44619      (0.74365)",
     "outcome": "VGK (OTW), VGK: 1.49096 v MIN: 1.45539      Expected difference: 0.0355700000000001, (VGK: 2.48493 v MIN: 2.42565) (VGK: 50.6% , MIN: 49.4%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "13:50:26",
+    "timeLastRun": "14:02:15",
     "correctLines": 0,
     "totalLines": 2
   },
   {
     "homeABV": "ANA",
     "awayABV": "SJS",
-    "homeGoalie": {},
+    "homeGoalie": "ANA: Lukas Dostal",
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "ANA (OTW), ANA: 0.56233 v SJS: 0.52785      Expected difference: 0.03448, (ANA: 0.93722 v SJS: 0.87975) (ANA: 51.58% , SJS: 48.42%)",
+    "outcome": "SJS, ANA: 0.56007 v SJS: 0.68942      Expected difference: 0.12935, (ANA: 0.93345 v SJS: 1.14903) (ANA: 44.82% , SJS: 55.18%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "13:50:28",
+    "timeLastRun": "14:02:17",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -136,9 +136,9 @@
     "awayGoalie": "VAN: Kevin Lankinen",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "VAN, SEA: 0.23819 v VAN: 1.00647      Expected difference: 0.76828, (SEA: 0.39698 v VAN: 1.67745) (SEA: 19.14% , VAN: 80.86%)",
+    "outcome": "VAN, SEA: 0.23703 v VAN: 1.00647      Expected difference: 0.76944, (SEA: 0.39505 v VAN: 1.67745) (SEA: 19.06% , VAN: 80.94%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "13:50:31",
+    "timeLastRun": "14:02:18",
     "correctLines": 0,
     "totalLines": 1
   }
