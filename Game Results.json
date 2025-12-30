@@ -44,7 +44,10 @@
     "homeGoalie": "WPG: Connor Hellebuyck",
     "awayGoalie": "EDM: Calvin Pickard",
     "homeScorers": {},
-    "awayScorers": ["Leon Draisaitl, EDM: 0.37291      (0.621516666666667)", "Connor McDavid, EDM: 0.35432      (0.590533333333333)"],
+    "awayScorers": [
+      "Leon Draisaitl, EDM: 0.37291      (0.621516666666667)",
+      "Connor McDavid, EDM: 0.35432      (0.590533333333333)"
+    ],
     "outcome": "EDM, WPG: 0.35756 v EDM: 1.51052      Expected difference: 1.15296, (WPG: 0.59593 v EDM: 2.51753) (WPG: 19.14% , EDM: 80.86%)",
     "startingTime": "19:35:00",
     "timeLastRun": "19:00:37",
@@ -112,7 +115,7 @@
     "awayScorers": {},
     "outcome": "VGK, VGK: 1.3434 v MIN: 0.93673      Expected difference: 0.40667, (VGK: 2.239 v MIN: 1.56122) (VGK: 58.92% , MIN: 41.08%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "19:00:46",
+    "timeLastRun": "21:28:41",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -125,7 +128,7 @@
     "awayScorers": {},
     "outcome": "SJS, ANA: 0.441 v SJS: 0.68942      Expected difference: 0.24842, (ANA: 0.735 v SJS: 1.14903) (ANA: 39.01% , SJS: 60.99%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "19:00:48",
+    "timeLastRun": "21:28:42",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -138,7 +141,7 @@
     "awayScorers": {},
     "outcome": "VAN, SEA: 0.23819 v VAN: 1.00624      Expected difference: 0.76805, (SEA: 0.39698 v VAN: 1.67707) (SEA: 19.14% , VAN: 80.86%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "19:00:49",
+    "timeLastRun": "21:28:44",
     "correctLines": 0,
     "totalLines": 1
   }
