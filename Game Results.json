@@ -6,9 +6,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "NJD, TOR: 0.76106 v NJD: 1.14975      Expected difference: 0.38869, (TOR: 1.26843 v NJD: 1.91625) (TOR: 39.83% , NJD: 60.17%)",
+    "outcome": "NJD, TOR: 0.50393 v NJD: 1.14975      Expected difference: 0.64582, (TOR: 0.83988 v NJD: 1.91625) (TOR: 30.47% , NJD: 69.53%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "11:01:13",
+    "timeLastRun": "11:49:23",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -21,20 +21,20 @@
     "awayScorers": {},
     "outcome": "MTL, FLA: 0.41518 v MTL: 0.63743      Expected difference: 0.22225, (FLA: 0.69197 v MTL: 1.06238) (FLA: 39.44% , MTL: 60.56%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "11:01:14",
+    "timeLastRun": "11:49:25",
     "correctLines": 0,
     "totalLines": 1
   },
   {
     "homeABV": "PIT",
     "awayABV": "CAR",
-    "homeGoalie": {},
+    "homeGoalie": "PIT: Stuart Skinner",
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "PIT, PIT: 0.8863 v CAR: 0.48053      Expected difference: 0.40577, (PIT: 1.47717 v CAR: 0.80088) (PIT: 64.84% , CAR: 35.16%)",
+    "outcome": "PIT, PIT: 0.8863 v CAR: 0.52506      Expected difference: 0.36124, (PIT: 1.47717 v CAR: 0.8751) (PIT: 62.8% , CAR: 37.2%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "11:01:16",
+    "timeLastRun": "11:49:26",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -47,7 +47,7 @@
     "awayScorers": {},
     "outcome": "CHI, CHI: 0.57863 v NYI: 0.35456      Expected difference: 0.22407, (CHI: 0.96438 v NYI: 0.59093) (CHI: 62.01% , NYI: 37.99%)",
     "startingTime": "20:35:00",
-    "timeLastRun": "11:01:18",
+    "timeLastRun": "11:49:28",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -60,7 +60,7 @@
     "awayScorers": {},
     "outcome": "VAN (OTW), VAN: 0.81744 v PHI: 0.79841      Expected difference: 0.01903, (VAN: 1.3624 v PHI: 1.33068) (VAN: 50.59% , PHI: 49.41%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "11:01:19",
+    "timeLastRun": "11:49:29",
     "correctLines": 0,
     "totalLines": 1
   }
