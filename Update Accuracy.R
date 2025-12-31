@@ -1,4 +1,3 @@
-library(httr)
 library(jsonlite)
 
 results <- fromJSON("All Results.json", simplifyVector = FALSE)
