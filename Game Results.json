@@ -32,9 +32,9 @@
     "awayGoalie": "TBL: Andrei Vasilevskiy",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "ANA, ANA: 1.32145 v TBL: 0.38126      Expected difference: 0.94019, (ANA: 2.20242 v TBL: 0.63543) (ANA: 77.61% , TBL: 22.39%)",
+    "outcome": "ANA, ANA: 1.45793 v TBL: 0.41859      Expected difference: 1.03934, (ANA: 2.42988 v TBL: 0.69765) (ANA: 77.69% , TBL: 22.31%)",
     "startingTime": "16:05:00",
-    "timeLastRun": "15:41:28",
+    "timeLastRun": "16:00:37",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -43,13 +43,13 @@
     "awayABV": "MIN",
     "homeGoalie": "SJS: Yaroslav Askarov",
     "awayGoalie": "MIN: Jesper Wallstedt",
-    "homeScorers": {},
+    "homeScorers": "Macklin Celebrini, SJS: 0.3662      (0.610333333333333)",
     "awayScorers": {},
-    "outcome": "SJS, SJS: 1.31435 v MIN: 0.51465      Expected difference: 0.7997, (SJS: 2.19058 v MIN: 0.85775) (SJS: 71.86% , MIN: 28.14%)",
+    "outcome": "SJS, SJS: 1.4651 v MIN: 0.51465      Expected difference: 0.95045, (SJS: 2.44183 v MIN: 0.85775) (SJS: 74% , MIN: 26%)",
     "startingTime": "16:05:00",
-    "timeLastRun": "15:41:29",
+    "timeLastRun": "16:00:38",
     "correctLines": 0,
-    "totalLines": 1
+    "totalLines": 2
   },
   {
     "homeABV": "DET",
@@ -58,9 +58,9 @@
     "awayGoalie": "WPG: Connor Hellebuyck",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "DET, DET: 0.978 v WPG: 0.29101      Expected difference: 0.68699, (DET: 1.63 v WPG: 0.48502) (DET: 77.07% , WPG: 22.93%)",
+    "outcome": "DET, DET: 1.0783 v WPG: 0.31951      Expected difference: 0.75879, (DET: 1.79717 v WPG: 0.53252) (DET: 77.14% , WPG: 22.86%)",
     "startingTime": "18:35:00",
-    "timeLastRun": "15:41:32",
+    "timeLastRun": "16:00:40",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -71,9 +71,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "NJD, CBJ: 0.69973 v NJD: 0.85653      Expected difference: 0.1568, (CBJ: 1.16622 v NJD: 1.42755) (CBJ: 44.96% , NJD: 55.04%)",
+    "outcome": "NJD, CBJ: 0.77077 v NJD: 0.94402      Expected difference: 0.17325, (CBJ: 1.28462 v NJD: 1.57337) (CBJ: 44.95% , NJD: 55.05%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "15:41:34",
+    "timeLastRun": "16:00:41",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -84,9 +84,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "BUF, DAL: 0.80866 v BUF: 1.20946      Expected difference: 0.4008, (DAL: 1.34777 v BUF: 2.01577) (DAL: 40.07% , BUF: 59.93%)",
+    "outcome": "BUF, DAL: 0.89125 v BUF: 1.32499      Expected difference: 0.43374, (DAL: 1.48542 v BUF: 2.20832) (DAL: 40.21% , BUF: 59.79%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "15:41:36",
+    "timeLastRun": "16:00:43",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -99,7 +99,7 @@
     "awayScorers": {},
     "outcome": "STL, COL: 0.65629 v STL: 1.15059      Expected difference: 0.4943, (COL: 1.09382 v STL: 1.91765) (COL: 36.32% , STL: 63.68%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "15:41:38",
+    "timeLastRun": "16:00:44",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -110,9 +110,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "CGY, CGY: 0.83259 v PHI: 0.54307      Expected difference: 0.28952, (CGY: 1.38765 v PHI: 0.90512) (CGY: 60.52% , PHI: 39.48%)",
+    "outcome": "CGY, CGY: 0.9179 v PHI: 0.59856      Expected difference: 0.31934, (CGY: 1.52983 v PHI: 0.9976) (CGY: 60.53% , PHI: 39.47%)",
     "startingTime": "21:35:00",
-    "timeLastRun": "15:41:40",
+    "timeLastRun": "16:00:46",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -122,11 +122,11 @@
     "homeGoalie": "EDM: Connor Ingram",
     "awayGoalie": "BOS: Jeremy Swayman",
     "homeScorers": {},
-    "awayScorers": {},
-    "outcome": "BOS, EDM: 0.62526 v BOS: 1.07648      Expected difference: 0.45122, (EDM: 1.0421 v BOS: 1.79413) (EDM: 36.74% , BOS: 63.26%)",
+    "awayScorers": "David Pastrnak, BOS: 0.37978      (0.632966666666667)",
+    "outcome": "BOS, EDM: 0.68811 v BOS: 1.18747      Expected difference: 0.49936, (EDM: 1.14685 v BOS: 1.97912) (EDM: 36.69% , BOS: 63.31%)",
     "startingTime": "21:35:00",
-    "timeLastRun": "15:41:42",
+    "timeLastRun": "16:00:47",
     "correctLines": 0,
-    "totalLines": 1
+    "totalLines": 2
   }
 ]
