@@ -5809,5 +5809,75 @@
         "totalLines": 1
       }
     ]
+  },
+  {
+    "date": "2025-12-30",
+    "games": [
+      {
+        "homeABV": "TOR",
+        "awayABV": "NJD",
+        "homeGoalie": "TOR: Joseph Woll",
+        "awayGoalie": "NJD: Jacob Markstrom",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "NJD, TOR: 0.20781 v NJD: 1.16787      Expected difference: 0.96006, (TOR: 0.34635 v NJD: 1.94645) (TOR: 15.11% , NJD: 84.89%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "19:00:39",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "FLA",
+        "awayABV": "MTL",
+        "homeGoalie": "FLA: Daniil Tarasov",
+        "awayGoalie": "MTL: Samuel Montembeault",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "MTL, FLA: 0.41518 v MTL: 0.53575      Expected difference: 0.12057, (FLA: 0.69197 v MTL: 0.89292) (FLA: 43.66% , MTL: 56.34%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "19:00:41",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "PIT",
+        "awayABV": "CAR",
+        "homeGoalie": "PIT: Stuart Skinner",
+        "awayGoalie": "CAR: Frederik Andersen",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "CAR, PIT: 0.41622 v CAR: 0.54229      Expected difference: 0.12607, (PIT: 0.6937 v CAR: 0.90382) (PIT: 43.42% , CAR: 56.58%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "19:00:42",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "CHI",
+        "awayABV": "NYI",
+        "homeGoalie": "CHI: Spencer Knight",
+        "awayGoalie": "NYI: David Rittich",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "NYI, CHI: 0.67792 v NYI: 0.85533      Expected difference: 0.17741, (CHI: 1.12987 v NYI: 1.42555) (CHI: 44.21% , NYI: 55.79%)",
+        "startingTime": "20:35:00",
+        "timeLastRun": "19:00:43",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "VAN",
+        "awayABV": "PHI",
+        "homeGoalie": "VAN: Thatcher Demko",
+        "awayGoalie": "PHI: Dan Vladar",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "VAN, VAN: 1.06597 v PHI: 0.80723      Expected difference: 0.25874, (VAN: 1.77662 v PHI: 1.34538) (VAN: 56.91% , PHI: 43.09%)",
+        "startingTime": "22:05:00",
+        "timeLastRun": "21:55:42",
+        "correctLines": 0,
+        "totalLines": 1
+      }
+    ]
   }
 ]
