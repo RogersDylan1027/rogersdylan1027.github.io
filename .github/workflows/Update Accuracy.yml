@@ -3,10 +3,9 @@ name: Update Accuracy
 on:
   workflow_dispatch:
   schedule:
-    # 5:00 AM Eastern (Standard Time)
-    - cron: '0 10 * * *'   # 11/2/25 – 3/8/26
-    # 5:00 AM Eastern (Daylight Saving Time)
-    # - cron: '0 9 * * *' # 3/9/26 – 11/1/26
+    # 9:30 AM Eastern — remember GitHub uses UTC, so adjust accordingly
+    - cron: '30 14 * * *' #11/2/25 - 3/8/26
+    # - cron: '30 13 * * *' # - 11/2/25, & 3/8/26 - 11/1/26
 
 jobs:
   update-accuracy:
