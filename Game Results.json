@@ -70,7 +70,11 @@
     "homeGoalie": "LAK: Darcy Kuemper",
     "awayGoalie": "TBL: Jonas Johansson",
     "homeScorers": {},
-    "awayScorers": ["Nikita Kucherov, TBL: 0.44731      (0.745516666666667)", "Jake Guentzel, TBL: 0.38367      (0.63945)", "Brandon Hagel, TBL: 0.37134      (0.6189)"],
+    "awayScorers": [
+      "Nikita Kucherov, TBL: 0.44731      (0.745516666666667)",
+      "Jake Guentzel, TBL: 0.38367      (0.63945)",
+      "Brandon Hagel, TBL: 0.37134      (0.6189)"
+    ],
     "outcome": "TBL, LAK: 0.60308 v TBL: 2.14977      Expected difference: 1.54669, (LAK: 1.00513 v TBL: 3.58295) (LAK: 21.91% , TBL: 78.09%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:00:43",
@@ -93,13 +97,13 @@
   {
     "homeABV": "SEA",
     "awayABV": "NSH",
-    "homeGoalie": {},
-    "awayGoalie": {},
+    "homeGoalie": "SEA: Philipp Grubauer",
+    "awayGoalie": "NSH: Juuse Saros",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "NSH, SEA: 0.35755 v NSH: 0.92323      Expected difference: 0.56568, (SEA: 0.59592 v NSH: 1.53872) (SEA: 27.92% , NSH: 72.08%)",
+    "outcome": "NSH, SEA: 0.30751 v NSH: 1.21663      Expected difference: 0.90912, (SEA: 0.51252 v NSH: 2.02772) (SEA: 20.18% , NSH: 79.82%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "19:00:47",
+    "timeLastRun": "21:31:36",
     "correctLines": 0,
     "totalLines": 1
   }
