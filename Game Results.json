@@ -16,12 +16,12 @@
     "homeABV": "FLA",
     "awayABV": "NYR",
     "homeGoalie": "FLA: Sergei Bobrovsky",
-    "awayGoalie": {},
+    "awayGoalie": "NYR: Igor Shesterkin",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "FLA, FLA: 1.25254 v NYR: 0.65415      Expected difference: 0.59839, (FLA: 2.08757 v NYR: 1.09025) (FLA: 65.69% , NYR: 34.31%)",
+    "outcome": "FLA, FLA: 1.08258 v NYR: 0.65417      Expected difference: 0.42841, (FLA: 1.8043 v NYR: 1.09028) (FLA: 62.33% , NYR: 37.67%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "19:00:50",
+    "timeLastRun": "19:56:19",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -34,7 +34,7 @@
     "awayScorers": {},
     "outcome": "VAN, VAN: 0.86991 v SEA: 0.69441      Expected difference: 0.1755, (VAN: 1.44985 v SEA: 1.15735) (VAN: 55.61% , SEA: 44.39%)",
     "startingTime": "22:35:00",
-    "timeLastRun": "19:00:52",
+    "timeLastRun": "19:56:21",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -47,7 +47,7 @@
     "awayScorers": {},
     "outcome": "ANA, ANA: 1.13512 v MIN: 0.40972      Expected difference: 0.7254, (ANA: 1.89187 v MIN: 0.68287) (ANA: 73.48% , MIN: 26.52%)",
     "startingTime": "22:35:00",
-    "timeLastRun": "19:00:53",
+    "timeLastRun": "19:56:22",
     "correctLines": 0,
     "totalLines": 1
   }
