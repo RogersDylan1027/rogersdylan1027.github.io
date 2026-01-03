@@ -2,13 +2,13 @@
   {
     "homeABV": "DET",
     "awayABV": "PIT",
-    "homeGoalie": {},
+    "homeGoalie": "DET: John Gibson",
     "awayGoalie": "PIT: Stuart Skinner",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "DET, DET: 0.88114 v PIT: 0.71497      Expected difference: 0.16617, (DET: 1.46857 v PIT: 1.19162) (DET: 55.21% , PIT: 44.79%)",
+    "outcome": "DET, DET: 0.88114 v PIT: 0.69642      Expected difference: 0.18472, (DET: 1.46857 v PIT: 1.1607) (DET: 55.85% , PIT: 44.15%)",
     "startingTime": "12:05:00",
-    "timeLastRun": "11:00:53",
+    "timeLastRun": "11:46:16",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -21,7 +21,7 @@
     "awayScorers": {},
     "outcome": "NJD, NJD: 1.19148 v UTA: 0.91515      Expected difference: 0.27633, (NJD: 1.9858 v UTA: 1.52525) (NJD: 56.56% , UTA: 43.44%)",
     "startingTime": "15:05:00",
-    "timeLastRun": "11:00:55",
+    "timeLastRun": "11:46:19",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -34,7 +34,7 @@
     "awayScorers": {},
     "outcome": "CBJ, CBJ: 1.24985 v BUF: 0.43903      Expected difference: 0.81082, (CBJ: 2.08308 v BUF: 0.73172) (CBJ: 74% , BUF: 26%)",
     "startingTime": "15:05:00",
-    "timeLastRun": "11:00:57",
+    "timeLastRun": "11:46:21",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -42,14 +42,14 @@
     "homeABV": "EDM",
     "awayABV": "PHI",
     "homeGoalie": {},
-    "awayGoalie": {},
-    "homeScorers": {},
+    "awayGoalie": "PHI: Dan Vladar",
+    "homeScorers": ["Leon Draisaitl, EDM: 0.4364      (0.727333333333333)", "Connor McDavid, EDM: 0.41402      (0.690033333333333)"],
     "awayScorers": {},
-    "outcome": "EDM, EDM: 1.36544 v PHI: 0.45371      Expected difference: 0.91173, (EDM: 2.27573 v PHI: 0.75618) (EDM: 75.06% , PHI: 24.94%)",
+    "outcome": "EDM, EDM: 1.76732 v PHI: 0.45371      Expected difference: 1.31361, (EDM: 2.94553 v PHI: 0.75618) (EDM: 79.57% , PHI: 20.43%)",
     "startingTime": "15:35:00",
-    "timeLastRun": "11:00:59",
+    "timeLastRun": "11:46:23",
     "correctLines": 0,
-    "totalLines": 1
+    "totalLines": 3
   },
   {
     "homeABV": "STL",
@@ -60,7 +60,7 @@
     "awayScorers": {},
     "outcome": "MTL, STL: 0.48452 v MTL: 0.60256      Expected difference: 0.11804, (STL: 0.80753 v MTL: 1.00427) (STL: 44.57% , MTL: 55.43%)",
     "startingTime": "16:05:00",
-    "timeLastRun": "11:01:02",
+    "timeLastRun": "11:46:25",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -73,7 +73,7 @@
     "awayScorers": {},
     "outcome": "SJS, SJS: 1.39518 v TBL: 0.55143      Expected difference: 0.84375, (SJS: 2.3253 v TBL: 0.91905) (SJS: 71.67% , TBL: 28.33%)",
     "startingTime": "16:05:00",
-    "timeLastRun": "11:01:04",
+    "timeLastRun": "11:46:27",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -81,12 +81,12 @@
     "homeABV": "OTT",
     "awayABV": "WPG",
     "homeGoalie": {},
-    "awayGoalie": {},
+    "awayGoalie": "WPG: Connor Hellebuyck",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "OTT, OTT: 0.70107 v WPG: 0.47313      Expected difference: 0.22794, (OTT: 1.16845 v WPG: 0.78855) (OTT: 59.71% , WPG: 40.29%)",
+    "outcome": "OTT, OTT: 1.03574 v WPG: 0.47313      Expected difference: 0.56261, (OTT: 1.72623 v WPG: 0.78855) (OTT: 68.64% , WPG: 31.36%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "11:01:06",
+    "timeLastRun": "11:46:29",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -99,7 +99,7 @@
     "awayScorers": "Auston Matthews, TOR: 0.40755      (0.67925)",
     "outcome": "TOR, NYI: 0.65734 v TOR: 1.19083      Expected difference: 0.53349, (NYI: 1.09557 v TOR: 1.98472) (NYI: 35.57% , TOR: 64.43%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "11:01:07",
+    "timeLastRun": "11:46:31",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -112,7 +112,7 @@
     "awayScorers": {},
     "outcome": "CHI, WSH: 0.51802 v CHI: 1.02919      Expected difference: 0.51117, (WSH: 0.86337 v CHI: 1.71532) (WSH: 33.48% , CHI: 66.52%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "11:01:10",
+    "timeLastRun": "11:46:34",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -125,7 +125,7 @@
     "awayScorers": "Nathan MacKinnon, COL: 0.43336      (0.722266666666667)",
     "outcome": "CAR, CAR: 1.35495 v COL: 1.30434      Expected difference: 0.05061, (CAR: 2.25825 v COL: 2.1739) (CAR: 50.95% , COL: 49.05%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "11:01:11",
+    "timeLastRun": "11:46:36",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -136,9 +136,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "NSH, CGY: 0.73013 v NSH: 0.96151      Expected difference: 0.23138, (CGY: 1.21688 v NSH: 1.60252) (CGY: 43.16% , NSH: 56.84%)",
+    "outcome": "NSH, CGY: 0.73128 v NSH: 0.96151      Expected difference: 0.23023, (CGY: 1.2188 v NSH: 1.60252) (CGY: 43.2% , NSH: 56.8%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "11:01:13",
+    "timeLastRun": "11:46:38",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -151,7 +151,7 @@
     "awayScorers": ["Kirill Kaprizov, MIN: 0.52917      (0.88195)", "Matt Boldy, MIN: 0.37761      (0.62935)"],
     "outcome": "MIN, LAK: 1.17331 v MIN: 1.74005      Expected difference: 0.56674, (LAK: 1.95552 v MIN: 2.90008) (LAK: 40.27% , MIN: 59.73%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "11:01:16",
+    "timeLastRun": "11:46:40",
     "correctLines": 0,
     "totalLines": 3
   },
@@ -162,9 +162,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "BOS (OTW), VAN: 0.34791 v BOS: 0.37615      Expected difference: 0.0282399999999998, (VAN: 0.57985 v BOS: 0.62692) (VAN: 48.05% , BOS: 51.95%)",
+    "outcome": "BOS (OTW), VAN: 0.34791 v BOS: 0.37016      Expected difference: 0.0222499999999998, (VAN: 0.57985 v BOS: 0.61693) (VAN: 48.45% , BOS: 51.55%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "11:01:18",
+    "timeLastRun": "11:46:42",
     "correctLines": 0,
     "totalLines": 1
   }
