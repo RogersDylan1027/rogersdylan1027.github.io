@@ -29,12 +29,12 @@
     "homeABV": "VAN",
     "awayABV": "SEA",
     "homeGoalie": "VAN: Thatcher Demko",
-    "awayGoalie": {},
+    "awayGoalie": "SEA: Joey Daccord",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "VAN, VAN: 0.86991 v SEA: 0.69441      Expected difference: 0.1755, (VAN: 1.44985 v SEA: 1.15735) (VAN: 55.61% , SEA: 44.39%)",
+    "outcome": "SEA, VAN: 0.54086 v SEA: 0.69441      Expected difference: 0.15355, (VAN: 0.90143 v SEA: 1.15735) (VAN: 43.78% , SEA: 56.22%)",
     "startingTime": "22:35:00",
-    "timeLastRun": "21:47:40",
+    "timeLastRun": "22:22:50",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -47,7 +47,7 @@
     "awayScorers": {},
     "outcome": "ANA, ANA: 1.13512 v MIN: 0.40972      Expected difference: 0.7254, (ANA: 1.89187 v MIN: 0.68287) (ANA: 73.48% , MIN: 26.52%)",
     "startingTime": "22:35:00",
-    "timeLastRun": "21:47:41",
+    "timeLastRun": "22:22:51",
     "correctLines": 0,
     "totalLines": 1
   }
