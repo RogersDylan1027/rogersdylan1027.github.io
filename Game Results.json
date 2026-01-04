@@ -3,12 +3,12 @@
     "homeABV": "DAL",
     "awayABV": "MTL",
     "homeGoalie": "DAL: Jake Oettinger",
-    "awayGoalie": {},
+    "awayGoalie": "MTL: Samuel Montembeault",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "MTL, DAL: 1.12289 v MTL: 1.24114      Expected difference: 0.11825, (DAL: 1.87148 v MTL: 2.06857) (DAL: 47.5% , MTL: 52.5%)",
+    "outcome": "MTL, DAL: 0.85111 v MTL: 1.24114      Expected difference: 0.39003, (DAL: 1.41852 v MTL: 2.06857) (DAL: 40.68% , MTL: 59.32%)",
     "startingTime": "14:05:00",
-    "timeLastRun": "13:00:35",
+    "timeLastRun": "13:49:19",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -16,12 +16,12 @@
     "homeABV": "CBJ",
     "awayABV": "PIT",
     "homeGoalie": "CBJ: Jet Greaves",
-    "awayGoalie": {},
+    "awayGoalie": "PIT: Arturs Silovs",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "PIT, CBJ: 1.33841 v PIT: 1.40101      Expected difference: 0.0626000000000004, (CBJ: 2.23068 v PIT: 2.33502) (CBJ: 48.86% , PIT: 51.14%)",
+    "outcome": "PIT, CBJ: 1.01444 v PIT: 1.40101      Expected difference: 0.386570000000001, (CBJ: 1.69073 v PIT: 2.33502) (CBJ: 42% , PIT: 58%)",
     "startingTime": "15:05:00",
-    "timeLastRun": "13:00:36",
+    "timeLastRun": "13:49:21",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -34,7 +34,7 @@
     "awayScorers": "Nathan MacKinnon, COL: 0.62018      (1.03363333333333)",
     "outcome": "COL, FLA: 1.65059 v COL: 1.87539      Expected difference: 0.2248, (FLA: 2.75098 v COL: 3.12565) (FLA: 46.81% , COL: 53.19%)",
     "startingTime": "17:05:00",
-    "timeLastRun": "13:00:38",
+    "timeLastRun": "13:49:23",
     "correctLines": 0,
     "totalLines": 3
   },
@@ -47,7 +47,7 @@
     "awayScorers": {},
     "outcome": "NJD, NJD: 1.3248 v CAR: 1.11777      Expected difference: 0.20703, (NJD: 2.208 v CAR: 1.86295) (NJD: 54.24% , CAR: 45.76%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "13:00:40",
+    "timeLastRun": "13:49:25",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -60,7 +60,7 @@
     "awayScorers": {},
     "outcome": "CHI, CHI: 0.93194 v VGK: 0.46082      Expected difference: 0.47112, (CHI: 1.55323 v VGK: 0.76803) (CHI: 66.91% , VGK: 33.09%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "13:00:41",
+    "timeLastRun": "13:49:27",
     "correctLines": 0,
     "totalLines": 1
   }
