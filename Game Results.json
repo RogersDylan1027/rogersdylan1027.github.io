@@ -151,7 +151,10 @@
     "homeGoalie": {},
     "awayGoalie": {},
     "homeScorers": {},
-    "awayScorers": ["Kirill Kaprizov, MIN: 0.55997      (0.933283333333333)", "Matt Boldy, MIN: 0.39959      (0.665983333333333)"],
+    "awayScorers": [
+      "Kirill Kaprizov, MIN: 0.55997      (0.933283333333333)",
+      "Matt Boldy, MIN: 0.39959      (0.665983333333333)"
+    ],
     "outcome": "MIN, LAK: 1.16841 v MIN: 1.84137      Expected difference: 0.67296, (LAK: 1.94735 v MIN: 3.06895) (LAK: 38.82% , MIN: 61.18%)",
     "startingTime": "21:05:00",
     "timeLastRun": "19:00:57",
@@ -165,9 +168,9 @@
     "awayGoalie": "BOS: Jeremy Swayman",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "VAN, VAN: 0.53539 v BOS: 0.37615      Expected difference: 0.15924, (VAN: 0.89232 v BOS: 0.62692) (VAN: 58.73% , BOS: 41.27%)",
+    "outcome": "VAN, VAN: 0.53539 v BOS: 0.37016      Expected difference: 0.16523, (VAN: 0.89232 v BOS: 0.61693) (VAN: 59.12% , BOS: 40.88%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "19:00:59",
+    "timeLastRun": "21:42:46",
     "correctLines": 0,
     "totalLines": 1
   }
