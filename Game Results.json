@@ -89,7 +89,7 @@
     "awayScorers": {},
     "outcome": "OTT, OTT: 1.09892 v WPG: 0.51915      Expected difference: 0.57977, (OTT: 1.83153 v WPG: 0.86525) (OTT: 67.92% , WPG: 32.08%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "18:38:55",
+    "timeLastRun": "19:00:48",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -102,7 +102,7 @@
     "awayScorers": "Auston Matthews, TOR: 0.43212      (0.7202)",
     "outcome": "TOR, NYI: 0.78037 v TOR: 1.26262      Expected difference: 0.48225, (NYI: 1.30062 v TOR: 2.10437) (NYI: 38.2% , TOR: 61.8%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "18:38:56",
+    "timeLastRun": "19:00:50",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -113,9 +113,9 @@
     "awayGoalie": "CHI: Spencer Knight",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "WSH, WSH: 1.1762 v CHI: 1.06913      Expected difference: 0.10707, (WSH: 1.96033 v CHI: 1.78188) (WSH: 52.38% , CHI: 47.62%)",
+    "outcome": "CHI (OTW), WSH: 1.05299 v CHI: 1.06913      Expected difference: 0.0161399999999998, (WSH: 1.75498 v CHI: 1.78188) (WSH: 49.62% , CHI: 50.38%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "18:38:57",
+    "timeLastRun": "19:00:52",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -128,7 +128,7 @@
     "awayScorers": {},
     "outcome": "CAR, CAR: 1.41271 v COL: 0.65491      Expected difference: 0.7578, (CAR: 2.35452 v COL: 1.09152) (CAR: 68.33% , COL: 31.67%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "18:38:59",
+    "timeLastRun": "19:00:53",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -141,7 +141,7 @@
     "awayScorers": {},
     "outcome": "NSH, CGY: 0.72883 v NSH: 0.87738      Expected difference: 0.14855, (CGY: 1.21472 v NSH: 1.4623) (CGY: 45.38% , NSH: 54.62%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "18:39:01",
+    "timeLastRun": "19:00:55",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -154,7 +154,7 @@
     "awayScorers": ["Kirill Kaprizov, MIN: 0.55997      (0.933283333333333)", "Matt Boldy, MIN: 0.39959      (0.665983333333333)"],
     "outcome": "MIN, LAK: 1.16841 v MIN: 1.84137      Expected difference: 0.67296, (LAK: 1.94735 v MIN: 3.06895) (LAK: 38.82% , MIN: 61.18%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "18:39:03",
+    "timeLastRun": "19:00:57",
     "correctLines": 0,
     "totalLines": 3
   },
@@ -165,9 +165,9 @@
     "awayGoalie": "BOS: Jeremy Swayman",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "VAN, VAN: 0.53539 v BOS: 0.37016      Expected difference: 0.16523, (VAN: 0.89232 v BOS: 0.61693) (VAN: 59.12% , BOS: 40.88%)",
+    "outcome": "VAN, VAN: 0.53539 v BOS: 0.37615      Expected difference: 0.15924, (VAN: 0.89232 v BOS: 0.62692) (VAN: 58.73% , BOS: 41.27%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "18:39:05",
+    "timeLastRun": "19:00:59",
     "correctLines": 0,
     "totalLines": 1
   }
