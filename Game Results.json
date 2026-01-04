@@ -41,26 +41,26 @@
   {
     "homeABV": "NJD",
     "awayABV": "CAR",
-    "homeGoalie": {},
-    "awayGoalie": {},
-    "homeScorers": {},
+    "homeGoalie": "NJD: Jake Allen",
+    "awayGoalie": "CAR: Brandon Bussi",
+    "homeScorers": "Jack Hughes, NJD: 0.49394      (0.823233333333333)",
     "awayScorers": {},
-    "outcome": "NJD, NJD: 1.38497 v CAR: 1.16863      Expected difference: 0.21634, (NJD: 2.30828 v CAR: 1.94772) (NJD: 54.24% , CAR: 45.76%)",
+    "outcome": "NJD, NJD: 1.98882 v CAR: 1.35133      Expected difference: 0.63749, (NJD: 3.3147 v CAR: 2.25222) (NJD: 59.54% , CAR: 40.46%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "18:01:13",
+    "timeLastRun": "18:38:39",
     "correctLines": 0,
-    "totalLines": 1
+    "totalLines": 2
   },
   {
     "homeABV": "CHI",
     "awayABV": "VGK",
     "homeGoalie": "CHI: Arvid Soderblom",
-    "awayGoalie": {},
+    "awayGoalie": "VGK: Akira Schmid",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "CHI, CHI: 0.97439 v VGK: 0.46087      Expected difference: 0.51352, (CHI: 1.62398 v VGK: 0.76812) (CHI: 67.89% , VGK: 32.11%)",
+    "outcome": "CHI, CHI: 0.82681 v VGK: 0.46087      Expected difference: 0.36594, (CHI: 1.37802 v VGK: 0.76812) (CHI: 64.21% , VGK: 35.79%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "18:01:15",
+    "timeLastRun": "18:38:40",
     "correctLines": 0,
     "totalLines": 1
   }
