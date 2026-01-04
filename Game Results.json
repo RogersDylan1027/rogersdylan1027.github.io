@@ -21,20 +21,20 @@
     "awayScorers": {},
     "outcome": "PIT, CBJ: 1.01444 v PIT: 1.40101      Expected difference: 0.386570000000001, (CBJ: 1.69073 v PIT: 2.33502) (CBJ: 42% , PIT: 58%)",
     "startingTime": "15:05:00",
-    "timeLastRun": "14:33:09",
+    "timeLastRun": "15:00:37",
     "correctLines": 0,
     "totalLines": 1
   },
   {
     "homeABV": "FLA",
     "awayABV": "COL",
-    "homeGoalie": {},
+    "homeGoalie": "FLA: Daniil Tarasov",
     "awayGoalie": {},
     "homeScorers": "Sam Reinhart, FLA: 0.40858      (0.680966666666667)",
-    "awayScorers": "Nathan MacKinnon, COL: 0.62018      (1.03363333333333)",
-    "outcome": "COL, FLA: 1.65059 v COL: 1.87539      Expected difference: 0.2248, (FLA: 2.75098 v COL: 3.12565) (FLA: 46.81% , COL: 53.19%)",
+    "awayScorers": "Nathan MacKinnon, COL: 0.58168      (0.969466666666667)",
+    "outcome": "COL, FLA: 1.65059 v COL: 1.75895      Expected difference: 0.10836, (FLA: 2.75098 v COL: 2.93158) (FLA: 48.41% , COL: 51.59%)",
     "startingTime": "17:05:00",
-    "timeLastRun": "14:33:12",
+    "timeLastRun": "15:00:39",
     "correctLines": 0,
     "totalLines": 3
   },
@@ -47,7 +47,7 @@
     "awayScorers": {},
     "outcome": "NJD, NJD: 1.3248 v CAR: 1.11777      Expected difference: 0.20703, (NJD: 2.208 v CAR: 1.86295) (NJD: 54.24% , CAR: 45.76%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "14:33:14",
+    "timeLastRun": "15:00:41",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -58,9 +58,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "CHI, CHI: 0.93194 v VGK: 0.46082      Expected difference: 0.47112, (CHI: 1.55323 v VGK: 0.76803) (CHI: 66.91% , VGK: 33.09%)",
+    "outcome": "CHI, CHI: 0.93194 v VGK: 0.46087      Expected difference: 0.47107, (CHI: 1.55323 v VGK: 0.76812) (CHI: 66.91% , VGK: 33.09%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "14:33:17",
+    "timeLastRun": "15:00:42",
     "correctLines": 0,
     "totalLines": 1
   }
