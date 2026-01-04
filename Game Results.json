@@ -2,13 +2,13 @@
   {
     "homeABV": "DAL",
     "awayABV": "MTL",
-    "homeGoalie": {},
+    "homeGoalie": "DAL: Jake Oettinger",
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "MTL, DAL: 0.3484 v MTL: 0.8889      Expected difference: 0.5405, (DAL: 0.58067 v MTL: 1.4815) (DAL: 28.16% , MTL: 71.84%)",
+    "outcome": "MTL, DAL: 1.12289 v MTL: 1.24114      Expected difference: 0.11825, (DAL: 1.87148 v MTL: 2.06857) (DAL: 47.5% , MTL: 52.5%)",
     "startingTime": "14:05:00",
-    "timeLastRun": "12:39:31",
+    "timeLastRun": "13:00:35",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -19,9 +19,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "PIT, CBJ: 0.59554 v PIT: 0.9416      Expected difference: 0.34606, (CBJ: 0.99257 v PIT: 1.56933) (CBJ: 38.74% , PIT: 61.26%)",
+    "outcome": "PIT, CBJ: 1.33841 v PIT: 1.40101      Expected difference: 0.0626000000000004, (CBJ: 2.23068 v PIT: 2.33502) (CBJ: 48.86% , PIT: 51.14%)",
     "startingTime": "15:05:00",
-    "timeLastRun": "12:39:33",
+    "timeLastRun": "13:00:36",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -31,12 +31,12 @@
     "homeGoalie": {},
     "awayGoalie": {},
     "homeScorers": "Sam Reinhart, FLA: 0.40858      (0.680966666666667)",
-    "awayScorers": {},
-    "outcome": "FLA, FLA: 1.65059 v COL: 0.87386      Expected difference: 0.77673, (FLA: 2.75098 v COL: 1.45643) (FLA: 65.38% , COL: 34.62%)",
+    "awayScorers": "Nathan MacKinnon, COL: 0.62018      (1.03363333333333)",
+    "outcome": "COL, FLA: 1.65059 v COL: 1.87539      Expected difference: 0.2248, (FLA: 2.75098 v COL: 3.12565) (FLA: 46.81% , COL: 53.19%)",
     "startingTime": "17:05:00",
-    "timeLastRun": "12:39:34",
+    "timeLastRun": "13:00:38",
     "correctLines": 0,
-    "totalLines": 2
+    "totalLines": 3
   },
   {
     "homeABV": "NJD",
@@ -45,22 +45,22 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "CAR, NJD: 0.57752 v CAR: 0.65036      Expected difference: 0.0728399999999999, (NJD: 0.96253 v CAR: 1.08393) (NJD: 47.03% , CAR: 52.97%)",
+    "outcome": "NJD, NJD: 1.3248 v CAR: 1.11777      Expected difference: 0.20703, (NJD: 2.208 v CAR: 1.86295) (NJD: 54.24% , CAR: 45.76%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "12:39:36",
+    "timeLastRun": "13:00:40",
     "correctLines": 0,
     "totalLines": 1
   },
   {
     "homeABV": "CHI",
     "awayABV": "VGK",
-    "homeGoalie": {},
+    "homeGoalie": "CHI: Arvid Soderblom",
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "CHI, CHI: 0.58417 v VGK: 0.46082      Expected difference: 0.12335, (CHI: 0.97362 v VGK: 0.76803) (CHI: 55.9% , VGK: 44.1%)",
+    "outcome": "CHI, CHI: 0.93194 v VGK: 0.46082      Expected difference: 0.47112, (CHI: 1.55323 v VGK: 0.76803) (CHI: 66.91% , VGK: 33.09%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "12:39:37",
+    "timeLastRun": "13:00:41",
     "correctLines": 0,
     "totalLines": 1
   }
