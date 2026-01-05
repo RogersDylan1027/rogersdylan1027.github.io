@@ -6,9 +6,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "UTA, NYR: 0.73701 v UTA: 1.23149      Expected difference: 0.49448, (NYR: 1.22835 v UTA: 2.05248) (NYR: 37.44% , UTA: 62.56%)",
+    "outcome": "UTA, NYR: 0.73816 v UTA: 1.23149      Expected difference: 0.493329999999999, (NYR: 1.23027 v UTA: 2.05248) (NYR: 37.48% , UTA: 62.52%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "14:12:58",
+    "timeLastRun": "14:39:05",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -19,9 +19,9 @@
     "awayGoalie": "ANA: Petr Mrazek",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "ANA, WSH: 0.31582 v ANA: 0.48099      Expected difference: 0.16517, (WSH: 0.52637 v ANA: 0.80165) (WSH: 39.64% , ANA: 60.36%)",
+    "outcome": "ANA, WSH: 0.31521 v ANA: 0.48099      Expected difference: 0.16578, (WSH: 0.52535 v ANA: 0.80165) (WSH: 39.59% , ANA: 60.41%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "14:13:01",
+    "timeLastRun": "14:39:08",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -34,7 +34,7 @@
     "awayScorers": {},
     "outcome": "OTT, OTT: 0.62502 v DET: 0.52669      Expected difference: 0.0983299999999999, (OTT: 1.0417 v DET: 0.87782) (OTT: 54.27% , DET: 45.73%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "14:13:03",
+    "timeLastRun": "14:39:10",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -47,7 +47,7 @@
     "awayScorers": {},
     "outcome": "CGY, CGY: 1.33361 v SEA: 0.75094      Expected difference: 0.58267, (CGY: 2.22268 v SEA: 1.25157) (CGY: 63.98% , SEA: 36.02%)",
     "startingTime": "21:35:00",
-    "timeLastRun": "14:13:06",
+    "timeLastRun": "14:39:13",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -55,12 +55,12 @@
     "homeABV": "LAK",
     "awayABV": "MIN",
     "homeGoalie": "LAK: Darcy Kuemper",
-    "awayGoalie": {},
+    "awayGoalie": "MIN: Filip Gustavsson",
     "homeScorers": {},
     "awayScorers": ["Kirill Kaprizov, MIN: 0.5904      (0.984)", "Matt Boldy, MIN: 0.44156      (0.735933333333333)"],
-    "outcome": "MIN, LAK: 1.07759 v MIN: 1.9953      Expected difference: 0.91771, (LAK: 1.79598 v MIN: 3.3255) (LAK: 35.07% , MIN: 64.93%)",
+    "outcome": "MIN, LAK: 1.04337 v MIN: 1.9953      Expected difference: 0.95193, (LAK: 1.73895 v MIN: 3.3255) (LAK: 34.34% , MIN: 65.66%)",
     "startingTime": "22:35:00",
-    "timeLastRun": "14:13:08",
+    "timeLastRun": "14:39:15",
     "correctLines": 0,
     "totalLines": 3
   }
