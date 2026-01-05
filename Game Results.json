@@ -2,26 +2,26 @@
   {
     "homeABV": "NYR",
     "awayABV": "UTA",
-    "homeGoalie": {},
+    "homeGoalie": "NYR: Igor Shesterkin",
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "UTA, NYR: 0.64665 v UTA: 1.23152      Expected difference: 0.58487, (NYR: 1.07775 v UTA: 2.05253) (NYR: 34.43% , UTA: 65.57%)",
+    "outcome": "UTA, NYR: 0.64665 v UTA: 1.06751      Expected difference: 0.42086, (NYR: 1.07775 v UTA: 1.77918) (NYR: 37.72% , UTA: 62.28%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "10:44:55",
+    "timeLastRun": "11:02:03",
     "correctLines": 0,
     "totalLines": 1
   },
   {
     "homeABV": "WSH",
     "awayABV": "ANA",
-    "homeGoalie": {},
+    "homeGoalie": "WSH: Charlie Lindgren",
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "ANA, WSH: 0.31582 v ANA: 0.98043      Expected difference: 0.66461, (WSH: 0.52637 v ANA: 1.63405) (WSH: 24.36% , ANA: 75.64%)",
+    "outcome": "ANA, WSH: 0.31582 v ANA: 0.39711      Expected difference: 0.0812899999999999, (WSH: 0.52637 v ANA: 0.66185) (WSH: 44.3% , ANA: 55.7%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "10:44:57",
+    "timeLastRun": "11:02:05",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -34,7 +34,7 @@
     "awayScorers": {},
     "outcome": "DET (OTW), OTT: 0.38873 v DET: 0.41224      Expected difference: 0.0235100000000001, (OTT: 0.64788 v DET: 0.68707) (OTT: 48.53% , DET: 51.47%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "10:44:58",
+    "timeLastRun": "11:02:07",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -45,9 +45,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "CGY, CGY: 1.22081 v SEA: 0.7867      Expected difference: 0.43411, (CGY: 2.03468 v SEA: 1.31117) (CGY: 60.81% , SEA: 39.19%)",
+    "outcome": "CGY, CGY: 1.22275 v SEA: 0.7867      Expected difference: 0.43605, (CGY: 2.03792 v SEA: 1.31117) (CGY: 60.85% , SEA: 39.15%)",
     "startingTime": "21:35:00",
-    "timeLastRun": "10:45:02",
+    "timeLastRun": "11:02:09",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -60,7 +60,7 @@
     "awayScorers": "Kirill Kaprizov, MIN: 0.44551      (0.742516666666667)",
     "outcome": "MIN, LAK: 0.95709 v MIN: 1.50565      Expected difference: 0.54856, (LAK: 1.59515 v MIN: 2.50942) (LAK: 38.86% , MIN: 61.14%)",
     "startingTime": "22:35:00",
-    "timeLastRun": "10:45:05",
+    "timeLastRun": "11:02:11",
     "correctLines": 0,
     "totalLines": 2
   }
