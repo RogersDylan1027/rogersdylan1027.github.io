@@ -9,7 +9,7 @@
     "outcome": "MTL, DAL: 0.85111 v MTL: 1.24114      Expected difference: 0.39003, (DAL: 1.41852 v MTL: 2.06857) (DAL: 40.68% , MTL: 59.32%)",
     "startingTime": "14:05:00",
     "timeLastRun": "14:01:39",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -22,7 +22,7 @@
     "outcome": "PIT, CBJ: 1.01444 v PIT: 1.40101      Expected difference: 0.386570000000001, (CBJ: 1.69073 v PIT: 2.33502) (CBJ: 42% , PIT: 58%)",
     "startingTime": "15:05:00",
     "timeLastRun": "15:00:37",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -61,7 +61,7 @@
     "outcome": "CHI, CHI: 0.82681 v VGK: 0.46087      Expected difference: 0.36594, (CHI: 1.37802 v VGK: 0.76812) (CHI: 64.21% , VGK: 35.79%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:00:32",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   }
 ]
