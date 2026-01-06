@@ -6,9 +6,9 @@
     "awayGoalie": "VAN: Thatcher Demko",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "BUF, BUF: 1.14149 v VAN: 0.63908      Expected difference: 0.50241, (BUF: 1.90248 v VAN: 1.06513) (BUF: 64.11% , VAN: 35.89%)",
+    "outcome": "BUF, BUF: 1.14179 v VAN: 0.63908      Expected difference: 0.50271, (BUF: 1.90298 v VAN: 1.06513) (BUF: 64.11% , VAN: 35.89%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "13:51:49",
+    "timeLastRun": "14:02:39",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -21,7 +21,7 @@
     "awayScorers": "Nathan MacKinnon, COL: 0.71651      (1.19418333333333)",
     "outcome": "COL (OTW), TBL: 2.05005 v COL: 2.09244      Expected difference: 0.0423900000000001, (TBL: 3.41675 v COL: 3.4874) (TBL: 49.49% , COL: 50.51%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "13:51:51",
+    "timeLastRun": "14:02:41",
     "correctLines": 0,
     "totalLines": 3
   },
@@ -34,7 +34,7 @@
     "awayScorers": {},
     "outcome": "ANA, PHI: 0.25108 v ANA: 1.38372      Expected difference: 1.13264, (PHI: 0.41847 v ANA: 2.3062) (PHI: 15.36% , ANA: 84.64%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "13:51:53",
+    "timeLastRun": "14:02:42",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -47,7 +47,7 @@
     "awayScorers": {},
     "outcome": "CAR, CAR: 1.06854 v DAL: 0.80335      Expected difference: 0.26519, (CAR: 1.7809 v DAL: 1.33892) (CAR: 57.08% , DAL: 42.92%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "13:51:56",
+    "timeLastRun": "14:02:46",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -60,7 +60,7 @@
     "awayScorers": {},
     "outcome": "NJD, NYI: 0.32014 v NJD: 1.29774      Expected difference: 0.9776, (NYI: 0.53357 v NJD: 2.1629) (NYI: 19.79% , NJD: 80.21%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "13:51:58",
+    "timeLastRun": "14:02:48",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -73,7 +73,7 @@
     "awayScorers": {},
     "outcome": "FLA, TOR: 0.75216 v FLA: 1.02549      Expected difference: 0.27333, (TOR: 1.2536 v FLA: 1.70915) (TOR: 42.31% , FLA: 57.69%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "13:52:02",
+    "timeLastRun": "14:02:50",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -86,7 +86,7 @@
     "awayScorers": {},
     "outcome": "WPG, WPG: 0.90168 v VGK: 0.8165      Expected difference: 0.0851799999999999, (WPG: 1.5028 v VGK: 1.36083) (WPG: 52.48% , VGK: 47.52%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "13:52:04",
+    "timeLastRun": "14:02:52",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -99,20 +99,20 @@
     "awayScorers": {},
     "outcome": "EDM, EDM: 0.93137 v NSH: 0.29923      Expected difference: 0.63214, (EDM: 1.55228 v NSH: 0.49872) (EDM: 75.68% , NSH: 24.32%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "13:52:06",
+    "timeLastRun": "14:02:55",
     "correctLines": 0,
     "totalLines": 1
   },
   {
     "homeABV": "SJS",
     "awayABV": "CBJ",
-    "homeGoalie": {},
+    "homeGoalie": "SJS: Alex Nedeljkovic",
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "SJS, SJS: 0.49197 v CBJ: 0.36143      Expected difference: 0.13054, (SJS: 0.81995 v CBJ: 0.60238) (SJS: 57.65% , CBJ: 42.35%)",
+    "outcome": "CBJ, SJS: 0.49197 v CBJ: 0.55597      Expected difference: 0.064, (SJS: 0.81995 v CBJ: 0.92662) (SJS: 46.95% , CBJ: 53.05%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "13:52:08",
+    "timeLastRun": "14:02:57",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -123,9 +123,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": "David Pastrnak, BOS: 0.42876      (0.7146)",
-    "outcome": "BOS, SEA: 0.36298 v BOS: 1.18871      Expected difference: 0.825730000000001, (SEA: 0.60497 v BOS: 1.98118) (SEA: 23.39% , BOS: 76.61%)",
+    "outcome": "BOS, SEA: 0.36311 v BOS: 1.18871      Expected difference: 0.8256, (SEA: 0.60518 v BOS: 1.98118) (SEA: 23.4% , BOS: 76.6%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "13:52:10",
+    "timeLastRun": "14:02:59",
     "correctLines": 0,
     "totalLines": 2
   }
