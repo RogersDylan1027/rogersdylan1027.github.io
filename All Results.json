@@ -6434,5 +6434,78 @@
         "totalLines": 1
       }
     ]
+  },
+  {
+    "date": "2026-01-05",
+    "games": [
+      {
+        "homeABV": "NYR",
+        "awayABV": "UTA",
+        "homeGoalie": "NYR: Igor Shesterkin",
+        "awayGoalie": "UTA: Karel Vejmelka",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "UTA, NYR: 0.79148 v UTA: 1.23149      Expected difference: 0.44001, (NYR: 1.31913 v UTA: 2.05248) (NYR: 39.12% , UTA: 60.88%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "19:00:39",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "WSH",
+        "awayABV": "ANA",
+        "homeGoalie": "WSH: Charlie Lindgren",
+        "awayGoalie": "ANA: Petr Mrazek",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "ANA, WSH: 0.31521 v ANA: 0.48099      Expected difference: 0.16578, (WSH: 0.52535 v ANA: 0.80165) (WSH: 39.59% , ANA: 60.41%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "19:00:40",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "OTT",
+        "awayABV": "DET",
+        "homeGoalie": {},
+        "awayGoalie": "DET: John Gibson",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "OTT, OTT: 0.62502 v DET: 0.52669      Expected difference: 0.0983299999999999, (OTT: 1.0417 v DET: 0.87782) (OTT: 54.27% , DET: 45.73%)",
+        "startingTime": "19:35:00",
+        "timeLastRun": "19:00:42",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "CGY",
+        "awayABV": "SEA",
+        "homeGoalie": "CGY: Dustin Wolf",
+        "awayGoalie": "SEA: Philipp Grubauer",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "CGY, CGY: 1.50816 v SEA: 0.75094      Expected difference: 0.75722, (CGY: 2.5136 v SEA: 1.25157) (CGY: 66.76% , SEA: 33.24%)",
+        "startingTime": "21:35:00",
+        "timeLastRun": "21:30:29",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "LAK",
+        "awayABV": "MIN",
+        "homeGoalie": "LAK: Darcy Kuemper",
+        "awayGoalie": "MIN: Filip Gustavsson",
+        "homeScorers": {},
+        "awayScorers": [
+          "Kirill Kaprizov, MIN: 0.5904      (0.984)",
+          "Matt Boldy, MIN: 0.44156      (0.735933333333333)"
+        ],
+        "outcome": "MIN, LAK: 1.04337 v MIN: 1.98729      Expected difference: 0.94392, (LAK: 1.73895 v MIN: 3.31215) (LAK: 34.43% , MIN: 65.57%)",
+        "startingTime": "22:35:00",
+        "timeLastRun": "21:54:43",
+        "correctLines": 0,
+        "totalLines": 3
+      }
+    ]
   }
 ]
