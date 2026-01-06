@@ -42,12 +42,12 @@
     "homeABV": "CGY",
     "awayABV": "SEA",
     "homeGoalie": "CGY: Dustin Wolf",
-    "awayGoalie": {},
+    "awayGoalie": "SEA: Philipp Grubauer",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "CGY, CGY: 1.33361 v SEA: 0.75635      Expected difference: 0.57726, (CGY: 2.22268 v SEA: 1.26058) (CGY: 63.81% , SEA: 36.19%)",
+    "outcome": "CGY, CGY: 1.50816 v SEA: 0.75094      Expected difference: 0.75722, (CGY: 2.5136 v SEA: 1.25157) (CGY: 66.76% , SEA: 33.24%)",
     "startingTime": "21:35:00",
-    "timeLastRun": "19:00:43",
+    "timeLastRun": "21:30:29",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -60,7 +60,7 @@
     "awayScorers": ["Kirill Kaprizov, MIN: 0.5904      (0.984)", "Matt Boldy, MIN: 0.44156      (0.735933333333333)"],
     "outcome": "MIN, LAK: 1.04337 v MIN: 1.98729      Expected difference: 0.94392, (LAK: 1.73895 v MIN: 3.31215) (LAK: 34.43% , MIN: 65.57%)",
     "startingTime": "22:35:00",
-    "timeLastRun": "19:00:46",
+    "timeLastRun": "21:30:31",
     "correctLines": 0,
     "totalLines": 3
   }
