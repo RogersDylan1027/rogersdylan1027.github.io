@@ -2,26 +2,26 @@
   {
     "homeABV": "WSH",
     "awayABV": "DAL",
-    "homeGoalie": {},
+    "homeGoalie": "WSH: Logan Thompson",
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "DAL, WSH: 0.73272 v DAL: 0.98714      Expected difference: 0.25442, (WSH: 1.2212 v DAL: 1.64523) (WSH: 42.6% , DAL: 57.4%)",
+    "outcome": "DAL, WSH: 0.73272 v DAL: 1.43967      Expected difference: 0.70695, (WSH: 1.2212 v DAL: 2.39945) (WSH: 33.73% , DAL: 66.27%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "10:02:48",
+    "timeLastRun": "10:46:34",
     "correctLines": 0,
     "totalLines": 1
   },
   {
     "homeABV": "MTL",
     "awayABV": "CGY",
-    "homeGoalie": {},
+    "homeGoalie": "MTL: Jacob Fowler",
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "MTL, MTL: 1.00925 v CGY: 0.30091      Expected difference: 0.70834, (MTL: 1.68208 v CGY: 0.50152) (MTL: 77.03% , CGY: 22.97%)",
+    "outcome": "MTL, MTL: 1.00925 v CGY: 0.89686      Expected difference: 0.11239, (MTL: 1.68208 v CGY: 1.49477) (MTL: 52.95% , CGY: 47.05%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "10:02:51",
+    "timeLastRun": "10:46:36",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -34,7 +34,7 @@
     "awayScorers": {},
     "outcome": "STL, CHI: 0.25015 v STL: 0.32754      Expected difference: 0.07739, (CHI: 0.41692 v STL: 0.5459) (CHI: 43.3% , STL: 56.7%)",
     "startingTime": "21:35:00",
-    "timeLastRun": "10:02:53",
+    "timeLastRun": "10:46:38",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -47,7 +47,7 @@
     "awayScorers": {},
     "outcome": "OTT, UTA: 0.35724 v OTT: 0.6798      Expected difference: 0.32256, (UTA: 0.5954 v OTT: 1.133) (UTA: 34.45% , OTT: 65.55%)",
     "startingTime": "21:35:00",
-    "timeLastRun": "10:02:55",
+    "timeLastRun": "10:46:40",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -60,7 +60,7 @@
     "awayScorers": "Pavol Regenda, SJS: 0.52305      (0.87175)",
     "outcome": "SJS, LAK: 0.30906 v SJS: 1.45707      Expected difference: 1.14801, (LAK: 0.5151 v SJS: 2.42845) (LAK: 17.5% , SJS: 82.5%)",
     "startingTime": "22:35:00",
-    "timeLastRun": "10:02:56",
+    "timeLastRun": "10:46:42",
     "correctLines": 0,
     "totalLines": 2
   }
