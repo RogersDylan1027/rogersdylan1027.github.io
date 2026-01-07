@@ -8,7 +8,7 @@
     "awayScorers": {},
     "outcome": "DAL, WSH: 1.0482 v DAL: 1.44086      Expected difference: 0.39266, (WSH: 1.747 v DAL: 2.40143) (WSH: 42.11% , DAL: 57.89%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "16:01:13",
+    "timeLastRun": "16:40:09",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -21,7 +21,7 @@
     "awayScorers": {},
     "outcome": "CGY, MTL: 0.75011 v CGY: 0.89686      Expected difference: 0.14675, (MTL: 1.25018 v CGY: 1.49477) (MTL: 45.54% , CGY: 54.46%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "16:01:14",
+    "timeLastRun": "16:40:10",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -32,9 +32,9 @@
     "awayGoalie": "STL: Jordan Binnington",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "STL, CHI: 0.19974 v STL: 0.72305      Expected difference: 0.52331, (CHI: 0.3329 v STL: 1.20508) (CHI: 21.65% , STL: 78.35%)",
+    "outcome": "STL, CHI: 0.19974 v STL: 0.72616      Expected difference: 0.52642, (CHI: 0.3329 v STL: 1.21027) (CHI: 21.57% , STL: 78.43%)",
     "startingTime": "21:35:00",
-    "timeLastRun": "16:01:16",
+    "timeLastRun": "16:40:11",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -47,21 +47,21 @@
     "awayScorers": {},
     "outcome": "OTT, UTA: 0.35143 v OTT: 0.76254      Expected difference: 0.41111, (UTA: 0.58572 v OTT: 1.2709) (UTA: 31.55% , OTT: 68.45%)",
     "startingTime": "21:35:00",
-    "timeLastRun": "16:01:17",
+    "timeLastRun": "16:40:13",
     "correctLines": 0,
     "totalLines": 1
   },
   {
     "homeABV": "LAK",
     "awayABV": "SJS",
-    "homeGoalie": {},
+    "homeGoalie": "LAK: Darcy Kuemper",
     "awayGoalie": {},
     "homeScorers": {},
-    "awayScorers": "Pavol Regenda, SJS: 0.52305      (0.87175)",
-    "outcome": "SJS, LAK: 0.29007 v SJS: 1.45707      Expected difference: 1.167, (LAK: 0.48345 v SJS: 2.42845) (LAK: 16.6% , SJS: 83.4%)",
+    "awayScorers": ["Pavol Regenda, SJS: 0.65095      (1.08491666666667)", "Macklin Celebrini, SJS: 0.39763      (0.662716666666667)"],
+    "outcome": "SJS, LAK: 0.29007 v SJS: 1.81336      Expected difference: 1.52329, (LAK: 0.48345 v SJS: 3.02227) (LAK: 13.79% , SJS: 86.21%)",
     "startingTime": "22:35:00",
-    "timeLastRun": "16:01:19",
+    "timeLastRun": "16:40:14",
     "correctLines": 0,
-    "totalLines": 2
+    "totalLines": 3
   }
 ]
