@@ -6,9 +6,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "DAL, WSH: 0.73272 v DAL: 1.43998      Expected difference: 0.70726, (WSH: 1.2212 v DAL: 2.39997) (WSH: 33.72% , DAL: 66.28%)",
+    "outcome": "DAL, WSH: 0.73111 v DAL: 1.44086      Expected difference: 0.70975, (WSH: 1.21852 v DAL: 2.40143) (WSH: 33.66% , DAL: 66.34%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "12:16:34",
+    "timeLastRun": "12:48:07",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -21,20 +21,20 @@
     "awayScorers": {},
     "outcome": "CGY, MTL: 0.75011 v CGY: 0.89686      Expected difference: 0.14675, (MTL: 1.25018 v CGY: 1.49477) (MTL: 45.54% , CGY: 54.46%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "12:16:36",
+    "timeLastRun": "12:48:09",
     "correctLines": 0,
     "totalLines": 1
   },
   {
     "homeABV": "CHI",
     "awayABV": "STL",
-    "homeGoalie": {},
+    "homeGoalie": "CHI: Spencer Knight",
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "STL, CHI: 0.25015 v STL: 0.32754      Expected difference: 0.07739, (CHI: 0.41692 v STL: 0.5459) (CHI: 43.3% , STL: 56.7%)",
+    "outcome": "STL, CHI: 0.25015 v STL: 0.72305      Expected difference: 0.4729, (CHI: 0.41692 v STL: 1.20508) (CHI: 25.7% , STL: 74.3%)",
     "startingTime": "21:35:00",
-    "timeLastRun": "12:16:38",
+    "timeLastRun": "12:48:10",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -47,7 +47,7 @@
     "awayScorers": {},
     "outcome": "OTT, UTA: 0.35724 v OTT: 0.6798      Expected difference: 0.32256, (UTA: 0.5954 v OTT: 1.133) (UTA: 34.45% , OTT: 65.55%)",
     "startingTime": "21:35:00",
-    "timeLastRun": "12:16:39",
+    "timeLastRun": "12:48:12",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -60,7 +60,7 @@
     "awayScorers": "Pavol Regenda, SJS: 0.52305      (0.87175)",
     "outcome": "SJS, LAK: 0.30906 v SJS: 1.45707      Expected difference: 1.14801, (LAK: 0.5151 v SJS: 2.42845) (LAK: 17.5% , SJS: 82.5%)",
     "startingTime": "22:35:00",
-    "timeLastRun": "12:16:41",
+    "timeLastRun": "12:48:14",
     "correctLines": 0,
     "totalLines": 2
   }
