@@ -112,21 +112,21 @@
     "awayScorers": {},
     "outcome": "SJS, SJS: 1.21338 v CBJ: 0.59009      Expected difference: 0.62329, (SJS: 2.0223 v CBJ: 0.98348) (SJS: 67.28% , CBJ: 32.72%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "19:00:16",
+    "timeLastRun": "21:30:44",
     "correctLines": 0,
     "totalLines": 2
   },
   {
     "homeABV": "SEA",
     "awayABV": "BOS",
-    "homeGoalie": {},
-    "awayGoalie": {},
+    "homeGoalie": "SEA: Joey Daccord",
+    "awayGoalie": "BOS: Jeremy Swayman",
     "homeScorers": {},
-    "awayScorers": "David Pastrnak, BOS: 0.45726      (0.7621)",
-    "outcome": "BOS, SEA: 0.38917 v BOS: 1.27302      Expected difference: 0.88385, (SEA: 0.64862 v BOS: 2.1217) (SEA: 23.41% , BOS: 76.59%)",
+    "awayScorers": {},
+    "outcome": "BOS, SEA: 0.58038 v BOS: 0.81059      Expected difference: 0.23021, (SEA: 0.9673 v BOS: 1.35098) (SEA: 41.72% , BOS: 58.28%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "19:00:18",
+    "timeLastRun": "21:30:46",
     "correctLines": 0,
-    "totalLines": 2
+    "totalLines": 1
   }
 ]
