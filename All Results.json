@@ -6642,5 +6642,78 @@
         "totalLines": 1
       }
     ]
+  },
+  {
+    "date": "2026-01-07",
+    "games": [
+      {
+        "homeABV": "WSH",
+        "awayABV": "DAL",
+        "homeGoalie": "WSH: Logan Thompson",
+        "awayGoalie": "DAL: Casey DeSmith",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "DAL, WSH: 1.04998 v DAL: 1.44086      Expected difference: 0.39088, (WSH: 1.74997 v DAL: 2.40143) (WSH: 42.15% , DAL: 57.85%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "19:00:30",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "MTL",
+        "awayABV": "CGY",
+        "homeGoalie": "MTL: Jacob Fowler",
+        "awayGoalie": "CGY: Dustin Wolf",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "CGY, MTL: 0.75028 v CGY: 0.89686      Expected difference: 0.14658, (MTL: 1.25047 v CGY: 1.49477) (MTL: 45.55% , CGY: 54.45%)",
+        "startingTime": "19:35:00",
+        "timeLastRun": "19:00:32",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "CHI",
+        "awayABV": "STL",
+        "homeGoalie": "CHI: Spencer Knight",
+        "awayGoalie": "STL: Jordan Binnington",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "STL, CHI: 0.19974 v STL: 0.72305      Expected difference: 0.52331, (CHI: 0.3329 v STL: 1.20508) (CHI: 21.65% , STL: 78.35%)",
+        "startingTime": "21:35:00",
+        "timeLastRun": "21:31:08",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "UTA",
+        "awayABV": "OTT",
+        "homeGoalie": "UTA: Karel Vejmelka",
+        "awayGoalie": {},
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "OTT, UTA: 0.40122 v OTT: 0.76254      Expected difference: 0.36132, (UTA: 0.6687 v OTT: 1.2709) (UTA: 34.48% , OTT: 65.52%)",
+        "startingTime": "21:35:00",
+        "timeLastRun": "21:31:09",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "LAK",
+        "awayABV": "SJS",
+        "homeGoalie": "LAK: Darcy Kuemper",
+        "awayGoalie": "SJS: Yaroslav Askarov",
+        "homeScorers": {},
+        "awayScorers": [
+          "Pavol Regenda, SJS: 0.66083      (1.10138333333333)",
+          "Macklin Celebrini, SJS: 0.40367      (0.672783333333333)"
+        ],
+        "outcome": "SJS, LAK: 0.29007 v SJS: 1.88518      Expected difference: 1.59511, (LAK: 0.48345 v SJS: 3.14197) (LAK: 13.34% , SJS: 86.66%)",
+        "startingTime": "22:35:00",
+        "timeLastRun": "21:54:14",
+        "correctLines": 2,
+        "totalLines": 3
+      }
+    ]
   }
 ]
