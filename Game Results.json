@@ -9,7 +9,7 @@
     "outcome": "DAL, WSH: 1.04998 v DAL: 1.44086      Expected difference: 0.39088, (WSH: 1.74997 v DAL: 2.40143) (WSH: 42.15% , DAL: 57.85%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:00:30",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -64,7 +64,7 @@
     "outcome": "SJS, LAK: 0.29007 v SJS: 1.88518      Expected difference: 1.59511, (LAK: 0.48345 v SJS: 3.14197) (LAK: 13.34% , SJS: 86.66%)",
     "startingTime": "22:35:00",
     "timeLastRun": "21:54:14",
-    "correctLines": 0,
+    "correctLines": 2,
     "totalLines": 3
   }
 ]
