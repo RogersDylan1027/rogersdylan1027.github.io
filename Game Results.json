@@ -2,13 +2,13 @@
   {
     "homeABV": "CHI",
     "awayABV": "WSH",
-    "homeGoalie": {},
+    "homeGoalie": "CHI: Spencer Knight",
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "CHI, CHI: 0.70839 v WSH: 0.32625      Expected difference: 0.38214, (CHI: 1.18065 v WSH: 0.54375) (CHI: 68.47% , WSH: 31.53%)",
+    "outcome": "WSH (OTW), CHI: 0.70839 v WSH: 0.73398      Expected difference: 0.0255900000000001, (CHI: 1.18065 v WSH: 1.2233) (CHI: 49.11% , WSH: 50.89%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "12:44:28",
+    "timeLastRun": "13:01:05",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -21,20 +21,20 @@
     "awayScorers": {},
     "outcome": "WPG, WPG: 1.10901 v LAK: 0.37611      Expected difference: 0.7329, (WPG: 1.84835 v LAK: 0.62685) (WPG: 74.67% , LAK: 25.33%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "12:44:30",
+    "timeLastRun": "13:01:07",
     "correctLines": 0,
     "totalLines": 1
   },
   {
     "homeABV": "UTA",
     "awayABV": "STL",
-    "homeGoalie": {},
+    "homeGoalie": "UTA: Karel Vejmelka",
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "STL, UTA: 0.40661 v STL: 0.74061      Expected difference: 0.334, (UTA: 0.67768 v STL: 1.23435) (UTA: 35.44% , STL: 64.56%)",
+    "outcome": "STL, UTA: 0.40661 v STL: 0.83309      Expected difference: 0.42648, (UTA: 0.67768 v STL: 1.38848) (UTA: 32.8% , STL: 67.2%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "12:44:31",
+    "timeLastRun": "13:01:09",
     "correctLines": 0,
     "totalLines": 1
   }
