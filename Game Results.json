@@ -148,7 +148,10 @@
     "homeGoalie": "SEA: Philipp Grubauer",
     "awayGoalie": "MIN: Jesper Wallstedt",
     "homeScorers": {},
-    "awayScorers": ["Kirill Kaprizov, MIN: 0.60207      (1.00345)", "Matt Boldy, MIN: 0.44733      (0.74555)"],
+    "awayScorers": [
+      "Kirill Kaprizov, MIN: 0.60207      (1.00345)",
+      "Matt Boldy, MIN: 0.44733      (0.74555)"
+    ],
     "outcome": "MIN, SEA: 0.91032 v MIN: 2.03125      Expected difference: 1.12093, (SEA: 1.5172 v MIN: 3.38542) (SEA: 30.95% , MIN: 69.05%)",
     "startingTime": "22:05:00",
     "timeLastRun": "21:55:26",
