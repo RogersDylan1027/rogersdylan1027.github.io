@@ -6879,5 +6879,49 @@
         "totalLines": 3
       }
     ]
+  },
+  {
+    "date": "2026-01-09",
+    "games": [
+      {
+        "homeABV": "CHI",
+        "awayABV": "WSH",
+        "homeGoalie": "CHI: Spencer Knight",
+        "awayGoalie": "WSH: Logan Thompson",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "CHI, CHI: 0.99744 v WSH: 0.83517      Expected difference: 0.16227, (CHI: 1.6624 v WSH: 1.39195) (CHI: 54.43% , WSH: 45.57%)",
+        "startingTime": "20:05:00",
+        "timeLastRun": "19:00:43",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "WPG",
+        "awayABV": "LAK",
+        "homeGoalie": {},
+        "awayGoalie": "LAK: Darcy Kuemper",
+        "homeScorers": "Kyle Connor, WPG: 0.40747      (0.679116666666667)",
+        "awayScorers": {},
+        "outcome": "WPG, WPG: 1.33141 v LAK: 0.37611      Expected difference: 0.9553, (WPG: 2.21902 v LAK: 0.62685) (WPG: 77.97% , LAK: 22.03%)",
+        "startingTime": "20:05:00",
+        "timeLastRun": "19:00:46",
+        "correctLines": 2,
+        "totalLines": 2
+      },
+      {
+        "homeABV": "UTA",
+        "awayABV": "STL",
+        "homeGoalie": "UTA: Karel Vejmelka",
+        "awayGoalie": "STL: Joel Hofer",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "UTA, UTA: 1.03434 v STL: 0.83309      Expected difference: 0.20125, (UTA: 1.7239 v STL: 1.38848) (UTA: 55.39% , STL: 44.61%)",
+        "startingTime": "21:05:00",
+        "timeLastRun": "19:00:49",
+        "correctLines": 1,
+        "totalLines": 1
+      }
+    ]
   }
 ]
