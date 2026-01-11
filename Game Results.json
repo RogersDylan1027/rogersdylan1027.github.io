@@ -8,7 +8,7 @@
     "awayScorers": {},
     "outcome": "NJD, WPG: 0.44225 v NJD: 0.64047      Expected difference: 0.19822, (WPG: 0.73708 v NJD: 1.06745) (WPG: 40.85% , NJD: 59.15%)",
     "startingTime": "14:05:00",
-    "timeLastRun": "11:45:37",
+    "timeLastRun": "12:01:09",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -21,7 +21,7 @@
     "awayScorers": {},
     "outcome": "BOS, BOS: 0.46448 v PIT: 0.3089      Expected difference: 0.15558, (BOS: 0.77413 v PIT: 0.51483) (BOS: 60.06% , PIT: 39.94%)",
     "startingTime": "17:05:00",
-    "timeLastRun": "11:45:38",
+    "timeLastRun": "12:01:10",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -29,12 +29,12 @@
     "homeABV": "NSH",
     "awayABV": "WSH",
     "homeGoalie": {},
-    "awayGoalie": {},
+    "awayGoalie": "WSH: Charlie Lindgren",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "NSH, NSH: 0.73821 v WSH: 0.51174      Expected difference: 0.22647, (NSH: 1.23035 v WSH: 0.8529) (NSH: 59.06% , WSH: 40.94%)",
+    "outcome": "WSH, NSH: 0.29433 v WSH: 0.51244      Expected difference: 0.21811, (NSH: 0.49055 v WSH: 0.85407) (NSH: 36.48% , WSH: 63.52%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "11:45:39",
+    "timeLastRun": "12:01:11",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -47,7 +47,7 @@
     "awayScorers": {},
     "outcome": "CBJ, UTA: 0.40128 v CBJ: 1.05415      Expected difference: 0.65287, (UTA: 0.6688 v CBJ: 1.75692) (UTA: 27.57% , CBJ: 72.43%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "11:45:41",
+    "timeLastRun": "12:01:13",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -60,7 +60,7 @@
     "awayScorers": {},
     "outcome": "SJS, SJS: 1.16988 v VGK: 0.45826      Expected difference: 0.71162, (SJS: 1.9498 v VGK: 0.76377) (SJS: 71.85% , VGK: 28.15%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "11:45:42",
+    "timeLastRun": "12:01:14",
     "correctLines": 0,
     "totalLines": 1
   }
