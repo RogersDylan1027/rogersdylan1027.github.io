@@ -166,7 +166,10 @@
     "awayABV": "LAK",
     "homeGoalie": "EDM: Connor Ingram",
     "awayGoalie": "LAK: Anton Forsberg",
-    "homeScorers": ["Leon Draisaitl, EDM: 0.41788      (0.696466666666667)", "Connor McDavid, EDM: 0.46433      (0.773883333333333)"],
+    "homeScorers": [
+      "Leon Draisaitl, EDM: 0.41788      (0.696466666666667)",
+      "Connor McDavid, EDM: 0.46433      (0.773883333333333)"
+    ],
     "awayScorers": {},
     "outcome": "EDM, EDM: 1.80214 v LAK: 0.85003      Expected difference: 0.95211, (EDM: 3.00357 v LAK: 1.41672) (EDM: 67.95% , LAK: 32.05%)",
     "startingTime": "22:05:00",
