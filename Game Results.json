@@ -63,7 +63,7 @@
     "awayScorers": {},
     "outcome": "ANA, BUF: 1.05619 v ANA: 1.17613      Expected difference: 0.11994, (BUF: 1.76032 v ANA: 1.96022) (BUF: 47.31% , ANA: 52.69%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "18:38:35",
+    "timeLastRun": "19:01:20",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -74,9 +74,9 @@
     "awayGoalie": "VAN: Thatcher Demko",
     "homeScorers": "Auston Matthews, TOR: 0.42769      (0.712816666666667)",
     "awayScorers": {},
-    "outcome": "TOR, TOR: 1.44329 v VAN: 0.91909      Expected difference: 0.5242, (TOR: 2.40548 v VAN: 1.53182) (TOR: 61.09% , VAN: 38.91%)",
+    "outcome": "TOR, TOR: 1.4533 v VAN: 0.91909      Expected difference: 0.53421, (TOR: 2.42217 v VAN: 1.53182) (TOR: 61.26% , VAN: 38.74%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "18:38:37",
+    "timeLastRun": "19:01:22",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -89,7 +89,7 @@
     "awayScorers": "Alex DeBrincat, DET: 0.36181      (0.603016666666667)",
     "outcome": "DET, MTL: 1.04671 v DET: 1.57706      Expected difference: 0.53035, (MTL: 1.74452 v DET: 2.62843) (MTL: 39.89% , DET: 60.11%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "18:38:40",
+    "timeLastRun": "19:01:23",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -102,7 +102,7 @@
     "awayScorers": {},
     "outcome": "OTT, OTT: 0.93493 v FLA: 0.76727      Expected difference: 0.16766, (OTT: 1.55822 v FLA: 1.27878) (OTT: 54.92% , FLA: 45.08%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "18:38:42",
+    "timeLastRun": "19:01:25",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -115,7 +115,7 @@
     "awayScorers": {},
     "outcome": "PHI, PHI: 1.04099 v TBL: 0.95973      Expected difference: 0.0812599999999999, (PHI: 1.73498 v TBL: 1.59955) (PHI: 52.03% , TBL: 47.97%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "18:38:45",
+    "timeLastRun": "19:01:26",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -126,9 +126,9 @@
     "awayGoalie": "SEA: Joey Daccord",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "CAR, CAR: 1.34261 v SEA: 1.15932      Expected difference: 0.18329, (CAR: 2.23768 v SEA: 1.9322) (CAR: 53.66% , SEA: 46.34%)",
+    "outcome": "CAR, CAR: 1.34261 v SEA: 1.14994      Expected difference: 0.19267, (CAR: 2.23768 v SEA: 1.91657) (CAR: 53.86% , SEA: 46.14%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "18:38:47",
+    "timeLastRun": "19:01:27",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -141,20 +141,20 @@
     "awayScorers": {},
     "outcome": "CHI, NSH: 0.67574 v CHI: 0.73849      Expected difference: 0.0627499999999998, (NSH: 1.12623 v CHI: 1.23082) (NSH: 47.78% , CHI: 52.22%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "18:38:50",
+    "timeLastRun": "19:01:29",
     "correctLines": 0,
     "totalLines": 1
   },
   {
     "homeABV": "MIN",
     "awayABV": "NYI",
-    "homeGoalie": {},
-    "awayGoalie": {},
-    "homeScorers": ["Kirill Kaprizov, MIN: 0.55812      (0.9302)", "Matt Boldy, MIN: 0.4107      (0.6845)"],
+    "homeGoalie": "MIN: Filip Gustavsson",
+    "awayGoalie": "NYI: Ilya Sorokin",
+    "homeScorers": ["Kirill Kaprizov, MIN: 0.54666      (0.9111)", "Matt Boldy, MIN: 0.40227      (0.67045)"],
     "awayScorers": {},
-    "outcome": "MIN, MIN: 1.71355 v NYI: 0.96682      Expected difference: 0.74673, (MIN: 2.85592 v NYI: 1.61137) (MIN: 63.93% , NYI: 36.07%)",
+    "outcome": "MIN, MIN: 1.67837 v NYI: 0.93692      Expected difference: 0.74145, (MIN: 2.79728 v NYI: 1.56153) (MIN: 64.18% , NYI: 35.82%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "18:38:52",
+    "timeLastRun": "19:01:31",
     "correctLines": 0,
     "totalLines": 3
   },
@@ -165,9 +165,9 @@
     "awayGoalie": {},
     "homeScorers": ["Leon Draisaitl, EDM: 0.45653      (0.760883333333333)", "Connor McDavid, EDM: 0.50728      (0.845466666666667)"],
     "awayScorers": {},
-    "outcome": "EDM, EDM: 1.96885 v LAK: 0.73069      Expected difference: 1.23816, (EDM: 3.28142 v LAK: 1.21782) (EDM: 72.93% , LAK: 27.07%)",
+    "outcome": "EDM, EDM: 1.97009 v LAK: 0.73069      Expected difference: 1.2394, (EDM: 3.28348 v LAK: 1.21782) (EDM: 72.95% , LAK: 27.05%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "18:38:55",
+    "timeLastRun": "19:01:32",
     "correctLines": 0,
     "totalLines": 3
   },
@@ -180,7 +180,7 @@
     "awayScorers": {},
     "outcome": "STL, VGK: 1.14721 v STL: 1.28159      Expected difference: 0.13438, (VGK: 1.91202 v STL: 2.13598) (VGK: 47.23% , STL: 52.77%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "18:38:57",
+    "timeLastRun": "19:01:34",
     "correctLines": 0,
     "totalLines": 1
   }
