@@ -34,20 +34,20 @@
     "awayScorers": {},
     "outcome": "WSH, NSH: 0.28893 v WSH: 0.56806      Expected difference: 0.27913, (NSH: 0.48155 v WSH: 0.94677) (NSH: 33.71% , WSH: 66.29%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "18:38:40",
+    "timeLastRun": "19:00:37",
     "correctLines": 0,
     "totalLines": 1
   },
   {
     "homeABV": "UTA",
     "awayABV": "CBJ",
-    "homeGoalie": {},
+    "homeGoalie": "UTA: Vitek Vanecek",
     "awayGoalie": "CBJ: Jet Greaves",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "CBJ, UTA: 0.65023 v CBJ: 1.0444      Expected difference: 0.39417, (UTA: 1.08372 v CBJ: 1.74067) (UTA: 38.37% , CBJ: 61.63%)",
+    "outcome": "CBJ (OTW), UTA: 0.65023 v CBJ: 0.67719      Expected difference: 0.0269600000000001, (UTA: 1.08372 v CBJ: 1.12865) (UTA: 48.98% , CBJ: 51.02%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "18:38:41",
+    "timeLastRun": "19:00:38",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -60,7 +60,7 @@
     "awayScorers": {},
     "outcome": "SJS, SJS: 1.12968 v VGK: 0.4464      Expected difference: 0.68328, (SJS: 1.8828 v VGK: 0.744) (SJS: 71.68% , VGK: 28.32%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "18:38:43",
+    "timeLastRun": "19:00:40",
     "correctLines": 0,
     "totalLines": 1
   }
