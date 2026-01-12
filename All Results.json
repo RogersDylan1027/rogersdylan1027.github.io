@@ -7119,5 +7119,75 @@
         "totalLines": 1
       }
     ]
+  },
+  {
+    "date": "2026-01-11",
+    "games": [
+      {
+        "homeABV": "WPG",
+        "awayABV": "NJD",
+        "homeGoalie": "WPG: Connor Hellebuyck",
+        "awayGoalie": "NJD: Jake Allen",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "NJD (OTW), WPG: 0.87505 v NJD: 0.89668      Expected difference: 0.02163, (WPG: 1.45842 v NJD: 1.49447) (WPG: 49.39% , NJD: 50.61%)",
+        "startingTime": "14:05:00",
+        "timeLastRun": "14:01:36",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "BOS",
+        "awayABV": "PIT",
+        "homeGoalie": "BOS: Joonas Korpisalo",
+        "awayGoalie": "PIT: Stuart Skinner",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "BOS, BOS: 0.61712 v PIT: 0.36775      Expected difference: 0.24937, (BOS: 1.02853 v PIT: 0.61292) (BOS: 62.66% , PIT: 37.34%)",
+        "startingTime": "17:05:00",
+        "timeLastRun": "17:00:37",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "NSH",
+        "awayABV": "WSH",
+        "homeGoalie": "NSH: Justus Annunen",
+        "awayGoalie": "WSH: Charlie Lindgren",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "WSH, NSH: 0.28893 v WSH: 0.56806      Expected difference: 0.27913, (NSH: 0.48155 v WSH: 0.94677) (NSH: 33.71% , WSH: 66.29%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "19:00:37",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "UTA",
+        "awayABV": "CBJ",
+        "homeGoalie": "UTA: Vitek Vanecek",
+        "awayGoalie": "CBJ: Jet Greaves",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "CBJ (OTW), UTA: 0.65023 v CBJ: 0.67719      Expected difference: 0.0269600000000001, (UTA: 1.08372 v CBJ: 1.12865) (UTA: 48.98% , CBJ: 51.02%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "19:00:38",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "SJS",
+        "awayABV": "VGK",
+        "homeGoalie": "SJS: Yaroslav Askarov",
+        "awayGoalie": {},
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "SJS, SJS: 1.12968 v VGK: 0.4464      Expected difference: 0.68328, (SJS: 1.8828 v VGK: 0.744) (SJS: 71.68% , VGK: 28.32%)",
+        "startingTime": "20:05:00",
+        "timeLastRun": "19:00:40",
+        "correctLines": 0,
+        "totalLines": 1
+      }
+    ]
   }
 ]
