@@ -8,20 +8,20 @@
     "awayScorers": {},
     "outcome": "OTT, OTT: 0.33989 v VAN: 0.24047      Expected difference: 0.0994200000000001, (OTT: 0.56648 v VAN: 0.40078) (OTT: 58.57% , VAN: 41.43%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "10:47:33",
+    "timeLastRun": "11:16:31",
     "correctLines": 0,
     "totalLines": 1
   },
   {
     "homeABV": "PIT",
     "awayABV": "TBL",
-    "homeGoalie": {},
+    "homeGoalie": "PIT: Arturs Silovs",
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "PIT, PIT: 1.17054 v TBL: 0.79324      Expected difference: 0.3773, (PIT: 1.9509 v TBL: 1.32207) (PIT: 59.61% , TBL: 40.39%)",
+    "outcome": "PIT, PIT: 1.17054 v TBL: 0.44988      Expected difference: 0.72066, (PIT: 1.9509 v TBL: 0.7498) (PIT: 72.24% , TBL: 27.76%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "10:47:36",
+    "timeLastRun": "11:16:33",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -32,9 +32,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "MTL, WSH: 0.34716 v MTL: 1.28585      Expected difference: 0.93869, (WSH: 0.5786 v MTL: 2.14308) (WSH: 21.26% , MTL: 78.74%)",
+    "outcome": "MTL, WSH: 0.34656 v MTL: 1.28585      Expected difference: 0.93929, (WSH: 0.5776 v MTL: 2.14308) (WSH: 21.23% , MTL: 78.77%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "10:47:38",
+    "timeLastRun": "11:16:35",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -45,9 +45,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "CBJ, CBJ: 1.1874 v CGY: 0.57998      Expected difference: 0.60742, (CBJ: 1.979 v CGY: 0.96663) (CBJ: 67.18% , CGY: 32.82%)",
+    "outcome": "CBJ, CBJ: 1.1874 v CGY: 0.57894      Expected difference: 0.60846, (CBJ: 1.979 v CGY: 0.9649) (CBJ: 67.22% , CGY: 32.78%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "10:47:39",
+    "timeLastRun": "11:16:38",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -60,7 +60,7 @@
     "awayScorers": {},
     "outcome": "BOS (OTW), BOS: 0.46455 v DET: 0.42483      Expected difference: 0.03972, (BOS: 0.77425 v DET: 0.70805) (BOS: 52.23% , DET: 47.77%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "10:47:42",
+    "timeLastRun": "11:16:40",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -73,7 +73,7 @@
     "awayScorers": {},
     "outcome": "STL, STL: 0.4547 v CAR: 0.38766      Expected difference: 0.0670399999999999, (STL: 0.75783 v CAR: 0.6461) (STL: 53.98% , CAR: 46.02%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "10:47:44",
+    "timeLastRun": "11:16:42",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -86,7 +86,7 @@
     "awayScorers": {},
     "outcome": "EDM, NSH: 0.28956 v EDM: 0.76392      Expected difference: 0.47436, (NSH: 0.4826 v EDM: 1.2732) (NSH: 27.49% , EDM: 72.51%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "10:47:46",
+    "timeLastRun": "11:16:45",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -99,7 +99,7 @@
     "awayScorers": {},
     "outcome": "WPG, WPG: 1.02741 v NYI: 0.34795      Expected difference: 0.67946, (WPG: 1.71235 v NYI: 0.57992) (WPG: 74.7% , NYI: 25.3%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "10:47:49",
+    "timeLastRun": "11:16:47",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -112,7 +112,7 @@
     "awayScorers": {},
     "outcome": "UTA (OTW), UTA: 1.05688 v TOR: 1.01616      Expected difference: 0.0407200000000001, (UTA: 1.76147 v TOR: 1.6936) (UTA: 50.98% , TOR: 49.02%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "10:47:51",
+    "timeLastRun": "11:16:49",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -123,9 +123,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "ANA, ANA: 0.84475 v DAL: 0.33959      Expected difference: 0.50516, (ANA: 1.40792 v DAL: 0.56598) (ANA: 71.33% , DAL: 28.67%)",
+    "outcome": "ANA, ANA: 0.84475 v DAL: 0.33972      Expected difference: 0.50503, (ANA: 1.40792 v DAL: 0.5662) (ANA: 71.32% , DAL: 28.68%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "10:47:53",
+    "timeLastRun": "11:16:51",
     "correctLines": 0,
     "totalLines": 1
   }
