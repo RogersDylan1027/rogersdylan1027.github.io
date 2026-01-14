@@ -2,15 +2,15 @@
   {
     "homeABV": "NJD",
     "awayABV": "SEA",
-    "homeGoalie": {},
+    "homeGoalie": "NJD: Jacob Markstrom",
     "awayGoalie": {},
-    "homeScorers": {},
+    "homeScorers": "Jack Hughes, NJD: 0.35512      (0.591866666666667)",
     "awayScorers": {},
-    "outcome": "NJD, NJD: 1.46806 v SEA: 0.40999      Expected difference: 1.05807, (NJD: 2.44677 v SEA: 0.68332) (NJD: 78.17% , SEA: 21.83%)",
+    "outcome": "NJD, NJD: 1.50204 v SEA: 0.34556      Expected difference: 1.15648, (NJD: 2.5034 v SEA: 0.57593) (NJD: 81.3% , SEA: 18.7%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "11:03:11",
+    "timeLastRun": "11:55:35",
     "correctLines": 0,
-    "totalLines": 1
+    "totalLines": 2
   },
   {
     "homeABV": "BUF",
@@ -19,9 +19,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "BUF, BUF: 0.87789 v PHI: 0.62938      Expected difference: 0.24851, (BUF: 1.46315 v PHI: 1.04897) (BUF: 58.24% , PHI: 41.76%)",
+    "outcome": "BUF, BUF: 0.9373 v PHI: 0.66554      Expected difference: 0.27176, (BUF: 1.56217 v PHI: 1.10923) (BUF: 58.48% , PHI: 41.52%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "11:03:13",
+    "timeLastRun": "11:55:36",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -32,9 +32,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "OTT, NYR: 0.23029 v OTT: 0.73798      Expected difference: 0.50769, (NYR: 0.38382 v OTT: 1.22997) (NYR: 23.78% , OTT: 76.22%)",
+    "outcome": "OTT, NYR: 0.2818 v OTT: 0.77871      Expected difference: 0.49691, (NYR: 0.46967 v OTT: 1.29785) (NYR: 26.57% , OTT: 73.43%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "11:03:14",
+    "timeLastRun": "11:55:38",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -45,9 +45,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "VGK, LAK: 0.78606 v VGK: 1.23006      Expected difference: 0.444, (LAK: 1.3101 v VGK: 2.0501) (LAK: 38.99% , VGK: 61.01%)",
+    "outcome": "VGK, LAK: 0.81933 v VGK: 1.26551      Expected difference: 0.44618, (LAK: 1.36555 v VGK: 2.10918) (LAK: 39.3% , VGK: 60.7%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "11:03:17",
+    "timeLastRun": "11:55:40",
     "correctLines": 0,
     "totalLines": 1
   }
