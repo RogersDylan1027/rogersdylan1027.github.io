@@ -8,7 +8,7 @@
     "awayScorers": {},
     "outcome": "OTT, OTT: 0.33989 v VAN: 0.28285      Expected difference: 0.0570400000000001, (OTT: 0.56648 v VAN: 0.47142) (OTT: 54.58% , VAN: 45.42%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "18:36:56",
+    "timeLastRun": "19:00:43",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -19,9 +19,9 @@
     "awayGoalie": "TBL: Andrei Vasilevskiy",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "PIT, PIT: 1.60764 v TBL: 0.43104      Expected difference: 1.1766, (PIT: 2.6794 v TBL: 0.7184) (PIT: 78.86% , TBL: 21.14%)",
+    "outcome": "PIT, PIT: 1.60764 v TBL: 0.43094      Expected difference: 1.1767, (PIT: 2.6794 v TBL: 0.71823) (PIT: 78.86% , TBL: 21.14%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "18:36:58",
+    "timeLastRun": "19:00:45",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -34,7 +34,7 @@
     "awayScorers": {},
     "outcome": "MTL, WSH: 0.24345 v MTL: 1.3508      Expected difference: 1.10735, (WSH: 0.40575 v MTL: 2.25133) (WSH: 15.27% , MTL: 84.73%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "18:36:59",
+    "timeLastRun": "19:00:47",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -47,7 +47,7 @@
     "awayScorers": {},
     "outcome": "CBJ, CBJ: 0.96008 v CGY: 0.71922      Expected difference: 0.24086, (CBJ: 1.60013 v CGY: 1.1987) (CBJ: 57.17% , CGY: 42.83%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "18:37:01",
+    "timeLastRun": "19:00:48",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -55,12 +55,12 @@
     "homeABV": "BOS",
     "awayABV": "DET",
     "homeGoalie": "BOS: Jeremy Swayman",
-    "awayGoalie": {},
+    "awayGoalie": "DET: Cam Talbot",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "BOS (OTW), BOS: 0.72885 v DET: 0.68396      Expected difference: 0.0448900000000001, (BOS: 1.21475 v DET: 1.13993) (BOS: 51.59% , DET: 48.41%)",
+    "outcome": "DET, BOS: 0.597 v DET: 0.68396      Expected difference: 0.0869600000000001, (BOS: 0.995 v DET: 1.13993) (BOS: 46.61% , DET: 53.39%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "18:37:03",
+    "timeLastRun": "19:00:50",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -71,9 +71,9 @@
     "awayGoalie": "CAR: Brandon Bussi",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "CAR (OTW), STL: 1.11406 v CAR: 1.13706      Expected difference: 0.0230000000000001, (STL: 1.85677 v CAR: 1.8951) (STL: 49.49% , CAR: 50.51%)",
+    "outcome": "CAR (OTW), STL: 1.11896 v CAR: 1.13706      Expected difference: 0.0181, (STL: 1.86493 v CAR: 1.8951) (STL: 49.6% , CAR: 50.4%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "18:37:04",
+    "timeLastRun": "19:00:51",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -86,7 +86,7 @@
     "awayScorers": {},
     "outcome": "EDM, NSH: 0.7763 v EDM: 1.05013      Expected difference: 0.27383, (NSH: 1.29383 v EDM: 1.75022) (NSH: 42.5% , EDM: 57.5%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "18:37:06",
+    "timeLastRun": "19:00:53",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -99,7 +99,7 @@
     "awayScorers": {},
     "outcome": "WPG, WPG: 1.12706 v NYI: 0.59505      Expected difference: 0.53201, (WPG: 1.87843 v NYI: 0.99175) (WPG: 65.45% , NYI: 34.55%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "18:37:08",
+    "timeLastRun": "19:00:55",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -112,7 +112,7 @@
     "awayScorers": "Auston Matthews, TOR: 0.39628      (0.660466666666667)",
     "outcome": "TOR, UTA: 1.1763 v TOR: 1.31023      Expected difference: 0.13393, (UTA: 1.9605 v TOR: 2.18372) (UTA: 47.31% , TOR: 52.69%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "18:37:10",
+    "timeLastRun": "19:00:56",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -123,9 +123,9 @@
     "awayGoalie": "DAL: Casey DeSmith",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "ANA, ANA: 1.13161 v DAL: 0.34117      Expected difference: 0.79044, (ANA: 1.88602 v DAL: 0.56862) (ANA: 76.83% , DAL: 23.17%)",
+    "outcome": "ANA, ANA: 1.13161 v DAL: 0.3413      Expected difference: 0.79031, (ANA: 1.88602 v DAL: 0.56883) (ANA: 76.83% , DAL: 23.17%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "18:37:11",
+    "timeLastRun": "19:00:58",
     "correctLines": 0,
     "totalLines": 1
   }
