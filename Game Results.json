@@ -6,9 +6,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "NJD, NJD: 1.46806 v SEA: 0.41234      Expected difference: 1.05572, (NJD: 2.44677 v SEA: 0.68723) (NJD: 78.07% , SEA: 21.93%)",
+    "outcome": "NJD, NJD: 1.46806 v SEA: 0.40999      Expected difference: 1.05807, (NJD: 2.44677 v SEA: 0.68332) (NJD: 78.17% , SEA: 21.83%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "10:44:05",
+    "timeLastRun": "11:03:11",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -21,20 +21,20 @@
     "awayScorers": {},
     "outcome": "BUF, BUF: 0.87789 v PHI: 0.62938      Expected difference: 0.24851, (BUF: 1.46315 v PHI: 1.04897) (BUF: 58.24% , PHI: 41.76%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "10:44:07",
+    "timeLastRun": "11:03:13",
     "correctLines": 0,
     "totalLines": 1
   },
   {
     "homeABV": "NYR",
     "awayABV": "OTT",
-    "homeGoalie": {},
+    "homeGoalie": "NYR: Jonathan Quick",
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "OTT, NYR: 0.23029 v OTT: 0.92086      Expected difference: 0.69057, (NYR: 0.38382 v OTT: 1.53477) (NYR: 20.01% , OTT: 79.99%)",
+    "outcome": "OTT, NYR: 0.23029 v OTT: 0.73798      Expected difference: 0.50769, (NYR: 0.38382 v OTT: 1.22997) (NYR: 23.78% , OTT: 76.22%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "10:44:10",
+    "timeLastRun": "11:03:14",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -47,7 +47,7 @@
     "awayScorers": {},
     "outcome": "VGK, LAK: 0.78606 v VGK: 1.23006      Expected difference: 0.444, (LAK: 1.3101 v VGK: 2.0501) (LAK: 38.99% , VGK: 61.01%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "10:44:12",
+    "timeLastRun": "11:03:17",
     "correctLines": 0,
     "totalLines": 1
   }
