@@ -6,9 +6,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "MTL, BUF: 0.49864 v MTL: 0.81335      Expected difference: 0.31471, (BUF: 0.83107 v MTL: 1.35558) (BUF: 38.01% , MTL: 61.99%)",
+    "outcome": "MTL, BUF: 0.4966 v MTL: 0.81335      Expected difference: 0.31675, (BUF: 0.82767 v MTL: 1.35558) (BUF: 37.91% , MTL: 62.09%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "10:03:26",
+    "timeLastRun": "10:51:06",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -19,24 +19,24 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "PIT, PIT: 0.868 v PHI: 0.56554      Expected difference: 0.30246, (PIT: 1.44667 v PHI: 0.94257) (PIT: 60.55% , PHI: 39.45%)",
+    "outcome": "PIT, PIT: 0.868 v PHI: 0.56512      Expected difference: 0.30288, (PIT: 1.44667 v PHI: 0.94187) (PIT: 60.57% , PHI: 39.43%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "10:03:28",
+    "timeLastRun": "10:51:08",
     "correctLines": 0,
     "totalLines": 1
   },
   {
     "homeABV": "WSH",
     "awayABV": "SJS",
-    "homeGoalie": {},
+    "homeGoalie": "WSH: Logan Thompson",
     "awayGoalie": {},
     "homeScorers": {},
-    "awayScorers": {},
-    "outcome": "SJS, WSH: 0.29758 v SJS: 1.08049      Expected difference: 0.78291, (WSH: 0.49597 v SJS: 1.80082) (WSH: 21.59% , SJS: 78.41%)",
+    "awayScorers": "Macklin Celebrini, SJS: 0.38317      (0.638616666666667)",
+    "outcome": "SJS, WSH: 0.29758 v SJS: 1.52399      Expected difference: 1.22641, (WSH: 0.49597 v SJS: 2.53998) (WSH: 16.34% , SJS: 83.66%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "10:03:31",
+    "timeLastRun": "10:51:10",
     "correctLines": 0,
-    "totalLines": 1
+    "totalLines": 2
   },
   {
     "homeABV": "CBJ",
@@ -47,7 +47,7 @@
     "awayScorers": {},
     "outcome": "CBJ, CBJ: 0.45174 v VAN: 0.23836      Expected difference: 0.21338, (CBJ: 0.7529 v VAN: 0.39727) (CBJ: 65.46% , VAN: 34.54%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "10:03:33",
+    "timeLastRun": "10:51:12",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -58,9 +58,9 @@
     "awayGoalie": {},
     "homeScorers": "David Pastrnak, BOS: 0.38049      (0.63415)",
     "awayScorers": {},
-    "outcome": "BOS, BOS: 1.11357 v SEA: 0.44533      Expected difference: 0.66824, (BOS: 1.85595 v SEA: 0.74222) (BOS: 71.43% , SEA: 28.57%)",
+    "outcome": "BOS, BOS: 1.09457 v SEA: 0.44542      Expected difference: 0.64915, (BOS: 1.82428 v SEA: 0.74237) (BOS: 71.08% , SEA: 28.92%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "10:03:35",
+    "timeLastRun": "10:51:14",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -73,7 +73,7 @@
     "awayScorers": {},
     "outcome": "WPG, MIN: 0.56218 v WPG: 0.91408      Expected difference: 0.3519, (MIN: 0.93697 v WPG: 1.52347) (MIN: 38.08% , WPG: 61.92%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "10:03:38",
+    "timeLastRun": "10:51:17",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -86,7 +86,7 @@
     "awayScorers": {},
     "outcome": "CHI, CHI: 0.67704 v CGY: 0.33592      Expected difference: 0.34112, (CHI: 1.1284 v CGY: 0.55987) (CHI: 66.84% , CGY: 33.16%)",
     "startingTime": "20:35:00",
-    "timeLastRun": "10:03:40",
+    "timeLastRun": "10:51:19",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -99,7 +99,7 @@
     "awayScorers": {},
     "outcome": "UTA, UTA: 1.00807 v DAL: 0.75457      Expected difference: 0.2535, (UTA: 1.68012 v DAL: 1.25762) (UTA: 57.19% , DAL: 42.81%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "10:03:42",
+    "timeLastRun": "10:51:21",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -112,7 +112,7 @@
     "awayScorers": {},
     "outcome": "EDM, EDM: 1.56473 v NYI: 0.232      Expected difference: 1.33273, (EDM: 2.60788 v NYI: 0.38667) (EDM: 87.09% , NYI: 12.91%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "10:03:44",
+    "timeLastRun": "10:51:23",
     "correctLines": 0,
     "totalLines": 3
   },
@@ -125,7 +125,7 @@
     "awayScorers": {},
     "outcome": "TOR, VGK: 0.96492 v TOR: 1.13602      Expected difference: 0.1711, (VGK: 1.6082 v TOR: 1.89337) (VGK: 45.93% , TOR: 54.07%)",
     "startingTime": "21:35:00",
-    "timeLastRun": "10:03:46",
+    "timeLastRun": "10:51:26",
     "correctLines": 0,
     "totalLines": 1
   }
