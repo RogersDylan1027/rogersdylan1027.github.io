@@ -9,7 +9,7 @@
     "outcome": "BUF, BUF: 1.64402 v MTL: 0.96211      Expected difference: 0.68191, (BUF: 2.74003 v MTL: 1.60352) (BUF: 63.08% , MTL: 36.92%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:00:24",
-    "correctLines": 0,
+    "correctLines": 2,
     "totalLines": 2
   },
   {
@@ -38,7 +38,7 @@
     "outcome": "SJS, WSH: 0.91947 v SJS: 1.75867      Expected difference: 0.8392, (WSH: 1.53245 v SJS: 2.93112) (WSH: 34.33% , SJS: 65.67%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:00:27",
-    "correctLines": 0,
+    "correctLines": 3,
     "totalLines": 3
   },
   {
@@ -51,7 +51,7 @@
     "outcome": "CBJ, CBJ: 0.82248 v VAN: 0.23836      Expected difference: 0.58412, (CBJ: 1.3708 v VAN: 0.39727) (CBJ: 77.53% , VAN: 22.47%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:00:28",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -64,7 +64,7 @@
     "outcome": "BOS, BOS: 1.3503 v SEA: 1.01801      Expected difference: 0.33229, (BOS: 2.2505 v SEA: 1.69668) (BOS: 57.02% , SEA: 42.98%)",
     "startingTime": "20:05:00",
     "timeLastRun": "19:00:30",
-    "correctLines": 0,
+    "correctLines": 2,
     "totalLines": 2
   },
   {
@@ -77,7 +77,7 @@
     "outcome": "WPG, MIN: 1.24776 v WPG: 1.30178      Expected difference: 0.05402, (MIN: 2.0796 v WPG: 2.16963) (MIN: 48.94% , WPG: 51.06%)",
     "startingTime": "20:05:00",
     "timeLastRun": "19:00:32",
-    "correctLines": 0,
+    "correctLines": 2,
     "totalLines": 3
   },
   {
@@ -90,7 +90,7 @@
     "outcome": "CGY (OTW), CHI: 1.11623 v CGY: 1.11912      Expected difference: 0.00288999999999962, (CHI: 1.86038 v CGY: 1.8652) (CHI: 49.94% , CGY: 50.06%)",
     "startingTime": "20:35:00",
     "timeLastRun": "19:00:34",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -103,7 +103,7 @@
     "outcome": "DAL, UTA: 1.33004 v DAL: 1.53036      Expected difference: 0.20032, (UTA: 2.21673 v DAL: 2.5506) (UTA: 46.5% , DAL: 53.5%)",
     "startingTime": "21:05:00",
     "timeLastRun": "19:00:35",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 2
   },
   {
@@ -132,7 +132,7 @@
     "outcome": "TOR, VGK: 1.57339 v TOR: 1.83871      Expected difference: 0.26532, (VGK: 2.62232 v TOR: 3.06452) (VGK: 46.11% , TOR: 53.89%)",
     "startingTime": "21:35:00",
     "timeLastRun": "21:32:20",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 2
   }
 ]
