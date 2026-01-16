@@ -31,7 +31,10 @@
     "homeGoalie": "WSH: Logan Thompson",
     "awayGoalie": "SJS: Alex Nedeljkovic",
     "homeScorers": {},
-    "awayScorers": ["Pavol Regenda, SJS: 0.38857      (0.647616666666667)", "Macklin Celebrini, SJS: 0.44218      (0.736966666666667)"],
+    "awayScorers": [
+      "Pavol Regenda, SJS: 0.38857      (0.647616666666667)",
+      "Macklin Celebrini, SJS: 0.44218      (0.736966666666667)"
+    ],
     "outcome": "SJS, WSH: 0.91947 v SJS: 1.75867      Expected difference: 0.8392, (WSH: 1.53245 v SJS: 2.93112) (WSH: 34.33% , SJS: 65.67%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:00:27",
@@ -108,7 +111,10 @@
     "awayABV": "NYI",
     "homeGoalie": "EDM: Connor Ingram",
     "awayGoalie": "NYI: Ilya Sorokin",
-    "homeScorers": ["Leon Draisaitl, EDM: 0.46059      (0.76765)", "Connor McDavid, EDM: 0.47466      (0.7911)"],
+    "homeScorers": [
+      "Leon Draisaitl, EDM: 0.46059      (0.76765)",
+      "Connor McDavid, EDM: 0.47466      (0.7911)"
+    ],
     "awayScorers": {},
     "outcome": "EDM, EDM: 1.95855 v NYI: 0.80785      Expected difference: 1.1507, (EDM: 3.26425 v NYI: 1.34642) (EDM: 70.8% , NYI: 29.2%)",
     "startingTime": "21:05:00",
@@ -119,13 +125,13 @@
   {
     "homeABV": "VGK",
     "awayABV": "TOR",
-    "homeGoalie": {},
-    "awayGoalie": {},
+    "homeGoalie": "VGK: Adin Hill",
+    "awayGoalie": "TOR: Joseph Woll",
     "homeScorers": {},
-    "awayScorers": "Auston Matthews, TOR: 0.47527      (0.792116666666667)",
-    "outcome": "TOR, VGK: 1.44709 v TOR: 1.63362      Expected difference: 0.18653, (VGK: 2.41182 v TOR: 2.7227) (VGK: 46.97% , TOR: 53.03%)",
+    "awayScorers": "Auston Matthews, TOR: 0.53494      (0.891566666666667)",
+    "outcome": "TOR, VGK: 1.57339 v TOR: 1.83871      Expected difference: 0.26532, (VGK: 2.62232 v TOR: 3.06452) (VGK: 46.11% , TOR: 53.89%)",
     "startingTime": "21:35:00",
-    "timeLastRun": "19:00:39",
+    "timeLastRun": "21:32:20",
     "correctLines": 0,
     "totalLines": 2
   }
