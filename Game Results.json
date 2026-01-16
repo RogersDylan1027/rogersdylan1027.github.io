@@ -8,7 +8,7 @@
     "awayScorers": {},
     "outcome": "SJS, DET: 0.40152 v SJS: 0.68504      Expected difference: 0.28352, (DET: 0.6692 v SJS: 1.14173) (DET: 36.95% , SJS: 63.05%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "13:53:49",
+    "timeLastRun": "14:12:12",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -21,7 +21,7 @@
     "awayScorers": {},
     "outcome": "CAR (OTW), CAR: 0.47183 v FLA: 0.43667      Expected difference: 0.03516, (CAR: 0.78638 v FLA: 0.72778) (CAR: 51.94% , FLA: 48.06%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "13:53:51",
+    "timeLastRun": "14:12:14",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -32,9 +32,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "TBL, STL: 0.89482 v TBL: 1.06359      Expected difference: 0.16877, (STL: 1.49137 v TBL: 1.77265) (STL: 45.69% , TBL: 54.31%)",
+    "outcome": "TBL, STL: 0.89932 v TBL: 1.06379      Expected difference: 0.16447, (STL: 1.49887 v TBL: 1.77298) (STL: 45.81% , TBL: 54.19%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "13:53:53",
+    "timeLastRun": "14:12:17",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -47,20 +47,20 @@
     "awayScorers": {},
     "outcome": "NSH, COL: 0.72462 v NSH: 1.16826      Expected difference: 0.44364, (COL: 1.2077 v NSH: 1.9471) (COL: 38.28% , NSH: 61.72%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "13:53:55",
+    "timeLastRun": "14:12:19",
     "correctLines": 0,
     "totalLines": 1
   },
   {
     "homeABV": "LAK",
     "awayABV": "ANA",
-    "homeGoalie": {},
+    "homeGoalie": "LAK: Darcy Kuemper",
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "ANA, LAK: 0.2941 v ANA: 0.62206      Expected difference: 0.32796, (LAK: 0.49017 v ANA: 1.03677) (LAK: 32.1% , ANA: 67.9%)",
+    "outcome": "ANA, LAK: 0.2941 v ANA: 0.66735      Expected difference: 0.37325, (LAK: 0.49017 v ANA: 1.11225) (LAK: 30.59% , ANA: 69.41%)",
     "startingTime": "22:35:00",
-    "timeLastRun": "13:53:56",
+    "timeLastRun": "14:12:22",
     "correctLines": 0,
     "totalLines": 1
   }
