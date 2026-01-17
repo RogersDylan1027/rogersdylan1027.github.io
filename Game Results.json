@@ -34,7 +34,7 @@
     "awayScorers": {},
     "outcome": "CGY, CGY: 1.00379 v NYI: 0.69613      Expected difference: 0.30766, (CGY: 1.67298 v NYI: 1.16022) (CGY: 59.05% , NYI: 40.95%)",
     "startingTime": "15:05:00",
-    "timeLastRun": "13:48:24",
+    "timeLastRun": "14:00:47",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -47,7 +47,7 @@
     "awayScorers": {},
     "outcome": "UTA, UTA: 1.20935 v SEA: 0.90899      Expected difference: 0.30036, (UTA: 2.01558 v SEA: 1.51498) (UTA: 57.09% , SEA: 42.91%)",
     "startingTime": "17:05:00",
-    "timeLastRun": "13:48:26",
+    "timeLastRun": "14:00:49",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -60,7 +60,7 @@
     "awayScorers": {},
     "outcome": "MTL, OTT: 0.5188 v MTL: 0.65643      Expected difference: 0.13763, (OTT: 0.86467 v MTL: 1.09405) (OTT: 44.14% , MTL: 55.86%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "13:48:28",
+    "timeLastRun": "14:00:51",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -73,7 +73,7 @@
     "awayScorers": {},
     "outcome": "NJD, NJD: 1.01902 v CAR: 0.85584      Expected difference: 0.16318, (NJD: 1.69837 v CAR: 1.4264) (NJD: 54.35% , CAR: 45.65%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "13:48:31",
+    "timeLastRun": "14:00:54",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -86,7 +86,7 @@
     "awayScorers": {},
     "outcome": "CBJ, PIT: 0.41602 v CBJ: 0.82918      Expected difference: 0.41316, (PIT: 0.69337 v CBJ: 1.38197) (PIT: 33.41% , CBJ: 66.59%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "13:48:33",
+    "timeLastRun": "14:00:57",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -99,7 +99,7 @@
     "awayScorers": {},
     "outcome": "FLA, WSH: 0.67871 v FLA: 1.04572      Expected difference: 0.36701, (WSH: 1.13118 v FLA: 1.74287) (WSH: 39.36% , FLA: 60.64%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "13:48:36",
+    "timeLastRun": "14:00:59",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -112,7 +112,7 @@
     "awayScorers": {},
     "outcome": "WPG, WPG: 0.98177 v TOR: 0.88055      Expected difference: 0.10122, (WPG: 1.63628 v TOR: 1.46758) (WPG: 52.72% , TOR: 47.28%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "13:48:38",
+    "timeLastRun": "14:01:02",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -125,20 +125,20 @@
     "awayScorers": {},
     "outcome": "BOS (OTW), CHI: 0.57889 v BOS: 0.6268      Expected difference: 0.04791, (CHI: 0.96482 v BOS: 1.04467) (CHI: 48.01% , BOS: 51.99%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "13:48:40",
+    "timeLastRun": "14:01:04",
     "correctLines": 0,
     "totalLines": 1
   },
   {
     "homeABV": "VAN",
     "awayABV": "EDM",
-    "homeGoalie": {},
+    "homeGoalie": "VAN: Kevin Lankinen",
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "EDM, VAN: 0.46387 v EDM: 0.83022      Expected difference: 0.36635, (VAN: 0.77312 v EDM: 1.3837) (VAN: 35.85% , EDM: 64.15%)",
+    "outcome": "EDM, VAN: 0.46387 v EDM: 0.60592      Expected difference: 0.14205, (VAN: 0.77312 v EDM: 1.00987) (VAN: 43.36% , EDM: 56.64%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "13:48:42",
+    "timeLastRun": "14:01:05",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -151,7 +151,7 @@
     "awayScorers": {},
     "outcome": "VGK, VGK: 0.92848 v NSH: 0.80039      Expected difference: 0.12809, (VGK: 1.54747 v NSH: 1.33398) (VGK: 53.7% , NSH: 46.3%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "13:48:44",
+    "timeLastRun": "14:01:07",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -162,9 +162,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "ANA, ANA: 0.78234 v LAK: 0.48003      Expected difference: 0.30231, (ANA: 1.3039 v LAK: 0.80005) (ANA: 61.97% , LAK: 38.03%)",
+    "outcome": "ANA, ANA: 0.78327 v LAK: 0.48003      Expected difference: 0.30324, (ANA: 1.30545 v LAK: 0.80005) (ANA: 62% , LAK: 38%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "13:48:47",
+    "timeLastRun": "14:01:09",
     "correctLines": 0,
     "totalLines": 1
   }
