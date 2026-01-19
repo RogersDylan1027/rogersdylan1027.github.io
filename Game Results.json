@@ -8,7 +8,7 @@
     "awayScorers": {},
     "outcome": "BUF (OTW), CAR: 0.89239 v BUF: 0.89414      Expected difference: 0.00175000000000003, (CAR: 1.48732 v BUF: 1.49023) (CAR: 49.95% , BUF: 50.05%)",
     "startingTime": "13:35:00",
-    "timeLastRun": "10:47:08",
+    "timeLastRun": "11:03:09",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -21,7 +21,7 @@
     "awayScorers": "Alex Ovechkin, WSH: 0.36637      (0.610616666666667)",
     "outcome": "COL, COL: 1.67428 v WSH: 1.45572      Expected difference: 0.21856, (COL: 2.79047 v WSH: 2.4262) (COL: 53.49% , WSH: 46.51%)",
     "startingTime": "16:05:00",
-    "timeLastRun": "10:47:09",
+    "timeLastRun": "11:03:10",
     "correctLines": 0,
     "totalLines": 3
   },
@@ -34,7 +34,7 @@
     "awayScorers": {},
     "outcome": "PIT, SEA: 0.69001 v PIT: 1.33398      Expected difference: 0.64397, (SEA: 1.15002 v PIT: 2.2233) (SEA: 34.09% , PIT: 65.91%)",
     "startingTime": "17:05:00",
-    "timeLastRun": "10:47:11",
+    "timeLastRun": "11:03:11",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -47,22 +47,22 @@
     "awayScorers": {},
     "outcome": "SJS, FLA: 0.38261 v SJS: 0.44045      Expected difference: 0.05784, (FLA: 0.63768 v SJS: 0.73408) (FLA: 46.49% , SJS: 53.51%)",
     "startingTime": "18:05:00",
-    "timeLastRun": "10:47:13",
+    "timeLastRun": "11:03:13",
     "correctLines": 0,
     "totalLines": 1
   },
   {
     "homeABV": "TOR",
     "awayABV": "MIN",
-    "homeGoalie": {},
+    "homeGoalie": "TOR: Joseph Woll",
     "awayGoalie": {},
     "homeScorers": "Auston Matthews, TOR: 0.36028      (0.600466666666667)",
-    "awayScorers": {},
-    "outcome": "TOR, TOR: 1.00237 v MIN: 0.70336      Expected difference: 0.29901, (TOR: 1.67062 v MIN: 1.17227) (TOR: 58.76% , MIN: 41.24%)",
+    "awayScorers": "Kirill Kaprizov, MIN: 0.35519      (0.591983333333333)",
+    "outcome": "TOR, TOR: 1.00237 v MIN: 0.80854      Expected difference: 0.19383, (TOR: 1.67062 v MIN: 1.34757) (TOR: 55.35% , MIN: 44.65%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "10:47:15",
+    "timeLastRun": "11:03:16",
     "correctLines": 0,
-    "totalLines": 2
+    "totalLines": 3
   },
   {
     "homeABV": "VGK",
@@ -71,9 +71,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "VGK, VGK: 0.98419 v PHI: 0.77097      Expected difference: 0.21322, (VGK: 1.64032 v PHI: 1.28495) (VGK: 56.07% , PHI: 43.93%)",
+    "outcome": "VGK, VGK: 1.04905 v PHI: 0.77097      Expected difference: 0.27808, (VGK: 1.74842 v PHI: 1.28495) (VGK: 57.64% , PHI: 42.36%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "10:47:16",
+    "timeLastRun": "11:03:18",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -86,7 +86,7 @@
     "awayScorers": {},
     "outcome": "CHI, CHI: 0.37192 v WPG: 0.29297      Expected difference: 0.07895, (CHI: 0.61987 v WPG: 0.48828) (CHI: 55.94% , WPG: 44.06%)",
     "startingTime": "20:35:00",
-    "timeLastRun": "10:47:18",
+    "timeLastRun": "11:03:20",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -97,9 +97,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "NJD, CGY: 0.39581 v NJD: 1.24932      Expected difference: 0.85351, (CGY: 0.65968 v NJD: 2.0822) (CGY: 24.06% , NJD: 75.94%)",
+    "outcome": "NJD, CGY: 0.39875 v NJD: 1.24932      Expected difference: 0.85057, (CGY: 0.66458 v NJD: 2.0822) (CGY: 24.19% , NJD: 75.81%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "10:47:19",
+    "timeLastRun": "11:03:22",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -112,7 +112,7 @@
     "awayScorers": {},
     "outcome": "VAN, VAN: 0.70749 v NYI: 0.2568      Expected difference: 0.45069, (VAN: 1.17915 v NYI: 0.428) (VAN: 73.37% , NYI: 26.63%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "10:47:21",
+    "timeLastRun": "11:03:24",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -125,7 +125,7 @@
     "awayScorers": {},
     "outcome": "ANA, ANA: 0.74122 v NYR: 0.29993      Expected difference: 0.44129, (ANA: 1.23537 v NYR: 0.49988) (ANA: 71.19% , NYR: 28.81%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "10:47:23",
+    "timeLastRun": "11:03:26",
     "correctLines": 0,
     "totalLines": 1
   }
