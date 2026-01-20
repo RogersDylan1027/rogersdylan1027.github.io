@@ -8,7 +8,7 @@
     "awayScorers": "Kirill Kaprizov, MIN: 0.42649      (0.710816666666667)",
     "outcome": "MTL, MTL: 1.28872 v MIN: 0.87184      Expected difference: 0.41688, (MTL: 2.14787 v MIN: 1.45307) (MTL: 59.65% , MIN: 40.35%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "17:00:17",
+    "timeLastRun": "17:42:10",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -16,12 +16,12 @@
     "homeABV": "TBL",
     "awayABV": "SJS",
     "homeGoalie": {},
-    "awayGoalie": {},
+    "awayGoalie": "SJS: Yaroslav Askarov",
     "homeScorers": {},
     "awayScorers": "Macklin Celebrini, SJS: 0.41814      (0.6969)",
-    "outcome": "SJS, TBL: 1.14653 v SJS: 1.70609      Expected difference: 0.55956, (TBL: 1.91088 v SJS: 2.84348) (TBL: 40.19% , SJS: 59.81%)",
+    "outcome": "SJS, TBL: 0.95966 v SJS: 1.70609      Expected difference: 0.74643, (TBL: 1.59943 v SJS: 2.84348) (TBL: 36% , SJS: 64%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "17:00:19",
+    "timeLastRun": "17:42:12",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -34,7 +34,7 @@
     "awayScorers": {},
     "outcome": "CBJ (OTW), CBJ: 0.46348 v OTT: 0.43117      Expected difference: 0.03231, (CBJ: 0.77247 v OTT: 0.71862) (CBJ: 51.81% , OTT: 48.19%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "17:00:21",
+    "timeLastRun": "17:42:14",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -47,7 +47,7 @@
     "awayScorers": "David Pastrnak, BOS: 0.41998      (0.699966666666667)",
     "outcome": "DAL, DAL: 1.41427 v BOS: 1.32438      Expected difference: 0.0898899999999994, (DAL: 2.35712 v BOS: 2.2073) (DAL: 51.64% , BOS: 48.36%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "17:00:22",
+    "timeLastRun": "17:42:17",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -60,7 +60,7 @@
     "awayScorers": {},
     "outcome": "BUF, NSH: 1.18873 v BUF: 1.26554      Expected difference: 0.07681, (NSH: 1.98122 v BUF: 2.10923) (NSH: 48.44% , BUF: 51.56%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "17:00:24",
+    "timeLastRun": "17:42:19",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -71,9 +71,9 @@
     "awayGoalie": "STL: Joel Hofer",
     "homeScorers": "Kyle Connor, WPG: 0.43082      (0.718033333333333)",
     "awayScorers": {},
-    "outcome": "WPG, WPG: 1.42255 v STL: 0.7349      Expected difference: 0.68765, (WPG: 2.37092 v STL: 1.22483) (WPG: 65.94% , STL: 34.06%)",
+    "outcome": "WPG, WPG: 1.42255 v STL: 0.73144      Expected difference: 0.69111, (WPG: 2.37092 v STL: 1.21907) (WPG: 66.04% , STL: 33.96%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "17:00:26",
+    "timeLastRun": "17:42:21",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -86,7 +86,7 @@
     "awayScorers": {},
     "outcome": "EDM, EDM: 1.511 v NJD: 1.25038      Expected difference: 0.26062, (EDM: 2.51833 v NJD: 2.08397) (EDM: 54.72% , NJD: 45.28%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "17:00:28",
+    "timeLastRun": "17:42:23",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -99,7 +99,7 @@
     "awayScorers": {},
     "outcome": "NYR, LAK: 0.97158 v NYR: 1.21745      Expected difference: 0.24587, (LAK: 1.6193 v NYR: 2.02908) (LAK: 44.38% , NYR: 55.62%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "17:00:30",
+    "timeLastRun": "17:42:25",
     "correctLines": 0,
     "totalLines": 1
   }
