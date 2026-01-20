@@ -6,9 +6,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": "Kirill Kaprizov, MIN: 0.362      (0.603333333333333)",
-    "outcome": "MTL, MTL: 1.1843 v MIN: 0.74131      Expected difference: 0.44299, (MTL: 1.97383 v MIN: 1.23552) (MTL: 61.5% , MIN: 38.5%)",
+    "outcome": "MTL, MTL: 1.1843 v MIN: 0.74158      Expected difference: 0.44272, (MTL: 1.97383 v MIN: 1.23597) (MTL: 61.49% , MIN: 38.51%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "11:19:32",
+    "timeLastRun": "11:57:32",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -21,7 +21,7 @@
     "awayScorers": "Macklin Celebrini, SJS: 0.41814      (0.6969)",
     "outcome": "SJS, TBL: 0.89312 v SJS: 1.70617      Expected difference: 0.81305, (TBL: 1.48853 v SJS: 2.84362) (TBL: 34.36% , SJS: 65.64%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "11:19:34",
+    "timeLastRun": "11:57:34",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -34,7 +34,7 @@
     "awayScorers": {},
     "outcome": "CBJ, CBJ: 0.92433 v OTT: 0.44292      Expected difference: 0.48141, (CBJ: 1.54055 v OTT: 0.7382) (CBJ: 67.61% , OTT: 32.39%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "11:19:36",
+    "timeLastRun": "11:57:37",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -42,12 +42,12 @@
     "homeABV": "DAL",
     "awayABV": "BOS",
     "homeGoalie": "DAL: Jake Oettinger",
-    "awayGoalie": {},
+    "awayGoalie": "BOS: Jeremy Swayman",
     "homeScorers": {},
     "awayScorers": "David Pastrnak, BOS: 0.38056      (0.634266666666667)",
-    "outcome": "BOS (OTW), DAL: 1.17885 v BOS: 1.20007      Expected difference: 0.0212199999999998, (DAL: 1.96475 v BOS: 2.00012) (DAL: 49.55% , BOS: 50.45%)",
+    "outcome": "DAL (OTW), DAL: 1.24775 v BOS: 1.20007      Expected difference: 0.0476800000000004, (DAL: 2.07958 v BOS: 2.00012) (DAL: 50.97% , BOS: 49.03%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "11:19:38",
+    "timeLastRun": "11:57:39",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -60,7 +60,7 @@
     "awayScorers": {},
     "outcome": "NSH (OTW), NSH: 1.0701 v BUF: 1.04875      Expected difference: 0.0213500000000002, (NSH: 1.7835 v BUF: 1.74792) (NSH: 50.5% , BUF: 49.5%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "11:19:39",
+    "timeLastRun": "11:57:41",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -73,7 +73,7 @@
     "awayScorers": {},
     "outcome": "WPG, WPG: 0.89342 v STL: 0.77339      Expected difference: 0.12003, (WPG: 1.48903 v STL: 1.28898) (WPG: 53.6% , STL: 46.4%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "11:19:41",
+    "timeLastRun": "11:57:43",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -84,9 +84,9 @@
     "awayGoalie": "NJD: Jake Allen",
     "homeScorers": "Connor McDavid, EDM: 0.42452      (0.707533333333333)",
     "awayScorers": {},
-    "outcome": "EDM, EDM: 1.37283 v NJD: 0.94952      Expected difference: 0.42331, (EDM: 2.28805 v NJD: 1.58253) (EDM: 59.11% , NJD: 40.89%)",
+    "outcome": "EDM, EDM: 1.37283 v NJD: 0.95009      Expected difference: 0.42274, (EDM: 2.28805 v NJD: 1.58348) (EDM: 59.1% , NJD: 40.9%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "11:19:43",
+    "timeLastRun": "11:57:47",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -97,9 +97,9 @@
     "awayGoalie": "NYR: Jonathan Quick",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "NYR, LAK: 0.82796 v NYR: 1.15129      Expected difference: 0.32333, (LAK: 1.37993 v NYR: 1.91882) (LAK: 41.83% , NYR: 58.17%)",
+    "outcome": "NYR, LAK: 0.82796 v NYR: 1.15494      Expected difference: 0.32698, (LAK: 1.37993 v NYR: 1.9249) (LAK: 41.76% , NYR: 58.24%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "11:19:45",
+    "timeLastRun": "11:57:49",
     "correctLines": 0,
     "totalLines": 1
   }
