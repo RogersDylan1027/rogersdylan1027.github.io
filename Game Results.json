@@ -22,7 +22,7 @@
     "outcome": "WSH, COL: 0.45273 v WSH: 1.50051      Expected difference: 1.04778, (COL: 0.75455 v WSH: 2.50085) (COL: 23.18% , WSH: 76.82%)",
     "startingTime": "16:05:00",
     "timeLastRun": "16:00:49",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 2
   },
   {
@@ -61,7 +61,7 @@
     "outcome": "TOR, TOR: 1.01539 v MIN: 0.83544      Expected difference: 0.17995, (TOR: 1.69232 v MIN: 1.3924) (TOR: 54.86% , MIN: 45.14%)",
     "startingTime": "19:35:00",
     "timeLastRun": "19:01:09",
-    "correctLines": 0,
+    "correctLines": 2,
     "totalLines": 3
   },
   {
@@ -74,7 +74,7 @@
     "outcome": "PHI, VGK: 0.47387 v PHI: 0.83695      Expected difference: 0.36308, (VGK: 0.78978 v PHI: 1.39492) (VGK: 36.15% , PHI: 63.85%)",
     "startingTime": "20:05:00",
     "timeLastRun": "19:01:11",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -100,7 +100,7 @@
     "outcome": "NJD, CGY: 0.29802 v NJD: 1.79782      Expected difference: 1.4998, (CGY: 0.4967 v NJD: 2.99637) (CGY: 14.22% , NJD: 85.78%)",
     "startingTime": "21:05:00",
     "timeLastRun": "19:01:16",
-    "correctLines": 0,
+    "correctLines": 2,
     "totalLines": 2
   },
   {
@@ -126,7 +126,7 @@
     "outcome": "ANA, ANA: 0.83701 v NYR: 0.40681      Expected difference: 0.4302, (ANA: 1.39502 v NYR: 0.67802) (ANA: 67.29% , NYR: 32.71%)",
     "startingTime": "22:05:00",
     "timeLastRun": "21:57:50",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   }
 ]
