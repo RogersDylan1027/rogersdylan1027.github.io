@@ -8,7 +8,7 @@
     "awayScorers": {},
     "outcome": "TOR, TOR: 0.86285 v DET: 0.81196      Expected difference: 0.0508900000000001, (TOR: 1.43808 v DET: 1.35327) (TOR: 51.52% , DET: 48.48%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "13:27:44",
+    "timeLastRun": "14:04:23",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -21,7 +21,7 @@
     "awayScorers": {},
     "outcome": "ANA, COL: 0.47388 v ANA: 1.26191      Expected difference: 0.78803, (COL: 0.7898 v ANA: 2.10318) (COL: 27.3% , ANA: 72.7%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "13:27:46",
+    "timeLastRun": "14:04:24",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -34,7 +34,7 @@
     "awayScorers": {},
     "outcome": "PHI, UTA: 0.40479 v PHI: 0.85823      Expected difference: 0.45344, (UTA: 0.67465 v PHI: 1.43038) (UTA: 32.05% , PHI: 67.95%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "13:27:48",
+    "timeLastRun": "14:04:25",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -47,20 +47,20 @@
     "awayScorers": {},
     "outcome": "PIT, CGY: 0.60082 v PIT: 0.77705      Expected difference: 0.17623, (CGY: 1.00137 v PIT: 1.29508) (CGY: 43.6% , PIT: 56.4%)",
     "startingTime": "21:35:00",
-    "timeLastRun": "13:27:50",
+    "timeLastRun": "14:04:27",
     "correctLines": 0,
     "totalLines": 1
   },
   {
     "homeABV": "SEA",
     "awayABV": "NYI",
-    "homeGoalie": {},
+    "homeGoalie": "SEA: Philipp Grubauer",
     "awayGoalie": "NYI: Ilya Sorokin",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "SEA, SEA: 1.00364 v NYI: 0.75357      Expected difference: 0.25007, (SEA: 1.67273 v NYI: 1.25595) (SEA: 57.12% , NYI: 42.88%)",
+    "outcome": "NYI (OTW), SEA: 1.00343 v NYI: 1.02683      Expected difference: 0.0233999999999999, (SEA: 1.67238 v NYI: 1.71138) (SEA: 49.42% , NYI: 50.58%)",
     "startingTime": "21:35:00",
-    "timeLastRun": "13:27:53",
+    "timeLastRun": "14:04:28",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -71,9 +71,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "VAN, VAN: 0.58322 v WSH: 0.3747      Expected difference: 0.20852, (VAN: 0.97203 v WSH: 0.6245) (VAN: 60.88% , WSH: 39.12%)",
+    "outcome": "VAN, VAN: 0.58322 v WSH: 0.37515      Expected difference: 0.20807, (VAN: 0.97203 v WSH: 0.62525) (VAN: 60.86% , WSH: 39.14%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "13:27:55",
+    "timeLastRun": "14:04:31",
     "correctLines": 0,
     "totalLines": 1
   }
