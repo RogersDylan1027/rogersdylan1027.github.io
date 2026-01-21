@@ -9,7 +9,7 @@
     "outcome": "MTL, MTL: 1.20101 v MIN: 0.87184      Expected difference: 0.32917, (MTL: 2.00168 v MIN: 1.45307) (MTL: 57.94% , MIN: 42.06%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:00:16",
-    "correctLines": 0,
+    "correctLines": 2,
     "totalLines": 2
   },
   {
@@ -48,7 +48,7 @@
     "outcome": "DAL, DAL: 1.41427 v BOS: 1.32438      Expected difference: 0.0898899999999994, (DAL: 2.35712 v BOS: 2.2073) (DAL: 51.64% , BOS: 48.36%)",
     "startingTime": "19:35:00",
     "timeLastRun": "19:00:21",
-    "correctLines": 0,
+    "correctLines": 2,
     "totalLines": 2
   },
   {
@@ -61,7 +61,7 @@
     "outcome": "BUF, NSH: 1.18873 v BUF: 1.26554      Expected difference: 0.07681, (NSH: 1.98122 v BUF: 2.10923) (NSH: 48.44% , BUF: 51.56%)",
     "startingTime": "20:05:00",
     "timeLastRun": "19:00:22",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -74,7 +74,7 @@
     "outcome": "WPG, WPG: 1.42255 v STL: 0.73144      Expected difference: 0.69111, (WPG: 2.37092 v STL: 1.21907) (WPG: 66.04% , STL: 33.96%)",
     "startingTime": "20:05:00",
     "timeLastRun": "19:00:24",
-    "correctLines": 0,
+    "correctLines": 2,
     "totalLines": 2
   },
   {
