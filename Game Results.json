@@ -86,21 +86,21 @@
     "awayScorers": {},
     "outcome": "EDM, EDM: 1.511 v NJD: 1.25038      Expected difference: 0.26062, (EDM: 2.51833 v NJD: 2.08397) (EDM: 54.72% , NJD: 45.28%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "19:00:25",
+    "timeLastRun": "21:34:49",
     "correctLines": 0,
     "totalLines": 2
   },
   {
     "homeABV": "LAK",
     "awayABV": "NYR",
-    "homeGoalie": {},
+    "homeGoalie": "LAK: Darcy Kuemper",
     "awayGoalie": "NYR: Jonathan Quick",
     "homeScorers": {},
-    "awayScorers": {},
-    "outcome": "NYR, LAK: 0.97158 v NYR: 1.21745      Expected difference: 0.24587, (LAK: 1.6193 v NYR: 2.02908) (LAK: 44.38% , NYR: 55.62%)",
+    "awayScorers": "Artemi Panarin, NYR: 0.35666      (0.594433333333333)",
+    "outcome": "NYR, LAK: 0.97158 v NYR: 1.24901      Expected difference: 0.27743, (LAK: 1.6193 v NYR: 2.08168) (LAK: 43.75% , NYR: 56.25%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "19:00:26",
+    "timeLastRun": "21:34:50",
     "correctLines": 0,
-    "totalLines": 1
+    "totalLines": 2
   }
 ]
