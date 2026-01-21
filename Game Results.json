@@ -8,7 +8,7 @@
     "awayScorers": {},
     "outcome": "TOR, TOR: 0.86285 v DET: 0.81196      Expected difference: 0.0508900000000001, (TOR: 1.43808 v DET: 1.35327) (TOR: 51.52% , DET: 48.48%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "11:20:47",
+    "timeLastRun": "12:33:48",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -21,7 +21,7 @@
     "awayScorers": {},
     "outcome": "ANA, COL: 0.47388 v ANA: 1.26191      Expected difference: 0.78803, (COL: 0.7898 v ANA: 2.10318) (COL: 27.3% , ANA: 72.7%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "11:20:49",
+    "timeLastRun": "12:33:50",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -34,20 +34,20 @@
     "awayScorers": {},
     "outcome": "UTA, UTA: 0.97083 v PHI: 0.85823      Expected difference: 0.1126, (UTA: 1.61805 v PHI: 1.43038) (UTA: 53.08% , PHI: 46.92%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "11:20:51",
+    "timeLastRun": "12:33:52",
     "correctLines": 0,
     "totalLines": 1
   },
   {
     "homeABV": "CGY",
     "awayABV": "PIT",
-    "homeGoalie": {},
+    "homeGoalie": "CGY: Dustin Wolf",
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "PIT, CGY: 0.60205 v PIT: 1.2132      Expected difference: 0.61115, (CGY: 1.00342 v PIT: 2.022) (CGY: 33.17% , PIT: 66.83%)",
+    "outcome": "PIT, CGY: 0.60082 v PIT: 0.77705      Expected difference: 0.17623, (CGY: 1.00137 v PIT: 1.29508) (CGY: 43.6% , PIT: 56.4%)",
     "startingTime": "21:35:00",
-    "timeLastRun": "11:20:53",
+    "timeLastRun": "12:33:54",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -60,7 +60,7 @@
     "awayScorers": {},
     "outcome": "SEA, SEA: 1.03 v NYI: 0.75357      Expected difference: 0.27643, (SEA: 1.71667 v NYI: 1.25595) (SEA: 57.75% , NYI: 42.25%)",
     "startingTime": "21:35:00",
-    "timeLastRun": "11:20:54",
+    "timeLastRun": "12:33:56",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -71,9 +71,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "VAN, VAN: 0.58322 v WSH: 0.3747      Expected difference: 0.20852, (VAN: 0.97203 v WSH: 0.6245) (VAN: 60.88% , WSH: 39.12%)",
+    "outcome": "VAN, VAN: 0.58322 v WSH: 0.37515      Expected difference: 0.20807, (VAN: 0.97203 v WSH: 0.62525) (VAN: 60.86% , WSH: 39.14%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "11:20:56",
+    "timeLastRun": "12:33:58",
     "correctLines": 0,
     "totalLines": 1
   }
