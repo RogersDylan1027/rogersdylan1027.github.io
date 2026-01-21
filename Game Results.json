@@ -8,7 +8,7 @@
     "awayScorers": {},
     "outcome": "TOR (OTW), TOR: 0.97587 v DET: 0.94235      Expected difference: 0.03352, (TOR: 1.62645 v DET: 1.57058) (TOR: 50.87% , DET: 49.13%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "14:46:50",
+    "timeLastRun": "15:19:10",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -19,9 +19,9 @@
     "awayGoalie": "ANA: Lukas Dostal",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "ANA, COL: 0.94315 v ANA: 1.2607      Expected difference: 0.31755, (COL: 1.57192 v ANA: 2.10117) (COL: 42.8% , ANA: 57.2%)",
+    "outcome": "ANA, COL: 0.94315 v ANA: 1.26191      Expected difference: 0.31876, (COL: 1.57192 v ANA: 2.10318) (COL: 42.77% , ANA: 57.23%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "14:46:51",
+    "timeLastRun": "15:19:19",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -34,7 +34,7 @@
     "awayScorers": {},
     "outcome": "PHI, UTA: 0.40479 v PHI: 0.93379      Expected difference: 0.529, (UTA: 0.67465 v PHI: 1.55632) (UTA: 30.24% , PHI: 69.76%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "14:46:53",
+    "timeLastRun": "15:19:27",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -47,7 +47,7 @@
     "awayScorers": {},
     "outcome": "PIT, CGY: 0.82188 v PIT: 0.91974      Expected difference: 0.0978599999999999, (CGY: 1.3698 v PIT: 1.5329) (CGY: 47.19% , PIT: 52.81%)",
     "startingTime": "21:35:00",
-    "timeLastRun": "14:46:54",
+    "timeLastRun": "15:19:37",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -60,7 +60,7 @@
     "awayScorers": {},
     "outcome": "SEA (OTW), SEA: 1.08195 v NYI: 1.05431      Expected difference: 0.0276400000000003, (SEA: 1.80325 v NYI: 1.75718) (SEA: 50.65% , NYI: 49.35%)",
     "startingTime": "21:35:00",
-    "timeLastRun": "14:46:56",
+    "timeLastRun": "15:20:10",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -68,12 +68,12 @@
     "homeABV": "VAN",
     "awayABV": "WSH",
     "homeGoalie": "VAN: Kevin Lankinen",
-    "awayGoalie": {},
+    "awayGoalie": "WSH: Logan Thompson",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "VAN, VAN: 0.64631 v WSH: 0.3747      Expected difference: 0.27161, (VAN: 1.07718 v WSH: 0.6245) (VAN: 63.3% , WSH: 36.7%)",
+    "outcome": "VAN, VAN: 0.9219 v WSH: 0.3747      Expected difference: 0.5472, (VAN: 1.5365 v WSH: 0.6245) (VAN: 71.1% , WSH: 28.9%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "14:46:58",
+    "timeLastRun": "15:20:26",
     "correctLines": 0,
     "totalLines": 1
   }
