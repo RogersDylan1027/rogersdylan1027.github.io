@@ -8176,5 +8176,88 @@
         "totalLines": 2
       }
     ]
+  },
+  {
+    "date": "2026-01-21",
+    "games": [
+      {
+        "homeABV": "TOR",
+        "awayABV": "DET",
+        "homeGoalie": "TOR: Joseph Woll",
+        "awayGoalie": "DET: John Gibson",
+        "homeScorers": "Auston Matthews, TOR: 0.3507      (0.5845)",
+        "awayScorers": {},
+        "outcome": "TOR (OTW), TOR: 0.97587 v DET: 0.94235      Expected difference: 0.03352, (TOR: 1.62645 v DET: 1.57058) (TOR: 50.87% , DET: 49.13%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "19:01:53",
+        "correctLines": 0,
+        "totalLines": 2
+      },
+      {
+        "homeABV": "COL",
+        "awayABV": "ANA",
+        "homeGoalie": {},
+        "awayGoalie": "ANA: Lukas Dostal",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "ANA, COL: 0.94315 v ANA: 1.26191      Expected difference: 0.31876, (COL: 1.57192 v ANA: 2.10318) (COL: 42.77% , ANA: 57.23%)",
+        "startingTime": "21:05:00",
+        "timeLastRun": "19:01:55",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "UTA",
+        "awayABV": "PHI",
+        "homeGoalie": {},
+        "awayGoalie": "PHI: Samuel Ersson",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "PHI, UTA: 0.40479 v PHI: 0.93379      Expected difference: 0.529, (UTA: 0.67465 v PHI: 1.55632) (UTA: 30.24% , PHI: 69.76%)",
+        "startingTime": "21:05:00",
+        "timeLastRun": "19:01:56",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "CGY",
+        "awayABV": "PIT",
+        "homeGoalie": "CGY: Dustin Wolf",
+        "awayGoalie": "PIT: Stuart Skinner",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "PIT, CGY: 0.82188 v PIT: 0.91974      Expected difference: 0.0978599999999999, (CGY: 1.3698 v PIT: 1.5329) (CGY: 47.19% , PIT: 52.81%)",
+        "startingTime": "21:35:00",
+        "timeLastRun": "19:01:58",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "SEA",
+        "awayABV": "NYI",
+        "homeGoalie": "SEA: Philipp Grubauer",
+        "awayGoalie": "NYI: Ilya Sorokin",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "SEA (OTW), SEA: 1.07608 v NYI: 1.05431      Expected difference: 0.0217700000000001, (SEA: 1.79347 v NYI: 1.75718) (SEA: 50.51% , NYI: 49.49%)",
+        "startingTime": "21:35:00",
+        "timeLastRun": "19:02:00",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "VAN",
+        "awayABV": "WSH",
+        "homeGoalie": "VAN: Kevin Lankinen",
+        "awayGoalie": "WSH: Logan Thompson",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "VAN, VAN: 0.94089 v WSH: 0.44125      Expected difference: 0.49964, (VAN: 1.56815 v WSH: 0.73542) (VAN: 68.07% , WSH: 31.93%)",
+        "startingTime": "22:05:00",
+        "timeLastRun": "22:01:49",
+        "correctLines": 1,
+        "totalLines": 1
+      }
+    ]
   }
 ]
