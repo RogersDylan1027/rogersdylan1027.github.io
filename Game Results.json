@@ -6,9 +6,9 @@
     "awayGoalie": "VGK: Akira Schmid",
     "homeScorers": "David Pastrnak, BOS: 0.43633      (0.727216666666667)",
     "awayScorers": {},
-    "outcome": "BOS, BOS: 1.40739 v VGK: 0.87206      Expected difference: 0.53533, (BOS: 2.34565 v VGK: 1.45343) (BOS: 61.74% , VGK: 38.26%)",
+    "outcome": "BOS, BOS: 1.38494 v VGK: 0.87206      Expected difference: 0.51288, (BOS: 2.30823 v VGK: 1.45343) (BOS: 61.36% , VGK: 38.64%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "11:58:13",
+    "timeLastRun": "12:20:21",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -19,9 +19,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "MTL, MTL: 0.77647 v BUF: 0.46893      Expected difference: 0.30754, (MTL: 1.29412 v BUF: 0.78155) (MTL: 62.35% , BUF: 37.65%)",
+    "outcome": "MTL, MTL: 0.77647 v BUF: 0.47105      Expected difference: 0.30542, (MTL: 1.29412 v BUF: 0.78508) (MTL: 62.24% , BUF: 37.76%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "11:58:15",
+    "timeLastRun": "12:20:24",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -34,7 +34,7 @@
     "awayScorers": {},
     "outcome": "CHI, CAR: 0.48423 v CHI: 0.62568      Expected difference: 0.14145, (CAR: 0.80705 v CHI: 1.0428) (CAR: 43.63% , CHI: 56.37%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "11:58:17",
+    "timeLastRun": "12:20:25",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -45,9 +45,9 @@
     "awayGoalie": "DAL: Casey DeSmith",
     "homeScorers": "Zach Werenski, CBJ: 0.37567      (0.626116666666667)",
     "awayScorers": {},
-    "outcome": "CBJ, CBJ: 1.5125 v DAL: 0.8106      Expected difference: 0.7019, (CBJ: 2.52083 v DAL: 1.351) (CBJ: 65.11% , DAL: 34.89%)",
+    "outcome": "CBJ, CBJ: 1.5125 v DAL: 0.81039      Expected difference: 0.70211, (CBJ: 2.52083 v DAL: 1.35065) (CBJ: 65.11% , DAL: 34.89%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "11:58:19",
+    "timeLastRun": "12:20:27",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -60,7 +60,7 @@
     "awayScorers": {},
     "outcome": "OTT, NSH: 0.2797 v OTT: 0.54698      Expected difference: 0.26728, (NSH: 0.46617 v OTT: 0.91163) (NSH: 33.83% , OTT: 66.17%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "11:58:22",
+    "timeLastRun": "12:20:29",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -73,20 +73,20 @@
     "awayScorers": {},
     "outcome": "FLA, WPG: 0.45015 v FLA: 0.83048      Expected difference: 0.38033, (WPG: 0.75025 v FLA: 1.38413) (WPG: 35.15% , FLA: 64.85%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "11:58:24",
+    "timeLastRun": "12:20:32",
     "correctLines": 0,
     "totalLines": 1
   },
   {
     "homeABV": "EDM",
     "awayABV": "PIT",
-    "homeGoalie": {},
+    "homeGoalie": "EDM: Tristan Jarry",
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "EDM, EDM: 0.92644 v PIT: 0.83677      Expected difference: 0.08967, (EDM: 1.54407 v PIT: 1.39462) (EDM: 52.54% , PIT: 47.46%)",
+    "outcome": "PIT, EDM: 0.92718 v PIT: 1.24688      Expected difference: 0.3197, (EDM: 1.5453 v PIT: 2.07813) (EDM: 42.65% , PIT: 57.35%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "11:58:26",
+    "timeLastRun": "12:20:34",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -99,7 +99,7 @@
     "awayScorers": {},
     "outcome": "DET, MIN: 0.61188 v DET: 1.00337      Expected difference: 0.39149, (MIN: 1.0198 v DET: 1.67228) (MIN: 37.88% , DET: 62.12%)",
     "startingTime": "21:35:00",
-    "timeLastRun": "11:58:28",
+    "timeLastRun": "12:20:36",
     "correctLines": 0,
     "totalLines": 1
   }
