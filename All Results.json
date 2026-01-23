@@ -8259,5 +8259,114 @@
         "totalLines": 1
       }
     ]
+  },
+  {
+    "date": "2026-01-22",
+    "games": [
+      {
+        "homeABV": "BOS",
+        "awayABV": "VGK",
+        "homeGoalie": "BOS: Joonas Korpisalo",
+        "awayGoalie": "VGK: Akira Schmid",
+        "homeScorers": "David Pastrnak, BOS: 0.4418      (0.736333333333333)",
+        "awayScorers": {},
+        "outcome": "BOS, BOS: 1.40715 v VGK: 0.92289      Expected difference: 0.48426, (BOS: 2.34525 v VGK: 1.53815) (BOS: 60.39% , VGK: 39.61%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "19:00:43",
+        "correctLines": 2,
+        "totalLines": 2
+      },
+      {
+        "homeABV": "MTL",
+        "awayABV": "BUF",
+        "homeGoalie": "MTL: Samuel Montembeault",
+        "awayGoalie": "BUF: Ukko-Pekka Luukkonen",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "MTL, MTL: 0.88324 v BUF: 0.47399      Expected difference: 0.40925, (MTL: 1.47207 v BUF: 0.78998) (MTL: 65.08% , BUF: 34.92%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "19:00:44",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "CAR",
+        "awayABV": "CHI",
+        "homeGoalie": "CAR: Frederik Andersen",
+        "awayGoalie": "CHI: Spencer Knight",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "CAR, CAR: 1.19832 v CHI: 0.29354      Expected difference: 0.90478, (CAR: 1.9972 v CHI: 0.48923) (CAR: 80.32% , CHI: 19.68%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "19:00:46",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "CBJ",
+        "awayABV": "DAL",
+        "homeGoalie": "CBJ: Jet Greaves",
+        "awayGoalie": "DAL: Casey DeSmith",
+        "homeScorers": "Zach Werenski, CBJ: 0.38299      (0.638316666666667)",
+        "awayScorers": {},
+        "outcome": "CBJ, CBJ: 1.54196 v DAL: 0.8508      Expected difference: 0.69116, (CBJ: 2.56993 v DAL: 1.418) (CBJ: 64.44% , DAL: 35.56%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "19:00:47",
+        "correctLines": 2,
+        "totalLines": 2
+      },
+      {
+        "homeABV": "NSH",
+        "awayABV": "OTT",
+        "homeGoalie": "NSH: Juuse Saros",
+        "awayGoalie": {},
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "OTT, NSH: 0.33568 v OTT: 0.59163      Expected difference: 0.25595, (NSH: 0.55947 v OTT: 0.98605) (NSH: 36.2% , OTT: 63.8%)",
+        "startingTime": "20:05:00",
+        "timeLastRun": "19:00:48",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "WPG",
+        "awayABV": "FLA",
+        "homeGoalie": "WPG: Connor Hellebuyck",
+        "awayGoalie": "FLA: Daniil Tarasov",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "FLA (OTW), WPG: 0.83896 v FLA: 0.87492      Expected difference: 0.0359599999999999, (WPG: 1.39827 v FLA: 1.4582) (WPG: 48.95% , FLA: 51.05%)",
+        "startingTime": "20:05:00",
+        "timeLastRun": "19:00:50",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "EDM",
+        "awayABV": "PIT",
+        "homeGoalie": "EDM: Tristan Jarry",
+        "awayGoalie": {},
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "PIT, EDM: 0.972 v PIT: 1.27941      Expected difference: 0.30741, (EDM: 1.62 v PIT: 2.13235) (EDM: 43.17% , PIT: 56.83%)",
+        "startingTime": "21:05:00",
+        "timeLastRun": "19:00:51",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "MIN",
+        "awayABV": "DET",
+        "homeGoalie": "MIN: Filip Gustavsson",
+        "awayGoalie": "DET: Cam Talbot",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "DET, MIN: 0.63022 v DET: 1.20309      Expected difference: 0.57287, (MIN: 1.05037 v DET: 2.00515) (MIN: 34.38% , DET: 65.62%)",
+        "startingTime": "21:35:00",
+        "timeLastRun": "21:32:48",
+        "correctLines": 0,
+        "totalLines": 1
+      }
+    ]
   }
 ]
