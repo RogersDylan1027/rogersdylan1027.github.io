@@ -8,7 +8,7 @@
     "awayScorers": {},
     "outcome": "TOR, TOR: 0.98617 v VGK: 0.49712      Expected difference: 0.48905, (TOR: 1.64362 v VGK: 0.82853) (TOR: 66.49% , VGK: 33.51%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "14:40:07",
+    "timeLastRun": "15:00:32",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -21,7 +21,7 @@
     "awayScorers": {},
     "outcome": "CHI, CHI: 1.11358 v TBL: 0.57049      Expected difference: 0.54309, (CHI: 1.85597 v TBL: 0.95082) (CHI: 66.12% , TBL: 33.88%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "14:40:08",
+    "timeLastRun": "15:00:34",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -34,7 +34,7 @@
     "awayScorers": {},
     "outcome": "STL, DAL: 0.36915 v STL: 0.73288      Expected difference: 0.36373, (DAL: 0.61525 v STL: 1.22147) (DAL: 33.5% , STL: 66.5%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "14:40:10",
+    "timeLastRun": "15:00:36",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -47,7 +47,7 @@
     "awayScorers": {},
     "outcome": "PHI, COL: 0.61346 v PHI: 1.25774      Expected difference: 0.64428, (COL: 1.02243 v PHI: 2.09623) (COL: 32.78% , PHI: 67.22%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "14:40:11",
+    "timeLastRun": "15:00:37",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -58,9 +58,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": "Alex Ovechkin, WSH: 0.35974      (0.599566666666667)",
-    "outcome": "WSH, CGY: 0.70905 v WSH: 1.75977      Expected difference: 1.05072, (CGY: 1.18175 v WSH: 2.93295) (CGY: 28.72% , WSH: 71.28%)",
+    "outcome": "WSH, CGY: 0.70759 v WSH: 1.75977      Expected difference: 1.05218, (CGY: 1.17932 v WSH: 2.93295) (CGY: 28.68% , WSH: 71.32%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "14:40:13",
+    "timeLastRun": "15:00:39",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -73,7 +73,7 @@
     "awayScorers": {},
     "outcome": "VAN, VAN: 0.54527 v NJD: 0.32583      Expected difference: 0.21944, (VAN: 0.90878 v NJD: 0.54305) (VAN: 62.6% , NJD: 37.4%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "14:40:15",
+    "timeLastRun": "15:00:40",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -81,12 +81,12 @@
     "homeABV": "SJS",
     "awayABV": "NYR",
     "homeGoalie": "SJS: Alex Nedeljkovic",
-    "awayGoalie": {},
+    "awayGoalie": "NYR: Spencer Martin",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "SJS, SJS: 1.0606 v NYR: 0.52937      Expected difference: 0.53123, (SJS: 1.76767 v NYR: 0.88228) (SJS: 66.71% , NYR: 33.29%)",
+    "outcome": "SJS (OTW), SJS: 0.55442 v NYR: 0.52937      Expected difference: 0.0250500000000001, (SJS: 0.92403 v NYR: 0.88228) (SJS: 51.16% , NYR: 48.84%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "14:40:16",
+    "timeLastRun": "15:00:42",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -99,7 +99,7 @@
     "awayScorers": {},
     "outcome": "ANA, SEA: 0.3901 v ANA: 1.14053      Expected difference: 0.75043, (SEA: 0.65017 v ANA: 1.90088) (SEA: 25.49% , ANA: 74.51%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "14:40:18",
+    "timeLastRun": "15:00:43",
     "correctLines": 0,
     "totalLines": 1
   }
