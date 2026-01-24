@@ -48,7 +48,7 @@
     "outcome": "PHI, COL: 0.96748 v PHI: 1.25774      Expected difference: 0.29026, (COL: 1.61247 v PHI: 2.09623) (COL: 43.48% , PHI: 56.52%)",
     "startingTime": "21:05:00",
     "timeLastRun": "19:00:34",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -61,7 +61,7 @@
     "outcome": "WSH, CGY: 0.9263 v WSH: 1.75797      Expected difference: 0.83167, (CGY: 1.54383 v WSH: 2.92995) (CGY: 34.51% , WSH: 65.49%)",
     "startingTime": "21:05:00",
     "timeLastRun": "19:00:35",
-    "correctLines": 0,
+    "correctLines": 2,
     "totalLines": 2
   },
   {
@@ -87,7 +87,7 @@
     "outcome": "SJS, SJS: 1.00396 v NYR: 0.81831      Expected difference: 0.18565, (SJS: 1.67327 v NYR: 1.36385) (SJS: 55.09% , NYR: 44.91%)",
     "startingTime": "22:05:00",
     "timeLastRun": "21:51:51",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -100,7 +100,7 @@
     "outcome": "ANA, SEA: 0.84824 v ANA: 1.11729      Expected difference: 0.26905, (SEA: 1.41373 v ANA: 1.86215) (SEA: 43.16% , ANA: 56.84%)",
     "startingTime": "22:05:00",
     "timeLastRun": "21:51:52",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   }
 ]
