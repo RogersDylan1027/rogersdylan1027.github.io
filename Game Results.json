@@ -34,7 +34,7 @@
     "awayScorers": {},
     "outcome": "OTT, OTT: 1.69657 v VGK: 0.50052      Expected difference: 1.19605, (OTT: 2.82762 v VGK: 0.8342) (OTT: 77.22% , VGK: 22.78%)",
     "startingTime": "17:05:00",
-    "timeLastRun": "15:43:05",
+    "timeLastRun": "16:00:58",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -47,7 +47,7 @@
     "awayScorers": {},
     "outcome": "PIT, VAN: 1.20972 v PIT: 1.41333      Expected difference: 0.20361, (VAN: 2.0162 v PIT: 2.35555) (VAN: 46.12% , PIT: 53.88%)",
     "startingTime": "18:05:00",
-    "timeLastRun": "15:43:06",
+    "timeLastRun": "16:01:00",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -60,7 +60,7 @@
     "awayScorers": "Sam Reinhart, FLA: 0.3568      (0.594666666666667)",
     "outcome": "FLA, CHI: 1.12773 v FLA: 1.78468      Expected difference: 0.656950000000001, (CHI: 1.87955 v FLA: 2.97447) (CHI: 38.72% , FLA: 61.28%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "15:43:08",
+    "timeLastRun": "16:01:03",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -68,12 +68,12 @@
     "homeABV": "CGY",
     "awayABV": "ANA",
     "homeGoalie": "CGY: Dustin Wolf",
-    "awayGoalie": {},
+    "awayGoalie": "ANA: Lukas Dostal",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "ANA, CGY: 1.03445 v ANA: 1.1215      Expected difference: 0.0870499999999996, (CGY: 1.72408 v ANA: 1.86917) (CGY: 47.98% , ANA: 52.02%)",
+    "outcome": "ANA (OTW), CGY: 1.08782 v ANA: 1.1215      Expected difference: 0.0336800000000002, (CGY: 1.81303 v ANA: 1.86917) (CGY: 49.24% , ANA: 50.76%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "15:43:10",
+    "timeLastRun": "16:01:05",
     "correctLines": 0,
     "totalLines": 1
   }
