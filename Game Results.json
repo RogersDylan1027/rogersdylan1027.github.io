@@ -9,7 +9,7 @@
     "outcome": "BUF, NYI: 0.96757 v BUF: 1.44914      Expected difference: 0.48157, (NYI: 1.61262 v BUF: 2.41523) (NYI: 40.04% , BUF: 59.96%)",
     "startingTime": "13:05:00",
     "timeLastRun": "13:00:27",
-    "correctLines": 0,
+    "correctLines": 2,
     "totalLines": 2
   },
   {
@@ -61,7 +61,7 @@
     "outcome": "CBJ (OTW), CBJ: 1.26117 v TBL: 1.21796      Expected difference: 0.04321, (CBJ: 2.10195 v TBL: 2.02993) (CBJ: 50.87% , TBL: 49.13%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:00:38",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -74,7 +74,7 @@
     "outcome": "DET (OTW), WPG: 0.95531 v DET: 0.99937      Expected difference: 0.0440600000000003, (WPG: 1.59218 v DET: 1.66562) (WPG: 48.87% , DET: 51.13%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:00:41",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -87,7 +87,7 @@
     "outcome": "LAK, STL: 0.9061 v LAK: 1.1608      Expected difference: 0.2547, (STL: 1.51017 v LAK: 1.93467) (STL: 43.84% , LAK: 56.16%)",
     "startingTime": "20:05:00",
     "timeLastRun": "19:00:42",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -100,7 +100,7 @@
     "outcome": "FLA, MIN: 0.43692 v FLA: 1.41527      Expected difference: 0.97835, (MIN: 0.7282 v FLA: 2.35878) (MIN: 23.59% , FLA: 76.41%)",
     "startingTime": "21:05:00",
     "timeLastRun": "19:00:45",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
