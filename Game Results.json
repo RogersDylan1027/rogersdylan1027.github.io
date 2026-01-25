@@ -15,13 +15,13 @@
   {
     "homeABV": "SEA",
     "awayABV": "NJD",
-    "homeGoalie": {},
+    "homeGoalie": "SEA: Joey Daccord",
     "awayGoalie": "NJD: Jacob Markstrom",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "NJD, SEA: 0.3301 v NJD: 1.26187      Expected difference: 0.93177, (SEA: 0.55017 v NJD: 2.10312) (SEA: 20.74% , NJD: 79.26%)",
+    "outcome": "NJD, SEA: 0.3301 v NJD: 0.65931      Expected difference: 0.32921, (SEA: 0.55017 v NJD: 1.09885) (SEA: 33.36% , NJD: 66.64%)",
     "startingTime": "15:05:00",
-    "timeLastRun": "14:02:34",
+    "timeLastRun": "14:34:18",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -34,7 +34,7 @@
     "awayScorers": {},
     "outcome": "OTT, OTT: 1.32146 v VGK: 0.42816      Expected difference: 0.8933, (OTT: 2.20243 v VGK: 0.7136) (OTT: 75.53% , VGK: 24.47%)",
     "startingTime": "17:05:00",
-    "timeLastRun": "14:02:36",
+    "timeLastRun": "14:34:20",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -47,7 +47,7 @@
     "awayScorers": {},
     "outcome": "VAN, VAN: 0.80347 v PIT: 0.44165      Expected difference: 0.36182, (VAN: 1.33912 v PIT: 0.73608) (VAN: 64.53% , PIT: 35.47%)",
     "startingTime": "18:05:00",
-    "timeLastRun": "14:02:38",
+    "timeLastRun": "14:34:21",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -60,7 +60,7 @@
     "awayScorers": {},
     "outcome": "FLA, CHI: 0.52273 v FLA: 0.78431      Expected difference: 0.26158, (CHI: 0.87122 v FLA: 1.30718) (CHI: 39.99% , FLA: 60.01%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "14:02:41",
+    "timeLastRun": "14:34:23",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -71,9 +71,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "ANA, CGY: 0.37004 v ANA: 0.61038      Expected difference: 0.24034, (CGY: 0.61673 v ANA: 1.0173) (CGY: 37.74% , ANA: 62.26%)",
+    "outcome": "ANA, CGY: 0.37082 v ANA: 0.61038      Expected difference: 0.23956, (CGY: 0.61803 v ANA: 1.0173) (CGY: 37.79% , ANA: 62.21%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "14:02:43",
+    "timeLastRun": "14:34:24",
     "correctLines": 0,
     "totalLines": 1
   }
