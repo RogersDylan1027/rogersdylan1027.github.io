@@ -54,15 +54,15 @@
   {
     "homeABV": "CHI",
     "awayABV": "FLA",
-    "homeGoalie": {},
+    "homeGoalie": "CHI: Spencer Knight",
     "awayGoalie": "FLA: Daniil Tarasov",
     "homeScorers": {},
-    "awayScorers": {},
-    "outcome": "FLA, CHI: 1.18283 v FLA: 1.7437      Expected difference: 0.56087, (CHI: 1.97138 v FLA: 2.90617) (CHI: 40.42% , FLA: 59.58%)",
+    "awayScorers": "Sam Reinhart, FLA: 0.3781      (0.630166666666667)",
+    "outcome": "FLA, CHI: 1.18283 v FLA: 1.89125      Expected difference: 0.70842, (CHI: 1.97138 v FLA: 3.15208) (CHI: 38.48% , FLA: 61.52%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "18:00:34",
+    "timeLastRun": "18:39:47",
     "correctLines": 0,
-    "totalLines": 1
+    "totalLines": 2
   },
   {
     "homeABV": "CGY",
@@ -71,9 +71,9 @@
     "awayGoalie": "ANA: Lukas Dostal",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "ANA (OTW), CGY: 1.06287 v ANA: 1.09574      Expected difference: 0.0328700000000004, (CGY: 1.77145 v ANA: 1.82623) (CGY: 49.24% , ANA: 50.76%)",
+    "outcome": "ANA (OTW), CGY: 1.06511 v ANA: 1.09556      Expected difference: 0.0304500000000003, (CGY: 1.77518 v ANA: 1.82593) (CGY: 49.3% , ANA: 50.7%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "18:00:36",
+    "timeLastRun": "18:39:48",
     "correctLines": 0,
     "totalLines": 1
   }
