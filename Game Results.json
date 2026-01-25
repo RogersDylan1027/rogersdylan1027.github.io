@@ -19,24 +19,24 @@
     "awayGoalie": "NJD: Jacob Markstrom",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "NJD, SEA: 0.3301 v NJD: 0.65931      Expected difference: 0.32921, (SEA: 0.55017 v NJD: 1.09885) (SEA: 33.36% , NJD: 66.64%)",
+    "outcome": "NJD, SEA: 1.11393 v NJD: 1.33119      Expected difference: 0.21726, (SEA: 1.85655 v NJD: 2.21865) (SEA: 45.56% , NJD: 54.44%)",
     "startingTime": "15:05:00",
-    "timeLastRun": "14:34:18",
+    "timeLastRun": "15:00:49",
     "correctLines": 0,
     "totalLines": 1
   },
   {
     "homeABV": "OTT",
     "awayABV": "VGK",
-    "homeGoalie": {},
+    "homeGoalie": "OTT: Mads Sogaard",
     "awayGoalie": {},
-    "homeScorers": {},
+    "homeScorers": "Brady Tkachuk, OTT: 0.38321      (0.638683333333333)",
     "awayScorers": {},
-    "outcome": "OTT, OTT: 1.32146 v VGK: 0.42816      Expected difference: 0.8933, (OTT: 2.20243 v VGK: 0.7136) (OTT: 75.53% , VGK: 24.47%)",
+    "outcome": "OTT, OTT: 1.69657 v VGK: 0.50052      Expected difference: 1.19605, (OTT: 2.82762 v VGK: 0.8342) (OTT: 77.22% , VGK: 22.78%)",
     "startingTime": "17:05:00",
-    "timeLastRun": "14:34:20",
+    "timeLastRun": "15:00:51",
     "correctLines": 0,
-    "totalLines": 1
+    "totalLines": 2
   },
   {
     "homeABV": "VAN",
@@ -45,9 +45,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "VAN, VAN: 0.80347 v PIT: 0.44165      Expected difference: 0.36182, (VAN: 1.33912 v PIT: 0.73608) (VAN: 64.53% , PIT: 35.47%)",
+    "outcome": "PIT, VAN: 1.20972 v PIT: 1.41333      Expected difference: 0.20361, (VAN: 2.0162 v PIT: 2.35555) (VAN: 46.12% , PIT: 53.88%)",
     "startingTime": "18:05:00",
-    "timeLastRun": "14:34:21",
+    "timeLastRun": "15:00:53",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -57,12 +57,12 @@
     "homeGoalie": {},
     "awayGoalie": {},
     "homeScorers": {},
-    "awayScorers": {},
-    "outcome": "FLA, CHI: 0.52273 v FLA: 0.78431      Expected difference: 0.26158, (CHI: 0.87122 v FLA: 1.30718) (CHI: 39.99% , FLA: 60.01%)",
+    "awayScorers": "Sam Reinhart, FLA: 0.3568      (0.594666666666667)",
+    "outcome": "FLA, CHI: 1.12773 v FLA: 1.78468      Expected difference: 0.656950000000001, (CHI: 1.87955 v FLA: 2.97447) (CHI: 38.72% , FLA: 61.28%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "14:34:23",
+    "timeLastRun": "15:00:55",
     "correctLines": 0,
-    "totalLines": 1
+    "totalLines": 2
   },
   {
     "homeABV": "CGY",
@@ -71,9 +71,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "ANA, CGY: 0.37082 v ANA: 0.61038      Expected difference: 0.23956, (CGY: 0.61803 v ANA: 1.0173) (CGY: 37.79% , ANA: 62.21%)",
+    "outcome": "ANA, CGY: 1.03445 v ANA: 1.1215      Expected difference: 0.0870499999999996, (CGY: 1.72408 v ANA: 1.86917) (CGY: 47.98% , ANA: 52.02%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "14:34:24",
+    "timeLastRun": "15:00:57",
     "correctLines": 0,
     "totalLines": 1
   }
