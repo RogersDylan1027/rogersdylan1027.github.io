@@ -8477,5 +8477,127 @@
         "totalLines": 1
       }
     ]
+  },
+  {
+    "date": "2026-01-24",
+    "games": [
+      {
+        "homeABV": "NYI",
+        "awayABV": "BUF",
+        "homeGoalie": "NYI: David Rittich",
+        "awayGoalie": "BUF: Alex Lyon",
+        "homeScorers": {},
+        "awayScorers": "Tage Thompson, BUF: 0.37029      (0.61715)",
+        "outcome": "BUF, NYI: 0.96757 v BUF: 1.44914      Expected difference: 0.48157, (NYI: 1.61262 v BUF: 2.41523) (NYI: 40.04% , BUF: 59.96%)",
+        "startingTime": "13:05:00",
+        "timeLastRun": "13:00:27",
+        "correctLines": 2,
+        "totalLines": 2
+      },
+      {
+        "homeABV": "NSH",
+        "awayABV": "UTA",
+        "homeGoalie": "NSH: Juuse Saros",
+        "awayGoalie": "UTA: Karel Vejmelka",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "NSH, NSH: 1.10916 v UTA: 0.55389      Expected difference: 0.55527, (NSH: 1.8486 v UTA: 0.92315) (NSH: 66.69% , UTA: 33.31%)",
+        "startingTime": "13:35:00",
+        "timeLastRun": "13:00:28",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "BOS",
+        "awayABV": "MTL",
+        "homeGoalie": "BOS: Jeremy Swayman",
+        "awayGoalie": "MTL: Samuel Montembeault",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "MTL, BOS: 0.37359 v MTL: 0.60197      Expected difference: 0.22838, (BOS: 0.62265 v MTL: 1.00328) (BOS: 38.29% , MTL: 61.71%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "19:00:34",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "OTT",
+        "awayABV": "CAR",
+        "homeGoalie": "OTT: James Reimer",
+        "awayGoalie": "CAR: Brandon Bussi",
+        "homeScorers": "Brady Tkachuk, OTT: 0.39149      (0.652483333333333)",
+        "awayScorers": {},
+        "outcome": "OTT, OTT: 1.70549 v CAR: 0.37776      Expected difference: 1.32773, (OTT: 2.84248 v CAR: 0.6296) (OTT: 81.87% , CAR: 18.13%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "19:00:36",
+        "correctLines": 0,
+        "totalLines": 2
+      },
+      {
+        "homeABV": "CBJ",
+        "awayABV": "TBL",
+        "homeGoalie": "CBJ: Jet Greaves",
+        "awayGoalie": "TBL: Jonas Johansson",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "CBJ (OTW), CBJ: 1.26117 v TBL: 1.21796      Expected difference: 0.04321, (CBJ: 2.10195 v TBL: 2.02993) (CBJ: 50.87% , TBL: 49.13%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "19:00:38",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "WPG",
+        "awayABV": "DET",
+        "homeGoalie": "WPG: Connor Hellebuyck",
+        "awayGoalie": "DET: John Gibson",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "DET (OTW), WPG: 0.95531 v DET: 0.99937      Expected difference: 0.0440600000000003, (WPG: 1.59218 v DET: 1.66562) (WPG: 48.87% , DET: 51.13%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "19:00:41",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "STL",
+        "awayABV": "LAK",
+        "homeGoalie": "STL: Joel Hofer",
+        "awayGoalie": {},
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "LAK, STL: 0.9061 v LAK: 1.1608      Expected difference: 0.2547, (STL: 1.51017 v LAK: 1.93467) (STL: 43.84% , LAK: 56.16%)",
+        "startingTime": "20:05:00",
+        "timeLastRun": "19:00:42",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "MIN",
+        "awayABV": "FLA",
+        "homeGoalie": "MIN: Filip Gustavsson",
+        "awayGoalie": "FLA: Sergei Bobrovsky",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "FLA, MIN: 0.43692 v FLA: 1.41527      Expected difference: 0.97835, (MIN: 0.7282 v FLA: 2.35878) (MIN: 23.59% , FLA: 76.41%)",
+        "startingTime": "21:05:00",
+        "timeLastRun": "19:00:45",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "EDM",
+        "awayABV": "WSH",
+        "homeGoalie": "EDM: Connor Ingram",
+        "awayGoalie": {},
+        "homeScorers": {},
+        "awayScorers": "Alex Ovechkin, WSH: 0.36825      (0.61375)",
+        "outcome": "WSH, EDM: 1.48257 v WSH: 1.75901      Expected difference: 0.27644, (EDM: 2.47095 v WSH: 2.93168) (EDM: 45.74% , WSH: 54.26%)",
+        "startingTime": "22:05:00",
+        "timeLastRun": "21:44:51",
+        "correctLines": 0,
+        "totalLines": 2
+      }
+    ]
   }
 ]
