@@ -34,20 +34,20 @@
     "awayScorers": {},
     "outcome": "OTT, OTT: 1.69657 v VGK: 0.50052      Expected difference: 1.19605, (OTT: 2.82762 v VGK: 0.8342) (OTT: 77.22% , VGK: 22.78%)",
     "startingTime": "17:05:00",
-    "timeLastRun": "16:39:03",
+    "timeLastRun": "17:00:03",
     "correctLines": 0,
     "totalLines": 2
   },
   {
     "homeABV": "VAN",
     "awayABV": "PIT",
-    "homeGoalie": {},
+    "homeGoalie": "VAN: Kevin Lankinen",
     "awayGoalie": "PIT: Stuart Skinner",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "PIT, VAN: 1.15989 v PIT: 1.45143      Expected difference: 0.29154, (VAN: 1.93315 v PIT: 2.41905) (VAN: 44.42% , PIT: 55.58%)",
+    "outcome": "PIT, VAN: 1.15989 v PIT: 1.2891      Expected difference: 0.12921, (VAN: 1.93315 v PIT: 2.1485) (VAN: 47.36% , PIT: 52.64%)",
     "startingTime": "18:05:00",
-    "timeLastRun": "16:39:06",
+    "timeLastRun": "17:00:05",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -57,12 +57,12 @@
     "homeGoalie": {},
     "awayGoalie": "FLA: Daniil Tarasov",
     "homeScorers": {},
-    "awayScorers": "Sam Reinhart, FLA: 0.3568      (0.594666666666667)",
-    "outcome": "FLA, CHI: 1.18283 v FLA: 1.78468      Expected difference: 0.60185, (CHI: 1.97138 v FLA: 2.97447) (CHI: 39.86% , FLA: 60.14%)",
+    "awayScorers": {},
+    "outcome": "FLA, CHI: 1.18283 v FLA: 1.7437      Expected difference: 0.56087, (CHI: 1.97138 v FLA: 2.90617) (CHI: 40.42% , FLA: 59.58%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "16:39:08",
+    "timeLastRun": "17:00:07",
     "correctLines": 0,
-    "totalLines": 2
+    "totalLines": 1
   },
   {
     "homeABV": "CGY",
@@ -71,9 +71,9 @@
     "awayGoalie": "ANA: Lukas Dostal",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "ANA (OTW), CGY: 1.09011 v ANA: 1.1215      Expected difference: 0.03139, (CGY: 1.81685 v ANA: 1.86917) (CGY: 49.29% , ANA: 50.71%)",
+    "outcome": "ANA (OTW), CGY: 1.06287 v ANA: 1.09556      Expected difference: 0.0326900000000003, (CGY: 1.77145 v ANA: 1.82593) (CGY: 49.24% , ANA: 50.76%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "16:39:10",
+    "timeLastRun": "17:00:08",
     "correctLines": 0,
     "totalLines": 1
   }
