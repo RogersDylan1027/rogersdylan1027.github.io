@@ -8,22 +8,22 @@
     "awayScorers": {},
     "outcome": "UTA, TBL: 1.49639 v UTA: 1.64008      Expected difference: 0.14369, (TBL: 2.49398 v UTA: 2.73347) (TBL: 47.71% , UTA: 52.29%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "17:00:57",
+    "timeLastRun": "17:45:54",
     "correctLines": 0,
     "totalLines": 2
   },
   {
     "homeABV": "NYR",
     "awayABV": "BOS",
-    "homeGoalie": {},
+    "homeGoalie": "NYR: Jonathan Quick",
     "awayGoalie": "BOS: Joonas Korpisalo",
     "homeScorers": {},
-    "awayScorers": "David Pastrnak, BOS: 0.38315      (0.638583333333333)",
-    "outcome": "BOS, NYR: 0.8308 v BOS: 1.20512      Expected difference: 0.37432, (NYR: 1.38467 v BOS: 2.00853) (NYR: 40.81% , BOS: 59.19%)",
+    "awayScorers": {},
+    "outcome": "BOS (OTW), NYR: 0.82858 v BOS: 0.82924      Expected difference: 0.000659999999999994, (NYR: 1.38097 v BOS: 1.38207) (NYR: 49.98% , BOS: 50.02%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "17:00:59",
+    "timeLastRun": "17:45:55",
     "correctLines": 0,
-    "totalLines": 2
+    "totalLines": 1
   },
   {
     "homeABV": "PHI",
@@ -34,20 +34,20 @@
     "awayScorers": {},
     "outcome": "PHI, PHI: 1.16405 v NYI: 0.39351      Expected difference: 0.77054, (PHI: 1.94008 v NYI: 0.65585) (PHI: 74.74% , NYI: 25.26%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "17:01:01",
+    "timeLastRun": "17:45:57",
     "correctLines": 0,
     "totalLines": 1
   },
   {
     "homeABV": "EDM",
     "awayABV": "ANA",
-    "homeGoalie": {},
+    "homeGoalie": "EDM: Tristan Jarry",
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "EDM, EDM: 1.20981 v ANA: 0.78364      Expected difference: 0.42617, (EDM: 2.01635 v ANA: 1.30607) (EDM: 60.69% , ANA: 39.31%)",
+    "outcome": "EDM, EDM: 1.20981 v ANA: 0.92242      Expected difference: 0.28739, (EDM: 2.01635 v ANA: 1.53737) (EDM: 56.74% , ANA: 43.26%)",
     "startingTime": "20:35:00",
-    "timeLastRun": "17:01:03",
+    "timeLastRun": "17:45:59",
     "correctLines": 0,
     "totalLines": 1
   },
