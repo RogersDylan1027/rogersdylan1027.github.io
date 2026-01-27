@@ -6,9 +6,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "NSH, BOS: 0.68919 v NSH: 0.74238      Expected difference: 0.05319, (BOS: 1.14865 v NSH: 1.2373) (BOS: 48.14% , NSH: 51.86%)",
+    "outcome": "NSH, BOS: 0.67824 v NSH: 0.74238      Expected difference: 0.06414, (BOS: 1.1304 v NSH: 1.2373) (BOS: 47.74% , NSH: 52.26%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "15:01:08",
+    "timeLastRun": "15:45:12",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -21,7 +21,7 @@
     "awayScorers": {},
     "outcome": "BUF (OTW), TOR: 1.09017 v BUF: 1.10782      Expected difference: 0.0176499999999999, (TOR: 1.81695 v BUF: 1.84637) (TOR: 49.6% , BUF: 50.4%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "15:01:10",
+    "timeLastRun": "15:45:13",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -34,7 +34,7 @@
     "awayScorers": {},
     "outcome": "MTL (OTW), MTL: 1.01263 v VGK: 0.97038      Expected difference: 0.04225, (MTL: 1.68772 v VGK: 1.6173) (MTL: 51.07% , VGK: 48.93%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "15:01:12",
+    "timeLastRun": "15:45:17",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -47,7 +47,7 @@
     "awayScorers": {},
     "outcome": "DET, DET: 1.42943 v LAK: 1.06086      Expected difference: 0.368570000000001, (DET: 2.38238 v LAK: 1.7681) (DET: 57.4% , LAK: 42.6%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "15:01:13",
+    "timeLastRun": "15:45:18",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -58,9 +58,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "FLA, FLA: 1.51123 v UTA: 0.54338      Expected difference: 0.96785, (FLA: 2.51872 v UTA: 0.90563) (FLA: 73.55% , UTA: 26.45%)",
+    "outcome": "FLA, FLA: 1.46646 v UTA: 0.54338      Expected difference: 0.92308, (FLA: 2.4441 v UTA: 0.90563) (FLA: 72.96% , UTA: 27.04%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "15:01:16",
+    "timeLastRun": "15:45:20",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -68,12 +68,12 @@
     "homeABV": "NJD",
     "awayABV": "WPG",
     "homeGoalie": "NJD: Jake Allen",
-    "awayGoalie": {},
+    "awayGoalie": "WPG: Connor Hellebuyck",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "WPG, NJD: 0.77083 v WPG: 1.09145      Expected difference: 0.32062, (NJD: 1.28472 v WPG: 1.81908) (NJD: 41.39% , WPG: 58.61%)",
+    "outcome": "WPG, NJD: 0.87448 v WPG: 1.09145      Expected difference: 0.21697, (NJD: 1.45747 v WPG: 1.81908) (NJD: 44.48% , WPG: 55.52%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "15:01:19",
+    "timeLastRun": "15:45:22",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -86,7 +86,7 @@
     "awayScorers": {},
     "outcome": "DAL (OTW), STL: 0.74971 v DAL: 0.7808      Expected difference: 0.0310899999999998, (STL: 1.24952 v DAL: 1.30133) (STL: 48.98% , DAL: 51.02%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "15:01:21",
+    "timeLastRun": "15:45:24",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -99,7 +99,7 @@
     "awayScorers": {},
     "outcome": "MIN, MIN: 1.43183 v CHI: 0.72093      Expected difference: 0.7109, (MIN: 2.38638 v CHI: 1.20155) (MIN: 66.51% , CHI: 33.49%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "15:01:23",
+    "timeLastRun": "15:45:25",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -112,7 +112,7 @@
     "awayScorers": {},
     "outcome": "SJS, VAN: 0.24541 v SJS: 0.42233      Expected difference: 0.17692, (VAN: 0.40902 v SJS: 0.70388) (VAN: 36.75% , SJS: 63.25%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "15:01:25",
+    "timeLastRun": "15:45:26",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -123,9 +123,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": "Alex Ovechkin, WSH: 0.36035      (0.600583333333333)",
-    "outcome": "WSH, SEA: 0.87821 v WSH: 1.74581      Expected difference: 0.8676, (SEA: 1.46368 v WSH: 2.90968) (SEA: 33.47% , WSH: 66.53%)",
+    "outcome": "WSH, SEA: 0.87821 v WSH: 1.74761      Expected difference: 0.8694, (SEA: 1.46368 v WSH: 2.91268) (SEA: 33.45% , WSH: 66.55%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "15:01:27",
+    "timeLastRun": "15:45:28",
     "correctLines": 0,
     "totalLines": 2
   }
