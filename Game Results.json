@@ -9,7 +9,7 @@
     "outcome": "UTA (OTW), TBL: 1.63811 v UTA: 1.64008      Expected difference: 0.00196999999999981, (TBL: 2.73018 v UTA: 2.73347) (TBL: 49.97% , UTA: 50.03%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:00:44",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 2
   },
   {
@@ -48,7 +48,7 @@
     "outcome": "EDM, EDM: 1.20981 v ANA: 0.92242      Expected difference: 0.28739, (EDM: 2.01635 v ANA: 1.53737) (EDM: 56.74% , ANA: 43.26%)",
     "startingTime": "20:35:00",
     "timeLastRun": "19:00:49",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -61,7 +61,7 @@
     "outcome": "EDM, EDM: 1.19541 v ANA: 0.77926      Expected difference: 0.41615, (EDM: 1.99235 v ANA: 1.29877) (EDM: 60.54% , ANA: 39.46%)",
     "startingTime": "20:35:00",
     "timeLastRun": "11:58:47",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   }
 ]
