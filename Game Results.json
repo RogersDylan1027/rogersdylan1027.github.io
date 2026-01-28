@@ -3,12 +3,12 @@
     "homeABV": "NYI",
     "awayABV": "NYR",
     "homeGoalie": "NYI: David Rittich",
-    "awayGoalie": {},
+    "awayGoalie": "NYR: Spencer Martin",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "NYI, NYI: 1.1018 v NYR: 1.00963      Expected difference: 0.0921700000000001, (NYI: 1.83633 v NYR: 1.68272) (NYI: 52.18% , NYR: 47.82%)",
+    "outcome": "NYR, NYI: 0.72992 v NYR: 1.0095      Expected difference: 0.27958, (NYI: 1.21653 v NYR: 1.6825) (NYI: 41.96% , NYR: 58.04%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "11:20:36",
+    "timeLastRun": "12:03:32",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -16,14 +16,14 @@
     "homeABV": "CBJ",
     "awayABV": "PHI",
     "homeGoalie": "CBJ: Elvis Merzlikins",
-    "awayGoalie": {},
-    "homeScorers": {},
+    "awayGoalie": "PHI: Dan Vladar",
+    "homeScorers": "Zach Werenski, CBJ: 0.46105      (0.768416666666667)",
     "awayScorers": {},
-    "outcome": "CBJ, CBJ: 1.38473 v PHI: 0.32267      Expected difference: 1.06206, (CBJ: 2.30788 v PHI: 0.53778) (CBJ: 81.1% , PHI: 18.9%)",
+    "outcome": "CBJ, CBJ: 1.90715 v PHI: 0.32267      Expected difference: 1.58448, (CBJ: 3.17858 v PHI: 0.53778) (CBJ: 85.53% , PHI: 14.47%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "11:20:37",
+    "timeLastRun": "12:03:34",
     "correctLines": 0,
-    "totalLines": 1
+    "totalLines": 2
   },
   {
     "homeABV": "OTT",
@@ -34,7 +34,7 @@
     "awayScorers": {},
     "outcome": "OTT, OTT: 1.68514 v COL: 0.73912      Expected difference: 0.94602, (OTT: 2.80857 v COL: 1.23187) (OTT: 69.51% , COL: 30.49%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "11:20:38",
+    "timeLastRun": "12:03:36",
     "correctLines": 0,
     "totalLines": 2
   }
