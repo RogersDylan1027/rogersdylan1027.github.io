@@ -8,7 +8,7 @@
     "awayScorers": {},
     "outcome": "BOS, BOS: 0.93486 v PHI: 0.66908      Expected difference: 0.26578, (BOS: 1.5581 v PHI: 1.11513) (BOS: 58.29% , PHI: 41.71%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "13:27:28",
+    "timeLastRun": "14:07:35",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -21,7 +21,7 @@
     "awayScorers": {},
     "outcome": "BUF, BUF: 1.22944 v LAK: 1.08582      Expected difference: 0.14362, (BUF: 2.04907 v LAK: 1.8097) (BUF: 53.1% , LAK: 46.9%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "13:27:31",
+    "timeLastRun": "14:07:37",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -34,7 +34,7 @@
     "awayScorers": "Nathan MacKinnon, COL: 0.50318      (0.838633333333333)",
     "outcome": "MTL (OTW), MTL: 1.52783 v COL: 1.49796      Expected difference: 0.0298699999999998, (MTL: 2.54638 v COL: 2.4966) (MTL: 50.49% , COL: 49.51%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "13:27:33",
+    "timeLastRun": "14:07:39",
     "correctLines": 0,
     "totalLines": 3
   },
@@ -45,9 +45,9 @@
     "awayGoalie": "WPG: Connor Hellebuyck",
     "homeScorers": {},
     "awayScorers": "Kyle Connor, WPG: 0.43236      (0.7206)",
-    "outcome": "WPG, TBL: 1.29603 v WPG: 1.47094      Expected difference: 0.17491, (TBL: 2.16005 v WPG: 2.45157) (TBL: 46.84% , WPG: 53.16%)",
+    "outcome": "WPG, TBL: 1.29601 v WPG: 1.47094      Expected difference: 0.17493, (TBL: 2.16002 v WPG: 2.45157) (TBL: 46.84% , WPG: 53.16%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "13:27:35",
+    "timeLastRun": "14:07:41",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -60,7 +60,7 @@
     "awayScorers": {},
     "outcome": "NSH, NJD: 0.74899 v NSH: 0.89346      Expected difference: 0.14447, (NJD: 1.24832 v NSH: 1.4891) (NJD: 45.6% , NSH: 54.4%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "13:27:37",
+    "timeLastRun": "14:07:43",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -73,7 +73,7 @@
     "awayScorers": {},
     "outcome": "NYR (OTW), NYR: 0.76663 v NYI: 0.76015      Expected difference: 0.00647999999999993, (NYR: 1.27772 v NYI: 1.26692) (NYR: 50.21% , NYI: 49.79%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "13:27:39",
+    "timeLastRun": "14:07:46",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -86,7 +86,7 @@
     "awayScorers": {},
     "outcome": "CHI, PIT: 0.37973 v CHI: 0.68403      Expected difference: 0.3043, (PIT: 0.63288 v CHI: 1.14005) (PIT: 35.7% , CHI: 64.3%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "13:27:40",
+    "timeLastRun": "14:07:48",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -99,7 +99,7 @@
     "awayScorers": {},
     "outcome": "CAR, CAR: 1.50508 v UTA: 0.99111      Expected difference: 0.51397, (CAR: 2.50847 v UTA: 1.65185) (CAR: 60.3% , UTA: 39.7%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "13:27:42",
+    "timeLastRun": "14:07:50",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -112,7 +112,7 @@
     "awayScorers": {},
     "outcome": "WSH, DET: 1.10727 v WSH: 1.42639      Expected difference: 0.31912, (DET: 1.84545 v WSH: 2.37732) (DET: 43.7% , WSH: 56.3%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "13:27:44",
+    "timeLastRun": "14:07:52",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -125,7 +125,7 @@
     "awayScorers": {},
     "outcome": "FLA, STL: 0.652 v FLA: 1.47342      Expected difference: 0.82142, (STL: 1.08667 v FLA: 2.4557) (STL: 30.68% , FLA: 69.32%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "13:27:47",
+    "timeLastRun": "14:07:55",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -136,9 +136,9 @@
     "awayGoalie": "CGY: Devin Cooley",
     "homeScorers": ["Kirill Kaprizov, MIN: 0.58457      (0.974283333333333)", "Matt Boldy, MIN: 0.43087      (0.718116666666667)"],
     "awayScorers": {},
-    "outcome": "MIN, MIN: 1.89121 v CGY: 0.91369      Expected difference: 0.97752, (MIN: 3.15202 v CGY: 1.52282) (MIN: 67.43% , CGY: 32.57%)",
+    "outcome": "MIN, MIN: 1.89121 v CGY: 0.9156      Expected difference: 0.97561, (MIN: 3.15202 v CGY: 1.526) (MIN: 67.38% , CGY: 32.62%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "13:27:48",
+    "timeLastRun": "14:07:57",
     "correctLines": 0,
     "totalLines": 3
   },
@@ -151,20 +151,20 @@
     "awayScorers": "Macklin Celebrini, SJS: 0.45076      (0.751266666666667)",
     "outcome": "SJS, EDM: 0.80961 v SJS: 1.71908      Expected difference: 0.90947, (EDM: 1.34935 v SJS: 2.86513) (EDM: 32.02% , SJS: 67.98%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "13:27:50",
+    "timeLastRun": "14:07:58",
     "correctLines": 0,
     "totalLines": 2
   },
   {
     "homeABV": "VAN",
     "awayABV": "ANA",
-    "homeGoalie": {},
+    "homeGoalie": "VAN: Nikita Tolopilo",
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "VAN (OTW), VAN: 0.48211 v ANA: 0.43958      Expected difference: 0.0425300000000001, (VAN: 0.80352 v ANA: 0.73263) (VAN: 52.31% , ANA: 47.69%)",
+    "outcome": "VAN, VAN: 0.48211 v ANA: 0.31045      Expected difference: 0.17166, (VAN: 0.80352 v ANA: 0.51742) (VAN: 60.83% , ANA: 39.17%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "13:27:52",
+    "timeLastRun": "14:08:01",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -172,26 +172,26 @@
     "homeABV": "VGK",
     "awayABV": "DAL",
     "homeGoalie": {},
-    "awayGoalie": {},
+    "awayGoalie": "DAL: Jake Oettinger",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "VGK, VGK: 1.68367 v DAL: 1.25108      Expected difference: 0.43259, (VGK: 2.80612 v DAL: 2.08513) (VGK: 57.37% , DAL: 42.63%)",
+    "outcome": "VGK, VGK: 1.53967 v DAL: 1.25108      Expected difference: 0.28859, (VGK: 2.56612 v DAL: 2.08513) (VGK: 55.17% , DAL: 44.83%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "13:27:54",
+    "timeLastRun": "14:08:03",
     "correctLines": 0,
     "totalLines": 1
   },
   {
     "homeABV": "SEA",
     "awayABV": "TOR",
-    "homeGoalie": {},
+    "homeGoalie": "SEA: Joey Daccord",
     "awayGoalie": {},
     "homeScorers": {},
-    "awayScorers": "Auston Matthews, TOR: 0.48106      (0.801766666666667)",
-    "outcome": "TOR, SEA: 0.88906 v TOR: 1.31972      Expected difference: 0.43066, (SEA: 1.48177 v TOR: 2.19953) (SEA: 40.25% , TOR: 59.75%)",
+    "awayScorers": {},
+    "outcome": "TOR (OTW), SEA: 0.88906 v TOR: 0.93861      Expected difference: 0.0495500000000002, (SEA: 1.48177 v TOR: 1.56435) (SEA: 48.64% , TOR: 51.36%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "13:27:55",
+    "timeLastRun": "14:08:05",
     "correctLines": 0,
-    "totalLines": 2
+    "totalLines": 1
   }
 ]
