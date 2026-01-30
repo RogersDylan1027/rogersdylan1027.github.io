@@ -134,7 +134,10 @@
     "awayABV": "CGY",
     "homeGoalie": "MIN: Filip Gustavsson",
     "awayGoalie": "CGY: Devin Cooley",
-    "homeScorers": ["Kirill Kaprizov, MIN: 0.58457      (0.974283333333333)", "Matt Boldy, MIN: 0.43087      (0.718116666666667)"],
+    "homeScorers": [
+      "Kirill Kaprizov, MIN: 0.58457      (0.974283333333333)",
+      "Matt Boldy, MIN: 0.43087      (0.718116666666667)"
+    ],
     "awayScorers": {},
     "outcome": "MIN, MIN: 1.89121 v CGY: 0.91369      Expected difference: 0.97752, (MIN: 3.15202 v CGY: 1.52282) (MIN: 67.43% , CGY: 32.57%)",
     "startingTime": "20:05:00",
