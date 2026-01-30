@@ -22,7 +22,7 @@
     "outcome": "BUF (OTW), BUF: 1.20561 v LAK: 1.19348      Expected difference: 0.0121300000000002, (BUF: 2.00935 v LAK: 1.98913) (BUF: 50.25% , LAK: 49.75%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:02:29",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -48,7 +48,7 @@
     "outcome": "WPG, TBL: 1.29601 v WPG: 1.41836      Expected difference: 0.122349999999999, (TBL: 2.16002 v WPG: 2.36393) (TBL: 47.75% , WPG: 52.25%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:02:33",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 2
   },
   {
@@ -61,7 +61,7 @@
     "outcome": "NJD, NJD: 0.87499 v NSH: 0.61214      Expected difference: 0.26285, (NJD: 1.45832 v NSH: 1.02023) (NJD: 58.84% , NSH: 41.16%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:02:35",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -100,7 +100,7 @@
     "outcome": "CAR, CAR: 1.50508 v UTA: 1.31812      Expected difference: 0.18696, (CAR: 2.50847 v UTA: 2.19687) (CAR: 53.31% , UTA: 46.69%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:02:41",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -113,7 +113,7 @@
     "outcome": "WSH, DET: 0.33666 v WSH: 1.42787      Expected difference: 1.09121, (DET: 0.5611 v WSH: 2.37978) (DET: 19.08% , WSH: 80.92%)",
     "startingTime": "19:35:00",
     "timeLastRun": "19:02:43",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -142,7 +142,7 @@
     "outcome": "MIN, MIN: 1.89121 v CGY: 0.91369      Expected difference: 0.97752, (MIN: 3.15202 v CGY: 1.52282) (MIN: 67.43% , CGY: 32.57%)",
     "startingTime": "20:05:00",
     "timeLastRun": "19:02:48",
-    "correctLines": 0,
+    "correctLines": 3,
     "totalLines": 3
   },
   {
@@ -155,7 +155,7 @@
     "outcome": "SJS, EDM: 0.80961 v SJS: 1.71908      Expected difference: 0.90947, (EDM: 1.34935 v SJS: 2.86513) (EDM: 32.02% , SJS: 67.98%)",
     "startingTime": "21:05:00",
     "timeLastRun": "19:02:50",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 2
   },
   {
@@ -168,7 +168,7 @@
     "outcome": "VAN, VAN: 0.57781 v ANA: 0.3119      Expected difference: 0.26591, (VAN: 0.96302 v ANA: 0.51983) (VAN: 64.94% , ANA: 35.06%)",
     "startingTime": "22:05:00",
     "timeLastRun": "19:02:53",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
