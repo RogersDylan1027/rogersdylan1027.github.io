@@ -8,7 +8,7 @@
     "awayScorers": {},
     "outcome": "LAK, PHI: 1.19501 v LAK: 1.40613      Expected difference: 0.21112, (PHI: 1.99168 v LAK: 2.34355) (PHI: 45.94% , LAK: 54.06%)",
     "startingTime": "12:35:00",
-    "timeLastRun": "10:44:50",
+    "timeLastRun": "11:02:20",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -21,7 +21,7 @@
     "awayScorers": "Nathan MacKinnon, COL: 0.57287      (0.954783333333333)",
     "outcome": "COL, DET: 1.58614 v COL: 1.7651      Expected difference: 0.17896, (DET: 2.64357 v COL: 2.94183) (DET: 47.33% , COL: 52.67%)",
     "startingTime": "13:05:00",
-    "timeLastRun": "10:44:52",
+    "timeLastRun": "11:02:21",
     "correctLines": 0,
     "totalLines": 3
   },
@@ -34,7 +34,7 @@
     "awayScorers": {},
     "outcome": "PIT, PIT: 0.90311 v NYR: 0.49706      Expected difference: 0.40605, (PIT: 1.50518 v NYR: 0.82843) (PIT: 64.5% , NYR: 35.5%)",
     "startingTime": "15:35:00",
-    "timeLastRun": "10:44:54",
+    "timeLastRun": "11:02:23",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -47,7 +47,7 @@
     "awayScorers": {},
     "outcome": "FLA, FLA: 0.72543 v WPG: 0.38604      Expected difference: 0.33939, (FLA: 1.20905 v WPG: 0.6434) (FLA: 65.27% , WPG: 34.73%)",
     "startingTime": "16:05:00",
-    "timeLastRun": "10:44:56",
+    "timeLastRun": "11:02:25",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -60,7 +60,7 @@
     "awayScorers": {},
     "outcome": "SJS, CGY: 0.28406 v SJS: 1.15516      Expected difference: 0.8711, (CGY: 0.47343 v SJS: 1.92527) (CGY: 19.74% , SJS: 80.26%)",
     "startingTime": "16:05:00",
-    "timeLastRun": "10:44:58",
+    "timeLastRun": "11:02:26",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -71,9 +71,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "WSH, WSH: 0.96642 v CAR: 0.84284      Expected difference: 0.12358, (WSH: 1.6107 v CAR: 1.40473) (WSH: 53.42% , CAR: 46.58%)",
+    "outcome": "WSH, WSH: 0.96541 v CAR: 0.84284      Expected difference: 0.12257, (WSH: 1.60902 v CAR: 1.40473) (WSH: 53.39% , CAR: 46.61%)",
     "startingTime": "17:05:00",
-    "timeLastRun": "10:45:02",
+    "timeLastRun": "11:02:28",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -86,20 +86,20 @@
     "awayScorers": {},
     "outcome": "MTL, BUF: 0.33229 v MTL: 1.09995      Expected difference: 0.76766, (BUF: 0.55382 v MTL: 1.83325) (BUF: 23.2% , MTL: 76.8%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "10:45:04",
+    "timeLastRun": "11:02:30",
     "correctLines": 0,
     "totalLines": 1
   },
   {
     "homeABV": "OTT",
     "awayABV": "NJD",
-    "homeGoalie": {},
+    "homeGoalie": "OTT: Linus Ullmark",
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "OTT, OTT: 0.58565 v NJD: 0.33032      Expected difference: 0.25533, (OTT: 0.97608 v NJD: 0.55053) (OTT: 63.94% , NJD: 36.06%)",
+    "outcome": "OTT, OTT: 0.58565 v NJD: 0.29766      Expected difference: 0.28799, (OTT: 0.97608 v NJD: 0.4961) (OTT: 66.3% , NJD: 33.7%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "10:45:07",
+    "timeLastRun": "11:02:32",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -112,7 +112,7 @@
     "awayScorers": {},
     "outcome": "NSH, NYI: 0.3311 v NSH: 1.30356      Expected difference: 0.97246, (NYI: 0.55183 v NSH: 2.1726) (NYI: 20.25% , NSH: 79.75%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "10:45:09",
+    "timeLastRun": "11:02:33",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -125,7 +125,7 @@
     "awayScorers": {},
     "outcome": "CBJ, STL: 0.26234 v CBJ: 0.47065      Expected difference: 0.20831, (STL: 0.43723 v CBJ: 0.78442) (STL: 35.79% , CBJ: 64.21%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "10:45:11",
+    "timeLastRun": "11:02:35",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -138,7 +138,7 @@
     "awayScorers": {},
     "outcome": "TOR (OTW), VAN: 0.36655 v TOR: 0.36922      Expected difference: 0.00267000000000006, (VAN: 0.61092 v TOR: 0.61537) (VAN: 49.82% , TOR: 50.18%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "10:45:13",
+    "timeLastRun": "11:02:37",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -151,7 +151,7 @@
     "awayScorers": {},
     "outcome": "DAL, UTA: 0.98414 v DAL: 1.10212      Expected difference: 0.11798, (UTA: 1.64023 v DAL: 1.83687) (UTA: 47.17% , DAL: 52.83%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "10:45:16",
+    "timeLastRun": "11:02:39",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -164,7 +164,7 @@
     "awayScorers": {},
     "outcome": "EDM, EDM: 1.43555 v MIN: 0.66357      Expected difference: 0.77198, (EDM: 2.39258 v MIN: 1.10595) (EDM: 68.39% , MIN: 31.61%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "10:45:19",
+    "timeLastRun": "11:02:40",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -177,7 +177,7 @@
     "awayScorers": {},
     "outcome": "VGK, VGK: 1.70472 v SEA: 0.65235      Expected difference: 1.05237, (VGK: 2.8412 v SEA: 1.08725) (VGK: 72.32% , SEA: 27.68%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "10:45:21",
+    "timeLastRun": "11:02:42",
     "correctLines": 0,
     "totalLines": 1
   }
