@@ -16,12 +16,12 @@
     "homeABV": "TBL",
     "awayABV": "BOS",
     "homeGoalie": {},
-    "awayGoalie": {},
+    "awayGoalie": "BOS: Jeremy Swayman",
     "homeScorers": {},
     "awayScorers": "David Pastrnak, BOS: 0.4689      (0.7815)",
-    "outcome": "BOS, TBL: 0.59181 v BOS: 1.27649      Expected difference: 0.68468, (TBL: 0.98635 v BOS: 2.12748) (TBL: 31.68% , BOS: 68.32%)",
+    "outcome": "BOS, TBL: 0.56894 v BOS: 1.27649      Expected difference: 0.70755, (TBL: 0.94823 v BOS: 2.12748) (TBL: 30.83% , BOS: 69.17%)",
     "startingTime": "18:35:00",
-    "timeLastRun": "15:47:42",
+    "timeLastRun": "16:12:39",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -34,7 +34,7 @@
     "awayScorers": {},
     "outcome": "ANA, ANA: 0.61668 v VGK: 0.48614      Expected difference: 0.13054, (ANA: 1.0278 v VGK: 0.81023) (ANA: 55.92% , VGK: 44.08%)",
     "startingTime": "21:35:00",
-    "timeLastRun": "15:47:43",
+    "timeLastRun": "16:12:41",
     "correctLines": 0,
     "totalLines": 1
   }
