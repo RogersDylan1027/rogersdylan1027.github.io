@@ -87,7 +87,7 @@
     "outcome": "MTL, BUF: 0.64873 v MTL: 1.36563      Expected difference: 0.7169, (BUF: 1.08122 v MTL: 2.27605) (BUF: 32.21% , MTL: 67.79%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:00:57",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -100,7 +100,7 @@
     "outcome": "OTT, OTT: 1.20711 v NJD: 0.56648      Expected difference: 0.64063, (OTT: 2.01185 v NJD: 0.94413) (OTT: 68.06% , NJD: 31.94%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:00:58",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -113,7 +113,7 @@
     "outcome": "NSH, NYI: 0.50494 v NSH: 1.35109      Expected difference: 0.84615, (NYI: 0.84157 v NSH: 2.25182) (NYI: 27.21% , NSH: 72.79%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:01:01",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -139,7 +139,7 @@
     "outcome": "TOR, VAN: 0.44063 v TOR: 0.74293      Expected difference: 0.3023, (VAN: 0.73438 v TOR: 1.23822) (VAN: 37.23% , TOR: 62.77%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:01:04",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -152,7 +152,7 @@
     "outcome": "DAL, UTA: 1.31513 v DAL: 1.3696      Expected difference: 0.0544700000000002, (UTA: 2.19188 v DAL: 2.28267) (UTA: 48.99% , DAL: 51.01%)",
     "startingTime": "21:05:00",
     "timeLastRun": "19:01:06",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -165,7 +165,7 @@
     "outcome": "EDM, EDM: 1.27893 v MIN: 1.16517      Expected difference: 0.113760000000001, (EDM: 2.13155 v MIN: 1.94195) (EDM: 52.33% , MIN: 47.67%)",
     "startingTime": "22:05:00",
     "timeLastRun": "19:01:07",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 2
   },
   {
