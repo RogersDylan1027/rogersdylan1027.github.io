@@ -2,13 +2,13 @@
   {
     "homeABV": "FLA",
     "awayABV": "BUF",
-    "homeGoalie": {},
+    "homeGoalie": "FLA: Sergei Bobrovsky",
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "FLA, FLA: 0.94423 v BUF: 0.35627      Expected difference: 0.58796, (FLA: 1.57372 v BUF: 0.59378) (FLA: 72.61% , BUF: 27.39%)",
+    "outcome": "FLA, FLA: 0.94423 v BUF: 0.33101      Expected difference: 0.61322, (FLA: 1.57372 v BUF: 0.55168) (FLA: 74.04% , BUF: 25.96%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "10:06:16",
+    "timeLastRun": "10:28:25",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -21,7 +21,7 @@
     "awayScorers": {},
     "outcome": "OTT, PIT: 0.37793 v OTT: 0.82837      Expected difference: 0.45044, (PIT: 0.62988 v OTT: 1.38062) (PIT: 31.33% , OTT: 68.67%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "10:06:18",
+    "timeLastRun": "10:28:26",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -34,7 +34,7 @@
     "awayScorers": {},
     "outcome": "WSH, WSH: 1.32095 v NYI: 0.61501      Expected difference: 0.70594, (WSH: 2.20158 v NYI: 1.02502) (WSH: 68.23% , NYI: 31.77%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "10:06:20",
+    "timeLastRun": "10:28:28",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -47,7 +47,7 @@
     "awayScorers": {},
     "outcome": "MTL, MIN: 0.46413 v MTL: 0.83168      Expected difference: 0.36755, (MIN: 0.77355 v MTL: 1.38613) (MIN: 35.82% , MTL: 64.18%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "10:06:23",
+    "timeLastRun": "10:28:31",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -60,7 +60,7 @@
     "awayScorers": {},
     "outcome": "NSH, NSH: 0.36028 v STL: 0.22436      Expected difference: 0.13592, (NSH: 0.60047 v STL: 0.37393) (NSH: 61.62% , STL: 38.38%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "10:06:25",
+    "timeLastRun": "10:28:32",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -73,7 +73,7 @@
     "awayScorers": {},
     "outcome": "SJS, CHI: 0.30125 v SJS: 0.42898      Expected difference: 0.12773, (CHI: 0.50208 v SJS: 0.71497) (CHI: 41.25% , SJS: 58.75%)",
     "startingTime": "20:35:00",
-    "timeLastRun": "10:06:27",
+    "timeLastRun": "10:28:35",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -84,9 +84,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "WPG, DAL: 0.72346 v WPG: 1.01654      Expected difference: 0.29308, (DAL: 1.20577 v WPG: 1.69423) (DAL: 41.58% , WPG: 58.42%)",
+    "outcome": "WPG, DAL: 0.72358 v WPG: 1.01654      Expected difference: 0.29296, (DAL: 1.20597 v WPG: 1.69423) (DAL: 41.58% , WPG: 58.42%)",
     "startingTime": "20:35:00",
-    "timeLastRun": "10:06:29",
+    "timeLastRun": "10:28:37",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -99,7 +99,7 @@
     "awayScorers": "Alex DeBrincat, DET: 0.41447      (0.690783333333333)",
     "outcome": "DET, COL: 1.15148 v DET: 1.56606      Expected difference: 0.41458, (COL: 1.91913 v DET: 2.6101) (COL: 42.37% , DET: 57.63%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "10:06:31",
+    "timeLastRun": "10:28:38",
     "correctLines": 0,
     "totalLines": 3
   },
@@ -112,7 +112,7 @@
     "awayScorers": {},
     "outcome": "VAN, UTA: 0.40303 v VAN: 0.56253      Expected difference: 0.1595, (UTA: 0.67172 v VAN: 0.93755) (UTA: 41.74% , VAN: 58.26%)",
     "startingTime": "21:35:00",
-    "timeLastRun": "10:06:34",
+    "timeLastRun": "10:28:40",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -123,9 +123,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": "Auston Matthews, TOR: 0.35855      (0.597583333333333)",
-    "outcome": "TOR, CGY: 0.44943 v TOR: 1.16081      Expected difference: 0.71138, (CGY: 0.74905 v TOR: 1.93468) (CGY: 27.91% , TOR: 72.09%)",
+    "outcome": "TOR, CGY: 0.44851 v TOR: 1.16081      Expected difference: 0.7123, (CGY: 0.74752 v TOR: 1.93468) (CGY: 27.87% , TOR: 72.13%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "10:06:36",
+    "timeLastRun": "10:28:42",
     "correctLines": 0,
     "totalLines": 2
   }
