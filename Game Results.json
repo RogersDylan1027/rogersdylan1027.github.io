@@ -9,7 +9,7 @@
     "outcome": "CAR, CAR: 1.6986 v LAK: 1.43023      Expected difference: 0.26837, (CAR: 2.831 v LAK: 2.38372) (CAR: 54.29% , LAK: 45.71%)",
     "startingTime": "15:05:00",
     "timeLastRun": "15:00:52",
-    "correctLines": 0,
+    "correctLines": 2,
     "totalLines": 2
   },
   {
@@ -22,7 +22,7 @@
     "outcome": "BOS, TBL: 0.56903 v BOS: 1.27649      Expected difference: 0.70746, (TBL: 0.94838 v BOS: 2.12748) (TBL: 30.83% , BOS: 69.17%)",
     "startingTime": "18:35:00",
     "timeLastRun": "18:14:29",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 2
   },
   {
@@ -35,7 +35,7 @@
     "outcome": "ANA (OTW), ANA: 0.53088 v VGK: 0.48614      Expected difference: 0.0447399999999998, (ANA: 0.8848 v VGK: 0.81023) (ANA: 52.2% , VGK: 47.8%)",
     "startingTime": "21:35:00",
     "timeLastRun": "19:02:07",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   }
 ]
