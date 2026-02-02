@@ -3,12 +3,12 @@
     "homeABV": "FLA",
     "awayABV": "BUF",
     "homeGoalie": "FLA: Sergei Bobrovsky",
-    "awayGoalie": {},
+    "awayGoalie": "BUF: Alex Lyon",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "FLA, FLA: 1.03609 v BUF: 0.3636      Expected difference: 0.67249, (FLA: 1.72682 v BUF: 0.606) (FLA: 74.02% , BUF: 25.98%)",
+    "outcome": "FLA, FLA: 1.23311 v BUF: 0.3636      Expected difference: 0.86951, (FLA: 2.05518 v BUF: 0.606) (FLA: 77.23% , BUF: 22.77%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "18:16:08",
+    "timeLastRun": "18:49:03",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -21,7 +21,7 @@
     "awayScorers": {},
     "outcome": "PIT (OTW), PIT: 0.6424 v OTT: 0.6322      Expected difference: 0.0101999999999999, (PIT: 1.07067 v OTT: 1.05367) (PIT: 50.4% , OTT: 49.6%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "18:16:09",
+    "timeLastRun": "18:49:05",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -32,9 +32,9 @@
     "awayGoalie": "NYI: David Rittich",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "WSH, WSH: 1.26625 v NYI: 0.41387      Expected difference: 0.85238, (WSH: 2.11042 v NYI: 0.68978) (WSH: 75.37% , NYI: 24.63%)",
+    "outcome": "WSH, WSH: 1.26489 v NYI: 0.41387      Expected difference: 0.85102, (WSH: 2.10815 v NYI: 0.68978) (WSH: 75.35% , NYI: 24.65%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "18:16:11",
+    "timeLastRun": "18:49:06",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -47,7 +47,7 @@
     "awayScorers": {},
     "outcome": "MTL, MIN: 0.87385 v MTL: 1.12491      Expected difference: 0.25106, (MIN: 1.45642 v MTL: 1.87485) (MIN: 43.72% , MTL: 56.28%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "18:16:12",
+    "timeLastRun": "18:49:08",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -60,7 +60,7 @@
     "awayScorers": {},
     "outcome": "NSH, NSH: 1.07132 v STL: 0.41244      Expected difference: 0.65888, (NSH: 1.78553 v STL: 0.6874) (NSH: 72.2% , STL: 27.8%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "18:16:13",
+    "timeLastRun": "18:49:09",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -73,7 +73,7 @@
     "awayScorers": {},
     "outcome": "SJS, CHI: 0.30125 v SJS: 1.17078      Expected difference: 0.86953, (CHI: 0.50208 v SJS: 1.9513) (CHI: 20.46% , SJS: 79.54%)",
     "startingTime": "20:35:00",
-    "timeLastRun": "18:16:15",
+    "timeLastRun": "18:49:11",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -86,7 +86,7 @@
     "awayScorers": {},
     "outcome": "WPG (OTW), DAL: 0.91534 v WPG: 0.91869      Expected difference: 0.00334999999999974, (DAL: 1.52557 v WPG: 1.53115) (DAL: 49.91% , WPG: 50.09%)",
     "startingTime": "20:35:00",
-    "timeLastRun": "18:16:16",
+    "timeLastRun": "18:49:12",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -99,7 +99,7 @@
     "awayScorers": "Alex DeBrincat, DET: 0.41447      (0.690783333333333)",
     "outcome": "DET (OTW), COL: 1.56183 v DET: 1.56606      Expected difference: 0.00422999999999973, (COL: 2.60305 v DET: 2.6101) (COL: 49.93% , DET: 50.07%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "18:16:17",
+    "timeLastRun": "18:49:14",
     "correctLines": 0,
     "totalLines": 3
   },
@@ -112,7 +112,7 @@
     "awayScorers": {},
     "outcome": "VAN, UTA: 0.40303 v VAN: 0.71319      Expected difference: 0.31016, (UTA: 0.67172 v VAN: 1.18865) (UTA: 36.11% , VAN: 63.89%)",
     "startingTime": "21:35:00",
-    "timeLastRun": "18:16:19",
+    "timeLastRun": "18:49:16",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -123,9 +123,9 @@
     "awayGoalie": "TOR: Joseph Woll",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "TOR, CGY: 0.51616 v TOR: 0.82419      Expected difference: 0.30803, (CGY: 0.86027 v TOR: 1.37365) (CGY: 38.51% , TOR: 61.49%)",
+    "outcome": "TOR, CGY: 0.51511 v TOR: 0.82419      Expected difference: 0.30908, (CGY: 0.85852 v TOR: 1.37365) (CGY: 38.46% , TOR: 61.54%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "18:16:21",
+    "timeLastRun": "18:49:18",
     "correctLines": 0,
     "totalLines": 1
   }
