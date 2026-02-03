@@ -54,13 +54,13 @@
   {
     "homeABV": "NSH",
     "awayABV": "STL",
-    "homeGoalie": {},
+    "homeGoalie": "NSH: Juuse Saros",
     "awayGoalie": "STL: Joel Hofer",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "NSH, NSH: 1.07132 v STL: 0.41244      Expected difference: 0.65888, (NSH: 1.78553 v STL: 0.6874) (NSH: 72.2% , STL: 27.8%)",
+    "outcome": "NSH, NSH: 1.07132 v STL: 0.35505      Expected difference: 0.71627, (NSH: 1.78553 v STL: 0.59175) (NSH: 75.11% , STL: 24.89%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "18:49:09",
+    "timeLastRun": "19:58:08",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -73,7 +73,7 @@
     "awayScorers": {},
     "outcome": "SJS, CHI: 0.30125 v SJS: 1.17078      Expected difference: 0.86953, (CHI: 0.50208 v SJS: 1.9513) (CHI: 20.46% , SJS: 79.54%)",
     "startingTime": "20:35:00",
-    "timeLastRun": "18:49:11",
+    "timeLastRun": "19:58:09",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -86,7 +86,7 @@
     "awayScorers": {},
     "outcome": "WPG (OTW), DAL: 0.91534 v WPG: 0.91869      Expected difference: 0.00334999999999974, (DAL: 1.52557 v WPG: 1.53115) (DAL: 49.91% , WPG: 50.09%)",
     "startingTime": "20:35:00",
-    "timeLastRun": "18:49:12",
+    "timeLastRun": "19:58:10",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -99,7 +99,7 @@
     "awayScorers": "Alex DeBrincat, DET: 0.41447      (0.690783333333333)",
     "outcome": "DET (OTW), COL: 1.56183 v DET: 1.56606      Expected difference: 0.00422999999999973, (COL: 2.60305 v DET: 2.6101) (COL: 49.93% , DET: 50.07%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "18:49:14",
+    "timeLastRun": "19:58:12",
     "correctLines": 0,
     "totalLines": 3
   },
@@ -110,9 +110,9 @@
     "awayGoalie": "VAN: Kevin Lankinen",
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "VAN, UTA: 0.40303 v VAN: 0.71319      Expected difference: 0.31016, (UTA: 0.67172 v VAN: 1.18865) (UTA: 36.11% , VAN: 63.89%)",
+    "outcome": "VAN, UTA: 0.35324 v VAN: 0.71319      Expected difference: 0.35995, (UTA: 0.58873 v VAN: 1.18865) (UTA: 33.12% , VAN: 66.88%)",
     "startingTime": "21:35:00",
-    "timeLastRun": "18:49:16",
+    "timeLastRun": "19:58:13",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -125,7 +125,7 @@
     "awayScorers": {},
     "outcome": "TOR, CGY: 0.51511 v TOR: 0.82419      Expected difference: 0.30908, (CGY: 0.85852 v TOR: 1.37365) (CGY: 38.46% , TOR: 61.54%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "18:49:18",
+    "timeLastRun": "19:58:15",
     "correctLines": 0,
     "totalLines": 1
   }
