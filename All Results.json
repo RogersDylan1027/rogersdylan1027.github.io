@@ -9331,5 +9331,140 @@
         "totalLines": 1
       }
     ]
+  },
+  {
+    "date": "2026-02-02",
+    "games": [
+      {
+        "homeABV": "NJD",
+        "awayABV": "CBJ",
+        "homeGoalie": {},
+        "awayGoalie": {},
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "CBJ, NJD: 0.52683 v CBJ: 0.86497      Expected difference: 0.33814, (NJD: 0.87805 v CBJ: 1.44162) (NJD: 37.85% , CBJ: 62.15%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "00:12:36",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "PHI",
+        "awayABV": "WSH",
+        "homeGoalie": {},
+        "awayGoalie": {},
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "WSH, PHI: 0.86487 v WSH: 1.0384      Expected difference: 0.17353, (PHI: 1.44145 v WSH: 1.73067) (PHI: 45.44% , WSH: 54.56%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "00:12:38",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "CAR",
+        "awayABV": "OTT",
+        "homeGoalie": {},
+        "awayGoalie": {},
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "OTT, CAR: 0.73574 v OTT: 1.16372      Expected difference: 0.42798, (CAR: 1.22623 v OTT: 1.93953) (CAR: 38.73% , OTT: 61.27%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "00:12:39",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "TBL",
+        "awayABV": "BUF",
+        "homeGoalie": {},
+        "awayGoalie": {},
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "TBL, TBL: 1.39694 v BUF: 1.27389      Expected difference: 0.123049999999999, (TBL: 2.32823 v BUF: 2.12315) (TBL: 52.3% , BUF: 47.7%)",
+        "startingTime": "19:35:00",
+        "timeLastRun": "00:12:40",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "NYI",
+        "awayABV": "PIT",
+        "homeGoalie": "NYI: Ilya Sorokin",
+        "awayGoalie": {},
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "PIT, NYI: 0.92734 v PIT: 1.38338      Expected difference: 0.45604, (NYI: 1.54557 v PIT: 2.30563) (NYI: 40.13% , PIT: 59.87%)",
+        "startingTime": "19:35:00",
+        "timeLastRun": "00:12:42",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "EDM",
+        "awayABV": "TOR",
+        "homeGoalie": {},
+        "awayGoalie": "TOR: Anthony Stolarz",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "TOR, EDM: 0.5786 v TOR: 0.92649      Expected difference: 0.34789, (EDM: 0.96433 v TOR: 1.54415) (EDM: 38.44% , TOR: 61.56%)",
+        "startingTime": "20:35:00",
+        "timeLastRun": "00:12:43",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "ANA",
+        "awayABV": "SEA",
+        "homeGoalie": {},
+        "awayGoalie": {},
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "ANA, ANA: 1.36219 v SEA: 0.51854      Expected difference: 0.84365, (ANA: 2.27032 v SEA: 0.86423) (ANA: 72.43% , SEA: 27.57%)",
+        "startingTime": "22:05:00",
+        "timeLastRun": "00:12:44",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "COL",
+        "awayABV": "DET",
+        "homeGoalie": "COL: Mackenzie Blackwood",
+        "awayGoalie": "DET: John Gibson",
+        "homeScorers": "Nathan MacKinnon, COL: 0.56715      (0.94525)",
+        "awayScorers": "Alex DeBrincat, DET: 0.41447      (0.690783333333333)",
+        "outcome": "DET (OTW), COL: 1.56183 v DET: 1.56606      Expected difference: 0.00422999999999973, (COL: 2.60305 v DET: 2.6101) (COL: 49.93% , DET: 50.07%)",
+        "startingTime": "21:05:00",
+        "timeLastRun": "19:58:12",
+        "correctLines": 1,
+        "totalLines": 3
+      },
+      {
+        "homeABV": "UTA",
+        "awayABV": "VAN",
+        "homeGoalie": "UTA: Karel Vejmelka",
+        "awayGoalie": "VAN: Kevin Lankinen",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "VAN, UTA: 0.35324 v VAN: 0.71319      Expected difference: 0.35995, (UTA: 0.58873 v VAN: 1.18865) (UTA: 33.12% , VAN: 66.88%)",
+        "startingTime": "21:35:00",
+        "timeLastRun": "19:58:13",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "CGY",
+        "awayABV": "TOR",
+        "homeGoalie": "CGY: Dustin Wolf",
+        "awayGoalie": "TOR: Joseph Woll",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "TOR, CGY: 0.51511 v TOR: 0.82419      Expected difference: 0.30908, (CGY: 0.85852 v TOR: 1.37365) (CGY: 38.46% , TOR: 61.54%)",
+        "startingTime": "22:05:00",
+        "timeLastRun": "19:58:15",
+        "correctLines": 1,
+        "totalLines": 1
+      }
+    ]
   }
 ]
