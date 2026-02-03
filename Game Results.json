@@ -22,7 +22,7 @@
     "outcome": "WSH, PHI: 0.86487 v WSH: 1.0384      Expected difference: 0.17353, (PHI: 1.44145 v WSH: 1.73067) (PHI: 45.44% , WSH: 54.56%)",
     "startingTime": "19:05:00",
     "timeLastRun": "00:12:38",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -35,7 +35,7 @@
     "outcome": "OTT, CAR: 0.73574 v OTT: 1.16372      Expected difference: 0.42798, (CAR: 1.22623 v OTT: 1.93953) (CAR: 38.73% , OTT: 61.27%)",
     "startingTime": "19:05:00",
     "timeLastRun": "00:12:39",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -74,7 +74,7 @@
     "outcome": "TOR, EDM: 0.5786 v TOR: 0.92649      Expected difference: 0.34789, (EDM: 0.96433 v TOR: 1.54415) (EDM: 38.44% , TOR: 61.56%)",
     "startingTime": "20:35:00",
     "timeLastRun": "00:12:43",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -100,7 +100,7 @@
     "outcome": "DET (OTW), COL: 1.56183 v DET: 1.56606      Expected difference: 0.00422999999999973, (COL: 2.60305 v DET: 2.6101) (COL: 49.93% , DET: 50.07%)",
     "startingTime": "21:05:00",
     "timeLastRun": "19:58:12",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 3
   },
   {
@@ -126,7 +126,7 @@
     "outcome": "TOR, CGY: 0.51511 v TOR: 0.82419      Expected difference: 0.30908, (CGY: 0.85852 v TOR: 1.37365) (CGY: 38.46% , TOR: 61.54%)",
     "startingTime": "22:05:00",
     "timeLastRun": "19:58:15",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   }
 ]
