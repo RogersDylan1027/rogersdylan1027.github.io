@@ -8,7 +8,7 @@
     "awayScorers": {},
     "outcome": "CBJ, NJD: 0.34143 v CBJ: 0.98712      Expected difference: 0.64569, (NJD: 0.56905 v CBJ: 1.6452) (NJD: 25.7% , CBJ: 74.3%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "11:39:51",
+    "timeLastRun": "12:17:13",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -21,7 +21,7 @@
     "awayScorers": "Alex Ovechkin, WSH: 0.36453      (0.60755)",
     "outcome": "WSH, PHI: 0.95265 v WSH: 1.6864      Expected difference: 0.73375, (PHI: 1.58775 v WSH: 2.81067) (PHI: 36.1% , WSH: 63.9%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "11:39:53",
+    "timeLastRun": "12:17:14",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -34,7 +34,7 @@
     "awayScorers": {},
     "outcome": "OTT, CAR: 0.88599 v OTT: 1.26619      Expected difference: 0.3802, (CAR: 1.47665 v OTT: 2.11032) (CAR: 41.17% , OTT: 58.83%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "11:39:55",
+    "timeLastRun": "12:17:17",
     "correctLines": 0,
     "totalLines": 1
   },
@@ -45,9 +45,9 @@
     "awayGoalie": {},
     "homeScorers": "Nikita Kucherov, TBL: 0.36766      (0.612766666666667)",
     "awayScorers": {},
-    "outcome": "TBL, TBL: 1.4196 v BUF: 1.266      Expected difference: 0.153600000000001, (TBL: 2.366 v BUF: 2.11) (TBL: 52.86% , BUF: 47.14%)",
+    "outcome": "TBL, TBL: 1.41962 v BUF: 1.27302      Expected difference: 0.146600000000001, (TBL: 2.36603 v BUF: 2.1217) (TBL: 52.72% , BUF: 47.28%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "11:39:57",
+    "timeLastRun": "12:17:19",
     "correctLines": 0,
     "totalLines": 2
   },
@@ -60,22 +60,22 @@
     "awayScorers": {},
     "outcome": "PIT, NYI: 1.12248 v PIT: 1.70969      Expected difference: 0.58721, (NYI: 1.8708 v PIT: 2.84948) (NYI: 39.63% , PIT: 60.37%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "11:39:58",
+    "timeLastRun": "12:17:21",
     "correctLines": 0,
     "totalLines": 1
   },
   {
     "homeABV": "EDM",
     "awayABV": "TOR",
-    "homeGoalie": {},
+    "homeGoalie": "EDM: Connor Ingram",
     "awayGoalie": "TOR: Anthony Stolarz",
     "homeScorers": {},
-    "awayScorers": {},
-    "outcome": "TOR, EDM: 0.5786 v TOR: 1.0556      Expected difference: 0.477, (EDM: 0.96433 v TOR: 1.75933) (EDM: 35.41% , TOR: 64.59%)",
+    "awayScorers": "Auston Matthews, TOR: 0.52365      (0.87275)",
+    "outcome": "TOR, EDM: 0.5786 v TOR: 1.75296      Expected difference: 1.17436, (EDM: 0.96433 v TOR: 2.9216) (EDM: 24.82% , TOR: 75.18%)",
     "startingTime": "20:35:00",
-    "timeLastRun": "11:40:02",
+    "timeLastRun": "12:17:23",
     "correctLines": 0,
-    "totalLines": 1
+    "totalLines": 2
   },
   {
     "homeABV": "ANA",
@@ -84,9 +84,9 @@
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": {},
-    "outcome": "ANA, ANA: 1.41266 v SEA: 0.63689      Expected difference: 0.77577, (ANA: 2.35443 v SEA: 1.06148) (ANA: 68.93% , SEA: 31.07%)",
+    "outcome": "ANA, ANA: 1.41357 v SEA: 0.63689      Expected difference: 0.77668, (ANA: 2.35595 v SEA: 1.06148) (ANA: 68.94% , SEA: 31.06%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "11:40:05",
+    "timeLastRun": "12:17:26",
     "correctLines": 0,
     "totalLines": 1
   }
