@@ -9,7 +9,7 @@
     "outcome": "CBJ, NJD: 0.34143 v CBJ: 0.57875      Expected difference: 0.23732, (NJD: 0.56905 v CBJ: 0.96458) (NJD: 37.1% , CBJ: 62.9%)",
     "startingTime": "19:05:00",
     "timeLastRun": "18:48:31",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -48,7 +48,7 @@
     "outcome": "TBL (OTW), TBL: 1.27899 v BUF: 1.25313      Expected difference: 0.0258600000000002, (TBL: 2.13165 v BUF: 2.08855) (TBL: 50.51% , BUF: 49.49%)",
     "startingTime": "19:35:00",
     "timeLastRun": "18:48:36",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -74,7 +74,7 @@
     "outcome": "TOR, EDM: 0.5786 v TOR: 1.72146      Expected difference: 1.14286, (EDM: 0.96433 v TOR: 2.8691) (EDM: 25.16% , TOR: 74.84%)",
     "startingTime": "20:35:00",
     "timeLastRun": "19:53:06",
-    "correctLines": 0,
+    "correctLines": 2,
     "totalLines": 2
   },
   {
@@ -87,7 +87,7 @@
     "outcome": "ANA, ANA: 1.27248 v SEA: 0.57448      Expected difference: 0.698, (ANA: 2.1208 v SEA: 0.95747) (ANA: 68.9% , SEA: 31.1%)",
     "startingTime": "22:05:00",
     "timeLastRun": "19:53:07",
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 1
   }
 ]
