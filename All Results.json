@@ -9466,5 +9466,101 @@
         "totalLines": 1
       }
     ]
+  },
+  {
+    "date": "2026-02-03",
+    "games": [
+      {
+        "homeABV": "NJD",
+        "awayABV": "CBJ",
+        "homeGoalie": "NJD: Jacob Markstrom",
+        "awayGoalie": "CBJ: Elvis Merzlikins",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "CBJ, NJD: 0.34143 v CBJ: 0.57875      Expected difference: 0.23732, (NJD: 0.56905 v CBJ: 0.96458) (NJD: 37.1% , CBJ: 62.9%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "18:48:31",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "PHI",
+        "awayABV": "WSH",
+        "homeGoalie": "PHI: Dan Vladar",
+        "awayGoalie": "WSH: Clay Stevenson",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "WSH, PHI: 1.30047 v WSH: 1.52038      Expected difference: 0.21991, (PHI: 2.16745 v WSH: 2.53397) (PHI: 46.1% , WSH: 53.9%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "18:48:33",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "CAR",
+        "awayABV": "OTT",
+        "homeGoalie": "CAR: Brandon Bussi",
+        "awayGoalie": "OTT: James Reimer",
+        "homeScorers": {},
+        "awayScorers": "Brady Tkachuk, OTT: 0.40262      (0.671033333333333)",
+        "outcome": "OTT, CAR: 0.74363 v OTT: 1.81303      Expected difference: 1.0694, (CAR: 1.23938 v OTT: 3.02172) (CAR: 29.09% , OTT: 70.91%)",
+        "startingTime": "19:05:00",
+        "timeLastRun": "18:48:34",
+        "correctLines": 0,
+        "totalLines": 2
+      },
+      {
+        "homeABV": "TBL",
+        "awayABV": "BUF",
+        "homeGoalie": {},
+        "awayGoalie": {},
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "TBL (OTW), TBL: 1.27899 v BUF: 1.25313      Expected difference: 0.0258600000000002, (TBL: 2.13165 v BUF: 2.08855) (TBL: 50.51% , BUF: 49.49%)",
+        "startingTime": "19:35:00",
+        "timeLastRun": "18:48:36",
+        "correctLines": 1,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "NYI",
+        "awayABV": "PIT",
+        "homeGoalie": "NYI: Ilya Sorokin",
+        "awayGoalie": "PIT: Stuart Skinner",
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "PIT, NYI: 1.01135 v PIT: 1.54002      Expected difference: 0.52867, (NYI: 1.68558 v PIT: 2.5667) (NYI: 39.64% , PIT: 60.36%)",
+        "startingTime": "19:35:00",
+        "timeLastRun": "18:48:38",
+        "correctLines": 0,
+        "totalLines": 1
+      },
+      {
+        "homeABV": "EDM",
+        "awayABV": "TOR",
+        "homeGoalie": "EDM: Connor Ingram",
+        "awayGoalie": "TOR: Anthony Stolarz",
+        "homeScorers": {},
+        "awayScorers": "Auston Matthews, TOR: 0.51424      (0.857066666666667)",
+        "outcome": "TOR, EDM: 0.5786 v TOR: 1.72146      Expected difference: 1.14286, (EDM: 0.96433 v TOR: 2.8691) (EDM: 25.16% , TOR: 74.84%)",
+        "startingTime": "20:35:00",
+        "timeLastRun": "19:53:06",
+        "correctLines": 2,
+        "totalLines": 2
+      },
+      {
+        "homeABV": "ANA",
+        "awayABV": "SEA",
+        "homeGoalie": {},
+        "awayGoalie": {},
+        "homeScorers": {},
+        "awayScorers": {},
+        "outcome": "ANA, ANA: 1.27248 v SEA: 0.57448      Expected difference: 0.698, (ANA: 2.1208 v SEA: 0.95747) (ANA: 68.9% , SEA: 31.1%)",
+        "startingTime": "22:05:00",
+        "timeLastRun": "19:53:07",
+        "correctLines": 1,
+        "totalLines": 1
+      }
+    ]
   }
 ]
