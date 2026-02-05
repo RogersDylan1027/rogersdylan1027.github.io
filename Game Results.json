@@ -477,7 +477,11 @@
     "homeGoalie": "CGY: Devin Cooley",
     "awayGoalie": "EDM: Tristan Jarry",
     "homeScorers": {},
-    "awayScorers": ["Zach Hyman, EDM: 0.35915      (0.598583333333333)", "Leon Draisaitl, EDM: 0.50774      (0.846233333333333)", "Connor McDavid, EDM: 0.53688      (0.8948)"],
+    "awayScorers": [
+      "Zach Hyman, EDM: 0.35915      (0.598583333333333)",
+      "Leon Draisaitl, EDM: 0.50774      (0.846233333333333)",
+      "Connor McDavid, EDM: 0.53688      (0.8948)"
+    ],
     "allHomePoints": {
       "Mikael Backlund": 0.1752,
       "Nazem Kadri": 0.3181,
