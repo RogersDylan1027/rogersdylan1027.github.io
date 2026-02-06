@@ -63,9 +63,9 @@
     "outcome": "PIT, BUF: 0.54201 v PIT: 1.19966      Expected difference: 0.65765, (BUF: 0.90335 v PIT: 1.99943) (BUF: 31.12% , PIT: 68.88%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:00:58",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "correctLines": 0,
+    "homeMeanSquaredError": 0.1878,
+    "awayMeanSquaredError": 0.3896,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -136,8 +136,8 @@
     "outcome": "NJD, NJD: 1.0868 v NYI: 0.88316      Expected difference: 0.20364, (NJD: 1.81133 v NYI: 1.47193) (NJD: 55.17% , NYI: 44.83%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:00:59",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
+    "homeMeanSquaredError": 0.0412,
+    "awayMeanSquaredError": 0.209,
     "correctLines": 0,
     "totalLines": 1
   },
@@ -202,8 +202,8 @@
     "outcome": "NYR, NYR: 0.85495 v CAR: 0.43141      Expected difference: 0.42354, (NYR: 1.42492 v CAR: 0.71902) (NYR: 66.46% , CAR: 33.54%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:01:01",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
+    "homeMeanSquaredError": 0.0402,
+    "awayMeanSquaredError": 0.1817,
     "correctLines": 0,
     "totalLines": 1
   },
@@ -271,9 +271,9 @@
     "outcome": "OTT, PHI: 0.32664 v OTT: 1.64083      Expected difference: 1.31419, (PHI: 0.5444 v OTT: 2.73472) (PHI: 16.6% , OTT: 83.4%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:01:03",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "correctLines": 0,
+    "homeMeanSquaredError": 0.109,
+    "awayMeanSquaredError": 0.1134,
+    "correctLines": 2,
     "totalLines": 2
   },
   {
@@ -337,8 +337,8 @@
     "outcome": "NSH, WSH: 1.08552 v NSH: 1.32552      Expected difference: 0.24, (WSH: 1.8092 v NSH: 2.2092) (WSH: 45.02% , NSH: 54.98%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:01:05",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
+    "homeMeanSquaredError": 0.6131,
+    "awayMeanSquaredError": 0.3515,
     "correctLines": 0,
     "totalLines": 1
   },
@@ -403,8 +403,8 @@
     "outcome": "FLA, TBL: 1.10662 v FLA: 1.45573      Expected difference: 0.34911, (TBL: 1.84437 v FLA: 2.42622) (TBL: 43.19% , FLA: 56.81%)",
     "startingTime": "19:35:00",
     "timeLastRun": "19:01:07",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
+    "homeMeanSquaredError": 0.5546,
+    "awayMeanSquaredError": 0.2138,
     "correctLines": 0,
     "totalLines": 2
   },
@@ -467,9 +467,9 @@
     "outcome": "VGK, VGK: 1.63032 v LAK: 0.34664      Expected difference: 1.28368, (VGK: 2.7172 v LAK: 0.57773) (VGK: 82.47% , LAK: 17.53%)",
     "startingTime": "22:05:00",
     "timeLastRun": "19:01:09",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "correctLines": 0,
+    "homeMeanSquaredError": 0.5174,
+    "awayMeanSquaredError": 0.1424,
+    "correctLines": 1,
     "totalLines": 1
   }
 ]
