@@ -64,7 +64,7 @@
     },
     "outcome": "FLA, FLA: 1.24439 v BUF: 0.57318      Expected difference: 0.67121, (FLA: 2.07398 v BUF: 0.9553) (FLA: 68.46% , BUF: 31.54%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "15:16:43",
+    "timeLastRun": "15:49:10",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
@@ -136,7 +136,7 @@
     },
     "outcome": "VGK, WSH: 1.54759 v VGK: 1.93664      Expected difference: 0.38905, (WSH: 2.57932 v VGK: 3.22773) (WSH: 44.42% , VGK: 55.58%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "15:16:46",
+    "timeLastRun": "15:49:12",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
@@ -206,7 +206,7 @@
     },
     "outcome": "MIN, UTA: 1.01856 v MIN: 1.4704      Expected difference: 0.45184, (UTA: 1.6976 v MIN: 2.45067) (UTA: 40.92% , MIN: 59.08%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "15:16:48",
+    "timeLastRun": "15:49:13",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
@@ -243,7 +243,7 @@
       "Pavel Mintyukov": 0.0299,
       "Leo Carlsson": 0.2267,
       "Beckett Sennecke": 0.2235,
-      "Tim Washe": 0.0071
+      "Tim Washe": 0.008
     },
     "allAwayPoints": {
       "Jonathan Toews": 0.0177,
@@ -270,9 +270,9 @@
       "Danil Zhilkin": 0,
       "Parker Ford": 0.0015
     },
-    "outcome": "ANA, ANA: 0.66865 v WPG: 0.24238      Expected difference: 0.42627, (ANA: 1.11442 v WPG: 0.40397) (ANA: 73.39% , WPG: 26.61%)",
+    "outcome": "ANA, ANA: 0.66898 v WPG: 0.24238      Expected difference: 0.4266, (ANA: 1.11497 v WPG: 0.40397) (ANA: 73.4% , WPG: 26.6%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "15:16:51",
+    "timeLastRun": "15:49:14",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
