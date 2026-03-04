@@ -424,7 +424,7 @@
     },
     "outcome": "CHI, WPG: 0.4217 v CHI: 0.50482      Expected difference: 0.0831200000000001, (WPG: 0.70283 v CHI: 0.84137) (WPG: 45.51% , CHI: 54.49%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "18:47:53",
+    "timeLastRun": "19:55:22",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
@@ -495,7 +495,7 @@
     },
     "outcome": "CGY, CGY: 1.21299 v DAL: 0.97813      Expected difference: 0.23486, (CGY: 2.02165 v DAL: 1.63022) (CGY: 55.36% , DAL: 44.64%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "18:47:54",
+    "timeLastRun": "19:55:24",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
@@ -535,7 +535,7 @@
       "Matt Savoie": 0.0411,
       "Josh Samanski": 0,
       "Connor Clattenburg": 0.0117,
-      "Quinn Hutson": 0.0189
+      "Quinn Hutson": 0.0203
     },
     "allAwayPoints": {
       "Claude Giroux": 0.0721,
@@ -563,9 +563,9 @@
       "Xavier Bourgault": 0,
       "Stephen Halliday": 0.0177
     },
-    "outcome": "EDM, EDM: 0.84615 v OTT: 0.60321      Expected difference: 0.24294, (EDM: 1.41025 v OTT: 1.00535) (EDM: 58.38% , OTT: 41.62%)",
+    "outcome": "EDM, EDM: 0.84663 v OTT: 0.60321      Expected difference: 0.24342, (EDM: 1.41105 v OTT: 1.00535) (EDM: 58.39% , OTT: 41.61%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "18:47:56",
+    "timeLastRun": "19:55:25",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
@@ -638,7 +638,7 @@
     },
     "outcome": "MIN, MIN: 2.09865 v TBL: 1.28829      Expected difference: 0.81036, (MIN: 3.49775 v TBL: 2.14715) (MIN: 61.96% , TBL: 38.04%)",
     "startingTime": "21:35:00",
-    "timeLastRun": "18:47:57",
+    "timeLastRun": "19:55:27",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
@@ -673,7 +673,7 @@
       "Pavel Mintyukov": 0.0748,
       "Leo Carlsson": 0.5308,
       "Beckett Sennecke": 0.4879,
-      "Tim Washe": 0.0226
+      "Tim Washe": 0.0195
     },
     "allAwayPoints": {
       "Brent Burns": 0.0459,
@@ -702,9 +702,9 @@
       "Jason Polin": 0,
       "Sam Malinski": 0.0148
     },
-    "outcome": "ANA, ANA: 1.36357 v COL: 0.55904      Expected difference: 0.80453, (ANA: 2.27262 v COL: 0.93173) (ANA: 70.92% , COL: 29.08%)",
+    "outcome": "ANA, ANA: 1.36248 v COL: 0.55904      Expected difference: 0.80344, (ANA: 2.2708 v COL: 0.93173) (ANA: 70.91% , COL: 29.09%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "18:47:58",
+    "timeLastRun": "19:55:28",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
@@ -776,7 +776,7 @@
     },
     "outcome": "SJS, SJS: 0.56398 v MTL: 0.3536      Expected difference: 0.21038, (SJS: 0.93997 v MTL: 0.58933) (SJS: 61.46% , MTL: 38.54%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "18:48:01",
+    "timeLastRun": "19:55:29",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
