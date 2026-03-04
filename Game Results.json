@@ -578,7 +578,10 @@
     "awayABV": "TBL",
     "homeGoalie": {},
     "awayGoalie": {},
-    "homeScorers": ["Kirill Kaprizov, MIN: 0.60167      (1.00278333333333)", "Matt Boldy, MIN: 0.46645      (0.777416666666667)"],
+    "homeScorers": [
+      "Kirill Kaprizov, MIN: 0.60167      (1.00278333333333)",
+      "Matt Boldy, MIN: 0.46645      (0.777416666666667)"
+    ],
     "awayScorers": {},
     "allHomePoints": {
       "Zach Bogosian": 0.0205,
