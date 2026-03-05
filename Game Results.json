@@ -203,7 +203,7 @@
     },
     "outcome": "VAN, VAN: 0.95876 v CAR: 0.44353      Expected difference: 0.51523, (VAN: 1.59793 v CAR: 0.73922) (VAN: 68.37% , CAR: 31.63%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "18:50:24",
+    "timeLastRun": "19:57:12",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
@@ -227,7 +227,7 @@
       "Ross Johnston": 0.0056,
       "Frank Vatrano": 0.1503,
       "Jansen Harkins": 0.0138,
-      "Jeffrey Viel": 0.043,
+      "Jeffrey Viel": 0.0334,
       "Ryan Poehling": 0.06,
       "Drew Helleson": 0.0198,
       "Jackson LaCombe": 0.171,
@@ -240,7 +240,7 @@
       "Pavel Mintyukov": 0.0551,
       "Leo Carlsson": 0.3886,
       "Beckett Sennecke": 0.3565,
-      "Tim Washe": 0.0172
+      "Tim Washe": 0.0148
     },
     "allAwayPoints": {
       "Casey Cizikas": 0.0166,
@@ -269,9 +269,9 @@
       "Matthew Schaefer": 0.2569,
       "Max Shabanov": 0.0241
     },
-    "outcome": "ANA, ANA: 1.07179 v NYI: 0.52147      Expected difference: 0.55032, (ANA: 1.78632 v NYI: 0.86912) (ANA: 67.27% , NYI: 32.73%)",
+    "outcome": "ANA, ANA: 1.06761 v NYI: 0.52147      Expected difference: 0.54614, (ANA: 1.77935 v NYI: 0.86912) (ANA: 67.18% , NYI: 32.82%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "18:50:26",
+    "timeLastRun": "19:57:13",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
@@ -307,7 +307,7 @@
       "Jacob Melanson": 0.0103,
       "Jani Nyman": 0.0871,
       "Shane Wright": 0.1153,
-      "Ben Meyers": 0.0789,
+      "Ben Meyers": 0.0619,
       "Oscar Fisker Molgaard": 0,
       "Berkly Catton": 0.0446
     },
@@ -329,7 +329,7 @@
       "Hunter Skinner": 0,
       "Dylan Holloway": 0.5027,
       "Jake Neighbours": 0.2339,
-      "Jack Finley": 0.0136,
+      "Jack Finley": 0.0137,
       "Matthew Kessel": 0.0152,
       "Logan Mailloux": 0.034,
       "Aleksanteri Kaskimaki": 0,
@@ -337,9 +337,9 @@
       "Dalibor Dvorsky": 0.1171,
       "Otto Stenberg": 0.028
     },
-    "outcome": "STL, SEA: 1.02504 v STL: 1.31608      Expected difference: 0.29104, (SEA: 1.7084 v STL: 2.19347) (SEA: 43.78% , STL: 56.22%)",
+    "outcome": "STL, SEA: 1.01909 v STL: 1.31613      Expected difference: 0.29704, (SEA: 1.69848 v STL: 2.19355) (SEA: 43.64% , STL: 56.36%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "18:50:27",
+    "timeLastRun": "19:57:15",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
