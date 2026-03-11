@@ -786,7 +786,11 @@
     "homeGoalie": "COL: Mackenzie Blackwood",
     "awayGoalie": "EDM: Connor Ingram",
     "homeScorers": "Nathan MacKinnon, COL: 0.70202      (1.17003333333333)",
-    "awayScorers": ["Zach Hyman, EDM: 0.37111      (0.618516666666667)", "Leon Draisaitl, EDM: 0.53017      (0.883616666666667)", "Connor McDavid, EDM: 0.50899      (0.848316666666667)"],
+    "awayScorers": [
+      "Zach Hyman, EDM: 0.37111      (0.618516666666667)",
+      "Leon Draisaitl, EDM: 0.53017      (0.883616666666667)",
+      "Connor McDavid, EDM: 0.50899      (0.848316666666667)"
+    ],
     "allHomePoints": {
       "Brent Burns": 0.1572,
       "Nazem Kadri": 0.5491,
