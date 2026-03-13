@@ -505,7 +505,10 @@
     "homeGoalie": "DAL: Jake Oettinger",
     "awayGoalie": "EDM: Tristan Jarry",
     "homeScorers": {},
-    "awayScorers": ["Leon Draisaitl, EDM: 0.42989      (0.716483333333333)", "Connor McDavid, EDM: 0.42021      (0.70035)"],
+    "awayScorers": [
+      "Leon Draisaitl, EDM: 0.42989      (0.716483333333333)",
+      "Connor McDavid, EDM: 0.42021      (0.70035)"
+    ],
     "allHomePoints": {
       "Jamie Benn": 0.0996,
       "Tyler Myers": 0.022,
@@ -571,7 +574,10 @@
     "awayABV": "PHI",
     "homeGoalie": "MIN: Jesper Wallstedt",
     "awayGoalie": "PHI: Dan Vladar",
-    "homeScorers": ["Kirill Kaprizov, MIN: 0.61505      (1.02508333333333)", "Matt Boldy, MIN: 0.46319      (0.771983333333333)"],
+    "homeScorers": [
+      "Kirill Kaprizov, MIN: 0.61505      (1.02508333333333)",
+      "Matt Boldy, MIN: 0.46319      (0.771983333333333)"
+    ],
     "awayScorers": {},
     "allHomePoints": {
       "Jeff Petry": 0.0026,
