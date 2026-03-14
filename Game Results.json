@@ -197,10 +197,10 @@
     "outcome": "NYI, NYI: 1.07976 v LAK: 1.00636      Expected difference: 0.0733999999999999, (NYI: 1.7996 v LAK: 1.67727) (NYI: 51.83% , LAK: 48.17%)",
     "startingTime": "19:05:00",
     "timeLastRun": "18:51:25",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.2486,
+    "awayMeanSquaredError": 0.1522,
+    "homeLogLoss": 0.3111,
+    "awayLogLoss": 0.5508,
     "correctLines": 0,
     "totalLines": 1
   },
@@ -413,11 +413,11 @@
     "outcome": "EDM, STL: 1.07504 v EDM: 1.57642      Expected difference: 0.50138, (STL: 1.79173 v EDM: 2.62737) (STL: 37.72% , EDM: 62.28%)",
     "startingTime": "20:05:00",
     "timeLastRun": "20:04:23",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
-    "correctLines": 0,
+    "homeMeanSquaredError": 0.2848,
+    "awayMeanSquaredError": 0.1554,
+    "homeLogLoss": 0.6824,
+    "awayLogLoss": "NaN",
+    "correctLines": 2,
     "totalLines": 3
   }
 ]
