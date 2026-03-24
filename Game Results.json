@@ -201,13 +201,13 @@
     "outcome": "OTT, NYR: 0.89552 v OTT: 1.19124      Expected difference: 0.29572, (NYR: 1.49253 v OTT: 1.9854) (NYR: 42.66% , OTT: 57.34%)",
     "startingTime": "19:35:00",
     "timeLastRun": "19:20:01",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.1515,
+    "awayMeanSquaredError": 0.2131,
+    "homeLogLoss": 0.5388,
+    "awayLogLoss": 0.6664,
     "bettingLines": "OTT: Money Line",
-    "correctBettingLines": 0,
-    "correctLines": 0,
+    "correctBettingLines": 1,
+    "correctLines": 1,
     "totalLines": 1
   }
 ]
