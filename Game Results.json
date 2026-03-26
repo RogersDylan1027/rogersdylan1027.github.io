@@ -229,19 +229,19 @@
     "outcome": "BOS, BUF: 0.43797 v BOS: 1.34503      Expected difference: 0.90706, (BUF: 0.72995 v BOS: 2.24172) (BUF: 28.76% , BOS: 71.24%)",
     "startingTime": "19:35:00",
     "timeLastRun": "19:22:13",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.3189,
+    "awayMeanSquaredError": 0.4389,
+    "homeLogLoss": 0.5023,
+    "awayLogLoss": "NaN",
     "bettingLines": [
       "BOS: Money Line",
       "David Pastrnak: +1 Point"
     ],
     "correctBettingLines": [
-      0,
-      0
+      1,
+      1
     ],
-    "correctLines": 0,
+    "correctLines": 2,
     "totalLines": 2
   },
   {
@@ -450,13 +450,13 @@
     "outcome": "TOR, TOR: 0.90148 v NYR: 0.24267      Expected difference: 0.65881, (TOR: 1.50247 v NYR: 0.40445) (TOR: 65.9% , NYR: 34.1%)",
     "startingTime": "19:35:00",
     "timeLastRun": "19:22:14",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.4514,
+    "awayMeanSquaredError": 0.6917,
+    "homeLogLoss": 0.8912,
+    "awayLogLoss": 0.8486,
     "bettingLines": "TOR: Money Line",
-    "correctBettingLines": 0,
-    "correctLines": 0,
+    "correctBettingLines": 1,
+    "correctLines": 1,
     "totalLines": 1
   }
 ]
