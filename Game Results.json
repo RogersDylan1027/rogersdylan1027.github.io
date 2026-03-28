@@ -217,10 +217,10 @@
     "outcome": "BUF, BUF: 1.7492 v DET: 1.48108      Expected difference: 0.26812, (BUF: 2.91533 v DET: 2.46847) (BUF: 56.66% , DET: 43.34%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:00:23",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.1798,
+    "awayMeanSquaredError": 0.5243,
+    "homeLogLoss": "NaN",
+    "awayLogLoss": "NaN",
     "bettingLines": [
       "BUF: Money Line",
       "Tage Thompson: +1 Point",
@@ -228,10 +228,10 @@
     ],
     "correctBettingLines": [
       0,
-      0,
-      0
+      1,
+      1
     ],
-    "correctLines": 0,
+    "correctLines": 2,
     "totalLines": 3
   },
   {
@@ -432,10 +432,10 @@
     "outcome": "CHI, NYR: 0.2477 v CHI: 1.09098      Expected difference: 0.84328, (NYR: 0.41283 v CHI: 1.8183) (NYR: 30.08% , CHI: 69.92%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:00:25",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.5696,
+    "awayMeanSquaredError": 0.1531,
+    "homeLogLoss": "Inf",
+    "awayLogLoss": 0.6135,
     "bettingLines": "CHI: Money Line",
     "correctBettingLines": 0,
     "correctLines": 0,
