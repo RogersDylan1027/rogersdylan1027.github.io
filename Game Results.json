@@ -229,13 +229,13 @@
     "outcome": "PIT, NYI: 0.59927 v PIT: 1.47449      Expected difference: 0.87522, (NYI: 0.99878 v PIT: 2.45748) (NYI: 29.42% , PIT: 70.58%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:02:58",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.5775,
+    "awayMeanSquaredError": 1.1659,
+    "homeLogLoss": 1.1645,
+    "awayLogLoss": 1.3918,
     "bettingLines": "PIT: Money Line",
-    "correctBettingLines": 0,
-    "correctLines": 0,
+    "correctBettingLines": 1,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -480,19 +480,19 @@
     "outcome": "COL, COL: 1.49778 v CGY: 0.96041      Expected difference: 0.53737, (COL: 2.4963 v CGY: 1.60068) (COL: 63.12% , CGY: 36.88%)",
     "startingTime": "20:35:00",
     "timeLastRun": "19:57:54",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 1.6053,
+    "awayMeanSquaredError": 0.1622,
+    "homeLogLoss": "NaN",
+    "awayLogLoss": 0.5814,
     "bettingLines": [
       "COL: Money Line",
       "Nathan MacKinnon: +1 Point"
     ],
     "correctBettingLines": [
-      0,
-      0
+      1,
+      1
     ],
-    "correctLines": 0,
+    "correctLines": 2,
     "totalLines": 2
   },
   {
@@ -725,10 +725,10 @@
     "outcome": "VAN, VGK: 0.48754 v VAN: 0.58263      Expected difference: 0.0950900000000001, (VGK: 0.81257 v VAN: 0.97105) (VGK: 47.62% , VAN: 52.38%)",
     "startingTime": "22:05:00",
     "timeLastRun": "21:04:49",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.3439,
+    "awayMeanSquaredError": 0.1463,
+    "homeLogLoss": "Inf",
+    "awayLogLoss": 0.5006,
     "bettingLines": "VAN: Money Line",
     "correctBettingLines": 0,
     "correctLines": 0,
@@ -932,10 +932,10 @@
     "outcome": "ANA, ANA: 0.79455 v TOR: 0.70487      Expected difference: 0.0896799999999998, (ANA: 1.32425 v TOR: 1.17478) (ANA: 52.24% , TOR: 47.76%)",
     "startingTime": "22:05:00",
     "timeLastRun": "21:04:51",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.5804,
+    "awayMeanSquaredError": 1.3102,
+    "homeLogLoss": 1.0759,
+    "awayLogLoss": 1.0209,
     "bettingLines": "ANA: Money Line",
     "correctBettingLines": 0,
     "correctLines": 0,
@@ -1143,19 +1143,19 @@
     "outcome": "SJS, SJS: 1.50406 v STL: 0.31934      Expected difference: 1.18472, (SJS: 2.50677 v STL: 0.53223) (SJS: 76.58% , STL: 23.42%)",
     "startingTime": "22:05:00",
     "timeLastRun": "21:04:53",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.979,
+    "awayMeanSquaredError": 0.431,
+    "homeLogLoss": "NaN",
+    "awayLogLoss": "Inf",
     "bettingLines": [
       "SJS: Money Line",
       "Macklin Celebrini: +1 Point"
     ],
     "correctBettingLines": [
-      0,
-      0
+      1,
+      1
     ],
-    "correctLines": 0,
+    "correctLines": 2,
     "totalLines": 2
   }
 ]
