@@ -209,21 +209,21 @@
     "outcome": "BUF, BUF: 1.76276 v TBL: 1.41773      Expected difference: 0.34503, (BUF: 2.93793 v TBL: 2.36288) (BUF: 58.54% , TBL: 41.46%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:03:14",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.3997,
+    "awayMeanSquaredError": 0.1934,
+    "homeLogLoss": "NaN",
+    "awayLogLoss": "NaN",
     "bettingLines": [
       "BUF: Money Line",
       "Tage Thompson: +1 Point",
       "Nikita Kucherov: +1 Point"
     ],
     "correctBettingLines": [
+      1,
       0,
-      0,
-      0
+      1
     ],
-    "correctLines": 0,
+    "correctLines": 2,
     "totalLines": 3
   },
   {
@@ -432,19 +432,19 @@
     "outcome": "WPG, WPG: 1.26191 v SEA: 0.71542      Expected difference: 0.54649, (WPG: 2.10318 v SEA: 1.19237) (WPG: 63.33% , SEA: 36.67%)",
     "startingTime": "19:35:00",
     "timeLastRun": "19:23:41",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.7809,
+    "awayMeanSquaredError": 0.1195,
+    "homeLogLoss": "NaN",
+    "awayLogLoss": 0.3543,
     "bettingLines": [
       "WPG: Money Line",
       "Kyle Connor: +1 Point"
     ],
     "correctBettingLines": [
-      0,
-      0
+      1,
+      1
     ],
-    "correctLines": 0,
+    "correctLines": 2,
     "totalLines": 2
   },
   {
@@ -641,13 +641,13 @@
     "outcome": "SJS, SJS: 0.98656 v CHI: 0.66922      Expected difference: 0.31734, (SJS: 1.64427 v CHI: 1.11537) (SJS: 57.87% , CHI: 42.13%)",
     "startingTime": "22:05:00",
     "timeLastRun": "21:05:29",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.2579,
+    "awayMeanSquaredError": 0.287,
+    "homeLogLoss": 0.4877,
+    "awayLogLoss": 0.5433,
     "bettingLines": "SJS: Money Line",
-    "correctBettingLines": 0,
-    "correctLines": 0,
+    "correctBettingLines": 1,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -832,10 +832,10 @@
     "outcome": "NSH, LAK: 0.57977 v NSH: 1.0758      Expected difference: 0.49603, (LAK: 0.96628 v NSH: 1.793) (LAK: 37.85% , NSH: 62.15%)",
     "startingTime": "22:35:00",
     "timeLastRun": "21:05:32",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.1113,
+    "awayMeanSquaredError": 0.2108,
+    "homeLogLoss": 0.3762,
+    "awayLogLoss": 0.3232,
     "bettingLines": "NSH: Money Line",
     "correctBettingLines": 0,
     "correctLines": 0,
