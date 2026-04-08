@@ -33,7 +33,7 @@
       "Adam Sykora": ["0.2371", "7.96%"],
       "Noah Laba": ["0.0561", "1.94%"],
       "Drew Fortescue": ["0", "0%"],
-      "Gabe Perreault": ["0.1564", "5.33%"]
+      "Gabe Perreault": ["0.1713", "5.82%"]
     },
     "allAwayPoints": {
       "Luke Schenn": ["0.0066", "0.23%"],
@@ -56,7 +56,7 @@
       "Ryan Johnson": ["0", "0%"],
       "Jack Quinn": ["0.2409", "8.08%"],
       "Trevor Kuntar": ["0", "0%"],
-      "Josh Dunne": ["0.0069", "0.24%"],
+      "Josh Dunne": ["0.0077", "0.27%"],
       "Josh Doan": ["0.2527", "8.47%"],
       "Owen Power": ["0.1075", "3.69%"],
       "Tyson Kozak": ["0.014", "0.49%"],
@@ -64,9 +64,9 @@
       "Zach Metsa": ["0.0097", "0.34%"],
       "Konsta Helenius": ["0.07", "2.42%"]
     },
-    "outcome": "BUF, NYR: 0.98437 v BUF: 1.47129      Expected difference: 0.48692, (NYR: 1.64062 v BUF: 2.45215) (NYR: 38.06% , BUF: 61.94%)",
+    "outcome": "BUF, NYR: 0.98958 v BUF: 1.47158      Expected difference: 0.482, (NYR: 1.6493 v BUF: 2.45263) (NYR: 38.18% , BUF: 61.82%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "17:08:18",
+    "timeLastRun": "17:32:57",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
@@ -115,7 +115,7 @@
       "Dylan McIlrath": ["0", "0%"],
       "Tom Wilson": ["0.2133", "7.19%"],
       "Trevor van Riemsdyk": ["0.0035", "0.12%"],
-      "Sonny Milano": ["0.0145", "0.5%"],
+      "Sonny Milano": ["0.0158", "0.55%"],
       "Dylan Strome": ["0.1101", "3.78%"],
       "Anthony Beauvillier": ["0.0644", "2.23%"],
       "Matt Roy": ["0.0094", "0.33%"],
@@ -138,9 +138,9 @@
       "Ryan Leonard": ["0.076", "2.63%"],
       "Cole Hutson": ["0.0728", "2.51%"]
     },
-    "outcome": "TOR, TOR: 1.35252 v WSH: 0.57096      Expected difference: 0.78156, (TOR: 2.2542 v WSH: 0.9516) (TOR: 68.6% , WSH: 31.4%)",
+    "outcome": "TOR, TOR: 1.35252 v WSH: 0.57144      Expected difference: 0.78108, (TOR: 2.2542 v WSH: 0.9524) (TOR: 68.59% , WSH: 31.41%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "17:08:20",
+    "timeLastRun": "17:33:00",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
@@ -208,11 +208,11 @@
       "Matt Savoie": ["0.0915", "3.15%"],
       "Josh Samanski": ["0.0022", "0.08%"],
       "Connor Clattenburg": ["0.0187", "0.65%"],
-      "Quinn Hutson": ["0.0325", "1.13%"]
+      "Quinn Hutson": ["0.0303", "1.05%"]
     },
-    "outcome": "EDM, SJS: 0.60149 v EDM: 0.8431      Expected difference: 0.24161, (SJS: 1.00248 v EDM: 1.40517) (SJS: 43.99% , EDM: 56.01%)",
+    "outcome": "EDM, SJS: 0.60149 v EDM: 0.84234      Expected difference: 0.24085, (SJS: 1.00248 v EDM: 1.4039) (SJS: 44.01% , EDM: 55.99%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "17:08:22",
+    "timeLastRun": "17:33:03",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
