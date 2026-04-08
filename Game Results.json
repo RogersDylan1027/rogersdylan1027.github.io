@@ -12,7 +12,7 @@
       "Mika Zibanejad": ["0.6273", "19.71%"],
       "Anton Blidh": ["0", "0%"],
       "Jonny Brodzinski": ["0.0676", "2.34%"],
-      "Conor Sheary": ["0.0664", "2.3%"],
+      "Conor Sheary": ["0.0747", "2.58%"],
       "Will Borgen": ["0.0375", "1.3%"],
       "Vladislav Gavrikov": ["0.1498", "5.11%"],
       "Adam Fox": ["0.1947", "6.59%"],
@@ -33,7 +33,7 @@
       "Adam Sykora": ["0.2371", "7.96%"],
       "Noah Laba": ["0.0561", "1.94%"],
       "Drew Fortescue": ["0", "0%"],
-      "Gabe Perreault": ["0.1563", "5.32%"]
+      "Gabe Perreault": ["0.1713", "5.82%"]
     },
     "allAwayPoints": {
       "Luke Schenn": ["0.0066", "0.23%"],
@@ -64,9 +64,9 @@
       "Zach Metsa": ["0.0097", "0.34%"],
       "Konsta Helenius": ["0.07", "2.42%"]
     },
-    "outcome": "BUF, NYR: 0.98451 v BUF: 1.47124      Expected difference: 0.48673, (NYR: 1.64085 v BUF: 2.45207) (NYR: 38.07% , BUF: 61.93%)",
+    "outcome": "BUF, NYR: 0.99266 v BUF: 1.47124      Expected difference: 0.47858, (NYR: 1.65443 v BUF: 2.45207) (NYR: 38.26% , BUF: 61.74%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "14:47:49",
+    "timeLastRun": "14:56:37",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
@@ -140,7 +140,7 @@
     },
     "outcome": "TOR, TOR: 1.35245 v WSH: 0.57081      Expected difference: 0.78164, (TOR: 2.25408 v WSH: 0.95135) (TOR: 68.6% , WSH: 31.4%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "14:47:52",
+    "timeLastRun": "14:56:39",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
@@ -208,11 +208,11 @@
       "Matt Savoie": ["0.0915", "3.15%"],
       "Josh Samanski": ["0.0022", "0.08%"],
       "Connor Clattenburg": ["0.0187", "0.65%"],
-      "Quinn Hutson": ["0.0303", "1.05%"]
+      "Quinn Hutson": ["0.0325", "1.13%"]
     },
-    "outcome": "EDM, SJS: 0.60132 v EDM: 0.84223      Expected difference: 0.24091, (SJS: 1.0022 v EDM: 1.40372) (SJS: 44.01% , EDM: 55.99%)",
+    "outcome": "EDM, SJS: 0.60132 v EDM: 0.84299      Expected difference: 0.24167, (SJS: 1.0022 v EDM: 1.40498) (SJS: 43.99% , EDM: 56.01%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "14:47:54",
+    "timeLastRun": "14:56:41",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
