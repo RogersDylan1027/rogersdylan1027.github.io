@@ -229,19 +229,19 @@
     "outcome": "BUF, NYR: 0.98437 v BUF: 1.47129      Expected difference: 0.48692, (NYR: 1.64062 v BUF: 2.45215) (NYR: 38.06% , BUF: 61.94%)",
     "startingTime": "19:05:00",
     "timeLastRun": "18:27:02",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.2926,
+    "awayMeanSquaredError": 0.5184,
+    "homeLogLoss": "Inf",
+    "awayLogLoss": "NaN",
     "bettingLines": [
       "BUF: Money Line",
       "Tage Thompson: +1 Point"
     ],
     "correctBettingLines": [
-      0,
-      0
+      1,
+      1
     ],
-    "correctLines": 0,
+    "correctLines": 2,
     "totalLines": 2
   },
   {
@@ -462,10 +462,10 @@
     "outcome": "TOR, TOR: 1.35252 v WSH: 0.35259      Expected difference: 0.99993, (TOR: 2.2542 v WSH: 0.58765) (TOR: 73.1% , WSH: 26.9%)",
     "startingTime": "19:35:00",
     "timeLastRun": "19:27:55",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.0948,
+    "awayMeanSquaredError": 0.501,
+    "homeLogLoss": "NaN",
+    "awayLogLoss": 1.2661,
     "bettingLines": [
       "TOR: Money Line",
       "Auston Matthews: +1 Point"
@@ -687,19 +687,19 @@
     "outcome": "SJS, SJS: 1.29836 v EDM: 0.84234      Expected difference: 0.45602, (SJS: 2.16393 v EDM: 1.4039) (SJS: 61.21% , EDM: 38.79%)",
     "startingTime": "22:05:00",
     "timeLastRun": "20:55:58",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.142,
+    "awayMeanSquaredError": 1.1281,
+    "homeLogLoss": "NaN",
+    "awayLogLoss": 0.2723,
     "bettingLines": [
       "SJS: Money Line",
       "Macklin Celebrini: +1 Point"
     ],
     "correctBettingLines": [
       0,
-      0
+      1
     ],
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 2
   }
 ]
