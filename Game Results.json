@@ -894,7 +894,7 @@
   {
     "homeABV": "ANA",
     "awayABV": "VAN",
-    "homeGoalie": {},
+    "homeGoalie": "ANA: Lukas Dostal",
     "awayGoalie": "VAN: Nikita Tolopilo",
     "homeScorers": {},
     "awayScorers": {},
@@ -902,6 +902,7 @@
       "Alex Killorn": ["0.0537", "1.86%"],
       "John Carlson": ["0.0742", "2.56%"],
       "Chris Kreider": ["0.0985", "3.39%"],
+      "Radko Gudas": ["0.0051", "0.18%"],
       "Mikael Granlund": ["0.1143", "3.92%"],
       "Jacob Trouba": ["0.0377", "1.31%"],
       "Frank Vatrano": ["0.0461", "1.6%"],
@@ -916,10 +917,11 @@
       "Mason McTavish": ["0.0716", "2.47%"],
       "Olen Zellweger": ["0.0278", "0.97%"],
       "Nathan Gaucher": ["0", "0%"],
+      "Cutter Gauthier": ["0.2184", "7.36%"],
       "Pavel Mintyukov": ["0.0192", "0.67%"],
       "Leo Carlsson": ["0.145", "4.95%"],
       "Beckett Sennecke": ["0.1171", "4.02%"],
-      "Tim Washe": ["0.0057", "0.2%"]
+      "Tim Washe": ["0.005", "0.17%"]
     },
     "allAwayPoints": {
       "Joseph LaBate": ["0", "0%"],
@@ -948,9 +950,9 @@
       "Zeev Buium": ["0.0104", "0.36%"],
       "Braeden Cootes": ["0", "0%"]
     },
-    "outcome": "ANA, ANA: 0.37717 v VAN: 0.21969      Expected difference: 0.15748, (ANA: 0.62862 v VAN: 0.36615) (ANA: 53.93% , VAN: 46.07%)",
+    "outcome": "ANA, ANA: 0.45512 v VAN: 0.21969      Expected difference: 0.23543, (ANA: 0.75853 v VAN: 0.36615) (ANA: 55.86% , VAN: 44.14%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "19:22:19",
+    "timeLastRun": "19:59:24",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
@@ -1026,7 +1028,7 @@
     },
     "outcome": "UTA, CGY: 0.38464 v UTA: 0.44059      Expected difference: 0.0559500000000001, (CGY: 0.64107 v UTA: 0.73432) (CGY: 48.6% , UTA: 51.4%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "19:22:22",
+    "timeLastRun": "19:59:27",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
