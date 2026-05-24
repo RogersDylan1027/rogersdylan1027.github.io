@@ -1,0 +1,28 @@
+---
+title: "Tic-Tac-Toe"
+---
+
+## About the Game
+
+This is a Tic-Tac-Toe game I built using Processing. The player can play against the computer and switch between different difficulty levels.
+
+## How to Play
+
+Click on an open square to place your move.
+
+### Controls
+
+- Press **E** for easy mode
+- Press **H** for hard mode
+- Press **R** to reset the game
+
+## Play the Game
+
+```{=html}
+<iframe 
+  src="./index.html"
+  width="700"
+  height="750"
+  style="border: 1px solid #ddd; border-radius: 10px;">
+</iframe>
+```

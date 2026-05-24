@@ -1,0 +1,11 @@
+---
+title: "Game Simulator"
+format: html
+---
+
+<iframe 
+  src="https://rogersdylan1027.shinyapps.io/NHL-Game-Simulator/" 
+  width="100%" 
+  height="900px" 
+  style="border: none;">
+</iframe>

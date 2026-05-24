@@ -3,9 +3,9 @@ title: "About"
 
 about: 
   template: trestles  # jolla  trestles  solana  marquee  broadside
-  #image: img/profile.png
-  #image-width: 16em
-  #image-shape: rounded # rectangle  round  rounded
+  image: Pictures/Senior Photo.png
+  image-width: 16em
+  image-shape: rounded # rectangle  round  rounded
     
   links:
     - icon: linkedin

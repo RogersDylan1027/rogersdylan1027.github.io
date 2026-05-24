@@ -1,19 +1,5 @@
 [
   {
-    "objectID": "projects.html",
-    "href": "projects.html",
-    "title": "Dylan Rogers",
-    "section": "",
-    "text": "Tic-Tac-Toe"
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "Dylan Rogers majors in Mathematics and minors in Data Analytics at SUNY Geneseo. When not working on math or data analytics, Dylan enjoys spending time skiing and snowboarding with his friends.\n\nEducation\nState University of New York at Geneseo | Geneseo, NY  B.A. in Mathematics | Aug 2022 - May 2026  Minor in Data Analytics"
-  },
-  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Home",
@@ -21,10 +7,38 @@
     "text": "This is my new Quarto website, powered by RStudio and GitHub Pages."
   },
   {
-    "objectID": "index.html#hello",
-    "href": "index.html#hello",
-    "title": "Welcome to My Site",
+    "objectID": "Projects/Processing/TicTacToe/TicTacToe.html",
+    "href": "Projects/Processing/TicTacToe/TicTacToe.html",
+    "title": "Tic-Tac-Toe",
     "section": "",
-    "text": "This is my new Quarto website, powered by RStudio and GitHub Pages."
+    "text": "This is a Tic-Tac-Toe game I built using Processing. The player can play against the computer and switch between different difficulty levels."
+  },
+  {
+    "objectID": "Projects/Processing/TicTacToe/TicTacToe.html#about-the-game",
+    "href": "Projects/Processing/TicTacToe/TicTacToe.html#about-the-game",
+    "title": "Tic-Tac-Toe",
+    "section": "",
+    "text": "This is a Tic-Tac-Toe game I built using Processing. The player can play against the computer and switch between different difficulty levels."
+  },
+  {
+    "objectID": "Projects/Processing/TicTacToe/TicTacToe.html#how-to-play",
+    "href": "Projects/Processing/TicTacToe/TicTacToe.html#how-to-play",
+    "title": "Tic-Tac-Toe",
+    "section": "How to Play",
+    "text": "How to Play\nClick on an open square to place your move.\n\nControls\n\nPress E for easy mode\nPress H for hard mode\nPress R to reset the game"
+  },
+  {
+    "objectID": "Projects/Processing/TicTacToe/TicTacToe.html#play-the-game",
+    "href": "Projects/Processing/TicTacToe/TicTacToe.html#play-the-game",
+    "title": "Tic-Tac-Toe",
+    "section": "Play the Game",
+    "text": "Play the Game"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "Dylan Rogers majors in Mathematics and minors in Data Analytics at SUNY Geneseo. When not working on math or data analytics, Dylan enjoys spending time skiing and snowboarding with his friends.\n\nEducation\nState University of New York at Geneseo | Geneseo, NY  B.A. in Mathematics | Aug 2022 - May 2026  Minor in Data Analytics"
   }
 ]

@@ -15,8 +15,12 @@ website:
       - text: About
         href: about.qmd
         
-      #- text: Projects
-      #  href: projects.qmd
+      - text: Projects
+        menu: 
+          # - text: Tic-Tac-Toe
+          #   href: Projects/Processing/TicTacToe/TicTacToe.qmd
+          - text: NHL Game Simulator
+            href: Game_Simulator.qmd
 
   page-footer: 
       center: "Powered with GitHub, and RStudio<br>© Dylan Rogers, 2025"
