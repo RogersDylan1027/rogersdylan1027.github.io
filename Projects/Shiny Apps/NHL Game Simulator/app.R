@@ -605,25 +605,28 @@ ui <- fluidPage(
 
       .defense-grid {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, minmax(0, 31.5%));
+        justify-content: center;
         gap: 20px;
         margin-top: 20px;
       }
 
       .goalie-grid {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, minmax(0, 31.5%));
+        justify-content: center;
         gap: 20px;
         margin-top: 25px;
       }
 
       .jersey-slot {
+        position: relative;
         background-color: #e0e0e0;
         border: 2px dashed #999;
-        border-radius: 12px;
-        min-height: 140px;
+        border-radius: 18px 18px 10px 10px;
+        min-height: 150px;
         width: 100%;
-        white-space: normal;
+        white-space: normal;  
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -632,6 +635,38 @@ ui <- fluidPage(
         font-weight: bold;
         text-align: center;
         transition: 0.2s;
+        clip-path: polygon(
+          18% 0%,
+          82% 0%,
+          100% 22%,
+          88% 40%,
+          88% 100%,
+          12% 100%,
+          12% 40%,
+          0% 22%
+        );
+      }
+      
+      .jersey-slot::before {
+        content: '';
+        position: absolute;
+        top: 0px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 42px;
+        height: 22px;
+        background-color: white;
+        border-radius: 0 0 22px 22px;
+        border-left: 2px dashed #999;
+        border-right: 2px dashed #999;
+        border-bottom: 2px dashed #999;
+        z-index: 1;
+      }
+      
+      .jersey-slot .slot-position,
+      .jersey-slot .slot-player {
+        position: relative;
+        z-index: 2;
       }
 
       .jersey-slot:hover {
@@ -795,7 +830,7 @@ server <- function(input, output, session) {
             id = paste0(side, "_custom_team_name"),
             type = "text",
             value = customRosterNames[[side]],
-            placeholder = "Example: Dylan All Stars",
+            placeholder = "Example: Baltimore Bandits",
             class = "form-control",
             style = "width: 300px; margin: 0 auto; text-align: center;"
           )
