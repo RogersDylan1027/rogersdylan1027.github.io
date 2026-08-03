@@ -470,6 +470,12 @@
       border-radius: 50%;
     }
 
+    .calendar-event-pill.event-ended .calendar-event-title,
+    .calendar-event-pill.event-ended .calendar-event-time {
+      text-decoration: line-through;
+      opacity: 0.72;
+    }
+
     /*
       GOOGLE SEARCH
     */
@@ -2023,6 +2029,45 @@
       return new Date(0);
     }
 
+    /*
+      Returns an event's end as a Date.
+      Google all-day event end dates are exclusive.
+    */
+    function getGoogleEventEnd(event) {
+      if (event.end?.dateTime) {
+        return new Date(event.end.dateTime);
+      }
+
+      if (event.end?.date) {
+        return new Date(
+          event.end.date +
+          "T00:00:00"
+        );
+      }
+
+      return getGoogleEventStart(event);
+    }
+
+    /*
+      Determines whether an event has ended,
+      is in progress, or is upcoming.
+    */
+    function getGoogleEventStatus(event) {
+      const now = new Date();
+      const start = getGoogleEventStart(event);
+      const end = getGoogleEventEnd(event);
+
+      if (now >= end) {
+        return "ended";
+      }
+
+      if (now >= start && now < end) {
+        return "in-progress";
+      }
+
+      return "upcoming";
+    }
+
     function isGoogleEventAllDay(event) {
       return Boolean(
         event.start?.date &&
@@ -2090,12 +2135,25 @@
           "noopener noreferrer";
       }
 
+      const eventStatus =
+        getGoogleEventStatus(event);
+
+      const statusColors = {
+        ended: "#d93025",
+        "in-progress": "#f9ab00",
+        upcoming: "#188038"
+      };
+
+      element.classList.add(
+        "event-" + eventStatus
+      );
+
       const dot =
         document.createElement("span");
 
       dot.className = "event-dot";
       dot.style.backgroundColor =
-        event.calendarColor;
+        statusColors[eventStatus];
 
       const text =
         document.createElement("span");
