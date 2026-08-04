@@ -1226,35 +1226,40 @@
 
     </section>
 
-    <!-- Google search bar -->
+    <!-- Address-style search bar -->
     <section class="search-section">
 
       <form
+        id="smart-search-form"
         class="google-search-form"
-        action="https://www.google.com/search"
-        method="get"
-        target="_blank"
+        autocomplete="off"
       >
 
-        <div class="google-logo">
-          G
+        <div class="google-logo" aria-hidden="true">
+          ⌕
         </div>
 
         <input
+          id="smart-search-input"
           class="google-search-input"
-          type="search"
-          name="q"
-          placeholder="Search Google"
-          aria-label="Search Google"
+          type="text"
+          inputmode="url"
+          enterkeyhint="go"
+          placeholder="Search Google or enter a URL"
+          aria-label="Search Google or enter a website address"
+          autocomplete="off"
+          autocapitalize="none"
+          spellcheck="false"
           required
         >
 
         <button
           class="google-search-button"
           type="submit"
-          aria-label="Submit Google search"
+          aria-label="Go"
+          title="Go"
         >
-          🔍
+          ➜
         </button>
 
       </form>
@@ -1330,10 +1335,23 @@
       currentUserEmail.textContent = "";
     }
 
+    function focusSmartSearch() {
+      const searchInput = document.getElementById("smart-search-input");
+
+      if (!searchInput) return;
+
+      // Wait until the protected dashboard has become visible.
+      window.setTimeout(function () {
+        searchInput.focus({ preventScroll: false });
+        searchInput.select();
+      }, 100);
+    }
+
     function showLoggedInView(user) {
       authScreen.hidden = true;
       dashboardApp.hidden = false;
       currentUserEmail.textContent = user?.email || "Account";
+      focusSmartSearch();
     }
 
     function getAuthCredentials() {
@@ -3087,6 +3105,68 @@
 
       saveDashboardTitle();
     }
+
+    /*
+      Makes the search field behave like a browser address bar.
+      Website-looking entries open directly; everything else is
+      sent to Google Search in the current tab.
+    */
+    function looksLikeWebsiteAddress(value) {
+      const text = value.trim();
+
+      if (!text || /\s/.test(text)) {
+        return false;
+      }
+
+      if (/^[a-z][a-z0-9+.-]*:\/\//i.test(text)) {
+        return true;
+      }
+
+      if (/^localhost(?::\d+)?(?:[\/?#]|$)/i.test(text)) {
+        return true;
+      }
+
+      if (/^(?:\d{1,3}\.){3}\d{1,3}(?::\d+)?(?:[\/?#]|$)/.test(text)) {
+        return true;
+      }
+
+      return /^(?:[a-z0-9-]+\.)+[a-z]{2,}(?::\d+)?(?:[\/?#]|$)/i.test(text);
+    }
+
+    function createDestinationFromSearch(value) {
+      const text = value.trim();
+
+      if (looksLikeWebsiteAddress(text)) {
+        if (/^[a-z][a-z0-9+.-]*:\/\//i.test(text)) {
+          return text;
+        }
+
+        return "https://" + text;
+      }
+
+      return "https://www.google.com/search?q=" +
+        encodeURIComponent(text);
+    }
+
+    document
+      .getElementById("smart-search-form")
+      .addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const searchInput =
+          document.getElementById("smart-search-input");
+
+        const value = searchInput.value.trim();
+
+        if (!value) {
+          searchInput.focus();
+          return;
+        }
+
+        window.location.assign(
+          createDestinationFromSearch(value)
+        );
+      });
 
     window.addEventListener(
       "resize",
