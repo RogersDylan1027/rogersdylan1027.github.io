@@ -11,6 +11,8 @@
 
   <title>Dylan's Dashboard</title>
 
+  <!-- Clean persistent Google connection build: 2026-08-06 -->
+
   <meta
     name="description"
     content="Dylan's personal dashboard for apps, services, files, and tools."
@@ -20,13 +22,6 @@
     name="theme-color"
     content="#f7f8fa"
   >
-
-  <!-- Google Identity Services for Calendar authorization -->
-  <script
-    src="https://accounts.google.com/gsi/client"
-    async
-    defer
-  ></script>
 
   <!-- Supabase client for dashboard accounts -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -527,6 +522,12 @@
     .calendar-action-button.secondary {
       background-color: white;
       color: #2450a4;
+    }
+
+    .calendar-action-button.danger {
+      background-color: white;
+      border-color: #b3261e;
+      color: #b3261e;
     }
 
     .calendar-action-button:hover {
@@ -1137,7 +1138,7 @@
               class="calendar-action-button"
               type="button"
             >
-              Connect Google Calendar
+              Connect Google Account
             </button>
 
             <button
@@ -1149,6 +1150,15 @@
               Refresh
             </button>
 
+            <button
+              id="calendar-disconnect-button"
+              class="calendar-action-button danger"
+              type="button"
+              hidden
+            >
+              Disconnect
+            </button>
+
           </div>
 
           <p
@@ -1157,7 +1167,7 @@
             role="status"
             aria-live="polite"
           >
-            Connect to show events from your selected Google calendars.
+            Connect Google to keep Calendar available across your devices.
           </p>
 
         </div>
@@ -1243,7 +1253,7 @@
           id="smart-search-input"
           class="google-search-input"
           type="text"
-          inputmode="url"
+          inputmode="text"
           enterkeyhint="go"
           placeholder="Search Google or enter a URL"
           aria-label="Search Google or enter a website address"
@@ -1503,7 +1513,7 @@
       logoutButton.disabled = true;
 
       try {
-        const { error } = await supabaseClient.auth.signOut();
+        const { error } = await supabaseClient.auth.signOut({ scope: "local" });
         if (error) throw error;
 
         authEmail.value = "";
@@ -1533,6 +1543,8 @@
     });
 
     supabaseClient.auth.onAuthStateChange(function (event, session) {
+      cacheGoogleProviderTokens(session);
+
       if (event === "PASSWORD_RECOVERY") {
         authScreen.hidden = false;
         dashboardApp.hidden = true;
@@ -1544,8 +1556,15 @@
 
       if (session?.user) {
         showLoggedInView(session.user);
+
+        setTimeout(async function () {
+          await captureGoogleProviderTokens(session);
+          await checkGoogleConnectionStatus();
+        }, 0);
       } else {
+        clearCachedGoogleProviderTokens();
         showLoggedOutView();
+        resetGoogleConnectionView();
       }
     });
 
@@ -1556,8 +1575,11 @@
 
         if (data.session?.user) {
           showLoggedInView(data.session.user);
+          await captureGoogleProviderTokens(data.session);
+          await checkGoogleConnectionStatus();
         } else {
           showLoggedOutView();
+          resetGoogleConnectionView();
         }
       } catch (error) {
         console.error("Session initialization error:", error);
@@ -1569,19 +1591,24 @@
     initializeDashboardAuth();
 
     /*
-      GOOGLE CALENDAR CONNECTION
+      PERSISTENT GOOGLE CONNECTION
 
-      A Google OAuth client ID is safe to include in
-      browser code. Never place a client secret here.
+      Google is linked to the signed-in Supabase user.
+      The Edge Function stores and refreshes Google tokens
+      securely, so no Google secret is placed in this file.
     */
-    const GOOGLE_CLIENT_ID =
-      "972145545090-nel3iq29ctpcgget4hl3sacbppstmjfd.apps.googleusercontent.com";
-
     const GOOGLE_CALENDAR_SCOPE =
       "https://www.googleapis.com/auth/calendar.readonly";
 
-    let googleCalendarTokenClient = null;
-    let googleCalendarAccessToken = "";
+    const GOOGLE_OAUTH_SCOPES =
+      "openid email profile " + GOOGLE_CALENDAR_SCOPE;
+
+    const GOOGLE_PROVIDER_TOKEN_KEY = "dashboard-google-provider-token";
+    const GOOGLE_PROVIDER_REFRESH_TOKEN_KEY = "dashboard-google-provider-refresh-token";
+    const GOOGLE_LINK_PENDING_KEY = "dashboard-google-link-pending";
+
+    let googleConnectionChecked = false;
+    let googleConnectionSaving = false;
 
     /*
       DASHBOARD TILE INFORMATION
@@ -2200,307 +2227,289 @@
       );
     }
 
-    /*
-      Initializes the Google Identity Services
-      token client after Google's script loads.
-    */
-    function initializeGoogleCalendarConnection() {
-      if (
-        googleCalendarTokenClient ||
-        !window.google ||
-        !google.accounts ||
-        !google.accounts.oauth2
-      ) {
-        return Boolean(
-          googleCalendarTokenClient
-        );
-      }
-
-      googleCalendarTokenClient =
-        google.accounts.oauth2.initTokenClient({
-          client_id: GOOGLE_CLIENT_ID,
-          scope: GOOGLE_CALENDAR_SCOPE,
-          callback: handleGoogleCalendarToken
-        });
-
-      document
-        .getElementById(
-          "calendar-connect-button"
-        )
-        .disabled = false;
-
-      return true;
+    function currentDashboardUrl() {
+      return window.location.origin + window.location.pathname;
     }
 
-    /*
-      Waits briefly for the asynchronously loaded
-      Google Identity Services library.
-    */
-    function waitForGoogleCalendarLibrary() {
-      const connectButton =
-        document.getElementById(
-          "calendar-connect-button"
-        );
+    function resetGoogleConnectionView() {
+      const connectButton = document.getElementById("calendar-connect-button");
+      const refreshButton = document.getElementById("calendar-refresh-button");
+      const disconnectButton = document.getElementById("calendar-disconnect-button");
+      const status = document.getElementById("calendar-connection-status");
 
-      connectButton.disabled = true;
+      connectButton.hidden = false;
+      connectButton.disabled = false;
+      connectButton.textContent = "Connect Google Account";
+      refreshButton.hidden = true;
+      refreshButton.disabled = false;
+      disconnectButton.hidden = true;
+      disconnectButton.disabled = false;
+      status.textContent = "Connect Google to keep Calendar available across your devices.";
+      googleConnectionChecked = false;
+      showCalendarMessageForAllDays("No Google account connected");
+    }
 
-      let attempts = 0;
+    function setGoogleConnectedView(email) {
+      const connectButton = document.getElementById("calendar-connect-button");
+      const refreshButton = document.getElementById("calendar-refresh-button");
+      const disconnectButton = document.getElementById("calendar-disconnect-button");
+      const status = document.getElementById("calendar-connection-status");
 
-      const libraryCheck = setInterval(
-        function () {
-          attempts += 1;
+      connectButton.hidden = true;
+      refreshButton.hidden = false;
+      disconnectButton.hidden = false;
+      status.textContent = email
+        ? "Connected as " + email
+        : "Google account connected";
+      googleConnectionChecked = true;
+    }
 
-          if (
-            initializeGoogleCalendarConnection()
-          ) {
-            clearInterval(libraryCheck);
-            return;
+    async function invokeGoogleCalendarFunction(body) {
+      const { data: sessionData, error: sessionError } =
+        await supabaseClient.auth.getSession();
+
+      if (sessionError || !sessionData.session?.access_token) {
+        throw new Error("Your dashboard session expired. Log in again.");
+      }
+
+      const { data, error } =
+        await supabaseClient.functions.invoke(
+          "google-calendar",
+          {
+            body,
+            headers: {
+              Authorization:
+                "Bearer " + sessionData.session.access_token
+            }
           }
-
-          if (attempts >= 40) {
-            clearInterval(libraryCheck);
-            connectButton.disabled = false;
-
-            document
-              .getElementById(
-                "calendar-connection-status"
-              )
-              .textContent =
-                "Google sign-in could not load. Refresh the page and try again.";
-          }
-        },
-        250
-      );
-    }
-
-    /*
-      Starts Google's popup authorization flow.
-    */
-    function connectGoogleCalendar() {
-      const status =
-        document.getElementById(
-          "calendar-connection-status"
         );
 
-      if (
-        !initializeGoogleCalendarConnection()
-      ) {
-        status.textContent =
-          "Google sign-in is still loading. Try again in a moment.";
-        return;
-      }
-
-      status.textContent =
-        "Waiting for Google authorization...";
-
-      googleCalendarTokenClient.requestAccessToken({
-        prompt: googleCalendarAccessToken
-          ? ""
-          : "consent"
-      });
-    }
-
-    /*
-      Receives Google's temporary access token.
-    */
-    async function handleGoogleCalendarToken(response) {
-      const status =
-        document.getElementById(
-          "calendar-connection-status"
-        );
-
-      if (response.error) {
-        status.textContent =
-          "Google Calendar was not connected.";
-
-        console.error(response);
-        return;
-      }
-
-      googleCalendarAccessToken =
-        response.access_token;
-
-      document
-        .getElementById(
-          "calendar-connect-button"
-        )
-        .textContent =
-          "Reconnect Calendar";
-
-      document
-        .getElementById(
-          "calendar-refresh-button"
-        )
-        .hidden = false;
-
-      await loadGoogleCalendarEvents();
-    }
-
-    /*
-      Makes an authorized request to a Google API.
-    */
-    async function fetchGoogleCalendarJson(url) {
-      const response = await fetch(url, {
-        headers: {
-          Authorization:
-            "Bearer " +
-            googleCalendarAccessToken
-        }
-      });
-
-      if (response.status === 401) {
-        googleCalendarAccessToken = "";
-
-        throw new Error(
-          "Your Google connection expired. Press Reconnect Calendar."
-        );
-      }
-
-      if (!response.ok) {
-        let message =
-          "Google Calendar request failed.";
+      if (error) {
+        let message = error.message || "The Google request failed.";
 
         try {
-          const errorData =
-            await response.json();
-
-          message =
-            errorData.error?.message ||
-            message;
-        } catch (error) {
-          // Use the general message above.
+          const responseBody = await error.context?.json();
+          if (responseBody?.error) message = responseBody.error;
+        } catch (parseError) {
+          // Use the message already available.
         }
 
         throw new Error(message);
       }
 
-      return response.json();
-    }
-
-    /*
-      Loads the user's visible calendar list and
-      combines events from selected calendars.
-    */
-    async function loadGoogleCalendarEvents() {
-      const status =
-        document.getElementById(
-          "calendar-connection-status"
-        );
-
-      const refreshButton =
-        document.getElementById(
-          "calendar-refresh-button"
-        );
-
-      if (!googleCalendarAccessToken) {
-        status.textContent =
-          "Press Connect Google Calendar first.";
-        return;
+      if (data?.error) {
+        throw new Error(data.error);
       }
 
-      refreshButton.disabled = true;
-      status.textContent =
-        "Loading calendar events...";
+      return data;
+    }
 
-      showCalendarMessageForAllDays(
-        "Loading events..."
-      );
+    function cacheGoogleProviderTokens(session) {
+      if (session?.provider_token) {
+        sessionStorage.setItem(
+          GOOGLE_PROVIDER_TOKEN_KEY,
+          session.provider_token
+        );
+      }
+
+      if (session?.provider_refresh_token) {
+        sessionStorage.setItem(
+          GOOGLE_PROVIDER_REFRESH_TOKEN_KEY,
+          session.provider_refresh_token
+        );
+      }
+    }
+
+    function clearCachedGoogleProviderTokens() {
+      sessionStorage.removeItem(GOOGLE_PROVIDER_TOKEN_KEY);
+      sessionStorage.removeItem(GOOGLE_PROVIDER_REFRESH_TOKEN_KEY);
+      localStorage.removeItem(GOOGLE_LINK_PENDING_KEY);
+    }
+
+    async function captureGoogleProviderTokens(session) {
+      cacheGoogleProviderTokens(session);
+
+      if (googleConnectionSaving) {
+        return false;
+      }
+
+      const providerToken =
+        session?.provider_token ||
+        sessionStorage.getItem(GOOGLE_PROVIDER_TOKEN_KEY);
+
+      const providerRefreshToken =
+        session?.provider_refresh_token ||
+        sessionStorage.getItem(GOOGLE_PROVIDER_REFRESH_TOKEN_KEY);
+
+      if (!providerToken || !providerRefreshToken) {
+        if (localStorage.getItem(GOOGLE_LINK_PENDING_KEY) === "true") {
+          document.getElementById("calendar-connection-status").textContent =
+            "Google returned without a refresh token. Remove this app from your Google Account connections, then press Connect Google Account once more.";
+        }
+        return false;
+      }
+
+      googleConnectionSaving = true;
 
       try {
-        const calendarListUrl =
-          "https://www.googleapis.com/calendar/v3/users/me/calendarList" +
-          "?minAccessRole=reader" +
-          "&showHidden=false" +
-          "&maxResults=250";
+        const result = await invokeGoogleCalendarFunction({
+          action: "save",
+          providerToken,
+          providerRefreshToken
+        });
 
-        const calendarList =
-          await fetchGoogleCalendarJson(
-            calendarListUrl
-          );
+        clearCachedGoogleProviderTokens();
+        setGoogleConnectedView(result.googleEmail);
+        history.replaceState({}, document.title, currentDashboardUrl());
+        await loadGoogleCalendarEvents();
+        return true;
+      } catch (error) {
+        console.error("Google token save error:", error);
+        document.getElementById("calendar-connection-status").textContent =
+          error.message || "Google connected, but its access could not be saved.";
+        return false;
+      } finally {
+        googleConnectionSaving = false;
+      }
+    }
 
-        const calendars =
-          (calendarList.items || [])
-            .filter(function (calendar) {
-              return calendar.selected !== false;
-            });
+    async function connectGoogleAccount() {
+      const status = document.getElementById("calendar-connection-status");
+      const button = document.getElementById("calendar-connect-button");
 
-        const rangeStart =
-          getLocalDayStart(0);
+      button.disabled = true;
+      status.textContent = "Opening Google authorization...";
+      localStorage.setItem(GOOGLE_LINK_PENDING_KEY, "true");
 
-        const rangeEnd =
-          getLocalDayStart(3);
-
-        const eventRequests =
-          calendars.map(
-            async function (calendar) {
-              const eventUrl =
-                "https://www.googleapis.com/calendar/v3/calendars/" +
-                encodeURIComponent(calendar.id) +
-                "/events" +
-                "?timeMin=" +
-                encodeURIComponent(
-                  rangeStart.toISOString()
-                ) +
-                "&timeMax=" +
-                encodeURIComponent(
-                  rangeEnd.toISOString()
-                ) +
-                "&singleEvents=true" +
-                "&orderBy=startTime" +
-                "&maxResults=100";
-
-              const eventData =
-                await fetchGoogleCalendarJson(
-                  eventUrl
-                );
-
-              return (eventData.items || [])
-                .filter(function (event) {
-                  return event.status !== "cancelled";
-                })
-                .map(function (event) {
-                  return {
-                    ...event,
-                    calendarName:
-                      calendar.summary ||
-                      "Calendar",
-                    calendarColor:
-                      calendar.backgroundColor ||
-                      "#4285f4"
-                  };
-                });
+      try {
+        const { data, error } =
+          await supabaseClient.auth.linkIdentity({
+            provider: "google",
+            options: {
+              redirectTo: currentDashboardUrl(),
+              scopes: GOOGLE_OAUTH_SCOPES,
+              queryParams: {
+                access_type: "offline",
+                prompt: "consent",
+                include_granted_scopes: "true"
+              },
+              skipBrowserRedirect: true
             }
-          );
+          });
 
-        const eventGroups =
-          await Promise.all(eventRequests);
+        if (error) throw error;
+        if (!data?.url) {
+          throw new Error("Google did not provide an authorization URL.");
+        }
 
-        const events =
-          eventGroups
-            .flat()
-            .sort(function (first, second) {
-              return getGoogleEventStart(first) -
-                getGoogleEventStart(second);
+        window.location.assign(data.url);
+      } catch (error) {
+        console.error("Google linking error:", error);
+        localStorage.removeItem(GOOGLE_LINK_PENDING_KEY);
+        button.disabled = false;
+        status.textContent =
+          error.message || "Google could not be connected.";
+      }
+    }
+
+    async function checkGoogleConnectionStatus() {
+      const status = document.getElementById("calendar-connection-status");
+
+      try {
+        const result = await invokeGoogleCalendarFunction({
+          action: "status"
+        });
+
+        if (result.connected) {
+          setGoogleConnectedView(result.googleEmail);
+          await loadGoogleCalendarEvents();
+        } else {
+          resetGoogleConnectionView();
+        }
+      } catch (error) {
+        console.error("Google status error:", error);
+        status.textContent =
+          error.message || "Google connection status could not be checked.";
+      }
+    }
+
+    async function disconnectGoogleAccount() {
+      const disconnectButton = document.getElementById("calendar-disconnect-button");
+      const status = document.getElementById("calendar-connection-status");
+
+      disconnectButton.disabled = true;
+      status.textContent = "Disconnecting Google...";
+
+      try {
+        await invokeGoogleCalendarFunction({ action: "disconnect" });
+
+        const { data, error } =
+          await supabaseClient.auth.getUserIdentities();
+
+        if (!error) {
+          const googleIdentity =
+            data?.identities?.find(function (identity) {
+              return identity.provider === "google";
             });
+
+          if (googleIdentity) {
+            const { error: unlinkError } =
+              await supabaseClient.auth.unlinkIdentity(googleIdentity);
+
+            if (unlinkError) {
+              console.warn("Google identity unlink warning:", unlinkError);
+            }
+          }
+        }
+
+        clearCachedGoogleProviderTokens();
+        resetGoogleConnectionView();
+        status.textContent = "Google account disconnected from this dashboard account.";
+      } catch (error) {
+        console.error("Google disconnect error:", error);
+        status.textContent =
+          error.message || "Google could not be disconnected.";
+      } finally {
+        disconnectButton.disabled = false;
+      }
+    }
+
+    async function loadGoogleCalendarEvents() {
+      const status = document.getElementById("calendar-connection-status");
+      const refreshButton = document.getElementById("calendar-refresh-button");
+
+      refreshButton.disabled = true;
+      status.textContent = "Loading calendar events...";
+      showCalendarMessageForAllDays("Loading events...");
+
+      try {
+        const rangeStart = getLocalDayStart(0);
+        const rangeEnd = getLocalDayStart(3);
+
+        const result = await invokeGoogleCalendarFunction({
+          action: "events",
+          rangeStart: rangeStart.toISOString(),
+          rangeEnd: rangeEnd.toISOString()
+        });
+
+        setGoogleConnectedView(result.googleEmail);
+
+        const events = (result.events || []).sort(function (first, second) {
+          return getGoogleEventStart(first) - getGoogleEventStart(second);
+        });
 
         renderGoogleCalendarEvents(events);
-
         status.textContent =
-          "Calendar updated " +
-          new Date().toLocaleTimeString(
-            "en-US",
-            {
-              hour: "numeric",
-              minute: "2-digit"
-            }
-          );
+          (result.googleEmail ? "Connected as " + result.googleEmail + " · " : "") +
+          "Updated " +
+          new Date().toLocaleTimeString("en-US", {
+            hour: "numeric",
+            minute: "2-digit"
+          });
       } catch (error) {
-        showCalendarMessageForAllDays(
-          "Events could not be loaded"
-        );
-
+        showCalendarMessageForAllDays("Events could not be loaded");
         status.textContent = error.message;
-        console.error(error);
+        console.error("Calendar load error:", error);
       } finally {
         refreshButton.disabled = false;
       }
@@ -2765,22 +2774,16 @@
     }
 
     document
-      .getElementById(
-        "calendar-connect-button"
-      )
-      .addEventListener(
-        "click",
-        connectGoogleCalendar
-      );
+      .getElementById("calendar-connect-button")
+      .addEventListener("click", connectGoogleAccount);
 
     document
-      .getElementById(
-        "calendar-refresh-button"
-      )
-      .addEventListener(
-        "click",
-        loadGoogleCalendarEvents
-      );
+      .getElementById("calendar-refresh-button")
+      .addEventListener("click", loadGoogleCalendarEvents);
+
+    document
+      .getElementById("calendar-disconnect-button")
+      .addEventListener("click", disconnectGoogleAccount);
 
     /*
       Converts Open-Meteo weather codes into
@@ -3181,7 +3184,6 @@
     buildMiniCalendar();
     updateCalendarHeadings();
     setupEditableDashboardTitle();
-    waitForGoogleCalendarLibrary();
     loadWeather();
 
     /*
