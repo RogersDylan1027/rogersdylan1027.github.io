@@ -9,7 +9,7 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>Dylan's Dashboard</title>
+  <title>Dylan's Dashboard · Version 2</title>
 
   <!-- Clean persistent Google connection build: 2026-08-06 -->
 
@@ -955,7 +955,7 @@
   <div id="dashboard-app" class="dashboard-container" hidden>
 
     <div class="account-bar">
-      <span>Signed in as <strong id="current-user-email"></strong></span>
+      <span>Version 2 · Signed in as <strong id="current-user-email"></strong></span>
       <button id="logout-button" type="button">Log Out</button>
     </div>
 
@@ -1557,9 +1557,9 @@
       if (session?.user) {
         showLoggedInView(session.user);
 
-        setTimeout(async function () {
-          await captureGoogleProviderTokens(session);
-          await checkGoogleConnectionStatus();
+        // Defer backend work until Supabase finishes updating its local session.
+        setTimeout(function () {
+          initializeGoogleConnectionForSession(session);
         }, 0);
       } else {
         clearCachedGoogleProviderTokens();
@@ -1575,8 +1575,7 @@
 
         if (data.session?.user) {
           showLoggedInView(data.session.user);
-          await captureGoogleProviderTokens(data.session);
-          await checkGoogleConnectionStatus();
+          await initializeGoogleConnectionForSession(data.session);
         } else {
           showLoggedOutView();
           resetGoogleConnectionView();
@@ -2244,8 +2243,8 @@
       refreshButton.disabled = false;
       disconnectButton.hidden = true;
       disconnectButton.disabled = false;
-      status.textContent = "Connect Google to keep Calendar available across your devices.";
-      googleConnectionChecked = false;
+      status.textContent = "No saved Google connection was found for this website account.";
+      googleConnectionChecked = true;
       showCalendarMessageForAllDays("No Google account connected");
     }
 
@@ -2257,48 +2256,58 @@
 
       connectButton.hidden = true;
       refreshButton.hidden = false;
+      refreshButton.disabled = false;
       disconnectButton.hidden = false;
+      disconnectButton.disabled = false;
       status.textContent = email
         ? "Connected as " + email
         : "Google account connected";
       googleConnectionChecked = true;
     }
 
-    async function invokeGoogleCalendarFunction(body) {
+    async function callGoogleBackend(body) {
       const { data: sessionData, error: sessionError } =
         await supabaseClient.auth.getSession();
 
-      if (sessionError || !sessionData.session?.access_token) {
-        throw new Error("Your dashboard session expired. Log in again.");
+      const accessToken = sessionData.session?.access_token;
+
+      if (sessionError || !accessToken) {
+        throw new Error("Your website session expired. Log in again.");
       }
 
-      const { data, error } =
-        await supabaseClient.functions.invoke(
-          "google-calendar",
-          {
-            body,
-            headers: {
-              Authorization:
-                "Bearer " + sessionData.session.access_token
-            }
-          }
-        );
-
-      if (error) {
-        let message = error.message || "The Google request failed.";
-
-        try {
-          const responseBody = await error.context?.json();
-          if (responseBody?.error) message = responseBody.error;
-        } catch (parseError) {
-          // Use the message already available.
+      const response = await fetch(
+        SUPABASE_URL + "/functions/v1/google-calendar",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + accessToken,
+            "apikey": SUPABASE_PUBLISHABLE_KEY
+          },
+          body: JSON.stringify(body)
         }
+      );
 
-        throw new Error(message);
+      const responseText = await response.text();
+      let data = {};
+
+      if (responseText) {
+        try {
+          data = JSON.parse(responseText);
+        } catch (error) {
+          throw new Error(
+            "The Google backend returned an unreadable response (HTTP " +
+            response.status + ")."
+          );
+        }
       }
 
-      if (data?.error) {
-        throw new Error(data.error);
+      if (!response.ok) {
+        throw new Error(
+          data.error ||
+          data.message ||
+          "The Google backend failed (HTTP " + response.status + ")."
+        );
       }
 
       return data;
@@ -2326,12 +2335,10 @@
       localStorage.removeItem(GOOGLE_LINK_PENDING_KEY);
     }
 
-    async function captureGoogleProviderTokens(session) {
+    async function saveGoogleProviderTokens(session) {
       cacheGoogleProviderTokens(session);
 
-      if (googleConnectionSaving) {
-        return false;
-      }
+      if (googleConnectionSaving) return false;
 
       const providerToken =
         session?.provider_token ||
@@ -2342,34 +2349,63 @@
         sessionStorage.getItem(GOOGLE_PROVIDER_REFRESH_TOKEN_KEY);
 
       if (!providerToken || !providerRefreshToken) {
-        if (localStorage.getItem(GOOGLE_LINK_PENDING_KEY) === "true") {
-          document.getElementById("calendar-connection-status").textContent =
-            "Google returned without a refresh token. Remove this app from your Google Account connections, then press Connect Google Account once more.";
-        }
         return false;
       }
 
       googleConnectionSaving = true;
 
       try {
-        const result = await invokeGoogleCalendarFunction({
+        const result = await callGoogleBackend({
           action: "save",
           providerToken,
           providerRefreshToken
         });
 
         clearCachedGoogleProviderTokens();
-        setGoogleConnectedView(result.googleEmail);
         history.replaceState({}, document.title, currentDashboardUrl());
-        await loadGoogleCalendarEvents();
+        setGoogleConnectedView(result.googleEmail);
         return true;
-      } catch (error) {
-        console.error("Google token save error:", error);
-        document.getElementById("calendar-connection-status").textContent =
-          error.message || "Google connected, but its access could not be saved.";
-        return false;
       } finally {
         googleConnectionSaving = false;
+      }
+    }
+
+    async function initializeGoogleConnectionForSession(session) {
+      const status = document.getElementById("calendar-connection-status");
+
+      try {
+        // A Google OAuth callback may contain provider tokens. Save them first.
+        await saveGoogleProviderTokens(session);
+
+        status.textContent = "Checking your saved Google connection...";
+
+        // This server-side status check is the source of truth on every device.
+        const result = await callGoogleBackend({ action: "status" });
+
+        if (!result.connected) {
+          resetGoogleConnectionView();
+
+          if (localStorage.getItem(GOOGLE_LINK_PENDING_KEY) === "true") {
+            status.textContent =
+              "Google returned, but no reusable connection was saved. " +
+              "Reconnect once and approve all requested permissions.";
+          }
+          return;
+        }
+
+        clearCachedGoogleProviderTokens();
+        setGoogleConnectedView(result.googleEmail);
+        await loadGoogleCalendarEvents();
+      } catch (error) {
+        console.error("Google startup error:", error);
+        showCalendarMessageForAllDays("Google connection could not be restored");
+        status.textContent = error.message || "Google connection could not be restored.";
+
+        // Do not show Connect automatically for backend errors. A saved row may
+        // still exist, and reconnecting would hide the real problem.
+        document.getElementById("calendar-connect-button").hidden = true;
+        document.getElementById("calendar-refresh-button").hidden = false;
+        document.getElementById("calendar-disconnect-button").hidden = false;
       }
     }
 
@@ -2382,20 +2418,19 @@
       localStorage.setItem(GOOGLE_LINK_PENDING_KEY, "true");
 
       try {
-        const { data, error } =
-          await supabaseClient.auth.linkIdentity({
-            provider: "google",
-            options: {
-              redirectTo: currentDashboardUrl(),
-              scopes: GOOGLE_OAUTH_SCOPES,
-              queryParams: {
-                access_type: "offline",
-                prompt: "consent",
-                include_granted_scopes: "true"
-              },
-              skipBrowserRedirect: true
-            }
-          });
+        const { data, error } = await supabaseClient.auth.linkIdentity({
+          provider: "google",
+          options: {
+            redirectTo: currentDashboardUrl(),
+            scopes: GOOGLE_OAUTH_SCOPES,
+            queryParams: {
+              access_type: "offline",
+              prompt: "consent",
+              include_granted_scopes: "true"
+            },
+            skipBrowserRedirect: true
+          }
+        });
 
         if (error) throw error;
         if (!data?.url) {
@@ -2407,29 +2442,7 @@
         console.error("Google linking error:", error);
         localStorage.removeItem(GOOGLE_LINK_PENDING_KEY);
         button.disabled = false;
-        status.textContent =
-          error.message || "Google could not be connected.";
-      }
-    }
-
-    async function checkGoogleConnectionStatus() {
-      const status = document.getElementById("calendar-connection-status");
-
-      try {
-        const result = await invokeGoogleCalendarFunction({
-          action: "status"
-        });
-
-        if (result.connected) {
-          setGoogleConnectedView(result.googleEmail);
-          await loadGoogleCalendarEvents();
-        } else {
-          resetGoogleConnectionView();
-        }
-      } catch (error) {
-        console.error("Google status error:", error);
-        status.textContent =
-          error.message || "Google connection status could not be checked.";
+        status.textContent = error.message || "Google could not be connected.";
       }
     }
 
@@ -2441,34 +2454,13 @@
       status.textContent = "Disconnecting Google...";
 
       try {
-        await invokeGoogleCalendarFunction({ action: "disconnect" });
-
-        const { data, error } =
-          await supabaseClient.auth.getUserIdentities();
-
-        if (!error) {
-          const googleIdentity =
-            data?.identities?.find(function (identity) {
-              return identity.provider === "google";
-            });
-
-          if (googleIdentity) {
-            const { error: unlinkError } =
-              await supabaseClient.auth.unlinkIdentity(googleIdentity);
-
-            if (unlinkError) {
-              console.warn("Google identity unlink warning:", unlinkError);
-            }
-          }
-        }
-
+        await callGoogleBackend({ action: "disconnect" });
         clearCachedGoogleProviderTokens();
         resetGoogleConnectionView();
-        status.textContent = "Google account disconnected from this dashboard account.";
+        status.textContent = "Google was disconnected from this website account.";
       } catch (error) {
         console.error("Google disconnect error:", error);
-        status.textContent =
-          error.message || "Google could not be disconnected.";
+        status.textContent = error.message || "Google could not be disconnected.";
       } finally {
         disconnectButton.disabled = false;
       }
@@ -2479,14 +2471,14 @@
       const refreshButton = document.getElementById("calendar-refresh-button");
 
       refreshButton.disabled = true;
-      status.textContent = "Loading calendar events...";
+      status.textContent = "Loading saved Google Calendar connection...";
       showCalendarMessageForAllDays("Loading events...");
 
       try {
         const rangeStart = getLocalDayStart(0);
         const rangeEnd = getLocalDayStart(3);
 
-        const result = await invokeGoogleCalendarFunction({
+        const result = await callGoogleBackend({
           action: "events",
           rangeStart: rangeStart.toISOString(),
           rangeEnd: rangeEnd.toISOString()
@@ -2508,7 +2500,7 @@
           });
       } catch (error) {
         showCalendarMessageForAllDays("Events could not be loaded");
-        status.textContent = error.message;
+        status.textContent = error.message || "Events could not be loaded.";
         console.error("Calendar load error:", error);
       } finally {
         refreshButton.disabled = false;
