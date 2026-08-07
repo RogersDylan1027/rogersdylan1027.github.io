@@ -955,7 +955,7 @@
   <div id="dashboard-app" class="dashboard-container" hidden>
 
     <div class="account-bar">
-      <span>Version 2 · Signed in as <strong id="current-user-email"></strong></span>
+      <span>Version 2.1 · Signed in as <strong id="current-user-email"></strong></span>
       <button id="logout-button" type="button">Log Out</button>
     </div>
 
@@ -2418,28 +2418,45 @@
       localStorage.setItem(GOOGLE_LINK_PENDING_KEY, "true");
 
       try {
-        const { data, error } = await supabaseClient.auth.linkIdentity({
-          provider: "google",
-          options: {
-            redirectTo: currentDashboardUrl(),
-            scopes: GOOGLE_OAUTH_SCOPES,
-            queryParams: {
-              access_type: "offline",
-              prompt: "consent",
-              include_granted_scopes: "true"
-            },
-            skipBrowserRedirect: true
-          }
-        });
+        const { data: userData, error: userError } =
+          await supabaseClient.auth.getUser();
 
-        if (error) throw error;
-        if (!data?.url) {
+        if (userError) throw userError;
+
+        const googleAlreadyLinked =
+          (userData.user?.identities || []).some(
+            identity => identity.provider === "google"
+          );
+
+        const oauthOptions = {
+          redirectTo: currentDashboardUrl(),
+          scopes: GOOGLE_OAUTH_SCOPES,
+          queryParams: {
+            access_type: "offline",
+            prompt: "consent",
+            include_granted_scopes: "true"
+          },
+          skipBrowserRedirect: true
+        };
+
+        const result = googleAlreadyLinked
+          ? await supabaseClient.auth.signInWithOAuth({
+              provider: "google",
+              options: oauthOptions
+            })
+          : await supabaseClient.auth.linkIdentity({
+              provider: "google",
+              options: oauthOptions
+            });
+
+        if (result.error) throw result.error;
+        if (!result.data?.url) {
           throw new Error("Google did not provide an authorization URL.");
         }
 
-        window.location.assign(data.url);
+        window.location.assign(result.data.url);
       } catch (error) {
-        console.error("Google linking error:", error);
+        console.error("Google authorization error:", error);
         localStorage.removeItem(GOOGLE_LINK_PENDING_KEY);
         button.disabled = false;
         status.textContent = error.message || "Google could not be connected.";
