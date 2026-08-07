@@ -9,9 +9,9 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>Dylan's Dashboard · Version 1.1.1</title>
+  <title>Dylan's Dashboard · Version 1.1.3</title>
 
-  <!-- Clean persistent Google connection build: 2026-08-06 -->
+  <!-- Google Calendar + Microsoft beta warning build: 2026-08-06 -->
 
   <meta
     name="description"
@@ -399,35 +399,57 @@
     }
 
     .mini-calendar-header {
-      display: flex;
+      display: grid;
+      grid-template-columns: 42px minmax(150px, 1fr) 42px;
       align-items: center;
-      justify-content: space-between;
 
-      gap: 16px;
+      width: 100%;
+      gap: 18px;
       margin-bottom: 20px;
     }
 
     .mini-calendar-header h2 {
+      width: 100%;
       margin: 0;
 
       font-size: 20px;
       font-weight: 500;
+      text-align: center;
 
       text-transform: uppercase;
       letter-spacing: 1.5px;
     }
 
-    .calendar-link {
+    .calendar-month-button {
+      width: 42px;
+      height: 36px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 0;
+      border: 1px solid #d5d9df;
+      border-radius: 18px;
+
+      background-color: white;
       color: #2450a4;
 
-      font-size: 14px;
-      font-weight: 600;
+      font: inherit;
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1;
 
-      text-decoration: none;
+      cursor: pointer;
     }
 
-    .calendar-link:hover {
-      text-decoration: underline;
+    .calendar-month-button:hover {
+      background-color: #f1f4f9;
+    }
+
+    .calendar-month-button:disabled {
+      opacity: 0.55;
+      cursor: wait;
     }
 
     .calendar-weekdays,
@@ -468,6 +490,28 @@
 
     .calendar-day-number {
       display: block;
+    }
+
+    button.calendar-day {
+      padding: 0;
+      border: none;
+      background: transparent;
+      color: inherit;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    button.calendar-day:hover {
+      background-color: #eef3fb;
+    }
+
+    .calendar-day.selected-day {
+      outline: 2px solid #2450a4;
+      outline-offset: 1px;
+    }
+
+    .calendar-day.today.selected-day {
+      outline-color: #163a78;
     }
 
     .calendar-day-event-dot {
@@ -546,6 +590,26 @@
       color: #b3261e;
     }
 
+    .calendar-action-button.microsoft {
+      background-color: #ffffff;
+      border-color: #5e5e5e;
+      color: #252525;
+    }
+
+    .calendar-action-button.microsoft::before {
+      content: "⊞";
+      margin-right: 6px;
+      color: #0078d4;
+      font-size: 16px;
+      line-height: 1;
+    }
+
+    .calendar-provider-statuses {
+      display: grid;
+      gap: 5px;
+      width: 100%;
+    }
+
     .calendar-action-button:hover {
       filter: brightness(0.96);
     }
@@ -562,14 +626,16 @@
       font-size: 12px;
     }
 
-    .google-account-list {
+    .google-account-list,
+    .microsoft-account-list {
       display: grid;
       gap: 9px;
       width: 100%;
       margin-top: 12px;
     }
 
-    .google-account-card {
+    .google-account-card,
+    .microsoft-account-card {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -581,11 +647,13 @@
       border-radius: 12px;
     }
 
-    .google-account-details {
+    .google-account-details,
+    .microsoft-account-details {
       min-width: 0;
     }
 
-    .google-account-email {
+    .google-account-email,
+    .microsoft-account-email {
       display: block;
       overflow: hidden;
       color: #252525;
@@ -595,7 +663,8 @@
       white-space: nowrap;
     }
 
-    .google-account-badge {
+    .google-account-badge,
+    .microsoft-account-badge {
       display: inline-block;
       margin-top: 4px;
       padding: 2px 7px;
@@ -606,14 +675,16 @@
       font-weight: 700;
     }
 
-    .google-account-actions {
+    .google-account-actions,
+    .microsoft-account-actions {
       display: flex;
       align-items: center;
       flex-wrap: wrap;
       gap: 6px;
     }
 
-    .google-account-action {
+    .google-account-action,
+    .microsoft-account-action {
       padding: 6px 9px;
       border: 1px solid #b9c0ca;
       border-radius: 15px;
@@ -625,12 +696,14 @@
       cursor: pointer;
     }
 
-    .google-account-action.danger {
+    .google-account-action.danger,
+    .microsoft-account-action.danger {
       border-color: #d7a09c;
       color: #b3261e;
     }
 
-    .google-account-action:disabled {
+    .google-account-action:disabled,
+    .microsoft-account-action:disabled {
       opacity: 0.55;
       cursor: wait;
     }
@@ -912,6 +985,640 @@
       line-height: 1.25;
     }
 
+
+    /*
+      INTERNAL APP VIEW / SETTINGS
+
+      This pattern can later be reused for the other dashboard
+      tiles as they move from external links into the dashboard.
+    */
+    .internal-view-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 900;
+
+      display: grid;
+      place-items: center;
+
+      padding: 24px;
+
+      background-color: rgba(20, 24, 31, 0.48);
+      backdrop-filter: blur(3px);
+    }
+
+    .internal-view {
+      width: min(100%, 900px);
+      max-height: calc(100vh - 48px);
+      overflow-y: auto;
+
+      background-color: #f7f8fa;
+      border: 1px solid #d5d9df;
+      border-radius: 22px;
+
+      box-shadow:
+        0 22px 65px rgba(0, 0, 0, 0.24);
+    }
+
+    .internal-view-header {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+
+      display: grid;
+      grid-template-columns: 44px 1fr 44px;
+      align-items: center;
+      gap: 12px;
+
+      padding: 18px 20px;
+
+      background-color: rgba(247, 248, 250, 0.96);
+      border-bottom: 1px solid #dfe3e8;
+      border-radius: 22px 22px 0 0;
+      backdrop-filter: blur(8px);
+    }
+
+    .internal-view-header h2 {
+      margin: 0;
+      text-align: center;
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .internal-view-close-button {
+      width: 40px;
+      height: 40px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 0;
+      border: 1px solid #c8cdd5;
+      border-radius: 50%;
+
+      background-color: white;
+      color: #252525;
+
+      font: inherit;
+      font-size: 22px;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .internal-view-close-button:hover {
+      background-color: #eef1f5;
+    }
+
+    .internal-view-header-spacer {
+      width: 40px;
+      height: 40px;
+    }
+
+    .settings-content {
+      display: grid;
+      gap: 20px;
+      padding: 22px;
+    }
+
+    .settings-section {
+      padding: 20px;
+
+      background-color: white;
+      border: 1px solid #d5d9df;
+      border-radius: 16px;
+    }
+
+    .settings-section h3 {
+      margin: 0 0 6px;
+      font-size: 18px;
+    }
+
+    .settings-section-description {
+      margin: 0 0 16px;
+      color: #666666;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .settings-account-buttons {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-bottom: 14px;
+    }
+
+    .settings-provider-block + .settings-provider-block {
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid #e3e5e8;
+    }
+
+    .settings-provider-title {
+      margin: 0 0 10px;
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: #555555;
+    }
+
+    .settings-select-label {
+      display: block;
+      margin: 0 0 7px;
+      color: #4f5968;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .settings-select {
+      width: 100%;
+      max-width: 360px;
+      padding: 10px 12px;
+      border: 1px solid #c8cdd5;
+      border-radius: 10px;
+      background-color: white;
+      color: #252525;
+      font: inherit;
+    }
+
+    .settings-select:focus {
+      border-color: #2450a4;
+      outline: 3px solid rgba(36, 80, 164, 0.15);
+    }
+
+    .settings-music-provider-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+      gap: 10px;
+    }
+
+    .settings-music-provider-field {
+      min-width: 0;
+    }
+
+    .settings-music-connect-button {
+      min-height: 42px;
+      padding: 9px 16px;
+      border: 1px solid #2450a4;
+      border-radius: 11px;
+      background-color: #2450a4;
+      color: white;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .settings-music-connect-button:hover {
+      filter: brightness(0.96);
+    }
+
+    .settings-music-connect-button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .settings-selection-note {
+      margin: 9px 0 0;
+      color: #666666;
+      font-size: 12px;
+    }
+
+    .settings-dependent-field {
+      margin-top: 14px;
+    }
+
+    .calendar-account-preference-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .calendar-account-preference-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 12px 14px;
+      background-color: #f7f8fa;
+      border: 1px solid #dfe3e8;
+      border-radius: 12px;
+    }
+
+    .calendar-account-preference-details {
+      min-width: 0;
+    }
+
+    .calendar-account-preference-email {
+      display: block;
+      overflow: hidden;
+      font-size: 13px;
+      font-weight: 700;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .calendar-account-preference-provider {
+      display: block;
+      margin-top: 3px;
+      color: #666666;
+      font-size: 11px;
+    }
+
+    .settings-toggle {
+      position: relative;
+      width: 46px;
+      height: 26px;
+      flex: 0 0 46px;
+      display: inline-block;
+    }
+
+    .settings-toggle input {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+    }
+
+    .settings-toggle-track {
+      position: absolute;
+      inset: 0;
+      border-radius: 13px;
+      background-color: #c4c9d0;
+      cursor: pointer;
+      transition: background-color 0.15s ease;
+    }
+
+    .settings-toggle-track::after {
+      content: "";
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: white;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.22);
+      transition: transform 0.15s ease;
+    }
+
+    .settings-toggle input:checked + .settings-toggle-track {
+      background-color: #2450a4;
+    }
+
+    .settings-toggle input:checked + .settings-toggle-track::after {
+      transform: translateX(20px);
+    }
+
+    .settings-toggle input:focus-visible + .settings-toggle-track {
+      outline: 3px solid rgba(36, 80, 164, 0.2);
+      outline-offset: 2px;
+    }
+
+
+    /*
+      MICROSOFT BETA WARNING MODAL
+    */
+    .warning-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+
+      display: grid;
+      place-items: center;
+
+      padding: 20px;
+
+      background-color: rgba(20, 24, 31, 0.58);
+      backdrop-filter: blur(3px);
+    }
+
+    .warning-modal {
+      width: min(100%, 430px);
+
+      padding: 24px;
+
+      background-color: white;
+      border: 1px solid #d5d9df;
+      border-radius: 18px;
+
+      box-shadow:
+        0 20px 55px rgba(0, 0, 0, 0.24);
+
+      text-align: center;
+    }
+
+    .warning-modal-title {
+      margin: 0;
+
+      color: #9a6700;
+
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+
+    .warning-modal-message {
+      margin: 14px 0 22px;
+
+      color: #4f5968;
+
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .warning-modal-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+
+      gap: 12px;
+    }
+
+    .warning-modal-button {
+      min-height: 42px;
+
+      padding: 10px 16px;
+
+      border-radius: 11px;
+
+      font: inherit;
+      font-weight: 700;
+
+      cursor: pointer;
+    }
+
+    .warning-modal-button.no {
+      border: 1px solid #b9c0ca;
+
+      background-color: white;
+      color: #252525;
+    }
+
+    .warning-modal-button.yes {
+      border: 1px solid #2450a4;
+
+      background-color: #2450a4;
+      color: white;
+    }
+
+    .warning-modal-button:hover {
+      filter: brightness(0.96);
+    }
+
+    .warning-modal-button:focus-visible {
+      outline: 3px solid rgba(36, 80, 164, 0.22);
+      outline-offset: 2px;
+    }
+
+
+    /*
+      COLLAPSIBLE MUSIC SIDEBAR
+
+      The panel is intentionally independent from the internal app views,
+      so it can remain available later while Calendar, Email, Drive, and
+      other tiles become built-in dashboard apps.
+    */
+    .music-sidebar {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 850;
+
+      width: min(340px, calc(100vw - 56px));
+      height: 100vh;
+
+      display: flex;
+      flex-direction: column;
+
+      padding: 22px;
+
+      background-color: #ffffff;
+      border: 1px solid #d5d9df;
+      border-right: none;
+      border-radius: 18px 0 0 18px;
+      box-shadow: -10px 8px 28px rgba(0, 0, 0, 0.12);
+
+      transform: translateX(100%);
+      transition: transform 0.24s ease;
+    }
+
+    .music-sidebar.open {
+      transform: translateX(0);
+    }
+
+    .music-sidebar-toggle {
+      position: absolute;
+      top: var(--music-sidebar-toggle-top, 50%);
+      left: -48px;
+
+      width: 48px;
+      height: 54px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 0;
+      border: 1px solid #d5d9df;
+      border-right: none;
+      border-radius: 14px 0 0 14px;
+
+      background-color: white;
+      color: #2450a4;
+
+      box-shadow: -4px 3px 12px rgba(0, 0, 0, 0.08);
+
+      font: inherit;
+      font-size: 22px;
+      cursor: pointer;
+
+      transform: translateY(-50%);
+    }
+
+    .music-sidebar-toggle:hover {
+      background-color: #f1f4f9;
+    }
+
+    .music-sidebar-toggle {
+      touch-action: none;
+      user-select: none;
+      cursor: grab;
+    }
+
+    .music-sidebar-toggle.dragging {
+      cursor: grabbing;
+    }
+
+    .music-sidebar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 24px;
+
+    }
+
+    .music-sidebar-header h2 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    .music-sidebar-label {
+      margin: 0 0 5px;
+      color: #777777;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .music-sidebar-close {
+      width: 34px;
+      height: 34px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 0;
+      border: 1px solid #d5d9df;
+      border-radius: 50%;
+
+      background-color: white;
+      color: #252525;
+      font: inherit;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .music-sidebar-close:hover {
+      background-color: #f1f3f4;
+    }
+
+    .music-album-art {
+      aspect-ratio: 1 / 1;
+      width: 100%;
+
+      display: grid;
+      place-items: center;
+
+      margin-bottom: 20px;
+
+      border: 1px solid #d5d9df;
+      border-radius: 20px;
+
+      background:
+        radial-gradient(circle at 30% 25%, rgba(66, 133, 244, 0.34), transparent 28%),
+        radial-gradient(circle at 70% 70%, rgba(36, 80, 164, 0.30), transparent 34%),
+        linear-gradient(135deg, #eef3fb, #dfe8f8);
+
+      color: #2450a4;
+      font-size: 78px;
+      user-select: none;
+    }
+
+    .music-track-title {
+      margin: 0;
+      overflow: hidden;
+
+      font-size: 20px;
+      font-weight: 700;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .music-track-artist {
+      margin: 5px 0 0;
+      color: #666666;
+      font-size: 14px;
+    }
+
+    .music-progress {
+      width: 100%;
+      margin: 20px 0 5px;
+      accent-color: #2450a4;
+    }
+
+    .music-time-row {
+      display: flex;
+      justify-content: space-between;
+      color: #777777;
+      font-size: 11px;
+    }
+
+    .music-player-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 22px;
+      margin: 22px 0;
+    }
+
+    .music-control-button {
+      width: 42px;
+      height: 42px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 0;
+      border: none;
+      border-radius: 50%;
+
+      background-color: transparent;
+      color: #252525;
+      font: inherit;
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    .music-control-button:hover {
+      background-color: #f1f3f4;
+    }
+
+    .music-control-button.play {
+      width: 54px;
+      height: 54px;
+      background-color: #2450a4;
+      color: white;
+      font-size: 24px;
+    }
+
+    .music-control-button.play:hover {
+      filter: brightness(0.96);
+    }
+
+    .music-volume-row {
+      display: grid;
+      grid-template-columns: 24px 1fr 24px;
+      align-items: center;
+      gap: 9px;
+      margin-top: 2px;
+    }
+
+    .music-volume-row span {
+      text-align: center;
+      color: #666666;
+      font-size: 14px;
+    }
+
+    .music-volume-slider {
+      width: 100%;
+      accent-color: #2450a4;
+    }
+
+    .music-poc-note {
+      margin: auto 0 0;
+      padding-top: 20px;
+      color: #777777;
+      font-size: 12px;
+      line-height: 1.45;
+      text-align: center;
+    }
+
     /*
       RESPONSIVE LAYOUT
     */
@@ -953,6 +1660,23 @@
     }
 
     @media (max-width: 520px) {
+      .internal-view-backdrop {
+        padding: 10px;
+      }
+
+      .internal-view {
+        max-height: calc(100vh - 20px);
+        border-radius: 16px;
+      }
+
+      .internal-view-header {
+        border-radius: 16px 16px 0 0;
+      }
+
+      .settings-content {
+        padding: 14px;
+      }
+
       .dashboard-container {
         padding: 16px 16px 90px;
       }
@@ -990,6 +1714,25 @@
         width: 100%;
         flex: 1 1 auto;
         min-height: 70px;
+      }
+
+      .settings-music-provider-row {
+        grid-template-columns: 1fr;
+      }
+
+      .settings-music-connect-button {
+        width: 100%;
+      }
+
+
+      .music-sidebar {
+        width: min(320px, calc(100vw - 48px));
+        padding: 18px;
+      }
+
+      .music-sidebar-toggle {
+        left: -44px;
+        width: 44px;
       }
     }
   </style>
@@ -1044,7 +1787,7 @@
   <div id="dashboard-app" class="dashboard-container" hidden>
 
     <div class="account-bar">
-      <span>Version 1.1.1 · Signed in as <strong id="current-user-email"></strong></span>
+      <span>Version 0.1.2 · Signed in as <strong id="current-user-email"></strong></span>
       <button id="logout-button" type="button">Log Out</button>
     </div>
 
@@ -1183,18 +1926,29 @@
 
         <div class="mini-calendar-header">
 
+          <button
+            id="previous-month-button"
+            class="calendar-month-button"
+            type="button"
+            aria-label="Show previous month"
+            title="Previous month"
+          >
+            ‹
+          </button>
+
           <h2 id="calendar-month">
             Month
           </h2>
 
-          <a
-            class="calendar-link"
-            href="https://calendar.google.com"
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            id="next-month-button"
+            class="calendar-month-button"
+            type="button"
+            aria-label="Show next month"
+            title="Next month"
           >
-            Open Calendar
-          </a>
+            ›
+          </button>
 
         </div>
 
@@ -1223,14 +1977,6 @@
           <div class="calendar-button-group">
 
             <button
-              id="calendar-connect-button"
-              class="calendar-action-button"
-              type="button"
-            >
-              Connect Google Account
-            </button>
-
-            <button
               id="calendar-refresh-button"
               class="calendar-action-button secondary"
               type="button"
@@ -1239,22 +1985,15 @@
               Refresh All
             </button>
 
+            <button
+              id="calendar-today-button"
+              class="calendar-action-button secondary"
+              type="button"
+            >
+              Today
+            </button>
+
           </div>
-
-          <p
-            id="calendar-connection-status"
-            class="calendar-connection-status"
-            role="status"
-            aria-live="polite"
-          >
-            Connect Google to keep Calendar available across your devices.
-          </p>
-
-          <div
-            id="google-account-list"
-            class="google-account-list"
-            aria-label="Connected Google accounts"
-          ></div>
 
         </div>
 
@@ -1321,6 +2060,319 @@
       </div>
 
     </section>
+
+
+
+    <!-- Collapsible music sidebar proof of concept -->
+    <aside
+      id="music-sidebar"
+      class="music-sidebar"
+      aria-label="Music player"
+      aria-hidden="true"
+    >
+      <button
+        id="music-sidebar-toggle"
+        class="music-sidebar-toggle"
+        type="button"
+        aria-label="Open music player"
+        aria-expanded="false"
+        title="Music player"
+      >
+        ♫
+      </button>
+
+      <div class="music-sidebar-header">
+        <div>
+          <p class="music-sidebar-label">Now Playing</p>
+          <h2>Music</h2>
+        </div>
+
+        <button
+          id="music-sidebar-close"
+          class="music-sidebar-close"
+          type="button"
+          aria-label="Close music player"
+          title="Close music player"
+        >
+          ×
+        </button>
+      </div>
+
+      <div class="music-album-art" aria-label="Album artwork placeholder">
+        ♫
+      </div>
+
+      <div>
+        <p class="music-track-title">Song Title</p>
+        <p class="music-track-artist">Artist Name · Album Name</p>
+      </div>
+
+      <input
+        class="music-progress"
+        type="range"
+        min="0"
+        max="100"
+        value="36"
+        aria-label="Song progress proof of concept"
+      >
+
+      <div class="music-time-row" aria-hidden="true">
+        <span>1:24</span>
+        <span>3:52</span>
+      </div>
+
+      <div class="music-player-controls" aria-label="Playback controls">
+        <button class="music-control-button" type="button" aria-label="Previous track" title="Previous track">⏮</button>
+        <button id="music-demo-play-button" class="music-control-button play" type="button" aria-label="Play" title="Play">▶</button>
+        <button class="music-control-button" type="button" aria-label="Next track" title="Next track">⏭</button>
+      </div>
+
+      <div class="music-volume-row">
+        <span aria-hidden="true">🔈</span>
+        <input
+          class="music-volume-slider"
+          type="range"
+          min="0"
+          max="100"
+          value="65"
+          aria-label="Volume proof of concept"
+        >
+        <span aria-hidden="true">🔊</span>
+      </div>
+
+      <p class="music-poc-note">
+        Proof of concept only — playback is not connected to a music service yet.
+      </p>
+    </aside>
+
+    <!-- Internal Settings view -->
+    <div
+      id="settings-view"
+      class="internal-view-backdrop"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="settings-view-title"
+      hidden
+    >
+      <section class="internal-view">
+
+        <header class="internal-view-header">
+          <div class="internal-view-header-spacer" aria-hidden="true"></div>
+
+          <h2 id="settings-view-title">
+            Settings
+          </h2>
+
+          <button
+            id="settings-close-button"
+            class="internal-view-close-button"
+            type="button"
+            aria-label="Close settings"
+            title="Close settings"
+          >
+            ×
+          </button>
+        </header>
+
+        <div class="settings-content">
+
+          <section class="settings-section">
+            <h3>Connected Accounts</h3>
+
+            <p class="settings-section-description">
+              Connect and manage the accounts used by apps inside your dashboard.
+            </p>
+
+            <div class="settings-provider-block">
+              <p class="settings-provider-title">Google</p>
+
+              <div class="settings-account-buttons">
+                <button
+                  id="calendar-connect-button"
+                  class="calendar-action-button"
+                  type="button"
+                >
+                  Connect Google Account
+                </button>
+              </div>
+
+              <p
+                id="calendar-connection-status"
+                class="calendar-connection-status"
+                role="status"
+                aria-live="polite"
+              >
+                Connect Google to keep Calendar available across your devices.
+              </p>
+
+              <div
+                id="google-account-list"
+                class="google-account-list"
+                aria-label="Connected Google accounts"
+              ></div>
+            </div>
+
+            <div class="settings-provider-block">
+              <p class="settings-provider-title">Microsoft</p>
+
+              <div class="settings-account-buttons">
+                <button
+                  id="microsoft-connect-button"
+                  class="calendar-action-button microsoft"
+                  type="button"
+                >
+                  Connect Microsoft Account
+                </button>
+              </div>
+
+              <p
+                id="microsoft-connection-status"
+                class="calendar-connection-status"
+                role="status"
+                aria-live="polite"
+              >
+                Connect Microsoft now; Outlook Calendar access will be added next.
+              </p>
+
+              <div
+                id="microsoft-account-list"
+                class="microsoft-account-list"
+                aria-label="Connected Microsoft account"
+              ></div>
+            </div>
+
+          </section>
+
+          <section class="settings-section">
+            <h3>Calendar</h3>
+
+            <p class="settings-section-description">
+              Choose which connected website accounts are allowed to contribute events to the dashboard Calendar. Turning an account off here does not disconnect it from the dashboard.
+            </p>
+
+            <div
+              id="calendar-account-preference-list"
+              class="calendar-account-preference-list"
+              aria-label="Calendar account preferences"
+            ></div>
+
+            <p
+              id="calendar-account-preference-note"
+              class="settings-selection-note"
+              role="status"
+              aria-live="polite"
+            >
+              Connected accounts are enabled for Calendar by default.
+            </p>
+          </section>
+
+          <section class="settings-section">
+            <h3>Music</h3>
+
+            <p class="settings-section-description">
+              Choose which music service the dashboard should use when music integration is added.
+            </p>
+
+            <div class="settings-music-provider-row">
+              <div class="settings-music-provider-field">
+                <label class="settings-select-label" for="music-provider-select">
+                  Music Provider
+                </label>
+
+                <select id="music-provider-select" class="settings-select">
+                  <option value="none" selected>None</option>
+                  <option value="apple-music">Apple Music</option>
+                  <option value="spotify">Spotify</option>
+                  <option value="amazon-music">Amazon Music</option>
+                  <option value="youtube-music">YouTube Music</option>
+                </select>
+              </div>
+
+              <button
+                id="music-provider-connect-button"
+                class="settings-music-connect-button"
+                type="button"
+                disabled
+              >
+                Connect
+              </button>
+            </div>
+
+            <div id="youtube-music-google-field" class="settings-dependent-field" hidden>
+              <label class="settings-select-label" for="youtube-music-google-account-select">
+                Google Account for YouTube Music
+              </label>
+
+              <select id="youtube-music-google-account-select" class="settings-select">
+                <option value="">Choose a connected Google account</option>
+              </select>
+
+              <p class="settings-selection-note">
+                This Google account can be used for YouTube Music even if its Calendar switch is turned off.
+              </p>
+            </div>
+
+            <p id="music-provider-note" class="settings-selection-note" role="status" aria-live="polite">
+              No music provider selected.
+            </p>
+          </section>
+
+          <section class="settings-section">
+            <h3>Dashboard</h3>
+            <p class="settings-section-description">
+              This section is ready for future dashboard preferences as more tiles become built-in apps.
+            </p>
+          </section>
+
+        </div>
+      </section>
+    </div>
+
+    <!-- Microsoft connection beta warning -->
+    <div
+      id="microsoft-warning-modal"
+      class="warning-modal-backdrop"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="microsoft-warning-title"
+      aria-describedby="microsoft-warning-message"
+      hidden
+    >
+      <div class="warning-modal">
+        <h2
+          id="microsoft-warning-title"
+          class="warning-modal-title"
+        >
+          ⚠️ WARNING ⚠️
+        </h2>
+
+        <p
+          id="microsoft-warning-message"
+          class="warning-modal-message"
+        >
+          The Microsoft connection is still in beta testing.<br>
+          Would you still like to continue?
+        </p>
+
+        <div class="warning-modal-actions">
+          <button
+            id="microsoft-warning-no-button"
+            class="warning-modal-button no"
+            type="button"
+          >
+            No
+          </button>
+
+          <button
+            id="microsoft-warning-yes-button"
+            class="warning-modal-button yes"
+            type="button"
+          >
+            Yes
+          </button>
+        </div>
+      </div>
+    </div>
 
     <!-- Address-style search bar -->
     <section class="search-section">
@@ -1642,6 +2694,8 @@
 
       if (session?.user) {
         showLoggedInView(session.user);
+        updateMicrosoftConnectionView(session.user);
+        refreshDashboardServicePreferencesFromUser();
 
         // Defer backend work until Supabase finishes updating its local session.
         setTimeout(function () {
@@ -1651,6 +2705,7 @@
         clearCachedGoogleProviderTokens();
         showLoggedOutView();
         resetGoogleConnectionView();
+        resetMicrosoftConnectionView();
       }
     });
 
@@ -1661,10 +2716,13 @@
 
         if (data.session?.user) {
           showLoggedInView(data.session.user);
+          updateMicrosoftConnectionView(data.session.user);
+          await refreshDashboardServicePreferencesFromUser();
           await initializeGoogleConnectionForSession(data.session);
         } else {
           showLoggedOutView();
           resetGoogleConnectionView();
+          resetMicrosoftConnectionView();
         }
       } catch (error) {
         console.error("Session initialization error:", error);
@@ -1674,6 +2732,777 @@
     }
 
     initializeDashboardAuth();
+
+    /*
+      MICROSOFT ACCOUNT CONNECTION
+
+      This links Microsoft/Azure to the currently signed-in
+      Supabase dashboard user. It does not load Outlook events yet.
+    */
+    function getMicrosoftIdentity(user) {
+      return (user?.identities || []).find(function (identity) {
+        return identity.provider === "azure";
+      }) || null;
+    }
+
+    function resetMicrosoftConnectionView() {
+      connectedMicrosoftIdentity = null;
+
+      const button = document.getElementById("microsoft-connect-button");
+      const status = document.getElementById("microsoft-connection-status");
+      const accountList = document.getElementById("microsoft-account-list");
+
+      if (!button || !status || !accountList) return;
+
+      button.disabled = false;
+      button.textContent = "Connect Microsoft Account";
+      status.textContent =
+        "Connect Microsoft now; Outlook Calendar access will be added next.";
+      accountList.innerHTML = "";
+      renderCalendarAccountPreferences();
+    }
+
+    function updateMicrosoftConnectionView(user) {
+      const button = document.getElementById("microsoft-connect-button");
+      const status = document.getElementById("microsoft-connection-status");
+      const accountList = document.getElementById("microsoft-account-list");
+
+      if (!button || !status || !accountList) return;
+
+      connectedMicrosoftIdentity = getMicrosoftIdentity(user);
+      accountList.innerHTML = "";
+      button.disabled = false;
+
+      if (!connectedMicrosoftIdentity) {
+        button.textContent = "Connect Microsoft Account";
+        status.textContent =
+          "No Microsoft account is connected to this dashboard account.";
+        renderCalendarAccountPreferences();
+        return;
+      }
+
+      const identityData = connectedMicrosoftIdentity.identity_data || {};
+      const microsoftEmail =
+        identityData.email ||
+        identityData.preferred_username ||
+        identityData.user_name ||
+        "Microsoft account";
+
+      button.textContent = "Microsoft Account Connected";
+
+      const card = document.createElement("div");
+      card.className = "microsoft-account-card";
+
+      const details = document.createElement("div");
+      details.className = "microsoft-account-details";
+
+      const email = document.createElement("span");
+      email.className = "microsoft-account-email";
+      email.textContent = microsoftEmail;
+
+      const badge = document.createElement("span");
+      badge.className = "microsoft-account-badge";
+      badge.textContent = "Microsoft";
+
+      details.appendChild(email);
+      details.appendChild(badge);
+      card.appendChild(details);
+      accountList.appendChild(card);
+
+      status.textContent =
+        "Microsoft is connected. Outlook Calendar permission will be added next.";
+      renderCalendarAccountPreferences();
+    }
+
+
+
+    /*
+      MUSIC SIDEBAR PROOF OF CONCEPT
+    */
+    function setMusicSidebarOpen(isOpen) {
+      const sidebar = document.getElementById("music-sidebar");
+      const toggle = document.getElementById("music-sidebar-toggle");
+
+      sidebar.classList.toggle("open", isOpen);
+      sidebar.setAttribute("aria-hidden", String(!isOpen));
+      toggle.setAttribute("aria-expanded", String(isOpen));
+      toggle.setAttribute(
+        "aria-label",
+        isOpen ? "Close music player" : "Open music player"
+      );
+    }
+
+    function toggleMusicSidebar() {
+      const sidebar = document.getElementById("music-sidebar");
+      setMusicSidebarOpen(!sidebar.classList.contains("open"));
+    }
+
+    function closeMusicSidebar() {
+      setMusicSidebarOpen(false);
+    }
+
+    /*
+      Lets the music pull-tab move vertically while the
+      sidebar itself remains full-height and fixed in place.
+    */
+    function setupMusicSidebarToggleDragging() {
+      const sidebar = document.getElementById("music-sidebar");
+      const toggle = document.getElementById("music-sidebar-toggle");
+
+      let dragging = false;
+      let moved = false;
+      let pointerStartY = 0;
+      let toggleStartCenterY = 0;
+
+      function clampCenterY(centerY) {
+        const halfHeight = toggle.offsetHeight / 2;
+        const margin = 8;
+
+        return Math.min(
+          Math.max(centerY, halfHeight + margin),
+          window.innerHeight - halfHeight - margin
+        );
+      }
+
+      function applyCenterY(centerY, save = true) {
+        const adjustedCenterY = clampCenterY(centerY);
+
+        sidebar.style.setProperty(
+          "--music-sidebar-toggle-top",
+          adjustedCenterY + "px"
+        );
+
+        if (save) {
+          localStorage.setItem(
+            "musicSidebarToggleTop",
+            String(adjustedCenterY)
+          );
+        }
+      }
+
+      const savedTop = Number(
+        localStorage.getItem("musicSidebarToggleTop")
+      );
+
+      requestAnimationFrame(function () {
+        if (Number.isFinite(savedTop)) {
+          applyCenterY(savedTop, false);
+        } else {
+          applyCenterY(window.innerHeight / 2, false);
+        }
+      });
+
+      toggle.addEventListener("pointerdown", function (event) {
+        dragging = true;
+        moved = false;
+        pointerStartY = event.clientY;
+
+        const toggleRect = toggle.getBoundingClientRect();
+        toggleStartCenterY = toggleRect.top + toggleRect.height / 2;
+
+        toggle.classList.add("dragging");
+        toggle.setPointerCapture(event.pointerId);
+      });
+
+      toggle.addEventListener("pointermove", function (event) {
+        if (!dragging) return;
+
+        const movement = event.clientY - pointerStartY;
+
+        if (Math.abs(movement) > 4) {
+          moved = true;
+        }
+
+        applyCenterY(toggleStartCenterY + movement);
+      });
+
+      function finishDragging(event) {
+        if (!dragging) return;
+
+        dragging = false;
+        toggle.classList.remove("dragging");
+
+        if (toggle.hasPointerCapture(event.pointerId)) {
+          toggle.releasePointerCapture(event.pointerId);
+        }
+      }
+
+      toggle.addEventListener("pointerup", finishDragging);
+      toggle.addEventListener("pointercancel", finishDragging);
+
+      toggle.addEventListener("click", function (event) {
+        if (moved) {
+          event.preventDefault();
+          event.stopImmediatePropagation();
+          moved = false;
+        }
+      }, true);
+
+      window.addEventListener("resize", function () {
+        const toggleRect = toggle.getBoundingClientRect();
+        applyCenterY(toggleRect.top + toggleRect.height / 2);
+      });
+    }
+
+    async function refreshDashboardServicePreferencesFromUser() {
+      try {
+        const { data, error } = await supabaseClient.auth.getUser();
+
+        if (error) throw error;
+
+        const metadata = data.user?.user_metadata || {};
+
+        calendarAccountPreferences =
+          metadata.calendar_account_preferences &&
+          typeof metadata.calendar_account_preferences === "object"
+            ? { ...metadata.calendar_account_preferences }
+            : {};
+
+        selectedYouTubeMusicGoogleConnectionId =
+          typeof metadata.youtube_music_google_connection_id === "string"
+            ? metadata.youtube_music_google_connection_id
+            : "";
+
+        const musicProviderSelect = document.getElementById("music-provider-select");
+
+        if (musicProviderSelect) {
+          const savedMusicProvider = metadata.music_provider;
+          const validMusicProvider =
+            typeof savedMusicProvider === "string" &&
+            Array.from(musicProviderSelect.options).some(function (option) {
+              return option.value === savedMusicProvider;
+            });
+
+          musicProviderSelect.value = validMusicProvider
+            ? savedMusicProvider
+            : "none";
+        }
+
+        renderCalendarAccountPreferences();
+        refreshYouTubeMusicGoogleAccountOptions();
+
+        return metadata;
+      } catch (error) {
+        console.error("Dashboard service preference load error:", error);
+        calendarAccountPreferences = {};
+        selectedYouTubeMusicGoogleConnectionId = "";
+        renderCalendarAccountPreferences();
+        refreshYouTubeMusicGoogleAccountOptions();
+        return {};
+      }
+    }
+
+    function getCalendarPreferenceKey(provider, id) {
+      return provider + ":" + id;
+    }
+
+    function isAccountEnabledForCalendar(provider, id) {
+      const key = getCalendarPreferenceKey(provider, id);
+
+      // A newly connected account defaults to ON until the user explicitly
+      // changes that specific account's Calendar switch.
+      return calendarAccountPreferences[key] !== false;
+    }
+
+    async function saveCalendarAccountPreference(provider, id, enabled) {
+      const key = getCalendarPreferenceKey(provider, id);
+      const previousPreferences = { ...calendarAccountPreferences };
+
+      calendarAccountPreferences[key] = Boolean(enabled);
+      renderCalendarAccountPreferences();
+
+      const note = document.getElementById("calendar-account-preference-note");
+      note.textContent = "Saving Calendar account preference...";
+
+      try {
+        const { error } = await supabaseClient.auth.updateUser({
+          data: {
+            calendar_account_preferences: calendarAccountPreferences
+          }
+        });
+
+        if (error) throw error;
+
+        note.textContent = enabled
+          ? "Account enabled for Calendar."
+          : "Account remains connected, but its events are hidden from Calendar.";
+
+        if (connectedGoogleAccounts.length) {
+          await loadGoogleCalendarEvents();
+        } else {
+          latestGoogleCalendarEvents = [];
+          renderGoogleCalendarEvents([]);
+          buildMiniCalendar([]);
+        }
+      } catch (error) {
+        console.error("Calendar preference save error:", error);
+        calendarAccountPreferences = previousPreferences;
+        renderCalendarAccountPreferences();
+        note.textContent =
+          error.message || "The Calendar preference could not be saved.";
+      }
+    }
+
+    function createCalendarAccountPreferenceRow(provider, id, email, providerLabel) {
+      const row = document.createElement("div");
+      row.className = "calendar-account-preference-row";
+
+      const details = document.createElement("div");
+      details.className = "calendar-account-preference-details";
+
+      const emailElement = document.createElement("span");
+      emailElement.className = "calendar-account-preference-email";
+      emailElement.textContent = email || providerLabel + " account";
+
+      const providerElement = document.createElement("span");
+      providerElement.className = "calendar-account-preference-provider";
+      providerElement.textContent = providerLabel;
+
+      details.appendChild(emailElement);
+      details.appendChild(providerElement);
+
+      const toggleLabel = document.createElement("label");
+      toggleLabel.className = "settings-toggle";
+      toggleLabel.title = "Use this account in Calendar";
+
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.checked = isAccountEnabledForCalendar(provider, id);
+      checkbox.setAttribute(
+        "aria-label",
+        "Use " + (email || providerLabel + " account") + " in Calendar"
+      );
+
+      const track = document.createElement("span");
+      track.className = "settings-toggle-track";
+      track.setAttribute("aria-hidden", "true");
+
+      checkbox.addEventListener("change", function () {
+        saveCalendarAccountPreference(provider, id, checkbox.checked);
+      });
+
+      toggleLabel.appendChild(checkbox);
+      toggleLabel.appendChild(track);
+
+      row.appendChild(details);
+      row.appendChild(toggleLabel);
+
+      return row;
+    }
+
+    function renderCalendarAccountPreferences() {
+      const list = document.getElementById("calendar-account-preference-list");
+      const note = document.getElementById("calendar-account-preference-note");
+
+      if (!list || !note) return;
+
+      list.innerHTML = "";
+
+      connectedGoogleAccounts.forEach(function (account) {
+        list.appendChild(
+          createCalendarAccountPreferenceRow(
+            "google",
+            account.id,
+            account.google_email || "Google account",
+            "Google"
+          )
+        );
+      });
+
+      if (connectedMicrosoftIdentity) {
+        const identityData = connectedMicrosoftIdentity.identity_data || {};
+        const microsoftEmail =
+          identityData.email ||
+          identityData.preferred_username ||
+          identityData.user_name ||
+          "Microsoft account";
+
+        list.appendChild(
+          createCalendarAccountPreferenceRow(
+            "microsoft",
+            connectedMicrosoftIdentity.id,
+            microsoftEmail,
+            "Microsoft · Outlook Calendar beta"
+          )
+        );
+      }
+
+      if (!list.children.length) {
+        const empty = document.createElement("div");
+        empty.className = "calendar-account-preference-row";
+        empty.textContent = "No connected accounts yet. Add Google or Microsoft above first.";
+        list.appendChild(empty);
+        note.textContent = "Connect an account to choose whether Calendar should use it.";
+      } else {
+        note.textContent = "Each account stays connected to the dashboard even when Calendar is turned off.";
+      }
+    }
+
+    function getEnabledGoogleCalendarConnectionIds() {
+      return connectedGoogleAccounts
+        .filter(function (account) {
+          return isAccountEnabledForCalendar("google", account.id);
+        })
+        .map(function (account) {
+          return account.id;
+        });
+    }
+
+    function refreshYouTubeMusicGoogleAccountOptions() {
+      const field = document.getElementById("youtube-music-google-field");
+      const select = document.getElementById("youtube-music-google-account-select");
+      const providerSelect = document.getElementById("music-provider-select");
+      const connectButton = document.getElementById("music-provider-connect-button");
+
+      if (!field || !select || !providerSelect || !connectButton) return;
+
+      const isYouTubeMusic = providerSelect.value === "youtube-music";
+      field.hidden = !isYouTubeMusic;
+
+      select.innerHTML = "";
+
+      const placeholder = document.createElement("option");
+      placeholder.value = "";
+      placeholder.textContent = connectedGoogleAccounts.length
+        ? "Choose a connected Google account"
+        : "No Google accounts connected";
+      select.appendChild(placeholder);
+
+      connectedGoogleAccounts.forEach(function (account) {
+        const option = document.createElement("option");
+        option.value = account.id;
+        option.textContent = account.google_email || "Google account";
+        select.appendChild(option);
+      });
+
+      const savedStillExists = connectedGoogleAccounts.some(function (account) {
+        return account.id === selectedYouTubeMusicGoogleConnectionId;
+      });
+
+      if (savedStillExists) {
+        select.value = selectedYouTubeMusicGoogleConnectionId;
+      } else if (connectedGoogleAccounts.length === 1) {
+        select.value = connectedGoogleAccounts[0].id;
+      } else {
+        select.value = "";
+      }
+
+      if (isYouTubeMusic) {
+        connectButton.disabled = !select.value;
+      }
+    }
+
+    async function setupMusicProviderSetting() {
+      const select = document.getElementById("music-provider-select");
+      const note = document.getElementById("music-provider-note");
+      const connectButton = document.getElementById("music-provider-connect-button");
+      const youtubeAccountSelect = document.getElementById("youtube-music-google-account-select");
+
+      const providerLabels = {
+        "none": "None",
+        "apple-music": "Apple Music",
+        "spotify": "Spotify",
+        "amazon-music": "Amazon Music",
+        "youtube-music": "YouTube Music"
+      };
+
+      function updateMusicProviderControls() {
+        const provider = select.value || "none";
+        const selectedText = providerLabels[provider] || "Music provider";
+
+        refreshYouTubeMusicGoogleAccountOptions();
+
+        if (provider === "none") {
+          connectButton.disabled = true;
+          note.textContent = "No music provider selected.";
+          return;
+        }
+
+        if (provider === "youtube-music") {
+          const selectedGoogleId = youtubeAccountSelect.value;
+          connectButton.disabled = !selectedGoogleId;
+
+          if (!connectedGoogleAccounts.length) {
+            note.textContent =
+              "YouTube Music uses Google. Connect a Google account above before continuing.";
+          } else if (!selectedGoogleId) {
+            note.textContent =
+              "Choose which connected Google account YouTube Music should use.";
+          } else {
+            const account = connectedGoogleAccounts.find(function (item) {
+              return item.id === selectedGoogleId;
+            });
+            note.textContent =
+              "YouTube Music will use " +
+              (account?.google_email || "the selected Google account") +
+              ". Its Calendar toggle can be on or off independently.";
+          }
+          return;
+        }
+
+        connectButton.disabled = false;
+        note.textContent = selectedText +
+          " selected. Press Connect to link this provider to your dashboard account.";
+      }
+
+      try {
+        const metadata = await refreshDashboardServicePreferencesFromUser();
+        const savedProvider = metadata.music_provider;
+
+        if (
+          typeof savedProvider === "string" &&
+          Array.from(select.options).some(function (option) {
+            return option.value === savedProvider;
+          })
+        ) {
+          select.value = savedProvider;
+        } else {
+          select.value = "none";
+        }
+      } catch (error) {
+        console.error("Music provider preference load error:", error);
+        select.value = "none";
+      }
+
+      select.addEventListener("change", async function () {
+        const selectedProvider = select.value || "none";
+
+        select.disabled = true;
+        connectButton.disabled = true;
+        note.textContent = "Saving music provider to your dashboard account...";
+
+        try {
+          const { error } = await supabaseClient.auth.updateUser({
+            data: {
+              music_provider: selectedProvider
+            }
+          });
+
+          if (error) throw error;
+          updateMusicProviderControls();
+        } catch (error) {
+          console.error("Music provider preference save error:", error);
+          note.textContent =
+            error.message ||
+            "The music provider could not be saved to your dashboard account.";
+        } finally {
+          select.disabled = false;
+          updateMusicProviderControls();
+        }
+      });
+
+      youtubeAccountSelect.addEventListener("change", async function () {
+        selectedYouTubeMusicGoogleConnectionId = youtubeAccountSelect.value || "";
+        connectButton.disabled = !selectedYouTubeMusicGoogleConnectionId;
+        note.textContent = "Saving the Google account for YouTube Music...";
+
+        try {
+          const { error } = await supabaseClient.auth.updateUser({
+            data: {
+              youtube_music_google_connection_id: selectedYouTubeMusicGoogleConnectionId
+            }
+          });
+
+          if (error) throw error;
+          updateMusicProviderControls();
+        } catch (error) {
+          console.error("YouTube Music Google account save error:", error);
+          note.textContent =
+            error.message || "The Google account choice could not be saved.";
+        }
+      });
+
+      connectButton.addEventListener("click", connectSelectedMusicProvider);
+      updateMusicProviderControls();
+    }
+
+    async function connectSelectedMusicProvider() {
+      const select = document.getElementById("music-provider-select");
+      const note = document.getElementById("music-provider-note");
+      const connectButton = document.getElementById("music-provider-connect-button");
+      const youtubeAccountSelect = document.getElementById("youtube-music-google-account-select");
+      const provider = select.value || "none";
+
+      if (provider === "none") {
+        note.textContent = "Choose a music provider before connecting.";
+        return;
+      }
+
+      connectButton.disabled = true;
+
+      try {
+        if (provider === "apple-music") {
+          note.textContent =
+            "Apple Music selected. MusicKit authorization still needs to be configured before this account can be connected.";
+          return;
+        }
+
+        if (provider === "spotify") {
+          note.textContent =
+            "Spotify selected. Spotify OAuth/PKCE credentials still need to be configured before this account can be connected.";
+          return;
+        }
+
+        if (provider === "amazon-music") {
+          note.textContent =
+            "Amazon Music selected. Amazon Music API access is restricted, so this connection cannot be enabled until the dashboard has approved Amazon Music API access.";
+          return;
+        }
+
+        if (provider === "youtube-music") {
+          const connectionId = youtubeAccountSelect.value;
+
+          if (!connectionId) {
+            note.textContent = "Choose a connected Google account for YouTube Music first.";
+            return;
+          }
+
+          const account = connectedGoogleAccounts.find(function (item) {
+            return item.id === connectionId;
+          });
+
+          selectedYouTubeMusicGoogleConnectionId = connectionId;
+
+          const { error } = await supabaseClient.auth.updateUser({
+            data: {
+              youtube_music_google_connection_id: connectionId
+            }
+          });
+
+          if (error) throw error;
+
+          note.textContent =
+            "YouTube Music is assigned to " +
+            (account?.google_email || "the selected Google account") +
+            ". The next step is adding YouTube Music/YouTube authorization scopes to that saved Google connection.";
+          return;
+        }
+      } finally {
+        connectButton.disabled =
+          select.value === "none" ||
+          (select.value === "youtube-music" && !youtubeAccountSelect.value);
+      }
+    }
+
+    /*
+      This only demonstrates button state. No audio is loaded yet.
+    */
+    function toggleMusicDemoPlayState() {
+      const playButton = document.getElementById("music-demo-play-button");
+      const isPlaying = playButton.textContent.trim() === "⏸";
+
+      playButton.textContent = isPlaying ? "▶" : "⏸";
+      playButton.setAttribute("aria-label", isPlaying ? "Play" : "Pause");
+      playButton.title = isPlaying ? "Play" : "Pause";
+    }
+
+    /*
+      INTERNAL SETTINGS VIEW
+
+      This is intentionally built as an in-page app view rather
+      than a separate HTML page so the same pattern can be reused
+      when the other dashboard tiles move in-house.
+    */
+    function openSettingsView() {
+      const settingsView = document.getElementById("settings-view");
+      const closeButton = document.getElementById("settings-close-button");
+
+      settingsView.hidden = false;
+      document.body.style.overflow = "hidden";
+
+      window.setTimeout(function () {
+        closeButton.focus();
+      }, 0);
+    }
+
+    function closeSettingsView() {
+      const settingsView = document.getElementById("settings-view");
+
+      settingsView.hidden = true;
+      document.body.style.overflow = "";
+    }
+
+    function openMicrosoftWarningModal() {
+      const modal = document.getElementById("microsoft-warning-modal");
+      const noButton = document.getElementById("microsoft-warning-no-button");
+
+      modal.hidden = false;
+
+      window.setTimeout(function () {
+        noButton.focus();
+      }, 0);
+    }
+
+    function closeMicrosoftWarningModal() {
+      const modal = document.getElementById("microsoft-warning-modal");
+      const microsoftButton = document.getElementById("microsoft-connect-button");
+
+      modal.hidden = true;
+      microsoftButton.focus();
+    }
+
+    async function confirmMicrosoftConnection() {
+      closeMicrosoftWarningModal();
+      await connectMicrosoftAccount();
+    }
+
+    async function connectMicrosoftAccount() {
+      const button = document.getElementById("microsoft-connect-button");
+      const status = document.getElementById("microsoft-connection-status");
+
+      button.disabled = true;
+      status.textContent = "Opening Microsoft authorization...";
+
+      try {
+        const { data: userData, error: userError } =
+          await supabaseClient.auth.getUser();
+
+        if (userError) throw userError;
+        if (!userData.user) {
+          throw new Error("Log in to your dashboard before connecting Microsoft.");
+        }
+
+        const existingIdentity = getMicrosoftIdentity(userData.user);
+
+        if (existingIdentity) {
+          updateMicrosoftConnectionView(userData.user);
+          status.textContent = "That Microsoft account is already connected.";
+          return;
+        }
+
+        const { data, error } = await supabaseClient.auth.linkIdentity({
+          provider: "azure",
+          options: {
+            redirectTo: currentDashboardUrl(),
+            scopes: MICROSOFT_OAUTH_SCOPES,
+            skipBrowserRedirect: true
+          }
+        });
+
+        if (error) throw error;
+        if (!data?.url) {
+          throw new Error("Microsoft did not provide an authorization URL.");
+        }
+
+        window.location.assign(data.url);
+      } catch (error) {
+        console.error("Microsoft authorization error:", error);
+        button.disabled = false;
+
+        const message = String(error.message || "");
+
+        if (message.toLowerCase().includes("manual linking")) {
+          status.textContent =
+            "Enable manual identity linking in Supabase Authentication settings, then try again.";
+        } else if (message.toLowerCase().includes("already linked")) {
+          status.textContent =
+            "That Microsoft account is already linked to a dashboard account.";
+        } else {
+          status.textContent =
+            error.message || "Microsoft could not be connected.";
+        }
+      }
+    }
 
     /*
       PERSISTENT GOOGLE CONNECTION
@@ -1696,6 +3525,21 @@
     let googleConnectionSaving = false;
     let connectedGoogleAccounts = [];
     let latestGoogleCalendarEvents = [];
+
+    const MICROSOFT_OAUTH_SCOPES =
+      "openid email profile offline_access";
+
+    let connectedMicrosoftIdentity = null;
+
+    let calendarAccountPreferences = {};
+    let selectedYouTubeMusicGoogleConnectionId = "";
+
+    const miniCalendarViewDate = new Date();
+    miniCalendarViewDate.setDate(1);
+    miniCalendarViewDate.setHours(0, 0, 0, 0);
+
+    const selectedCalendarStartDate = new Date();
+    selectedCalendarStartDate.setHours(0, 0, 0, 0);
 
     /*
       DASHBOARD TILE INFORMATION
@@ -1727,7 +3571,7 @@
         title: "Music",
         iconType: "text",
         icon: "♫",
-        url: "https://music.apple.com"
+        url: "#music"
       },
       {
         title: "Settings",
@@ -1862,10 +3706,18 @@
           "click",
           function (event) {
             event.preventDefault();
+            openSettingsView();
+          }
+        );
+      }
 
-            alert(
-              "Dashboard settings are coming soon."
-            );
+      if (
+        tileInformation.url === "#music"
+      ) {
+        tile.addEventListener(
+          "click",
+          function (event) {
+            event.preventDefault();
           }
         );
       }
@@ -2102,11 +3954,15 @@
       return "in-progress";
     }
 
-    function addMiniCalendarDayContent(dayElement, dayNumber, dayDate, events) {
+    function addMiniCalendarDayContent(dayElement, dayNumber, dayDate, events, showEventDot = true) {
       const numberElement = document.createElement("span");
       numberElement.className = "calendar-day-number";
       numberElement.textContent = dayNumber;
       dayElement.appendChild(numberElement);
+
+      if (!showEventDot) {
+        return;
+      }
 
       const dayStatus = getMiniCalendarDayStatus(dayDate, events);
 
@@ -2136,16 +3992,20 @@
         new Date();
 
       const year =
-        now.getFullYear();
+        miniCalendarViewDate.getFullYear();
 
       const month =
-        now.getMonth();
+        miniCalendarViewDate.getMonth();
 
       const today =
         now.getDate();
 
+      const isViewingCurrentMonth =
+        year === now.getFullYear() &&
+        month === now.getMonth();
+
       const monthName =
-        now.toLocaleDateString(
+        miniCalendarViewDate.toLocaleDateString(
           "en-US",
           {
             month: "long"
@@ -2220,7 +4080,8 @@
           dayElement,
           dayNumber,
           dayDate,
-          events
+          events,
+          false
         );
 
         calendarDays.appendChild(
@@ -2244,23 +4105,57 @@
 
         const dayElement =
           document.createElement(
-            "div"
+            "button"
           );
 
         dayElement.className =
           "calendar-day";
 
-        if (day === today) {
+        dayElement.type = "button";
+        dayElement.setAttribute(
+          "aria-label",
+          "Show events starting " +
+          dayDate.toLocaleDateString(
+            "en-US",
+            {
+              month: "long",
+              day: "numeric",
+              year: "numeric"
+            }
+          )
+        );
+
+        if (
+          isViewingCurrentMonth &&
+          day === today
+        ) {
           dayElement.classList.add(
             "today"
           );
         }
 
+        if (
+          getLocalDateKey(dayDate) ===
+          getLocalDateKey(selectedCalendarStartDate)
+        ) {
+          dayElement.classList.add(
+            "selected-day"
+          );
+        }
+
+        dayElement.addEventListener(
+          "click",
+          function () {
+            selectCalendarStartDate(dayDate);
+          }
+        );
+
         addMiniCalendarDayContent(
           dayElement,
           day,
           dayDate,
-          events
+          events,
+          true
         );
 
         calendarDays.appendChild(
@@ -2303,7 +4198,8 @@
           dayElement,
           day,
           dayDate,
-          events
+          events,
+          true
         );
 
         calendarDays.appendChild(
@@ -2313,43 +4209,95 @@
     }
 
     /*
+      Adds the correct ordinal suffix to a day number.
+      Examples: 1st, 2nd, 3rd, 4th, 11th, 20th.
+    */
+    function formatDayWithOrdinal(dayNumber) {
+      const lastTwoDigits = dayNumber % 100;
+
+      if (lastTwoDigits >= 11 && lastTwoDigits <= 13) {
+        return dayNumber + "th";
+      }
+
+      const lastDigit = dayNumber % 10;
+
+      if (lastDigit === 1) {
+        return dayNumber + "st";
+      }
+
+      if (lastDigit === 2) {
+        return dayNumber + "nd";
+      }
+
+      if (lastDigit === 3) {
+        return dayNumber + "rd";
+      }
+
+      return dayNumber + "th";
+    }
+
+    function formatCalendarHeadingDate(date) {
+      const monthName =
+        date.toLocaleDateString(
+          "en-US",
+          {
+            month: "long"
+          }
+        );
+
+      return monthName +
+        " " +
+        formatDayWithOrdinal(date.getDate()) +
+        ", " +
+        date.getFullYear();
+    }
+
+    /*
       Updates the three event headings.
     */
     function updateCalendarHeadings() {
-      const today =
-        new Date();
+      const headingIds = [
+        "today-heading",
+        "tomorrow-heading",
+        "two-days-heading"
+      ];
 
-      const twoDaysFromNow =
-        new Date(today);
+      headingIds.forEach(
+        function (headingId, offset) {
+          const headingDate =
+            new Date(selectedCalendarStartDate);
 
-      twoDaysFromNow.setDate(
-        today.getDate() + 2
+          headingDate.setDate(
+            headingDate.getDate() + offset
+          );
+
+          document
+            .getElementById(headingId)
+            .textContent =
+              formatCalendarHeadingDate(
+                headingDate
+              );
+        }
+      );
+    }
+
+    async function selectCalendarStartDate(date) {
+      selectedCalendarStartDate.setTime(
+        new Date(
+          date.getFullYear(),
+          date.getMonth(),
+          date.getDate()
+        ).getTime()
       );
 
-      document
-        .getElementById(
-          "today-heading"
-        )
-        .textContent = "Today";
+      updateCalendarHeadings();
+      buildMiniCalendar();
 
-      document
-        .getElementById(
-          "tomorrow-heading"
-        )
-        .textContent = "Tomorrow";
-
-      document
-        .getElementById(
-          "two-days-heading"
-        )
-        .textContent =
-          twoDaysFromNow
-            .toLocaleDateString(
-              "en-US",
-              {
-                weekday: "long"
-              }
-            );
+      if (connectedGoogleAccounts.length) {
+        await loadGoogleCalendarEvents();
+      } else {
+        renderGoogleCalendarEvents([]);
+      }
     }
 
     /*
@@ -2451,6 +4399,8 @@
       latestGoogleCalendarEvents = [];
       buildMiniCalendar();
       showCalendarMessageForAllDays("No Google account connected");
+      renderCalendarAccountPreferences();
+      refreshYouTubeMusicGoogleAccountOptions();
     }
 
     function renderGoogleAccountList(accounts) {
@@ -2525,6 +4475,8 @@
         ? "1 Google account connected"
         : count + " Google accounts connected";
       googleConnectionChecked = true;
+      renderCalendarAccountPreferences();
+      refreshYouTubeMusicGoogleAccountOptions();
     }
 
     async function callGoogleBackend(body) {
@@ -2796,37 +4748,152 @@
       }
     }
 
-    async function loadGoogleCalendarEvents() {
+    /*
+      Moves the mini calendar without changing the
+      fixed position of its month title or arrows.
+    */
+    async function changeMiniCalendarMonth(monthOffset) {
+      miniCalendarViewDate.setMonth(
+        miniCalendarViewDate.getMonth() + monthOffset,
+        1
+      );
+
+      buildMiniCalendar();
+
+      if (connectedGoogleAccounts.length) {
+        await loadGoogleCalendarEvents({
+          preserveEventList: true
+        });
+      }
+    }
+
+    /*
+      Returns both the mini calendar and the selected
+      three-day event range to the actual current date.
+    */
+    async function goToToday() {
+      const today = new Date();
+
+      miniCalendarViewDate.setFullYear(
+        today.getFullYear(),
+        today.getMonth(),
+        1
+      );
+
+      miniCalendarViewDate.setHours(
+        0,
+        0,
+        0,
+        0
+      );
+
+      selectedCalendarStartDate.setFullYear(
+        today.getFullYear(),
+        today.getMonth(),
+        today.getDate()
+      );
+
+      selectedCalendarStartDate.setHours(
+        0,
+        0,
+        0,
+        0
+      );
+
+      updateCalendarHeadings();
+      buildMiniCalendar();
+
+      if (connectedGoogleAccounts.length) {
+        await loadGoogleCalendarEvents();
+      } else {
+        renderGoogleCalendarEvents([]);
+      }
+    }
+
+    async function loadGoogleCalendarEvents(options = {}) {
       const status = document.getElementById("calendar-connection-status");
       const refreshButton = document.getElementById("calendar-refresh-button");
+      const previousMonthButton = document.getElementById("previous-month-button");
+      const nextMonthButton = document.getElementById("next-month-button");
+      const todayButton = document.getElementById("calendar-today-button");
+      const preserveEventList = options.preserveEventList === true;
 
       refreshButton.disabled = true;
+      previousMonthButton.disabled = true;
+      nextMonthButton.disabled = true;
+      todayButton.disabled = true;
       status.textContent = "Loading calendars from all connected Google accounts...";
-      showCalendarMessageForAllDays("Loading events...");
+
+      if (!preserveEventList) {
+        showCalendarMessageForAllDays("Loading events...");
+      }
 
       try {
-        const now = new Date();
+        const enabledGoogleConnectionIds =
+          getEnabledGoogleCalendarConnectionIds();
 
-        const rangeStart = new Date(
-          now.getFullYear(),
-          now.getMonth(),
+        if (connectedGoogleAccounts.length && !enabledGoogleConnectionIds.length) {
+          latestGoogleCalendarEvents = [];
+
+          if (!preserveEventList) {
+            renderGoogleCalendarEvents([]);
+          }
+
+          buildMiniCalendar([]);
+          status.textContent = "No Google accounts are enabled for Calendar.";
+          return;
+        }
+
+        const selectedRangeStart =
+          new Date(selectedCalendarStartDate);
+
+        const selectedRangeEnd =
+          new Date(selectedCalendarStartDate);
+
+        selectedRangeEnd.setDate(
+          selectedRangeEnd.getDate() + 3
+        );
+
+        const viewedMonthStart = new Date(
+          miniCalendarViewDate.getFullYear(),
+          miniCalendarViewDate.getMonth(),
           1
         );
 
+        /*
+          Include the first week of the following month because
+          those future dates can appear as filler in the final row.
+          Previous-month filler dates remain intentionally blank.
+        */
+        const viewedMonthEnd = new Date(
+          miniCalendarViewDate.getFullYear(),
+          miniCalendarViewDate.getMonth() + 1,
+          7
+        );
+
+        const rangeStart = new Date(
+          Math.min(
+            selectedRangeStart.getTime(),
+            viewedMonthStart.getTime()
+          )
+        );
+
         const rangeEnd = new Date(
-          now.getFullYear(),
-          now.getMonth() + 1,
-          1
+          Math.max(
+            selectedRangeEnd.getTime(),
+            viewedMonthEnd.getTime()
+          )
         );
 
         const result = await callGoogleBackend({
           action: "events",
+          connectionIds: enabledGoogleConnectionIds,
           rangeStart: rangeStart.toISOString(),
           rangeEnd: rangeEnd.toISOString(),
 
-          // Only request calendars currently checked/visible in Google Calendar.
-          // The Supabase google-calendar Edge Function must honor this flag by
-          // filtering the Google CalendarList response to calendar.selected === true.
+          // First limit the request to dashboard accounts enabled in Settings.
+          // Within each enabled Google account, the backend still limits events
+          // to calendars currently checked/visible in Google Calendar.
           selectedCalendarsOnly: true
         });
 
@@ -2846,7 +4913,11 @@
           });
 
         latestGoogleCalendarEvents = events;
-        renderGoogleCalendarEvents(events);
+
+        if (!preserveEventList) {
+          renderGoogleCalendarEvents(events);
+        }
+
         buildMiniCalendar(events);
 
         const successCount = Array.isArray(result.accounts)
@@ -2866,11 +4937,17 @@
             minute: "2-digit"
           });
       } catch (error) {
-        showCalendarMessageForAllDays("Events could not be loaded");
+        if (!preserveEventList) {
+          showCalendarMessageForAllDays("Events could not be loaded");
+        }
+
         status.textContent = error.message || "Events could not be loaded.";
         console.error("Calendar load error:", error);
       } finally {
         refreshButton.disabled = false;
+        previousMonthButton.disabled = false;
+        nextMonthButton.disabled = false;
+        todayButton.disabled = false;
       }
     }
 
@@ -3079,9 +5156,14 @@
 
       const dayKeys = [0, 1, 2].map(
         function (offset) {
-          return getLocalDateKey(
-            getLocalDayStart(offset)
+          const date =
+            new Date(selectedCalendarStartDate);
+
+          date.setDate(
+            date.getDate() + offset
           );
+
+          return getLocalDateKey(date);
         }
       );
 
@@ -3134,13 +5216,95 @@
       );
     }
 
+
+    setupMusicSidebarToggleDragging();
+    setupMusicProviderSetting();
+
+    document
+      .getElementById("music-sidebar-toggle")
+      .addEventListener("click", toggleMusicSidebar);
+
+    document
+      .getElementById("music-sidebar-close")
+      .addEventListener("click", closeMusicSidebar);
+
+    document
+      .getElementById("music-demo-play-button")
+      .addEventListener("click", toggleMusicDemoPlayState);
+
+    document
+      .getElementById("settings-close-button")
+      .addEventListener("click", closeSettingsView);
+
+    document
+      .getElementById("settings-view")
+      .addEventListener("click", function (event) {
+        if (event.target === event.currentTarget) {
+          closeSettingsView();
+        }
+      });
+
+    document
+      .getElementById("previous-month-button")
+      .addEventListener("click", function () {
+        changeMiniCalendarMonth(-1);
+      });
+
+    document
+      .getElementById("next-month-button")
+      .addEventListener("click", function () {
+        changeMiniCalendarMonth(1);
+      });
+
     document
       .getElementById("calendar-connect-button")
       .addEventListener("click", connectGoogleAccount);
 
     document
+      .getElementById("microsoft-connect-button")
+      .addEventListener("click", openMicrosoftWarningModal);
+
+    document
+      .getElementById("microsoft-warning-no-button")
+      .addEventListener("click", closeMicrosoftWarningModal);
+
+    document
+      .getElementById("microsoft-warning-yes-button")
+      .addEventListener("click", confirmMicrosoftConnection);
+
+    document
+      .getElementById("microsoft-warning-modal")
+      .addEventListener("click", function (event) {
+        if (event.target === event.currentTarget) {
+          closeMicrosoftWarningModal();
+        }
+      });
+
+    document.addEventListener("keydown", function (event) {
+      const modal = document.getElementById("microsoft-warning-modal");
+      const settingsView = document.getElementById("settings-view");
+
+      if (event.key !== "Escape") {
+        return;
+      }
+
+      if (!modal.hidden) {
+        closeMicrosoftWarningModal();
+        return;
+      }
+
+      if (!settingsView.hidden) {
+        closeSettingsView();
+      }
+    });
+
+    document
       .getElementById("calendar-refresh-button")
       .addEventListener("click", loadGoogleCalendarEvents);
+
+    document
+      .getElementById("calendar-today-button")
+      .addEventListener("click", goToToday);
 
     /*
       Converts Open-Meteo weather codes into
