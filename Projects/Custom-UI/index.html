@@ -9,9 +9,9 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>Dylan's Dashboard · Version 1.1.3</title>
+  <title>Dylan's Dashboard · Version 0.2.1</title>
 
-  <!-- Google Calendar + Microsoft beta warning build: 2026-08-06 -->
+  <!-- Music integration build: Apple Music web access + Amazon Music unsupported modal · 2026-08-07 -->
 
   <meta
     name="description"
@@ -1278,7 +1278,7 @@
 
 
     /*
-      MICROSOFT BETA WARNING MODAL
+      PROVIDER INFORMATION / WARNING MODALS
     */
     .warning-modal-backdrop {
       position: fixed;
@@ -1333,6 +1333,10 @@
       grid-template-columns: 1fr 1fr;
 
       gap: 12px;
+    }
+
+    .warning-modal-actions.single {
+      grid-template-columns: 1fr;
     }
 
     .warning-modal-button {
@@ -1787,7 +1791,7 @@
   <div id="dashboard-app" class="dashboard-container" hidden>
 
     <div class="account-bar">
-      <span>Version 0.1.2 · Signed in as <strong id="current-user-email"></strong></span>
+      <span>Version 0.2.1 · Signed in as <strong id="current-user-email"></strong></span>
       <button id="logout-button" type="button">Log Out</button>
     </div>
 
@@ -2270,7 +2274,7 @@
             <h3>Music</h3>
 
             <p class="settings-section-description">
-              Choose which music service the dashboard should use when music integration is added.
+              Choose which music service the dashboard should use. Some providers currently use web access while direct account integrations are still being developed.
             </p>
 
             <div class="settings-music-provider-row">
@@ -2369,6 +2373,44 @@
             type="button"
           >
             Yes
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Amazon Music unsupported message -->
+    <div
+      id="amazon-music-unsupported-modal"
+      class="warning-modal-backdrop"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="amazon-music-unsupported-title"
+      aria-describedby="amazon-music-unsupported-message"
+      hidden
+    >
+      <div class="warning-modal">
+        <h2
+          id="amazon-music-unsupported-title"
+          class="warning-modal-title"
+        >
+          Amazon Music Unsupported
+        </h2>
+
+        <p
+          id="amazon-music-unsupported-message"
+          class="warning-modal-message"
+        >
+          Amazon Music does not currently provide the account integration needed to connect directly with this dashboard.<br><br>
+          Support may be added in the future if Amazon makes the necessary integration available.
+        </p>
+
+        <div class="warning-modal-actions single">
+          <button
+            id="amazon-music-unsupported-close-button"
+            class="warning-modal-button yes"
+            type="button"
+          >
+            Close
           </button>
         </div>
       </div>
@@ -3241,6 +3283,19 @@
         }
 
         connectButton.disabled = false;
+
+        if (provider === "apple-music") {
+          note.textContent =
+            "Apple Music selected. Connect currently opens Apple Music on the web; direct MusicKit integration can be added later.";
+          return;
+        }
+
+        if (provider === "amazon-music") {
+          note.textContent =
+            "Amazon Music selected. Direct dashboard connection is currently unsupported.";
+          return;
+        }
+
         note.textContent = selectedText +
           " selected. Press Connect to link this provider to your dashboard account.";
       }
@@ -3333,7 +3388,12 @@
       try {
         if (provider === "apple-music") {
           note.textContent =
-            "Apple Music selected. MusicKit authorization still needs to be configured before this account can be connected.";
+            "Opening Apple Music web access. Sign in with your Apple Account there to use your library and playlists.";
+          window.open(
+            "https://music.apple.com/",
+            "_blank",
+            "noopener,noreferrer"
+          );
           return;
         }
 
@@ -3345,7 +3405,8 @@
 
         if (provider === "amazon-music") {
           note.textContent =
-            "Amazon Music selected. Amazon Music API access is restricted, so this connection cannot be enabled until the dashboard has approved Amazon Music API access.";
+            "Amazon Music is currently unsupported for direct dashboard connection.";
+          openAmazonMusicUnsupportedModal();
           return;
         }
 
@@ -3444,6 +3505,25 @@
     async function confirmMicrosoftConnection() {
       closeMicrosoftWarningModal();
       await connectMicrosoftAccount();
+    }
+
+    function openAmazonMusicUnsupportedModal() {
+      const modal = document.getElementById("amazon-music-unsupported-modal");
+      const closeButton = document.getElementById("amazon-music-unsupported-close-button");
+
+      modal.hidden = false;
+
+      window.setTimeout(function () {
+        closeButton.focus();
+      }, 0);
+    }
+
+    function closeAmazonMusicUnsupportedModal() {
+      const modal = document.getElementById("amazon-music-unsupported-modal");
+      const connectButton = document.getElementById("music-provider-connect-button");
+
+      modal.hidden = true;
+      connectButton.focus();
     }
 
     async function connectMicrosoftAccount() {
@@ -5280,15 +5360,33 @@
         }
       });
 
+    document
+      .getElementById("amazon-music-unsupported-close-button")
+      .addEventListener("click", closeAmazonMusicUnsupportedModal);
+
+    document
+      .getElementById("amazon-music-unsupported-modal")
+      .addEventListener("click", function (event) {
+        if (event.target === event.currentTarget) {
+          closeAmazonMusicUnsupportedModal();
+        }
+      });
+
     document.addEventListener("keydown", function (event) {
-      const modal = document.getElementById("microsoft-warning-modal");
+      const microsoftModal = document.getElementById("microsoft-warning-modal");
+      const amazonMusicModal = document.getElementById("amazon-music-unsupported-modal");
       const settingsView = document.getElementById("settings-view");
 
       if (event.key !== "Escape") {
         return;
       }
 
-      if (!modal.hidden) {
+      if (!amazonMusicModal.hidden) {
+        closeAmazonMusicUnsupportedModal();
+        return;
+      }
+
+      if (!microsoftModal.hidden) {
         closeMicrosoftWarningModal();
         return;
       }
@@ -5576,7 +5674,7 @@
         );
 
         document.title =
-          updatedTitle;
+          updatedTitle + " · Version 0.2.1";
       }
 
       dashboardTitle.addEventListener(
