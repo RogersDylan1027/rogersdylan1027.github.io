@@ -9,9 +9,9 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>Dylan's Dashboard · Version 0.3.3</title>
+  <title>Dylan's Dashboard · Version 0.3.4</title>
 
-  <!-- Version 0.3.3: Files providers + Google Drive read-only viewer · 2026-08-10 -->
+  <!-- Version 0.3.4: Live iCloud Drive provider + Files unified views · 2026-08-10 -->
 
   <meta
     name="description"
@@ -2032,7 +2032,7 @@
   <div id="dashboard-app" class="dashboard-container" hidden>
 
     <div class="account-bar">
-      <span>Version 0.3.3 · Signed in as <strong id="current-user-email"></strong></span>
+      <span>Version 0.3.4 · Signed in as <strong id="current-user-email"></strong></span>
       <button id="logout-button" type="button">Log Out</button>
     </div>
 
@@ -2435,6 +2435,16 @@
 
                   <button id="files-google-refresh-button" class="files-action-button secondary" type="button">
                     Refresh Drive
+                  </button>
+                </div>
+
+                <div id="files-icloud-provider-actions" class="files-provider-banner-actions" hidden>
+                  <button id="files-icloud-connect-button" class="files-action-button" type="button">
+                    Connect iCloud Drive Folder
+                  </button>
+
+                  <button id="files-icloud-refresh-button" class="files-action-button secondary" type="button">
+                    Refresh iCloud
                   </button>
                 </div>
               </div>
@@ -4298,6 +4308,8 @@
       filesView.hidden = false;
       document.body.style.overflow = "hidden";
 
+      // Always rebuild the active Files view from its current source.
+      // iCloud Drive is therefore rescanned every time Files opens.
       renderActiveFilesView();
 
       window.setTimeout(function () {
@@ -4310,6 +4322,7 @@
       document.body.style.overflow = "";
       closeFilesContextMenu();
       clearTemporaryDropIndicators();
+      stopICloudLiveRefresh();
     }
 
     function setupTemporaryFileManager() {
@@ -4436,7 +4449,7 @@
 
 
     /*
-      FILES PROVIDERS + GOOGLE DRIVE READ-ONLY VIEWER · 0.3.3
+      FILES PROVIDERS + GOOGLE DRIVE + ICLOUD DRIVE VIEWERS · 0.3.4
 
       The working temporary file manager above is intentionally left intact.
       These functions only choose which Files view is visible and render
@@ -4448,6 +4461,18 @@
     let googleDriveFolderStack = [{ id: "root", name: "My Drive" }];
     let googleDriveCurrentFiles = [];
     let googleDriveRootFiles = [];
+
+    const ICLOUD_HANDLE_DB_NAME = "dashboard-dylan-file-handles";
+    const ICLOUD_HANDLE_DB_STORE = "handles";
+    const ICLOUD_HANDLE_KEY = "icloud-drive-root";
+
+    let iCloudRootHandle = null;
+    let iCloudFolderStack = [];
+    let iCloudCurrentEntries = [];
+    let iCloudRootEntries = [];
+
+    const ICLOUD_LIVE_REFRESH_INTERVAL_MS = 15000;
+    let iCloudLiveRefreshTimer = null;
 
     function getGoogleDriveProviderToken() {
       return sessionStorage.getItem(GOOGLE_DRIVE_PROVIDER_TOKEN_KEY) || "";
@@ -4513,8 +4538,9 @@
       const title = document.getElementById("files-provider-banner-title");
       const description = document.getElementById("files-provider-banner-description");
       const googleActions = document.getElementById("files-google-provider-actions");
+      const iCloudActions = document.getElementById("files-icloud-provider-actions");
 
-      if (!banner || !title || !description || !googleActions) return;
+      if (!banner || !title || !description || !googleActions || !iCloudActions) return;
 
       if (activeFilesMode !== "provider") {
         banner.hidden = true;
@@ -4523,6 +4549,7 @@
 
       banner.hidden = false;
       googleActions.hidden = activeFilesProvider !== "google";
+      iCloudActions.hidden = activeFilesProvider !== "icloud";
 
       if (activeFilesProvider === "temporary") {
         title.textContent = "Temporary Files";
@@ -4540,7 +4567,7 @@
       } else {
         title.textContent = "iCloud Drive";
         description.textContent =
-          "Provider placeholder. iCloud access will be handled separately later.";
+          "Live Mac/Chrome view of your synced iCloud Drive folder. It is re-read automatically while Files is open.";
       }
     }
 
@@ -4851,6 +4878,446 @@
       }
     }
 
+
+
+    function stopICloudLiveRefresh() {
+      if (iCloudLiveRefreshTimer) {
+        window.clearInterval(iCloudLiveRefreshTimer);
+        iCloudLiveRefreshTimer = null;
+      }
+    }
+
+    function startICloudLiveRefresh() {
+      stopICloudLiveRefresh();
+
+      iCloudLiveRefreshTimer = window.setInterval(async function () {
+        const filesView = document.getElementById("files-view");
+
+        if (
+          filesView.hidden ||
+          activeFilesMode !== "provider" ||
+          activeFilesProvider !== "icloud"
+        ) {
+          return;
+        }
+
+        try {
+          await loadICloudCurrentFolder(false, true);
+        } catch (error) {
+          console.warn("Automatic iCloud refresh:", error);
+        }
+      }, ICLOUD_LIVE_REFRESH_INTERVAL_MS);
+    }
+
+    function openICloudHandleDatabase() {
+      return new Promise(function (resolve, reject) {
+        const request = indexedDB.open(ICLOUD_HANDLE_DB_NAME, 1);
+
+        request.onupgradeneeded = function () {
+          const db = request.result;
+          if (!db.objectStoreNames.contains(ICLOUD_HANDLE_DB_STORE)) {
+            db.createObjectStore(ICLOUD_HANDLE_DB_STORE);
+          }
+        };
+
+        request.onsuccess = function () {
+          resolve(request.result);
+        };
+
+        request.onerror = function () {
+          reject(request.error || new Error("Could not open the iCloud handle database."));
+        };
+      });
+    }
+
+    async function saveICloudRootHandle(handle) {
+      const db = await openICloudHandleDatabase();
+
+      await new Promise(function (resolve, reject) {
+        const transaction = db.transaction(ICLOUD_HANDLE_DB_STORE, "readwrite");
+        const store = transaction.objectStore(ICLOUD_HANDLE_DB_STORE);
+        const request = store.put(handle, ICLOUD_HANDLE_KEY);
+
+        request.onsuccess = function () {
+          resolve();
+        };
+
+        request.onerror = function () {
+          reject(request.error || new Error("Could not save the iCloud folder handle."));
+        };
+      });
+
+      db.close();
+    }
+
+    async function loadSavedICloudRootHandle() {
+      try {
+        const db = await openICloudHandleDatabase();
+
+        const handle = await new Promise(function (resolve, reject) {
+          const transaction = db.transaction(ICLOUD_HANDLE_DB_STORE, "readonly");
+          const store = transaction.objectStore(ICLOUD_HANDLE_DB_STORE);
+          const request = store.get(ICLOUD_HANDLE_KEY);
+
+          request.onsuccess = function () {
+            resolve(request.result || null);
+          };
+
+          request.onerror = function () {
+            reject(request.error || new Error("Could not load the saved iCloud folder handle."));
+          };
+        });
+
+        db.close();
+        iCloudRootHandle = handle;
+
+        if (iCloudRootHandle && !iCloudFolderStack.length) {
+          iCloudFolderStack = [
+            {
+              handle: iCloudRootHandle,
+              name: iCloudRootHandle.name || "iCloud Drive"
+            }
+          ];
+        }
+
+        return iCloudRootHandle;
+      } catch (error) {
+        console.warn("Saved iCloud handle load:", error);
+        return null;
+      }
+    }
+
+    async function ensureICloudReadPermission(handle, requestIfNeeded = false) {
+      if (!handle) return false;
+
+      const options = { mode: "read" };
+
+      try {
+        if (typeof handle.queryPermission === "function") {
+          const current = await handle.queryPermission(options);
+          if (current === "granted") return true;
+        }
+
+        if (
+          requestIfNeeded &&
+          typeof handle.requestPermission === "function"
+        ) {
+          return (await handle.requestPermission(options)) === "granted";
+        }
+      } catch (error) {
+        console.warn("iCloud permission check:", error);
+      }
+
+      return false;
+    }
+
+    async function connectICloudDriveFolder() {
+      if (typeof window.showDirectoryPicker !== "function") {
+        setFilesProviderStatus(
+          "This browser cannot connect a live iCloud Drive folder. Use Chrome on your Mac for this provider."
+        );
+        return;
+      }
+
+      try {
+        const handle = await window.showDirectoryPicker({
+          id: "dashboard-dylan-icloud-drive",
+          mode: "read",
+          startIn: "documents"
+        });
+
+        iCloudRootHandle = handle;
+        iCloudFolderStack = [
+          {
+            handle: handle,
+            name: handle.name || "iCloud Drive"
+          }
+        ];
+
+        await saveICloudRootHandle(handle);
+
+        setFilesProviderStatus(
+          "iCloud Drive folder connected. Loading files..."
+        );
+
+        await loadICloudCurrentFolder();
+      } catch (error) {
+        if (error?.name === "AbortError") {
+          setFilesProviderStatus("iCloud Drive connection cancelled.");
+          return;
+        }
+
+        console.error("iCloud Drive folder connection:", error);
+        setFilesProviderStatus(
+          error.message || "iCloud Drive folder could not be connected."
+        );
+      }
+    }
+
+    async function readICloudDirectory(handle) {
+      const entries = [];
+
+      for await (const [name, entryHandle] of handle.entries()) {
+        let size = null;
+        let modifiedTime = null;
+
+        if (entryHandle.kind === "file") {
+          try {
+            const file = await entryHandle.getFile();
+            size = file.size;
+            modifiedTime = file.lastModified;
+          } catch (error) {
+            // Metadata is optional for rendering.
+          }
+        }
+
+        entries.push({
+          name: name,
+          kind: entryHandle.kind,
+          handle: entryHandle,
+          size: size,
+          modifiedTime: modifiedTime
+        });
+      }
+
+      return entries.sort(function (first, second) {
+        if (first.kind !== second.kind) {
+          return first.kind === "directory" ? -1 : 1;
+        }
+        return first.name.localeCompare(second.name);
+      });
+    }
+
+    function iCloudEntryIcon(entry) {
+      if (entry.kind === "directory") return "📁";
+
+      const name = String(entry.name || "").toLowerCase();
+
+      if (/\.(jpg|jpeg|png|gif|heic|webp|svg)$/.test(name)) return "🖼️";
+      if (/\.(mp4|mov|m4v|avi|mkv)$/.test(name)) return "🎬";
+      if (/\.(mp3|m4a|wav|aac|flac)$/.test(name)) return "🎵";
+      if (/\.pdf$/.test(name)) return "📕";
+      if (/\.(csv|xls|xlsx|numbers)$/.test(name)) return "📊";
+      if (/\.(zip|rar|7z|tar|gz)$/.test(name)) return "🗜️";
+
+      return "📄";
+    }
+
+    function renderICloudBreadcrumbs() {
+      const container = document.getElementById("files-cloud-breadcrumbs");
+      container.innerHTML = "";
+
+      iCloudFolderStack.forEach(function (part, index) {
+        if (index) {
+          const separator = document.createElement("span");
+          separator.className = "files-breadcrumb-separator";
+          separator.textContent = "›";
+          container.appendChild(separator);
+        }
+
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "files-breadcrumb-button";
+        button.textContent = part.name;
+
+        button.addEventListener("click", async function () {
+          iCloudFolderStack = iCloudFolderStack.slice(0, index + 1);
+          await loadICloudCurrentFolder();
+        });
+
+        container.appendChild(button);
+      });
+    }
+
+    function makeICloudFileCard(entry) {
+      const item = document.createElement("div");
+      item.className = "file-item files-cloud-item";
+      item.setAttribute("role", "button");
+      item.setAttribute("tabindex", "0");
+      item.setAttribute(
+        "aria-label",
+        (entry.kind === "directory" ? "Folder " : "File ") +
+        entry.name +
+        " from iCloud Drive"
+      );
+
+      const icon = document.createElement("span");
+      icon.className = "file-item-icon";
+      icon.textContent = iCloudEntryIcon(entry);
+
+      const name = document.createElement("span");
+      name.className = "file-item-name";
+      name.textContent = entry.name;
+      name.title = entry.name;
+
+      const meta = document.createElement("span");
+      meta.className = "file-item-meta";
+      meta.textContent =
+        entry.kind === "directory"
+          ? "Folder"
+          : formatTemporaryFileSize(Number(entry.size || 0));
+
+      const badge = document.createElement("span");
+      badge.className = "files-provider-badge";
+      badge.textContent = "iCloud Drive";
+
+      item.appendChild(icon);
+      item.appendChild(name);
+      item.appendChild(meta);
+      item.appendChild(badge);
+
+      async function openEntry() {
+        if (entry.kind === "directory") {
+          iCloudFolderStack.push({
+            handle: entry.handle,
+            name: entry.name
+          });
+
+          await loadICloudCurrentFolder();
+          return;
+        }
+
+        try {
+          const file = await entry.handle.getFile();
+          const objectUrl = URL.createObjectURL(file);
+          window.open(objectUrl, "_blank", "noopener,noreferrer");
+
+          window.setTimeout(function () {
+            URL.revokeObjectURL(objectUrl);
+          }, 60000);
+        } catch (error) {
+          console.error("iCloud file open:", error);
+          setFilesProviderStatus(
+            error.message || "The iCloud file could not be opened."
+          );
+        }
+      }
+
+      item.addEventListener("click", openEntry);
+      item.addEventListener("keydown", function (event) {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          openEntry();
+        }
+      });
+
+      return item;
+    }
+
+    function renderICloudEntries(entries, targetGridId = "files-cloud-grid") {
+      const grid = document.getElementById(targetGridId);
+      grid.innerHTML = "";
+
+      if (targetGridId === "files-cloud-grid") {
+        renderICloudBreadcrumbs();
+      }
+
+      if (!entries.length) {
+        const empty = document.createElement("div");
+        empty.className = "files-cloud-empty";
+        empty.style.gridColumn = "1 / -1";
+        empty.innerHTML =
+          "<div><strong>This iCloud Drive folder is empty.</strong></div>";
+        grid.appendChild(empty);
+        return;
+      }
+
+      entries.forEach(function (entry) {
+        grid.appendChild(makeICloudFileCard(entry));
+      });
+    }
+
+    async function loadICloudCurrentFolder(requestPermission = false, silent = false) {
+      showOnlyFilesView("files-cloud-provider-view");
+      renderFilesProviderBanner();
+
+      if (!iCloudRootHandle) {
+        await loadSavedICloudRootHandle();
+      }
+
+      if (!iCloudRootHandle) {
+        document.getElementById("files-cloud-breadcrumbs").innerHTML = "";
+        document.getElementById("files-cloud-grid").innerHTML =
+          '<div class="files-cloud-empty" style="grid-column:1/-1"><div><strong>iCloud Drive is not connected yet.</strong><br>On your Mac in Chrome, press Connect iCloud Drive Folder and choose your iCloud Drive folder.</div></div>';
+        if (!silent) {
+          setFilesProviderStatus("iCloud Drive · not connected.");
+        }
+        return;
+      }
+
+      const allowed =
+        await ensureICloudReadPermission(iCloudRootHandle, requestPermission);
+
+      if (!allowed) {
+        document.getElementById("files-cloud-breadcrumbs").innerHTML = "";
+        document.getElementById("files-cloud-grid").innerHTML =
+          '<div class="files-cloud-empty" style="grid-column:1/-1"><div><strong>iCloud Drive permission is needed.</strong><br>Press Refresh iCloud and allow access when Chrome asks.</div></div>';
+        if (!silent) {
+          setFilesProviderStatus(
+            "iCloud Drive · saved folder found, permission required for this visit."
+          );
+        }
+        return;
+      }
+
+      try {
+        if (!iCloudFolderStack.length) {
+          iCloudFolderStack = [
+            {
+              handle: iCloudRootHandle,
+              name: iCloudRootHandle.name || "iCloud Drive"
+            }
+          ];
+        }
+
+        const current =
+          iCloudFolderStack[iCloudFolderStack.length - 1];
+
+        iCloudCurrentEntries =
+          await readICloudDirectory(current.handle);
+
+        if (iCloudFolderStack.length === 1) {
+          iCloudRootEntries = iCloudCurrentEntries.slice();
+        }
+
+        renderICloudEntries(iCloudCurrentEntries);
+
+        setFilesProviderStatus(
+          "iCloud Drive · " +
+          iCloudCurrentEntries.length +
+          (iCloudCurrentEntries.length === 1 ? " item" : " items") +
+          " · Live"
+        );
+
+        startICloudLiveRefresh();
+      } catch (error) {
+        console.error("iCloud directory read:", error);
+        setFilesProviderStatus(
+          error.message || "iCloud Drive could not be read."
+        );
+      }
+    }
+
+    async function ensureICloudRootForUnified() {
+      if (!iCloudRootHandle) {
+        await loadSavedICloudRootHandle();
+      }
+
+      if (!iCloudRootHandle || iCloudRootEntries.length) return;
+
+      const allowed =
+        await ensureICloudReadPermission(iCloudRootHandle, false);
+
+      if (!allowed) return;
+
+      try {
+        iCloudRootEntries =
+          await readICloudDirectory(iCloudRootHandle);
+      } catch (error) {
+        console.warn("iCloud unified root load:", error);
+      }
+    }
+
     function renderUnifiedServices() {
       showOnlyFilesView("files-unified-services-view");
 
@@ -4885,7 +5352,7 @@
           provider: "icloud",
           icon: "☁️",
           name: "iCloud Drive",
-          status: "Not connected yet"
+          status: iCloudRootHandle ? "Live folder connected" : "Not connected yet"
         }
       ];
 
@@ -5006,6 +5473,8 @@
             };
           });
 
+      await ensureICloudRootForUnified();
+
       const googleRoot =
         googleDriveRootFiles
           .map(function (file) {
@@ -5016,9 +5485,20 @@
             };
           });
 
+      const iCloudRoot =
+        iCloudRootEntries
+          .map(function (entry) {
+            return {
+              provider: "icloud",
+              name: entry.name,
+              entry
+            };
+          });
+
       const combined =
         temporaryRoot
           .concat(googleRoot)
+          .concat(iCloudRoot)
           .sort(function (first, second) {
             return first.name.localeCompare(second.name);
           });
@@ -5036,9 +5516,13 @@
             grid.appendChild(
               makeTemporaryMixedCard(entry.node)
             );
-          } else {
+          } else if (entry.provider === "google") {
             grid.appendChild(
               makeCloudFileCard(entry.file, "Google Drive")
+            );
+          } else {
+            grid.appendChild(
+              makeICloudFileCard(entry.entry)
             );
           }
         });
@@ -5050,6 +5534,13 @@
     }
 
     async function renderActiveFilesView() {
+      if (
+        activeFilesMode !== "provider" ||
+        activeFilesProvider !== "icloud"
+      ) {
+        stopICloudLiveRefresh();
+      }
+
       setFilesModeButtonStates();
       renderFilesProviderBanner();
 
@@ -5088,18 +5579,17 @@
         return;
       }
 
+      if (activeFilesProvider === "icloud") {
+        await loadICloudCurrentFolder(false);
+        return;
+      }
+
       showOnlyFilesView("files-cloud-provider-view");
       document.getElementById("files-cloud-breadcrumbs").innerHTML = "";
       document.getElementById("files-cloud-grid").innerHTML =
-        '<div class="files-cloud-empty" style="grid-column:1/-1"><div><strong>' +
-        (activeFilesProvider === "onedrive" ? "OneDrive" : "iCloud Drive") +
-        ' is not connected yet.</strong><br>This provider is reserved for a later integration.</div></div>';
+        '<div class="files-cloud-empty" style="grid-column:1/-1"><div><strong>OneDrive is not connected yet.</strong><br>This provider is reserved for a later integration.</div></div>';
 
-      setFilesProviderStatus(
-        activeFilesProvider === "onedrive"
-          ? "OneDrive · not connected yet."
-          : "iCloud Drive · not connected yet."
-      );
+      setFilesProviderStatus("OneDrive · not connected yet.");
     }
 
     function setupFilesProviderNavigation() {
@@ -5138,6 +5628,22 @@
       document
         .getElementById("files-google-refresh-button")
         .addEventListener("click", loadGoogleDriveFolder);
+
+      document
+        .getElementById("files-icloud-connect-button")
+        .addEventListener("click", connectICloudDriveFolder);
+
+      document
+        .getElementById("files-icloud-refresh-button")
+        .addEventListener("click", function () {
+          loadICloudCurrentFolder(true);
+        });
+
+      loadSavedICloudRootHandle().then(function () {
+        if (activeFilesProvider === "icloud") {
+          renderActiveFilesView();
+        }
+      });
     }
 
 
