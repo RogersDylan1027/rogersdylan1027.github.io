@@ -9,9 +9,9 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>Dylan's Dashboard · Version 0.2.1</title>
+  <title>Dylan's Dashboard · Version 0.3.3</title>
 
-  <!-- Music integration build: Apple Music web access + Amazon Music unsupported modal · 2026-08-07 -->
+  <!-- Version 0.3.3: Files providers + Google Drive read-only viewer · 2026-08-10 -->
 
   <meta
     name="description"
@@ -791,7 +791,7 @@
       GOOGLE SEARCH
     */
     .search-section {
-      margin: 0 0 32px;
+      margin: 34px 0;
     }
 
     .google-search-form {
@@ -1123,73 +1123,6 @@
       color: #555555;
     }
 
-    .settings-select-label {
-      display: block;
-      margin: 0 0 7px;
-      color: #4f5968;
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    .settings-select {
-      width: 100%;
-      max-width: 360px;
-      padding: 10px 12px;
-      border: 1px solid #c8cdd5;
-      border-radius: 10px;
-      background-color: white;
-      color: #252525;
-      font: inherit;
-    }
-
-    .settings-select:focus {
-      border-color: #2450a4;
-      outline: 3px solid rgba(36, 80, 164, 0.15);
-    }
-
-    .settings-music-provider-row {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      align-items: end;
-      gap: 10px;
-    }
-
-    .settings-music-provider-field {
-      min-width: 0;
-    }
-
-    .settings-music-connect-button {
-      min-height: 42px;
-      padding: 9px 16px;
-      border: 1px solid #2450a4;
-      border-radius: 11px;
-      background-color: #2450a4;
-      color: white;
-      font: inherit;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .settings-music-connect-button:hover {
-      filter: brightness(0.96);
-    }
-
-    .settings-music-connect-button:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    .settings-selection-note {
-      margin: 9px 0 0;
-      color: #666666;
-      font-size: 12px;
-    }
-
-    .settings-dependent-field {
-      margin-top: 14px;
-    }
-
     .calendar-account-preference-list {
       display: grid;
       gap: 10px;
@@ -1376,252 +1309,563 @@
     }
 
 
+
+
     /*
-      COLLAPSIBLE MUSIC SIDEBAR
-
-      The panel is intentionally independent from the internal app views,
-      so it can remain available later while Calendar, Email, Drive, and
-      other tiles become built-in dashboard apps.
+      TEMPORARY FILE MANAGER
+      Files live only in page memory for this proof of concept.
     */
-    .music-sidebar {
-      position: fixed;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 850;
+    .files-view-panel {
+      width: min(100%, 1080px);
+    }
 
-      width: min(340px, calc(100vw - 56px));
-      height: 100vh;
-
-      display: flex;
-      flex-direction: column;
-
+    .files-content {
       padding: 22px;
-
-      background-color: #ffffff;
-      border: 1px solid #d5d9df;
-      border-right: none;
-      border-radius: 18px 0 0 18px;
-      box-shadow: -10px 8px 28px rgba(0, 0, 0, 0.12);
-
-      transform: translateX(100%);
-      transition: transform 0.24s ease;
     }
 
-    .music-sidebar.open {
-      transform: translateX(0);
+    .files-warning {
+      margin: 0 0 16px;
+      padding: 11px 14px;
+      border: 1px solid #e0c36a;
+      border-radius: 12px;
+      background-color: #fff9e8;
+      color: #6f5700;
+      font-size: 13px;
+      line-height: 1.45;
     }
 
-    .music-sidebar-toggle {
-      position: absolute;
-      top: var(--music-sidebar-toggle-top, 50%);
-      left: -48px;
-
-      width: 48px;
-      height: 54px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      padding: 0;
-      border: 1px solid #d5d9df;
-      border-right: none;
-      border-radius: 14px 0 0 14px;
-
-      background-color: white;
-      color: #2450a4;
-
-      box-shadow: -4px 3px 12px rgba(0, 0, 0, 0.08);
-
-      font: inherit;
-      font-size: 22px;
-      cursor: pointer;
-
-      transform: translateY(-50%);
-    }
-
-    .music-sidebar-toggle:hover {
-      background-color: #f1f4f9;
-    }
-
-    .music-sidebar-toggle {
-      touch-action: none;
-      user-select: none;
-      cursor: grab;
-    }
-
-    .music-sidebar-toggle.dragging {
-      cursor: grabbing;
-    }
-
-    .music-sidebar-header {
+    .files-toolbar {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      flex-wrap: wrap;
       gap: 12px;
-      margin-bottom: 24px;
-
+      margin-bottom: 14px;
     }
 
-    .music-sidebar-header h2 {
-      margin: 0;
-      font-size: 20px;
-    }
-
-    .music-sidebar-label {
-      margin: 0 0 5px;
-      color: #777777;
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-    }
-
-    .music-sidebar-close {
-      width: 34px;
-      height: 34px;
-
+    .files-toolbar-actions {
       display: flex;
       align-items: center;
-      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
 
-      padding: 0;
-      border: 1px solid #d5d9df;
-      border-radius: 50%;
-
-      background-color: white;
-      color: #252525;
+    .files-action-button {
+      min-height: 38px;
+      padding: 8px 14px;
+      border: 1px solid #2450a4;
+      border-radius: 10px;
+      background-color: #2450a4;
+      color: white;
       font: inherit;
-      font-size: 20px;
+      font-size: 13px;
+      font-weight: 700;
       cursor: pointer;
     }
 
-    .music-sidebar-close:hover {
-      background-color: #f1f3f4;
-    }
-
-    .music-album-art {
-      aspect-ratio: 1 / 1;
-      width: 100%;
-
-      display: grid;
-      place-items: center;
-
-      margin-bottom: 20px;
-
-      border: 1px solid #d5d9df;
-      border-radius: 20px;
-
-      background:
-        radial-gradient(circle at 30% 25%, rgba(66, 133, 244, 0.34), transparent 28%),
-        radial-gradient(circle at 70% 70%, rgba(36, 80, 164, 0.30), transparent 34%),
-        linear-gradient(135deg, #eef3fb, #dfe8f8);
-
+    .files-action-button.secondary {
+      background-color: white;
       color: #2450a4;
-      font-size: 78px;
-      user-select: none;
     }
 
-    .music-track-title {
+    .files-action-button:hover {
+      filter: brightness(0.96);
+    }
+
+    .files-status {
+      margin: 0;
+      color: #666666;
+      font-size: 12px;
+    }
+
+    .files-breadcrumbs {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin: 0 0 12px;
+      min-height: 32px;
+    }
+
+    .files-breadcrumb-button {
+      padding: 5px 8px;
+      border: none;
+      border-radius: 8px;
+      background: transparent;
+      color: #2450a4;
+      font: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .files-breadcrumb-button:hover {
+      background-color: #eef3fb;
+    }
+
+    .files-breadcrumb-separator {
+      color: #9aa0a8;
+      font-size: 12px;
+    }
+
+    .files-workspace {
+      min-height: 360px;
+      padding: 16px;
+      border: 1.5px dashed #c8cdd5;
+      border-radius: 16px;
+      background-color: white;
+      transition: border-color 0.15s ease, background-color 0.15s ease;
+    }
+
+    .files-workspace.drag-over {
+      border-color: #2450a4;
+      background-color: #f5f8ff;
+    }
+
+    .files-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
+      gap: 16px;
+      align-items: start;
+    }
+
+    .files-current-folder-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 0 0 14px;
+      padding: 12px 14px;
+      border: 1px solid #dfe3e8;
+      border-radius: 14px;
+      background: white;
+    }
+
+    .files-current-folder-identity {
+      display: flex;
+      align-items: center;
+      min-width: 0;
+      gap: 11px;
+    }
+
+    .files-current-folder-icon {
+      font-size: 28px;
+      line-height: 1;
+    }
+
+    .files-current-folder-label {
+      margin: 0 0 2px;
+      color: #777777;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+    }
+
+    .files-current-folder-header h3 {
       margin: 0;
       overflow: hidden;
+      font-size: 18px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
 
-      font-size: 20px;
+    .files-empty-state {
+      min-height: 320px;
+      display: grid;
+      place-items: center;
+      padding: 30px;
+      color: #777777;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .file-item {
+      position: relative;
+      min-width: 0;
+      min-height: 126px;
+      padding: 14px 34px 12px 14px;
+      border: 1px solid #dfe3e8;
+      border-radius: 16px;
+      background-color: #f9fafb;
+      cursor: grab;
+      user-select: none;
+      touch-action: none;
+      transition:
+        transform 0.12s ease,
+        border-color 0.12s ease,
+        background-color 0.12s ease,
+        opacity 0.12s ease;
+    }
+
+    .file-item.dragging {
+      opacity: 0.46;
+      cursor: grabbing;
+      transform: scale(0.97);
+    }
+
+    .file-item.drop-into {
+      border-color: #2450a4;
+      background-color: #eaf1ff;
+      outline: 3px solid rgba(36, 80, 164, 0.14);
+    }
+
+    .file-item.drop-before::before,
+    .file-item.drop-after::after {
+      content: "";
+      position: absolute;
+      top: 8px;
+      bottom: 8px;
+      width: 4px;
+      border-radius: 2px;
+      background-color: #2450a4;
+    }
+
+    .file-item.drop-before::before {
+      left: -10px;
+    }
+
+    .file-item.drop-after::after {
+      right: -10px;
+    }
+
+    .file-item:hover,
+    .file-item.selected {
+      border-color: #9db3db;
+      background-color: #f1f5fc;
+    }
+
+    .file-item-icon {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 34px;
+      line-height: 1;
+    }
+
+    .file-item-name {
+      display: block;
+      overflow: hidden;
+      color: #252525;
+      font-size: 13px;
       font-weight: 700;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
 
-    .music-track-artist {
-      margin: 5px 0 0;
-      color: #666666;
-      font-size: 14px;
+    .file-item-meta {
+      display: block;
+      margin-top: 5px;
+      overflow: hidden;
+      color: #777777;
+      font-size: 11px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
-    .music-progress {
+    .file-item-menu-button {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 28px;
+      height: 28px;
+      padding: 0;
+      border: none;
+      border-radius: 50%;
+      background: transparent;
+      color: #555555;
+      font: inherit;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .file-item-menu-button:hover {
+      background-color: #e7ebf2;
+    }
+
+    .files-context-menu {
+      position: fixed;
+      z-index: 1200;
+      width: 190px;
+      padding: 6px;
+      border: 1px solid #cfd4dc;
+      border-radius: 12px;
+      background-color: white;
+      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.18);
+    }
+
+    .files-context-menu button {
       width: 100%;
-      margin: 20px 0 5px;
-      accent-color: #2450a4;
+      padding: 9px 10px;
+      border: none;
+      border-radius: 8px;
+      background: transparent;
+      color: #252525;
+      font: inherit;
+      font-size: 13px;
+      text-align: left;
+      cursor: pointer;
     }
 
-    .music-time-row {
+    .files-context-menu button:hover {
+      background-color: #eef1f5;
+    }
+
+    .files-context-menu button.danger {
+      color: #b3261e;
+    }
+
+    .files-context-divider {
+      height: 1px;
+      margin: 5px 3px;
+      background-color: #e3e5e8;
+    }
+
+    /*
+      FILES PROVIDER + UNIFIED NAVIGATION
+      Added in 0.3.3 without replacing the working 0.3.2 temporary manager.
+    */
+    .files-view-panel {
+      width: min(100%, 1180px);
+    }
+
+    .files-navigation-shell {
+      display: grid;
+      grid-template-columns: 205px minmax(0, 1fr);
+      min-height: 620px;
+    }
+
+    .files-provider-sidebar {
+      padding: 18px 14px;
+      border-right: 1px solid #dfe3e8;
+      background: #ffffff;
+    }
+
+    .files-provider-sidebar-label {
+      margin: 5px 10px 8px;
+      color: #777777;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+    }
+
+    .files-provider-button {
+      width: 100%;
       display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 10px 11px;
+      border: none;
+      border-radius: 10px;
+      background: transparent;
+      color: #252525;
+      font: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .files-provider-button:hover,
+    .files-provider-button.active {
+      background: #eef3fb;
+      color: #2450a4;
+    }
+
+    .files-provider-sidebar-note {
+      margin: 16px 10px 4px;
+      color: #777777;
+      font-size: 11px;
+      line-height: 1.45;
+    }
+
+    .files-provider-main {
+      min-width: 0;
+    }
+
+    .files-view-mode-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 14px;
+      padding: 4px;
+      width: fit-content;
+      max-width: 100%;
+      border: 1px solid #d5d9df;
+      border-radius: 12px;
+      background: #ffffff;
+    }
+
+    .files-view-mode-button {
+      min-height: 34px;
+      padding: 7px 11px;
+      border: none;
+      border-radius: 9px;
+      background: transparent;
+      color: #555555;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .files-view-mode-button.active {
+      background: #2450a4;
+      color: #ffffff;
+    }
+
+    .files-provider-banner {
+      display: flex;
+      align-items: center;
       justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 0 0 14px;
+      padding: 12px 14px;
+      border: 1px solid #dfe3e8;
+      border-radius: 14px;
+      background: #ffffff;
+    }
+
+    .files-provider-banner-title {
+      display: block;
+      margin-bottom: 3px;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .files-provider-banner-description {
+      color: #666666;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .files-provider-banner-actions {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .files-provider-banner-actions select {
+      max-width: 250px;
+      min-height: 38px;
+      padding: 7px 10px;
+      border: 1px solid #c8cdd5;
+      border-radius: 10px;
+      background: #ffffff;
+      color: #252525;
+      font: inherit;
+      font-size: 13px;
+    }
+
+    .files-service-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+      gap: 16px;
+    }
+
+    .files-service-card {
+      min-height: 145px;
+      display: grid;
+      place-items: center;
+      padding: 18px;
+      border: 1px solid #dfe3e8;
+      border-radius: 18px;
+      background: #f9fafb;
+      color: #252525;
+      font: inherit;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .files-service-card:hover {
+      background: #f1f5fc;
+      border-color: #9db3db;
+    }
+
+    .files-service-card-icon {
+      display: block;
+      font-size: 42px;
+      line-height: 1;
+    }
+
+    .files-service-card-name {
+      display: block;
+      margin-top: 9px;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .files-service-card-status {
+      display: block;
+      margin-top: 4px;
       color: #777777;
       font-size: 11px;
     }
 
-    .music-player-controls {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 22px;
-      margin: 22px 0;
+    .files-provider-badge {
+      display: inline-block;
+      margin-top: 7px;
+      padding: 2px 7px;
+      border-radius: 10px;
+      background: #e8f0fe;
+      color: #2450a4;
+      font-size: 10px;
+      font-weight: 800;
     }
 
-    .music-control-button {
-      width: 42px;
-      height: 42px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      padding: 0;
-      border: none;
-      border-radius: 50%;
-
-      background-color: transparent;
-      color: #252525;
-      font: inherit;
-      font-size: 22px;
-      cursor: pointer;
-    }
-
-    .music-control-button:hover {
-      background-color: #f1f3f4;
-    }
-
-    .music-control-button.play {
-      width: 54px;
-      height: 54px;
-      background-color: #2450a4;
-      color: white;
-      font-size: 24px;
-    }
-
-    .music-control-button.play:hover {
-      filter: brightness(0.96);
-    }
-
-    .music-volume-row {
+    .files-cloud-empty {
+      min-height: 320px;
       display: grid;
-      grid-template-columns: 24px 1fr 24px;
-      align-items: center;
-      gap: 9px;
-      margin-top: 2px;
-    }
-
-    .music-volume-row span {
-      text-align: center;
-      color: #666666;
-      font-size: 14px;
-    }
-
-    .music-volume-slider {
-      width: 100%;
-      accent-color: #2450a4;
-    }
-
-    .music-poc-note {
-      margin: auto 0 0;
-      padding-top: 20px;
+      place-items: center;
+      padding: 30px;
       color: #777777;
-      font-size: 12px;
-      line-height: 1.45;
       text-align: center;
+      line-height: 1.5;
     }
+
+    .files-cloud-item {
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    .files-cloud-item .file-item-meta {
+      white-space: normal;
+    }
+
+    @media (max-width: 780px) {
+      .files-navigation-shell {
+        display: block;
+      }
+
+      .files-provider-sidebar {
+        position: sticky;
+        top: 77px;
+        z-index: 2;
+        display: flex;
+        gap: 6px;
+        overflow-x: auto;
+        padding: 10px 12px;
+        border-right: none;
+        border-bottom: 1px solid #dfe3e8;
+      }
+
+      .files-provider-sidebar-label,
+      .files-provider-sidebar-note {
+        display: none;
+      }
+
+      .files-provider-button {
+        flex: 0 0 auto;
+        width: auto;
+        white-space: nowrap;
+      }
+    }
+
 
     /*
       RESPONSIVE LAYOUT
@@ -1720,23 +1964,20 @@
         min-height: 70px;
       }
 
-      .settings-music-provider-row {
-        grid-template-columns: 1fr;
+      .files-content {
+        padding: 14px;
       }
 
-      .settings-music-connect-button {
+      .files-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .files-toolbar-actions {
         width: 100%;
       }
 
-
-      .music-sidebar {
-        width: min(320px, calc(100vw - 48px));
-        padding: 18px;
-      }
-
-      .music-sidebar-toggle {
-        left: -44px;
-        width: 44px;
+      .files-action-button {
+        flex: 1 1 auto;
       }
     }
   </style>
@@ -1791,7 +2032,7 @@
   <div id="dashboard-app" class="dashboard-container" hidden>
 
     <div class="account-bar">
-      <span>Version 0.2.1 · Signed in as <strong id="current-user-email"></strong></span>
+      <span>Version 0.3.3 · Signed in as <strong id="current-user-email"></strong></span>
       <button id="logout-button" type="button">Log Out</button>
     </div>
 
@@ -1921,6 +2162,47 @@
       </div>
 
     </section>
+
+    <!-- Address-style search bar -->
+    <section class="search-section">
+
+      <form
+        id="smart-search-form"
+        class="google-search-form"
+        autocomplete="off"
+      >
+
+        <div class="google-logo" aria-hidden="true">
+          ⌕
+        </div>
+
+        <input
+          id="smart-search-input"
+          class="google-search-input"
+          type="text"
+          inputmode="text"
+          enterkeyhint="go"
+          placeholder="Search Google or enter a URL"
+          aria-label="Search Google or enter a website address"
+          autocomplete="off"
+          autocapitalize="none"
+          spellcheck="false"
+          required
+        >
+
+        <button
+          class="google-search-button"
+          type="submit"
+          aria-label="Go"
+          title="Go"
+        >
+          ➜
+        </button>
+
+      </form>
+
+    </section>
+
 
     <!-- Google Calendar-style widget -->
     <section class="calendar-widget">
@@ -2067,87 +2349,188 @@
 
 
 
-    <!-- Collapsible music sidebar proof of concept -->
-    <aside
-      id="music-sidebar"
-      class="music-sidebar"
-      aria-label="Music player"
-      aria-hidden="true"
+
+    <!-- Temporary internal Files manager -->
+    <div
+      id="files-view"
+      class="internal-view-backdrop"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="files-view-title"
+      hidden
     >
-      <button
-        id="music-sidebar-toggle"
-        class="music-sidebar-toggle"
-        type="button"
-        aria-label="Open music player"
-        aria-expanded="false"
-        title="Music player"
-      >
-        ♫
-      </button>
+      <section class="internal-view files-view-panel">
+        <header class="internal-view-header">
+          <div class="internal-view-header-spacer" aria-hidden="true"></div>
 
-      <div class="music-sidebar-header">
-        <div>
-          <p class="music-sidebar-label">Now Playing</p>
-          <h2>Music</h2>
+          <h2 id="files-view-title">Files</h2>
+
+          <button
+            id="files-close-button"
+            class="internal-view-close-button"
+            type="button"
+            aria-label="Close files"
+            title="Close files"
+          >
+            ×
+          </button>
+        </header>
+
+        <div class="files-navigation-shell">
+          <aside class="files-provider-sidebar" aria-label="File storage providers">
+            <p class="files-provider-sidebar-label">Sources</p>
+
+            <button class="files-provider-button active" data-files-provider="temporary" type="button">
+              📦 Temporary Files
+            </button>
+
+            <button class="files-provider-button" data-files-provider="google" type="button">
+              🔺 Google Drive
+            </button>
+
+            <button class="files-provider-button" data-files-provider="onedrive" type="button">
+              ☁️ OneDrive
+            </button>
+
+            <button class="files-provider-button" data-files-provider="icloud" type="button">
+              ☁️ iCloud Drive
+            </button>
+
+            <p class="files-provider-sidebar-note">
+              Provider keeps services separate. Unified views change only how files are shown; originals stay in their real storage service.
+            </p>
+          </aside>
+
+          <div class="files-provider-main">
+            <div class="files-content">
+
+              <div class="files-view-mode-row" role="tablist" aria-label="Files display mode">
+                <button class="files-view-mode-button active" data-files-mode="provider" type="button">
+                  Provider
+                </button>
+                <button class="files-view-mode-button" data-files-mode="services" type="button">
+                  Unified: Services
+                </button>
+                <button class="files-view-mode-button" data-files-mode="mixed" type="button">
+                  Unified: Mixed
+                </button>
+              </div>
+
+              <div id="files-provider-banner" class="files-provider-banner">
+                <div>
+                  <span id="files-provider-banner-title" class="files-provider-banner-title">Temporary Files</span>
+                  <span id="files-provider-banner-description" class="files-provider-banner-description">
+                    Working temporary file manager from 0.3.2.
+                  </span>
+                </div>
+
+                <div id="files-google-provider-actions" class="files-provider-banner-actions" hidden>
+                  <select id="files-google-account-select" aria-label="Google account for Drive">
+                    <option value="">Choose Google account</option>
+                  </select>
+
+                  <button id="files-google-authorize-button" class="files-action-button" type="button">
+                    Authorize Drive
+                  </button>
+
+                  <button id="files-google-refresh-button" class="files-action-button secondary" type="button">
+                    Refresh Drive
+                  </button>
+                </div>
+              </div>
+
+              <div id="files-temporary-provider-view">
+                <p class="files-warning">
+            <strong>Temporary Files:</strong> This proof of concept stores files only in the current page session. Refreshing or closing the page clears everything here.
+          </p>
+
+          <div class="files-toolbar">
+            <div class="files-toolbar-actions">
+              <button id="files-new-folder-button" class="files-action-button secondary" type="button">
+                + New Folder
+              </button>
+
+              <button id="files-upload-button" class="files-action-button" type="button">
+                Upload Files
+              </button>
+
+              <button id="files-upload-folder-button" class="files-action-button" type="button">
+                Upload Folder
+              </button>
+            </div>
+
+            <p id="files-status" class="files-status" role="status" aria-live="polite">
+              Temporary storage · 0 items
+            </p>
+          </div>
+
+          <div id="files-breadcrumbs" class="files-breadcrumbs" aria-label="Current folder"></div>
+
+          <div id="files-current-folder-header" class="files-current-folder-header">
+            <div class="files-current-folder-identity">
+              <span class="files-current-folder-icon" aria-hidden="true">📁</span>
+              <div>
+                <p class="files-current-folder-label">Current Folder</p>
+                <h3 id="files-current-folder-name">Files</h3>
+              </div>
+            </div>
+
+            <button
+              id="files-current-folder-rename-button"
+              class="files-action-button secondary"
+              type="button"
+              hidden
+            >
+              Rename Folder
+            </button>
+          </div>
+
+          <div
+            id="files-workspace"
+            class="files-workspace"
+            aria-label="Temporary file manager. Drop files here, right-click on desktop, or press and hold on touch devices."
+          >
+            <div id="files-grid" class="files-grid"></div>
+          </div>
+
+          <input id="files-upload-input" type="file" multiple hidden>
+          <input id="files-upload-folder-input" type="file" webkitdirectory directory multiple hidden>
+              </div>
+
+              <div id="files-cloud-provider-view" hidden>
+                <div id="files-cloud-breadcrumbs" class="files-breadcrumbs" aria-label="Cloud folder"></div>
+
+                <div class="files-workspace">
+                  <div id="files-cloud-grid" class="files-grid"></div>
+                </div>
+              </div>
+
+              <div id="files-unified-services-view" hidden>
+                <div id="files-service-grid" class="files-service-grid"></div>
+              </div>
+
+              <div id="files-unified-mixed-view" hidden>
+                <div class="files-workspace">
+                  <div id="files-mixed-grid" class="files-grid"></div>
+                </div>
+              </div>
+
+            </div>
+          </div>
         </div>
+      </section>
+    </div>
 
-        <button
-          id="music-sidebar-close"
-          class="music-sidebar-close"
-          type="button"
-          aria-label="Close music player"
-          title="Close music player"
-        >
-          ×
-        </button>
-      </div>
-
-      <div class="music-album-art" aria-label="Album artwork placeholder">
-        ♫
-      </div>
-
-      <div>
-        <p class="music-track-title">Song Title</p>
-        <p class="music-track-artist">Artist Name · Album Name</p>
-      </div>
-
-      <input
-        class="music-progress"
-        type="range"
-        min="0"
-        max="100"
-        value="36"
-        aria-label="Song progress proof of concept"
-      >
-
-      <div class="music-time-row" aria-hidden="true">
-        <span>1:24</span>
-        <span>3:52</span>
-      </div>
-
-      <div class="music-player-controls" aria-label="Playback controls">
-        <button class="music-control-button" type="button" aria-label="Previous track" title="Previous track">⏮</button>
-        <button id="music-demo-play-button" class="music-control-button play" type="button" aria-label="Play" title="Play">▶</button>
-        <button class="music-control-button" type="button" aria-label="Next track" title="Next track">⏭</button>
-      </div>
-
-      <div class="music-volume-row">
-        <span aria-hidden="true">🔈</span>
-        <input
-          class="music-volume-slider"
-          type="range"
-          min="0"
-          max="100"
-          value="65"
-          aria-label="Volume proof of concept"
-        >
-        <span aria-hidden="true">🔊</span>
-      </div>
-
-      <p class="music-poc-note">
-        Proof of concept only — playback is not connected to a music service yet.
-      </p>
-    </aside>
+    <div id="files-context-menu" class="files-context-menu" role="menu" hidden>
+      <button id="files-context-open" type="button" role="menuitem">Open</button>
+      <button id="files-context-download" type="button" role="menuitem">Download</button>
+      <button id="files-context-new-folder" type="button" role="menuitem">New Folder</button>
+      <button id="files-context-upload" type="button" role="menuitem">Upload Files</button>
+      <button id="files-context-upload-folder" type="button" role="menuitem">Upload Folder</button>
+      <div id="files-context-item-divider" class="files-context-divider"></div>
+      <button id="files-context-rename" type="button" role="menuitem">Rename</button>
+      <button id="files-context-delete" class="danger" type="button" role="menuitem">Delete</button>
+    </div>
 
     <!-- Internal Settings view -->
     <div
@@ -2271,57 +2654,6 @@
           </section>
 
           <section class="settings-section">
-            <h3>Music</h3>
-
-            <p class="settings-section-description">
-              Choose which music service the dashboard should use. Some providers currently use web access while direct account integrations are still being developed.
-            </p>
-
-            <div class="settings-music-provider-row">
-              <div class="settings-music-provider-field">
-                <label class="settings-select-label" for="music-provider-select">
-                  Music Provider
-                </label>
-
-                <select id="music-provider-select" class="settings-select">
-                  <option value="none" selected>None</option>
-                  <option value="apple-music">Apple Music</option>
-                  <option value="spotify">Spotify</option>
-                  <option value="amazon-music">Amazon Music</option>
-                  <option value="youtube-music">YouTube Music</option>
-                </select>
-              </div>
-
-              <button
-                id="music-provider-connect-button"
-                class="settings-music-connect-button"
-                type="button"
-                disabled
-              >
-                Connect
-              </button>
-            </div>
-
-            <div id="youtube-music-google-field" class="settings-dependent-field" hidden>
-              <label class="settings-select-label" for="youtube-music-google-account-select">
-                Google Account for YouTube Music
-              </label>
-
-              <select id="youtube-music-google-account-select" class="settings-select">
-                <option value="">Choose a connected Google account</option>
-              </select>
-
-              <p class="settings-selection-note">
-                This Google account can be used for YouTube Music even if its Calendar switch is turned off.
-              </p>
-            </div>
-
-            <p id="music-provider-note" class="settings-selection-note" role="status" aria-live="polite">
-              No music provider selected.
-            </p>
-          </section>
-
-          <section class="settings-section">
             <h3>Dashboard</h3>
             <p class="settings-section-description">
               This section is ready for future dashboard preferences as more tiles become built-in apps.
@@ -2377,84 +2709,6 @@
         </div>
       </div>
     </div>
-
-    <!-- Amazon Music unsupported message -->
-    <div
-      id="amazon-music-unsupported-modal"
-      class="warning-modal-backdrop"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="amazon-music-unsupported-title"
-      aria-describedby="amazon-music-unsupported-message"
-      hidden
-    >
-      <div class="warning-modal">
-        <h2
-          id="amazon-music-unsupported-title"
-          class="warning-modal-title"
-        >
-          Amazon Music Unsupported
-        </h2>
-
-        <p
-          id="amazon-music-unsupported-message"
-          class="warning-modal-message"
-        >
-          Amazon Music does not currently provide the account integration needed to connect directly with this dashboard.<br><br>
-          Support may be added in the future if Amazon makes the necessary integration available.
-        </p>
-
-        <div class="warning-modal-actions single">
-          <button
-            id="amazon-music-unsupported-close-button"
-            class="warning-modal-button yes"
-            type="button"
-          >
-            Close
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Address-style search bar -->
-    <section class="search-section">
-
-      <form
-        id="smart-search-form"
-        class="google-search-form"
-        autocomplete="off"
-      >
-
-        <div class="google-logo" aria-hidden="true">
-          ⌕
-        </div>
-
-        <input
-          id="smart-search-input"
-          class="google-search-input"
-          type="text"
-          inputmode="text"
-          enterkeyhint="go"
-          placeholder="Search Google or enter a URL"
-          aria-label="Search Google or enter a website address"
-          autocomplete="off"
-          autocapitalize="none"
-          spellcheck="false"
-          required
-        >
-
-        <button
-          class="google-search-button"
-          type="submit"
-          aria-label="Go"
-          title="Go"
-        >
-          ➜
-        </button>
-
-      </form>
-
-    </section>
 
     <!-- JavaScript adds the tile rows here -->
     <main
@@ -2858,134 +3112,6 @@
 
 
 
-    /*
-      MUSIC SIDEBAR PROOF OF CONCEPT
-    */
-    function setMusicSidebarOpen(isOpen) {
-      const sidebar = document.getElementById("music-sidebar");
-      const toggle = document.getElementById("music-sidebar-toggle");
-
-      sidebar.classList.toggle("open", isOpen);
-      sidebar.setAttribute("aria-hidden", String(!isOpen));
-      toggle.setAttribute("aria-expanded", String(isOpen));
-      toggle.setAttribute(
-        "aria-label",
-        isOpen ? "Close music player" : "Open music player"
-      );
-    }
-
-    function toggleMusicSidebar() {
-      const sidebar = document.getElementById("music-sidebar");
-      setMusicSidebarOpen(!sidebar.classList.contains("open"));
-    }
-
-    function closeMusicSidebar() {
-      setMusicSidebarOpen(false);
-    }
-
-    /*
-      Lets the music pull-tab move vertically while the
-      sidebar itself remains full-height and fixed in place.
-    */
-    function setupMusicSidebarToggleDragging() {
-      const sidebar = document.getElementById("music-sidebar");
-      const toggle = document.getElementById("music-sidebar-toggle");
-
-      let dragging = false;
-      let moved = false;
-      let pointerStartY = 0;
-      let toggleStartCenterY = 0;
-
-      function clampCenterY(centerY) {
-        const halfHeight = toggle.offsetHeight / 2;
-        const margin = 8;
-
-        return Math.min(
-          Math.max(centerY, halfHeight + margin),
-          window.innerHeight - halfHeight - margin
-        );
-      }
-
-      function applyCenterY(centerY, save = true) {
-        const adjustedCenterY = clampCenterY(centerY);
-
-        sidebar.style.setProperty(
-          "--music-sidebar-toggle-top",
-          adjustedCenterY + "px"
-        );
-
-        if (save) {
-          localStorage.setItem(
-            "musicSidebarToggleTop",
-            String(adjustedCenterY)
-          );
-        }
-      }
-
-      const savedTop = Number(
-        localStorage.getItem("musicSidebarToggleTop")
-      );
-
-      requestAnimationFrame(function () {
-        if (Number.isFinite(savedTop)) {
-          applyCenterY(savedTop, false);
-        } else {
-          applyCenterY(window.innerHeight / 2, false);
-        }
-      });
-
-      toggle.addEventListener("pointerdown", function (event) {
-        dragging = true;
-        moved = false;
-        pointerStartY = event.clientY;
-
-        const toggleRect = toggle.getBoundingClientRect();
-        toggleStartCenterY = toggleRect.top + toggleRect.height / 2;
-
-        toggle.classList.add("dragging");
-        toggle.setPointerCapture(event.pointerId);
-      });
-
-      toggle.addEventListener("pointermove", function (event) {
-        if (!dragging) return;
-
-        const movement = event.clientY - pointerStartY;
-
-        if (Math.abs(movement) > 4) {
-          moved = true;
-        }
-
-        applyCenterY(toggleStartCenterY + movement);
-      });
-
-      function finishDragging(event) {
-        if (!dragging) return;
-
-        dragging = false;
-        toggle.classList.remove("dragging");
-
-        if (toggle.hasPointerCapture(event.pointerId)) {
-          toggle.releasePointerCapture(event.pointerId);
-        }
-      }
-
-      toggle.addEventListener("pointerup", finishDragging);
-      toggle.addEventListener("pointercancel", finishDragging);
-
-      toggle.addEventListener("click", function (event) {
-        if (moved) {
-          event.preventDefault();
-          event.stopImmediatePropagation();
-          moved = false;
-        }
-      }, true);
-
-      window.addEventListener("resize", function () {
-        const toggleRect = toggle.getBoundingClientRect();
-        applyCenterY(toggleRect.top + toggleRect.height / 2);
-      });
-    }
-
     async function refreshDashboardServicePreferencesFromUser() {
       try {
         const { data, error } = await supabaseClient.auth.getUser();
@@ -3000,36 +3126,13 @@
             ? { ...metadata.calendar_account_preferences }
             : {};
 
-        selectedYouTubeMusicGoogleConnectionId =
-          typeof metadata.youtube_music_google_connection_id === "string"
-            ? metadata.youtube_music_google_connection_id
-            : "";
-
-        const musicProviderSelect = document.getElementById("music-provider-select");
-
-        if (musicProviderSelect) {
-          const savedMusicProvider = metadata.music_provider;
-          const validMusicProvider =
-            typeof savedMusicProvider === "string" &&
-            Array.from(musicProviderSelect.options).some(function (option) {
-              return option.value === savedMusicProvider;
-            });
-
-          musicProviderSelect.value = validMusicProvider
-            ? savedMusicProvider
-            : "none";
-        }
-
         renderCalendarAccountPreferences();
-        refreshYouTubeMusicGoogleAccountOptions();
 
         return metadata;
       } catch (error) {
         console.error("Dashboard service preference load error:", error);
         calendarAccountPreferences = {};
-        selectedYouTubeMusicGoogleConnectionId = "";
         renderCalendarAccountPreferences();
-        refreshYouTubeMusicGoogleAccountOptions();
         return {};
       }
     }
@@ -3190,272 +3293,1853 @@
         });
     }
 
-    function refreshYouTubeMusicGoogleAccountOptions() {
-      const field = document.getElementById("youtube-music-google-field");
-      const select = document.getElementById("youtube-music-google-account-select");
-      const providerSelect = document.getElementById("music-provider-select");
-      const connectButton = document.getElementById("music-provider-connect-button");
 
-      if (!field || !select || !providerSelect || !connectButton) return;
+    /*
+      TEMPORARY FILE MANAGER PROOF OF CONCEPT
 
-      const isYouTubeMusic = providerSelect.value === "youtube-music";
-      field.hidden = !isYouTubeMusic;
+      Files and folders use an iPhone-style snap-to-grid model:
+      - Drop near an item's edge to reorder.
+      - Drop on its center to combine/move items.
+      - File on file creates a folder.
+      - File on folder moves into that folder.
+      - Folder on file creates a new parent folder with both inside.
+      - Folder on folder moves the dragged folder inside the target folder.
+    */
+    const temporaryFileNodes = [];
+    let currentTemporaryFolderId = "root";
+    let selectedTemporaryNodeId = null;
+    let filesContextTargetId = null;
+    let temporaryFileIdCounter = 1;
+    let temporaryOrderCounter = 1;
 
-      select.innerHTML = "";
+    function nextTemporaryFileId() {
+      const id = "temp-" + Date.now() + "-" + temporaryFileIdCounter;
+      temporaryFileIdCounter += 1;
+      return id;
+    }
 
-      const placeholder = document.createElement("option");
-      placeholder.value = "";
-      placeholder.textContent = connectedGoogleAccounts.length
-        ? "Choose a connected Google account"
-        : "No Google accounts connected";
-      select.appendChild(placeholder);
+    function nextTemporaryOrder() {
+      const order = temporaryOrderCounter;
+      temporaryOrderCounter += 1;
+      return order;
+    }
+
+    function getTemporaryNode(nodeId) {
+      return temporaryFileNodes.find(function (node) {
+        return node.id === nodeId;
+      }) || null;
+    }
+
+    function getTemporaryChildren(parentId) {
+      return temporaryFileNodes
+        .filter(function (node) {
+          return node.parentId === parentId;
+        })
+        .sort(function (first, second) {
+          return (first.order || 0) - (second.order || 0);
+        });
+    }
+
+    function normalizeTemporaryOrder(parentId) {
+      getTemporaryChildren(parentId).forEach(function (node, index) {
+        node.order = index + 1;
+      });
+      temporaryOrderCounter = Math.max(
+        temporaryOrderCounter,
+        temporaryFileNodes.length + 2
+      );
+    }
+
+    function formatTemporaryFileSize(bytes) {
+      if (!Number.isFinite(bytes) || bytes <= 0) return "0 B";
+
+      const units = ["B", "KB", "MB", "GB"];
+      const unitIndex = Math.min(
+        Math.floor(Math.log(bytes) / Math.log(1024)),
+        units.length - 1
+      );
+      const value = bytes / Math.pow(1024, unitIndex);
+
+      return (unitIndex === 0 ? Math.round(value) : value.toFixed(value >= 10 ? 1 : 2)) +
+        " " + units[unitIndex];
+    }
+
+    function getTemporaryFileIcon(node) {
+      if (node.type === "folder") return "📁";
+
+      const type = String(node.file?.type || "").toLowerCase();
+      const name = String(node.name || "").toLowerCase();
+
+      if (type.startsWith("image/")) return "🖼️";
+      if (type.startsWith("video/")) return "🎬";
+      if (type.startsWith("audio/")) return "🎵";
+      if (type.includes("pdf") || name.endsWith(".pdf")) return "📕";
+      if (type.includes("spreadsheet") || /\.(csv|xls|xlsx)$/.test(name)) return "📊";
+      if (/\.(doc|docx|txt|rtf|md)$/.test(name)) return "📄";
+      if (/\.(zip|rar|7z|tar|gz)$/.test(name)) return "🗜️";
+      return "📄";
+    }
+
+    function getCurrentTemporaryFolder() {
+      return currentTemporaryFolderId === "root"
+        ? null
+        : getTemporaryNode(currentTemporaryFolderId);
+    }
+
+    function renderCurrentTemporaryFolderHeader() {
+      const name = document.getElementById("files-current-folder-name");
+      const renameButton = document.getElementById("files-current-folder-rename-button");
+      const currentFolder = getCurrentTemporaryFolder();
+
+      name.textContent = currentFolder?.name || "Files";
+      renameButton.hidden = !currentFolder;
+    }
+
+    function renderTemporaryBreadcrumbs() {
+      const container = document.getElementById("files-breadcrumbs");
+      container.innerHTML = "";
+
+      const trail = [];
+      let folderId = currentTemporaryFolderId;
+
+      while (folderId && folderId !== "root") {
+        const folder = getTemporaryNode(folderId);
+        if (!folder) break;
+        trail.unshift(folder);
+        folderId = folder.parentId;
+      }
+
+      const rootButton = document.createElement("button");
+      rootButton.className = "files-breadcrumb-button";
+      rootButton.type = "button";
+      rootButton.textContent = "Files";
+      rootButton.addEventListener("click", function () {
+        currentTemporaryFolderId = "root";
+        selectedTemporaryNodeId = null;
+        renderTemporaryFiles();
+      });
+      container.appendChild(rootButton);
+
+      trail.forEach(function (folder) {
+        const separator = document.createElement("span");
+        separator.className = "files-breadcrumb-separator";
+        separator.textContent = "›";
+        container.appendChild(separator);
+
+        const button = document.createElement("button");
+        button.className = "files-breadcrumb-button";
+        button.type = "button";
+        button.textContent = folder.name;
+        button.addEventListener("click", function () {
+          currentTemporaryFolderId = folder.id;
+          selectedTemporaryNodeId = null;
+          renderTemporaryFiles();
+        });
+        container.appendChild(button);
+      });
+    }
+
+    function updateTemporaryFilesStatus(message = "") {
+      const status = document.getElementById("files-status");
+      if (message) {
+        status.textContent = message;
+        return;
+      }
+
+      const children = getTemporaryChildren(currentTemporaryFolderId);
+      const totalFiles = temporaryFileNodes.filter(function (node) {
+        return node.type === "file";
+      }).length;
+      const totalFolders = temporaryFileNodes.filter(function (node) {
+        return node.type === "folder";
+      }).length;
+
+      status.textContent =
+        "Temporary storage · " + children.length +
+        (children.length === 1 ? " item here" : " items here") +
+        " · " + totalFiles + (totalFiles === 1 ? " file" : " files") +
+        " · " + totalFolders + (totalFolders === 1 ? " folder" : " folders");
+    }
+
+    function clearTemporaryDropIndicators() {
+      document.querySelectorAll(
+        ".file-item.drop-into, .file-item.drop-before, .file-item.drop-after"
+      ).forEach(function (item) {
+        item.classList.remove("drop-into", "drop-before", "drop-after");
+      });
+    }
+
+    function getTemporaryDropMode(targetElement, clientX, clientY) {
+      const rect = targetElement.getBoundingClientRect();
+      const horizontalEdge = Math.max(22, rect.width * 0.22);
+      const verticalEdge = Math.max(18, rect.height * 0.18);
+
+      if (
+        clientX <= rect.left + horizontalEdge ||
+        clientY <= rect.top + verticalEdge
+      ) {
+        return "before";
+      }
+
+      if (
+        clientX >= rect.right - horizontalEdge ||
+        clientY >= rect.bottom - verticalEdge
+      ) {
+        return "after";
+      }
+
+      return "into";
+    }
+
+    function isTemporaryDescendant(possibleDescendantId, ancestorId) {
+      let node = getTemporaryNode(possibleDescendantId);
+
+      while (node && node.parentId !== "root") {
+        if (node.parentId === ancestorId) return true;
+        node = getTemporaryNode(node.parentId);
+      }
+
+      return false;
+    }
+
+    function reorderTemporaryNode(draggedId, targetId, placement) {
+      const dragged = getTemporaryNode(draggedId);
+      const target = getTemporaryNode(targetId);
+      if (!dragged || !target || dragged.id === target.id) return;
+
+      const destinationParentId = target.parentId;
+      const oldParentId = dragged.parentId;
+
+      dragged.parentId = destinationParentId;
+
+      const siblings = getTemporaryChildren(destinationParentId)
+        .filter(function (node) {
+          return node.id !== dragged.id;
+        });
+
+      const targetIndex = siblings.findIndex(function (node) {
+        return node.id === target.id;
+      });
+
+      const insertionIndex =
+        placement === "after" ? targetIndex + 1 : targetIndex;
+
+      siblings.splice(Math.max(0, insertionIndex), 0, dragged);
+
+      siblings.forEach(function (node, index) {
+        node.order = index + 1;
+      });
+
+      if (oldParentId !== destinationParentId) {
+        normalizeTemporaryOrder(oldParentId);
+      }
+
+      normalizeTemporaryOrder(destinationParentId);
+      updateTemporaryFilesStatus("Item moved.");
+    }
+
+    function createTemporaryCombinedFolder(firstNode, secondNode) {
+      if (!firstNode || !secondNode || firstNode.id === secondNode.id) return null;
+
+      const parentId = secondNode.parentId;
+      const folder = {
+        id: nextTemporaryFileId(),
+        type: "folder",
+        name: "New Folder",
+        parentId: parentId,
+        order: Math.min(firstNode.order || 1, secondNode.order || 1),
+        createdAt: new Date()
+      };
+
+      temporaryFileNodes.push(folder);
+      firstNode.parentId = folder.id;
+      secondNode.parentId = folder.id;
+      firstNode.order = 1;
+      secondNode.order = 2;
+
+      normalizeTemporaryOrder(parentId);
+      return folder;
+    }
+
+    function performTemporaryDrop(draggedId, targetId, mode) {
+      const dragged = getTemporaryNode(draggedId);
+      const target = getTemporaryNode(targetId);
+
+      if (!dragged || !target || dragged.id === target.id) return;
+
+      if (mode === "before" || mode === "after") {
+        reorderTemporaryNode(draggedId, targetId, mode);
+        renderTemporaryFiles();
+        return;
+      }
+
+      if (
+        dragged.type === "folder" &&
+        (target.id === dragged.id || isTemporaryDescendant(target.id, dragged.id))
+      ) {
+        updateTemporaryFilesStatus("A folder cannot be moved inside itself.");
+        return;
+      }
+
+      const oldParentId = dragged.parentId;
+
+      if (target.type === "folder") {
+        dragged.parentId = target.id;
+        dragged.order = getTemporaryChildren(target.id).length + 1;
+        normalizeTemporaryOrder(oldParentId);
+        normalizeTemporaryOrder(target.id);
+
+        updateTemporaryFilesStatus(
+          "Moved “" + dragged.name + "” into “" + target.name + "”."
+        );
+        renderTemporaryFiles();
+        return;
+      }
+
+      const folder = createTemporaryCombinedFolder(dragged, target);
+
+      if (folder) {
+        updateTemporaryFilesStatus(
+          "Created “" + folder.name + "” with both items inside."
+        );
+        renderTemporaryFiles();
+      }
+    }
+
+    function moveTemporaryNodeToEndOfCurrentFolder(nodeId) {
+      const node = getTemporaryNode(nodeId);
+      if (!node) return;
+
+      const oldParentId = node.parentId;
+      node.parentId = currentTemporaryFolderId;
+      node.order = getTemporaryChildren(currentTemporaryFolderId).length + 1;
+
+      normalizeTemporaryOrder(oldParentId);
+      normalizeTemporaryOrder(currentTemporaryFolderId);
+      renderTemporaryFiles();
+    }
+
+    function setupTemporaryDesktopDrag(item, node) {
+      item.draggable = true;
+
+      item.addEventListener("dragstart", function (event) {
+        item.classList.add("dragging");
+        event.dataTransfer.effectAllowed = "move";
+        event.dataTransfer.setData("text/x-dashboard-node", node.id);
+      });
+
+      item.addEventListener("dragend", function () {
+        item.classList.remove("dragging");
+        clearTemporaryDropIndicators();
+      });
+
+      item.addEventListener("dragover", function (event) {
+        const draggedId =
+          event.dataTransfer.getData("text/x-dashboard-node");
+
+        if (!draggedId || draggedId === node.id) return;
+
+        event.preventDefault();
+        event.stopPropagation();
+        clearTemporaryDropIndicators();
+
+        const mode = getTemporaryDropMode(
+          item,
+          event.clientX,
+          event.clientY
+        );
+
+        item.classList.add(
+          mode === "into"
+            ? "drop-into"
+            : mode === "before"
+              ? "drop-before"
+              : "drop-after"
+        );
+      });
+
+      item.addEventListener("drop", function (event) {
+        const draggedId =
+          event.dataTransfer.getData("text/x-dashboard-node");
+
+        if (!draggedId || draggedId === node.id) return;
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        const mode = getTemporaryDropMode(
+          item,
+          event.clientX,
+          event.clientY
+        );
+
+        clearTemporaryDropIndicators();
+        performTemporaryDrop(draggedId, node.id, mode);
+      });
+    }
+
+    function setupTemporaryTouchDrag(item, node) {
+      let timer = null;
+      let dragging = false;
+      let startX = 0;
+      let startY = 0;
+      let lastTarget = null;
+      let lastMode = null;
+
+      item.addEventListener("pointerdown", function (event) {
+        if (event.pointerType === "mouse") return;
+        if (event.target.closest(".file-item-menu-button")) return;
+
+        startX = event.clientX;
+        startY = event.clientY;
+
+        timer = window.setTimeout(function () {
+          timer = null;
+          dragging = true;
+          selectedTemporaryNodeId = node.id;
+          item.classList.add("dragging");
+
+          try {
+            item.setPointerCapture(event.pointerId);
+          } catch (error) {
+            // Pointer capture is helpful but not required.
+          }
+        }, 180);
+      });
+
+      item.addEventListener("pointermove", function (event) {
+        if (!dragging) {
+          if (
+            timer &&
+            (
+              Math.abs(event.clientX - startX) > 10 ||
+              Math.abs(event.clientY - startY) > 10
+            )
+          ) {
+            window.clearTimeout(timer);
+            timer = null;
+          }
+          return;
+        }
+
+        event.preventDefault();
+        clearTemporaryDropIndicators();
+
+        const element = document.elementFromPoint(event.clientX, event.clientY);
+        const targetItem = element?.closest(".file-item");
+
+        if (!targetItem || targetItem.dataset.nodeId === node.id) {
+          lastTarget = null;
+          lastMode = null;
+          return;
+        }
+
+        lastTarget = targetItem.dataset.nodeId;
+        lastMode = getTemporaryDropMode(
+          targetItem,
+          event.clientX,
+          event.clientY
+        );
+
+        targetItem.classList.add(
+          lastMode === "into"
+            ? "drop-into"
+            : lastMode === "before"
+              ? "drop-before"
+              : "drop-after"
+        );
+      });
+
+      function finishTouchDrag(event) {
+        if (timer) {
+          window.clearTimeout(timer);
+          timer = null;
+        }
+
+        if (!dragging) return;
+
+        dragging = false;
+        item.classList.remove("dragging");
+        clearTemporaryDropIndicators();
+
+        if (lastTarget) {
+          performTemporaryDrop(node.id, lastTarget, lastMode || "into");
+        } else {
+          const workspace = document.getElementById("files-workspace");
+          const workspaceRect = workspace.getBoundingClientRect();
+
+          if (
+            event.clientX >= workspaceRect.left &&
+            event.clientX <= workspaceRect.right &&
+            event.clientY >= workspaceRect.top &&
+            event.clientY <= workspaceRect.bottom
+          ) {
+            moveTemporaryNodeToEndOfCurrentFolder(node.id);
+          }
+        }
+
+        lastTarget = null;
+        lastMode = null;
+      }
+
+      item.addEventListener("pointerup", finishTouchDrag);
+      item.addEventListener("pointercancel", finishTouchDrag);
+    }
+
+    function renderTemporaryFiles() {
+      const grid = document.getElementById("files-grid");
+      const children = getTemporaryChildren(currentTemporaryFolderId);
+
+      grid.innerHTML = "";
+      renderTemporaryBreadcrumbs();
+      renderCurrentTemporaryFolderHeader();
+      updateTemporaryFilesStatus();
+
+      if (!children.length) {
+        const empty = document.createElement("div");
+        empty.className = "files-empty-state";
+        empty.style.gridColumn = "1 / -1";
+        empty.innerHTML =
+          "<div><strong>This folder is empty.</strong><br>Upload files or create a folder. Drag icons to reorder them, or drop one icon onto another to organize them like apps on an iPhone.</div>";
+        grid.appendChild(empty);
+        return;
+      }
+
+      children.forEach(function (node) {
+        const item = document.createElement("div");
+        item.className = "file-item";
+        item.dataset.nodeId = node.id;
+        item.setAttribute("role", "button");
+        item.setAttribute("aria-label", (node.type === "folder" ? "Folder " : "File ") + node.name);
+        item.title =
+          "Drag near another icon's edge to reorder. Drop on its center to organize.";
+
+        if (selectedTemporaryNodeId === node.id) {
+          item.classList.add("selected");
+        }
+
+        const icon = document.createElement("span");
+        icon.className = "file-item-icon";
+        icon.textContent = getTemporaryFileIcon(node);
+
+        const name = document.createElement("span");
+        name.className = "file-item-name";
+        name.textContent = node.name;
+        name.title = node.name;
+
+        const meta = document.createElement("span");
+        meta.className = "file-item-meta";
+        meta.textContent = node.type === "folder"
+          ? getTemporaryChildren(node.id).length + " items"
+          : formatTemporaryFileSize(node.file?.size || 0);
+
+        const menuButton = document.createElement("button");
+        menuButton.className = "file-item-menu-button";
+        menuButton.type = "button";
+        menuButton.textContent = "⋮";
+        menuButton.setAttribute("aria-label", "Actions for " + node.name);
+
+        menuButton.addEventListener("click", function (event) {
+          event.preventDefault();
+          event.stopPropagation();
+          const rect = menuButton.getBoundingClientRect();
+          selectedTemporaryNodeId = node.id;
+          renderTemporaryFiles();
+          openFilesContextMenu(rect.right, rect.bottom, node.id);
+        });
+
+        item.addEventListener("click", function (event) {
+          if (event.detail > 1) return;
+          selectedTemporaryNodeId = node.id;
+          document.querySelectorAll(".file-item.selected").forEach(function (element) {
+            element.classList.remove("selected");
+          });
+          item.classList.add("selected");
+        });
+
+        item.addEventListener("dblclick", function () {
+          openTemporaryNode(node.id);
+        });
+
+        item.addEventListener("contextmenu", function (event) {
+          event.preventDefault();
+          event.stopPropagation();
+          selectedTemporaryNodeId = node.id;
+          openFilesContextMenu(event.clientX, event.clientY, node.id);
+        });
+
+        setupTemporaryLongPress(item, function (event) {
+          const rect = item.getBoundingClientRect();
+          selectedTemporaryNodeId = node.id;
+          openFilesContextMenu(
+            event?.clientX || rect.left + rect.width / 2,
+            event?.clientY || rect.top + rect.height / 2,
+            node.id
+          );
+        });
+
+        setupTemporaryDesktopDrag(item, node);
+        setupTemporaryTouchDrag(item, node);
+
+        item.appendChild(icon);
+        item.appendChild(name);
+        item.appendChild(meta);
+        item.appendChild(menuButton);
+        grid.appendChild(item);
+      });
+    }
+
+    function createTemporaryFolder() {
+      const proposedName = window.prompt("Folder name:", "New Folder");
+      if (proposedName === null) return;
+
+      const name = proposedName.trim();
+      if (!name) return;
+
+      temporaryFileNodes.push({
+        id: nextTemporaryFileId(),
+        type: "folder",
+        name: name,
+        parentId: currentTemporaryFolderId,
+        order: nextTemporaryOrder(),
+        createdAt: new Date()
+      });
+
+      normalizeTemporaryOrder(currentTemporaryFolderId);
+      renderTemporaryFiles();
+    }
+
+    function findTemporaryChildFolder(parentId, name) {
+      return temporaryFileNodes.find(function (node) {
+        return node.type === "folder" &&
+          node.parentId === parentId &&
+          node.name === name;
+      }) || null;
+    }
+
+    function ensureTemporaryFolderPath(pathParts, startingParentId = currentTemporaryFolderId) {
+      let parentId = startingParentId;
+
+      pathParts.forEach(function (rawPart) {
+        const part = String(rawPart || "").trim();
+        if (!part) return;
+
+        let folder = findTemporaryChildFolder(parentId, part);
+
+        if (!folder) {
+          folder = {
+            id: nextTemporaryFileId(),
+            type: "folder",
+            name: part,
+            parentId: parentId,
+            order: nextTemporaryOrder(),
+            createdAt: new Date()
+          };
+
+          temporaryFileNodes.push(folder);
+        }
+
+        parentId = folder.id;
+      });
+
+      return parentId;
+    }
+
+    function addTemporaryFolderUpload(fileList) {
+      const files = Array.from(fileList || []);
+      if (!files.length) return;
+
+      const rootFolderNames = new Set();
+
+      files.forEach(function (file) {
+        const relativePath = String(file.webkitRelativePath || file.name || "");
+        const pathParts = relativePath.split("/").filter(Boolean);
+        const fileName = pathParts.pop() || file.name;
+
+        if (pathParts.length) {
+          rootFolderNames.add(pathParts[0]);
+        }
+
+        const parentId = ensureTemporaryFolderPath(
+          pathParts,
+          currentTemporaryFolderId
+        );
+
+        temporaryFileNodes.push({
+          id: nextTemporaryFileId(),
+          type: "file",
+          name: fileName,
+          parentId: parentId,
+          order: nextTemporaryOrder(),
+          file: file,
+          createdAt: new Date()
+        });
+      });
+
+      normalizeTemporaryOrder(currentTemporaryFolderId);
+      updateTemporaryFilesStatus(
+        (rootFolderNames.size || 1) +
+        (rootFolderNames.size === 1 ? " folder uploaded." : " folders uploaded.")
+      );
+      renderTemporaryFiles();
+    }
+
+    function readDroppedFileEntry(entry) {
+      return new Promise(function (resolve, reject) {
+        entry.file(resolve, reject);
+      });
+    }
+
+    function readAllDirectoryEntries(reader) {
+      return new Promise(function (resolve, reject) {
+        const allEntries = [];
+
+        function readBatch() {
+          reader.readEntries(function (entries) {
+            if (!entries.length) {
+              resolve(allEntries);
+              return;
+            }
+
+            allEntries.push.apply(allEntries, entries);
+            readBatch();
+          }, reject);
+        }
+
+        readBatch();
+      });
+    }
+
+    async function importDroppedEntry(entry, parentId) {
+      if (!entry) return;
+
+      if (entry.isFile) {
+        const file = await readDroppedFileEntry(entry);
+
+        temporaryFileNodes.push({
+          id: nextTemporaryFileId(),
+          type: "file",
+          name: file.name,
+          parentId: parentId,
+          order: nextTemporaryOrder(),
+          file: file,
+          createdAt: new Date()
+        });
+        return;
+      }
+
+      if (entry.isDirectory) {
+        const folder = {
+          id: nextTemporaryFileId(),
+          type: "folder",
+          name: entry.name || "Folder",
+          parentId: parentId,
+          order: nextTemporaryOrder(),
+          createdAt: new Date()
+        };
+
+        temporaryFileNodes.push(folder);
+
+        const reader = entry.createReader();
+        const children = await readAllDirectoryEntries(reader);
+
+        for (const child of children) {
+          await importDroppedEntry(child, folder.id);
+        }
+
+        normalizeTemporaryOrder(folder.id);
+      }
+    }
+
+    async function addTemporaryDroppedItems(dataTransfer) {
+      const items = Array.from(dataTransfer?.items || []);
+      const entries = items
+        .map(function (item) {
+          return typeof item.webkitGetAsEntry === "function"
+            ? item.webkitGetAsEntry()
+            : null;
+        })
+        .filter(Boolean);
+
+      if (!entries.length) {
+        addTemporaryFiles(dataTransfer?.files);
+        return;
+      }
+
+      for (const entry of entries) {
+        await importDroppedEntry(entry, currentTemporaryFolderId);
+      }
+
+      normalizeTemporaryOrder(currentTemporaryFolderId);
+      updateTemporaryFilesStatus(
+        entries.length + (entries.length === 1 ? " item uploaded." : " items uploaded.")
+      );
+      renderTemporaryFiles();
+    }
+
+    function addTemporaryFiles(fileList) {
+      const files = Array.from(fileList || []);
+      if (!files.length) return;
+
+      files.forEach(function (file) {
+        temporaryFileNodes.push({
+          id: nextTemporaryFileId(),
+          type: "file",
+          name: file.name,
+          parentId: currentTemporaryFolderId,
+          order: nextTemporaryOrder(),
+          file: file,
+          createdAt: new Date()
+        });
+      });
+
+      normalizeTemporaryOrder(currentTemporaryFolderId);
+      updateTemporaryFilesStatus(
+        files.length + (files.length === 1 ? " temporary file added." : " temporary files added.")
+      );
+      renderTemporaryFiles();
+    }
+
+    function openTemporaryNode(nodeId) {
+      const node = getTemporaryNode(nodeId);
+      if (!node) return;
+
+      closeFilesContextMenu();
+
+      if (node.type === "folder") {
+        currentTemporaryFolderId = node.id;
+        selectedTemporaryNodeId = null;
+        renderTemporaryFiles();
+        return;
+      }
+
+      if (!node.file) return;
+
+      const objectUrl = URL.createObjectURL(node.file);
+      const opened = window.open(objectUrl, "_blank", "noopener,noreferrer");
+
+      if (!opened) {
+        updateTemporaryFilesStatus(
+          "Your browser blocked the file preview. Try Download instead."
+        );
+      }
+
+      window.setTimeout(function () {
+        URL.revokeObjectURL(objectUrl);
+      }, 60000);
+    }
+
+    function downloadTemporaryNode(nodeId) {
+      const node = getTemporaryNode(nodeId);
+      if (!node || node.type !== "file" || !node.file) return;
+
+      const objectUrl = URL.createObjectURL(node.file);
+      const link = document.createElement("a");
+      link.href = objectUrl;
+      link.download = node.name;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+
+      window.setTimeout(function () {
+        URL.revokeObjectURL(objectUrl);
+      }, 1000);
+    }
+
+    function renameTemporaryNode(nodeId) {
+      const node = getTemporaryNode(nodeId);
+      if (!node) return;
+
+      const updatedName = window.prompt("Rename:", node.name);
+      if (updatedName === null) return;
+
+      const name = updatedName.trim();
+      if (!name) return;
+
+      node.name = name;
+      renderTemporaryFiles();
+    }
+
+    function renameCurrentTemporaryFolder() {
+      const folder = getCurrentTemporaryFolder();
+      if (!folder) return;
+      renameTemporaryNode(folder.id);
+    }
+
+    function collectTemporaryDescendantIds(folderId) {
+      const ids = [];
+
+      getTemporaryChildren(folderId).forEach(function (child) {
+        ids.push(child.id);
+        if (child.type === "folder") {
+          ids.push.apply(ids, collectTemporaryDescendantIds(child.id));
+        }
+      });
+
+      return ids;
+    }
+
+    function deleteTemporaryNode(nodeId) {
+      const node = getTemporaryNode(nodeId);
+      if (!node) return;
+
+      const message = node.type === "folder"
+        ? "Delete the folder ‘" + node.name + "’ and everything inside it?"
+        : "Delete ‘" + node.name + "’?";
+
+      if (!window.confirm(message)) return;
+
+      const parentId = node.parentId;
+      const idsToDelete = new Set([nodeId]);
+
+      if (node.type === "folder") {
+        collectTemporaryDescendantIds(nodeId).forEach(function (id) {
+          idsToDelete.add(id);
+        });
+      }
+
+      for (let index = temporaryFileNodes.length - 1; index >= 0; index--) {
+        if (idsToDelete.has(temporaryFileNodes[index].id)) {
+          temporaryFileNodes.splice(index, 1);
+        }
+      }
+
+      selectedTemporaryNodeId = null;
+      normalizeTemporaryOrder(parentId);
+      renderTemporaryFiles();
+    }
+
+    function openFilesContextMenu(clientX, clientY, targetId = null) {
+      const menu = document.getElementById("files-context-menu");
+      const target = targetId ? getTemporaryNode(targetId) : null;
+      filesContextTargetId = target?.id || null;
+
+      const openButton = document.getElementById("files-context-open");
+      const downloadButton = document.getElementById("files-context-download");
+      const renameButton = document.getElementById("files-context-rename");
+      const deleteButton = document.getElementById("files-context-delete");
+      const divider = document.getElementById("files-context-item-divider");
+
+      openButton.hidden = !target;
+      downloadButton.hidden = !target || target.type !== "file";
+      renameButton.hidden = !target;
+      deleteButton.hidden = !target;
+      divider.hidden = !target;
+
+      menu.hidden = false;
+      menu.style.left = "0px";
+      menu.style.top = "0px";
+
+      const rect = menu.getBoundingClientRect();
+      const margin = 8;
+      const left = Math.min(
+        Math.max(clientX, margin),
+        window.innerWidth - rect.width - margin
+      );
+      const top = Math.min(
+        Math.max(clientY, margin),
+        window.innerHeight - rect.height - margin
+      );
+
+      menu.style.left = left + "px";
+      menu.style.top = top + "px";
+    }
+
+    function closeFilesContextMenu() {
+      const menu = document.getElementById("files-context-menu");
+      menu.hidden = true;
+      filesContextTargetId = null;
+    }
+
+    function setupTemporaryLongPress(element, callback) {
+      let timer = null;
+      let startX = 0;
+      let startY = 0;
+
+      element.addEventListener("pointerdown", function (event) {
+        if (event.pointerType === "mouse") return;
+        if (event.target.closest(".file-item-menu-button")) return;
+
+        startX = event.clientX;
+        startY = event.clientY;
+
+        timer = window.setTimeout(function () {
+          timer = null;
+          callback(event);
+        }, 650);
+      });
+
+      element.addEventListener("pointermove", function (event) {
+        if (!timer) return;
+
+        if (
+          Math.abs(event.clientX - startX) > 10 ||
+          Math.abs(event.clientY - startY) > 10
+        ) {
+          window.clearTimeout(timer);
+          timer = null;
+        }
+      });
+
+      ["pointerup", "pointercancel", "pointerleave"].forEach(function (eventName) {
+        element.addEventListener(eventName, function () {
+          if (timer) {
+            window.clearTimeout(timer);
+            timer = null;
+          }
+        });
+      });
+    }
+
+    function openFilesView() {
+      const filesView = document.getElementById("files-view");
+      const closeButton = document.getElementById("files-close-button");
+
+      filesView.hidden = false;
+      document.body.style.overflow = "hidden";
+
+      renderActiveFilesView();
+
+      window.setTimeout(function () {
+        closeButton.focus();
+      }, 0);
+    }
+
+    function closeFilesView() {
+      document.getElementById("files-view").hidden = true;
+      document.body.style.overflow = "";
+      closeFilesContextMenu();
+      clearTemporaryDropIndicators();
+    }
+
+    function setupTemporaryFileManager() {
+      const uploadInput = document.getElementById("files-upload-input");
+      const uploadFolderInput = document.getElementById("files-upload-folder-input");
+      const workspace = document.getElementById("files-workspace");
+
+      document.getElementById("files-new-folder-button")
+        .addEventListener("click", createTemporaryFolder);
+
+      document.getElementById("files-upload-button")
+        .addEventListener("click", function () {
+          uploadInput.click();
+        });
+
+      document.getElementById("files-upload-folder-button")
+        .addEventListener("click", function () {
+          uploadFolderInput.click();
+        });
+
+      document.getElementById("files-current-folder-rename-button")
+        .addEventListener("click", renameCurrentTemporaryFolder);
+
+      uploadInput.addEventListener("change", function () {
+        addTemporaryFiles(uploadInput.files);
+        uploadInput.value = "";
+      });
+
+      uploadFolderInput.addEventListener("change", function () {
+        addTemporaryFolderUpload(uploadFolderInput.files);
+        uploadFolderInput.value = "";
+      });
+
+      workspace.addEventListener("dragover", function (event) {
+        const internalNodeId =
+          event.dataTransfer.getData("text/x-dashboard-node");
+
+        event.preventDefault();
+
+        if (!internalNodeId) {
+          workspace.classList.add("drag-over");
+        }
+      });
+
+      workspace.addEventListener("dragleave", function (event) {
+        if (!workspace.contains(event.relatedTarget)) {
+          workspace.classList.remove("drag-over");
+        }
+      });
+
+      workspace.addEventListener("drop", function (event) {
+        event.preventDefault();
+        workspace.classList.remove("drag-over");
+
+        const internalNodeId =
+          event.dataTransfer.getData("text/x-dashboard-node");
+
+        if (internalNodeId) {
+          moveTemporaryNodeToEndOfCurrentFolder(internalNodeId);
+          return;
+        }
+
+        addTemporaryDroppedItems(event.dataTransfer).catch(function (error) {
+          console.error("Folder drop upload error:", error);
+          updateTemporaryFilesStatus("The dropped folder could not be uploaded.");
+        });
+      });
+
+      workspace.addEventListener("contextmenu", function (event) {
+        if (event.target.closest(".file-item")) return;
+        event.preventDefault();
+        selectedTemporaryNodeId = null;
+        openFilesContextMenu(event.clientX, event.clientY, null);
+      });
+
+      setupTemporaryLongPress(workspace, function (event) {
+        if (event.target.closest(".file-item")) return;
+        openFilesContextMenu(event.clientX, event.clientY, null);
+      });
+
+      document.getElementById("files-context-open")
+        .addEventListener("click", function () {
+          if (filesContextTargetId) openTemporaryNode(filesContextTargetId);
+        });
+
+      document.getElementById("files-context-download")
+        .addEventListener("click", function () {
+          if (filesContextTargetId) downloadTemporaryNode(filesContextTargetId);
+          closeFilesContextMenu();
+        });
+
+      document.getElementById("files-context-new-folder")
+        .addEventListener("click", function () {
+          closeFilesContextMenu();
+          createTemporaryFolder();
+        });
+
+      document.getElementById("files-context-upload")
+        .addEventListener("click", function () {
+          closeFilesContextMenu();
+          uploadInput.click();
+        });
+
+      document.getElementById("files-context-upload-folder")
+        .addEventListener("click", function () {
+          closeFilesContextMenu();
+          uploadFolderInput.click();
+        });
+
+      document.getElementById("files-context-rename")
+        .addEventListener("click", function () {
+          const targetId = filesContextTargetId;
+          closeFilesContextMenu();
+          if (targetId) renameTemporaryNode(targetId);
+        });
+
+      document.getElementById("files-context-delete")
+        .addEventListener("click", function () {
+          const targetId = filesContextTargetId;
+          closeFilesContextMenu();
+          if (targetId) deleteTemporaryNode(targetId);
+        });
+    }
+
+
+    /*
+      FILES PROVIDERS + GOOGLE DRIVE READ-ONLY VIEWER · 0.3.3
+
+      The working temporary file manager above is intentionally left intact.
+      These functions only choose which Files view is visible and render
+      external provider data around it.
+    */
+    let activeFilesProvider = "temporary";
+    let activeFilesMode = "provider"; // provider | services | mixed
+    let selectedFilesGoogleAccountId = "";
+    let googleDriveFolderStack = [{ id: "root", name: "My Drive" }];
+    let googleDriveCurrentFiles = [];
+    let googleDriveRootFiles = [];
+
+    function getGoogleDriveProviderToken() {
+      return sessionStorage.getItem(GOOGLE_DRIVE_PROVIDER_TOKEN_KEY) || "";
+    }
+
+    function setFilesProviderStatus(message) {
+      const status = document.getElementById("files-status");
+      if (status) status.textContent = message;
+    }
+
+    function updateFilesGoogleAccountSelector() {
+      const select = document.getElementById("files-google-account-select");
+      if (!select) return;
+
+      const previous = selectedFilesGoogleAccountId || select.value;
+      select.innerHTML = '<option value="">Choose Google account</option>';
 
       connectedGoogleAccounts.forEach(function (account) {
         const option = document.createElement("option");
         option.value = account.id;
-        option.textContent = account.google_email || "Google account";
+        option.textContent =
+          (account.google_email || "Google account") +
+          (account.is_default ? " · Default" : "");
         select.appendChild(option);
       });
 
-      const savedStillExists = connectedGoogleAccounts.some(function (account) {
-        return account.id === selectedYouTubeMusicGoogleConnectionId;
-      });
+      if (!selectedFilesGoogleAccountId && connectedGoogleAccounts.length) {
+        const preferred =
+          connectedGoogleAccounts.find(function (account) {
+            return account.is_default;
+          }) || connectedGoogleAccounts[0];
 
-      if (savedStillExists) {
-        select.value = selectedYouTubeMusicGoogleConnectionId;
-      } else if (connectedGoogleAccounts.length === 1) {
-        select.value = connectedGoogleAccounts[0].id;
-      } else {
-        select.value = "";
+        selectedFilesGoogleAccountId = preferred.id;
       }
 
-      if (isYouTubeMusic) {
-        connectButton.disabled = !select.value;
+      if (previous && connectedGoogleAccounts.some(function (account) {
+        return account.id === previous;
+      })) {
+        selectedFilesGoogleAccountId = previous;
       }
+
+      select.value = selectedFilesGoogleAccountId || "";
     }
 
-    async function setupMusicProviderSetting() {
-      const select = document.getElementById("music-provider-select");
-      const note = document.getElementById("music-provider-note");
-      const connectButton = document.getElementById("music-provider-connect-button");
-      const youtubeAccountSelect = document.getElementById("youtube-music-google-account-select");
-
-      const providerLabels = {
-        "none": "None",
-        "apple-music": "Apple Music",
-        "spotify": "Spotify",
-        "amazon-music": "Amazon Music",
-        "youtube-music": "YouTube Music"
-      };
-
-      function updateMusicProviderControls() {
-        const provider = select.value || "none";
-        const selectedText = providerLabels[provider] || "Music provider";
-
-        refreshYouTubeMusicGoogleAccountOptions();
-
-        if (provider === "none") {
-          connectButton.disabled = true;
-          note.textContent = "No music provider selected.";
-          return;
-        }
-
-        if (provider === "youtube-music") {
-          const selectedGoogleId = youtubeAccountSelect.value;
-          connectButton.disabled = !selectedGoogleId;
-
-          if (!connectedGoogleAccounts.length) {
-            note.textContent =
-              "YouTube Music uses Google. Connect a Google account above before continuing.";
-          } else if (!selectedGoogleId) {
-            note.textContent =
-              "Choose which connected Google account YouTube Music should use.";
-          } else {
-            const account = connectedGoogleAccounts.find(function (item) {
-              return item.id === selectedGoogleId;
-            });
-            note.textContent =
-              "YouTube Music will use " +
-              (account?.google_email || "the selected Google account") +
-              ". Its Calendar toggle can be on or off independently.";
-          }
-          return;
-        }
-
-        connectButton.disabled = false;
-
-        if (provider === "apple-music") {
-          note.textContent =
-            "Apple Music selected. Connect currently opens Apple Music on the web; direct MusicKit integration can be added later.";
-          return;
-        }
-
-        if (provider === "amazon-music") {
-          note.textContent =
-            "Amazon Music selected. Direct dashboard connection is currently unsupported.";
-          return;
-        }
-
-        note.textContent = selectedText +
-          " selected. Press Connect to link this provider to your dashboard account.";
-      }
-
-      try {
-        const metadata = await refreshDashboardServicePreferencesFromUser();
-        const savedProvider = metadata.music_provider;
-
-        if (
-          typeof savedProvider === "string" &&
-          Array.from(select.options).some(function (option) {
-            return option.value === savedProvider;
-          })
-        ) {
-          select.value = savedProvider;
-        } else {
-          select.value = "none";
-        }
-      } catch (error) {
-        console.error("Music provider preference load error:", error);
-        select.value = "none";
-      }
-
-      select.addEventListener("change", async function () {
-        const selectedProvider = select.value || "none";
-
-        select.disabled = true;
-        connectButton.disabled = true;
-        note.textContent = "Saving music provider to your dashboard account...";
-
-        try {
-          const { error } = await supabaseClient.auth.updateUser({
-            data: {
-              music_provider: selectedProvider
-            }
-          });
-
-          if (error) throw error;
-          updateMusicProviderControls();
-        } catch (error) {
-          console.error("Music provider preference save error:", error);
-          note.textContent =
-            error.message ||
-            "The music provider could not be saved to your dashboard account.";
-        } finally {
-          select.disabled = false;
-          updateMusicProviderControls();
-        }
+    function setFilesModeButtonStates() {
+      document.querySelectorAll(".files-view-mode-button").forEach(function (button) {
+        button.classList.toggle(
+          "active",
+          button.dataset.filesMode === activeFilesMode
+        );
       });
 
-      youtubeAccountSelect.addEventListener("change", async function () {
-        selectedYouTubeMusicGoogleConnectionId = youtubeAccountSelect.value || "";
-        connectButton.disabled = !selectedYouTubeMusicGoogleConnectionId;
-        note.textContent = "Saving the Google account for YouTube Music...";
-
-        try {
-          const { error } = await supabaseClient.auth.updateUser({
-            data: {
-              youtube_music_google_connection_id: selectedYouTubeMusicGoogleConnectionId
-            }
-          });
-
-          if (error) throw error;
-          updateMusicProviderControls();
-        } catch (error) {
-          console.error("YouTube Music Google account save error:", error);
-          note.textContent =
-            error.message || "The Google account choice could not be saved.";
-        }
+      document.querySelectorAll(".files-provider-button").forEach(function (button) {
+        button.classList.toggle(
+          "active",
+          button.dataset.filesProvider === activeFilesProvider
+        );
       });
-
-      connectButton.addEventListener("click", connectSelectedMusicProvider);
-      updateMusicProviderControls();
     }
 
-    async function connectSelectedMusicProvider() {
-      const select = document.getElementById("music-provider-select");
-      const note = document.getElementById("music-provider-note");
-      const connectButton = document.getElementById("music-provider-connect-button");
-      const youtubeAccountSelect = document.getElementById("youtube-music-google-account-select");
-      const provider = select.value || "none";
+    function renderFilesProviderBanner() {
+      const banner = document.getElementById("files-provider-banner");
+      const title = document.getElementById("files-provider-banner-title");
+      const description = document.getElementById("files-provider-banner-description");
+      const googleActions = document.getElementById("files-google-provider-actions");
 
-      if (provider === "none") {
-        note.textContent = "Choose a music provider before connecting.";
+      if (!banner || !title || !description || !googleActions) return;
+
+      if (activeFilesMode !== "provider") {
+        banner.hidden = true;
         return;
       }
 
-      connectButton.disabled = true;
+      banner.hidden = false;
+      googleActions.hidden = activeFilesProvider !== "google";
 
-      try {
-        if (provider === "apple-music") {
-          note.textContent =
-            "Opening Apple Music web access. Sign in with your Apple Account there to use your library and playlists.";
-          window.open(
-            "https://music.apple.com/",
-            "_blank",
-            "noopener,noreferrer"
-          );
-          return;
-        }
-
-        if (provider === "spotify") {
-          note.textContent =
-            "Spotify selected. Spotify OAuth/PKCE credentials still need to be configured before this account can be connected.";
-          return;
-        }
-
-        if (provider === "amazon-music") {
-          note.textContent =
-            "Amazon Music is currently unsupported for direct dashboard connection.";
-          openAmazonMusicUnsupportedModal();
-          return;
-        }
-
-        if (provider === "youtube-music") {
-          const connectionId = youtubeAccountSelect.value;
-
-          if (!connectionId) {
-            note.textContent = "Choose a connected Google account for YouTube Music first.";
-            return;
-          }
-
-          const account = connectedGoogleAccounts.find(function (item) {
-            return item.id === connectionId;
-          });
-
-          selectedYouTubeMusicGoogleConnectionId = connectionId;
-
-          const { error } = await supabaseClient.auth.updateUser({
-            data: {
-              youtube_music_google_connection_id: connectionId
-            }
-          });
-
-          if (error) throw error;
-
-          note.textContent =
-            "YouTube Music is assigned to " +
-            (account?.google_email || "the selected Google account") +
-            ". The next step is adding YouTube Music/YouTube authorization scopes to that saved Google connection.";
-          return;
-        }
-      } finally {
-        connectButton.disabled =
-          select.value === "none" ||
-          (select.value === "youtube-music" && !youtubeAccountSelect.value);
+      if (activeFilesProvider === "temporary") {
+        title.textContent = "Temporary Files";
+        description.textContent =
+          "Working 0.3.2 file manager with folders, uploads, drag/drop, right-click, and touch controls.";
+      } else if (activeFilesProvider === "google") {
+        title.textContent = "Google Drive";
+        description.textContent =
+          "Read-only view of the selected connected Google account.";
+        updateFilesGoogleAccountSelector();
+      } else if (activeFilesProvider === "onedrive") {
+        title.textContent = "OneDrive";
+        description.textContent =
+          "Provider placeholder. Microsoft Files access will be connected later.";
+      } else {
+        title.textContent = "iCloud Drive";
+        description.textContent =
+          "Provider placeholder. iCloud access will be handled separately later.";
       }
     }
 
-    /*
-      This only demonstrates button state. No audio is loaded yet.
-    */
-    function toggleMusicDemoPlayState() {
-      const playButton = document.getElementById("music-demo-play-button");
-      const isPlaying = playButton.textContent.trim() === "⏸";
-
-      playButton.textContent = isPlaying ? "▶" : "⏸";
-      playButton.setAttribute("aria-label", isPlaying ? "Play" : "Pause");
-      playButton.title = isPlaying ? "Play" : "Pause";
+    function showOnlyFilesView(viewId) {
+      [
+        "files-temporary-provider-view",
+        "files-cloud-provider-view",
+        "files-unified-services-view",
+        "files-unified-mixed-view"
+      ].forEach(function (id) {
+        const element = document.getElementById(id);
+        if (element) element.hidden = id !== viewId;
+      });
     }
+
+    function driveFileIcon(file) {
+      const type = String(file.mimeType || "");
+
+      if (type === "application/vnd.google-apps.folder") return "📁";
+      if (type === "application/vnd.google-apps.document") return "📄";
+      if (type === "application/vnd.google-apps.spreadsheet") return "📊";
+      if (type === "application/vnd.google-apps.presentation") return "📽️";
+      if (type.startsWith("image/")) return "🖼️";
+      if (type.startsWith("video/")) return "🎬";
+      if (type.startsWith("audio/")) return "🎵";
+      if (type.includes("pdf")) return "📕";
+      if (type.includes("zip")) return "🗜️";
+
+      return "📄";
+    }
+
+    function escapeGoogleDriveQueryValue(value) {
+      return String(value)
+        .replace(/\\/g, "\\\\")
+        .replace(/'/g, "\\'");
+    }
+
+    async function googleDriveRequest(path) {
+      const providerToken = getGoogleDriveProviderToken();
+
+      if (!providerToken) {
+        throw new Error(
+          "Google Drive needs authorization in this browser session. Press Authorize Drive."
+        );
+      }
+
+      const response = await fetch(
+        "https://www.googleapis.com/drive/v3/" + path,
+        {
+          headers: {
+            "Authorization": "Bearer " + providerToken
+          }
+        }
+      );
+
+      let data = {};
+
+      try {
+        data = await response.json();
+      } catch (error) {
+        throw new Error("Google Drive returned an unreadable response.");
+      }
+
+      if (response.status === 401 || response.status === 403) {
+        throw new Error(
+          "Google Drive authorization expired or does not include Drive access. Authorize Drive again."
+        );
+      }
+
+      if (!response.ok) {
+        throw new Error(
+          data?.error?.message || "Google Drive request failed."
+        );
+      }
+
+      return data;
+    }
+
+    async function listGoogleDriveFolder(folderId = "root") {
+      const query =
+        "'" + escapeGoogleDriveQueryValue(folderId) +
+        "' in parents and trashed = false";
+
+      const params = new URLSearchParams({
+        q: query,
+        spaces: "drive",
+        pageSize: "1000",
+        orderBy: "folder,name",
+        fields:
+          "nextPageToken,files(id,name,mimeType,size,modifiedTime,webViewLink,parents)"
+      });
+
+      return googleDriveRequest("files?" + params.toString());
+    }
+
+    function renderGoogleDriveBreadcrumbs() {
+      const container = document.getElementById("files-cloud-breadcrumbs");
+      if (!container) return;
+
+      container.innerHTML = "";
+
+      googleDriveFolderStack.forEach(function (part, index) {
+        if (index) {
+          const separator = document.createElement("span");
+          separator.className = "files-breadcrumb-separator";
+          separator.textContent = "›";
+          container.appendChild(separator);
+        }
+
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "files-breadcrumb-button";
+        button.textContent = part.name;
+
+        button.addEventListener("click", async function () {
+          googleDriveFolderStack =
+            googleDriveFolderStack.slice(0, index + 1);
+
+          await loadGoogleDriveFolder();
+        });
+
+        container.appendChild(button);
+      });
+    }
+
+    function makeCloudFileCard(file, providerLabel) {
+      const item = document.createElement("div");
+      item.className = "file-item files-cloud-item";
+      item.setAttribute("role", "button");
+      item.setAttribute("tabindex", "0");
+      item.setAttribute(
+        "aria-label",
+        (file.mimeType === "application/vnd.google-apps.folder" ? "Folder " : "File ") +
+        file.name +
+        " from " +
+        providerLabel
+      );
+
+      const icon = document.createElement("span");
+      icon.className = "file-item-icon";
+      icon.textContent = driveFileIcon(file);
+
+      const name = document.createElement("span");
+      name.className = "file-item-name";
+      name.textContent = file.name;
+      name.title = file.name;
+
+      const meta = document.createElement("span");
+      meta.className = "file-item-meta";
+
+      if (file.mimeType === "application/vnd.google-apps.folder") {
+        meta.textContent = "Folder";
+      } else if (file.size) {
+        meta.textContent = formatTemporaryFileSize(Number(file.size));
+      } else {
+        meta.textContent = "Google Drive";
+      }
+
+      const badge = document.createElement("span");
+      badge.className = "files-provider-badge";
+      badge.textContent = providerLabel;
+
+      item.appendChild(icon);
+      item.appendChild(name);
+      item.appendChild(meta);
+      item.appendChild(badge);
+
+      function openItem() {
+        if (providerLabel === "Google Drive") {
+          openGoogleDriveFile(file);
+        }
+      }
+
+      item.addEventListener("click", openItem);
+      item.addEventListener("keydown", function (event) {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          openItem();
+        }
+      });
+
+      return item;
+    }
+
+    async function openGoogleDriveFile(file) {
+      if (file.mimeType === "application/vnd.google-apps.folder") {
+        googleDriveFolderStack.push({
+          id: file.id,
+          name: file.name
+        });
+
+        await loadGoogleDriveFolder();
+        return;
+      }
+
+      const destination =
+        file.webViewLink ||
+        "https://drive.google.com/open?id=" + encodeURIComponent(file.id);
+
+      window.open(destination, "_blank", "noopener,noreferrer");
+    }
+
+    function renderGoogleDriveFiles(files) {
+      const grid = document.getElementById("files-cloud-grid");
+      if (!grid) return;
+
+      grid.innerHTML = "";
+      renderGoogleDriveBreadcrumbs();
+
+      if (!files.length) {
+        const empty = document.createElement("div");
+        empty.className = "files-cloud-empty";
+        empty.style.gridColumn = "1 / -1";
+        empty.innerHTML =
+          "<div><strong>This Google Drive folder is empty.</strong></div>";
+        grid.appendChild(empty);
+        return;
+      }
+
+      files.forEach(function (file) {
+        grid.appendChild(
+          makeCloudFileCard(file, "Google Drive")
+        );
+      });
+    }
+
+    async function loadGoogleDriveFolder() {
+      showOnlyFilesView("files-cloud-provider-view");
+      renderFilesProviderBanner();
+      setFilesProviderStatus("Loading Google Drive...");
+
+      try {
+        const folder =
+          googleDriveFolderStack[googleDriveFolderStack.length - 1];
+
+        const result =
+          await listGoogleDriveFolder(folder.id);
+
+        googleDriveCurrentFiles =
+          Array.isArray(result.files) ? result.files : [];
+
+        if (folder.id === "root") {
+          googleDriveRootFiles =
+            googleDriveCurrentFiles.slice();
+        }
+
+        renderGoogleDriveFiles(googleDriveCurrentFiles);
+
+        setFilesProviderStatus(
+          "Google Drive · " +
+          googleDriveCurrentFiles.length +
+          (googleDriveCurrentFiles.length === 1 ? " item" : " items")
+        );
+      } catch (error) {
+        console.error("Google Drive load error:", error);
+
+        googleDriveCurrentFiles = [];
+        renderGoogleDriveFiles([]);
+
+        setFilesProviderStatus(
+          error.message || "Google Drive could not be loaded."
+        );
+      }
+    }
+
+    async function authorizeGoogleDrive() {
+      localStorage.setItem(GOOGLE_DRIVE_PENDING_KEY, "true");
+      localStorage.setItem(GOOGLE_LINK_PENDING_KEY, "true");
+
+      setFilesProviderStatus("Opening Google authorization for Drive...");
+
+      try {
+        const oauthOptions = {
+          redirectTo: currentDashboardUrl(),
+          scopes: GOOGLE_OAUTH_SCOPES,
+          queryParams: {
+            access_type: "offline",
+            prompt: "consent select_account",
+            include_granted_scopes: "true"
+          },
+          skipBrowserRedirect: true
+        };
+
+        /*
+          Reauthorization is intentional here. Existing Google connections may
+          pre-date the Drive scope, so Google must show consent again before a
+          provider token can include drive.readonly.
+        */
+        const result =
+          await supabaseClient.auth.signInWithOAuth({
+            provider: "google",
+            options: oauthOptions
+          });
+
+        if (result.error) throw result.error;
+        if (!result.data?.url) {
+          throw new Error("Google did not provide a Drive authorization URL.");
+        }
+
+        window.location.assign(result.data.url);
+      } catch (error) {
+        console.error("Google Drive authorization error:", error);
+        localStorage.removeItem(GOOGLE_DRIVE_PENDING_KEY);
+
+        setFilesProviderStatus(
+          error.message || "Google Drive could not be authorized."
+        );
+      }
+    }
+
+    function renderUnifiedServices() {
+      showOnlyFilesView("files-unified-services-view");
+
+      const grid = document.getElementById("files-service-grid");
+      grid.innerHTML = "";
+
+      const services = [
+        {
+          provider: "temporary",
+          icon: "📦",
+          name: "Temporary Files",
+          status:
+            temporaryFileNodes.length +
+            (temporaryFileNodes.length === 1 ? " item" : " items")
+        },
+        {
+          provider: "google",
+          icon: "🔺",
+          name: "Google Drive",
+          status:
+            connectedGoogleAccounts.length
+              ? "Connected"
+              : "Not connected"
+        },
+        {
+          provider: "onedrive",
+          icon: "☁️",
+          name: "OneDrive",
+          status: "Not connected yet"
+        },
+        {
+          provider: "icloud",
+          icon: "☁️",
+          name: "iCloud Drive",
+          status: "Not connected yet"
+        }
+      ];
+
+      services.forEach(function (service) {
+        const card = document.createElement("button");
+        card.type = "button";
+        card.className = "files-service-card";
+
+        const icon = document.createElement("span");
+        icon.className = "files-service-card-icon";
+        icon.textContent = service.icon;
+
+        const name = document.createElement("span");
+        name.className = "files-service-card-name";
+        name.textContent = service.name;
+
+        const status = document.createElement("span");
+        status.className = "files-service-card-status";
+        status.textContent = service.status;
+
+        const wrap = document.createElement("span");
+        wrap.appendChild(icon);
+        wrap.appendChild(name);
+        wrap.appendChild(status);
+        card.appendChild(wrap);
+
+        card.addEventListener("click", async function () {
+          activeFilesMode = "provider";
+          activeFilesProvider = service.provider;
+          await renderActiveFilesView();
+        });
+
+        grid.appendChild(card);
+      });
+
+      setFilesProviderStatus(
+        "Unified: Services · each storage service is a top-level folder."
+      );
+    }
+
+    function makeTemporaryMixedCard(node) {
+      const item = document.createElement("div");
+      item.className = "file-item files-cloud-item";
+      item.setAttribute("role", "button");
+      item.setAttribute("tabindex", "0");
+
+      const icon = document.createElement("span");
+      icon.className = "file-item-icon";
+      icon.textContent = getTemporaryFileIcon(node);
+
+      const name = document.createElement("span");
+      name.className = "file-item-name";
+      name.textContent = node.name;
+
+      const meta = document.createElement("span");
+      meta.className = "file-item-meta";
+      meta.textContent =
+        node.type === "folder"
+          ? getTemporaryChildren(node.id).length + " items"
+          : formatTemporaryFileSize(node.file?.size || 0);
+
+      const badge = document.createElement("span");
+      badge.className = "files-provider-badge";
+      badge.textContent = "Temporary";
+
+      item.appendChild(icon);
+      item.appendChild(name);
+      item.appendChild(meta);
+      item.appendChild(badge);
+
+      item.addEventListener("click", function () {
+        activeFilesMode = "provider";
+        activeFilesProvider = "temporary";
+
+        if (node.type === "folder") {
+          currentTemporaryFolderId = node.id;
+        }
+
+        renderActiveFilesView();
+
+        if (node.type !== "folder") {
+          openTemporaryNode(node.id);
+        }
+      });
+
+      return item;
+    }
+
+    async function ensureGoogleDriveRootForUnified() {
+      if (!getGoogleDriveProviderToken() || googleDriveRootFiles.length) {
+        return;
+      }
+
+      try {
+        const result = await listGoogleDriveFolder("root");
+        googleDriveRootFiles =
+          Array.isArray(result.files) ? result.files : [];
+      } catch (error) {
+        console.warn("Google Drive unified root load:", error);
+      }
+    }
+
+    async function renderUnifiedMixed() {
+      showOnlyFilesView("files-unified-mixed-view");
+
+      await ensureGoogleDriveRootForUnified();
+
+      const grid = document.getElementById("files-mixed-grid");
+      grid.innerHTML = "";
+
+      const temporaryRoot =
+        getTemporaryChildren("root")
+          .map(function (node) {
+            return {
+              provider: "temporary",
+              name: node.name,
+              node
+            };
+          });
+
+      const googleRoot =
+        googleDriveRootFiles
+          .map(function (file) {
+            return {
+              provider: "google",
+              name: file.name,
+              file
+            };
+          });
+
+      const combined =
+        temporaryRoot
+          .concat(googleRoot)
+          .sort(function (first, second) {
+            return first.name.localeCompare(second.name);
+          });
+
+      if (!combined.length) {
+        const empty = document.createElement("div");
+        empty.className = "files-cloud-empty";
+        empty.style.gridColumn = "1 / -1";
+        empty.innerHTML =
+          "<div><strong>No files are available in the mixed view yet.</strong><br>Add temporary files or authorize Google Drive.</div>";
+        grid.appendChild(empty);
+      } else {
+        combined.forEach(function (entry) {
+          if (entry.provider === "temporary") {
+            grid.appendChild(
+              makeTemporaryMixedCard(entry.node)
+            );
+          } else {
+            grid.appendChild(
+              makeCloudFileCard(entry.file, "Google Drive")
+            );
+          }
+        });
+      }
+
+      setFilesProviderStatus(
+        "Unified: Mixed · visible provider roots are displayed together without moving the original files."
+      );
+    }
+
+    async function renderActiveFilesView() {
+      setFilesModeButtonStates();
+      renderFilesProviderBanner();
+
+      if (activeFilesMode === "services") {
+        renderUnifiedServices();
+        return;
+      }
+
+      if (activeFilesMode === "mixed") {
+        await renderUnifiedMixed();
+        return;
+      }
+
+      if (activeFilesProvider === "temporary") {
+        showOnlyFilesView("files-temporary-provider-view");
+        renderTemporaryFiles();
+        return;
+      }
+
+      if (activeFilesProvider === "google") {
+        showOnlyFilesView("files-cloud-provider-view");
+        updateFilesGoogleAccountSelector();
+
+        if (getGoogleDriveProviderToken()) {
+          await loadGoogleDriveFolder();
+        } else {
+          const grid = document.getElementById("files-cloud-grid");
+          grid.innerHTML =
+            '<div class="files-cloud-empty" style="grid-column:1/-1"><div><strong>Google Drive needs authorization.</strong><br>Select a connected Google account and press Authorize Drive.</div></div>';
+          document.getElementById("files-cloud-breadcrumbs").innerHTML = "";
+          setFilesProviderStatus(
+            "Google Drive · authorization required for this browser session."
+          );
+        }
+
+        return;
+      }
+
+      showOnlyFilesView("files-cloud-provider-view");
+      document.getElementById("files-cloud-breadcrumbs").innerHTML = "";
+      document.getElementById("files-cloud-grid").innerHTML =
+        '<div class="files-cloud-empty" style="grid-column:1/-1"><div><strong>' +
+        (activeFilesProvider === "onedrive" ? "OneDrive" : "iCloud Drive") +
+        ' is not connected yet.</strong><br>This provider is reserved for a later integration.</div></div>';
+
+      setFilesProviderStatus(
+        activeFilesProvider === "onedrive"
+          ? "OneDrive · not connected yet."
+          : "iCloud Drive · not connected yet."
+      );
+    }
+
+    function setupFilesProviderNavigation() {
+      document.querySelectorAll(".files-provider-button").forEach(function (button) {
+        button.addEventListener("click", async function () {
+          activeFilesProvider = button.dataset.filesProvider;
+          activeFilesMode = "provider";
+          await renderActiveFilesView();
+        });
+      });
+
+      document.querySelectorAll(".files-view-mode-button").forEach(function (button) {
+        button.addEventListener("click", async function () {
+          activeFilesMode = button.dataset.filesMode;
+          await renderActiveFilesView();
+        });
+      });
+
+      const accountSelect =
+        document.getElementById("files-google-account-select");
+
+      accountSelect.addEventListener("change", function () {
+        selectedFilesGoogleAccountId = accountSelect.value;
+
+        setFilesProviderStatus(
+          selectedFilesGoogleAccountId
+            ? "Google account selected. Authorize Drive if needed."
+            : "Choose a Google account."
+        );
+      });
+
+      document
+        .getElementById("files-google-authorize-button")
+        .addEventListener("click", authorizeGoogleDrive);
+
+      document
+        .getElementById("files-google-refresh-button")
+        .addEventListener("click", loadGoogleDriveFolder);
+    }
+
 
     /*
       INTERNAL SETTINGS VIEW
@@ -3505,25 +5189,6 @@
     async function confirmMicrosoftConnection() {
       closeMicrosoftWarningModal();
       await connectMicrosoftAccount();
-    }
-
-    function openAmazonMusicUnsupportedModal() {
-      const modal = document.getElementById("amazon-music-unsupported-modal");
-      const closeButton = document.getElementById("amazon-music-unsupported-close-button");
-
-      modal.hidden = false;
-
-      window.setTimeout(function () {
-        closeButton.focus();
-      }, 0);
-    }
-
-    function closeAmazonMusicUnsupportedModal() {
-      const modal = document.getElementById("amazon-music-unsupported-modal");
-      const connectButton = document.getElementById("music-provider-connect-button");
-
-      modal.hidden = true;
-      connectButton.focus();
     }
 
     async function connectMicrosoftAccount() {
@@ -3594,12 +5259,17 @@
     const GOOGLE_CALENDAR_SCOPE =
       "https://www.googleapis.com/auth/calendar.readonly";
 
+    const GOOGLE_DRIVE_SCOPE =
+      "https://www.googleapis.com/auth/drive.readonly";
+
     const GOOGLE_OAUTH_SCOPES =
-      "openid email profile " + GOOGLE_CALENDAR_SCOPE;
+      "openid email profile " + GOOGLE_CALENDAR_SCOPE + " " + GOOGLE_DRIVE_SCOPE;
 
     const GOOGLE_PROVIDER_TOKEN_KEY = "dashboard-google-provider-token";
     const GOOGLE_PROVIDER_REFRESH_TOKEN_KEY = "dashboard-google-provider-refresh-token";
+    const GOOGLE_DRIVE_PROVIDER_TOKEN_KEY = "dashboard-google-drive-provider-token";
     const GOOGLE_LINK_PENDING_KEY = "dashboard-google-link-pending";
+    const GOOGLE_DRIVE_PENDING_KEY = "dashboard-google-drive-pending";
 
     let googleConnectionChecked = false;
     let googleConnectionSaving = false;
@@ -3612,7 +5282,6 @@
     let connectedMicrosoftIdentity = null;
 
     let calendarAccountPreferences = {};
-    let selectedYouTubeMusicGoogleConnectionId = "";
 
     const miniCalendarViewDate = new Date();
     miniCalendarViewDate.setDate(1);
@@ -3648,10 +5317,10 @@
         url: "https://drive.google.com"
       },
       {
-        title: "Music",
+        title: "Files",
         iconType: "text",
-        icon: "♫",
-        url: "#music"
+        icon: "📁",
+        url: "#files"
       },
       {
         title: "Settings",
@@ -3792,12 +5461,13 @@
       }
 
       if (
-        tileInformation.url === "#music"
+        tileInformation.url === "#files"
       ) {
         tile.addEventListener(
           "click",
           function (event) {
             event.preventDefault();
+            openFilesView();
           }
         );
       }
@@ -4480,7 +6150,6 @@
       buildMiniCalendar();
       showCalendarMessageForAllDays("No Google account connected");
       renderCalendarAccountPreferences();
-      refreshYouTubeMusicGoogleAccountOptions();
     }
 
     function renderGoogleAccountList(accounts) {
@@ -4556,7 +6225,10 @@
         : count + " Google accounts connected";
       googleConnectionChecked = true;
       renderCalendarAccountPreferences();
-      refreshYouTubeMusicGoogleAccountOptions();
+
+      if (typeof updateFilesGoogleAccountSelector === "function") {
+        updateFilesGoogleAccountSelector();
+      }
     }
 
     async function callGoogleBackend(body) {
@@ -4613,6 +6285,14 @@
           GOOGLE_PROVIDER_TOKEN_KEY,
           session.provider_token
         );
+
+        // Keep a browser-session copy for Google Drive read-only requests.
+        // The existing Calendar save flow may clear its temporary token after
+        // persisting the reusable Google connection.
+        sessionStorage.setItem(
+          GOOGLE_DRIVE_PROVIDER_TOKEN_KEY,
+          session.provider_token
+        );
       }
 
       if (session?.provider_refresh_token) {
@@ -4627,6 +6307,8 @@
       sessionStorage.removeItem(GOOGLE_PROVIDER_TOKEN_KEY);
       sessionStorage.removeItem(GOOGLE_PROVIDER_REFRESH_TOKEN_KEY);
       localStorage.removeItem(GOOGLE_LINK_PENDING_KEY);
+      // GOOGLE_DRIVE_PROVIDER_TOKEN_KEY intentionally remains for the
+      // current browser session so Files can make Drive read-only calls.
     }
 
     async function saveGoogleProviderTokens(session) {
@@ -4700,6 +6382,20 @@
 
         clearCachedGoogleProviderTokens();
         await loadGoogleCalendarEvents();
+
+        if (
+          localStorage.getItem(GOOGLE_DRIVE_PENDING_KEY) === "true" &&
+          getGoogleDriveProviderToken()
+        ) {
+          localStorage.removeItem(GOOGLE_DRIVE_PENDING_KEY);
+          activeFilesMode = "provider";
+          activeFilesProvider = "google";
+
+          window.setTimeout(function () {
+            openFilesView();
+            loadGoogleDriveFolder();
+          }, 0);
+        }
       } catch (error) {
         console.error("Google startup error:", error);
         showCalendarMessageForAllDays("Google connection could not be restored");
@@ -5297,20 +6993,21 @@
     }
 
 
-    setupMusicSidebarToggleDragging();
-    setupMusicProviderSetting();
+
+    setupTemporaryFileManager();
+
+    setupFilesProviderNavigation();
+    document
+      .getElementById("files-close-button")
+      .addEventListener("click", closeFilesView);
 
     document
-      .getElementById("music-sidebar-toggle")
-      .addEventListener("click", toggleMusicSidebar);
-
-    document
-      .getElementById("music-sidebar-close")
-      .addEventListener("click", closeMusicSidebar);
-
-    document
-      .getElementById("music-demo-play-button")
-      .addEventListener("click", toggleMusicDemoPlayState);
+      .getElementById("files-view")
+      .addEventListener("click", function (event) {
+        if (event.target === event.currentTarget) {
+          closeFilesView();
+        }
+      });
 
     document
       .getElementById("settings-close-button")
@@ -5360,31 +7057,15 @@
         }
       });
 
-    document
-      .getElementById("amazon-music-unsupported-close-button")
-      .addEventListener("click", closeAmazonMusicUnsupportedModal);
-
-    document
-      .getElementById("amazon-music-unsupported-modal")
-      .addEventListener("click", function (event) {
-        if (event.target === event.currentTarget) {
-          closeAmazonMusicUnsupportedModal();
-        }
-      });
 
     document.addEventListener("keydown", function (event) {
       const microsoftModal = document.getElementById("microsoft-warning-modal");
-      const amazonMusicModal = document.getElementById("amazon-music-unsupported-modal");
       const settingsView = document.getElementById("settings-view");
 
       if (event.key !== "Escape") {
         return;
       }
 
-      if (!amazonMusicModal.hidden) {
-        closeAmazonMusicUnsupportedModal();
-        return;
-      }
 
       if (!microsoftModal.hidden) {
         closeMicrosoftWarningModal();
@@ -5393,6 +7074,13 @@
 
       if (!settingsView.hidden) {
         closeSettingsView();
+        return;
+      }
+
+      const filesView = document.getElementById("files-view");
+
+      if (!filesView.hidden) {
+        closeFilesView();
       }
     });
 
@@ -5674,7 +7362,7 @@
         );
 
         document.title =
-          updatedTitle + " · Version 0.2.1";
+          updatedTitle + " · Version 0.3.2";
       }
 
       dashboardTitle.addEventListener(
