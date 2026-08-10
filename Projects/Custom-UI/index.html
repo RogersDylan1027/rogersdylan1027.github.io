@@ -9,9 +9,9 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>Dylan's Dashboard · Version 0.3.4</title>
+  <title>Dylan's Dashboard · Version 0.3.5</title>
 
-  <!-- Version 0.3.4: Live iCloud Drive provider + Files unified views · 2026-08-10 -->
+  <!-- Version 0.3.5: Built-in changelog + version-title consistency · 2026-08-10 -->
 
   <meta
     name="description"
@@ -1867,6 +1867,109 @@
     }
 
 
+
+    /*
+      CHANGELOG
+      Minor 0.3.5 dashboard update. Entries are kept in one JavaScript
+      array so future versions can be added or edited in one place.
+    */
+    .changelog-view {
+      width: min(100%, 1180px);
+    }
+
+    .changelog-content {
+      padding: 22px;
+    }
+
+    .changelog-intro {
+      margin: 0 0 16px;
+      color: #666666;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .changelog-table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid #d5d9df;
+      border-radius: 14px;
+      background: white;
+    }
+
+    .changelog-table {
+      width: 100%;
+      min-width: 820px;
+      border-collapse: collapse;
+    }
+
+    .changelog-table th,
+    .changelog-table td {
+      padding: 13px 14px;
+      border-bottom: 1px solid #e3e5e8;
+      vertical-align: top;
+      text-align: left;
+    }
+
+    .changelog-table th {
+      background: #f1f4f9;
+      color: #4f5968;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.45px;
+      text-transform: uppercase;
+    }
+
+    .changelog-table td {
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .changelog-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .changelog-version {
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .changelog-title {
+      font-weight: 700;
+    }
+
+    .changelog-download {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 34px;
+      padding: 7px 11px;
+      border: 1px solid #2450a4;
+      border-radius: 9px;
+      background: white;
+      color: #2450a4;
+      font: inherit;
+      font-weight: 800;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .changelog-download:hover {
+      background: #eef3fb;
+    }
+
+    .changelog-download.unavailable {
+      border-color: #c8cdd5;
+      color: #777777;
+      cursor: default;
+      pointer-events: none;
+    }
+
+    @media (max-width: 520px) {
+      .changelog-content {
+        padding: 14px;
+      }
+    }
+
     /*
       RESPONSIVE LAYOUT
     */
@@ -2032,7 +2135,7 @@
   <div id="dashboard-app" class="dashboard-container" hidden>
 
     <div class="account-bar">
-      <span>Version 0.3.4 · Signed in as <strong id="current-user-email"></strong></span>
+      <span>Version 0.3.5 · Signed in as <strong id="current-user-email"></strong></span>
       <button id="logout-button" type="button">Log Out</button>
     </div>
 
@@ -2540,6 +2643,57 @@
       <div id="files-context-item-divider" class="files-context-divider"></div>
       <button id="files-context-rename" type="button" role="menuitem">Rename</button>
       <button id="files-context-delete" class="danger" type="button" role="menuitem">Delete</button>
+    </div>
+
+
+    <!-- Built-in Changelog view -->
+    <div
+      id="changelog-view"
+      class="internal-view-backdrop"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="changelog-view-title"
+      hidden
+    >
+      <section class="internal-view changelog-view">
+        <header class="internal-view-header">
+          <div class="internal-view-header-spacer" aria-hidden="true"></div>
+
+          <h2 id="changelog-view-title">Changelog</h2>
+
+          <button
+            id="changelog-close-button"
+            class="internal-view-close-button"
+            type="button"
+            aria-label="Close changelog"
+            title="Close changelog"
+          >
+            ×
+          </button>
+        </header>
+
+        <div class="changelog-content">
+          <p class="changelog-intro">
+            Dashboard Dylan release history. Add or edit future releases in the
+            <strong>dashboardChangelog</strong> array in this file.
+          </p>
+
+          <div class="changelog-table-wrap">
+            <table class="changelog-table">
+              <thead>
+                <tr>
+                  <th>Version</th>
+                  <th>Title</th>
+                  <th>Download</th>
+                  <th>Description</th>
+                  <th>Run Version</th>
+                </tr>
+              </thead>
+              <tbody id="changelog-table-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
     </div>
 
     <!-- Internal Settings view -->
@@ -5647,6 +5801,121 @@
     }
 
 
+
+    /*
+      BUILT-IN CHANGELOG · 0.3.5
+
+      Add or edit releases here. The table is rendered automatically.
+      downloadUrl should point to the archived release file stored on the site.
+    */
+    const dashboardChangelog = [
+      {
+        version: "0.3.5",
+        title: "Built-in Changelog & Version Cleanup",
+        downloadUrl: "versions/dashboard-v0.3.5.html",
+        runUrl: "index.html",
+        description:
+          "Adds the Changelog directly to Dashboard Dylan with a reusable release table, version downloads, historical Run buttons, and synchronized version references throughout the dashboard."
+      },
+      {
+        version: "0.3.4",
+        title: "Live iCloud Drive Integration",
+        downloadUrl: "versions/dashboard-v0.3.4.html",
+        runUrl: "versions/dashboard-v0.3.4.html",
+        description:
+          "Adds a working local iCloud Drive provider for supported Mac browsers, saved folder access, automatic live rescanning, iCloud folder navigation, and iCloud content in the Unified Mixed view."
+      },
+      {
+        version: "0.3.3",
+        title: "Unified Files & Google Drive Integration",
+        downloadUrl: "versions/dashboard-v0.3.3.html",
+        runUrl: "versions/dashboard-v0.3.3.html",
+        description:
+          "Introduces the Files feature cycle with the temporary file manager, provider navigation, read-only Google Drive access, and the first Unified Services and Unified Mixed views."
+      },
+      {
+        version: "0.2.1",
+        title: "Apple Music Access & Amazon Music Handling",
+        downloadUrl: "versions/dashboard-v0.2.1.html",
+        runUrl: "versions/dashboard-v0.2.1.html",
+        description:
+          "Improves provider-specific Music behavior by opening Apple Music web access and adding dedicated unsupported handling and clearer messaging for Amazon Music."
+      },
+      {
+        version: "0.2.0",
+        title: "Music Integration & Dashboard Settings",
+        downloadUrl: "versions/dashboard-v0.2.0.html",
+        runUrl: "versions/dashboard-v0.2.0.html",
+        description:
+          "Begins the Music integration cycle with the Music sidebar proof of concept, provider settings, internal Settings, Microsoft beta account linking, Calendar account controls, and Calendar navigation improvements."
+      }
+    ];
+
+    function renderDashboardChangelog() {
+      const body = document.getElementById("changelog-table-body");
+      if (!body) return;
+
+      body.innerHTML = "";
+
+      dashboardChangelog.forEach(function (release) {
+        const row = document.createElement("tr");
+
+        const version = document.createElement("td");
+        version.className = "changelog-version";
+        version.textContent = release.version;
+
+        const title = document.createElement("td");
+        title.className = "changelog-title";
+        title.textContent = release.title;
+
+        const download = document.createElement("td");
+        const link = document.createElement("a");
+        link.className = "changelog-download";
+        link.href = release.downloadUrl;
+        link.download = "";
+        link.textContent = "Download";
+        download.appendChild(link);
+
+        const description = document.createElement("td");
+        description.textContent = release.description;
+
+        const run = document.createElement("td");
+        const runButton = document.createElement("button");
+        runButton.className = "changelog-download";
+        runButton.type = "button";
+        runButton.textContent = release.version === "0.3.5" ? "Run Current" : "Run";
+        runButton.addEventListener("click", function () {
+          window.location.assign(release.runUrl);
+        });
+        run.appendChild(runButton);
+
+        row.appendChild(version);
+        row.appendChild(title);
+        row.appendChild(download);
+        row.appendChild(description);
+        row.appendChild(run);
+        body.appendChild(row);
+      });
+    }
+
+    function openChangelogView() {
+      const view = document.getElementById("changelog-view");
+      const closeButton = document.getElementById("changelog-close-button");
+
+      renderDashboardChangelog();
+      view.hidden = false;
+      document.body.style.overflow = "hidden";
+
+      window.setTimeout(function () {
+        closeButton.focus();
+      }, 0);
+    }
+
+    function closeChangelogView() {
+      document.getElementById("changelog-view").hidden = true;
+      document.body.style.overflow = "";
+    }
+
     /*
       INTERNAL SETTINGS VIEW
 
@@ -5829,6 +6098,12 @@
         url: "#files"
       },
       {
+        title: "Changelog",
+        iconType: "text",
+        icon: "📝",
+        url: "#changelog"
+      },
+      {
         title: "Settings",
         iconType: "text",
         icon: "⚙",
@@ -5974,6 +6249,18 @@
           function (event) {
             event.preventDefault();
             openFilesView();
+          }
+        );
+      }
+
+      if (
+        tileInformation.url === "#changelog"
+      ) {
+        tile.addEventListener(
+          "click",
+          function (event) {
+            event.preventDefault();
+            openChangelogView();
           }
         );
       }
@@ -7516,6 +7803,18 @@
       });
 
     document
+      .getElementById("changelog-close-button")
+      .addEventListener("click", closeChangelogView);
+
+    document
+      .getElementById("changelog-view")
+      .addEventListener("click", function (event) {
+        if (event.target === event.currentTarget) {
+          closeChangelogView();
+        }
+      });
+
+    document
       .getElementById("settings-close-button")
       .addEventListener("click", closeSettingsView);
 
@@ -7567,6 +7866,7 @@
     document.addEventListener("keydown", function (event) {
       const microsoftModal = document.getElementById("microsoft-warning-modal");
       const settingsView = document.getElementById("settings-view");
+      const changelogView = document.getElementById("changelog-view");
 
       if (event.key !== "Escape") {
         return;
@@ -7580,6 +7880,11 @@
 
       if (!settingsView.hidden) {
         closeSettingsView();
+        return;
+      }
+
+      if (!changelogView.hidden) {
+        closeChangelogView();
         return;
       }
 
@@ -7868,7 +8173,7 @@
         );
 
         document.title =
-          updatedTitle + " · Version 0.3.2";
+          updatedTitle + " · Version 0.3.5";
       }
 
       dashboardTitle.addEventListener(
@@ -7993,6 +8298,7 @@
       Initial page setup.
     */
     displayTiles();
+    renderDashboardChangelog();
     updateDateAndTime();
     buildMiniCalendar();
     updateCalendarHeadings();
