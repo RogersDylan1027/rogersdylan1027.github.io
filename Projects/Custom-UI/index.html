@@ -9,9 +9,9 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>Dylan's Dashboard · Version 0.3.12</title>
+  <title>Dylan's Dashboard · Version 0.3.15</title>
 
-  <!-- Version 0.3.12: Dashboard Performance Optimization · 2026-08-11 -->
+  <!-- Version 0.3.15: Floating File Selection Controls · 2026-08-11 -->
 
   <meta
     name="description"
@@ -1973,16 +1973,33 @@
     }
 
     .files-combined-selection-bar {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      z-index: 1150;
+
+      width: min(calc(100vw - 48px), 760px);
+
       display: flex;
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
+
       gap: 12px;
-      margin: 0 0 12px;
+      margin: 0;
       padding: 11px 12px;
+
       border: 1px solid #9db3db;
-      border-radius: 12px;
-      background: #eef3fb;
+      border-radius: 14px;
+
+      background: rgba(238, 243, 251, 0.97);
+
+      box-shadow:
+        0 12px 34px rgba(0, 0, 0, 0.18);
+
+      backdrop-filter: blur(10px);
+
+      transform: translateX(-50%);
     }
 
     .files-combined-selection-info {
@@ -2006,6 +2023,17 @@
       white-space: nowrap;
       font-size: 13px;
     }
+
+    .files-combined-selection-bar .files-toolbar-actions {
+      width: auto;
+      flex: 0 0 auto;
+    }
+
+    .files-combined-selection-bar .files-action-button {
+      min-height: 34px;
+      padding: 7px 11px;
+    }
+
 
     .combined-item.selected {
       border-color: #2450a4;
@@ -2175,7 +2203,7 @@
 
     /*
       CHANGELOG
-      0.3.12 Dashboard performance optimization. Entries are kept in one JavaScript
+      0.3.15 Floating file selection controls. Entries are kept in one JavaScript
       array so future versions can be added or edited in one place.
     */
     .changelog-view {
@@ -2240,33 +2268,6 @@
 
     .changelog-title {
       font-weight: 700;
-    }
-
-    .changelog-download {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 34px;
-      padding: 7px 11px;
-      border: 1px solid #2450a4;
-      border-radius: 9px;
-      background: white;
-      color: #2450a4;
-      font: inherit;
-      font-weight: 800;
-      text-decoration: none;
-      white-space: nowrap;
-    }
-
-    .changelog-download:hover {
-      background: #eef3fb;
-    }
-
-    .changelog-download.unavailable {
-      border-color: #c8cdd5;
-      color: #777777;
-      cursor: default;
-      pointer-events: none;
     }
 
     @media (max-width: 520px) {
@@ -2387,6 +2388,23 @@
       .files-action-button {
         flex: 1 1 auto;
       }
+
+      .files-combined-selection-bar {
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+
+        width: auto;
+
+        display: grid;
+        grid-template-columns: 1fr;
+
+        transform: none;
+      }
+
+      .files-combined-selection-bar .files-toolbar-actions {
+        width: 100%;
+      }
     }
   </style>
 </head>
@@ -2440,7 +2458,7 @@
   <div id="dashboard-app" class="dashboard-container" hidden>
 
     <div class="account-bar">
-      <span>Version 0.3.12 · Signed in as <strong id="current-user-email"></strong></span>
+      <span>Version 0.3.15 · Signed in as <strong id="current-user-email"></strong></span>
       <button id="logout-button" type="button">Log Out</button>
     </div>
 
@@ -3131,9 +3149,7 @@
                 <tr>
                   <th>Version</th>
                   <th>Title</th>
-                  <th>Download</th>
                   <th>Description</th>
-                  <th>Run Version</th>
                 </tr>
               </thead>
               <tbody id="changelog-table-body"></tbody>
@@ -3781,6 +3797,21 @@
             ? { ...metadata.files_account_preferences }
             : {};
 
+        const savedICloudConnection =
+          metadata.icloud_drive_connection &&
+          typeof metadata.icloud_drive_connection === "object"
+            ? metadata.icloud_drive_connection
+            : null;
+
+        iCloudDashboardConnection = {
+          connected: savedICloudConnection?.connected === true,
+          folderName:
+            typeof savedICloudConnection?.folderName === "string" &&
+            savedICloudConnection.folderName.trim()
+              ? savedICloudConnection.folderName.trim()
+              : "iCloud Drive"
+        };
+
         combinedFileSystem =
           metadata.combined_file_system &&
           typeof metadata.combined_file_system === "object"
@@ -3788,7 +3819,8 @@
             : {
                 version: 1,
                 folders: [],
-                placements: {}
+                placements: {},
+                flattenedFolders: {}
               };
 
         renderCalendarAccountPreferences();
@@ -3802,10 +3834,15 @@
         console.error("Dashboard service preference load error:", error);
         calendarAccountPreferences = {};
         filesAccountPreferences = {};
+        iCloudDashboardConnection = {
+          connected: false,
+          folderName: "iCloud Drive"
+        };
         combinedFileSystem = {
           version: 1,
           folders: [],
-          placements: {}
+          placements: {},
+          flattenedFolders: {}
         };
         currentCombinedFolderId = "root";
         renderCalendarAccountPreferences();
@@ -5050,14 +5087,17 @@
     }
 
     function closeFilesView() {
+      clearServicesSelection();
+      clearCombinedSelection();
+
       getById("files-view").hidden = true;
       document.body.style.overflow = "";
       closeFilesContextMenu();
       closeCombinedContextMenu();
       closeCombinedMovePicker();
       closeServicesMovePicker();
-      clearServicesSelection();
-      clearCombinedSelection();
+      combinedProviderBrowse = null;
+      combinedRenderedSourceEntries = [];
       clearTemporaryDropIndicators();
       clearCombinedDropIndicators();
       activeCombinedDragDescriptor = null;
@@ -5188,7 +5228,7 @@
 
 
     /*
-      FILES SERVICES ACTIONS + PERSISTENT COMBINED FILE SYSTEM + UNDO · 0.3.12
+      FILES SERVICES ACTIONS + PERSISTENT COMBINED FILE SYSTEM + UNDO · 0.3.15
 
       The working temporary file manager above is intentionally left intact.
       These functions only choose which Files view is visible and render
@@ -5397,12 +5437,18 @@
         )
       );
 
-      const iCloudAccounts = iCloudRootHandle
+      const iCloudIsKnownToDashboard =
+        Boolean(iCloudRootHandle) ||
+        iCloudDashboardConnection.connected;
+
+      const iCloudAccounts = iCloudIsKnownToDashboard
         ? [
             {
               id: "local",
               activeId: null,
-              label: iCloudRootHandle.name || "iCloud Drive"
+              label: iCloudRootHandle
+                ? (iCloudRootHandle.name || "iCloud Drive") + " · This device"
+                : (iCloudDashboardConnection.folderName || "iCloud Drive") + " · Connect this device"
             }
           ]
         : [];
@@ -5511,6 +5557,7 @@
       const description = getById("files-provider-banner-description");
       const googleActions = getById("files-google-provider-actions");
       const iCloudActions = getById("files-icloud-provider-actions");
+      const iCloudConnectButton = getById("files-icloud-connect-button");
 
       if (!banner || !title || !description || !googleActions || !iCloudActions) return;
 
@@ -5534,8 +5581,29 @@
           "Provider placeholder. Microsoft Files access will be connected later.";
       } else {
         title.textContent = "iCloud Drive";
-        description.textContent =
-          "Live Mac/Chrome view of your synced iCloud Drive folder. It is re-read automatically while Files is open.";
+
+        if (iCloudRootHandle) {
+          description.textContent =
+            "iCloud Drive is connected on this device. The local folder handle stays on this browser while your Dashboard account remembers iCloud as a connected provider across devices.";
+
+          if (iCloudConnectButton) {
+            iCloudConnectButton.textContent = "Change Folder on This Device";
+          }
+        } else if (iCloudDashboardConnection.connected) {
+          description.textContent =
+            "iCloud Drive is connected to your Dashboard account, but this device still needs local folder permission before files can be opened here.";
+
+          if (iCloudConnectButton) {
+            iCloudConnectButton.textContent = "Connect on This Device";
+          }
+        } else {
+          description.textContent =
+            "Connect an iCloud Drive folder on this device. Dashboard Dylan will remember iCloud as a connected provider on your account, but each device grants its own local folder permission.";
+
+          if (iCloudConnectButton) {
+            iCloudConnectButton.textContent = "Connect iCloud Drive";
+          }
+        }
       }
     }
 
@@ -6719,6 +6787,55 @@
       db.close();
     }
 
+    async function saveICloudDashboardConnection(handle) {
+      const folderName =
+        handle?.name ||
+        iCloudDashboardConnection.folderName ||
+        "iCloud Drive";
+
+      const nextConnection = {
+        connected: true,
+        folderName,
+        updatedAt: new Date().toISOString()
+      };
+
+      const previousConnection = {
+        ...iCloudDashboardConnection
+      };
+
+      iCloudDashboardConnection = {
+        connected: true,
+        folderName
+      };
+
+      renderFilesAccountSidebar();
+      renderFilesProviderBanner();
+
+      try {
+        const { error } = await supabaseClient.auth.updateUser({
+          data: {
+            icloud_drive_connection: nextConnection
+          }
+        });
+
+        if (error) throw error;
+      } catch (error) {
+        console.error("iCloud Dashboard connection save:", error);
+        iCloudDashboardConnection = previousConnection;
+        renderFilesAccountSidebar();
+        renderFilesProviderBanner();
+        throw error;
+      }
+    }
+
+    function hasLocalICloudConnection() {
+      return Boolean(iCloudRootHandle);
+    }
+
+    function isICloudKnownToDashboard() {
+      return hasLocalICloudConnection() || iCloudDashboardConnection.connected;
+    }
+
     async function loadSavedICloudRootHandle() {
       try {
         const db = await openICloudHandleDatabase();
@@ -6751,6 +6868,12 @@
 
         if (typeof renderFilesAccountSidebar === "function") {
           renderFilesAccountSidebar();
+        }
+
+        if (iCloudRootHandle && !iCloudDashboardConnection.connected) {
+          saveICloudDashboardConnection(iCloudRootHandle).catch(function (error) {
+            console.warn("iCloud Dashboard connection migration:", error);
+          });
         }
 
         return iCloudRootHandle;
@@ -6787,7 +6910,9 @@
     async function connectICloudDriveFolder() {
       if (typeof window.showDirectoryPicker !== "function") {
         setFilesProviderStatus(
-          "This browser cannot connect a live iCloud Drive folder. Use Chrome on your Mac for this provider."
+          iCloudDashboardConnection.connected
+            ? "iCloud Drive is connected to your Dashboard account, but this browser cannot grant local folder access. Use a supported desktop browser such as Chrome on your Mac."
+            : "This browser cannot connect a live iCloud Drive folder. Use Chrome on your Mac for this provider."
         );
         return;
       }
@@ -6808,11 +6933,13 @@
         ];
 
         await saveICloudRootHandle(handle);
+        await saveICloudDashboardConnection(handle);
 
         renderFilesAccountSidebar();
+        renderFilesProviderBanner();
 
         setFilesProviderStatus(
-          "iCloud Drive folder connected. Loading files..."
+          "iCloud Drive connected on this device. Loading files..."
         );
 
         await loadICloudCurrentFolder();
@@ -7042,11 +7169,27 @@
 
       if (!iCloudRootHandle) {
         getById("files-cloud-breadcrumbs").innerHTML = "";
-        getById("files-cloud-grid").innerHTML =
-          '<div class="files-cloud-empty" style="grid-column:1/-1"><div><strong>iCloud Drive is not connected yet.</strong><br>On your Mac in Chrome, press Connect iCloud Drive Folder and choose your iCloud Drive folder.</div></div>';
-        if (!silent) {
-          setFilesProviderStatus("iCloud Drive · not connected.");
+
+        if (iCloudDashboardConnection.connected) {
+          getById("files-cloud-grid").innerHTML =
+            '<div class="files-cloud-empty" style="grid-column:1/-1"><div><strong>iCloud Drive is connected to your Dashboard account.</strong><br>This device has not granted local iCloud Drive access yet. Press <strong>Connect on This Device</strong> above and choose your iCloud Drive folder once for this browser.</div></div>';
+
+          if (!silent) {
+            setFilesProviderStatus(
+              "iCloud Drive · connected to Dashboard · this device needs folder access."
+            );
+          }
+        } else {
+          getById("files-cloud-grid").innerHTML =
+            '<div class="files-cloud-empty" style="grid-column:1/-1"><div><strong>iCloud Drive is not connected yet.</strong><br>On your Mac in Chrome, press Connect iCloud Drive and choose your iCloud Drive folder.</div></div>';
+
+          if (!silent) {
+            setFilesProviderStatus("iCloud Drive · not connected.");
+          }
         }
+
+        renderFilesAccountSidebar();
+        renderFilesProviderBanner();
         return;
       }
 
@@ -7091,7 +7234,7 @@
           "iCloud Drive · " +
           iCloudCurrentEntries.length +
           (iCloudCurrentEntries.length === 1 ? " item" : " items") +
-          " · Live"
+          " · Live on this device"
         );
 
         startICloudLiveRefresh();
@@ -7157,10 +7300,17 @@
           ? { ...value.placements }
           : {};
 
+      const flattenedFolders =
+        value?.flattenedFolders &&
+        typeof value.flattenedFolders === "object"
+          ? { ...value.flattenedFolders }
+          : {};
+
       return {
         version: 1,
         folders,
-        placements
+        placements,
+        flattenedFolders
       };
     }
 
@@ -7294,6 +7444,10 @@
     }
 
     function getCombinedSourceKey(entry) {
+      if (typeof entry?.__combinedSourceKey === "string") {
+        return entry.__combinedSourceKey;
+      }
+
       if (entry.provider === "google") {
         return (
           "google:" +
@@ -7399,6 +7553,418 @@
       return trail;
     }
 
+
+
+    function isCombinedProviderFolderFlattened(sourceKey) {
+      return (
+        combinedFileSystem.flattenedFolders?.[sourceKey] === true
+      );
+    }
+
+    function setCombinedProviderFolderFlattened(sourceKey, flattened) {
+      if (!combinedFileSystem.flattenedFolders) {
+        combinedFileSystem.flattenedFolders = {};
+      }
+
+      if (flattened) {
+        combinedFileSystem.flattenedFolders[sourceKey] = true;
+      } else {
+        delete combinedFileSystem.flattenedFolders[sourceKey];
+      }
+    }
+
+    function getRenderedCombinedSourceEntry(sourceKey) {
+      return combinedRenderedSourceEntries.find(function (entry) {
+        return getCombinedSourceKey(entry) === sourceKey;
+      }) || null;
+    }
+
+    async function loadCombinedProviderFolderChildren(entry) {
+      if (!isCombinedSourceFolder(entry)) {
+        return [];
+      }
+
+      if (entry.provider === "google") {
+        const connectionId =
+          entry.file?.__connectionId;
+
+        if (!connectionId) {
+          throw new Error(
+            "That Google Drive folder is missing its account connection."
+          );
+        }
+
+        const result =
+          await listGoogleDriveFolder(
+            entry.file.id,
+            connectionId
+          );
+
+        return result.files.map(function (file) {
+          return {
+            provider: "google",
+            name: file.name,
+            file
+          };
+        });
+      }
+
+      const sourceKey =
+        getCombinedSourceKey(entry);
+
+      const children =
+        await readICloudDirectory(
+          entry.entry.handle
+        );
+
+      return children.map(function (child) {
+        return {
+          provider: "icloud",
+          name: child.name,
+          entry: child,
+          __combinedSourceKey:
+            sourceKey + "/" + child.name
+        };
+      });
+    }
+
+    async function expandFlattenedCombinedEntries(
+      entries,
+      depth = 0
+    ) {
+      if (depth > 30) {
+        return entries;
+      }
+
+      const expanded = [];
+
+      for (const entry of entries) {
+        const sourceKey =
+          getCombinedSourceKey(entry);
+
+        if (
+          isCombinedSourceFolder(entry) &&
+          isCombinedProviderFolderFlattened(
+            sourceKey
+          )
+        ) {
+          try {
+            const children =
+              await loadCombinedProviderFolderChildren(
+                entry
+              );
+
+            const expandedChildren =
+              await expandFlattenedCombinedEntries(
+                children,
+                depth + 1
+              );
+
+            expanded.push.apply(
+              expanded,
+              expandedChildren
+            );
+          } catch (error) {
+            console.warn(
+              "Combined flattened folder load:",
+              error
+            );
+          }
+
+          continue;
+        }
+
+        expanded.push(entry);
+      }
+
+      return expanded;
+    }
+
+    async function deleteCombinedProviderFolder(sourceKey) {
+      const entry =
+        getRenderedCombinedSourceEntry(
+          sourceKey
+        );
+
+      if (
+        !entry ||
+        !isCombinedSourceFolder(entry)
+      ) {
+        return;
+      }
+
+      const folderName =
+        entry.name || "Folder";
+
+      if (
+        !window.confirm(
+          "Delete the folder “" +
+          folderName +
+          "” from Combined? Its contents will move into the parent Combined layer. The original " +
+          (
+            entry.provider === "google"
+              ? "Google Drive"
+              : "iCloud Drive"
+          ) +
+          " folder and files will not be changed."
+        )
+      ) {
+        return;
+      }
+
+      let children = [];
+
+      try {
+        children =
+          await loadCombinedProviderFolderChildren(
+            entry
+          );
+      } catch (error) {
+        setFilesProviderStatus(
+          error.message ||
+          "The folder contents could not be loaded."
+        );
+        return;
+      }
+
+      pushCombinedUndoState(
+        "Delete provider folder from Combined"
+      );
+
+      const placement =
+        getCombinedPlacement(sourceKey);
+
+      setCombinedProviderFolderFlattened(
+        sourceKey,
+        true
+      );
+
+      if (placement) {
+        const parentId =
+          placement.parentId || "root";
+
+        let nextOrder =
+          Number(placement.order) || 1;
+
+        delete combinedFileSystem.placements[
+          sourceKey
+        ];
+
+        children.forEach(function (child) {
+          const childKey =
+            getCombinedSourceKey(child);
+
+          const existing =
+            combinedFileSystem.placements[
+              childKey
+            ] || {};
+
+          combinedFileSystem.placements[
+            childKey
+          ] = {
+            ...existing,
+            parentId,
+            order: nextOrder
+          };
+
+          nextOrder += 1;
+        });
+
+        normalizeCombinedOrder(parentId);
+      }
+
+      clearCombinedSelection();
+
+      await saveCombinedFileSystem(
+        "Folder removed from Combined. Its contents were moved into the parent layer; the original provider folder was not changed."
+      );
+
+      await renderUnifiedMixed();
+    }
+
+    function isCombinedSourceFolder(entry) {
+      if (!entry) return false;
+
+      if (entry.provider === "google") {
+        return (
+          entry.file?.mimeType ===
+          "application/vnd.google-apps.folder"
+        );
+      }
+
+      return entry.entry?.kind === "directory";
+    }
+
+    function getCombinedProviderBrowseOriginFolderId() {
+      return (
+        combinedProviderBrowse?.originFolderId ||
+        "root"
+      );
+    }
+
+    function exitCombinedProviderBrowse(destinationFolderId = null) {
+      const fallbackFolderId =
+        destinationFolderId ||
+        getCombinedProviderBrowseOriginFolderId();
+
+      combinedProviderBrowse = null;
+      currentCombinedFolderId =
+        fallbackFolderId || "root";
+
+      clearCombinedSelection();
+    }
+
+    async function loadCombinedProviderBrowseEntries() {
+      if (!combinedProviderBrowse) return [];
+
+      if (combinedProviderBrowse.provider === "google") {
+        const current =
+          combinedProviderBrowse.stack[
+            combinedProviderBrowse.stack.length - 1
+          ];
+
+        const result =
+          await listGoogleDriveFolder(
+            current.id,
+            combinedProviderBrowse.connectionId
+          );
+
+        combinedProviderBrowse.entries =
+          result.files.map(function (file) {
+            return {
+              provider: "google",
+              name: file.name,
+              file
+            };
+          });
+
+        return combinedProviderBrowse.entries;
+      }
+
+      const current =
+        combinedProviderBrowse.stack[
+          combinedProviderBrowse.stack.length - 1
+        ];
+
+      if (!current?.handle) {
+        combinedProviderBrowse.entries = [];
+        return [];
+      }
+
+      const entries =
+        await readICloudDirectory(current.handle);
+
+      const pathPrefix =
+        combinedProviderBrowse.stack
+          .map(function (part) {
+            return part.name;
+          })
+          .join("/");
+
+      combinedProviderBrowse.entries =
+        entries.map(function (entry) {
+          return {
+            provider: "icloud",
+            name: entry.name,
+            entry,
+            __combinedSourceKey:
+              "icloud:local:" +
+              pathPrefix +
+              "/" +
+              entry.name
+          };
+        });
+
+      return combinedProviderBrowse.entries;
+    }
+
+    async function openCombinedProviderFolder(entry) {
+      if (!isCombinedSourceFolder(entry)) {
+        return false;
+      }
+
+      const originFolderId =
+        combinedProviderBrowse
+          ? getCombinedProviderBrowseOriginFolderId()
+          : currentCombinedFolderId;
+
+      if (entry.provider === "google") {
+        const connectionId =
+          entry.file?.__connectionId;
+
+        if (!connectionId) {
+          setFilesProviderStatus(
+            "That Google Drive folder is missing its account connection."
+          );
+          return true;
+        }
+
+        if (
+          combinedProviderBrowse &&
+          combinedProviderBrowse.provider === "google" &&
+          combinedProviderBrowse.connectionId === connectionId
+        ) {
+          combinedProviderBrowse.stack.push({
+            id: entry.file.id,
+            name: entry.file.name
+          });
+        } else {
+          combinedProviderBrowse = {
+            provider: "google",
+            connectionId,
+            originFolderId,
+            stack: [
+              {
+                id: entry.file.id,
+                name: entry.file.name
+              }
+            ],
+            entries: []
+          };
+        }
+      } else {
+        if (
+          combinedProviderBrowse &&
+          combinedProviderBrowse.provider === "icloud"
+        ) {
+          combinedProviderBrowse.stack.push({
+            handle: entry.entry.handle,
+            name: entry.entry.name
+          });
+        } else {
+          combinedProviderBrowse = {
+            provider: "icloud",
+            originFolderId,
+            stack: [
+              {
+                handle: entry.entry.handle,
+                name: entry.entry.name
+              }
+            ],
+            entries: []
+          };
+        }
+      }
+
+      clearCombinedSelection();
+      await renderUnifiedMixed();
+      return true;
+    }
+
+    async function navigateCombinedProviderBrowseTo(index) {
+      if (!combinedProviderBrowse) return;
+
+      combinedProviderBrowse.stack =
+        combinedProviderBrowse.stack.slice(
+          0,
+          index + 1
+        );
+
+      combinedProviderBrowse.entries = [];
+      clearCombinedSelection();
+      await renderUnifiedMixed();
+    }
+
     function makeCombinedBreadcrumbDropTarget(
       button,
       destinationId
@@ -7487,14 +8053,23 @@
         getById("files-combined-rename-folder-button");
 
       container.innerHTML = "";
-      renameButton.hidden = currentCombinedFolderId === "root";
+
+      const virtualFolderId =
+        combinedProviderBrowse
+          ? getCombinedProviderBrowseOriginFolderId()
+          : currentCombinedFolderId;
+
+      renameButton.hidden =
+        combinedProviderBrowse !== null ||
+        virtualFolderId === "root";
 
       const deleteButton =
         getById("files-combined-delete-folder-button");
 
       if (deleteButton) {
         deleteButton.hidden =
-          currentCombinedFolderId === "root";
+          combinedProviderBrowse !== null ||
+          virtualFolderId === "root";
       }
 
       const rootButton = document.createElement("button");
@@ -7503,42 +8078,82 @@
       rootButton.textContent = "Combined";
 
       rootButton.addEventListener("click", function () {
-        currentCombinedFolderId = "root";
-        clearCombinedSelection();
+        exitCombinedProviderBrowse("root");
         renderUnifiedMixed();
       });
 
-      makeCombinedBreadcrumbDropTarget(
-        rootButton,
-        "root"
-      );
+      if (!combinedProviderBrowse) {
+        makeCombinedBreadcrumbDropTarget(
+          rootButton,
+          "root"
+        );
+      }
 
       container.appendChild(rootButton);
 
-      getCombinedFolderTrail().forEach(function (folder) {
-        const separator = document.createElement("span");
-        separator.className = "files-breadcrumb-separator";
-        separator.textContent = "›";
-        container.appendChild(separator);
+      getCombinedFolderTrail(virtualFolderId)
+        .forEach(function (folder) {
+          const separator =
+            document.createElement("span");
 
-        const button = document.createElement("button");
-        button.type = "button";
-        button.className = "files-breadcrumb-button";
-        button.textContent = folder.name;
+          separator.className =
+            "files-breadcrumb-separator";
 
-        button.addEventListener("click", function () {
-          currentCombinedFolderId = folder.id;
-          clearCombinedSelection();
-          renderUnifiedMixed();
+          separator.textContent = "›";
+          container.appendChild(separator);
+
+          const button =
+            document.createElement("button");
+
+          button.type = "button";
+          button.className =
+            "files-breadcrumb-button";
+
+          button.textContent = folder.name;
+
+          button.addEventListener("click", function () {
+            exitCombinedProviderBrowse(folder.id);
+            renderUnifiedMixed();
+          });
+
+          if (!combinedProviderBrowse) {
+            makeCombinedBreadcrumbDropTarget(
+              button,
+              folder.id
+            );
+          }
+
+          container.appendChild(button);
         });
 
-        makeCombinedBreadcrumbDropTarget(
-          button,
-          folder.id
-        );
+      if (!combinedProviderBrowse) return;
 
-        container.appendChild(button);
-      });
+      combinedProviderBrowse.stack
+        .forEach(function (part, index) {
+          const separator =
+            document.createElement("span");
+
+          separator.className =
+            "files-breadcrumb-separator";
+
+          separator.textContent = "›";
+          container.appendChild(separator);
+
+          const button =
+            document.createElement("button");
+
+          button.type = "button";
+          button.className =
+            "files-breadcrumb-button";
+
+          button.textContent = part.name;
+
+          button.addEventListener("click", function () {
+            navigateCombinedProviderBrowseTo(index);
+          });
+
+          container.appendChild(button);
+        });
     }
 
     function isCombinedFolderDescendant(possibleDescendantId, ancestorId) {
@@ -7769,8 +8384,18 @@
 
       combinedContextDescriptor = descriptor;
 
+      const sourceEntry =
+        descriptor?.kind === "source"
+          ? getRenderedCombinedSourceEntry(
+              descriptor.id
+            )
+          : null;
+
       const isFolder =
-        descriptor?.kind === "folder";
+        descriptor?.kind === "folder" ||
+        isCombinedSourceFolder(
+          sourceEntry
+        );
 
       openButton.hidden = !descriptor;
       renameButton.hidden = !descriptor;
@@ -7778,7 +8403,7 @@
 
       removeButton.textContent =
         isFolder
-          ? "Delete Combined Folder"
+          ? "Delete Folder"
           : "Remove from Combined";
 
       menu.hidden = false;
@@ -8289,6 +8914,9 @@
         getCombinedPlacement(descriptor.id);
 
       const sourceEntry =
+        getRenderedCombinedSourceEntry(
+          descriptor.id
+        ) ||
         getVisibleCombinedSourceEntries().find(function (entry) {
           return getCombinedSourceKey(entry) === descriptor.id;
         });
@@ -8329,10 +8957,54 @@
           selectedCombinedDescriptor
         );
 
+      const selectedSourceEntry =
+        selectedCombinedDescriptor.kind === "source"
+          ? getRenderedCombinedSourceEntry(
+              selectedCombinedDescriptor.id
+            )
+          : null;
+
+      const selectedIsProviderFolder =
+        isCombinedSourceFolder(
+          selectedSourceEntry
+        );
+
       removeButton.textContent =
-        selectedCombinedDescriptor.kind === "folder"
+        (
+          selectedCombinedDescriptor.kind === "folder" ||
+          selectedIsProviderFolder
+        )
           ? "Delete Folder"
           : "Remove from Combined";
+
+      const renameButton =
+        getById("files-combined-selection-rename");
+
+      const moveButton =
+        getById("files-combined-selection-move");
+
+      const isUnplacedProviderBrowseSource =
+        Boolean(
+          combinedProviderBrowse &&
+          selectedCombinedDescriptor.kind === "source" &&
+          !getCombinedPlacement(
+            selectedCombinedDescriptor.id
+          )
+        );
+
+      if (renameButton) {
+        renameButton.disabled =
+          isUnplacedProviderBrowseSource;
+      }
+
+      if (moveButton) {
+        moveButton.disabled =
+          isUnplacedProviderBrowseSource;
+      }
+
+      removeButton.disabled =
+        isUnplacedProviderBrowseSource &&
+        !selectedIsProviderFolder;
     }
 
     function selectCombinedDescriptor(descriptor) {
@@ -8384,6 +9056,9 @@
       }
 
       const sourceEntry =
+        getRenderedCombinedSourceEntry(
+          descriptor.id
+        ) ||
         getVisibleCombinedSourceEntries().find(function (entry) {
           return getCombinedSourceKey(entry) === descriptor.id;
         });
@@ -8395,31 +9070,13 @@
         return;
       }
 
-      if (sourceEntry.provider === "google") {
-        await openGoogleDriveFile(sourceEntry.file);
+      if (isCombinedSourceFolder(sourceEntry)) {
+        await openCombinedProviderFolder(sourceEntry);
         return;
       }
 
-      if (sourceEntry.entry?.kind === "directory") {
-        activeFilesMode = "provider";
-        activeFilesProvider = "icloud";
-
-        if (!iCloudFolderStack.length) {
-          iCloudFolderStack = [
-            {
-              handle: iCloudRootHandle,
-              name: iCloudRootHandle?.name || "iCloud Drive"
-            }
-          ];
-        }
-
-        iCloudFolderStack.push({
-          handle: sourceEntry.entry.handle,
-          name: sourceEntry.entry.name
-        });
-
-        clearCombinedSelection();
-        await loadICloudCurrentFolder();
+      if (sourceEntry.provider === "google") {
+        await openGoogleDriveFile(sourceEntry.file);
         return;
       }
 
@@ -8486,11 +9143,28 @@
         await deleteCombinedFolder(
           descriptor.id
         );
-      } else {
-        await removeCombinedSource(
+        return;
+      }
+
+      const sourceEntry =
+        getRenderedCombinedSourceEntry(
           descriptor.id
         );
+
+      if (
+        isCombinedSourceFolder(
+          sourceEntry
+        )
+      ) {
+        await deleteCombinedProviderFolder(
+          descriptor.id
+        );
+        return;
       }
+
+      await removeCombinedSource(
+        descriptor.id
+      );
     }
 
     function getCombinedItemDescriptorFromElement(element) {
@@ -9146,29 +9820,13 @@
       async function openSource() {
         if (dragStarted) return;
 
+        if (isCombinedSourceFolder(entry)) {
+          await openCombinedProviderFolder(entry);
+          return;
+        }
+
         if (entry.provider === "google") {
           await openGoogleDriveFile(entry.file);
-        } else if (entry.entry?.kind === "directory") {
-          activeFilesMode = "provider";
-          activeFilesProvider = "icloud";
-
-          if (!iCloudFolderStack.length) {
-            iCloudFolderStack = [
-              {
-                handle: iCloudRootHandle,
-                name:
-                  iCloudRootHandle?.name ||
-                  "iCloud Drive"
-              }
-            ];
-          }
-
-          iCloudFolderStack.push({
-            handle: entry.entry.handle,
-            name: entry.entry.name
-          });
-
-          await loadICloudCurrentFolder();
         } else {
           try {
             const openedFile =
@@ -9220,6 +9878,12 @@
     }
 
     function getVisibleCombinedSourceEntries() {
+      if (combinedProviderBrowse) {
+        return Array.isArray(combinedProviderBrowse.entries)
+          ? combinedProviderBrowse.entries
+          : [];
+      }
+
       const googleRoot =
         googleDriveRootFiles
           .map(function (file) {
@@ -9415,8 +10079,25 @@
     async function renderUnifiedMixed() {
       showOnlyFilesView("files-unified-mixed-view");
 
-      await ensureGoogleDriveRootForUnified();
-      await ensureICloudRootForUnified();
+      if (combinedProviderBrowse) {
+        try {
+          await loadCombinedProviderBrowseEntries();
+        } catch (error) {
+          console.error(
+            "Combined provider folder load:",
+            error
+          );
+
+          combinedProviderBrowse.entries = [];
+          setFilesProviderStatus(
+            error.message ||
+            "That provider folder could not be loaded inside Combined."
+          );
+        }
+      } else {
+        await ensureGoogleDriveRootForUnified();
+        await ensureICloudRootForUnified();
+      }
 
       const grid =
         getById(
@@ -9428,42 +10109,86 @@
       renderCombinedBreadcrumbs();
       setupCombinedWorkspaceDrop();
 
-      const sourceEntries =
+      const rawSourceEntries =
         getVisibleCombinedSourceEntries();
 
-      const placementsChanged =
-        ensureCombinedSourcePlacements(
-          sourceEntries
+      const sourceEntries =
+        await expandFlattenedCombinedEntries(
+          rawSourceEntries
         );
 
-      if (placementsChanged) {
-        normalizeCombinedOrder("root");
-        await saveCombinedFileSystem();
+      combinedRenderedSourceEntries =
+        sourceEntries.slice();
+
+      if (!combinedProviderBrowse) {
+        const placementsChanged =
+          ensureCombinedSourcePlacements(
+            sourceEntries
+          );
+
+        if (placementsChanged) {
+          normalizeCombinedOrder("root");
+          await saveCombinedFileSystem();
+        }
+
+        if (
+          currentCombinedFolderId !== "root" &&
+          !getCombinedFolder(
+            currentCombinedFolderId
+          )
+        ) {
+          currentCombinedFolderId = "root";
+          renderCombinedBreadcrumbs();
+        }
       }
 
-      if (
-        currentCombinedFolderId !== "root" &&
-        !getCombinedFolder(
-          currentCombinedFolderId
-        )
-      ) {
-        currentCombinedFolderId = "root";
-        renderCombinedBreadcrumbs();
-      }
+      let items = [];
 
-      const items =
-        getCombinedItemsForFolder(
-          currentCombinedFolderId,
+      if (combinedProviderBrowse) {
+        items =
           sourceEntries
-        );
+            .slice()
+            .sort(function (first, second) {
+              const firstFolder =
+                isCombinedSourceFolder(first);
 
-      if (
-        selectedCombinedDescriptor &&
-        getCombinedItemParent(
-          selectedCombinedDescriptor
-        ) !== currentCombinedFolderId
-      ) {
+              const secondFolder =
+                isCombinedSourceFolder(second);
+
+              if (firstFolder !== secondFolder) {
+                return firstFolder ? -1 : 1;
+              }
+
+              return String(first.name || "")
+                .localeCompare(
+                  String(second.name || "")
+                );
+            })
+            .map(function (entry, index) {
+              return {
+                kind: "source",
+                id: getCombinedSourceKey(entry),
+                order: index + 1,
+                entry
+              };
+            });
+
         selectedCombinedDescriptor = null;
+      } else {
+        items =
+          getCombinedItemsForFolder(
+            currentCombinedFolderId,
+            sourceEntries
+          );
+
+        if (
+          selectedCombinedDescriptor &&
+          getCombinedItemParent(
+            selectedCombinedDescriptor
+          ) !== currentCombinedFolderId
+        ) {
+          selectedCombinedDescriptor = null;
+        }
       }
 
       if (!items.length) {
@@ -9477,33 +10202,33 @@
           "1 / -1";
 
         empty.innerHTML =
-          currentCombinedFolderId === "root"
-            ? "<div><strong>Combined is empty.</strong><br>Turn on at least one connected account in the sidebar, or create a folder.</div>"
-            : "<div><strong>This Combined folder is empty.</strong><br>Drag files or folders here, or create another folder.</div>";
+          combinedProviderBrowse
+            ? "<div><strong>This folder is empty.</strong><br>You are still browsing inside Combined.</div>"
+            : (
+                currentCombinedFolderId === "root"
+                  ? "<div><strong>No Combined items are available.</strong><br>Enable a connected file account or create a Dashboard folder.</div>"
+                  : "<div><strong>This Combined folder is empty.</strong><br>Drag files or folders here, or create another Dashboard folder.</div>"
+              );
 
         grid.appendChild(empty);
       } else {
-        items.forEach(function (item) {
-          if (item.kind === "folder") {
-            grid.appendChild(
-              makeCombinedVirtualFolderCard(
-                item.folder
-              )
-            );
-          } else {
-            grid.appendChild(
-              makeCombinedSourceCard(
-                item.entry
-              )
-            );
-          }
-        });
-      }
+        const fragment =
+          document.createDocumentFragment();
 
-      const currentFolder =
-        getCombinedFolder(
-          currentCombinedFolderId
-        );
+        items.forEach(function (item) {
+          fragment.appendChild(
+            item.kind === "folder"
+              ? makeCombinedVirtualFolderCard(
+                  item.folder
+                )
+              : makeCombinedSourceCard(
+                  item.entry
+                )
+          );
+        });
+
+        grid.appendChild(fragment);
+      }
 
       if (selectedCombinedDescriptor) {
         selectCombinedDescriptor(
@@ -9513,15 +10238,51 @@
         renderCombinedSelectionBar();
       }
 
-      setFilesProviderStatus(
-        "Combined · " +
-        (
-          currentFolder
-            ? currentFolder.name
-            : "Root"
-        ) +
-        " · drag files and folders to reorganize them. Originals stay in their connected services."
-      );
+      if (combinedProviderBrowse) {
+        const path =
+          combinedProviderBrowse.stack
+            .map(function (part) {
+              return part.name;
+            })
+            .join(" / ");
+
+        setFilesProviderStatus(
+          "Combined · " +
+          (
+            combinedProviderBrowse.provider === "google"
+              ? "Google Drive"
+              : "iCloud Drive"
+          ) +
+          " · " +
+          path +
+          " · " +
+          sourceEntries.length +
+          (
+            sourceEntries.length === 1
+              ? " item"
+              : " items"
+          )
+        );
+      } else {
+        setFilesProviderStatus(
+          "Combined · " +
+          (
+            currentCombinedFolderId === "root"
+              ? "Root"
+              : getCombinedFolder(
+                  currentCombinedFolderId
+                )?.name || "Folder"
+          ) +
+          " · " +
+          items.length +
+          (
+            items.length === 1
+              ? " item"
+              : " items"
+          ) +
+          " · Virtual organization saved"
+        );
+      }
     }
 
     async function renderActiveFilesView() {
@@ -9768,6 +10529,16 @@
             deleteCombinedFolder(
               descriptor.id
             );
+          } else if (
+            isCombinedSourceFolder(
+              getRenderedCombinedSourceEntry(
+                descriptor.id
+              )
+            )
+          ) {
+            deleteCombinedProviderFolder(
+              descriptor.id
+            );
           } else {
             removeCombinedSource(
               descriptor.id
@@ -9809,105 +10580,99 @@
 
 
     /*
-      BUILT-IN CHANGELOG · 0.3.12
+      BUILT-IN CHANGELOG · 0.3.15
 
       Add or edit releases here. The table is rendered automatically.
       downloadUrl should point to the archived release file stored on the site.
     */
     const dashboardChangelog = [
       {
+        version: "0.3.15",
+        title: "Floating File Selection Controls",
+        description:
+          "Moves the Services and Combined file-selection controls into a floating bottom overlay so selecting a file or folder no longer changes the height or shifts the Files layout, while keeping Open, Rename, Move, and Delete/Remove actions immediately available."
+      },
+      {
+        version: "0.3.14",
+        title: "Combined Provider Folder Navigation",
+        description:
+          "Keeps provider-folder browsing inside Combined instead of switching to Services, and lets any folder shown in Combined be deleted virtually. Deleting a Google Drive, iCloud Drive, or Dashboard-created folder promotes its contents into the parent Combined layer while leaving the original provider folder and files untouched."
+      },
+      {
+        version: "0.3.13",
+        title: "Persistent iCloud Device Connections",
+        description:
+          "Keeps iCloud Drive visible across Dashboard Dylan devices by saving account-level iCloud connection state to the Dashboard account while keeping each browser’s actual folder permission local. New devices now show Connect on This Device and clear permission status instead of hiding iCloud, preserving live local access without copying iCloud files into Supabase."
+      },
+      {
         version: "0.3.12",
         title: "Dashboard Performance Optimization",
-        downloadUrl: "versions/dashboard-v0.3.12.html",
-        runUrl: "index.html",
         description:
           "Optimizes Dashboard Dylan without changing its existing features or workflows. Adds cached static DOM lookups for frequently reused elements, reduces repeated Google Drive account filtering during Combined rendering, warms the Supabase CDN connection earlier, and removes overridden duplicate CSS to make the single-file dashboard cleaner and more efficient while preserving current Files, Calendar, Settings, and account behavior."
       },
       {
         version: "0.3.11",
         title: "Services File Actions & Selection",
-        downloadUrl: "versions/dashboard-v0.3.11.html",
-        runUrl: "versions/dashboard-v0.3.11.html",
         description:
           "Brings the Combined click-to-select workflow into Services with Open, Rename, Move, and Delete controls for provider files and folders. Google Drive actions now support real provider changes through the dashboard backend, while iCloud uses Chrome file-system permissions where supported."
       },
       {
         version: "0.3.10",
         title: "Combined Undo History",
-        downloadUrl: "versions/dashboard-v0.3.10.html",
-        runUrl: "index.html",
         description:
           "Adds Command-Z undo plus universal click-to-select actions for Combined files and folders. Selecting any Google Drive, iCloud, or Dashboard-created item reveals Open, Rename, Move, and Remove/Delete controls, while Move supports the full virtual Combined hierarchy without changing real cloud paths."
       },
       {
         version: "0.3.9",
         title: "Combined File System & Organization",
-        downloadUrl: "versions/dashboard-v0.3.9.html",
-        runUrl: "index.html",
         description:
           "Adds a persistent virtual file system to Combined with Dashboard folders, working drag-and-drop movement and reordering for files and folders, nested folders, file-on-file folder creation, folder deletion, and Remove from Combined controls that never delete or move the original Google Drive or iCloud Drive items."
       },
       {
         version: "0.3.8",
         title: "Services & Combined Files Views",
-        downloadUrl: "versions/dashboard-v0.3.8.html",
-        runUrl: "index.html",
         description:
           "Simplifies Files navigation to two modes by renaming Provider to Services, renaming Unified: Mixed to Combined, and removing the separate Unified: Services view while preserving provider/account browsing and the cross-provider combined file view."
       },
       {
         version: "0.3.7",
         title: "Connected Files Navigation",
-        downloadUrl: "versions/dashboard-v0.3.7.html",
-        runUrl: "index.html",
         description:
           "Redesigns Files around connected provider accounts with per-account toggles, provider-level combined browsing, and Unified Mixed filtering so only enabled Google Drive, iCloud Drive, and future OneDrive sources contribute to the combined file system."
       },
       {
         version: "0.3.6",
         title: "Persistent Multi-Account Google Drive",
-        downloadUrl: "versions/dashboard-v0.3.6.html",
-        runUrl: "index.html",
         description:
           "Adds persistent Google Drive access through the existing Supabase Google backend, per-account Drive browsing, an All Google Drives combined view, automatic token refresh, and Unified Mixed loading across all connected Google Drive accounts while preserving live iCloud Drive behavior."
       },
       {
         version: "0.3.5",
         title: "Built-in Changelog & Version Cleanup",
-        downloadUrl: "versions/dashboard-v0.3.5.html",
-        runUrl: "index.html",
         description:
           "Adds the Changelog directly to Dashboard Dylan with a reusable release table, version downloads, historical Run buttons, and synchronized version references throughout the dashboard."
       },
       {
         version: "0.3.4",
         title: "Live iCloud Drive Integration",
-        downloadUrl: "versions/dashboard-v0.3.4.html",
-        runUrl: "versions/dashboard-v0.3.4.html",
         description:
           "Adds a working local iCloud Drive provider for supported Mac browsers, saved folder access, automatic live rescanning, iCloud folder navigation, and iCloud content in the Unified Mixed view."
       },
       {
         version: "0.3.3",
         title: "Unified Files & Google Drive Integration",
-        downloadUrl: "versions/dashboard-v0.3.3.html",
-        runUrl: "versions/dashboard-v0.3.3.html",
         description:
           "Introduces the Files feature cycle with the temporary file manager, provider navigation, read-only Google Drive access, and the first Unified Services and Unified Mixed views."
       },
       {
         version: "0.2.1",
         title: "Apple Music Access & Amazon Music Handling",
-        downloadUrl: "versions/dashboard-v0.2.1.html",
-        runUrl: "versions/dashboard-v0.2.1.html",
         description:
           "Improves provider-specific Music behavior by opening Apple Music web access and adding dedicated unsupported handling and clearer messaging for Amazon Music."
       },
       {
         version: "0.2.0",
         title: "Music Integration & Dashboard Settings",
-        downloadUrl: "versions/dashboard-v0.2.0.html",
-        runUrl: "versions/dashboard-v0.2.0.html",
         description:
           "Begins the Music integration cycle with the Music sidebar proof of concept, provider settings, internal Settings, Microsoft beta account linking, Calendar account controls, and Calendar navigation improvements."
       }
@@ -9930,32 +10695,12 @@
         title.className = "changelog-title";
         title.textContent = release.title;
 
-        const download = document.createElement("td");
-        const link = document.createElement("a");
-        link.className = "changelog-download";
-        link.href = release.downloadUrl;
-        link.download = "";
-        link.textContent = "Download";
-        download.appendChild(link);
-
         const description = document.createElement("td");
         description.textContent = release.description;
 
-        const run = document.createElement("td");
-        const runButton = document.createElement("button");
-        runButton.className = "changelog-download";
-        runButton.type = "button";
-        runButton.textContent = release.version === "0.3.12" ? "Run Current" : "Run";
-        runButton.addEventListener("click", function () {
-          window.location.assign(release.runUrl);
-        });
-        run.appendChild(runButton);
-
         row.appendChild(version);
         row.appendChild(title);
-        row.appendChild(download);
         row.appendChild(description);
-        row.appendChild(run);
         body.appendChild(row);
       });
     }
@@ -10121,10 +10866,18 @@
     let calendarAccountPreferences = {};
     let filesAccountPreferences = {};
 
+    // The Dashboard account remembers that iCloud is a configured provider,
+    // while the actual FileSystemDirectoryHandle remains local to each device.
+    let iCloudDashboardConnection = {
+      connected: false,
+      folderName: "iCloud Drive"
+    };
+
     let combinedFileSystem = {
       version: 1,
       folders: [],
-      placements: {}
+      placements: {},
+      flattenedFolders: {}
     };
 
     let currentCombinedFolderId = "root";
@@ -10134,6 +10887,15 @@
     let combinedMoveDescriptor = null;
     let combinedMoveDestinationId = "root";
     let selectedCombinedDescriptor = null;
+
+    /*
+      When a real Google Drive or iCloud folder is opened from Combined,
+      keep the user inside Combined instead of switching to Services.
+      This state is navigation-only; it does not change the provider's
+      real folder path or the Dashboard's virtual placement.
+    */
+    let combinedProviderBrowse = null;
+    let combinedRenderedSourceEntries = [];
 
     const COMBINED_UNDO_LIMIT = 40;
     const combinedUndoStack = [];
@@ -12273,7 +13035,7 @@
         );
 
         document.title =
-          updatedTitle + " · Version 0.3.12";
+          updatedTitle + " · Version 0.3.15";
       }
 
       dashboardTitle.addEventListener(
