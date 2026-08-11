@@ -9,9 +9,9 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>Dylan's Dashboard · Version 0.4.2</title>
+  <title>Dylan's Dashboard · Version 0.5.0</title>
 
-  <!-- Version 0.4.2: Automatic Admin View · 2026-08-11 -->
+  <!-- Version 0.5.0: Projects Hub & Project Launcher · 2026-08-11 -->
 
   <meta
     name="description"
@@ -327,6 +327,19 @@
     @media (max-width: 1050px) { .information-widgets { grid-template-columns: 210px 210px; } .weather-widget { grid-column: 1 / -1; } .dashboard-tile-row { gap: 28px; } }
     @media (max-width: 780px) { .calendar-widget { grid-template-columns: 1fr; } .mini-calendar { border-right: none; border-bottom: 1px solid #e3e5e8; } .dashboard-tile-row { gap: 20px; } .files-navigation-shell { display: block; } .files-provider-sidebar { position: static; display: block; overflow: visible; padding: 12px; border-right: none; border-bottom: 1px solid #dfe3e8; } .files-account-list { margin-left: 22px; } }
     @media (max-width: 520px) { .internal-view-backdrop { padding: 10px; } .internal-view { max-height: calc(100vh - 20px); border-radius: 16px; } .internal-view-header { border-radius: 16px 16px 0 0; } .settings-content { padding: 14px; } .dashboard-container { padding: 16px 16px 90px; } .information-widgets { grid-template-columns: 1fr; gap: 12px; } .weather-widget { grid-column: auto; } .calendar-widget { margin-bottom: 54px; } .mini-calendar, .upcoming-events { padding: 18px; } .calendar-day { width: 31px; height: 31px; font-size: 13px; } .dashboard-tile-row { width: 100%; } .dashboard-tile { width: 100%; flex: 1 1 auto; min-height: 70px; } .files-content { padding: 14px; } .files-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .files-toolbar-actions { width: 100%; } .files-action-button { flex: 1 1 auto; } .files-combined-selection-bar { left: 12px; right: 12px; bottom: 12px; width: auto; display: grid; grid-template-columns: 1fr; transform: none; } .files-combined-selection-bar .files-toolbar-actions { width: 100%; } .changelog-content { padding: 14px; } }
+
+    /* PROJECTS HUB · 0.5.0 */
+    .projects-view { width: min(100%, 900px); }
+    .projects-content { padding: 22px; }
+    .projects-intro { margin: 0 0 18px; color: #666666; font-size: 14px; line-height: 1.5; text-align: center; }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 210px)); justify-content: center; gap: 22px; }
+    .project-tile { min-height: 132px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 11px; padding: 20px 16px; border: 1.5px solid #2450a4; border-radius: 12px; background: white; color: #252525; text-align: center; text-decoration: none; transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease; }
+    .project-tile:hover { transform: translateY(-2px); background-color: #f5f8ff; box-shadow: 0 6px 16px rgba(0, 0, 0, 0.10); }
+    .project-tile-icon { font-size: 38px; line-height: 1; }
+    .project-tile-title { margin: 0; font-size: 16px; font-weight: 800; line-height: 1.25; }
+    .projects-empty { grid-column: 1 / -1; padding: 28px; border: 1px dashed #c8cdd5; border-radius: 14px; background: white; color: #777777; text-align: center; line-height: 1.5; }
+    @media (max-width: 520px) { .projects-grid { grid-template-columns: 1fr; } .project-tile { width: 100%; } }
+
   </style>
 </head>
 
@@ -355,7 +368,7 @@
 
   <div id="dashboard-app" class="dashboard-container" hidden>
     <div class="account-bar">
-      <span class="account-summary">Version 0.4.2 · Signed in as <strong id="current-user-email"></strong></span>
+      <span class="account-summary">Version 0.5.0 · Signed in as <strong id="current-user-email"></strong></span>
       <div id="admin-view-control" class="admin-view-control" hidden>
         <span class="admin-view-control-label">Regular View</span>
         <label class="admin-view-toggle" title="Switch between Regular View and Admin View">
@@ -428,6 +441,21 @@
       <section id="admin-settings-section" class="settings-section" hidden><h3>Admin</h3><p class="settings-section-description">Choose which dashboard tiles are visible to everyone and which are restricted to administrators. Admin-only tiles appear only for a verified administrator while Admin View is enabled.</p><p id="admin-tile-visibility-status" class="admin-settings-status" role="status" aria-live="polite">Loading tile visibility…</p><div id="admin-tile-visibility-list" class="admin-tile-visibility-list" aria-label="Dashboard tile visibility"></div></section>
       <section class="settings-section"><h3>Dashboard</h3><p class="settings-section-description">General dashboard preferences can be added here as more built-in apps and controls are introduced.</p></section>
     </div></section></div>
+
+
+    <div id="projects-view" class="internal-view-backdrop" role="dialog" aria-modal="true" aria-labelledby="projects-view-title" hidden>
+      <section class="internal-view projects-view">
+        <header class="internal-view-header">
+          <div class="internal-view-header-spacer" aria-hidden="true"></div>
+          <h2 id="projects-view-title">Projects</h2>
+          <button id="projects-close-button" class="internal-view-close-button" type="button" aria-label="Close projects" title="Close projects">×</button>
+        </header>
+        <div class="projects-content">
+          <p class="projects-intro">Choose a project to open it.</p>
+          <div id="projects-grid" class="projects-grid" aria-label="Available projects"></div>
+        </div>
+      </section>
+    </div>
 
     <div id="microsoft-warning-modal" class="warning-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="microsoft-warning-title" aria-describedby="microsoft-warning-message" hidden><div class="warning-modal"><h2 id="microsoft-warning-title" class="warning-modal-title">⚠️ WARNING ⚠️</h2><p id="microsoft-warning-message" class="warning-modal-message">The Microsoft connection is still in beta testing.<br>Would you still like to continue?</p><div class="warning-modal-actions"><button id="microsoft-warning-no-button" class="warning-modal-button no" type="button">No</button><button id="microsoft-warning-yes-button" class="warning-modal-button yes" type="button">Yes</button></div></div></div>
 
@@ -875,6 +903,7 @@
     }
 
     const dashboardChangelog=[
+      {version:"0.5.0",title:"Projects Hub & Project Launcher",description:"Introduces a dedicated Projects tile and an in-dashboard Projects launcher for Weekly Food Log, Reviews, and NHL Analytics. The project catalog is read exclusively from Projects/projects.json as the single source of truth, creating a simple foundation for adding more projects and future administrator-controlled project and group visibility while preserving all Version 0.4.2 Automatic Admin View behavior."},
       {version:"0.4.2",title:"Automatic Admin View",description:"Automatically opens verified administrator accounts in Admin View after secure Supabase role verification, while keeping the Regular/Admin toggle available for previewing the standard-user experience. Also aligns shared tile-visibility reads and saves with the dashboard_settings table schema so Admin tile controls use the existing Supabase configuration correctly."},
       {version:"0.4.1",title:"Admin Tile Visibility Controls",description:"Adds an Admin section to Settings for managing dashboard tile access without editing code. Verified administrators in Admin View can set each tile to Visible to All or Admin Only, with the shared visibility rules saved in Supabase so they apply consistently across users and devices. Admin-only tiles remain hidden in Regular View and for non-admin accounts."},
       {version:"0.4.0",title:"Admin Controls & Role-Based Views",description:"Adds the first Dashboard Dylan administrator system using secure Supabase account roles. Administrators can switch between Regular View and Admin View from the account bar to preview the dashboard as a standard user or reveal administrator-only tiles and controls. Admin status is verified through the authenticated Supabase account rather than trusted browser state, establishing the foundation for protected administrative features and future user management."},
@@ -895,6 +924,121 @@
       {version:"0.2.0",title:"Music Integration & Dashboard Settings",description:"Begins the Music integration cycle with the Music sidebar proof of concept, provider settings, internal Settings, Microsoft beta account linking, Calendar account controls, and Calendar navigation improvements."}
     ];
     function renderDashboardChangelog(){const body=getById("changelog-table-body");if(!body)return;body.innerHTML="";dashboardChangelog.forEach(release=>{const row=document.createElement("tr"),version=document.createElement("td"),title=document.createElement("td"),description=document.createElement("td");version.className="changelog-version";version.textContent=release.version;title.className="changelog-title";title.textContent=release.title;description.textContent=release.description;row.append(version,title,description);body.appendChild(row);});}
+
+    function normalizeDashboardProjects(value) {
+      if (!Array.isArray(value)) {
+        throw new Error("projects.json must contain a JSON array.");
+      }
+
+      const normalized = value.map((project, index) => {
+        if (!project || typeof project !== "object") {
+          throw new Error("Project #" + (index + 1) + " is not a valid object.");
+        }
+        if (typeof project.name !== "string" || !project.name.trim()) {
+          throw new Error("Project #" + (index + 1) + " is missing a valid name.");
+        }
+        if (
+          (typeof project.url !== "string" || !project.url.trim()) &&
+          (typeof project.folder !== "string" || !project.folder.trim())
+        ) {
+          throw new Error(project.name + " is missing both folder and url.");
+        }
+
+        return {
+          id: String(project.id || project.name).trim(),
+          name: project.name.trim(),
+          folder: typeof project.folder === "string" ? project.folder.trim() : "",
+          url: typeof project.url === "string" ? project.url.trim() : "",
+          icon: typeof project.icon === "string" && project.icon.trim() ? project.icon.trim() : "📦"
+        };
+      });
+
+      return normalized;
+    }
+
+    async function loadDashboardProjects() {
+      const response = await fetch("../projects.json", { cache: "no-store" });
+      if (!response.ok) {
+        throw new Error("projects.json could not be loaded (" + response.status + ").");
+      }
+
+      let data;
+      try {
+        data = await response.json();
+      } catch (error) {
+        throw new Error("projects.json contains invalid JSON.");
+      }
+
+      return normalizeDashboardProjects(data);
+    }
+
+    function getDashboardProjectUrl(project) {
+      if (project.url) return project.url;
+      const safeFolder = project.folder.split("/").filter(Boolean).map(encodeURIComponent).join("/");
+      return new URL("../" + safeFolder + "/", window.location.href).href;
+    }
+
+    function renderDashboardProjects(projects) {
+      const grid = getById("projects-grid");
+      if (!grid) return;
+      grid.innerHTML = "";
+      if (!projects.length) {
+        const empty = document.createElement("div");
+        empty.className = "projects-empty";
+        empty.textContent = "No projects are available yet.";
+        grid.appendChild(empty);
+        return;
+      }
+
+      projects.forEach(project => {
+        const tile = document.createElement("a");
+        tile.className = "project-tile";
+        tile.href = getDashboardProjectUrl(project);
+        tile.setAttribute("aria-label", "Open " + project.name);
+
+        const icon = document.createElement("span");
+        icon.className = "project-tile-icon";
+        icon.setAttribute("aria-hidden", "true");
+        icon.textContent = project.icon;
+
+        const title = document.createElement("h3");
+        title.className = "project-tile-title";
+        title.textContent = project.name;
+
+        tile.append(icon, title);
+        grid.appendChild(tile);
+      });
+    }
+
+    async function openProjectsView() {
+      const view = getById("projects-view");
+      const grid = getById("projects-grid");
+      view.hidden = false;
+      document.body.style.overflow = "hidden";
+      grid.innerHTML = '<div class="projects-empty">Loading projects…</div>';
+
+      try {
+        const projects = await loadDashboardProjects();
+        renderDashboardProjects(projects);
+      } catch (error) {
+        console.error("Projects catalog load error:", error);
+        grid.innerHTML = "";
+        const message = document.createElement("div");
+        message.className = "projects-empty";
+        message.innerHTML = "<strong>Projects could not be loaded.</strong><br>" +
+          "Check <code>Projects/projects.json</code> and try again.<br><br>" +
+          "<span style=\"font-size:12px;\">" + String(error.message || error) + "</span>";
+        grid.appendChild(message);
+      }
+
+      setTimeout(() => getById("projects-close-button").focus(), 0);
+    }
+
+    function closeProjectsView() {
+      getById("projects-view").hidden = true;
+      document.body.style.overflow = "";
+    }
+
     function openChangelogView(){renderDashboardChangelog();getById("changelog-view").hidden=false;document.body.style.overflow="hidden";setTimeout(()=>getById("changelog-close-button").focus(),0);}
     function closeChangelogView(){getById("changelog-view").hidden=true;document.body.style.overflow="";}
     function openSettingsView(){renderAdminTileVisibilitySettings();getById("settings-view").hidden=false;document.body.style.overflow="hidden";setTimeout(()=>getById("settings-close-button").focus(),0);}
@@ -942,12 +1086,13 @@
       {title:"Calendar",iconType:"calendar",url:"https://calendar.google.com",adminOnly:false},
       {title:"Google Drive",iconType:"google-drive",url:"https://drive.google.com",adminOnly:false},
       {title:"Files",iconType:"text",icon:"📁",url:"#files",adminOnly:false},
+      {title:"Projects",iconType:"text",icon:"🗂️",url:"#projects",adminOnly:false},
       {title:"Changelog",iconType:"text",icon:"📝",url:"#changelog",adminOnly:false},
       {title:"Settings",iconType:"text",icon:"⚙",url:"#settings",adminOnly:false}
     ];
     function createCalendarIcon(){const now=new Date(),icon=document.createElement("div"),month=document.createElement("div"),day=document.createElement("div");icon.className="dynamic-calendar-icon";month.className="dynamic-calendar-month";month.textContent=now.toLocaleDateString("en-US",{month:"short"}).toUpperCase();day.className="dynamic-calendar-day";day.textContent=now.getDate();icon.append(month,day);return icon;}
     function createGoogleDriveIcon(){const wrapper=document.createElement("div");wrapper.innerHTML='<svg class="google-drive-icon" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-label="Google Drive" role="img"><path fill="#0F9D58" d="M17.3 6h13.4l11.6 20H28.9z"/><path fill="#FFCD40" d="M17.3 6 5.7 26 12.4 38 24 18z"/><path fill="#4285F4" d="M12.4 38h23.2l6.7-12H19.1z"/></svg>';return wrapper.firstElementChild;}
-    function createTile(info){const tile=document.createElement("a");tile.className="dashboard-tile";tile.href=info.url;tile.setAttribute("aria-label","Open "+info.title);if(info.url.startsWith("http")){tile.target="_blank";tile.rel="noopener noreferrer";}if(info.url==="#settings")tile.addEventListener("click",e=>{e.preventDefault();openSettingsView();});if(info.url==="#files")tile.addEventListener("click",e=>{e.preventDefault();openFilesView();});if(info.url==="#changelog")tile.addEventListener("click",e=>{e.preventDefault();openChangelogView();});const icon=document.createElement("div");icon.className="tile-icon";if(info.iconType==="calendar")icon.appendChild(createCalendarIcon());else if(info.iconType==="google-drive")icon.appendChild(createGoogleDriveIcon());else icon.textContent=info.icon;const title=document.createElement("h2");title.className="tile-title";title.textContent=info.title;tile.append(icon,title);return tile;}
+    function createTile(info){const tile=document.createElement("a");tile.className="dashboard-tile";tile.href=info.url;tile.setAttribute("aria-label","Open "+info.title);if(info.url.startsWith("http")){tile.target="_blank";tile.rel="noopener noreferrer";}if(info.url==="#settings")tile.addEventListener("click",e=>{e.preventDefault();openSettingsView();});if(info.url==="#files")tile.addEventListener("click",e=>{e.preventDefault();openFilesView();});if(info.url==="#projects")tile.addEventListener("click",e=>{e.preventDefault();openProjectsView();});if(info.url==="#changelog")tile.addEventListener("click",e=>{e.preventDefault();openChangelogView();});const icon=document.createElement("div");icon.className="tile-icon";if(info.iconType==="calendar")icon.appendChild(createCalendarIcon());else if(info.iconType==="google-drive")icon.appendChild(createGoogleDriveIcon());else icon.textContent=info.icon;const title=document.createElement("h2");title.className="tile-title";title.textContent=info.title;tile.append(icon,title);return tile;}
     function getTilesPerRow(){const w=innerWidth;if(w<=520)return 1;if(w<=780)return 2;if(w<=1050)return 3;if(w<=1300)return 4;return 5;}
     function displayTiles(){const grid=getById("dashboard-grid"),perRow=getTilesPerRow(),visibleTiles=dashboardTiles.filter(info=>!getTileAdminOnly(info)||(currentDashboardUserIsAdmin&&adminViewEnabled));grid.innerHTML="";let row;visibleTiles.forEach((info,index)=>{if(index%perRow===0){row=document.createElement("div");row.className="dashboard-tile-row";grid.appendChild(row);}row.appendChild(createTile(info));});}
 
@@ -983,6 +1128,8 @@
     setupFilesProviderNavigation();
     getById("files-close-button").addEventListener("click",closeFilesView);
     getById("files-view").addEventListener("click",e=>{if(e.target===e.currentTarget)closeFilesView();});
+    getById("projects-close-button").addEventListener("click",closeProjectsView);
+    getById("projects-view").addEventListener("click",e=>{if(e.target===e.currentTarget)closeProjectsView();});
     getById("changelog-close-button").addEventListener("click",closeChangelogView);
     getById("changelog-view").addEventListener("click",e=>{if(e.target===e.currentTarget)closeChangelogView();});
     getById("settings-close-button").addEventListener("click",closeSettingsView);
@@ -998,7 +1145,7 @@
     getById("calendar-today-button").addEventListener("click",goToToday);
     getById("weather-refresh-button").addEventListener("click",loadWeather);
     getById("smart-search-form").addEventListener("submit",e=>{e.preventDefault();const input=getById("smart-search-input"),value=input.value.trim();if(!value)return input.focus();location.assign(createDestinationFromSearch(value));});
-    document.addEventListener("keydown",e=>{if(shouldHandleCombinedUndoShortcut(e)){e.preventDefault();undoLastCombinedChange();return;}if(e.key!=="Escape")return;if(!getById("microsoft-warning-modal").hidden)return closeMicrosoftWarningModal();if(!getById("settings-view").hidden)return closeSettingsView();if(!getById("changelog-view").hidden)return closeChangelogView();if(!getById("files-view").hidden)closeFilesView();});
+    document.addEventListener("keydown",e=>{if(shouldHandleCombinedUndoShortcut(e)){e.preventDefault();undoLastCombinedChange();return;}if(e.key!=="Escape")return;if(!getById("microsoft-warning-modal").hidden)return closeMicrosoftWarningModal();if(!getById("settings-view").hidden)return closeSettingsView();if(!getById("projects-view").hidden)return closeProjectsView();if(!getById("changelog-view").hidden)return closeChangelogView();if(!getById("files-view").hidden)closeFilesView();});
     document.addEventListener("click",e=>{const menu=getById("files-combined-context-menu");if(menu&&!menu.hidden&&!menu.contains(e.target))closeCombinedContextMenu();const temp=getById("files-context-menu");if(temp&&!temp.hidden&&!temp.contains(e.target))closeFilesContextMenu();});
     window.addEventListener("resize",displayTiles);
 
