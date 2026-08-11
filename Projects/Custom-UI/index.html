@@ -9,9 +9,9 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>Dylan's Dashboard · Version 0.4.1</title>
+  <title>Dylan's Dashboard · Version 0.4.2</title>
 
-  <!-- Version 0.4.1: Admin Tile Visibility Controls · 2026-08-11 -->
+  <!-- Version 0.4.2: Automatic Admin View · 2026-08-11 -->
 
   <meta
     name="description"
@@ -182,7 +182,7 @@
     .settings-toggle input:checked + .settings-toggle-track::after { transform: translateX(20px); }
     .settings-toggle input:focus-visible + .settings-toggle-track { outline: 3px solid rgba(36, 80, 164, 0.2); outline-offset: 2px; }
 
-    /* ADMIN TILE VISIBILITY SETTINGS · 0.4.1 */
+    /* ADMIN TILE VISIBILITY SETTINGS · 0.4.2 */
     .admin-settings-status { margin: 0 0 12px; color: #666666; font-size: 12px; line-height: 1.45; }
     .admin-tile-visibility-list { display: grid; gap: 10px; }
     .admin-tile-visibility-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 14px; background: #f7f8fa; border: 1px solid #dfe3e8; border-radius: 12px; }
@@ -355,7 +355,7 @@
 
   <div id="dashboard-app" class="dashboard-container" hidden>
     <div class="account-bar">
-      <span class="account-summary">Version 0.4.1 · Signed in as <strong id="current-user-email"></strong></span>
+      <span class="account-summary">Version 0.4.2 · Signed in as <strong id="current-user-email"></strong></span>
       <div id="admin-view-control" class="admin-view-control" hidden>
         <span class="admin-view-control-label">Regular View</span>
         <label class="admin-view-toggle" title="Switch between Regular View and Admin View">
@@ -458,7 +458,7 @@
     const logoutButton = getById("logout-button");
     const currentUserEmail = getById("current-user-email");
 
-    /* ADMIN ACCESS · 0.4.1
+    /* ADMIN ACCESS · 0.4.2
        Supabase decides whether the signed-in account is an admin. The toggle
        below controls presentation only and never grants backend permission. */
     let currentDashboardUserIsAdmin = false;
@@ -487,7 +487,7 @@
 
     async function loadDashboardTileVisibility() {
       try {
-        const { data, error } = await supabaseClient.from("dashboard_settings").select("value").eq("key", DASHBOARD_TILE_VISIBILITY_SETTING_KEY).maybeSingle();
+        const { data, error } = await supabaseClient.from("dashboard_settings").select("value").eq("id", DASHBOARD_TILE_VISIBILITY_SETTING_KEY).maybeSingle();
         if (error) throw error;
         dashboardTileVisibility = data?.value && typeof data.value === "object" && !Array.isArray(data.value) ? { ...data.value } : {};
         dashboardTileVisibilityLoaded = true;
@@ -511,7 +511,7 @@
       displayTiles();
       renderAdminTileVisibilitySettings();
       try {
-        const { error } = await supabaseClient.from("dashboard_settings").upsert({ key: DASHBOARD_TILE_VISIBILITY_SETTING_KEY, value: dashboardTileVisibility, updated_at: new Date().toISOString() }, { onConflict: "key" });
+        const { error } = await supabaseClient.from("dashboard_settings").upsert({ id: DASHBOARD_TILE_VISIBILITY_SETTING_KEY, value: dashboardTileVisibility, updated_at: new Date().toISOString() }, { onConflict: "id" });
         if (error) throw error;
         dashboardTileVisibilityLoaded = true;
         renderAdminTileVisibilitySettings();
@@ -580,13 +580,21 @@
     }
     async function refreshAdminAccess(user, options = {}) {
       if (!user?.id) { resetAdminAccessState(); return false; }
-      if (options.resetView === true || adminPermissionUserId !== user.id) adminViewEnabled = false;
+      const shouldUseDefaultView =
+        options.resetView === true || adminPermissionUserId !== user.id;
       adminPermissionUserId = user.id;
       try {
         const { data, error } = await supabaseClient.rpc("is_admin");
         if (error) throw error;
         currentDashboardUserIsAdmin = data === true;
-        if (!currentDashboardUserIsAdmin) adminViewEnabled = false;
+
+        // 0.4.2: Verified admins start in Admin View automatically.
+        // They can still switch to Regular View from the account-bar toggle.
+        if (shouldUseDefaultView) {
+          adminViewEnabled = currentDashboardUserIsAdmin;
+        } else if (!currentDashboardUserIsAdmin) {
+          adminViewEnabled = false;
+        }
       } catch (error) {
         console.error("Admin permission check error:", error);
         currentDashboardUserIsAdmin = false;
@@ -867,6 +875,7 @@
     }
 
     const dashboardChangelog=[
+      {version:"0.4.2",title:"Automatic Admin View",description:"Automatically opens verified administrator accounts in Admin View after secure Supabase role verification, while keeping the Regular/Admin toggle available for previewing the standard-user experience. Also aligns shared tile-visibility reads and saves with the dashboard_settings table schema so Admin tile controls use the existing Supabase configuration correctly."},
       {version:"0.4.1",title:"Admin Tile Visibility Controls",description:"Adds an Admin section to Settings for managing dashboard tile access without editing code. Verified administrators in Admin View can set each tile to Visible to All or Admin Only, with the shared visibility rules saved in Supabase so they apply consistently across users and devices. Admin-only tiles remain hidden in Regular View and for non-admin accounts."},
       {version:"0.4.0",title:"Admin Controls & Role-Based Views",description:"Adds the first Dashboard Dylan administrator system using secure Supabase account roles. Administrators can switch between Regular View and Admin View from the account bar to preview the dashboard as a standard user or reveal administrator-only tiles and controls. Admin status is verified through the authenticated Supabase account rather than trusted browser state, establishing the foundation for protected administrative features and future user management."},
       {version:"0.3.15",title:"Floating File Selection Controls",description:"Moves the Services and Combined file-selection controls into a floating bottom overlay so selecting a file or folder no longer changes the height or shifts the Files layout, while keeping Open, Rename, Move, and Delete/Remove actions immediately available."},
@@ -966,7 +975,7 @@
 
     function getWeatherDescription(code,isDay){const map={0:["Clear sky","☀️","🌙"],1:["Mainly clear","🌤️","🌙"],2:["Partly cloudy","⛅","☁️"],3:["Overcast","☁️","☁️"],45:["Fog","🌫️","🌫️"],48:["Rime fog","🌫️","🌫️"],51:["Light drizzle","🌦️","🌧️"],53:["Drizzle","🌦️","🌧️"],55:["Heavy drizzle","🌧️","🌧️"],61:["Light rain","🌦️","🌧️"],63:["Rain","🌧️","🌧️"],65:["Heavy rain","🌧️","🌧️"],71:["Light snow","🌨️","🌨️"],73:["Snow","🌨️","🌨️"],75:["Heavy snow","❄️","❄️"],80:["Light rain showers","🌦️","🌧️"],81:["Rain showers","🌧️","🌧️"],82:["Heavy rain showers","⛈️","⛈️"],85:["Light snow showers","🌨️","🌨️"],86:["Heavy snow showers","❄️","❄️"],95:["Thunderstorm","⛈️","⛈️"],96:["Thunderstorm with hail","⛈️","⛈️"],99:["Severe thunderstorm","⛈️","⛈️"]},v=map[code]||["Current conditions","🌤️","🌙"];return{text:v[0],icon:isDay?v[1]:v[2]};}
     function loadWeather(){const refresh=getById("weather-refresh-button"),condition=getById("weather-condition"),status=getById("weather-status");refresh.disabled=true;condition.textContent="Finding your location...";status.textContent="";if(!navigator.geolocation){condition.textContent="Location is unavailable";status.textContent="This browser does not support location services.";refresh.disabled=false;return;}navigator.geolocation.getCurrentPosition(async position=>{try{const lat=position.coords.latitude,lon=position.coords.longitude,response=await fetch("https://api.open-meteo.com/v1/forecast?latitude="+encodeURIComponent(lat)+"&longitude="+encodeURIComponent(lon)+"&current=temperature_2m,apparent_temperature,weather_code,is_day&daily=temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit&timezone=auto&forecast_days=1");if(!response.ok)throw new Error("Weather request failed.");const data=await response.json(),current=data.current,daily=data.daily,desc=getWeatherDescription(current.weather_code,current.is_day===1);getById("weather-icon").textContent=desc.icon;getById("weather-temperature").textContent=Math.round(current.temperature_2m)+"°";condition.textContent=desc.text;getById("weather-details").textContent="Feels like "+Math.round(current.apparent_temperature)+"° · High "+Math.round(daily.temperature_2m_max[0])+"° · Low "+Math.round(daily.temperature_2m_min[0])+"°";status.textContent="Updated "+new Date().toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit"});}catch(error){condition.textContent="Weather unavailable";status.textContent="Check your internet connection and try again.";console.error(error);}finally{refresh.disabled=false;}},error=>{condition.textContent="Location permission needed";status.textContent=error.code===1?"Allow location access, then press refresh.":"Your location could not be found. Try again.";refresh.disabled=false;},{enableHighAccuracy:false,timeout:10000,maximumAge:900000});}
-    function setupEditableDashboardTitle(){const title=getById("dashboard-title"),defaultTitle="My Dashboard",max=40,saved=localStorage.getItem("dashboardTitle");if(saved)title.textContent=saved;function save(){let value=title.textContent.replace(/\s+/g," ").trim()||defaultTitle;value=value.slice(0,max);title.textContent=value;localStorage.setItem("dashboardTitle",value);document.title=value+" · Version 0.4.1";}title.addEventListener("input",()=>{if(title.textContent.length>max)title.textContent=title.textContent.slice(0,max);});title.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();title.blur();}});title.addEventListener("blur",save);save();}
+    function setupEditableDashboardTitle(){const title=getById("dashboard-title"),defaultTitle="My Dashboard",max=40,saved=localStorage.getItem("dashboardTitle");if(saved)title.textContent=saved;function save(){let value=title.textContent.replace(/\s+/g," ").trim()||defaultTitle;value=value.slice(0,max);title.textContent=value;localStorage.setItem("dashboardTitle",value);document.title=value+" · Version 0.4.2";}title.addEventListener("input",()=>{if(title.textContent.length>max)title.textContent=title.textContent.slice(0,max);});title.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();title.blur();}});title.addEventListener("blur",save);save();}
     function looksLikeWebsiteAddress(value){const text=value.trim();if(!text||/\s/.test(text))return false;if(/^[a-z][a-z0-9+.-]*:\/\//i.test(text))return true;if(/^localhost(?::\d+)?(?:[\/?#]|$)/i.test(text))return true;if(/^(?:\d{1,3}\.){3}\d{1,3}(?::\d+)?(?:[\/?#]|$)/.test(text))return true;return /^(?:[a-z0-9-]+\.)+[a-z]{2,}(?::\d+)?(?:[\/?#]|$)/i.test(text);}
     function createDestinationFromSearch(value){const text=value.trim();if(looksLikeWebsiteAddress(text))return /^[a-z][a-z0-9+.-]*:\/\//i.test(text)?text:"https://"+text;return"https://www.google.com/search?q="+encodeURIComponent(text);}
 
