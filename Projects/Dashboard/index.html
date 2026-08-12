@@ -197,7 +197,12 @@
         "Projects tile click handler"
       );
 
-      const projectsScript = `
+      const projectsScript = 
+    const dashboardProjectsFallback = [
+      {id:"food-log",name:"Weekly Food Log",folder:"Food-Log",icon:"🍽️"},
+      {id:"reviews",name:"Reviews",folder:"Reviews",icon:"⭐"},
+      {id:"nhl-analytics",name:"NHL Analytics",folder:"NHL-Analytics",icon:"🏒"}
+    ];
 
     let dashboardProjectAccess = {};
     let dashboardGroups = [];
