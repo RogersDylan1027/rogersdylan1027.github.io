@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard Dylan · Version 0.5.2</title>
-  <meta name="description" content="Dashboard Dylan 0.5.2 Project Group Access Controls">
+  <title>Dashboard Dylan · Version 0.5.3</title>
+  <meta name="description" content="Dashboard Dylan 0.5.3 Projects JSON as Single Source">
   <style>
     * { box-sizing: border-box; }
     body {
@@ -34,14 +34,14 @@
 </head>
 <body>
   <div id="loader" class="loader">
-    <h1>Dashboard Dylan 0.5.2</h1>
+    <h1>Dashboard Dylan 0.5.3</h1>
     <p>Loading the Projects Hub…</p>
   </div>
 
   <script>
     /*
-      Dashboard Dylan · Version 0.5.2
-      Dashboard Folder Migration Fix · 2026-08-11
+      Dashboard Dylan · Version 0.5.3
+      Projects JSON as Single Source · 2026-08-12
 
       BUG FIX:
       Dashboard Dylan's live GitHub Pages folder was renamed from
@@ -62,7 +62,7 @@
 
     function replaceRequired(source, find, replacement, label) {
       if (!source.includes(find)) {
-        throw new Error("0.5.2 patch could not find: " + label);
+        throw new Error("0.5.3 patch could not find: " + label);
       }
       return source.replace(find, replacement);
     }
@@ -71,26 +71,26 @@
       source = replaceRequired(
         source,
         "<title>Dylan's Dashboard · Version 0.4.2</title>",
-        "<title>Dylan's Dashboard · Version 0.5.2</title>",
+        "<title>Dylan's Dashboard · Version 0.5.3</title>",
         "page version title"
       );
 
       source = replaceRequired(
         source,
         "<!-- Version 0.4.2: Automatic Admin View · 2026-08-11 -->",
-        "<!-- Version 0.5.2: Project Group Access Controls · 2026-08-11 -->",
+        "<!-- Version 0.5.3: Projects JSON as Single Source · 2026-08-12 -->",
         "version comment"
       );
 
       source = replaceRequired(
         source,
         '<span class="account-summary">Version 0.4.2 · Signed in as <strong id="current-user-email"></strong></span>',
-        '<span class="account-summary">Version 0.5.2 · Signed in as <strong id="current-user-email"></strong></span>',
+        '<span class="account-summary">Version 0.5.3 · Signed in as <strong id="current-user-email"></strong></span>',
         "account-bar version"
       );
 
       const projectsCss = `
-    /* PROJECTS HUB · 0.5.2 */
+    /* PROJECTS HUB · 0.5.3 */
     .projects-view { width: min(100%, 900px); }
     .projects-content { padding: 22px; }
     .projects-intro { margin: 0 0 18px; color: #666666; font-size: 14px; line-height: 1.5; text-align: center; }
@@ -707,7 +707,7 @@
       source = replaceRequired(
         source,
         '    const dashboardChangelog=[\n      {version:"0.4.2"',
-        '    const dashboardChangelog=[\n      {version:"0.5.2",title:"Project Groups & Access Controls",description:"Adds administrator-managed project permissions to the Projects Hub. Admin Settings now includes group creation, account membership management, and per-project visibility controls for Everyone, Admins Only, or one or more selected groups. Project visibility is stored in Supabase and the Projects launcher filters its tiles for the signed-in account while Admin View continues to show all projects for management and testing."},\n      {version:"0.5.1",title:"Dashboard Folder Migration Fix",description:"Bug Fixes: Updates Dashboard Dylan for the live folder rename from Projects/Custom-UI to Projects/Dashboard while preserving the immutable 0.4.2 historical source path required by the Projects Hub loader. Confirms live Google, Microsoft, account-confirmation, and password-reset redirects derive from the current Dashboard URL, and keeps project loading relative so Weekly Food Log, Reviews, and NHL Analytics resolve from Dashboard/projects.json."},\n      {version:"0.5.0",title:"Projects Hub & Project Launcher",description:"Introduces the Projects feature cycle with a new Projects dashboard tile and an in-dashboard launcher for Weekly Food Log, Reviews, and NHL Analytics. Project definitions are read from Dashboard/projects.json as the single source of truth, creating a simple foundation for future administrator-controlled project visibility and group-based access while preserving the 0.4.2 Automatic Admin View behavior."},\n      {version:"0.4.2"',
+        '    const dashboardChangelog=[\n      {version:"0.5.3",title:"Projects JSON as Single Source",description:"Bug Fixes: Removes the hard-coded Projects fallback and makes Dashboard/projects.json the only source for project definitions. The Projects Hub now loads ./projects.json directly, resolves project folders relative to the Dashboard directory, and shows a clear error if the JSON file is missing or invalid instead of silently recreating stale project tiles."},\n      {version:"0.5.2",title:"Project Groups & Access Controls",description:"Adds administrator-managed project permissions to the Projects Hub. Admin Settings now includes group creation, account membership management, and per-project visibility controls for Everyone, Admins Only, or one or more selected groups. Project visibility is stored in Supabase and the Projects launcher filters its tiles for the signed-in account while Admin View continues to show all projects for management and testing."},\n      {version:"0.5.1",title:"Dashboard Folder Migration Fix",description:"Bug Fixes: Updates Dashboard Dylan for the live folder rename from Projects/Custom-UI to Projects/Dashboard while preserving the immutable 0.4.2 historical source path required by the Projects Hub loader. Confirms live Google, Microsoft, account-confirmation, and password-reset redirects derive from the current Dashboard URL, and keeps project loading relative so Weekly Food Log, Reviews, and NHL Analytics resolve from Dashboard/projects.json."},\n      {version:"0.5.0",title:"Projects Hub & Project Launcher",description:"Introduces the Projects feature cycle with a new Projects dashboard tile and an in-dashboard launcher for Weekly Food Log, Reviews, and NHL Analytics. Project definitions are read from Dashboard/projects.json as the single source of truth, creating a simple foundation for future administrator-controlled project visibility and group-based access while preserving the 0.4.2 Automatic Admin View behavior."},\n      {version:"0.4.2"',
         "0.5.1 and 0.5.0 changelog entries"
       );
 
@@ -748,7 +748,7 @@
           "<h1>Dashboard could not load</h1>" +
           "<p>" +
           String(error && error.message ? error.message : error) +
-          "<br><br>This 0.5.2 build uses the immutable 0.4.2 GitHub commit as its base so no existing Dashboard Dylan features are lost.</p>";
+          "<br><br>This 0.5.3 build uses the immutable 0.4.2 GitHub commit as its base so no existing Dashboard Dylan features are lost.</p>";
       }
     }
 
