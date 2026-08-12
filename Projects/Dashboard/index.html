@@ -197,12 +197,7 @@
         "Projects tile click handler"
       );
 
-      const projectsScript = 
-    const dashboardProjectsFallback = [
-      {id:"food-log",name:"Weekly Food Log",folder:"Food-Log",icon:"🍽️"},
-      {id:"reviews",name:"Reviews",folder:"Reviews",icon:"⭐"},
-      {id:"nhl-analytics",name:"NHL Analytics",folder:"NHL-Analytics",icon:"🏒"}
-    ];
+      const projectsScript = `
 
     let dashboardProjectAccess = {};
     let dashboardGroups = [];
@@ -212,36 +207,55 @@
     let dashboardProjectPermissionsLoaded = false;
 
     function normalizeDashboardProjects(value) {
-      if (!Array.isArray(value)) return dashboardProjectsFallback.slice();
-      const normalized = value.filter(project =>
-        project &&
-        typeof project.name === "string" &&
-        (typeof project.url === "string" || typeof project.folder === "string")
-      ).map(project => ({
-        id: String(project.id || project.name).trim(),
-        name: project.name.trim(),
-        folder: typeof project.folder === "string" ? project.folder.trim() : "",
-        url: typeof project.url === "string" ? project.url.trim() : "",
-        icon: typeof project.icon === "string" && project.icon.trim() ? project.icon.trim() : "📦"
-      }));
-      return normalized.length ? normalized : dashboardProjectsFallback.slice();
+      if (!Array.isArray(value)) {
+        throw new Error("projects.json must contain a JSON array.");
+      }
+
+      return value.map((project, index) => {
+        if (!project || typeof project !== "object") {
+          throw new Error("Project #" + (index + 1) + " is not a valid object.");
+        }
+        if (typeof project.name !== "string" || !project.name.trim()) {
+          throw new Error("Project #" + (index + 1) + " is missing a valid name.");
+        }
+
+        const hasUrl = typeof project.url === "string" && project.url.trim();
+        const hasFolder = typeof project.folder === "string" && project.folder.trim();
+
+        if (!hasUrl && !hasFolder) {
+          throw new Error(project.name + " is missing both folder and url.");
+        }
+
+        return {
+          id: String(project.id || project.name).trim(),
+          name: project.name.trim(),
+          folder: hasFolder ? project.folder.trim() : "",
+          url: hasUrl ? project.url.trim() : "",
+          icon: typeof project.icon === "string" && project.icon.trim() ? project.icon.trim() : "📦"
+        };
+      });
     }
 
     async function loadDashboardProjects() {
-      try {
-        const response = await fetch("../projects.json", { cache: "no-store" });
-        if (!response.ok) throw new Error("projects.json returned " + response.status);
-        return normalizeDashboardProjects(await response.json());
-      } catch (error) {
-        console.warn("Projects catalog fallback:", error);
-        return dashboardProjectsFallback.slice();
+      const response = await fetch("./projects.json", { cache: "no-store" });
+      if (!response.ok) {
+        throw new Error("projects.json could not be loaded (" + response.status + ").");
       }
+
+      let data;
+      try {
+        data = await response.json();
+      } catch (error) {
+        throw new Error("projects.json contains invalid JSON.");
+      }
+
+      return normalizeDashboardProjects(data);
     }
 
     function getDashboardProjectUrl(project) {
       if (project.url) return project.url;
       const safeFolder = project.folder.split("/").filter(Boolean).map(encodeURIComponent).join("/");
-      return new URL("../" + safeFolder + "/", window.location.href).href;
+      return new URL("./" + safeFolder + "/", window.location.href).href;
     }
 
     function normalizeProjectAccessRow(row) {
@@ -615,19 +629,31 @@
     async function openProjectsView() {
       const view = getById("projects-view");
       const closeButton = getById("projects-close-button");
+      const grid = getById("projects-grid");
+
       view.hidden = false;
       document.body.style.overflow = "hidden";
-      const grid = getById("projects-grid");
       grid.innerHTML = '<div class="projects-empty">Loading projects…</div>';
-      const projects = await loadDashboardProjects();
-      await loadDashboardProjectPermissions();
-      if (currentDashboardUserIsAdmin) {
-        try {
-          const { data: groups } = await supabaseClient.from("dashboard_groups").select("id,name").order("name");
-          dashboardGroups = groups || [];
-        } catch (error) {}
+
+      try {
+        const projects = await loadDashboardProjects();
+        await loadDashboardProjectPermissions();
+
+        if (currentDashboardUserIsAdmin) {
+          try {
+            const { data: groups } = await supabaseClient.from("dashboard_groups").select("id,name").order("name");
+            dashboardGroups = groups || [];
+          } catch (error) {
+            console.warn("Project group names could not be loaded:", error);
+          }
+        }
+
+        renderDashboardProjects(projects);
+      } catch (error) {
+        console.error("Projects catalog load error:", error);
+        grid.innerHTML = '<div class="projects-empty"><strong>Projects could not be loaded.</strong><br>Check Dashboard/projects.json and try again.<br><br>' + String(error.message || error) + '</div>';
       }
-      renderDashboardProjects(projects);
+
       setTimeout(() => closeButton.focus(), 0);
     }
 
@@ -681,7 +707,7 @@
       source = replaceRequired(
         source,
         '    const dashboardChangelog=[\n      {version:"0.4.2"',
-        '    const dashboardChangelog=[\n      {version:"0.5.2",title:"Project Groups & Access Controls",description:"Adds administrator-managed project permissions to the Projects Hub. Admin Settings now includes group creation, account membership management, and per-project visibility controls for Everyone, Admins Only, or one or more selected groups. Project visibility is stored in Supabase and the Projects launcher filters its tiles for the signed-in account while Admin View continues to show all projects for management and testing."},\n      {version:"0.5.1",title:"Dashboard Folder Migration Fix",description:"Bug Fixes: Updates Dashboard Dylan for the live folder rename from Projects/Custom-UI to Projects/Dashboard while preserving the immutable 0.4.2 historical source path required by the Projects Hub loader. Confirms live Google, Microsoft, account-confirmation, and password-reset redirects derive from the current Dashboard URL, and keeps project loading relative so Weekly Food Log, Reviews, and NHL Analytics continue to resolve from Projects/projects.json."},\n      {version:"0.5.0",title:"Projects Hub & Project Launcher",description:"Introduces the Projects feature cycle with a new Projects dashboard tile and an in-dashboard launcher for Weekly Food Log, Reviews, and NHL Analytics. Project definitions can be read from Projects/projects.json with a built-in fallback list, creating a simple foundation for future administrator-controlled project visibility and group-based access while preserving the 0.4.2 Automatic Admin View behavior."},\n      {version:"0.4.2"',
+        '    const dashboardChangelog=[\n      {version:"0.5.2",title:"Project Groups & Access Controls",description:"Adds administrator-managed project permissions to the Projects Hub. Admin Settings now includes group creation, account membership management, and per-project visibility controls for Everyone, Admins Only, or one or more selected groups. Project visibility is stored in Supabase and the Projects launcher filters its tiles for the signed-in account while Admin View continues to show all projects for management and testing."},\n      {version:"0.5.1",title:"Dashboard Folder Migration Fix",description:"Bug Fixes: Updates Dashboard Dylan for the live folder rename from Projects/Custom-UI to Projects/Dashboard while preserving the immutable 0.4.2 historical source path required by the Projects Hub loader. Confirms live Google, Microsoft, account-confirmation, and password-reset redirects derive from the current Dashboard URL, and keeps project loading relative so Weekly Food Log, Reviews, and NHL Analytics resolve from Dashboard/projects.json."},\n      {version:"0.5.0",title:"Projects Hub & Project Launcher",description:"Introduces the Projects feature cycle with a new Projects dashboard tile and an in-dashboard launcher for Weekly Food Log, Reviews, and NHL Analytics. Project definitions are read from Dashboard/projects.json as the single source of truth, creating a simple foundation for future administrator-controlled project visibility and group-based access while preserving the 0.4.2 Automatic Admin View behavior."},\n      {version:"0.4.2"',
         "0.5.1 and 0.5.0 changelog entries"
       );
 
