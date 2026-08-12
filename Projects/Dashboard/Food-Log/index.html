@@ -1,290 +1,291 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script src="../Dashboard/dashboard-auth.js">
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Food Log</title>
-  
-    <style>
-      :root {
-        --bg: #f4f6f8;
-        --panel: #ffffff;
-        --text: #172033;
-        --muted: #6b7280;
-        --border: #dfe4ea;
-        --accent: #4f6df5;
-        --accent-soft: #eef1ff;
-        --today: #f5f7ff;
-        --shadow: 0 10px 30px rgba(28, 39, 60, 0.08);
-        --radius: 18px;
-      }
-  
-      * { box-sizing: border-box; }
-  
-      body {
-        margin: 0;
-        min-height: 100vh;
-        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        background: var(--bg);
-        color: var(--text);
-      }
-  
-      button, input { font: inherit; }
-      button { cursor: pointer; }
-  
-      .app {
-        width: min(1500px, calc(100% - 28px));
-        margin: 0 auto;
-        padding: 28px 0 48px;
-      }
-  
-      .topbar {
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        gap: 18px;
-        margin-bottom: 20px;
-        flex-wrap: wrap;
-      }
-  
-      .title-wrap h1 {
-        margin: 0;
-        font-size: clamp(1.8rem, 4vw, 2.6rem);
-        letter-spacing: -0.04em;
-      }
-  
-      .title-wrap p {
-        margin: 6px 0 0;
-        color: var(--muted);
-      }
-  
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Food Log</title>
+
+  <!-- Dashboard Dylan shared authentication guard -->
+  <script src="../Dashboard/dashboard-auth.js"></script>
+
+  <style>
+    :root {
+      --bg: #f4f6f8;
+      --panel: #ffffff;
+      --text: #172033;
+      --muted: #6b7280;
+      --border: #dfe4ea;
+      --accent: #4f6df5;
+      --accent-soft: #eef1ff;
+      --today: #f5f7ff;
+      --shadow: 0 10px 30px rgba(28, 39, 60, 0.08);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+
+    .app {
+      width: min(1500px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 28px 0 48px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .title-wrap h1 {
+      margin: 0;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      letter-spacing: -0.04em;
+    }
+
+    .title-wrap p {
+      margin: 6px 0 0;
+      color: var(--muted);
+    }
+
+    .controls-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: flex-end;
+    }
+
+    .week-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .week-label {
+      min-width: 220px;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .date-control {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .date-control label {
+      font-size: 0.85rem;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .date-input-wrap {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--panel);
+      padding: 8px 10px;
+    }
+
+    .date-input-wrap input {
+      border: 0;
+      outline: none;
+      background: transparent;
+      color: var(--text);
+    }
+
+    .btn {
+      min-height: 42px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 9px 13px;
+      background: var(--panel);
+      color: var(--text);
+      transition: 0.15s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 5px 14px rgba(28, 39, 60, 0.08);
+    }
+
+    .table-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .table-scroll { overflow-x: auto; }
+
+    table {
+      width: 100%;
+      min-width: 1050px;
+      border-collapse: separate;
+      border-spacing: 0;
+      table-layout: fixed;
+    }
+
+    th, td {
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    tr:last-child th,
+    tr:last-child td { border-bottom: 0; }
+
+    th:last-child,
+    td:last-child { border-right: 0; }
+
+    thead th {
+      background: #fafbfc;
+      text-align: center;
+      padding: 15px 10px;
+      font-size: 0.95rem;
+      position: relative;
+    }
+
+    thead th:first-child {
+      width: 120px;
+      text-align: left;
+      padding-left: 16px;
+    }
+
+    .day-name {
+      display: block;
+      font-weight: 800;
+    }
+
+    .day-date {
+      display: block;
+      color: var(--muted);
+      font-size: 0.78rem;
+      margin-top: 4px;
+      font-weight: 500;
+    }
+
+    .today-header {
+      background: var(--accent-soft);
+      box-shadow: inset 0 3px 0 var(--accent);
+    }
+
+    tbody th {
+      width: 120px;
+      padding: 0 14px;
+      text-align: left;
+      background: #fafbfc;
+      font-size: 0.9rem;
+      font-weight: 750;
+      vertical-align: middle;
+    }
+
+    tbody tr { height: 112px; }
+
+    .food-cell {
+      padding: 0;
+      vertical-align: top;
+      background: var(--panel);
+      position: relative;
+    }
+
+    .food-cell.today-cell { background: var(--today); }
+
+    .cell-editor {
+      min-height: 111px;
+      width: 100%;
+      padding: 13px;
+      outline: none;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      line-height: 1.45;
+      cursor: text;
+    }
+
+    .cell-editor:empty::before {
+      content: "Click to add food...";
+      color: #a1a7b3;
+      pointer-events: none;
+    }
+
+    .cell-editor:hover {
+      background: rgba(79, 109, 245, 0.035);
+    }
+
+    .cell-editor:focus {
+      background: var(--accent-soft);
+      box-shadow: inset 0 0 0 2px var(--accent);
+    }
+
+    .footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 0.84rem;
+    }
+
+    .save-status {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .save-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #38a169;
+    }
+
+    @media (max-width: 820px) {
+      .topbar { flex-direction: column; }
+
       .controls-wrap {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        align-items: flex-end;
+        width: 100%;
+        align-items: flex-start;
       }
-  
-      .week-controls {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        flex-wrap: wrap;
-        justify-content: flex-end;
-      }
-  
-      .week-label {
-        min-width: 220px;
-        text-align: center;
-        font-weight: 700;
-      }
-  
+
+      .week-controls,
       .date-control {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        flex-wrap: wrap;
-        justify-content: flex-end;
-      }
-  
-      .date-control label {
-        font-size: 0.85rem;
-        color: var(--muted);
-        font-weight: 700;
-      }
-  
-      .date-input-wrap {
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        background: var(--panel);
-        padding: 8px 10px;
-      }
-  
-      .date-input-wrap input {
-        border: 0;
-        outline: none;
-        background: transparent;
-        color: var(--text);
-      }
-  
-      .btn {
-        min-height: 42px;
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        padding: 9px 13px;
-        background: var(--panel);
-        color: var(--text);
-        transition: 0.15s ease;
-      }
-  
-      .btn:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 5px 14px rgba(28, 39, 60, 0.08);
-      }
-  
-      .table-card {
-        background: var(--panel);
-        border: 1px solid var(--border);
-        border-radius: var(--radius);
-        box-shadow: var(--shadow);
-        overflow: hidden;
-      }
-  
-      .table-scroll { overflow-x: auto; }
-  
-      table {
+        justify-content: flex-start;
         width: 100%;
-        min-width: 1050px;
-        border-collapse: separate;
-        border-spacing: 0;
-        table-layout: fixed;
       }
-  
-      th, td {
-        border-right: 1px solid var(--border);
-        border-bottom: 1px solid var(--border);
-      }
-  
-      tr:last-child th,
-      tr:last-child td { border-bottom: 0; }
-  
-      th:last-child,
-      td:last-child { border-right: 0; }
-  
-      thead th {
-        background: #fafbfc;
-        text-align: center;
-        padding: 15px 10px;
-        font-size: 0.95rem;
-        position: relative;
-      }
-  
-      thead th:first-child {
-        width: 120px;
-        text-align: left;
-        padding-left: 16px;
-      }
-  
-      .day-name {
-        display: block;
-        font-weight: 800;
-      }
-  
-      .day-date {
-        display: block;
-        color: var(--muted);
-        font-size: 0.78rem;
-        margin-top: 4px;
-        font-weight: 500;
-      }
-  
-      .today-header {
-        background: var(--accent-soft);
-        box-shadow: inset 0 3px 0 var(--accent);
-      }
-  
-      tbody th {
-        width: 120px;
-        padding: 0 14px;
-        text-align: left;
-        background: #fafbfc;
-        font-size: 0.9rem;
-        font-weight: 750;
-        vertical-align: middle;
-      }
-  
-      tbody tr { height: 112px; }
-  
-      .food-cell {
-        padding: 0;
-        vertical-align: top;
-        background: var(--panel);
-        position: relative;
-      }
-  
-      .food-cell.today-cell { background: var(--today); }
-  
-      .cell-editor {
-        min-height: 111px;
+
+      .week-label {
         width: 100%;
-        padding: 13px;
-        outline: none;
-        white-space: pre-wrap;
-        overflow-wrap: anywhere;
-        line-height: 1.45;
-        cursor: text;
+        text-align: left;
+        min-width: 0;
+        order: -1;
       }
-  
-      .cell-editor:empty::before {
-        content: "Click to add food...";
-        color: #a1a7b3;
-        pointer-events: none;
+    }
+
+    @media (max-width: 520px) {
+      .app {
+        width: min(100% - 16px, 1500px);
+        padding-top: 16px;
       }
-  
-      .cell-editor:hover {
-        background: rgba(79, 109, 245, 0.035);
-      }
-  
-      .cell-editor:focus {
-        background: var(--accent-soft);
-        box-shadow: inset 0 0 0 2px var(--accent);
-      }
-  
-      .footer {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 12px;
-        flex-wrap: wrap;
-        margin-top: 14px;
-        color: var(--muted);
-        font-size: 0.84rem;
-      }
-  
-      .save-status {
-        display: flex;
-        align-items: center;
-        gap: 7px;
-      }
-  
-      .save-dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: #38a169;
-      }
-  
-      @media (max-width: 820px) {
-        .topbar { flex-direction: column; }
-  
-        .controls-wrap {
-          width: 100%;
-          align-items: flex-start;
-        }
-  
-        .week-controls,
-        .date-control {
-          justify-content: flex-start;
-          width: 100%;
-        }
-  
-        .week-label {
-          width: 100%;
-          text-align: left;
-          min-width: 0;
-          order: -1;
-        }
-      }
-  
-      @media (max-width: 520px) {
-        .app {
-          width: min(100% - 16px, 1500px);
-          padding-top: 16px;
-        }
-      }
-    </style>
-  </script>
+    }
+  </style>
 </head>
 
 <body>
