@@ -2,11 +2,38 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard Dylan · Version 0.5.3</title>
-  <meta name="description" content="Dashboard Dylan 0.5.3 Projects JSON as Single Source">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Dashboard Dylan · Version 0.5.5</title>
+
+  <!-- Version 0.5.5: Project Access Enforcement & Shared Auth Alignment · 2026-08-13 -->
+
+  <meta
+    name="description"
+    content="Dashboard Dylan 0.5.5 Project Access Enforcement & Shared Auth Alignment"
+  >
+
+  <meta
+    name="theme-color"
+    content="#f7f8fa"
+  >
+
+  <!--
+    0.5.5 AUTH GATE
+    These files live beside Dashboard/index.html.
+    dashboard-entry.js checks the existing Supabase session before the
+    Dashboard UI is loaded. Logged-out visitors are sent to Dashboard/login.html.
+  -->
+  <script src="./dashboard-config.js"></script>
+  <script src="./dashboard-entry.js"></script>
+
   <style>
     * { box-sizing: border-box; }
+
     body {
       margin: 0;
       min-height: 100vh;
@@ -17,6 +44,7 @@
       color: #252525;
       font-family: Arial, Helvetica, sans-serif;
     }
+
     .loader {
       width: min(100%, 520px);
       padding: 28px;
@@ -26,35 +54,66 @@
       box-shadow: 0 12px 36px rgba(0,0,0,.10);
       text-align: center;
     }
-    .loader h1 { margin: 0 0 8px; font-size: 24px; }
-    .loader p { margin: 0; color: #666; line-height: 1.5; }
-    .loader.error { border-color: #d7a09c; }
-    .loader.error h1 { color: #b3261e; }
+
+    .loader h1 {
+      margin: 0 0 8px;
+      font-size: 24px;
+    }
+
+    .loader p {
+      margin: 0;
+      color: #666;
+      line-height: 1.5;
+    }
+
+    .loader.error {
+      border-color: #d7a09c;
+    }
+
+    .loader.error h1 {
+      color: #b3261e;
+    }
   </style>
 </head>
+
 <body>
   <div id="loader" class="loader">
-    <h1>Dashboard Dylan 0.5.3</h1>
-    <p>Loading the Projects Hub…</p>
+    <h1>Dashboard Dylan 0.5.5</h1>
+    <p>Loading your Dashboard…</p>
   </div>
 
   <script>
     /*
-      Dashboard Dylan · Version 0.5.3
-      Projects JSON as Single Source · 2026-08-12
+      Dashboard Dylan · Version 0.5.5
+      Project Access Enforcement & Shared Auth Alignment · 2026-08-13
 
-      BUG FIX:
-      Dashboard Dylan's live GitHub Pages folder was renamed from
-      Projects/Custom-UI to Projects/Dashboard.
+      CHANGELOG
+      Title:
+      Project Access Enforcement & Shared Auth Alignment
 
-      The immutable Version 0.4.2 source URL below intentionally retains
-      Projects/Custom-UI because commit fa797e4 was created before the folder
-      was renamed. Changing this historical URL would break the loader.
+      Description:
+      Aligns protected Dashboard projects with the shared authentication layer
+      introduced in 0.5.4. Project pages now use the centralized Dashboard
+      session and project-access checks consistently, and an account that does
+      not have permission for a requested project is returned to the Dashboard
+      instead of leaving the protected page visible.
 
-      Live authentication/OAuth returns use currentDashboardUrl() or the
-      current window path in the Version 0.4.2 base, so they automatically
-      follow the new /Projects/Dashboard/ location once the external OAuth
-      allowlists are updated.
+      Bug Fixes:
+      - Sends project-access denials back to Dashboard/index.html.
+      - Keeps unauthenticated project requests routed through login.html with a
+        same-origin return target.
+      - Aligns protected projects with the shared Dashboard auth/config files.
+      - Preserves projects.json as the single project catalog.
+      - Corrects the Login path wording to Dashboard/login.html.
+
+      ARCHITECTURE NOTE
+      Dashboard Dylan still uses the immutable Version 0.4.2 source as the
+      preserved full-feature base. The patch below layers the Projects Hub,
+      project groups/access controls, projects.json-only behavior, and the
+      0.5.5 shared-auth/project-access integration over that base.
+
+      The historical source URL intentionally retains Projects/Custom-UI
+      because commit fa797e4 predates the live folder rename.
     */
 
     const DASHBOARD_042_SOURCE =
@@ -62,69 +121,287 @@
 
     function replaceRequired(source, find, replacement, label) {
       if (!source.includes(find)) {
-        throw new Error("0.5.3 patch could not find: " + label);
+        throw new Error("0.5.5 patch could not find: " + label);
       }
+
       return source.replace(find, replacement);
     }
 
-    function applyProjectsPatch(source) {
+    function apply054Patch(source) {
+      /*
+        VERSION
+      */
       source = replaceRequired(
         source,
         "<title>Dylan's Dashboard · Version 0.4.2</title>",
-        "<title>Dylan's Dashboard · Version 0.5.3</title>",
+        "<title>Dylan's Dashboard · Version 0.5.5</title>",
         "page version title"
       );
 
       source = replaceRequired(
         source,
         "<!-- Version 0.4.2: Automatic Admin View · 2026-08-11 -->",
-        "<!-- Version 0.5.3: Projects JSON as Single Source · 2026-08-12 -->",
+        "<!-- Version 0.5.5: Project Access Enforcement & Shared Auth Alignment · 2026-08-13 -->",
         "version comment"
       );
 
       source = replaceRequired(
         source,
         '<span class="account-summary">Version 0.4.2 · Signed in as <strong id="current-user-email"></strong></span>',
-        '<span class="account-summary">Version 0.5.3 · Signed in as <strong id="current-user-email"></strong></span>',
-        "account-bar version"
+        '<span class="account-summary">Version 0.5.5 · Signed in as <strong id="current-user-email"></strong></span>',
+        "account bar version"
       );
 
+      /*
+        PROJECTS HUB + ADMIN PROJECT ACCESS CSS
+      */
       const projectsCss = `
-    /* PROJECTS HUB · 0.5.3 */
-    .projects-view { width: min(100%, 900px); }
-    .projects-content { padding: 22px; }
-    .projects-intro { margin: 0 0 18px; color: #666666; font-size: 14px; line-height: 1.5; text-align: center; }
-    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 210px)); justify-content: center; gap: 22px; }
-    .project-tile { min-height: 132px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 11px; padding: 20px 16px; border: 1.5px solid #2450a4; border-radius: 12px; background: white; color: #252525; text-align: center; text-decoration: none; transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease; }
-    .project-tile:hover { transform: translateY(-2px); background: #f5f8ff; box-shadow: 0 6px 16px rgba(0,0,0,.10); }
-    .project-tile-icon { font-size: 38px; line-height: 1; }
-    .project-tile-title { margin: 0; font-size: 16px; font-weight: 800; line-height: 1.25; }
-    .projects-empty { grid-column: 1 / -1; padding: 28px; border: 1px dashed #c8cdd5; border-radius: 14px; background: white; color: #777; text-align: center; line-height: 1.5; }
-    .project-access-badge { display: inline-flex; align-items: center; min-height: 22px; margin-top: 2px; padding: 3px 8px; border-radius: 999px; background: #eef3fb; color: #2450a4; font-size: 10px; font-weight: 800; }
-    .admin-project-access-list, .admin-group-list { display: grid; gap: 10px; }
-    .admin-project-access-row, .admin-group-card { padding: 13px 14px; border: 1px solid #dfe3e8; border-radius: 12px; background: #f7f8fa; }
-    .admin-project-access-topline { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
-    .admin-project-access-title, .admin-group-name { font-size: 13px; font-weight: 800; color: #252525; }
-    .admin-project-access-note, .admin-group-note { display: block; margin-top: 4px; color: #777; font-size: 11px; line-height: 1.4; }
-    .admin-project-access-select, .admin-group-member-select { min-width: 160px; min-height: 36px; padding: 7px 10px; border: 1px solid #c8cdd5; border-radius: 10px; background: white; color: #252525; font: inherit; font-size: 12px; font-weight: 700; }
-    .admin-project-group-picker { display: grid; gap: 7px; margin-top: 10px; padding-top: 10px; border-top: 1px solid #dfe3e8; }
-    .admin-project-group-option { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; }
-    .admin-group-create { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 8px; margin-bottom: 12px; }
-    .admin-group-create input { min-height: 38px; padding: 8px 10px; border: 1px solid #c8cdd5; border-radius: 10px; font: inherit; }
-    .admin-group-create button, .admin-group-action { min-height: 36px; padding: 7px 11px; border: 1px solid #2450a4; border-radius: 10px; background: #2450a4; color: white; font: inherit; font-size: 12px; font-weight: 800; cursor: pointer; }
-    .admin-group-action.secondary { background: white; color: #2450a4; }
-    .admin-group-action.danger { border-color: #b3261e; background: white; color: #b3261e; }
-    .admin-group-members { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; margin-top: 10px; }
-    .admin-group-member-chip { display: inline-flex; align-items: center; gap: 5px; padding: 5px 8px; border-radius: 999px; background: white; border: 1px solid #d5d9df; font-size: 11px; font-weight: 700; }
-    .admin-group-member-chip button { border: none; background: transparent; color: #b3261e; font: inherit; font-weight: 900; cursor: pointer; }
+    /* PROJECTS HUB · Version 0.5.5 */
+    .projects-view {
+      width: min(100%, 900px);
+    }
+
+    .projects-content {
+      padding: 22px;
+    }
+
+    .projects-intro {
+      margin: 0 0 18px;
+      color: #666;
+      font-size: 14px;
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 210px));
+      justify-content: center;
+      gap: 22px;
+    }
+
+    .project-tile {
+      min-height: 132px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 11px;
+      padding: 20px 16px;
+      border: 1.5px solid #2450a4;
+      border-radius: 12px;
+      background: white;
+      color: #252525;
+      text-align: center;
+      text-decoration: none;
+      transition:
+        transform .15s ease,
+        box-shadow .15s ease,
+        background-color .15s ease;
+    }
+
+    .project-tile:hover {
+      transform: translateY(-2px);
+      background: #f5f8ff;
+      box-shadow: 0 6px 16px rgba(0,0,0,.10);
+    }
+
+    .project-tile-icon {
+      font-size: 38px;
+      line-height: 1;
+    }
+
+    .project-tile-title {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 800;
+      line-height: 1.25;
+    }
+
+    .projects-empty {
+      grid-column: 1 / -1;
+      padding: 28px;
+      border: 1px dashed #c8cdd5;
+      border-radius: 14px;
+      background: white;
+      color: #777;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .project-access-badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 22px;
+      margin-top: 2px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: #eef3fb;
+      color: #2450a4;
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .admin-project-access-list,
+    .admin-group-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .admin-project-access-row,
+    .admin-group-card {
+      padding: 13px 14px;
+      border: 1px solid #dfe3e8;
+      border-radius: 12px;
+      background: #f7f8fa;
+    }
+
+    .admin-project-access-topline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .admin-project-access-title,
+    .admin-group-name {
+      font-size: 13px;
+      font-weight: 800;
+      color: #252525;
+    }
+
+    .admin-project-access-note,
+    .admin-group-note {
+      display: block;
+      margin-top: 4px;
+      color: #777;
+      font-size: 11px;
+      line-height: 1.4;
+    }
+
+    .admin-project-access-select,
+    .admin-group-member-select {
+      min-width: 160px;
+      min-height: 36px;
+      padding: 7px 10px;
+      border: 1px solid #c8cdd5;
+      border-radius: 10px;
+      background: white;
+      color: #252525;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .admin-project-group-picker {
+      display: grid;
+      gap: 7px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid #dfe3e8;
+    }
+
+    .admin-project-group-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .admin-group-create {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .admin-group-create input {
+      min-height: 38px;
+      padding: 8px 10px;
+      border: 1px solid #c8cdd5;
+      border-radius: 10px;
+      font: inherit;
+    }
+
+    .admin-group-create button,
+    .admin-group-action {
+      min-height: 36px;
+      padding: 7px 11px;
+      border: 1px solid #2450a4;
+      border-radius: 10px;
+      background: #2450a4;
+      color: white;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .admin-group-action.secondary {
+      background: white;
+      color: #2450a4;
+    }
+
+    .admin-group-action.danger {
+      border-color: #b3261e;
+      background: white;
+      color: #b3261e;
+    }
+
+    .admin-group-members {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 10px;
+    }
+
+    .admin-group-member-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 8px;
+      border: 1px solid #d5d9df;
+      border-radius: 999px;
+      background: white;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .admin-group-member-chip button {
+      border: none;
+      background: transparent;
+      color: #b3261e;
+      font: inherit;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
     @media (max-width: 520px) {
-      .projects-grid { grid-template-columns: 1fr; }
-      .project-tile { width: 100%; }
-      .admin-project-access-topline { align-items: stretch; flex-direction: column; }
-      .admin-project-access-select { width: 100%; }
-      .admin-group-create { grid-template-columns: 1fr; }
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .project-tile {
+        width: 100%;
+      }
+
+      .admin-project-access-topline {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .admin-project-access-select {
+        width: 100%;
+      }
+
+      .admin-group-create {
+        grid-template-columns: 1fr;
+      }
     }
 `;
+
       source = replaceRequired(
         source,
         "  </style>",
@@ -132,50 +409,120 @@
         "style closing tag"
       );
 
+      /*
+        PROJECTS MODAL
+      */
       const projectsView = `
-    <div id="projects-view" class="internal-view-backdrop" role="dialog" aria-modal="true" aria-labelledby="projects-view-title" hidden>
+    <div
+      id="projects-view"
+      class="internal-view-backdrop"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="projects-view-title"
+      hidden
+    >
       <section class="internal-view projects-view">
         <header class="internal-view-header">
           <div class="internal-view-header-spacer" aria-hidden="true"></div>
           <h2 id="projects-view-title">Projects</h2>
-          <button id="projects-close-button" class="internal-view-close-button" type="button" aria-label="Close projects" title="Close projects">×</button>
+          <button
+            id="projects-close-button"
+            class="internal-view-close-button"
+            type="button"
+            aria-label="Close projects"
+            title="Close projects"
+          >×</button>
         </header>
+
         <div class="projects-content">
-          <p class="projects-intro">Choose a project to open it.</p>
-          <div id="projects-grid" class="projects-grid" aria-label="Available projects"></div>
+          <p class="projects-intro">
+            Choose a project to open it.
+          </p>
+
+          <div
+            id="projects-grid"
+            class="projects-grid"
+            aria-label="Available projects"
+          ></div>
         </div>
       </section>
     </div>
 `;
+
       source = replaceRequired(
         source,
         '    <div id="microsoft-warning-modal"',
         projectsView + '    <div id="microsoft-warning-modal"',
-        "projects internal view insertion point"
+        "projects view insertion point"
       );
 
+      /*
+        ADMIN PROJECT SETTINGS
+      */
       const projectAdminSettings = `
-      <section id="admin-projects-settings-section" class="settings-section" hidden>
+      <section
+        id="admin-projects-settings-section"
+        class="settings-section"
+        hidden
+      >
         <h3>Projects</h3>
-        <p class="settings-section-description">Control which Dashboard Dylan accounts can see each project. Projects can be visible to everyone, administrators only, or one or more groups.</p>
+
+        <p class="settings-section-description">
+          Control which Dashboard Dylan accounts can see each project.
+          Projects can be visible to everyone, administrators only,
+          or one or more groups.
+        </p>
 
         <div class="settings-provider-block">
           <p class="settings-provider-title">Groups</p>
+
           <div class="admin-group-create">
-            <input id="admin-new-group-name" type="text" maxlength="60" placeholder="New group name" aria-label="New group name">
-            <button id="admin-create-group-button" type="button">Create Group</button>
+            <input
+              id="admin-new-group-name"
+              type="text"
+              maxlength="60"
+              placeholder="New group name"
+              aria-label="New group name"
+            >
+
+            <button id="admin-create-group-button" type="button">
+              Create Group
+            </button>
           </div>
-          <p id="admin-groups-status" class="admin-settings-status" role="status" aria-live="polite">Loading groups…</p>
-          <div id="admin-group-list" class="admin-group-list" aria-label="Dashboard groups"></div>
+
+          <p
+            id="admin-groups-status"
+            class="admin-settings-status"
+            role="status"
+            aria-live="polite"
+          >Loading groups…</p>
+
+          <div
+            id="admin-group-list"
+            class="admin-group-list"
+            aria-label="Dashboard groups"
+          ></div>
         </div>
 
         <div class="settings-provider-block">
           <p class="settings-provider-title">Project Visibility</p>
-          <p id="admin-project-access-status" class="admin-settings-status" role="status" aria-live="polite">Loading project access…</p>
-          <div id="admin-project-access-list" class="admin-project-access-list" aria-label="Project visibility"></div>
+
+          <p
+            id="admin-project-access-status"
+            class="admin-settings-status"
+            role="status"
+            aria-live="polite"
+          >Loading project access…</p>
+
+          <div
+            id="admin-project-access-list"
+            class="admin-project-access-list"
+            aria-label="Project visibility"
+          ></div>
         </div>
       </section>
 `;
+
       source = replaceRequired(
         source,
         '<section id="admin-settings-section" class="settings-section" hidden><h3>Admin</h3><p class="settings-section-description">Choose which dashboard tiles are visible to everyone and which are restricted to administrators. Admin-only tiles appear only for a verified administrator while Admin View is enabled.</p><p id="admin-tile-visibility-status" class="admin-settings-status" role="status" aria-live="polite">Loading tile visibility…</p><div id="admin-tile-visibility-list" class="admin-tile-visibility-list" aria-label="Dashboard tile visibility"></div></section>',
@@ -183,6 +530,9 @@
         "Admin Projects settings section"
       );
 
+      /*
+        PROJECTS TILE
+      */
       source = replaceRequired(
         source,
         '      {title:"Files",iconType:"text",icon:"📁",url:"#files",adminOnly:false},\n      {title:"Changelog"',
@@ -197,6 +547,12 @@
         "Projects tile click handler"
       );
 
+      /*
+        PROJECTS / GROUP ACCESS SCRIPT
+
+        0.5.3 RULE:
+        projects.json is the ONLY project catalog. There is no fallback list.
+      */
       const projectsScript = `
 
     let dashboardProjectAccess = {};
@@ -204,7 +560,6 @@
     let dashboardGroupMembers = [];
     let dashboardUsers = [];
     let currentDashboardGroupIds = new Set();
-    let dashboardProjectPermissionsLoaded = false;
 
     function normalizeDashboardProjects(value) {
       if (!Array.isArray(value)) {
@@ -213,17 +568,29 @@
 
       return value.map((project, index) => {
         if (!project || typeof project !== "object") {
-          throw new Error("Project #" + (index + 1) + " is not a valid object.");
-        }
-        if (typeof project.name !== "string" || !project.name.trim()) {
-          throw new Error("Project #" + (index + 1) + " is missing a valid name.");
+          throw new Error(
+            "Project #" + (index + 1) + " is not a valid object."
+          );
         }
 
-        const hasUrl = typeof project.url === "string" && project.url.trim();
-        const hasFolder = typeof project.folder === "string" && project.folder.trim();
+        if (typeof project.name !== "string" || !project.name.trim()) {
+          throw new Error(
+            "Project #" + (index + 1) + " is missing a valid name."
+          );
+        }
+
+        const hasUrl =
+          typeof project.url === "string" &&
+          project.url.trim();
+
+        const hasFolder =
+          typeof project.folder === "string" &&
+          project.folder.trim();
 
         if (!hasUrl && !hasFolder) {
-          throw new Error(project.name + " is missing both folder and url.");
+          throw new Error(
+            project.name + " is missing both folder and url."
+          );
         }
 
         return {
@@ -231,18 +598,29 @@
           name: project.name.trim(),
           folder: hasFolder ? project.folder.trim() : "",
           url: hasUrl ? project.url.trim() : "",
-          icon: typeof project.icon === "string" && project.icon.trim() ? project.icon.trim() : "📦"
+          icon:
+            typeof project.icon === "string" && project.icon.trim()
+              ? project.icon.trim()
+              : "📦"
         };
       });
     }
 
     async function loadDashboardProjects() {
-      const response = await fetch("./projects.json", { cache: "no-store" });
+      const response = await fetch("./projects.json", {
+        cache: "no-store"
+      });
+
       if (!response.ok) {
-        throw new Error("projects.json could not be loaded (" + response.status + ").");
+        throw new Error(
+          "projects.json could not be loaded (" +
+          response.status +
+          ")."
+        );
       }
 
       let data;
+
       try {
         data = await response.json();
       } catch (error) {
@@ -254,41 +632,31 @@
 
     function getDashboardProjectUrl(project) {
       if (project.url) return project.url;
-      const safeFolder = project.folder.split("/").filter(Boolean).map(encodeURIComponent).join("/");
-      return new URL("./" + safeFolder + "/", window.location.href).href;
+
+      const safeFolder = project.folder
+        .split("/")
+        .filter(Boolean)
+        .map(encodeURIComponent)
+        .join("/");
+
+      return new URL(
+        "./" + safeFolder + "/",
+        window.location.href
+      ).href;
     }
 
     function normalizeProjectAccessRow(row) {
       return {
         projectId: String(row?.project_id || ""),
-        accessMode: ["everyone", "admin", "groups"].includes(row?.access_mode) ? row.access_mode : "everyone",
-        allowedGroupIds: Array.isArray(row?.allowed_group_ids) ? row.allowed_group_ids.map(String) : []
+        accessMode:
+          ["everyone", "admin", "groups"].includes(row?.access_mode)
+            ? row.access_mode
+            : "everyone",
+        allowedGroupIds:
+          Array.isArray(row?.allowed_group_ids)
+            ? row.allowed_group_ids.map(String)
+            : []
       };
-    }
-
-    async function loadDashboardProjectPermissions() {
-      const nextAccess = {};
-      try {
-        const [{ data: accessRows, error: accessError }, { data: memberships, error: membershipError }] = await Promise.all([
-          supabaseClient.from("dashboard_project_access").select("project_id,access_mode,allowed_group_ids"),
-          supabaseClient.from("dashboard_group_members").select("group_id,user_id")
-        ]);
-        if (accessError) throw accessError;
-        if (membershipError) throw membershipError;
-        (accessRows || []).forEach(row => {
-          const normalized = normalizeProjectAccessRow(row);
-          if (normalized.projectId) nextAccess[normalized.projectId] = normalized;
-        });
-        currentDashboardGroupIds = new Set((memberships || []).map(row => String(row.group_id)));
-        dashboardProjectAccess = nextAccess;
-        dashboardProjectPermissionsLoaded = true;
-      } catch (error) {
-        console.warn("Project permission load:", error);
-        dashboardProjectAccess = {};
-        currentDashboardGroupIds = new Set();
-        dashboardProjectPermissionsLoaded = false;
-      }
-      return dashboardProjectAccess;
     }
 
     function getProjectAccess(projectId) {
@@ -299,44 +667,112 @@
       };
     }
 
+    async function loadDashboardProjectPermissions() {
+      const nextAccess = {};
+
+      try {
+        const [
+          accessResult,
+          membershipResult
+        ] = await Promise.all([
+          supabaseClient
+            .from("dashboard_project_access")
+            .select("project_id,access_mode,allowed_group_ids"),
+
+          supabaseClient
+            .from("dashboard_group_members")
+            .select("group_id,user_id")
+        ]);
+
+        if (accessResult.error) throw accessResult.error;
+        if (membershipResult.error) throw membershipResult.error;
+
+        (accessResult.data || []).forEach(row => {
+          const normalized = normalizeProjectAccessRow(row);
+
+          if (normalized.projectId) {
+            nextAccess[normalized.projectId] = normalized;
+          }
+        });
+
+        dashboardProjectAccess = nextAccess;
+
+        currentDashboardGroupIds = new Set(
+          (membershipResult.data || [])
+            .map(row => String(row.group_id))
+        );
+      } catch (error) {
+        console.warn("Project permission load:", error);
+        dashboardProjectAccess = {};
+        currentDashboardGroupIds = new Set();
+      }
+
+      return dashboardProjectAccess;
+    }
+
     function canCurrentDashboardUserSeeProject(project) {
       const access = getProjectAccess(project.id);
-      if (currentDashboardUserIsAdmin && adminViewEnabled) return true;
+
+      if (currentDashboardUserIsAdmin && adminViewEnabled) {
+        return true;
+      }
+
       if (access.accessMode === "everyone") return true;
       if (access.accessMode === "admin") return false;
+
       if (access.accessMode === "groups") {
-        return access.allowedGroupIds.some(groupId => currentDashboardGroupIds.has(String(groupId)));
+        return access.allowedGroupIds.some(groupId =>
+          currentDashboardGroupIds.has(String(groupId))
+        );
       }
+
       return false;
     }
 
     function projectAccessLabel(project) {
       const access = getProjectAccess(project.id);
+
       if (access.accessMode === "everyone") return "Everyone";
       if (access.accessMode === "admin") return "Admins Only";
+
       const names = dashboardGroups
-        .filter(group => access.allowedGroupIds.includes(String(group.id)))
+        .filter(group =>
+          access.allowedGroupIds.includes(String(group.id))
+        )
         .map(group => group.name);
-      return names.length ? names.join(", ") : "Specific Groups";
+
+      return names.length
+        ? names.join(", ")
+        : "Specific Groups";
     }
 
     function renderDashboardProjects(projects) {
       const grid = getById("projects-grid");
+
       if (!grid) return;
+
       grid.innerHTML = "";
-      const visibleProjects = projects.filter(canCurrentDashboardUserSeeProject);
+
+      const visibleProjects =
+        projects.filter(canCurrentDashboardUserSeeProject);
+
       if (!visibleProjects.length) {
         const empty = document.createElement("div");
         empty.className = "projects-empty";
-        empty.textContent = "No projects are available for this account.";
+        empty.textContent =
+          "No projects are available for this account.";
         grid.appendChild(empty);
         return;
       }
+
       visibleProjects.forEach(project => {
         const tile = document.createElement("a");
         tile.className = "project-tile";
         tile.href = getDashboardProjectUrl(project);
-        tile.setAttribute("aria-label", "Open " + project.name);
+        tile.setAttribute(
+          "aria-label",
+          "Open " + project.name
+        );
 
         const icon = document.createElement("span");
         icon.className = "project-tile-icon";
@@ -348,313 +784,757 @@
         title.textContent = project.name;
 
         tile.append(icon, title);
+
         if (currentDashboardUserIsAdmin && adminViewEnabled) {
           const badge = document.createElement("span");
           badge.className = "project-access-badge";
           badge.textContent = projectAccessLabel(project);
           tile.appendChild(badge);
         }
+
         grid.appendChild(tile);
       });
     }
 
-    async function loadAdminProjectData() {
-      if (!currentDashboardUserIsAdmin) return;
-      const groupsStatus = getById("admin-groups-status");
-      const projectStatus = getById("admin-project-access-status");
-      if (groupsStatus) groupsStatus.textContent = "Loading groups…";
-      if (projectStatus) projectStatus.textContent = "Loading project access…";
-      try {
-        const [groupsResult, membersResult, usersResult, projects, accessResult] = await Promise.all([
-          supabaseClient.from("dashboard_groups").select("id,name,created_at").order("name"),
-          supabaseClient.from("dashboard_group_members").select("group_id,user_id"),
-          supabaseClient.rpc("admin_list_dashboard_users"),
-          loadDashboardProjects(),
-          supabaseClient.from("dashboard_project_access").select("project_id,access_mode,allowed_group_ids")
-        ]);
-        if (groupsResult.error) throw groupsResult.error;
-        if (membersResult.error) throw membersResult.error;
-        if (usersResult.error) throw usersResult.error;
-        if (accessResult.error) throw accessResult.error;
-        dashboardGroups = groupsResult.data || [];
-        dashboardGroupMembers = membersResult.data || [];
-        dashboardUsers = usersResult.data || [];
-        dashboardProjectAccess = {};
-        (accessResult.data || []).forEach(row => {
-          const normalized = normalizeProjectAccessRow(row);
-          if (normalized.projectId) dashboardProjectAccess[normalized.projectId] = normalized;
-        });
-        dashboardProjectPermissionsLoaded = true;
-        renderAdminGroupSettings();
-        renderAdminProjectAccessSettings(projects);
-      } catch (error) {
-        console.error("Admin project settings load:", error);
-        if (groupsStatus) groupsStatus.textContent = error.message || "Groups could not be loaded. Run the 0.5.2 Supabase setup.";
-        if (projectStatus) projectStatus.textContent = error.message || "Project access could not be loaded. Run the 0.5.2 Supabase setup.";
-      }
-    }
-
     function renderAdminSettingsVisibility() {
-      const visible = currentDashboardUserIsAdmin && adminViewEnabled;
-      const tileSection = getById("admin-settings-section");
-      const projectSection = getById("admin-projects-settings-section");
+      const visible =
+        currentDashboardUserIsAdmin &&
+        adminViewEnabled;
+
+      const tileSection =
+        getById("admin-settings-section");
+
+      const projectSection =
+        getById("admin-projects-settings-section");
+
       if (tileSection) tileSection.hidden = !visible;
       if (projectSection) projectSection.hidden = !visible;
     }
 
     function getDashboardUserEmail(userId) {
-      return dashboardUsers.find(user => String(user.user_id) === String(userId))?.email || "Dashboard account";
+      return (
+        dashboardUsers.find(user =>
+          String(user.user_id) === String(userId)
+        )?.email ||
+        "Dashboard account"
+      );
+    }
+
+    async function loadAdminProjectData() {
+      if (!currentDashboardUserIsAdmin) return;
+
+      const groupsStatus =
+        getById("admin-groups-status");
+
+      const projectStatus =
+        getById("admin-project-access-status");
+
+      if (groupsStatus) {
+        groupsStatus.textContent = "Loading groups…";
+      }
+
+      if (projectStatus) {
+        projectStatus.textContent =
+          "Loading project access…";
+      }
+
+      try {
+        const [
+          groupsResult,
+          membersResult,
+          usersResult,
+          projects,
+          accessResult
+        ] = await Promise.all([
+          supabaseClient
+            .from("dashboard_groups")
+            .select("id,name,created_at")
+            .order("name"),
+
+          supabaseClient
+            .from("dashboard_group_members")
+            .select("group_id,user_id"),
+
+          supabaseClient.rpc(
+            "admin_list_dashboard_users"
+          ),
+
+          loadDashboardProjects(),
+
+          supabaseClient
+            .from("dashboard_project_access")
+            .select(
+              "project_id,access_mode,allowed_group_ids"
+            )
+        ]);
+
+        if (groupsResult.error) throw groupsResult.error;
+        if (membersResult.error) throw membersResult.error;
+        if (usersResult.error) throw usersResult.error;
+        if (accessResult.error) throw accessResult.error;
+
+        dashboardGroups = groupsResult.data || [];
+        dashboardGroupMembers = membersResult.data || [];
+        dashboardUsers = usersResult.data || [];
+        dashboardProjectAccess = {};
+
+        (accessResult.data || []).forEach(row => {
+          const normalized =
+            normalizeProjectAccessRow(row);
+
+          if (normalized.projectId) {
+            dashboardProjectAccess[
+              normalized.projectId
+            ] = normalized;
+          }
+        });
+
+        renderAdminGroupSettings();
+        renderAdminProjectAccessSettings(projects);
+      } catch (error) {
+        console.error(
+          "Admin project settings load:",
+          error
+        );
+
+        if (groupsStatus) {
+          groupsStatus.textContent =
+            error.message ||
+            "Groups could not be loaded.";
+        }
+
+        if (projectStatus) {
+          projectStatus.textContent =
+            error.message ||
+            "Project access could not be loaded.";
+        }
+      }
     }
 
     async function createDashboardGroup() {
-      const input = getById("admin-new-group-name");
-      const status = getById("admin-groups-status");
-      const name = String(input?.value || "").trim();
-      if (!name) { if (status) status.textContent = "Enter a group name first."; return; }
+      const input =
+        getById("admin-new-group-name");
+
+      const status =
+        getById("admin-groups-status");
+
+      const name =
+        String(input?.value || "").trim();
+
+      if (!name) {
+        if (status) {
+          status.textContent =
+            "Enter a group name first.";
+        }
+
+        return;
+      }
+
       try {
-        const { error } = await supabaseClient.from("dashboard_groups").insert({ name });
+        const { error } =
+          await supabaseClient
+            .from("dashboard_groups")
+            .insert({ name });
+
         if (error) throw error;
+
         input.value = "";
         await loadAdminProjectData();
+
         status.textContent = "Group created.";
       } catch (error) {
-        status.textContent = error.message || "The group could not be created.";
+        status.textContent =
+          error.message ||
+          "The group could not be created.";
       }
     }
 
-    async function addUserToDashboardGroup(groupId, userId) {
+    async function addUserToDashboardGroup(
+      groupId,
+      userId
+    ) {
       if (!userId) return;
-      const status = getById("admin-groups-status");
+
+      const status =
+        getById("admin-groups-status");
+
       try {
-        const { error } = await supabaseClient.from("dashboard_group_members").upsert({ group_id: groupId, user_id: userId }, { onConflict: "group_id,user_id" });
+        const { error } =
+          await supabaseClient
+            .from("dashboard_group_members")
+            .upsert(
+              {
+                group_id: groupId,
+                user_id: userId
+              },
+              {
+                onConflict: "group_id,user_id"
+              }
+            );
+
         if (error) throw error;
+
         await loadAdminProjectData();
-        status.textContent = "Group membership updated.";
+
+        status.textContent =
+          "Group membership updated.";
       } catch (error) {
-        status.textContent = error.message || "The user could not be added to the group.";
+        status.textContent =
+          error.message ||
+          "The user could not be added to the group.";
       }
     }
 
-    async function removeUserFromDashboardGroup(groupId, userId) {
-      const status = getById("admin-groups-status");
+    async function removeUserFromDashboardGroup(
+      groupId,
+      userId
+    ) {
+      const status =
+        getById("admin-groups-status");
+
       try {
-        const { error } = await supabaseClient.from("dashboard_group_members").delete().eq("group_id", groupId).eq("user_id", userId);
+        const { error } =
+          await supabaseClient
+            .from("dashboard_group_members")
+            .delete()
+            .eq("group_id", groupId)
+            .eq("user_id", userId);
+
         if (error) throw error;
+
         await loadAdminProjectData();
-        status.textContent = "User removed from group.";
+
+        status.textContent =
+          "User removed from group.";
       } catch (error) {
-        status.textContent = error.message || "The user could not be removed from the group.";
+        status.textContent =
+          error.message ||
+          "The user could not be removed from the group.";
       }
     }
 
-    async function deleteDashboardGroup(groupId, groupName) {
-      if (!window.confirm("Delete the group ‘" + groupName + "’? Projects using it will keep their other selected groups.")) return;
-      const status = getById("admin-groups-status");
+    async function deleteDashboardGroup(
+      groupId,
+      groupName
+    ) {
+      if (
+        !window.confirm(
+          "Delete the group ‘" +
+          groupName +
+          "’?"
+        )
+      ) {
+        return;
+      }
+
+      const status =
+        getById("admin-groups-status");
+
       try {
-        const { error } = await supabaseClient.from("dashboard_groups").delete().eq("id", groupId);
+        const { error } =
+          await supabaseClient
+            .from("dashboard_groups")
+            .delete()
+            .eq("id", groupId);
+
         if (error) throw error;
+
         await loadAdminProjectData();
+
         status.textContent = "Group deleted.";
       } catch (error) {
-        status.textContent = error.message || "The group could not be deleted.";
+        status.textContent =
+          error.message ||
+          "The group could not be deleted.";
       }
     }
 
     function renderAdminGroupSettings() {
-      const list = getById("admin-group-list");
-      const status = getById("admin-groups-status");
+      const list =
+        getById("admin-group-list");
+
+      const status =
+        getById("admin-groups-status");
+
       if (!list || !status) return;
+
       list.innerHTML = "";
+
       if (!dashboardGroups.length) {
-        const empty = document.createElement("div");
-        empty.className = "admin-group-card";
-        empty.textContent = "No groups yet. Create one above.";
+        const empty =
+          document.createElement("div");
+
+        empty.className =
+          "admin-group-card";
+
+        empty.textContent =
+          "No groups yet. Create one above.";
+
         list.appendChild(empty);
-        status.textContent = "Groups control project visibility for sets of Dashboard accounts.";
+
+        status.textContent =
+          "Groups control project visibility for sets of Dashboard accounts.";
+
         return;
       }
+
       dashboardGroups.forEach(group => {
-        const card = document.createElement("div");
-        card.className = "admin-group-card";
-        const top = document.createElement("div");
-        top.className = "admin-project-access-topline";
-        const details = document.createElement("div");
-        const name = document.createElement("span");
-        name.className = "admin-group-name";
+        const card =
+          document.createElement("div");
+
+        card.className =
+          "admin-group-card";
+
+        const top =
+          document.createElement("div");
+
+        top.className =
+          "admin-project-access-topline";
+
+        const details =
+          document.createElement("div");
+
+        const name =
+          document.createElement("span");
+
+        name.className =
+          "admin-group-name";
+
         name.textContent = group.name;
-        const members = dashboardGroupMembers.filter(member => String(member.group_id) === String(group.id));
-        const note = document.createElement("span");
-        note.className = "admin-group-note";
-        note.textContent = members.length + (members.length === 1 ? " member" : " members");
+
+        const members =
+          dashboardGroupMembers.filter(member =>
+            String(member.group_id) ===
+            String(group.id)
+          );
+
+        const note =
+          document.createElement("span");
+
+        note.className =
+          "admin-group-note";
+
+        note.textContent =
+          members.length +
+          (members.length === 1
+            ? " member"
+            : " members");
+
         details.append(name, note);
-        const removeGroup = document.createElement("button");
-        removeGroup.type = "button";
-        removeGroup.className = "admin-group-action danger";
-        removeGroup.textContent = "Delete Group";
-        removeGroup.addEventListener("click", () => deleteDashboardGroup(group.id, group.name));
-        top.append(details, removeGroup);
+
+        const deleteButton =
+          document.createElement("button");
+
+        deleteButton.type = "button";
+        deleteButton.className =
+          "admin-group-action danger";
+
+        deleteButton.textContent =
+          "Delete Group";
+
+        deleteButton.addEventListener(
+          "click",
+          () => deleteDashboardGroup(
+            group.id,
+            group.name
+          )
+        );
+
+        top.append(details, deleteButton);
         card.appendChild(top);
 
-        const memberArea = document.createElement("div");
-        memberArea.className = "admin-group-members";
+        const memberArea =
+          document.createElement("div");
+
+        memberArea.className =
+          "admin-group-members";
+
         members.forEach(member => {
-          const chip = document.createElement("span");
-          chip.className = "admin-group-member-chip";
-          chip.append(document.createTextNode(getDashboardUserEmail(member.user_id)));
-          const remove = document.createElement("button");
+          const chip =
+            document.createElement("span");
+
+          chip.className =
+            "admin-group-member-chip";
+
+          chip.append(
+            document.createTextNode(
+              getDashboardUserEmail(
+                member.user_id
+              )
+            )
+          );
+
+          const remove =
+            document.createElement("button");
+
           remove.type = "button";
           remove.textContent = "×";
-          remove.title = "Remove from " + group.name;
-          remove.addEventListener("click", () => removeUserFromDashboardGroup(group.id, member.user_id));
+
+          remove.addEventListener(
+            "click",
+            () => removeUserFromDashboardGroup(
+              group.id,
+              member.user_id
+            )
+          );
+
           chip.appendChild(remove);
           memberArea.appendChild(chip);
         });
 
-        const select = document.createElement("select");
-        select.className = "admin-group-member-select";
-        select.setAttribute("aria-label", "Add account to " + group.name);
-        const placeholder = document.createElement("option");
+        const select =
+          document.createElement("select");
+
+        select.className =
+          "admin-group-member-select";
+
+        const placeholder =
+          document.createElement("option");
+
         placeholder.value = "";
-        placeholder.textContent = "Add account…";
+        placeholder.textContent =
+          "Add account…";
+
         select.appendChild(placeholder);
-        const memberIds = new Set(members.map(member => String(member.user_id)));
-        dashboardUsers.filter(user => !memberIds.has(String(user.user_id))).forEach(user => {
-          const option = document.createElement("option");
-          option.value = user.user_id;
-          option.textContent = user.email + (user.role === "admin" ? " · Admin" : "");
-          select.appendChild(option);
-        });
-        select.addEventListener("change", () => {
-          const userId = select.value;
-          select.value = "";
-          if (userId) addUserToDashboardGroup(group.id, userId);
-        });
+
+        const memberIds = new Set(
+          members.map(member =>
+            String(member.user_id)
+          )
+        );
+
+        dashboardUsers
+          .filter(user =>
+            !memberIds.has(
+              String(user.user_id)
+            )
+          )
+          .forEach(user => {
+            const option =
+              document.createElement("option");
+
+            option.value = user.user_id;
+
+            option.textContent =
+              user.email +
+              (
+                user.role === "admin"
+                  ? " · Admin"
+                  : ""
+              );
+
+            select.appendChild(option);
+          });
+
+        select.addEventListener(
+          "change",
+          () => {
+            const userId = select.value;
+            select.value = "";
+
+            if (userId) {
+              addUserToDashboardGroup(
+                group.id,
+                userId
+              );
+            }
+          }
+        );
+
         memberArea.appendChild(select);
         card.appendChild(memberArea);
         list.appendChild(card);
       });
-      status.textContent = "Create groups and assign Dashboard accounts. A user can belong to multiple groups.";
+
+      status.textContent =
+        "Create groups and assign Dashboard accounts. A user can belong to multiple groups.";
     }
 
-    async function saveProjectAccess(projectId, accessMode, allowedGroupIds) {
-      const status = getById("admin-project-access-status");
+    async function saveProjectAccess(
+      projectId,
+      accessMode,
+      allowedGroupIds
+    ) {
+      const status =
+        getById("admin-project-access-status");
+
       try {
         const row = {
           project_id: projectId,
           access_mode: accessMode,
-          allowed_group_ids: accessMode === "groups" ? allowedGroupIds : [],
-          updated_at: new Date().toISOString()
+          allowed_group_ids:
+            accessMode === "groups"
+              ? allowedGroupIds
+              : [],
+          updated_at:
+            new Date().toISOString()
         };
-        const { error } = await supabaseClient.from("dashboard_project_access").upsert(row, { onConflict: "project_id" });
+
+        const { error } =
+          await supabaseClient
+            .from("dashboard_project_access")
+            .upsert(
+              row,
+              { onConflict: "project_id" }
+            );
+
         if (error) throw error;
-        dashboardProjectAccess[projectId] = normalizeProjectAccessRow(row);
-        status.textContent = "Project visibility saved.";
-        const projectsView = getById("projects-view");
-        if (projectsView && !projectsView.hidden) renderDashboardProjects(await loadDashboardProjects());
+
+        dashboardProjectAccess[projectId] =
+          normalizeProjectAccessRow(row);
+
+        status.textContent =
+          "Project visibility saved.";
       } catch (error) {
-        status.textContent = error.message || "Project visibility could not be saved.";
+        status.textContent =
+          error.message ||
+          "Project visibility could not be saved.";
+
         throw error;
       }
     }
 
-    function renderAdminProjectAccessSettings(projects) {
-      const list = getById("admin-project-access-list");
-      const status = getById("admin-project-access-status");
+    function renderAdminProjectAccessSettings(
+      projects
+    ) {
+      const list =
+        getById("admin-project-access-list");
+
+      const status =
+        getById("admin-project-access-status");
+
       if (!list || !status) return;
+
       list.innerHTML = "";
+
       projects.forEach(project => {
-        const access = getProjectAccess(project.id);
-        const row = document.createElement("div");
-        row.className = "admin-project-access-row";
-        const topline = document.createElement("div");
-        topline.className = "admin-project-access-topline";
-        const details = document.createElement("div");
-        const title = document.createElement("span");
-        title.className = "admin-project-access-title";
-        title.textContent = project.name;
-        const note = document.createElement("span");
-        note.className = "admin-project-access-note";
-        note.textContent = access.accessMode === "groups" ? "Visible to selected groups" : (access.accessMode === "admin" ? "Visible only to administrators" : "Visible to all signed-in accounts");
+        const access =
+          getProjectAccess(project.id);
+
+        const row =
+          document.createElement("div");
+
+        row.className =
+          "admin-project-access-row";
+
+        const topline =
+          document.createElement("div");
+
+        topline.className =
+          "admin-project-access-topline";
+
+        const details =
+          document.createElement("div");
+
+        const title =
+          document.createElement("span");
+
+        title.className =
+          "admin-project-access-title";
+
+        title.textContent =
+          project.name;
+
+        const note =
+          document.createElement("span");
+
+        note.className =
+          "admin-project-access-note";
+
+        note.textContent =
+          access.accessMode === "groups"
+            ? "Visible to selected groups"
+            : (
+              access.accessMode === "admin"
+                ? "Visible only to administrators"
+                : "Visible to all signed-in accounts"
+            );
+
         details.append(title, note);
 
-        const select = document.createElement("select");
-        select.className = "admin-project-access-select";
-        select.setAttribute("aria-label", "Visibility for " + project.name);
-        [["everyone","Everyone"],["admin","Admins Only"],["groups","Specific Groups"]].forEach(([value,label]) => {
-          const option = document.createElement("option"); option.value = value; option.textContent = label; select.appendChild(option);
+        const select =
+          document.createElement("select");
+
+        select.className =
+          "admin-project-access-select";
+
+        [
+          ["everyone", "Everyone"],
+          ["admin", "Admins Only"],
+          ["groups", "Specific Groups"]
+        ].forEach(([value, label]) => {
+          const option =
+            document.createElement("option");
+
+          option.value = value;
+          option.textContent = label;
+          select.appendChild(option);
         });
-        select.value = access.accessMode;
+
+        select.value =
+          access.accessMode;
+
         topline.append(details, select);
         row.appendChild(topline);
 
-        const groupPicker = document.createElement("div");
-        groupPicker.className = "admin-project-group-picker";
-        groupPicker.hidden = access.accessMode !== "groups";
+        const groupPicker =
+          document.createElement("div");
+
+        groupPicker.className =
+          "admin-project-group-picker";
+
+        groupPicker.hidden =
+          access.accessMode !== "groups";
+
         if (!dashboardGroups.length) {
-          const message = document.createElement("span");
-          message.className = "admin-project-access-note";
-          message.textContent = "Create a group above before using Specific Groups.";
+          const message =
+            document.createElement("span");
+
+          message.className =
+            "admin-project-access-note";
+
+          message.textContent =
+            "Create a group above before using Specific Groups.";
+
           groupPicker.appendChild(message);
         } else {
           dashboardGroups.forEach(group => {
-            const label = document.createElement("label");
-            label.className = "admin-project-group-option";
-            const checkbox = document.createElement("input");
+            const label =
+              document.createElement("label");
+
+            label.className =
+              "admin-project-group-option";
+
+            const checkbox =
+              document.createElement("input");
+
             checkbox.type = "checkbox";
-            checkbox.checked = access.allowedGroupIds.includes(String(group.id));
-            checkbox.addEventListener("change", async () => {
-              const selected = Array.from(groupPicker.querySelectorAll('input[type="checkbox"]:checked')).map(input => input.value);
-              await saveProjectAccess(project.id, "groups", selected);
-              await loadAdminProjectData();
-            });
             checkbox.value = group.id;
-            label.append(checkbox, document.createTextNode(group.name));
+
+            checkbox.checked =
+              access.allowedGroupIds.includes(
+                String(group.id)
+              );
+
+            checkbox.addEventListener(
+              "change",
+              async () => {
+                const selected =
+                  Array
+                    .from(
+                      groupPicker.querySelectorAll(
+                        'input[type="checkbox"]:checked'
+                      )
+                    )
+                    .map(input => input.value);
+
+                await saveProjectAccess(
+                  project.id,
+                  "groups",
+                  selected
+                );
+
+                await loadAdminProjectData();
+              }
+            );
+
+            label.append(
+              checkbox,
+              document.createTextNode(
+                group.name
+              )
+            );
+
             groupPicker.appendChild(label);
           });
         }
+
         row.appendChild(groupPicker);
 
-        select.addEventListener("change", async () => {
-          const mode = select.value;
-          const existing = getProjectAccess(project.id).allowedGroupIds;
-          groupPicker.hidden = mode !== "groups";
-          await saveProjectAccess(project.id, mode, existing);
-          await loadAdminProjectData();
-        });
+        select.addEventListener(
+          "change",
+          async () => {
+            const mode = select.value;
+
+            const existing =
+              getProjectAccess(
+                project.id
+              ).allowedGroupIds;
+
+            groupPicker.hidden =
+              mode !== "groups";
+
+            await saveProjectAccess(
+              project.id,
+              mode,
+              existing
+            );
+
+            await loadAdminProjectData();
+          }
+        );
+
         list.appendChild(row);
       });
-      status.textContent = "Project rules are shared across Dashboard Dylan accounts and saved in Supabase.";
+
+      status.textContent =
+        "Project rules are shared across Dashboard Dylan accounts and saved in Supabase.";
     }
 
     async function openProjectsView() {
-      const view = getById("projects-view");
-      const closeButton = getById("projects-close-button");
-      const grid = getById("projects-grid");
+      const view =
+        getById("projects-view");
+
+      const closeButton =
+        getById("projects-close-button");
+
+      const grid =
+        getById("projects-grid");
 
       view.hidden = false;
       document.body.style.overflow = "hidden";
-      grid.innerHTML = '<div class="projects-empty">Loading projects…</div>';
+
+      grid.innerHTML =
+        '<div class="projects-empty">Loading projects…</div>';
 
       try {
-        const projects = await loadDashboardProjects();
+        const projects =
+          await loadDashboardProjects();
+
         await loadDashboardProjectPermissions();
 
         if (currentDashboardUserIsAdmin) {
-          try {
-            const { data: groups } = await supabaseClient.from("dashboard_groups").select("id,name").order("name");
-            dashboardGroups = groups || [];
-          } catch (error) {
-            console.warn("Project group names could not be loaded:", error);
+          const groupsResult =
+            await supabaseClient
+              .from("dashboard_groups")
+              .select("id,name")
+              .order("name");
+
+          if (!groupsResult.error) {
+            dashboardGroups =
+              groupsResult.data || [];
           }
         }
 
         renderDashboardProjects(projects);
       } catch (error) {
-        console.error("Projects catalog load error:", error);
-        grid.innerHTML = '<div class="projects-empty"><strong>Projects could not be loaded.</strong><br>Check Dashboard/projects.json and try again.<br><br>' + String(error.message || error) + '</div>';
+        console.error(
+          "Projects catalog load error:",
+          error
+        );
+
+        grid.innerHTML =
+          '<div class="projects-empty">' +
+          '<strong>Projects could not be loaded.</strong><br>' +
+          'Check Dashboard/projects.json and try again.<br><br>' +
+          String(error.message || error) +
+          '</div>';
       }
 
-      setTimeout(() => closeButton.focus(), 0);
+      setTimeout(
+        () => closeButton.focus(),
+        0
+      );
     }
 
     function closeProjectsView() {
@@ -662,14 +1542,19 @@
       document.body.style.overflow = "";
     }
 
-`
+`;
+
       source = replaceRequired(
         source,
         "    function openChangelogView(){",
-        projectsScript + "    function openChangelogView(){",
+        projectsScript +
+        "    function openChangelogView(){",
         "Projects functions"
       );
 
+      /*
+        SETTINGS STARTUP
+      */
       source = replaceRequired(
         source,
         '    function openSettingsView(){renderAdminTileVisibilitySettings();getById("settings-view").hidden=false;document.body.style.overflow="hidden";setTimeout(()=>getById("settings-close-button").focus(),0);}',
@@ -687,30 +1572,42 @@
       displayTiles();
     });`,
         `    getById("admin-view-toggle-input").addEventListener("change", function () {
-      if (!currentDashboardUserIsAdmin) { adminViewEnabled = false; renderAdminViewControl(); renderAdminTileVisibilitySettings(); displayTiles(); return; }
+      if (!currentDashboardUserIsAdmin) { adminViewEnabled = false; renderAdminViewControl(); renderAdminTileVisibilitySettings(); displayTiles(); renderAdminSettingsVisibility(); return; }
       adminViewEnabled = this.checked;
       renderAdminViewControl();
       renderAdminTileVisibilitySettings();
       displayTiles();
+      renderAdminSettingsVisibility();
       if (adminViewEnabled && typeof loadAdminProjectData === "function") loadAdminProjectData();
     });`,
         "Admin View project settings refresh"
       );
 
+      /*
+        ADMIN GROUP EVENT LISTENERS
+      */
       source = replaceRequired(
         source,
         '    loginButton.addEventListener("click", logIntoDashboard); signupButton.addEventListener("click", createDashboardAccount); forgotPasswordButton.addEventListener("click", sendPasswordResetEmail); saveNewPasswordButton.addEventListener("click", saveReplacementPassword); logoutButton.addEventListener("click", logOutOfDashboard);',
-        '    loginButton.addEventListener("click", logIntoDashboard); signupButton.addEventListener("click", createDashboardAccount); forgotPasswordButton.addEventListener("click", sendPasswordResetEmail); saveNewPasswordButton.addEventListener("click", saveReplacementPassword); logoutButton.addEventListener("click", logOutOfDashboard); getById("admin-create-group-button").addEventListener("click", createDashboardGroup); getById("admin-new-group-name").addEventListener("keydown", function (event) { if (event.key === "Enter") createDashboardGroup(); });',
+        '    loginButton.addEventListener("click", logIntoDashboard); signupButton.addEventListener("click", createDashboardAccount); forgotPasswordButton.addEventListener("click", sendPasswordResetEmail); saveNewPasswordButton.addEventListener("click", saveReplacementPassword); logoutButton.addEventListener("click", logOutOfDashboard); getById("admin-create-group-button").addEventListener("click", createDashboardGroup); getById("admin-new-group-name").addEventListener("keydown",function(event){if(event.key==="Enter")createDashboardGroup();});',
         "Admin group listeners"
       );
 
+      /*
+        CHANGELOG
+
+        This wording follows the Version Comparison work for this update.
+      */
       source = replaceRequired(
         source,
         '    const dashboardChangelog=[\n      {version:"0.4.2"',
-        '    const dashboardChangelog=[\n      {version:"0.5.3",title:"Projects JSON as Single Source",description:"Bug Fixes: Removes the hard-coded Projects fallback and makes Dashboard/projects.json the only source for project definitions. The Projects Hub now loads ./projects.json directly, resolves project folders relative to the Dashboard directory, and shows a clear error if the JSON file is missing or invalid instead of silently recreating stale project tiles."},\n      {version:"0.5.2",title:"Project Groups & Access Controls",description:"Adds administrator-managed project permissions to the Projects Hub. Admin Settings now includes group creation, account membership management, and per-project visibility controls for Everyone, Admins Only, or one or more selected groups. Project visibility is stored in Supabase and the Projects launcher filters its tiles for the signed-in account while Admin View continues to show all projects for management and testing."},\n      {version:"0.5.1",title:"Dashboard Folder Migration Fix",description:"Bug Fixes: Updates Dashboard Dylan for the live folder rename from Projects/Custom-UI to Projects/Dashboard while preserving the immutable 0.4.2 historical source path required by the Projects Hub loader. Confirms live Google, Microsoft, account-confirmation, and password-reset redirects derive from the current Dashboard URL, and keeps project loading relative so Weekly Food Log, Reviews, and NHL Analytics resolve from Dashboard/projects.json."},\n      {version:"0.5.0",title:"Projects Hub & Project Launcher",description:"Introduces the Projects feature cycle with a new Projects dashboard tile and an in-dashboard launcher for Weekly Food Log, Reviews, and NHL Analytics. Project definitions are read from Dashboard/projects.json as the single source of truth, creating a simple foundation for future administrator-controlled project visibility and group-based access while preserving the 0.4.2 Automatic Admin View behavior."},\n      {version:"0.4.2"',
-        "0.5.1 and 0.5.0 changelog entries"
+        '    const dashboardChangelog=[\n      {version:"0.5.5",title:"Project Access Enforcement & Shared Auth Alignment",description:"Aligns protected Dashboard projects with the shared authentication layer introduced in 0.5.4. Project pages now use the centralized Dashboard session and project-access checks consistently, and accounts without permission for a requested project are returned to the Dashboard. Bug Fixes: sends project-access denials back to Dashboard/index.html, preserves same-origin login return routing, aligns protected projects with the shared auth/config files, keeps projects.json as the single project catalog, and corrects Login path wording."},\n      {version:"0.5.4",title:"Centralized Login & Shared Authentication",description:"Introduces a dedicated Dashboard Dylan login screen and reusable authentication layer for the Dashboard and protected projects. Signed-in sessions are shared across Dashboard projects, direct project URLs send unauthenticated users to the centralized Login page and return them to the original same-origin page after login, and the shared authentication layer exposes the current Supabase user plus reusable project-access verification for future account-backed projects. Bug Fixes: replaces the Dashboard homepage as the primary login screen for protected projects, blocks external authentication return URLs, preserves existing Supabase sessions, and keeps projects.json as the single project catalog."},\n      {version:"0.5.3",title:"Projects JSON as Single Source",description:"Bug Fixes: Removes the hard-coded Projects fallback and makes Dashboard/projects.json the only source for project definitions. The Projects Hub loads ./projects.json directly, resolves project folders relative to the Dashboard directory, and shows a clear error if the JSON file is missing or invalid instead of silently recreating stale project tiles."},\n      {version:"0.5.2",title:"Project Groups & Access Controls",description:"Adds administrator-managed project permissions to the Projects Hub. Admin Settings includes group creation, account membership management, and per-project visibility controls for Everyone, Admins Only, or selected groups. Project visibility is stored in Supabase and the Projects launcher filters its tiles for the signed-in account while Admin View continues to show all projects for management and testing."},\n      {version:"0.5.1",title:"Dashboard Folder Migration Fix",description:"Bug Fixes: Updates Dashboard Dylan for the live folder rename from Projects/Custom-UI to Projects/Dashboard while preserving the immutable 0.4.2 historical source path required by the Projects Hub loader. Live OAuth redirects derive from the current Dashboard URL and project loading resolves from Dashboard/projects.json."},\n      {version:"0.5.0",title:"Projects Hub & Project Launcher",description:"Introduces the Projects feature cycle with a new Projects dashboard tile and an in-dashboard project launcher while preserving the 0.4.2 Automatic Admin View behavior."},\n      {version:"0.4.2"',
+        "0.5.x changelog entries"
       );
 
+      /*
+        PROJECTS CLOSE / ESCAPE LISTENERS
+      */
       source = replaceRequired(
         source,
         '    getById("changelog-close-button").addEventListener("click",closeChangelogView);',
@@ -725,30 +1622,64 @@
         "Escape-key Projects handling"
       );
 
+      /*
+        CENTRALIZED LOGIN
+
+        The outer 0.5.5 page already ran dashboard-entry.js before loading the
+        legacy Dashboard base, so an unauthenticated user will never reach the
+        base page's embedded login view.
+
+        Keep the old account-management UI and functions available after login:
+        they are still used for account information, sign-out, reset workflows,
+        Google/Microsoft connections, and settings.
+      */
+
       return source;
     }
 
     async function loadDashboard() {
-      const loader = document.getElementById("loader");
+      const loader =
+        document.getElementById("loader");
+
       try {
-        const response = await fetch(DASHBOARD_042_SOURCE, { cache: "no-store" });
+        const response =
+          await fetch(
+            DASHBOARD_042_SOURCE,
+            { cache: "no-store" }
+          );
+
         if (!response.ok) {
-          throw new Error("Could not load the Version 0.4.2 base (" + response.status + ").");
+          throw new Error(
+            "Could not load the Version 0.4.2 base (" +
+            response.status +
+            ")."
+          );
         }
 
-        const source = applyProjectsPatch(await response.text());
+        const source =
+          apply054Patch(
+            await response.text()
+          );
 
         document.open();
         document.write(source);
         document.close();
       } catch (error) {
         console.error(error);
+
         loader.classList.add("error");
+
         loader.innerHTML =
           "<h1>Dashboard could not load</h1>" +
           "<p>" +
-          String(error && error.message ? error.message : error) +
-          "<br><br>This 0.5.3 build uses the immutable 0.4.2 GitHub commit as its base so no existing Dashboard Dylan features are lost.</p>";
+          String(
+            error && error.message
+              ? error.message
+              : error
+          ) +
+          "<br><br>" +
+          "Version 0.5.5 preserves the immutable 0.4.2 Dashboard base and layers the Projects, access-control, and centralized-login updates over it." +
+          "</p>";
       }
     }
 
