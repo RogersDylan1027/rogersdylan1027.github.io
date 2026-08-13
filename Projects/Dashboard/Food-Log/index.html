@@ -3,7 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Food Log · Version 0.1.0</title>
+  <title>Food Log · Version 0.1.1</title>
+
+  <!-- Dashboard Dylan shared authentication and project access guard -->
+  <script src="../dashboard-config.js"></script>
+  <script
+    src="../dashboard-auth.js"
+    data-dashboard-project="food-log"
+  ></script>
 
   <style>
     :root {
@@ -24,6 +31,7 @@
     body {
       margin: 0;
       min-height: 100vh;
+      visibility: hidden;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background: var(--bg);
       color: var(--text);
@@ -327,17 +335,35 @@
     <div class="footer">
       <div class="save-status">
         <span class="save-dot"></span>
-        <span id="saveStatus">Saved automatically on this device</span>
+        <span id="saveStatus">Saved to your Dashboard account</span>
       </div>
 
       <button class="btn" id="clearWeek">Clear This Week</button>
     </div>
   </main>
 
-  <!-- Food Log · Version 0.1.0 · Initial Food Log Release -->
+  <!-- Food Log · Version 0.1.1 · Dashboard Account Integration · 2026-08-13 -->
   <script>
-    const STORAGE_KEY = "food-log-table-v2";
-    const START_DATE_KEY = "food-log-start-date";
+    /*
+      Food Log · Version 0.1.1
+      Dashboard Account Integration · 2026-08-13
+
+      CHANGELOG
+      Title: Dashboard Account Integration
+
+      Description:
+      Connects Food Log to Dashboard Dylan's shared authentication and project
+      access system. Food entries are now loaded and saved per signed-in
+      Dashboard account through Supabase instead of being stored only in the
+      current browser.
+
+      Bug Fixes:
+      - Uses ../dashboard-config.js and ../dashboard-auth.js.
+      - Enforces access to the "food-log" project before showing the page.
+      - Sends logged-out users through the centralized Dashboard login flow.
+      - Sends users without Food Log permission back to the Dashboard.
+      - Saves each user's entries to public.food_logs with RLS protection.
+    */
 
     const ROWS = [
       "Meal 1",
@@ -348,8 +374,15 @@
       "Snack 3"
     ];
 
-    let data = loadData();
+    const START_DATE_KEY = "food-log-start-date";
+    const SAVE_DELAY_MS = 500;
+
+    let supabaseClient = null;
+    let dashboardUser = null;
     let currentWeekStart = loadStartDate();
+    let currentWeekEntries = {};
+    let renderGeneration = 0;
+    const pendingSaves = new Map();
 
     function normalizeDate(date) {
       const d = new Date(date);
@@ -362,12 +395,22 @@
 
       if (saved) {
         const parts = saved.split("-").map(Number);
+
         if (parts.length === 3) {
-          return normalizeDate(new Date(parts[0], parts[1] - 1, parts[2]));
+          return normalizeDate(
+            new Date(parts[0], parts[1] - 1, parts[2])
+          );
         }
       }
 
       return normalizeDate(new Date());
+    }
+
+    function saveStartDate() {
+      localStorage.setItem(
+        START_DATE_KEY,
+        dateKey(currentWeekStart)
+      );
     }
 
     function dateKey(date) {
@@ -377,51 +420,37 @@
       return `${year}-${month}-${day}`;
     }
 
-    function weekKey() {
-      return dateKey(currentWeekStart);
-    }
+    function getWeekDates() {
+      const dates = [];
 
-    function loadData() {
-      try {
-        return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
-      } catch {
-        return {};
-      }
-    }
-
-    function saveData() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-
-      const status = document.getElementById("saveStatus");
-      status.textContent = "Saved";
-
-      clearTimeout(window.saveStatusTimer);
-
-      window.saveStatusTimer = setTimeout(() => {
-        status.textContent = "Saved automatically on this device";
-      }, 900);
-    }
-
-    function saveStartDate() {
-      localStorage.setItem(START_DATE_KEY, dateKey(currentWeekStart));
-    }
-
-    function ensureWeek() {
-      const key = weekKey();
-
-      if (!data[key]) {
-        data[key] = {};
+      for (let i = 0; i < 7; i++) {
+        const date = new Date(currentWeekStart);
+        date.setDate(date.getDate() + i);
+        dates.push(date);
       }
 
-      return data[key];
+      return dates;
+    }
+
+    function getWeekEnd() {
+      const end = new Date(currentWeekStart);
+      end.setDate(end.getDate() + 6);
+      return normalizeDate(end);
     }
 
     function formatWeekLabel(start) {
       const end = new Date(start);
       end.setDate(end.getDate() + 6);
 
-      const startMonth = start.toLocaleDateString(undefined, { month: "short" });
-      const endMonth = end.toLocaleDateString(undefined, { month: "short" });
+      const startMonth = start.toLocaleDateString(
+        undefined,
+        { month: "short" }
+      );
+
+      const endMonth = end.toLocaleDateString(
+        undefined,
+        { month: "short" }
+      );
 
       if (
         start.getMonth() === end.getMonth() &&
@@ -437,22 +466,135 @@
       return `${startMonth} ${start.getDate()}, ${start.getFullYear()} – ${endMonth} ${end.getDate()}, ${end.getFullYear()}`;
     }
 
-    function getWeekDates() {
-      const dates = [];
-
-      for (let i = 0; i < 7; i++) {
-        const date = new Date(currentWeekStart);
-        date.setDate(date.getDate() + i);
-        dates.push(date);
-      }
-
-      return dates;
+    function entryKey(entryDate, slotIndex) {
+      return `${entryDate}__${slotIndex}`;
     }
 
-    function render() {
+    function setSaveStatus(message, isError = false) {
+      const status = document.getElementById("saveStatus");
+      const dot = document.querySelector(".save-dot");
+
+      status.textContent = message;
+
+      if (dot) {
+        dot.style.background = isError ? "#b3261e" : "#38a169";
+      }
+    }
+
+    async function loadWeekEntries() {
+      const generation = ++renderGeneration;
+      setSaveStatus("Loading…");
+
+      const start = dateKey(currentWeekStart);
+      const end = dateKey(getWeekEnd());
+
+      const { data, error } = await supabaseClient
+        .from("food_logs")
+        .select("entry_date,slot_index,food_text")
+        .eq("user_id", dashboardUser.id)
+        .gte("entry_date", start)
+        .lte("entry_date", end)
+        .order("entry_date", { ascending: true })
+        .order("slot_index", { ascending: true });
+
+      if (generation !== renderGeneration) {
+        return false;
+      }
+
+      if (error) {
+        console.error("Food Log load:", error);
+        currentWeekEntries = {};
+        setSaveStatus(
+          "Could not load this week",
+          true
+        );
+        return false;
+      }
+
+      currentWeekEntries = {};
+
+      (data || []).forEach(row => {
+        currentWeekEntries[
+          entryKey(row.entry_date, row.slot_index)
+        ] = row.food_text || "";
+      });
+
+      setSaveStatus("Saved to your Dashboard account");
+      return true;
+    }
+
+    async function persistCell(entryDate, slotIndex, foodText) {
+      const trimmedText = String(foodText || "").trim();
+      setSaveStatus("Saving…");
+
+      try {
+        if (!trimmedText) {
+          const { error } = await supabaseClient
+            .from("food_logs")
+            .delete()
+            .eq("user_id", dashboardUser.id)
+            .eq("entry_date", entryDate)
+            .eq("slot_index", slotIndex);
+
+          if (error) throw error;
+
+          delete currentWeekEntries[
+            entryKey(entryDate, slotIndex)
+          ];
+        } else {
+          const { error } = await supabaseClient
+            .from("food_logs")
+            .upsert(
+              {
+                user_id: dashboardUser.id,
+                week_start: dateKey(currentWeekStart),
+                entry_date: entryDate,
+                slot_index: slotIndex,
+                food_text: foodText,
+                updated_at: new Date().toISOString()
+              },
+              {
+                onConflict: "user_id,entry_date,slot_index"
+              }
+            );
+
+          if (error) throw error;
+
+          currentWeekEntries[
+            entryKey(entryDate, slotIndex)
+          ] = foodText;
+        }
+
+        setSaveStatus("Saved to your Dashboard account");
+      } catch (error) {
+        console.error("Food Log save:", error);
+        setSaveStatus("Save failed", true);
+      }
+    }
+
+    function scheduleCellSave(entryDate, slotIndex, foodText) {
+      const key = entryKey(entryDate, slotIndex);
+
+      if (pendingSaves.has(key)) {
+        clearTimeout(pendingSaves.get(key));
+      }
+
+      pendingSaves.set(
+        key,
+        setTimeout(async () => {
+          pendingSaves.delete(key);
+          await persistCell(
+            entryDate,
+            slotIndex,
+            foodText
+          );
+        }, SAVE_DELAY_MS)
+      );
+    }
+
+    async function render() {
       const dates = getWeekDates();
       const today = dateKey(new Date());
-      const week = ensureWeek();
 
       document.getElementById("weekLabel").textContent =
         formatWeekLabel(currentWeekStart);
@@ -460,8 +602,11 @@
       document.getElementById("weekStartDate").value =
         dateKey(currentWeekStart);
 
-      const headerRow = document.getElementById("headerRow");
-      headerRow.innerHTML = `<th scope="col">Meal</th>`;
+      const headerRow =
+        document.getElementById("headerRow");
+
+      headerRow.innerHTML =
+        `<th scope="col">Meal</th>`;
 
       dates.forEach(date => {
         const th = document.createElement("th");
@@ -473,30 +618,43 @@
 
         th.innerHTML = `
           <span class="day-name">
-            ${date.toLocaleDateString(undefined, { weekday: "long" })}
+            ${date.toLocaleDateString(
+              undefined,
+              { weekday: "long" }
+            )}
           </span>
           <span class="day-date">
-            ${date.toLocaleDateString(undefined, { month: "short", day: "numeric" })}
+            ${date.toLocaleDateString(
+              undefined,
+              {
+                month: "short",
+                day: "numeric"
+              }
+            )}
           </span>
         `;
 
         headerRow.appendChild(th);
       });
 
-      const body = document.getElementById("foodTableBody");
+      const body =
+        document.getElementById("foodTableBody");
+
       body.innerHTML = "";
 
       ROWS.forEach((rowName, rowIndex) => {
         const tr = document.createElement("tr");
 
-        const rowHeader = document.createElement("th");
+        const rowHeader =
+          document.createElement("th");
+
         rowHeader.scope = "row";
         rowHeader.textContent = rowName;
         tr.appendChild(rowHeader);
 
         dates.forEach(date => {
           const dKey = dateKey(date);
-          const cellKey = `${dKey}__${rowIndex}`;
+          const key = entryKey(dKey, rowIndex);
 
           const td = document.createElement("td");
           td.className = "food-cell";
@@ -505,24 +663,36 @@
             td.classList.add("today-cell");
           }
 
-          const editor = document.createElement("div");
+          const editor =
+            document.createElement("div");
+
           editor.className = "cell-editor";
           editor.contentEditable = "true";
           editor.setAttribute("role", "textbox");
-          editor.setAttribute("aria-label", `${rowName}, ${date.toLocaleDateString()}`);
+          editor.setAttribute(
+            "aria-label",
+            `${rowName}, ${date.toLocaleDateString()}`
+          );
           editor.spellcheck = true;
-          editor.textContent = week[cellKey] || "";
+          editor.textContent =
+            currentWeekEntries[key] || "";
 
           editor.addEventListener("input", () => {
-            week[cellKey] = editor.innerText;
-            saveData();
+            scheduleCellSave(
+              dKey,
+              rowIndex,
+              editor.innerText
+            );
           });
 
-          editor.addEventListener("keydown", event => {
-            if (event.key === "Escape") {
-              editor.blur();
+          editor.addEventListener(
+            "keydown",
+            event => {
+              if (event.key === "Escape") {
+                editor.blur();
+              }
             }
-          });
+          );
 
           td.appendChild(editor);
           tr.appendChild(td);
@@ -532,50 +702,142 @@
       });
     }
 
-    document.getElementById("weekStartDate").addEventListener("change", event => {
-      const value = event.target.value;
-      if (!value) return;
-
-      const [year, month, day] = value.split("-").map(Number);
-      currentWeekStart = normalizeDate(new Date(year, month - 1, day));
-
+    async function changeWeek(nextStart) {
+      currentWeekStart = normalizeDate(nextStart);
       saveStartDate();
-      render();
-    });
 
-    document.getElementById("prevWeek").addEventListener("click", () => {
-      currentWeekStart.setDate(currentWeekStart.getDate() - 7);
-      currentWeekStart = normalizeDate(currentWeekStart);
-      saveStartDate();
-      render();
-    });
+      await loadWeekEntries();
+      await render();
+    }
 
-    document.getElementById("nextWeek").addEventListener("click", () => {
-      currentWeekStart.setDate(currentWeekStart.getDate() + 7);
-      currentWeekStart = normalizeDate(currentWeekStart);
-      saveStartDate();
-      render();
-    });
+    document
+      .getElementById("weekStartDate")
+      .addEventListener(
+        "change",
+        async event => {
+          const value = event.target.value;
 
-    document.getElementById("thisWeek").addEventListener("click", () => {
-      currentWeekStart = normalizeDate(new Date());
-      saveStartDate();
-      render();
-    });
+          if (!value) return;
 
-    document.getElementById("clearWeek").addEventListener("click", () => {
-      const label = formatWeekLabel(currentWeekStart);
+          const [year, month, day] =
+            value.split("-").map(Number);
 
-      if (!confirm(`Clear every food entry for ${label}?`)) {
+          await changeWeek(
+            new Date(year, month - 1, day)
+          );
+        }
+      );
+
+    document
+      .getElementById("prevWeek")
+      .addEventListener(
+        "click",
+        async () => {
+          const next = new Date(currentWeekStart);
+          next.setDate(next.getDate() - 7);
+          await changeWeek(next);
+        }
+      );
+
+    document
+      .getElementById("nextWeek")
+      .addEventListener(
+        "click",
+        async () => {
+          const next = new Date(currentWeekStart);
+          next.setDate(next.getDate() + 7);
+          await changeWeek(next);
+        }
+      );
+
+    document
+      .getElementById("thisWeek")
+      .addEventListener(
+        "click",
+        async () => {
+          await changeWeek(new Date());
+        }
+      );
+
+    document
+      .getElementById("clearWeek")
+      .addEventListener(
+        "click",
+        async () => {
+          const label =
+            formatWeekLabel(currentWeekStart);
+
+          if (
+            !confirm(
+              `Clear every food entry for ${label}?`
+            )
+          ) {
+            return;
+          }
+
+          const start = dateKey(currentWeekStart);
+          const end = dateKey(getWeekEnd());
+
+          setSaveStatus("Clearing…");
+
+          const { error } = await supabaseClient
+            .from("food_logs")
+            .delete()
+            .eq("user_id", dashboardUser.id)
+            .gte("entry_date", start)
+            .lte("entry_date", end);
+
+          if (error) {
+            console.error(
+              "Food Log clear week:",
+              error
+            );
+
+            setSaveStatus(
+              "Could not clear this week",
+              true
+            );
+
+            return;
+          }
+
+          currentWeekEntries = {};
+          await render();
+          setSaveStatus(
+            "Saved to your Dashboard account"
+          );
+        }
+      );
+
+    async function initializeFoodLog() {
+      supabaseClient =
+        window.DashboardAuth?.client || null;
+
+      dashboardUser =
+        window.DashboardAuth?.user || null;
+
+      if (!supabaseClient || !dashboardUser) {
         return;
       }
 
-      delete data[weekKey()];
-      saveData();
-      render();
-    });
+      await loadWeekEntries();
+      await render();
 
-    render();
+      document.body.style.visibility = "visible";
+    }
+
+    window.addEventListener(
+      "dashboard-auth-ready",
+      initializeFoodLog,
+      { once: true }
+    );
+
+    if (
+      window.DashboardAuth?.client &&
+      window.DashboardAuth?.user
+    ) {
+      initializeFoodLog();
+    }
   </script>
 </body>
 </html>
