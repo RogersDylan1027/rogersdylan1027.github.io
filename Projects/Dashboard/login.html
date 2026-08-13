@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Dashboard Dylan · Login · Version 0.5.5</title>
+
+  <!-- Version 0.5.5: Project Access Enforcement & Shared Auth Alignment · 2026-08-13 -->
+
+  <meta
+    name="description"
+    content="Sign in to Dashboard Dylan."
+  >
+
+  <meta
+    name="theme-color"
+    content="#f7f8fa"
+  >
+
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+  <script src="./dashboard-config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    :root {
+      color-scheme: light;
+      --bg: #f7f8fa;
+      --panel: #ffffff;
+      --text: #252525;
+      --muted: #68707c;
+      --border: #d5d9df;
+      --accent: rgb(40, 72, 126);
+      --accent-hover: rgb(31, 59, 106);
+      --danger: #b3261e;
+      --success: #267a3e;
+      --shadow: 0 18px 55px rgba(18, 28, 45, 0.12);
+    }
+
+    html,
+    body {
+      min-height: 100%;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(40, 72, 126, 0.08), transparent 38%),
+        var(--bg);
+      color: var(--text);
+      font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    .login-shell {
+      width: min(100%, 430px);
+    }
+
+    .brand {
+      margin-bottom: 18px;
+      text-align: center;
+    }
+
+    .brand-mark {
+      width: 64px;
+      height: 64px;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 14px;
+      border-radius: 18px;
+      background: var(--accent);
+      color: white;
+      font-size: 23px;
+      font-weight: 900;
+      letter-spacing: -0.06em;
+      box-shadow: 0 10px 24px rgba(40, 72, 126, 0.24);
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 28px;
+      line-height: 1.15;
+      letter-spacing: -0.035em;
+    }
+
+    .brand p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .login-card {
+      padding: 28px;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .view[hidden] {
+      display: none !important;
+    }
+
+    .view-title {
+      margin: 0 0 6px;
+      font-size: 20px;
+      line-height: 1.25;
+    }
+
+    .view-description {
+      margin: 0 0 20px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .field {
+      display: grid;
+      gap: 7px;
+      margin-bottom: 14px;
+    }
+
+    .field label {
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .field input {
+      width: 100%;
+      min-height: 46px;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      outline: none;
+      background: white;
+      color: var(--text);
+      transition: border-color .15s ease, box-shadow .15s ease;
+    }
+
+    .field input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(40, 72, 126, 0.12);
+    }
+
+    .button {
+      width: 100%;
+      min-height: 46px;
+      border-radius: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform .12s ease, background-color .12s ease, opacity .12s ease;
+    }
+
+    .button:hover:not(:disabled) {
+      transform: translateY(-1px);
+    }
+
+    .button:disabled {
+      cursor: wait;
+      opacity: .6;
+    }
+
+    .button.primary {
+      border: 1px solid var(--accent);
+      background: var(--accent);
+      color: white;
+    }
+
+    .button.primary:hover:not(:disabled) {
+      background: var(--accent-hover);
+    }
+
+    .button.secondary {
+      border: 1px solid var(--border);
+      background: white;
+      color: var(--text);
+    }
+
+    .button.google {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: 1px solid var(--border);
+      background: white;
+      color: var(--text);
+    }
+
+    .google-mark {
+      font-size: 18px;
+      font-weight: 900;
+      color: #4285f4;
+    }
+
+    .divider {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 12px;
+      margin: 18px 0;
+      color: #8a919d;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+      height: 1px;
+      background: #e4e7eb;
+    }
+
+    .links {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+
+    .link-button {
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: var(--accent);
+      font: inherit;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .status {
+      min-height: 20px;
+      margin: 16px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+      text-align: center;
+    }
+
+    .status.error {
+      color: var(--danger);
+    }
+
+    .status.success {
+      color: var(--success);
+    }
+
+    .version {
+      margin-top: 16px;
+      color: #8b919a;
+      font-size: 11px;
+      text-align: center;
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 16px;
+      }
+
+      .login-card {
+        padding: 22px 18px;
+        border-radius: 18px;
+      }
+
+      .brand-mark {
+        width: 58px;
+        height: 58px;
+        border-radius: 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="login-shell">
+    <header class="brand">
+      <div class="brand-mark" aria-hidden="true">DR</div>
+      <h1>Dashboard Dylan</h1>
+      <p>Sign in once to access your Dashboard and connected projects.</p>
+    </header>
+
+    <section class="login-card" aria-live="polite">
+      <div id="sign-in-view" class="view">
+        <h2 class="view-title">Sign In</h2>
+        <p class="view-description">
+          Use your Dashboard Dylan account.
+        </p>
+
+        <form id="sign-in-form">
+          <div class="field">
+            <label for="sign-in-email">Email</label>
+            <input
+              id="sign-in-email"
+              type="email"
+              autocomplete="email"
+              required
+            >
+          </div>
+
+          <div class="field">
+            <label for="sign-in-password">Password</label>
+            <input
+              id="sign-in-password"
+              type="password"
+              autocomplete="current-password"
+              required
+            >
+          </div>
+
+          <button class="button primary" type="submit">
+            Sign In
+          </button>
+        </form>
+
+        <div class="divider">or</div>
+
+        <button id="google-sign-in" class="button google" type="button">
+          <span class="google-mark" aria-hidden="true">G</span>
+          Continue with Google
+        </button>
+
+        <div class="links">
+          <button id="show-forgot" class="link-button" type="button">
+            Forgot password?
+          </button>
+
+          <button id="show-sign-up" class="link-button" type="button">
+            Create account
+          </button>
+        </div>
+      </div>
+
+      <div id="sign-up-view" class="view" hidden>
+        <h2 class="view-title">Create Account</h2>
+        <p class="view-description">
+          Create a Dashboard Dylan account. If email confirmation is enabled,
+          you may need to confirm your email before signing in.
+        </p>
+
+        <form id="sign-up-form">
+          <div class="field">
+            <label for="sign-up-email">Email</label>
+            <input
+              id="sign-up-email"
+              type="email"
+              autocomplete="email"
+              required
+            >
+          </div>
+
+          <div class="field">
+            <label for="sign-up-password">Password</label>
+            <input
+              id="sign-up-password"
+              type="password"
+              autocomplete="new-password"
+              minlength="6"
+              required
+            >
+          </div>
+
+          <button class="button primary" type="submit">
+            Create Account
+          </button>
+        </form>
+
+        <div class="links">
+          <button class="link-button back-to-sign-in" type="button">
+            Back to sign in
+          </button>
+        </div>
+      </div>
+
+      <div id="forgot-view" class="view" hidden>
+        <h2 class="view-title">Reset Password</h2>
+        <p class="view-description">
+          Enter your account email and Dashboard Dylan will send the reset link.
+        </p>
+
+        <form id="forgot-form">
+          <div class="field">
+            <label for="forgot-email">Email</label>
+            <input
+              id="forgot-email"
+              type="email"
+              autocomplete="email"
+              required
+            >
+          </div>
+
+          <button class="button primary" type="submit">
+            Send Reset Link
+          </button>
+        </form>
+
+        <div class="links">
+          <button class="link-button back-to-sign-in" type="button">
+            Back to sign in
+          </button>
+        </div>
+      </div>
+
+      <div id="recovery-view" class="view" hidden>
+        <h2 class="view-title">Choose New Password</h2>
+        <p class="view-description">
+          Enter the new password for your Dashboard Dylan account.
+        </p>
+
+        <form id="recovery-form">
+          <div class="field">
+            <label for="recovery-password">New Password</label>
+            <input
+              id="recovery-password"
+              type="password"
+              autocomplete="new-password"
+              minlength="6"
+              required
+            >
+          </div>
+
+          <button class="button primary" type="submit">
+            Save New Password
+          </button>
+        </form>
+      </div>
+
+      <p id="auth-status" class="status" role="status"></p>
+    </section>
+
+    <div class="version">Dashboard Dylan · Version 0.5.5</div>
+  </main>
+
+  <script>
+    /*
+      Dashboard Dylan · Version 0.5.5
+      Project Access Enforcement & Shared Auth Alignment · 2026-08-13
+
+      CHANGELOG
+      Title: Project Access Enforcement & Shared Auth Alignment
+
+      Description:
+      Keeps the centralized Dashboard Dylan login flow aligned with the 0.5.5
+      shared-auth update. Signed-in sessions continue to carry across protected
+      projects, same-origin return routing is preserved, and project access is
+      enforced by the shared Dashboard authentication layer after login.
+
+      Bug Fixes:
+      - Preserves the same-origin return target for protected projects.
+      - Keeps existing Supabase sessions active across Dashboard pages.
+      - Aligns the Login page version with the shared 0.5.5 auth release.
+    */
+
+    const config = window.DashboardConfig;
+
+    const supabaseClient = window.supabase.createClient(
+      config.supabaseUrl,
+      config.supabasePublishableKey,
+      {
+        auth: {
+          persistSession: true,
+          autoRefreshToken: true,
+          detectSessionInUrl: true
+        }
+      }
+    );
+
+    const views = {
+      signIn: document.getElementById("sign-in-view"),
+      signUp: document.getElementById("sign-up-view"),
+      forgot: document.getElementById("forgot-view"),
+      recovery: document.getElementById("recovery-view")
+    };
+
+    const statusElement = document.getElementById("auth-status");
+
+    function setStatus(message = "", type = "") {
+      statusElement.textContent = message;
+      statusElement.classList.toggle("error", type === "error");
+      statusElement.classList.toggle("success", type === "success");
+    }
+
+    function setBusy(busy) {
+      document
+        .querySelectorAll("button, input")
+        .forEach(element => {
+          element.disabled = busy;
+        });
+    }
+
+    function showView(name) {
+      Object.entries(views).forEach(([key, view]) => {
+        view.hidden = key !== name;
+      });
+      setStatus("");
+    }
+
+    function safeReturnTo() {
+      const fallback = new URL(config.dashboardIndexUrl, window.location.origin);
+      const value = new URLSearchParams(window.location.search).get("returnTo");
+
+      if (!value) return fallback.href;
+
+      try {
+        const target = new URL(value, window.location.origin);
+        const loginPath = new URL(config.loginUrl, window.location.origin).pathname;
+
+        if (target.origin !== window.location.origin) return fallback.href;
+        if (target.pathname === loginPath) return fallback.href;
+
+        return target.href;
+      } catch {
+        return fallback.href;
+      }
+    }
+
+    function goToReturnTarget() {
+      window.location.replace(safeReturnTo());
+    }
+
+    async function signInWithPassword(event) {
+      event.preventDefault();
+
+      const email = document.getElementById("sign-in-email").value.trim();
+      const password = document.getElementById("sign-in-password").value;
+
+      setBusy(true);
+      setStatus("Signing in…");
+
+      try {
+        const { error } = await supabaseClient.auth.signInWithPassword({
+          email,
+          password
+        });
+
+        if (error) throw error;
+        goToReturnTarget();
+      } catch (error) {
+        console.error("Dashboard login:", error);
+        setStatus(error.message || "You could not be signed in.", "error");
+      } finally {
+        setBusy(false);
+      }
+    }
+
+    async function signInWithGoogle() {
+      setBusy(true);
+      setStatus("Opening Google sign in…");
+
+      try {
+        const redirectUrl = new URL(config.loginUrl, window.location.origin);
+        redirectUrl.searchParams.set("returnTo", safeReturnTo());
+
+        const { error } = await supabaseClient.auth.signInWithOAuth({
+          provider: "google",
+          options: {
+            redirectTo: redirectUrl.href
+          }
+        });
+
+        if (error) throw error;
+      } catch (error) {
+        console.error("Google sign in:", error);
+        setStatus(error.message || "Google sign in could not start.", "error");
+        setBusy(false);
+      }
+    }
+
+    async function createAccount(event) {
+      event.preventDefault();
+
+      const email = document.getElementById("sign-up-email").value.trim();
+      const password = document.getElementById("sign-up-password").value;
+
+      setBusy(true);
+      setStatus("Creating your account…");
+
+      try {
+        const emailRedirectTo = new URL(
+          config.loginUrl,
+          window.location.origin
+        );
+        emailRedirectTo.searchParams.set("returnTo", safeReturnTo());
+
+        const { data, error } = await supabaseClient.auth.signUp({
+          email,
+          password,
+          options: {
+            emailRedirectTo: emailRedirectTo.href
+          }
+        });
+
+        if (error) throw error;
+
+        if (data?.session) {
+          goToReturnTarget();
+          return;
+        }
+
+        showView("signIn");
+        document.getElementById("sign-in-email").value = email;
+        setStatus(
+          "Account created. Check your email if confirmation is required.",
+          "success"
+        );
+      } catch (error) {
+        console.error("Dashboard signup:", error);
+        setStatus(error.message || "Your account could not be created.", "error");
+      } finally {
+        setBusy(false);
+      }
+    }
+
+    async function sendReset(event) {
+      event.preventDefault();
+
+      const email = document.getElementById("forgot-email").value.trim();
+
+      setBusy(true);
+      setStatus("Sending reset email…");
+
+      try {
+        const redirectUrl = new URL(config.loginUrl, window.location.origin);
+        redirectUrl.searchParams.set("returnTo", safeReturnTo());
+
+        const { error } = await supabaseClient.auth.resetPasswordForEmail(
+          email,
+          { redirectTo: redirectUrl.href }
+        );
+
+        if (error) throw error;
+
+        setStatus(
+          "Password reset email sent. Open the link in that email to continue.",
+          "success"
+        );
+      } catch (error) {
+        console.error("Password reset:", error);
+        setStatus(error.message || "The reset email could not be sent.", "error");
+      } finally {
+        setBusy(false);
+      }
+    }
+
+    async function saveNewPassword(event) {
+      event.preventDefault();
+
+      const password =
+        document.getElementById("recovery-password").value;
+
+      setBusy(true);
+      setStatus("Saving your new password…");
+
+      try {
+        const { error } = await supabaseClient.auth.updateUser({ password });
+
+        if (error) throw error;
+
+        setStatus("Password updated.", "success");
+
+        setTimeout(() => {
+          goToReturnTarget();
+        }, 400);
+      } catch (error) {
+        console.error("Password update:", error);
+        setStatus(error.message || "Your password could not be updated.", "error");
+      } finally {
+        setBusy(false);
+      }
+    }
+
+    document
+      .getElementById("sign-in-form")
+      .addEventListener("submit", signInWithPassword);
+
+    document
+      .getElementById("google-sign-in")
+      .addEventListener("click", signInWithGoogle);
+
+    document
+      .getElementById("sign-up-form")
+      .addEventListener("submit", createAccount);
+
+    document
+      .getElementById("forgot-form")
+      .addEventListener("submit", sendReset);
+
+    document
+      .getElementById("recovery-form")
+      .addEventListener("submit", saveNewPassword);
+
+    document
+      .getElementById("show-sign-up")
+      .addEventListener("click", () => showView("signUp"));
+
+    document
+      .getElementById("show-forgot")
+      .addEventListener("click", () => showView("forgot"));
+
+    document
+      .querySelectorAll(".back-to-sign-in")
+      .forEach(button => {
+        button.addEventListener("click", () => showView("signIn"));
+      });
+
+    supabaseClient.auth.onAuthStateChange((event, session) => {
+      if (event === "PASSWORD_RECOVERY") {
+        showView("recovery");
+        return;
+      }
+
+      if (
+        (event === "SIGNED_IN" || event === "INITIAL_SESSION") &&
+        session?.user &&
+        !window.location.hash.includes("type=recovery")
+      ) {
+        goToReturnTarget();
+      }
+    });
+
+    (async function initializeLogin() {
+      try {
+        const { data } = await supabaseClient.auth.getSession();
+
+        if (data?.session?.user) {
+          goToReturnTarget();
+          return;
+        }
+
+        document.getElementById("sign-in-email").focus();
+      } catch (error) {
+        console.error("Login initialization:", error);
+        setStatus(
+          "Dashboard Dylan could not check your current session.",
+          "error"
+        );
+      }
+    })();
+  </script>
+</body>
+</html>
