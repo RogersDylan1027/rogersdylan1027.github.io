@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard Dylan · Streaming · Version 0.6.0</title>
+  <title>Dashboard Dylan · Streaming · Version 0.6.1</title>
   <meta name="description" content="Dashboard Dylan unified streaming hub.">
   <meta name="theme-color" content="#101218">
 
@@ -65,6 +65,10 @@
     .provider-pills{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
     .pill{padding:6px 9px;border-radius:999px;background:#252a36;color:#dce2ee;font-size:11px;font-weight:800}
     .detail-close{position:fixed;top:28px;right:28px;z-index:55;width:40px;height:40px;border:0;border-radius:50%;background:#fff;color:#111;font-size:23px;cursor:pointer}
+    .player-wrap{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:14px;overflow:hidden;margin-top:16px}
+    .player-wrap[hidden]{display:none}
+    .player-frame{width:100%;height:100%;border:0;background:#000}
+    .player-status{margin:9px 0 0;color:var(--muted);font-size:12px;line-height:1.45}
     .menu{position:fixed;z-index:70;min-width:210px;padding:7px;border:1px solid var(--border);border-radius:12px;background:#20242e;box-shadow:0 14px 40px rgba(0,0,0,.35)}
     .menu[hidden]{display:none}
     .menu button{display:block;width:100%;padding:9px 10px;border:0;border-radius:8px;background:transparent;color:white;text-align:left;cursor:pointer;font-size:13px}
@@ -119,6 +123,10 @@
         </div>
       </div>
       <div class="detail-body">
+        <div id="player-wrap" class="player-wrap" hidden>
+          <iframe id="player-frame" class="player-frame" title="Dashboard streaming player" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <p id="player-status" class="player-status"></p>
         <p id="detail-note"></p>
       </div>
     </article>
@@ -132,6 +140,10 @@
     let currentProviders = [];
     let prefs = null;
     let currentDetail = null;
+    let activePlayback = null;
+    let lastProgressWriteAt = 0;
+    let pendingProgress = null;
+    const PLAYER_ORIGIN = "https://vidsrcme.ru";
 
     function mediaTitle(item){return item.title || item.name || "Untitled"}
     function mediaYear(item){
@@ -410,19 +422,84 @@
     }
 
     async function startOrChoose(item, mediaType) {
-      // Phase 1 records the title as Opened. Provider-specific deep-link
-      // resolution is Phase 3, so Details is the safe current destination.
-      await DashboardStreaming.recordOpen({
-        tmdbId:item.id,
-        mediaType,
-        providerId:null,
-        playbackMethod:"deep_link"
-      });
-      showDetails(item, mediaType);
+      await showDetails(item, mediaType);
+      if (prefs?.prefer_dashboard_playback) {
+        await startDashboardPlayback(item, mediaType);
+        return;
+      }
+      await DashboardStreaming.recordOpen({ tmdbId:item.id, mediaType, providerId:null, playbackMethod:"deep_link" });
+      document.getElementById("detail-note").textContent = "Dashboard playback preference is off. External provider routing will be used when provider deep links are connected.";
     }
+
+    function formatTime(seconds) {
+      const total = Math.max(0, Math.floor(Number(seconds) || 0));
+      const h = Math.floor(total / 3600), m = Math.floor((total % 3600) / 60), sec = total % 60;
+      return h ? `${h}:${String(m).padStart(2,"0")}:${String(sec).padStart(2,"0")}` : `${m}:${String(sec).padStart(2,"0")}`;
+    }
+
+    function buildPlayerUrl({tmdbId,mediaType,seasonNumber=null,episodeNumber=null,startAt=null}) {
+      let url = mediaType === "tv" ? `${PLAYER_ORIGIN}/embed/tv/${Number(tmdbId)}` : `${PLAYER_ORIGIN}/embed/movie/${Number(tmdbId)}`;
+      if (mediaType === "tv" && seasonNumber !== null && episodeNumber !== null) url += `/${Number(seasonNumber)}/${Number(episodeNumber)}`;
+      const params = new URLSearchParams();
+      if (mediaType === "tv") params.set("autonext","1");
+      params.set("ds_lang","en");
+      if (Number(startAt) > 5) params.set("startAt",String(Math.floor(Number(startAt))));
+      return `${url}?${params.toString()}`;
+    }
+
+    async function startDashboardPlayback(item, mediaType) {
+      let resume = null, season = null, episode = null;
+      try {
+        if (mediaType === "movie") resume = await DashboardStreaming.loadMovieResumeProgress(item.id);
+        else {
+          resume = await DashboardStreaming.loadLatestTvProgress(item.id);
+          if (resume) { season = resume.season_number; episode = resume.episode_number; }
+        }
+      } catch (error) { console.warn("Resume lookup:",error); }
+      await DashboardStreaming.recordOpen({tmdbId:item.id,mediaType,seasonNumber:season,episodeNumber:episode,playbackMethod:"dashboard"});
+      activePlayback={tmdbId:Number(item.id),mediaType,seasonNumber:season,episodeNumber:episode};
+      pendingProgress=null;
+      document.getElementById("player-frame").src=buildPlayerUrl({tmdbId:item.id,mediaType,seasonNumber:season,episodeNumber:episode,startAt:resume?.progress_seconds});
+      document.getElementById("player-wrap").hidden=false;
+      document.getElementById("player-status").textContent=Number(resume?.progress_seconds)>5?`Resuming at ${formatTime(resume.progress_seconds)}.`:"Dashboard playback opened.";
+    }
+
+    async function flushProgress(force=false,completed=false) {
+      if (!activePlayback || !pendingProgress) return;
+      const now=Date.now(); if (!force && now-lastProgressWriteAt<25000) return; lastProgressWriteAt=now;
+      try {
+        if (activePlayback.mediaType === "tv") {
+          if (pendingProgress.seasonNumber === null || pendingProgress.episodeNumber === null) return;
+          await DashboardStreaming.saveEpisodeProgress({tmdbShowId:activePlayback.tmdbId,seasonNumber:pendingProgress.seasonNumber,episodeNumber:pendingProgress.episodeNumber,progressSeconds:pendingProgress.progressSeconds,durationSeconds:pendingProgress.durationSeconds,status:completed?"watched":"watching"});
+        } else {
+          await DashboardStreaming.saveMovieProgress({tmdbId:activePlayback.tmdbId,progressSeconds:pendingProgress.progressSeconds,durationSeconds:pendingProgress.durationSeconds,status:completed?"watched":"watching"});
+        }
+      } catch(error){ console.error("Playback progress save:",error); }
+    }
+
+    window.addEventListener("message", async event => {
+      if (event.origin !== PLAYER_ORIGIN) return;
+      if (event.source !== document.getElementById("player-frame")?.contentWindow) return;
+      if (event.data?.type !== "PLAYER_EVENT" || !activePlayback) return;
+      const data=event.data?.data||{}, info=data.player_info||{}, status=String(data.player_status||"");
+      const progress=Number(data.player_progress)||0, duration=Number(data.player_duration)||0;
+      const reportedTmdb=Number(info.tmdb); if (reportedTmdb>0 && reportedTmdb!==activePlayback.tmdbId) return;
+      const season=info.season==null?activePlayback.seasonNumber:Number(info.season);
+      const episode=info.episode==null?activePlayback.episodeNumber:Number(info.episode);
+      activePlayback.seasonNumber=Number.isFinite(season)?season:null; activePlayback.episodeNumber=Number.isFinite(episode)?episode:null;
+      pendingProgress={seasonNumber:activePlayback.seasonNumber,episodeNumber:activePlayback.episodeNumber,progressSeconds:progress,durationSeconds:duration};
+      document.getElementById("player-status").textContent=activePlayback.mediaType==="tv"&&activePlayback.seasonNumber!==null?`S${activePlayback.seasonNumber} E${activePlayback.episodeNumber} · ${formatTime(progress)} / ${formatTime(duration)}`:`${formatTime(progress)} / ${formatTime(duration)}`;
+      if(status==="playing") await flushProgress(false,false);
+      else if(status==="paused"||status==="seeked") await flushProgress(true,false);
+      else if(status==="completed") await flushProgress(true,true);
+    });
 
     async function showDetails(item, mediaType, requestedMode = "") {
       currentDetail = {item, mediaType};
+      document.getElementById("player-wrap").hidden = true;
+      document.getElementById("player-frame").src = "about:blank";
+      document.getElementById("player-status").textContent = "";
+      activePlayback = null; pendingProgress = null;
       document.getElementById("detail-title").textContent = mediaTitle(item);
       document.getElementById("detail-overview").textContent =
         item.overview || "More title information will appear here as the detail API layer is expanded.";
@@ -534,6 +611,7 @@
         });
       }
 
+      document.getElementById("detail-watch").textContent = prefs?.prefer_dashboard_playback ? "Watch in Dashboard" : "Watch";
       document.getElementById("detail-note").textContent =
         requestedMode === "provider"
           ? "Choose-provider controls will use this title’s exact enabled-provider availability when provider deep-link routing is connected."
@@ -547,9 +625,13 @@
       document.body.style.overflow = "hidden";
     }
 
-    function closeDetails(){
-      document.getElementById("detail-overlay").hidden = true;
-      document.body.style.overflow = "";
+    async function closeDetails(){
+      await flushProgress(true,false);
+      document.getElementById("player-frame").src="about:blank";
+      document.getElementById("player-wrap").hidden=true;
+      document.getElementById("detail-overlay").hidden=true;
+      document.body.style.overflow="";
+      activePlayback=null; pendingProgress=null;
     }
 
     document.getElementById("detail-close").addEventListener("click", closeDetails);
@@ -563,13 +645,9 @@
 
     document.getElementById("detail-watch").addEventListener("click", async () => {
       if (!currentDetail) return;
-      await DashboardStreaming.recordOpen({
-        tmdbId:currentDetail.item.id,
-        mediaType:currentDetail.mediaType,
-        playbackMethod:"deep_link"
-      });
-      document.getElementById("detail-note").textContent =
-        "Opened has been recorded. Provider-specific deep-link playback is the next playback phase.";
+      if (prefs?.prefer_dashboard_playback) { await startDashboardPlayback(currentDetail.item,currentDetail.mediaType); return; }
+      await DashboardStreaming.recordOpen({tmdbId:currentDetail.item.id,mediaType:currentDetail.mediaType,playbackMethod:"deep_link"});
+      document.getElementById("detail-note").textContent="Opened has been recorded. Dashboard playback preference is off, so external provider routing will be used once provider deep links are connected.";
     });
 
     document.getElementById("detail-watchlist").addEventListener("click", async () => {
