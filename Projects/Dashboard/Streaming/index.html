@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Dylan · Streaming · Version 0.6.0</title>
+  <meta name="description" content="Dashboard Dylan unified streaming hub.">
+  <meta name="theme-color" content="#101218">
+
+  <script src="../dashboard-config.js"></script>
+  <script
+    src="../dashboard-auth.js"
+    data-dashboard-project="streaming">
+  </script>
+  <script src="../dashboard-streaming.js"></script>
+
+  <style>
+    *{box-sizing:border-box}
+    :root{
+      --bg:#101218;--panel:#181b23;--panel2:#20242e;--text:#f7f8fa;
+      --muted:#a8afbd;--border:#2c3240;--accent:rgb(40,72,126);
+      --radius:16px;--poster:170px
+    }
+    html,body{min-height:100%}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    button,input{font:inherit}
+    .topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 22px;background:rgba(16,18,24,.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+    .brand{display:flex;align-items:center;gap:12px}
+    .back{color:white;text-decoration:none;font-size:13px;font-weight:800}
+    h1{margin:0;font-size:22px;letter-spacing:-.025em}
+    .top-actions{display:flex;align-items:center;gap:8px}
+    .search{width:min(42vw,360px);min-height:38px;padding:8px 12px;border:1px solid var(--border);border-radius:10px;background:var(--panel);color:white}
+    .settings-link{display:inline-flex;min-height:38px;align-items:center;padding:8px 11px;border-radius:10px;background:var(--panel2);color:white;text-decoration:none;font-size:13px;font-weight:800}
+    main{padding:22px 0 50px}
+    .hero{padding:0 22px 8px}
+    .hero h2{margin:0 0 6px;font-size:30px;letter-spacing:-.04em}
+    .hero p{margin:0;color:var(--muted);line-height:1.5;font-size:14px}
+    .row-section{margin-top:28px}
+    .row-head{display:flex;align-items:end;justify-content:space-between;gap:12px;padding:0 22px 10px}
+    .row-head h2{margin:0;font-size:18px}
+    .row-head small{color:var(--muted)}
+    .carousel{display:grid;grid-auto-flow:column;grid-auto-columns:var(--poster);gap:14px;overflow-x:auto;padding:0 22px 10px;scroll-snap-type:x proximity}
+    .card{position:relative;scroll-snap-align:start;min-width:0}
+    .poster-button{display:block;width:100%;padding:0;border:0;border-radius:13px;background:var(--panel);overflow:hidden;cursor:pointer;text-align:left;color:inherit}
+    .poster{aspect-ratio:2/3;width:100%;display:block;object-fit:cover;background:var(--panel2)}
+    .poster-placeholder{aspect-ratio:2/3;display:grid;place-items:center;background:var(--panel2);color:var(--muted);font-size:13px;text-align:center;padding:12px}
+    .meta{padding-top:8px}
+    .title{display:block;font-size:13px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .sub{display:block;margin-top:3px;color:var(--muted);font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .more{position:absolute;top:7px;right:7px;width:32px;height:32px;border:0;border-radius:50%;background:rgba(10,12,16,.82);color:white;cursor:pointer;font-size:18px;font-weight:900}
+    .empty{padding:22px;border:1px dashed var(--border);border-radius:14px;background:var(--panel);color:var(--muted);line-height:1.5}
+    .status{padding:18px 22px;color:var(--muted);font-size:13px}
+    .status.error{color:#ffaca7}
+    .overlay{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:18px;background:rgba(0,0,0,.72)}
+    .overlay[hidden]{display:none}
+    .detail{width:min(100%,920px);max-height:90vh;overflow:auto;border:1px solid var(--border);border-radius:22px;background:var(--panel);box-shadow:0 28px 80px rgba(0,0,0,.45)}
+    .detail-backdrop{min-height:260px;padding:22px;display:flex;align-items:flex-end;background:linear-gradient(to top,rgba(24,27,35,1),rgba(24,27,35,.35)),var(--panel2);background-size:cover;background-position:center}
+    .detail-inner{width:min(100%,700px)}
+    .detail h2{margin:0;font-size:31px;letter-spacing:-.04em}
+    .detail p{color:#d1d5dd;line-height:1.55}
+    .actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+    .action{min-height:40px;padding:9px 13px;border:1px solid #485269;border-radius:10px;background:#252a36;color:white;cursor:pointer;font-weight:800}
+    .action.primary{border-color:var(--accent);background:var(--accent)}
+    .detail-body{padding:0 22px 22px}
+    .provider-pills{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+    .pill{padding:6px 9px;border-radius:999px;background:#252a36;color:#dce2ee;font-size:11px;font-weight:800}
+    .detail-close{position:fixed;top:28px;right:28px;z-index:55;width:40px;height:40px;border:0;border-radius:50%;background:#fff;color:#111;font-size:23px;cursor:pointer}
+    .menu{position:fixed;z-index:70;min-width:210px;padding:7px;border:1px solid var(--border);border-radius:12px;background:#20242e;box-shadow:0 14px 40px rgba(0,0,0,.35)}
+    .menu[hidden]{display:none}
+    .menu button{display:block;width:100%;padding:9px 10px;border:0;border-radius:8px;background:transparent;color:white;text-align:left;cursor:pointer;font-size:13px}
+    .menu button:hover{background:#2c3240}
+    @media(max-width:600px){:root{--poster:132px}.topbar{padding:12px}.hero,.row-head,.carousel,.status{padding-left:14px;padding-right:14px}.top-actions{flex:1;justify-content:flex-end}.search{width:min(46vw,230px)}.hero h2{font-size:25px}.detail{max-height:94vh}.detail-close{top:21px;right:21px}}
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <a class="back" href="../">← Dashboard</a>
+      <h1>Streaming</h1>
+    </div>
+    <div class="top-actions">
+      <input id="search" class="search" type="search" placeholder="Search movies & shows" aria-label="Search streaming">
+      <a class="settings-link" href="../#settings">Settings</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h2>Everything you can watch, together.</h2>
+      <p>Combined across your enabled streaming services. Deep-linked titles are recorded as opened, not watched.</p>
+    </section>
+
+    <div id="status" class="status">Loading Streaming…</div>
+    <div id="rows"></div>
+
+    <p
+      style="padding:24px 22px 0;color:#78808f;font-size:11px;line-height:1.5"
+    >
+      Movie and TV metadata and provider availability are powered by TMDB.
+      Watch-provider availability is supplied through TMDB's provider data.
+    </p>
+  </main>
+
+  <div id="detail-overlay" class="overlay" hidden>
+    <button id="detail-close" class="detail-close" aria-label="Close details">×</button>
+    <article class="detail">
+      <div id="detail-backdrop" class="detail-backdrop">
+        <div class="detail-inner">
+          <h2 id="detail-title"></h2>
+          <p id="detail-overview"></p>
+          <div id="detail-providers" class="provider-pills"></div>
+          <div class="actions">
+            <button id="detail-watch" class="action primary">Watch</button>
+            <button id="detail-watchlist" class="action">+ Watchlist</button>
+            <button id="detail-like" class="action">Like</button>
+            <button id="detail-dislike" class="action">Dislike</button>
+            <button id="detail-full" class="action">Open Full Page</button>
+          </div>
+        </div>
+      </div>
+      <div class="detail-body">
+        <p id="detail-note"></p>
+      </div>
+    </article>
+  </div>
+
+  <div id="card-menu" class="menu" hidden></div>
+
+  <script>
+    const IMAGE = "https://image.tmdb.org/t/p/w500";
+    const BACKDROP = "https://image.tmdb.org/t/p/original";
+    let currentProviders = [];
+    let prefs = null;
+    let currentDetail = null;
+
+    function mediaTitle(item){return item.title || item.name || "Untitled"}
+    function mediaYear(item){
+      const value = item.release_date || item.first_air_date || "";
+      return value ? value.slice(0,4) : "";
+    }
+
+    function card(item, mediaType, label="") {
+      const wrap = document.createElement("article");
+      wrap.className = "card";
+
+      const open = document.createElement("button");
+      open.className = "poster-button";
+      open.type = "button";
+      open.addEventListener("click", () => startOrChoose(item, mediaType));
+
+      if (item.poster_path) {
+        const img = document.createElement("img");
+        img.className = "poster";
+        img.alt = mediaTitle(item);
+        img.loading = "lazy";
+        img.src = IMAGE + item.poster_path;
+        open.appendChild(img);
+      } else {
+        const ph = document.createElement("div");
+        ph.className = "poster-placeholder";
+        ph.textContent = mediaTitle(item);
+        open.appendChild(ph);
+      }
+
+      const meta = document.createElement("div");
+      meta.className = "meta";
+      const title = document.createElement("span");
+      title.className = "title";
+      title.textContent = mediaTitle(item);
+      const sub = document.createElement("span");
+      sub.className = "sub";
+      sub.textContent = label || mediaYear(item) || (mediaType === "tv" ? "TV Show" : "Movie");
+      meta.append(title, sub);
+      open.appendChild(meta);
+
+      const more = document.createElement("button");
+      more.className = "more";
+      more.type = "button";
+      more.textContent = "•••";
+      more.setAttribute("aria-label", "Options for " + mediaTitle(item));
+      more.addEventListener("click", event => {
+        event.stopPropagation();
+        showMenu(event.currentTarget, item, mediaType);
+      });
+
+      wrap.append(open, more);
+      return wrap;
+    }
+
+    function addRow(title, items, mediaType, labelFn) {
+      if (!items?.length) return;
+      const section = document.createElement("section");
+      section.className = "row-section";
+      const head = document.createElement("div");
+      head.className = "row-head";
+      head.innerHTML = `<h2>${title}</h2><small>${items.length} shown</small>`;
+      const strip = document.createElement("div");
+      strip.className = "carousel";
+      items.forEach(item => strip.appendChild(card(item, mediaType, labelFn ? labelFn(item) : "")));
+      section.append(head, strip);
+      document.getElementById("rows").appendChild(section);
+    }
+
+    function addMixedRow(title, items, labelFn) {
+      if (!items?.length) return;
+
+      const section = document.createElement("section");
+      section.className = "row-section";
+
+      const head = document.createElement("div");
+      head.className = "row-head";
+      head.innerHTML =
+        `<h2>${title}</h2><small>${items.length} shown</small>`;
+
+      const strip = document.createElement("div");
+      strip.className = "carousel";
+
+      items.forEach(item => {
+        strip.appendChild(
+          card(
+            item,
+            item._mediaType || "movie",
+            labelFn ? labelFn(item) : ""
+          )
+        );
+      });
+
+      section.append(head, strip);
+      document.getElementById("rows").appendChild(section);
+    }
+
+    async function init() {
+      const status = document.getElementById("status");
+      try {
+        if (!window.DashboardAuth?.client || !window.DashboardAuth?.user) {
+          return;
+        }
+
+        [currentProviders, prefs] = await Promise.all([
+          DashboardStreaming.loadUserProviders(),
+          DashboardStreaming.loadPreferences()
+        ]);
+
+        document.getElementById("rows").innerHTML = "";
+
+        const continueStates = await DashboardStreaming.loadContinueWatching();
+        if (continueStates.length) {
+          const enriched = (
+            await Promise.all(
+              continueStates.slice(0,20).map(async state => {
+                try {
+                  const details =
+                    await DashboardStreaming.getTitleDetails(
+                      state.tmdb_id,
+                      state.media_type
+                    );
+
+                  return {
+                    ...details,
+                    _state: state,
+                    _mediaType: state.media_type
+                  };
+                } catch (error) {
+                  console.warn(
+                    "Continue Watching title details:",
+                    error
+                  );
+
+                  return {
+                    id: state.tmdb_id,
+                    title:
+                      state.media_type === "movie"
+                        ? `Movie #${state.tmdb_id}`
+                        : undefined,
+                    name:
+                      state.media_type === "tv"
+                        ? `Show #${state.tmdb_id}`
+                        : undefined,
+                    _state: state,
+                    _mediaType: state.media_type
+                  };
+                }
+              })
+            )
+          ).filter(Boolean);
+
+          addMixedRow(
+            "Continue Watching",
+            enriched,
+            item =>
+              item._state?.last_opened_at
+                ? "Opened " +
+                  new Date(
+                    item._state.last_opened_at
+                  ).toLocaleDateString()
+                : "Opened"
+          );
+        }
+
+        const [movies, tv] = await Promise.all([
+          DashboardStreaming.discoverCombined({mediaType:"movie"}),
+          DashboardStreaming.discoverCombined({mediaType:"tv"})
+        ]);
+
+        addRow("Popular Movies Across Your Services", movies.results || [], "movie");
+        addRow("Popular TV Across Your Services", tv.results || [], "tv");
+
+        if (!currentProviders.length) {
+          status.textContent = "Add at least one streaming service in Dashboard Settings to build your combined library.";
+        } else {
+          status.textContent = "";
+        }
+      } catch (error) {
+        console.error(error);
+        status.textContent = error.message || "Streaming could not load.";
+        status.classList.add("error");
+      }
+    }
+
+    function showMenu(anchor, item, mediaType) {
+      const menu = document.getElementById("card-menu");
+      menu.innerHTML = "";
+      const actions = [
+        ["Details", () => showDetails(item, mediaType)],
+        ["Like", () => DashboardStreaming.setTitleReaction(item.id, mediaType, "like")],
+        ["Dislike", () => DashboardStreaming.setTitleReaction(item.id, mediaType, "dislike")],
+        ["Add to Watchlist", () => DashboardStreaming.setWatchlist(item.id, mediaType, true)],
+        ["Mark as Watched", () => markWatched(item.id, mediaType)],
+        ["Mark as Unwatched", () => markUnwatched(item.id, mediaType)],
+        ["Change Provider", () => showDetails(item, mediaType, "provider")],
+        ["Restart", () => restartTitle(item, mediaType)],
+        ["Remove from Continue Watching", () => DashboardStreaming.removeFromContinueWatching(item.id, mediaType)],
+        ["Not Interested", () => DashboardStreaming.setTitleReaction(item.id, mediaType, "not_interested")]
+      ];
+
+      actions.forEach(([label, fn]) => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.textContent = label;
+        b.addEventListener("click", async () => {
+          menu.hidden = true;
+          try { await fn(); } catch (e) { console.error(e); }
+        });
+        menu.appendChild(b);
+      });
+
+      const r = anchor.getBoundingClientRect();
+      menu.style.top = Math.min(window.innerHeight - 300, r.bottom + 6) + "px";
+      menu.style.left = Math.max(8, Math.min(window.innerWidth - 220, r.right - 210)) + "px";
+      menu.hidden = false;
+    }
+
+    async function markWatched(tmdbId, mediaType) {
+      const client = DashboardAuth.client || DashboardEntryAuth?.client;
+      const user = DashboardAuth.user || DashboardEntryAuth?.user;
+      if (!client || !user) return;
+      const {error} = await client.from("user_title_state").upsert({
+        user_id:user.id, tmdb_id:tmdbId, media_type:mediaType,
+        viewing_status:"watched", in_continue_watching:false,
+        watched_at:new Date().toISOString()
+      }, {onConflict:"user_id,tmdb_id,media_type"});
+      if(error) throw error;
+    }
+
+    async function markUnwatched(tmdbId, mediaType) {
+      const client =
+        DashboardAuth.client ||
+        window.DashboardEntryAuth?.client;
+
+      const user =
+        DashboardAuth.user ||
+        window.DashboardEntryAuth?.user;
+
+      if (!client || !user) return;
+
+      const { error } =
+        await client
+          .from("user_title_state")
+          .upsert(
+            {
+              user_id: user.id,
+              tmdb_id: tmdbId,
+              media_type: mediaType,
+              viewing_status: "not_started",
+              in_continue_watching: false,
+              watched_at: null
+            },
+            {
+              onConflict:
+                "user_id,tmdb_id,media_type"
+            }
+          );
+
+      if (error) throw error;
+    }
+
+    async function restartTitle(item, mediaType) {
+      await markUnwatched(item.id, mediaType);
+
+      await DashboardStreaming.recordOpen({
+        tmdbId: item.id,
+        mediaType,
+        providerId: null,
+        playbackMethod: "deep_link"
+      });
+
+      showDetails(item, mediaType);
+      document.getElementById("detail-note").textContent =
+        "Restarted in Dashboard history. Playback will launch from the beginning when the selected provider supports a start-from-beginning link or Dashboard playback.";
+    }
+
+    async function startOrChoose(item, mediaType) {
+      // Phase 1 records the title as Opened. Provider-specific deep-link
+      // resolution is Phase 3, so Details is the safe current destination.
+      await DashboardStreaming.recordOpen({
+        tmdbId:item.id,
+        mediaType,
+        providerId:null,
+        playbackMethod:"deep_link"
+      });
+      showDetails(item, mediaType);
+    }
+
+    async function showDetails(item, mediaType, requestedMode = "") {
+      currentDetail = {item, mediaType};
+      document.getElementById("detail-title").textContent = mediaTitle(item);
+      document.getElementById("detail-overview").textContent =
+        item.overview || "More title information will appear here as the detail API layer is expanded.";
+
+      const bg = document.getElementById("detail-backdrop");
+      bg.style.backgroundImage = item.backdrop_path
+        ? `linear-gradient(to top,rgba(24,27,35,1),rgba(24,27,35,.35)),url("${BACKDROP + item.backdrop_path}")`
+        : "";
+
+      const providers =
+        document.getElementById(
+          "detail-providers"
+        );
+
+      providers.innerHTML = "";
+
+      try {
+        const availability =
+          await DashboardStreaming.getWatchProviders(
+            item.id,
+            mediaType
+          );
+
+        const region =
+          prefs?.region || "US";
+
+        const available =
+          availability?.results?.[region];
+
+        const providerNames =
+          new Set(
+            [
+              ...(available?.flatrate || []),
+              ...(available?.free || []),
+              ...(available?.ads || [])
+            ].map(provider =>
+              String(
+                provider.provider_name || ""
+              )
+            )
+          );
+
+        const enabledNames =
+          currentProviders
+            .map(row =>
+              row.streaming_providers?.name
+            )
+            .filter(Boolean);
+
+        const visibleNames =
+          enabledNames.filter(name => {
+            const normalized =
+              name
+                .toLowerCase()
+                .replace(/\+/g, " plus ");
+
+            return Array
+              .from(providerNames)
+              .some(providerName => {
+                const candidate =
+                  providerName
+                    .toLowerCase()
+                    .replace(/\+/g, " plus ");
+
+                return (
+                  candidate === normalized ||
+                  candidate.startsWith(
+                    normalized + " "
+                  ) ||
+                  (
+                    normalized === "max" &&
+                    candidate.includes("max")
+                  ) ||
+                  (
+                    normalized === "prime video" &&
+                    candidate.includes("prime video")
+                  )
+                );
+              });
+          });
+
+        (visibleNames.length
+          ? visibleNames
+          : enabledNames
+        ).forEach(name => {
+          const pill =
+            document.createElement("span");
+
+          pill.className = "pill";
+          pill.textContent = name;
+          providers.appendChild(pill);
+        });
+      } catch (error) {
+        console.warn(
+          "Title provider availability:",
+          error
+        );
+
+        currentProviders.forEach(row => {
+          const pill =
+            document.createElement("span");
+
+          pill.className = "pill";
+          pill.textContent =
+            row.streaming_providers?.name ||
+            "Provider";
+
+          providers.appendChild(pill);
+        });
+      }
+
+      document.getElementById("detail-note").textContent =
+        requestedMode === "provider"
+          ? "Choose-provider controls will use this title’s exact enabled-provider availability when provider deep-link routing is connected."
+          : (
+            prefs?.provider_selection_mode === "ask"
+              ? "Ask Every Time is enabled. Watch will show only your enabled services that currently carry this title once provider deep-link routing is connected."
+              : "Provider Priority is enabled. Dashboard Dylan will use the highest available service in your saved hierarchy once provider deep-link routing is connected."
+          );
+
+      document.getElementById("detail-overlay").hidden = false;
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeDetails(){
+      document.getElementById("detail-overlay").hidden = true;
+      document.body.style.overflow = "";
+    }
+
+    document.getElementById("detail-close").addEventListener("click", closeDetails);
+    document.getElementById("detail-overlay").addEventListener("click", e => {
+      if (e.target === e.currentTarget) closeDetails();
+    });
+    document.getElementById("card-menu").addEventListener("click", e => e.stopPropagation());
+    document.addEventListener("click", e => {
+      if (!e.target.closest(".more")) document.getElementById("card-menu").hidden = true;
+    });
+
+    document.getElementById("detail-watch").addEventListener("click", async () => {
+      if (!currentDetail) return;
+      await DashboardStreaming.recordOpen({
+        tmdbId:currentDetail.item.id,
+        mediaType:currentDetail.mediaType,
+        playbackMethod:"deep_link"
+      });
+      document.getElementById("detail-note").textContent =
+        "Opened has been recorded. Provider-specific deep-link playback is the next playback phase.";
+    });
+
+    document.getElementById("detail-watchlist").addEventListener("click", async () => {
+      if(currentDetail) await DashboardStreaming.setWatchlist(currentDetail.item.id,currentDetail.mediaType,true);
+    });
+    document.getElementById("detail-like").addEventListener("click", async () => {
+      if(currentDetail) await DashboardStreaming.setTitleReaction(currentDetail.item.id,currentDetail.mediaType,"like");
+    });
+    document.getElementById("detail-dislike").addEventListener("click", async () => {
+      if(currentDetail) await DashboardStreaming.setTitleReaction(currentDetail.item.id,currentDetail.mediaType,"dislike");
+    });
+    document.getElementById("detail-full").addEventListener("click", () => {
+      document.getElementById("detail-note").textContent =
+        "Full title pages are reserved for the expanded details phase; the large overlay is the default browsing experience.";
+    });
+
+    document.getElementById("search").addEventListener("keydown", async e => {
+      if(e.key !== "Enter") return;
+      const q = e.currentTarget.value.trim();
+      if(!q) return;
+      const status = document.getElementById("status");
+      try {
+        status.textContent = "Searching…";
+        const [movies,tv] = await Promise.all([
+          DashboardStreaming.tmdb("/search/movie",{query:q}),
+          DashboardStreaming.tmdb("/search/tv",{query:q})
+        ]);
+        document.getElementById("rows").innerHTML = "";
+        addRow("Movie Results",movies.results||[],"movie");
+        addRow("TV Results",tv.results||[],"tv");
+        status.textContent = "";
+      } catch(error) {
+        status.textContent = error.message || "Search failed.";
+      }
+    });
+
+    window.addEventListener(
+      "dashboard-auth-ready",
+      init,
+      { once: true }
+    );
+
+    if (
+      window.DashboardAuth?.client &&
+      window.DashboardAuth?.user
+    ) {
+      init();
+    }
+  </script>
+</body>
+</html>
