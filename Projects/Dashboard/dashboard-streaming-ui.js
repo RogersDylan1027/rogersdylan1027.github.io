@@ -1,14 +1,14 @@
 /*
-  Dashboard Dylan · Streaming Settings UI · Version 0.6.2
+  Dashboard Dylan · Streaming Settings UI · Version 0.6.3
   Dashboard Playback & Cross-Device Resume · 2026-08-14
 */
 (function () {
   "use strict";
 
-  const VERSION = "0.6.2";
-  const TITLE = "Streaming Embedded Player Popup Fix";
+  const VERSION = "0.6.3";
+  const TITLE = "Streaming Player Compatibility Fix";
   const DESCRIPTION =
-    "Prevents the Streaming embedded player from opening unwanted tabs or taking over the Dashboard page by sandboxing the iframe and withholding popup and top-navigation permissions, while preserving in-Dashboard playback, fullscreen support, resume tracking, and validated player progress events.";
+    "Restores in-Dashboard streaming playback after the popup-blocking iframe sandbox proved incompatible with the embedded player. The sandbox restriction is removed so the player can load normally, while the no-referrer policy and existing validated player-event protections remain in place.";
 
   let initialized = false;
 
@@ -335,21 +335,21 @@
         view.querySelector(".internal-view-content") ||
         view.querySelector(".changelog-content");
 
-      if (!body || get("streaming-061-changelog-entry")) return;
+      if (!body || get("streaming-063-changelog-entry")) return;
 
       if (body.tagName === "TBODY") {
         const tr = document.createElement("tr");
-        tr.id = "streaming-061-changelog-entry";
+        tr.id = "streaming-063-changelog-entry";
         tr.innerHTML =
-          `<td>${VERSION}</td><td>${TITLE}</td><td>${DESCRIPTION}<br><strong>Bug Fixes:</strong> Blocks unwanted popup/new-tab launches and top-level navigation from the embedded Streaming player while preserving Dashboard playback, fullscreen support, resume tracking, and validated player progress events.</td>`;
+          `<td>${VERSION}</td><td>${TITLE}</td><td>${DESCRIPTION}<br><strong>Bug Fixes:</strong> Removes the incompatible iframe sandbox that prevented the embedded player from loading, restores Dashboard playback, and retains the no-referrer policy plus validated player event handling.</td>`;
         body.prepend(tr);
       } else {
         const card = document.createElement("div");
-        card.id = "streaming-061-changelog-entry";
+        card.id = "streaming-063-changelog-entry";
         card.style.cssText =
           "margin:0 0 12px;padding:14px;border:1px solid #dfe3e8;border-radius:12px;background:#f7f8fa";
         card.innerHTML =
-          `<strong>${VERSION} · ${TITLE}</strong><p style="margin:7px 0 0;line-height:1.5">${DESCRIPTION}</p><p style="margin:7px 0 0;line-height:1.5"><strong>Bug Fixes:</strong> Blocks unwanted popup/new-tab launches and top-level navigation from the embedded Streaming player while preserving Dashboard playback, fullscreen support, resume tracking, and validated player progress events.</p>`;
+          `<strong>${VERSION} · ${TITLE}</strong><p style="margin:7px 0 0;line-height:1.5">${DESCRIPTION}</p><p style="margin:7px 0 0;line-height:1.5"><strong>Bug Fixes:</strong> Removes the incompatible iframe sandbox that prevented the embedded player from loading, restores Dashboard playback, and retains the no-referrer policy plus validated player event handling.</p>`;
         body.prepend(card);
       }
     };
