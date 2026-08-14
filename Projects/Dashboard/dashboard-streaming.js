@@ -1,5 +1,5 @@
 /*
-  Dashboard Dylan · Streaming Client · Phase 1
+  Dashboard Dylan · Streaming Client · Version 0.6.1
 
   Load after dashboard-config.js and after the Dashboard's authenticated
   Supabase client is available.
@@ -349,6 +349,97 @@
     if (error) throw error;
   }
 
+  async function loadEpisodeProgress(tmdbShowId, seasonNumber, episodeNumber) {
+    const client = requireClient();
+    const user = requireUser();
+    const { data, error } = await client
+      .from("episode_progress")
+      .select("*")
+      .eq("user_id", user.id)
+      .eq("tmdb_show_id", Number(tmdbShowId))
+      .eq("season_number", Number(seasonNumber))
+      .eq("episode_number", Number(episodeNumber))
+      .maybeSingle();
+    if (error) throw error;
+    return data || null;
+  }
+
+  async function loadLatestTvProgress(tmdbShowId) {
+    const client = requireClient();
+    const user = requireUser();
+    const { data, error } = await client
+      .from("episode_progress")
+      .select("*")
+      .eq("user_id", user.id)
+      .eq("tmdb_show_id", Number(tmdbShowId))
+      .neq("viewing_status", "watched")
+      .order("last_opened_at", { ascending: false, nullsFirst: false })
+      .limit(1)
+      .maybeSingle();
+    if (error) throw error;
+    return data || null;
+  }
+
+  async function saveMovieProgress({ tmdbId, progressSeconds, durationSeconds, status = "watching" }) {
+    const client = requireClient();
+    const user = requireUser();
+    const watched = status === "watched";
+    const now = new Date().toISOString();
+    const { error } = await client.from("user_title_state").upsert({
+      user_id: user.id, tmdb_id: Number(tmdbId), media_type: "movie",
+      viewing_status: watched ? "watched" : "watching",
+      in_continue_watching: !watched, last_opened_at: now, watched_at: watched ? now : null
+    }, { onConflict: "user_id,tmdb_id,media_type" });
+    if (error) throw error;
+    const { error: eventError } = await client.from("playback_events").insert({
+      user_id: user.id, tmdb_id: Number(tmdbId), media_type: "movie",
+      playback_method: "dashboard", event_type: watched ? "completed" : "paused",
+      progress_seconds: Math.max(0, Math.round(Number(progressSeconds) || 0)),
+      metadata: { duration_seconds: Math.max(0, Math.round(Number(durationSeconds) || 0)), resume_checkpoint: true }
+    });
+    if (eventError) throw eventError;
+  }
+
+  async function loadMovieResumeProgress(tmdbId) {
+    const client = requireClient();
+    const user = requireUser();
+    const { data, error } = await client
+      .from("playback_events")
+      .select("progress_seconds,metadata,occurred_at,event_type")
+      .eq("user_id", user.id).eq("tmdb_id", Number(tmdbId))
+      .eq("media_type", "movie").eq("playback_method", "dashboard")
+      .contains("metadata", { resume_checkpoint: true })
+      .order("occurred_at", { ascending: false }).limit(1).maybeSingle();
+    if (error) throw error;
+    if (!data || data.event_type === "completed") return null;
+    return { progress_seconds: Number(data.progress_seconds) || 0, duration_seconds: Number(data.metadata?.duration_seconds) || 0 };
+  }
+
+  async function saveEpisodeProgress({ tmdbShowId, seasonNumber, episodeNumber, progressSeconds, durationSeconds, status = "watching" }) {
+    const client = requireClient();
+    const user = requireUser();
+    const watched = status === "watched";
+    const now = new Date().toISOString();
+    const { error } = await client.from("episode_progress").upsert({
+      user_id: user.id, tmdb_show_id: Number(tmdbShowId), season_number: Number(seasonNumber), episode_number: Number(episodeNumber),
+      viewing_status: watched ? "watched" : "watching",
+      progress_seconds: watched ? Math.max(0, Math.round(Number(durationSeconds) || 0)) : Math.max(0, Math.round(Number(progressSeconds) || 0)),
+      duration_seconds: Math.max(0, Math.round(Number(durationSeconds) || 0)), last_opened_at: now, watched_at: watched ? now : null
+    }, { onConflict: "user_id,tmdb_show_id,season_number,episode_number" });
+    if (error) throw error;
+    const { error: titleError } = await client.from("user_title_state").upsert({
+      user_id: user.id, tmdb_id: Number(tmdbShowId), media_type: "tv", viewing_status: "watching", in_continue_watching: true, last_opened_at: now
+    }, { onConflict: "user_id,tmdb_id,media_type" });
+    if (titleError) throw titleError;
+    const { error: eventError } = await client.from("playback_events").insert({
+      user_id: user.id, tmdb_id: Number(tmdbShowId), media_type: "tv", season_number: Number(seasonNumber), episode_number: Number(episodeNumber),
+      playback_method: "dashboard", event_type: watched ? "completed" : "paused",
+      progress_seconds: Math.max(0, Math.round(Number(progressSeconds) || 0)),
+      metadata: { duration_seconds: Math.max(0, Math.round(Number(durationSeconds) || 0)), resume_checkpoint: true }
+    });
+    if (eventError) throw eventError;
+  }
+
   function getEdgeFunctionBase() {
     const supabaseUrl = window.DashboardConfig?.supabaseUrl;
     if (!supabaseUrl) throw new Error("DashboardConfig.supabaseUrl is missing.");
@@ -536,6 +627,11 @@
     setTitleReaction,
     setWatchlist,
     removeFromContinueWatching,
+    loadEpisodeProgress,
+    loadLatestTvProgress,
+    saveMovieProgress,
+    loadMovieResumeProgress,
+    saveEpisodeProgress,
     tmdb,
     resolveTmdbProviderIds,
     getTitleDetails,
