@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard Dylan · Streaming · Version 0.6.2</title>
-  <meta name="description" content="Dashboard Dylan unified streaming hub. Prevents the Streaming embedded player from opening unwanted tabs or taking over the Dashboard page by sandboxing the iframe and withholding popup and top-navigation permissions, while preserving in-Dashboard playback, fullscreen support, resume tracking, and validated player progress events.">
+  <title>Dashboard Dylan · Streaming · Version 0.6.3</title>
+  <meta name="description" content="Dashboard Dylan unified streaming hub. Restores in-Dashboard streaming playback after the popup-blocking iframe sandbox proved incompatible with the embedded player. The sandbox restriction is removed so the player can load normally, while the no-referrer policy and existing validated player-event protections remain in place.">
   <meta name="theme-color" content="#101218">
 
   <script src="../dashboard-config.js"></script>
@@ -128,7 +128,6 @@
             id="player-frame"
             class="player-frame"
             title="Dashboard streaming player"
-            sandbox="allow-scripts allow-same-origin allow-forms allow-presentation"
             allow="autoplay; fullscreen; picture-in-picture"
             referrerpolicy="no-referrer"
             allowfullscreen
@@ -154,9 +153,9 @@
     const PLAYER_ORIGIN = "https://vidsrcme.ru";
 
     /*
-      Security: the embedded player is sandboxed without popup or top-navigation
-      permissions. This allows playback while blocking attempts to open new
-      tabs/windows or replace the Dashboard page.
+      Compatibility: this player refuses to run inside a sandboxed iframe.
+      Keep the iframe unsandboxed for playback compatibility while retaining
+      no-referrer and validated postMessage origin/source checks.
     */
 
     function mediaTitle(item){return item.title || item.name || "Untitled"}
