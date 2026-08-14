@@ -1,6 +1,6 @@
 /*
-  Dashboard Dylan · Shared Authentication · Version 0.6.0
-  Unified Streaming Foundation · 2026-08-14
+  Dashboard Dylan · Shared Authentication · Version 0.6.1
+  Dashboard Playback & Cross-Device Resume · 2026-08-14
 
   Use on protected project pages:
     <script src="../dashboard-config.js"></script>
@@ -371,7 +371,7 @@
   hidePage();
 
   window.DashboardAuth = {
-    version: "0.6.0",
+    version: "0.6.1",
     client: null,
     user: null,
     getClient,
