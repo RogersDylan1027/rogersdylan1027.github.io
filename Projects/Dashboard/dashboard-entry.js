@@ -1,11 +1,11 @@
 /*
-  Dashboard Dylan · Dashboard Entry Guard · Version 0.6.0
-  Unified Streaming Foundation · 2026-08-14
+  Dashboard Dylan · Dashboard Entry Guard · Version 0.6.1
+  Dashboard Playback & Cross-Device Resume · 2026-08-14
 
   Load dashboard-config.js first, then this file as early as possible in
   Dashboard/index.html <head>. Logged-out visitors are sent to login.html.
 
-  0.6.0 also loads the authenticated Streaming client and Settings integration
+  0.6.1 also loads the authenticated Streaming client and Settings integration
   after the legacy Dashboard shell has finished rendering.
 */
 (function () {
@@ -130,7 +130,7 @@
 
       // document.write() in the preserved Dashboard shell may happen after
       // this script returns. The timer intentionally survives and waits for
-      // that final shell before attaching 0.6.0 Streaming UI.
+      // that final shell before attaching 0.6.1 Streaming UI.
       setTimeout(startStreamingRuntime, 0);
     } catch (error) {
       console.error("Dashboard entry authentication:", error);
