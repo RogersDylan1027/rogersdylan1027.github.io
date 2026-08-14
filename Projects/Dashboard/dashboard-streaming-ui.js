@@ -1,14 +1,14 @@
 /*
-  Dashboard Dylan · Streaming Settings UI · Version 0.6.0
-  Unified Streaming Foundation · 2026-08-14
+  Dashboard Dylan · Streaming Settings UI · Version 0.6.1
+  Dashboard Playback & Cross-Device Resume · 2026-08-14
 */
 (function () {
   "use strict";
 
-  const VERSION = "0.6.0";
-  const TITLE = "Unified Streaming Foundation";
+  const VERSION = "0.6.1";
+  const TITLE = "Dashboard Playback & Cross-Device Resume";
   const DESCRIPTION =
-    "Adds the foundation for Dashboard Dylan’s unified streaming experience, including user-specific streaming services, Dashboard-first playback preferences, Provider Priority and Ask Every Time routing, TMDB-powered cross-provider discovery, Continue Watching, Watchlist, likes/dislikes, playback history, and support for future provider authentication and profiles. Deep-linked playback is tracked as Opened rather than Watched, allowing the Dashboard to maintain its own viewing state even when a provider does not expose account or watch-history APIs.";
+    "Adds in-Dashboard movie and TV playback with TMDB-based player routing, cross-device resume progress stored in Supabase, player-event tracking, automatic watched/completed state updates, and TV episode-aware progress. Dashboard-first playback now has a working player path while provider deep-link routing remains available for services that must open externally.";
 
   let initialized = false;
 
@@ -335,21 +335,21 @@
         view.querySelector(".internal-view-content") ||
         view.querySelector(".changelog-content");
 
-      if (!body || get("streaming-060-changelog-entry")) return;
+      if (!body || get("streaming-061-changelog-entry")) return;
 
       if (body.tagName === "TBODY") {
         const tr = document.createElement("tr");
-        tr.id = "streaming-060-changelog-entry";
+        tr.id = "streaming-061-changelog-entry";
         tr.innerHTML =
-          `<td>${VERSION}</td><td>${TITLE}</td><td>${DESCRIPTION}<br><strong>Bug Fixes:</strong> Preserves the 0.5.5 shared authentication and project-access architecture while keeping TMDB secrets out of public browser code.</td>`;
+          `<td>${VERSION}</td><td>${TITLE}</td><td>${DESCRIPTION}<br><strong>Bug Fixes:</strong> Preserves the 0.6.0 streaming foundation while keeping deep-link launches classified as Opened and validating in-player progress events before saving them.</td>`;
         body.prepend(tr);
       } else {
         const card = document.createElement("div");
-        card.id = "streaming-060-changelog-entry";
+        card.id = "streaming-061-changelog-entry";
         card.style.cssText =
           "margin:0 0 12px;padding:14px;border:1px solid #dfe3e8;border-radius:12px;background:#f7f8fa";
         card.innerHTML =
-          `<strong>${VERSION} · ${TITLE}</strong><p style="margin:7px 0 0;line-height:1.5">${DESCRIPTION}</p><p style="margin:7px 0 0;line-height:1.5"><strong>Bug Fixes:</strong> Preserves the 0.5.5 shared authentication and project-access architecture while keeping TMDB secrets out of public browser code.</p>`;
+          `<strong>${VERSION} · ${TITLE}</strong><p style="margin:7px 0 0;line-height:1.5">${DESCRIPTION}</p><p style="margin:7px 0 0;line-height:1.5"><strong>Bug Fixes:</strong> Preserves the 0.6.0 streaming foundation while keeping deep-link launches classified as Opened and validating in-player progress events before saving them.</p>`;
         body.prepend(card);
       }
     };
