@@ -1,14 +1,14 @@
 /*
-  Dashboard Dylan · Streaming Settings UI · Version 0.6.1
+  Dashboard Dylan · Streaming Settings UI · Version 0.6.2
   Dashboard Playback & Cross-Device Resume · 2026-08-14
 */
 (function () {
   "use strict";
 
-  const VERSION = "0.6.1";
-  const TITLE = "Dashboard Playback & Cross-Device Resume";
+  const VERSION = "0.6.2";
+  const TITLE = "Streaming Embedded Player Popup Fix";
   const DESCRIPTION =
-    "Adds in-Dashboard movie and TV playback with TMDB-based player routing, cross-device resume progress stored in Supabase, player-event tracking, automatic watched/completed state updates, and TV episode-aware progress. Dashboard-first playback now has a working player path while provider deep-link routing remains available for services that must open externally.";
+    "Prevents the Streaming embedded player from opening unwanted tabs or taking over the Dashboard page by sandboxing the iframe and withholding popup and top-navigation permissions, while preserving in-Dashboard playback, fullscreen support, resume tracking, and validated player progress events.";
 
   let initialized = false;
 
@@ -341,7 +341,7 @@
         const tr = document.createElement("tr");
         tr.id = "streaming-061-changelog-entry";
         tr.innerHTML =
-          `<td>${VERSION}</td><td>${TITLE}</td><td>${DESCRIPTION}<br><strong>Bug Fixes:</strong> Preserves the 0.6.0 streaming foundation while keeping deep-link launches classified as Opened and validating in-player progress events before saving them.</td>`;
+          `<td>${VERSION}</td><td>${TITLE}</td><td>${DESCRIPTION}<br><strong>Bug Fixes:</strong> Blocks unwanted popup/new-tab launches and top-level navigation from the embedded Streaming player while preserving Dashboard playback, fullscreen support, resume tracking, and validated player progress events.</td>`;
         body.prepend(tr);
       } else {
         const card = document.createElement("div");
@@ -349,7 +349,7 @@
         card.style.cssText =
           "margin:0 0 12px;padding:14px;border:1px solid #dfe3e8;border-radius:12px;background:#f7f8fa";
         card.innerHTML =
-          `<strong>${VERSION} · ${TITLE}</strong><p style="margin:7px 0 0;line-height:1.5">${DESCRIPTION}</p><p style="margin:7px 0 0;line-height:1.5"><strong>Bug Fixes:</strong> Preserves the 0.6.0 streaming foundation while keeping deep-link launches classified as Opened and validating in-player progress events before saving them.</p>`;
+          `<strong>${VERSION} · ${TITLE}</strong><p style="margin:7px 0 0;line-height:1.5">${DESCRIPTION}</p><p style="margin:7px 0 0;line-height:1.5"><strong>Bug Fixes:</strong> Blocks unwanted popup/new-tab launches and top-level navigation from the embedded Streaming player while preserving Dashboard playback, fullscreen support, resume tracking, and validated player progress events.</p>`;
         body.prepend(card);
       }
     };
