@@ -48,3 +48,16 @@ Dashboard/Streaming/index.html
 Dashboard/README.txt
 
 No new SQL is required for this revision of 0.6.6.
+
+
+0.6.6 SAME-VERSION BUG FIX
+==========================
+- Fixes "DashboardStreaming.getTvSeasonDetails is not a function".
+- Adds cache-busting version parameters to shared Streaming JavaScript so an
+  older browser/GitHub Pages cached runtime cannot be paired with the newer
+  0.6.6 Streaming HTML.
+- Adds a direct DashboardStreaming.tmdb() fallback for season loading.
+- Prevents a season-picker loading error from making the TV player inaccessible.
+- If season metadata fails, "Open TV Player" uses the series-level player as a
+  fallback so playback can still open.
+- Exposes DashboardStreaming.version = "0.6.6" for easier runtime verification.
