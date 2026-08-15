@@ -8,13 +8,13 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>Dashboard Dylan · Login · Version 0.5.5</title>
+  <title>My Dashboard · Login · Version 0.6.6</title>
 
-  <!-- Version 0.5.5: Project Access Enforcement & Shared Auth Alignment · 2026-08-13 -->
+  <!-- Version 0.5.5: TV Season & Episode Selection + My Dashboard Rebrand · 2026-08-14 -->
 
   <meta
     name="description"
-    content="Sign in to Dashboard Dylan."
+    content="Sign in to My Dashboard."
   >
 
   <meta
@@ -302,8 +302,8 @@
 <body>
   <main class="login-shell">
     <header class="brand">
-      <div class="brand-mark" aria-hidden="true">DR</div>
-      <h1>Dashboard Dylan</h1>
+      <div class="brand-mark" aria-hidden="true">MD</div>
+      <h1>My Dashboard</h1>
       <p>Sign in once to access your Dashboard and connected projects.</p>
     </header>
 
@@ -311,7 +311,7 @@
       <div id="sign-in-view" class="view">
         <h2 class="view-title">Sign In</h2>
         <p class="view-description">
-          Use your Dashboard Dylan account.
+          Use your My Dashboard account.
         </p>
 
         <form id="sign-in-form">
@@ -361,7 +361,7 @@
       <div id="sign-up-view" class="view" hidden>
         <h2 class="view-title">Create Account</h2>
         <p class="view-description">
-          Create a Dashboard Dylan account. If email confirmation is enabled,
+          Create a My Dashboard account. If email confirmation is enabled,
           you may need to confirm your email before signing in.
         </p>
 
@@ -402,7 +402,7 @@
       <div id="forgot-view" class="view" hidden>
         <h2 class="view-title">Reset Password</h2>
         <p class="view-description">
-          Enter your account email and Dashboard Dylan will send the reset link.
+          Enter your account email and My Dashboard will send the reset link.
         </p>
 
         <form id="forgot-form">
@@ -431,7 +431,7 @@
       <div id="recovery-view" class="view" hidden>
         <h2 class="view-title">Choose New Password</h2>
         <p class="view-description">
-          Enter the new password for your Dashboard Dylan account.
+          Enter the new password for your My Dashboard account.
         </p>
 
         <form id="recovery-form">
@@ -455,19 +455,19 @@
       <p id="auth-status" class="status" role="status"></p>
     </section>
 
-    <div class="version">Dashboard Dylan · Version 0.5.5</div>
+    <div class="version">My Dashboard · Version 0.6.6</div>
   </main>
 
   <script>
     /*
-      Dashboard Dylan · Version 0.5.5
-      Project Access Enforcement & Shared Auth Alignment · 2026-08-13
+      My Dashboard · Version 0.6.6
+      TV Season & Episode Selection + My Dashboard Rebrand · 2026-08-14
 
       CHANGELOG
       Title: Project Access Enforcement & Shared Auth Alignment
 
       Description:
-      Keeps the centralized Dashboard Dylan login flow aligned with the 0.5.5
+      Keeps the centralized My Dashboard login flow aligned with the 0.5.5
       shared-auth update. Signed-in sessions continue to carry across protected
       projects, same-origin return routing is preserved, and project access is
       enforced by the shared Dashboard authentication layer after login.
@@ -758,7 +758,7 @@
       } catch (error) {
         console.error("Login initialization:", error);
         setStatus(
-          "Dashboard Dylan could not check your current session.",
+          "My Dashboard could not check your current session.",
           "error"
         );
       }
