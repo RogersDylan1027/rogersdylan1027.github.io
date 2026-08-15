@@ -1,32 +1,50 @@
-Dashboard Dylan · Version 0.6.5
-Dashboard-Controlled Fullscreen Playback · 2026-08-14
+My Dashboard · Version 0.6.6
+TV Season & Episode Selection + My Dashboard Rebrand · 2026-08-14
 
 CHANGELOG
 =========
-Version: 0.6.5
-Title: Dashboard-Controlled Fullscreen Playback
+Version: 0.6.6
+Title: TV Season & Episode Selection + My Dashboard Rebrand
 
 Description:
-Moves fullscreen control out of the third-party Streaming iframe and into Dashboard Dylan. The embedded player no longer receives fullscreen permission, while a Dashboard-owned fullscreen button expands the player container itself. This keeps normal playback and resume tracking intact while avoiding the embedded fullscreen action associated with unwanted tab launches.
+Adds Dashboard-owned season and episode selection for TV playback and renames the product from Dashboard  to My Dashboard. TV details load real TMDB seasons and episodes into dropdowns, default to saved viewing progress when available, and launch the exact selected episode without manual number entry. All user-facing  branding is removed while the existing playback warning, cross-device resume, and Dashboard-controlled fullscreen behavior remain intact.
 
-Bug Fixes:
-- Removes fullscreen permission from the third-party streaming iframe.
-- Removes the iframe allowfullscreen capability so the embed cannot control browser fullscreen.
-- Adds a Dashboard-owned Full Screen button over the player controls.
-- Fullscreens the Dashboard player container rather than the embedded site.
-- Keeps referrerpolicy="no-referrer" on the iframe.
-- Preserves validated player postMessage origin/source checks and cross-device resume tracking.
-- Keeps deep-linked provider launches classified as Opened rather than Watched.
+Branding Changes:
+- Renames the product to My Dashboard.
+- Removes the retired personal-name branding from user-facing pages, settings,
+  warnings, comments, and changelog text.
+- Changes the Login brand mark from DR to MD.
+- Rebrands content loaded from the immutable legacy Dashboard base at runtime.
+- Keeps the existing repository URL/account identifier unchanged because it is
+  a technical hosting identifier required for the legacy source to load.
 
-FILES TO REPLACE
-================
-dashboard-config.js
-dashboard-entry.js
-dashboard-auth.js
-dashboard-streaming.js
-dashboard-streaming-ui.js
-Streaming/index.html
+TV PLAYBACK
+===========
+- TV shows use Season and Episode dropdowns; users never type the numbers.
+- Seasons and episodes come from TMDB.
+- An unfinished saved episode is selected automatically when available.
+- Otherwise Season 1 and its first episode are preferred.
+- The Watch button shows the exact selection, such as Watch S2 E4.
+- Existing cross-device resume and auto-next remain enabled.
 
-No new SQL or Edge Function deployment is required for 0.6.5. Keep the existing 0.6.0 streaming schema and tmdb-proxy Edge Function.
+PRESERVED FEATURES
+==================
+- Dashboard Playback warning and per-user Don't show again preference.
+- Dashboard-controlled fullscreen player.
+- Shared authentication and project-access enforcement.
+- Provider settings, Continue Watching, Watchlist and playback state.
 
-The external embed source should only be used where you are authorized to use its content.
+FILES IN THIS PACKAGE
+=====================
+Dashboard/index.html
+Dashboard/login.html
+Dashboard/dashboard-config.js
+Dashboard/dashboard-auth.js
+Dashboard/dashboard-entry.js
+Dashboard/dashboard-streaming.js
+Dashboard/dashboard-streaming-ui.js
+Dashboard/projects.json
+Dashboard/Streaming/index.html
+Dashboard/README.txt
+
+No new SQL is required for this revision of 0.6.6.
