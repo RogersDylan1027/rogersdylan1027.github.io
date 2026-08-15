@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard Dylan · Streaming · Version 0.6.5</title>
-  <meta name="description" content="Dashboard Dylan unified streaming hub. Moves fullscreen control out of the third-party Streaming iframe and into Dashboard Dylan. The embedded player no longer receives fullscreen permission, while a Dashboard-owned fullscreen button expands the player container itself. This keeps normal playback and resume tracking intact while avoiding the embedded fullscreen action associated with unwanted tab launches.">
+  <title>My Dashboard · Streaming · Version 0.6.6</title>
+  <meta name="description" content="My Dashboard unified streaming hub. Adds Dashboard-owned season and episode selection for TV playback and renames the product from Dashboard  to My Dashboard. TV details load real TMDB seasons and episodes into dropdowns, default to saved viewing progress when available, and launch the exact selected episode without manual number entry. All user-facing  branding is removed while the existing playback warning, cross-device resume, and Dashboard-controlled fullscreen behavior remain intact.">
   <meta name="theme-color" content="#101218">
 
   <script src="../dashboard-config.js"></script>
@@ -69,6 +69,16 @@
     .player-wrap[hidden]{display:none}
     .player-frame{width:100%;height:100%;border:0;background:#000}
     .player-status{margin:9px 0 0;color:var(--muted);font-size:12px;line-height:1.45}
+    .tv-picker{margin-top:16px;padding:14px;border:1px solid var(--border);border-radius:14px;background:var(--panel2)}
+    .tv-picker[hidden]{display:none}
+    .tv-picker-title{margin:0 0 10px;font-size:13px;font-weight:800;color:#eef2f8}
+    .tv-picker-grid{display:grid;grid-template-columns:1fr 1.35fr;gap:10px}
+    .tv-picker-field{display:grid;gap:6px;min-width:0}
+    .tv-picker-field label{font-size:11px;font-weight:800;color:var(--muted)}
+    .tv-picker-field select{width:100%;min-height:42px;padding:8px 10px;border:1px solid #485269;border-radius:10px;background:#181b23;color:#fff;font:inherit;font-size:13px}
+    .tv-picker-field select:disabled{opacity:.55}
+    .tv-picker-note{margin:9px 0 0;color:var(--muted);font-size:11px;line-height:1.45}
+    @media(max-width:600px){.tv-picker-grid{grid-template-columns:1fr}}
     .dashboard-fullscreen-button{
       position:absolute;right:10px;bottom:10px;z-index:4;
       min-width:44px;min-height:38px;padding:7px 10px;
@@ -147,6 +157,23 @@
         </div>
       </div>
       <div class="detail-body">
+        <section id="tv-picker" class="tv-picker" hidden>
+          <p class="tv-picker-title">Choose an episode</p>
+          <div class="tv-picker-grid">
+            <div class="tv-picker-field">
+              <label for="tv-season-select">Season</label>
+              <select id="tv-season-select"></select>
+            </div>
+            <div class="tv-picker-field">
+              <label for="tv-episode-select">Episode</label>
+              <select id="tv-episode-select" disabled>
+                <option>Choose a season first</option>
+              </select>
+            </div>
+          </div>
+          <p id="tv-picker-note" class="tv-picker-note"></p>
+        </section>
+
         <div id="player-wrap" class="player-wrap" hidden>
           <iframe
             id="player-frame"
@@ -180,12 +207,18 @@
     let activePlayback = null;
     let lastProgressWriteAt = 0;
     let pendingProgress = null;
+    let tvSelection = {
+      seasons: [],
+      seasonNumber: null,
+      episodeNumber: null,
+      episodes: []
+    };
     const PLAYER_ORIGIN = "https://vidsrcme.ru";
 
     /*
-      0.6.5 Fullscreen safety:
+      0.6.6 TV episode selection + 0.6.5 fullscreen safety:
       The third-party iframe is intentionally not granted fullscreen permission.
-      Dashboard Dylan owns the visible fullscreen control and expands player-wrap
+      My Dashboard owns the visible fullscreen control and expands player-wrap
       instead, while no-referrer and validated postMessage checks remain enabled.
     */
 
@@ -467,12 +500,244 @@
 
     async function startOrChoose(item, mediaType) {
       await showDetails(item, mediaType);
+
+      // TV shows first open the Dashboard-owned season / episode picker.
+      // This avoids forcing the third-party player's picker and lets Dashboard
+      // save the exact episode state before playback begins.
+      if (mediaType === "tv") return;
+
       if (prefs?.prefer_dashboard_playback) {
         await startDashboardPlayback(item, mediaType);
         return;
       }
-      await DashboardStreaming.recordOpen({ tmdbId:item.id, mediaType, providerId:null, playbackMethod:"deep_link" });
-      document.getElementById("detail-note").textContent = "Dashboard playback preference is off. External provider routing will be used when provider deep links are connected.";
+
+      await DashboardStreaming.recordOpen({
+        tmdbId:item.id,
+        mediaType,
+        providerId:null,
+        playbackMethod:"deep_link"
+      });
+
+      document.getElementById("detail-note").textContent =
+        "Dashboard playback preference is off. External provider routing will be used when provider deep links are connected.";
+    }
+
+
+    function seasonLabel(season) {
+      if (Number(season.season_number) === 0) {
+        return season.name || "Specials";
+      }
+
+      const count = Number(season.episode_count) || 0;
+      return `${season.name || `Season ${season.season_number}`}${count ? ` · ${count} episodes` : ""}`;
+    }
+
+    function episodeLabel(episode) {
+      const number = Number(episode.episode_number);
+      const name = String(episode.name || "").trim();
+      const airDate = String(episode.air_date || "").trim();
+      let label = `Episode ${number}`;
+
+      if (name) label += ` · ${name}`;
+      if (airDate) {
+        const parsed = new Date(airDate + "T12:00:00");
+        if (!Number.isNaN(parsed.getTime())) {
+          label += ` · ${parsed.toLocaleDateString(undefined, {
+            month:"short",
+            day:"numeric",
+            year:"numeric"
+          })}`;
+        }
+      }
+
+      return label;
+    }
+
+    function getSelectedTvEpisode() {
+      const season = Number(document.getElementById("tv-season-select").value);
+      const episode = Number(document.getElementById("tv-episode-select").value);
+
+      if (!Number.isInteger(season) || !Number.isInteger(episode)) {
+        return null;
+      }
+
+      return { seasonNumber: season, episodeNumber: episode };
+    }
+
+    async function loadTvEpisodes(tmdbId, seasonNumber, preferredEpisode = null) {
+      const episodeSelect = document.getElementById("tv-episode-select");
+      const note = document.getElementById("tv-picker-note");
+
+      episodeSelect.disabled = true;
+      episodeSelect.innerHTML = "<option>Loading episodes…</option>";
+      note.textContent = "";
+
+      try {
+        const season =
+          await DashboardStreaming.getTvSeasonDetails(
+            tmdbId,
+            seasonNumber
+          );
+
+        const episodes = Array.isArray(season?.episodes)
+          ? season.episodes
+          : [];
+
+        tvSelection.episodes = episodes;
+        tvSelection.seasonNumber = Number(seasonNumber);
+
+        episodeSelect.innerHTML = "";
+
+        if (!episodes.length) {
+          const option = document.createElement("option");
+          option.textContent = "No episodes found";
+          option.value = "";
+          episodeSelect.appendChild(option);
+          note.textContent =
+            "TMDB does not currently list episodes for this season.";
+          return;
+        }
+
+        episodes.forEach(episode => {
+          const option = document.createElement("option");
+          option.value = String(episode.episode_number);
+          option.textContent = episodeLabel(episode);
+          episodeSelect.appendChild(option);
+        });
+
+        const desiredEpisode =
+          episodes.some(ep =>
+            Number(ep.episode_number) === Number(preferredEpisode)
+          )
+            ? Number(preferredEpisode)
+            : Number(episodes[0].episode_number);
+
+        episodeSelect.value = String(desiredEpisode);
+        tvSelection.episodeNumber = desiredEpisode;
+        episodeSelect.disabled = false;
+
+        const selected =
+          episodes.find(ep =>
+            Number(ep.episode_number) === desiredEpisode
+          );
+
+        note.textContent = selected?.overview
+          ? selected.overview
+          : "Choose the episode you want to play.";
+
+        updateTvWatchButton();
+      } catch (error) {
+        console.error("TV episodes:", error);
+        episodeSelect.innerHTML =
+          "<option>Episodes unavailable</option>";
+        note.textContent =
+          error.message || "Episodes could not be loaded.";
+      }
+    }
+
+    function updateTvWatchButton() {
+      if (!currentDetail || currentDetail.mediaType !== "tv") return;
+
+      const selected = getSelectedTvEpisode();
+      const button = document.getElementById("detail-watch");
+
+      if (!selected) {
+        button.textContent = prefs?.prefer_dashboard_playback
+          ? "Watch in Dashboard"
+          : "Watch";
+        return;
+      }
+
+      const isResume =
+        currentDetail.resume &&
+        Number(currentDetail.resume.season_number) === selected.seasonNumber &&
+        Number(currentDetail.resume.episode_number) === selected.episodeNumber &&
+        Number(currentDetail.resume.progress_seconds) > 5;
+
+      button.textContent = isResume
+        ? `Resume S${selected.seasonNumber} E${selected.episodeNumber}`
+        : `Watch S${selected.seasonNumber} E${selected.episodeNumber}`;
+    }
+
+    async function initializeTvPicker(item) {
+      const picker = document.getElementById("tv-picker");
+      const seasonSelect = document.getElementById("tv-season-select");
+      const episodeSelect = document.getElementById("tv-episode-select");
+      const note = document.getElementById("tv-picker-note");
+
+      picker.hidden = false;
+      seasonSelect.disabled = true;
+      episodeSelect.disabled = true;
+      seasonSelect.innerHTML = "<option>Loading seasons…</option>";
+      episodeSelect.innerHTML = "<option>Choose a season first</option>";
+      note.textContent = "";
+
+      let resume = null;
+
+      try {
+        resume = await DashboardStreaming.loadLatestTvProgress(item.id);
+      } catch (error) {
+        console.warn("TV resume lookup:", error);
+      }
+
+      currentDetail.resume = resume || null;
+
+      try {
+        const details =
+          item.seasons
+            ? item
+            : await DashboardStreaming.getTitleDetails(item.id, "tv");
+
+        const seasons = Array.isArray(details?.seasons)
+          ? details.seasons.filter(season =>
+              Number.isInteger(Number(season.season_number)) &&
+              Number(season.episode_count) > 0
+            )
+          : [];
+
+        tvSelection.seasons = seasons;
+        seasonSelect.innerHTML = "";
+
+        if (!seasons.length) {
+          seasonSelect.innerHTML = "<option>No seasons found</option>";
+          note.textContent =
+            "TMDB does not currently list playable seasons for this show.";
+          return;
+        }
+
+        seasons.forEach(season => {
+          const option = document.createElement("option");
+          option.value = String(season.season_number);
+          option.textContent = seasonLabel(season);
+          seasonSelect.appendChild(option);
+        });
+
+        const preferredSeason =
+          resume &&
+          seasons.some(season =>
+            Number(season.season_number) === Number(resume.season_number)
+          )
+            ? Number(resume.season_number)
+            : (
+                seasons.some(season => Number(season.season_number) === 1)
+                  ? 1
+                  : Number(seasons[0].season_number)
+              );
+
+        seasonSelect.value = String(preferredSeason);
+        seasonSelect.disabled = false;
+
+        await loadTvEpisodes(
+          item.id,
+          preferredSeason,
+          resume?.episode_number ?? null
+        );
+      } catch (error) {
+        console.error("TV seasons:", error);
+        seasonSelect.innerHTML = "<option>Seasons unavailable</option>";
+        note.textContent =
+          error.message || "Seasons could not be loaded.";
+      }
     }
 
     function formatTime(seconds) {
@@ -491,21 +756,88 @@
       return `${url}?${params.toString()}`;
     }
 
-    async function startDashboardPlayback(item, mediaType) {
-      let resume = null, season = null, episode = null;
+    async function startDashboardPlayback(
+      item,
+      mediaType,
+      selectedSeason = null,
+      selectedEpisode = null
+    ) {
+      let resume = null;
+      let season = selectedSeason;
+      let episode = selectedEpisode;
+
       try {
-        if (mediaType === "movie") resume = await DashboardStreaming.loadMovieResumeProgress(item.id);
-        else {
-          resume = await DashboardStreaming.loadLatestTvProgress(item.id);
-          if (resume) { season = resume.season_number; episode = resume.episode_number; }
+        if (mediaType === "movie") {
+          resume =
+            await DashboardStreaming.loadMovieResumeProgress(
+              item.id
+            );
+        } else if (
+          Number.isInteger(Number(season)) &&
+          Number.isInteger(Number(episode))
+        ) {
+          resume =
+            await DashboardStreaming.loadEpisodeProgress(
+              item.id,
+              Number(season),
+              Number(episode)
+            );
+        } else {
+          resume =
+            await DashboardStreaming.loadLatestTvProgress(
+              item.id
+            );
+
+          if (resume) {
+            season = resume.season_number;
+            episode = resume.episode_number;
+          }
         }
-      } catch (error) { console.warn("Resume lookup:",error); }
-      await DashboardStreaming.recordOpen({tmdbId:item.id,mediaType,seasonNumber:season,episodeNumber:episode,playbackMethod:"dashboard"});
-      activePlayback={tmdbId:Number(item.id),mediaType,seasonNumber:season,episodeNumber:episode};
-      pendingProgress=null;
-      document.getElementById("player-frame").src=buildPlayerUrl({tmdbId:item.id,mediaType,seasonNumber:season,episodeNumber:episode,startAt:resume?.progress_seconds});
-      document.getElementById("player-wrap").hidden=false;
-      document.getElementById("player-status").textContent=Number(resume?.progress_seconds)>5?`Resuming at ${formatTime(resume.progress_seconds)}.`:"Dashboard playback opened.";
+      } catch (error) {
+        console.warn("Resume lookup:", error);
+      }
+
+      await DashboardStreaming.recordOpen({
+        tmdbId:item.id,
+        mediaType,
+        seasonNumber:season,
+        episodeNumber:episode,
+        playbackMethod:"dashboard"
+      });
+
+      activePlayback = {
+        tmdbId:Number(item.id),
+        mediaType,
+        seasonNumber:
+          season === null ? null : Number(season),
+        episodeNumber:
+          episode === null ? null : Number(episode)
+      };
+
+      pendingProgress = null;
+
+      document.getElementById("player-frame").src =
+        buildPlayerUrl({
+          tmdbId:item.id,
+          mediaType,
+          seasonNumber:season,
+          episodeNumber:episode,
+          startAt:resume?.progress_seconds
+        });
+
+      document.getElementById("player-wrap").hidden = false;
+
+      const episodeLabel =
+        mediaType === "tv" &&
+        season !== null &&
+        episode !== null
+          ? `S${season} E${episode} · `
+          : "";
+
+      document.getElementById("player-status").textContent =
+        Number(resume?.progress_seconds) > 5
+          ? `${episodeLabel}Resuming at ${formatTime(resume.progress_seconds)}.`
+          : `${episodeLabel}Dashboard playback opened.`;
     }
 
     async function flushProgress(force=false,completed=false) {
@@ -539,7 +871,8 @@
     });
 
     async function showDetails(item, mediaType, requestedMode = "") {
-      currentDetail = {item, mediaType};
+      currentDetail = {item, mediaType, resume:null};
+      document.getElementById("tv-picker").hidden = true;
       document.getElementById("player-wrap").hidden = true;
       document.getElementById("player-frame").src = "about:blank";
       document.getElementById("player-status").textContent = "";
@@ -547,6 +880,12 @@
       document.getElementById("detail-title").textContent = mediaTitle(item);
       document.getElementById("detail-overview").textContent =
         item.overview || "More title information will appear here as the detail API layer is expanded.";
+
+      if (mediaType === "tv") {
+        initializeTvPicker(item).catch(error =>
+          console.error("TV picker:", error)
+        );
+      }
 
       const bg = document.getElementById("detail-backdrop");
       bg.style.backgroundImage = item.backdrop_path
@@ -662,7 +1001,7 @@
           : (
             prefs?.provider_selection_mode === "ask"
               ? "Ask Every Time is enabled. Watch will show only your enabled services that currently carry this title once provider deep-link routing is connected."
-              : "Provider Priority is enabled. Dashboard Dylan will use the highest available service in your saved hierarchy once provider deep-link routing is connected."
+              : "Provider Priority is enabled. My Dashboard will use the highest available service in your saved hierarchy once provider deep-link routing is connected."
           );
 
       document.getElementById("detail-overlay").hidden = false;
@@ -753,6 +1092,33 @@
       activePlayback=null; pendingProgress=null;
     }
 
+    document.getElementById("tv-season-select").addEventListener("change", async event => {
+      if (!currentDetail || currentDetail.mediaType !== "tv") return;
+
+      const seasonNumber = Number(event.target.value);
+      await loadTvEpisodes(
+        currentDetail.item.id,
+        seasonNumber,
+        null
+      );
+    });
+
+    document.getElementById("tv-episode-select").addEventListener("change", event => {
+      tvSelection.episodeNumber = Number(event.target.value);
+
+      const selected =
+        tvSelection.episodes.find(episode =>
+          Number(episode.episode_number) ===
+          Number(event.target.value)
+        );
+
+      document.getElementById("tv-picker-note").textContent =
+        selected?.overview ||
+        "Choose the episode you want to play.";
+
+      updateTvWatchButton();
+    });
+
     document.getElementById("dashboard-fullscreen").addEventListener("click", toggleDashboardFullscreen);
     document.addEventListener("fullscreenchange", syncDashboardFullscreenButton);
     document.addEventListener("webkitfullscreenchange", syncDashboardFullscreenButton);
@@ -767,9 +1133,43 @@
 
     document.getElementById("detail-watch").addEventListener("click", async () => {
       if (!currentDetail) return;
-      if (prefs?.prefer_dashboard_playback) { await startDashboardPlayback(currentDetail.item,currentDetail.mediaType); return; }
-      await DashboardStreaming.recordOpen({tmdbId:currentDetail.item.id,mediaType:currentDetail.mediaType,playbackMethod:"deep_link"});
-      document.getElementById("detail-note").textContent="Opened has been recorded. Dashboard playback preference is off, so external provider routing will be used once provider deep links are connected.";
+
+      let seasonNumber = null;
+      let episodeNumber = null;
+
+      if (currentDetail.mediaType === "tv") {
+        const selected = getSelectedTvEpisode();
+
+        if (!selected) {
+          document.getElementById("tv-picker-note").textContent =
+            "Choose a season and episode first.";
+          return;
+        }
+
+        seasonNumber = selected.seasonNumber;
+        episodeNumber = selected.episodeNumber;
+      }
+
+      if (prefs?.prefer_dashboard_playback) {
+        await startDashboardPlayback(
+          currentDetail.item,
+          currentDetail.mediaType,
+          seasonNumber,
+          episodeNumber
+        );
+        return;
+      }
+
+      await DashboardStreaming.recordOpen({
+        tmdbId:currentDetail.item.id,
+        mediaType:currentDetail.mediaType,
+        seasonNumber,
+        episodeNumber,
+        playbackMethod:"deep_link"
+      });
+
+      document.getElementById("detail-note").textContent =
+        "Opened has been recorded. Dashboard playback preference is off, so external provider routing will be used once provider deep links are connected.";
     });
 
     document.getElementById("detail-watchlist").addEventListener("click", async () => {
