@@ -1,5 +1,5 @@
 /*
-  My Dashboard · Streaming Client · Version 0.6.6
+  My Dashboard · Streaming Client · Version 0.6.7
 
   Load after dashboard-config.js and after the Dashboard's authenticated
   Supabase client is available.
@@ -627,7 +627,7 @@
   }
 
   window.DashboardStreaming = Object.freeze({
-    version: "0.6.6",
+    version: "0.6.7",
     listProviders,
     loadUserProviders,
     addProvider,

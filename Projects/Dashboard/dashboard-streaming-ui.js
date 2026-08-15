@@ -1,14 +1,14 @@
 /*
-  My Dashboard · Streaming Settings UI · Version 0.6.6
+  My Dashboard · Streaming Settings UI · Version 0.6.7
   TV Season & Episode Selection · 2026-08-14
 */
 (function () {
   "use strict";
 
-  const VERSION = "0.6.6";
-  const TITLE = "TV Season & Episode Selection + My Dashboard Rebrand";
+  const VERSION = "0.6.7";
+  const TITLE = "Restored Player Fullscreen & Provider Deep Links";
   const DESCRIPTION =
-    "Adds Dashboard-owned season and episode selection for TV playback and renames the product from Dashboard  to My Dashboard. TV details load real TMDB seasons and episodes into dropdowns, default to saved viewing progress when available, and launch the exact selected episode without manual number entry. All user-facing  branding is removed while the existing playback warning, cross-device resume, and Dashboard-controlled fullscreen behavior remain intact.";
+    "Restores the embedded streaming player's normal fullscreen capability and removes the Dashboard-owned fullscreen replacement. Provider routing is now active: Provider Priority automatically opens the highest-priority enabled service carrying a title, Ask Every Time shows an enabled-provider chooser, and Change Provider always opens the chooser. Provider launches are recorded as Opened rather than Watched.";
 
   let initialized = false;
 
@@ -465,17 +465,17 @@
         view.querySelector(".internal-view-content") ||
         view.querySelector(".changelog-content");
 
-      if (!body || get("streaming-066-changelog-entry")) return;
+      if (!body || get("streaming-067-changelog-entry")) return;
 
       if (body.tagName === "TBODY") {
         const tr = document.createElement("tr");
-        tr.id = "streaming-066-changelog-entry";
+        tr.id = "streaming-067-changelog-entry";
         tr.innerHTML =
           `<td>${VERSION}</td><td>${TITLE}</td><td>${DESCRIPTION}<br><strong>Bug Fixes:</strong> Preserves the Dashboard Playback warning and Dashboard-owned fullscreen behavior while adding TMDB-driven TV season and episode selection.</td>`;
         body.prepend(tr);
       } else {
         const card = document.createElement("div");
-        card.id = "streaming-066-changelog-entry";
+        card.id = "streaming-067-changelog-entry";
         card.style.cssText =
           "margin:0 0 12px;padding:14px;border:1px solid #dfe3e8;border-radius:12px;background:#f7f8fa";
         card.innerHTML =

@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Dashboard · Streaming · Version 0.6.6</title>
-  <meta name="description" content="My Dashboard unified streaming hub. Adds Dashboard-owned season and episode selection for TV playback and renames the product from Dashboard  to My Dashboard. TV details load real TMDB seasons and episodes into dropdowns, default to saved viewing progress when available, and launch the exact selected episode without manual number entry. All user-facing  branding is removed while the existing playback warning, cross-device resume, and Dashboard-controlled fullscreen behavior remain intact.">
+  <title>My Dashboard · Streaming · Version 0.6.7</title>
+  <meta name="description" content="My Dashboard unified streaming hub. Restores the embedded streaming player's normal fullscreen capability and removes the Dashboard-owned fullscreen replacement. Provider routing is now active: Provider Priority automatically opens the highest-priority enabled service carrying a title, Ask Every Time shows an enabled-provider chooser, and Change Provider always opens the chooser. Provider launches are recorded as Opened rather than Watched.">
   <meta name="theme-color" content="#101218">
 
-  <script src="../dashboard-config.js?v=0.6.6"></script>
+  <script src="../dashboard-config.js?v=0.6.7"></script>
   <script
-    src="../dashboard-auth.js?v=0.6.6"
+    src="../dashboard-auth.js?v=0.6.7"
     data-dashboard-project="streaming">
   </script>
-  <script src="../dashboard-streaming.js?v=0.6.6"></script>
+  <script src="../dashboard-streaming.js?v=0.6.7"></script>
 
   <style>
     *{box-sizing:border-box}
@@ -79,30 +79,18 @@
     .tv-picker-field select:disabled{opacity:.55}
     .tv-picker-note{margin:9px 0 0;color:var(--muted);font-size:11px;line-height:1.45}
     @media(max-width:600px){.tv-picker-grid{grid-template-columns:1fr}}
-    .dashboard-fullscreen-button{
-      position:absolute;right:10px;bottom:10px;z-index:4;
-      min-width:44px;min-height:38px;padding:7px 10px;
-      border:1px solid rgba(255,255,255,.32);border-radius:10px;
-      background:rgba(10,12,16,.88);color:#fff;cursor:pointer;
-      font-size:12px;font-weight:900;line-height:1;
-      backdrop-filter:blur(8px)
-    }
-    .dashboard-fullscreen-button:hover{background:rgba(24,27,35,.96)}
-    .dashboard-fullscreen-button:focus-visible{outline:2px solid #fff;outline-offset:2px}
-    .player-wrap:fullscreen,
-    .player-wrap:-webkit-full-screen{
-      width:100vw;height:100vh;max-width:none;aspect-ratio:auto;
-      margin:0;border-radius:0;background:#000
-    }
-    .player-wrap:fullscreen .player-frame,
-    .player-wrap:-webkit-full-screen .player-frame{
-      width:100%;height:100%
-    }
-    .player-wrap:fullscreen .dashboard-fullscreen-button,
-    .player-wrap:-webkit-full-screen .dashboard-fullscreen-button{
-      right:max(14px,env(safe-area-inset-right));
-      bottom:max(14px,env(safe-area-inset-bottom))
-    }
+
+    .provider-chooser{position:fixed;inset:0;z-index:80;display:grid;place-items:center;padding:18px;background:rgba(0,0,0,.72)}
+    .provider-chooser[hidden]{display:none}
+    .provider-chooser-card{width:min(100%,480px);max-height:min(80vh,640px);overflow:auto;padding:20px;border:1px solid var(--border);border-radius:18px;background:var(--panel);box-shadow:0 24px 70px rgba(0,0,0,.42)}
+    .provider-chooser-card h3{margin:0;font-size:20px}
+    .provider-chooser-card p{margin:7px 0 14px;color:var(--muted);font-size:12px;line-height:1.45}
+    .provider-chooser-list{display:grid;gap:8px}
+    .provider-choice{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 13px;border:1px solid #485269;border-radius:11px;background:#252a36;color:#fff;cursor:pointer;text-align:left}
+    .provider-choice strong{font-size:13px}
+    .provider-choice small{color:var(--muted);font-size:11px}
+    .provider-chooser-actions{display:flex;justify-content:flex-end;margin-top:14px}
+    .provider-chooser-close{min-height:38px;padding:8px 12px;border:1px solid #485269;border-radius:10px;background:#20242e;color:#fff;cursor:pointer;font-weight:800}
     .menu{position:fixed;z-index:70;min-width:210px;padding:7px;border:1px solid var(--border);border-radius:12px;background:#20242e;box-shadow:0 14px 40px rgba(0,0,0,.35)}
     .menu[hidden]{display:none}
     .menu button{display:block;width:100%;padding:9px 10px;border:0;border-radius:8px;background:transparent;color:white;text-align:left;cursor:pointer;font-size:13px}
@@ -179,21 +167,25 @@
             id="player-frame"
             class="player-frame"
             title="Dashboard streaming player"
-            allow="autoplay; picture-in-picture"
+            allow="autoplay; fullscreen; picture-in-picture"
             referrerpolicy="no-referrer"
+            allowfullscreen
           ></iframe>
-          <button
-            id="dashboard-fullscreen"
-            class="dashboard-fullscreen-button"
-            type="button"
-            aria-label="Enter Dashboard fullscreen"
-            title="Full Screen"
-          >⛶</button>
         </div>
         <p id="player-status" class="player-status"></p>
         <p id="detail-note"></p>
       </div>
     </article>
+  </div>
+
+
+  <div id="provider-chooser" class="provider-chooser" hidden>
+    <section class="provider-chooser-card" role="dialog" aria-modal="true" aria-labelledby="provider-chooser-title">
+      <h3 id="provider-chooser-title">Choose a streaming service</h3>
+      <p id="provider-chooser-note">Choose where you want to watch this title.</p>
+      <div id="provider-chooser-list" class="provider-chooser-list"></div>
+      <div class="provider-chooser-actions"><button id="provider-chooser-close" class="provider-chooser-close" type="button">Cancel</button></div>
+    </section>
   </div>
 
   <div id="card-menu" class="menu" hidden></div>
@@ -216,7 +208,7 @@
     const PLAYER_ORIGIN = "https://vidsrcme.ru";
 
     /*
-      0.6.6 TV episode selection + 0.6.5 fullscreen safety:
+      0.6.7 restored iframe fullscreen + provider deep-link routing:
       The third-party iframe is intentionally not granted fullscreen permission.
       My Dashboard owns the visible fullscreen control and expands player-wrap
       instead, while no-referrer and validated postMessage checks remain enabled.
@@ -406,6 +398,97 @@
       }
     }
 
+
+    function normalizeProviderName(value) {
+      return String(value || "").toLowerCase().replace(/\+/g, " plus ").replace(/[^a-z0-9]+/g, " ").trim();
+    }
+
+    function providerAliases(row) {
+      const provider = row?.streaming_providers || row || {};
+      const names = new Set([normalizeProviderName(provider.name), normalizeProviderName(provider.slug)]);
+      const slug = String(provider.slug || "");
+      if (slug === "disney-plus") names.add("disney plus");
+      if (slug === "paramount-plus") names.add("paramount plus");
+      if (slug === "prime-video") { names.add("prime video"); names.add("amazon prime video"); }
+      if (slug === "apple-tv-plus") { names.add("apple tv plus"); names.add("apple tv"); }
+      if (slug === "max") { names.add("max"); names.add("hbo max"); }
+      if (slug === "peacock") { names.add("peacock"); names.add("peacock premium"); }
+      return names;
+    }
+
+    function providerMatches(row, tmdbProvider) {
+      const candidate = normalizeProviderName(tmdbProvider?.provider_name);
+      if (!candidate) return false;
+      return Array.from(providerAliases(row)).some(alias => alias && (candidate === alias || candidate.startsWith(alias + " ") || candidate.includes(" " + alias + " ") || alias.startsWith(candidate + " ")));
+    }
+
+    function getProviderSearchUrl(row, item) {
+      const provider = row?.streaming_providers || {};
+      const slug = String(provider.slug || "");
+      const title = encodeURIComponent(mediaTitle(item));
+      const builders = {
+        "netflix": () => `https://www.netflix.com/search?q=${title}`,
+        "hulu": () => `https://www.hulu.com/search?q=${title}`,
+        "disney-plus": () => `https://www.disneyplus.com/search?q=${title}`,
+        "max": () => `https://play.max.com/search?q=${title}`,
+        "peacock": () => `https://www.peacocktv.com/search?q=${title}`,
+        "paramount-plus": () => `https://www.paramountplus.com/search/?query=${title}`,
+        "prime-video": () => `https://www.amazon.com/s?k=${title}&i=instant-video`,
+        "apple-tv-plus": () => `https://tv.apple.com/search?term=${title}`
+      };
+      return builders[slug] ? builders[slug]() : null;
+    }
+
+    async function getEnabledProvidersForTitle(item, mediaType) {
+      const availability = await DashboardStreaming.getWatchProviders(item.id, mediaType);
+      const region = prefs?.region || "US";
+      const regionData = availability?.results?.[region] || {};
+      const tmdbProviders = [...(regionData.flatrate || []), ...(regionData.free || []), ...(regionData.ads || [])];
+      const seen = new Set();
+      return currentProviders.filter(row => row.enabled !== false).filter(row => {
+        if (seen.has(String(row.provider_id))) return false;
+        const match = tmdbProviders.some(provider => providerMatches(row, provider));
+        if (match) seen.add(String(row.provider_id));
+        return match;
+      }).sort((a,b)=>(a.priority ?? 999)-(b.priority ?? 999));
+    }
+
+    async function launchProvider(row, item, mediaType, seasonNumber=null, episodeNumber=null) {
+      const url = getProviderSearchUrl(row, item);
+      if (!url) {
+        document.getElementById("detail-note").textContent = "A provider deep link is not configured for this service yet.";
+        return;
+      }
+      await DashboardStreaming.recordOpen({tmdbId:item.id,mediaType,providerId:row.provider_id,seasonNumber,episodeNumber,playbackMethod:"deep_link"});
+      window.open(url, "_blank", "noopener,noreferrer");
+    }
+
+    function hideProviderChooser(){ document.getElementById("provider-chooser").hidden=true; }
+
+    async function chooseProvider(item, mediaType, seasonNumber=null, episodeNumber=null, forceChooser=false) {
+      const note = document.getElementById("detail-note");
+      let available=[];
+      try { available = await getEnabledProvidersForTitle(item, mediaType); }
+      catch(error){ console.error("Provider availability:",error); note.textContent=error.message||"Provider availability could not be loaded."; return; }
+      if (!available.length) { note.textContent="None of your enabled streaming services currently show this title as available."; return; }
+      if (!forceChooser && prefs?.provider_selection_mode === "priority") {
+        await launchProvider(available[0],item,mediaType,seasonNumber,episodeNumber); return;
+      }
+      if (!forceChooser && available.length === 1) {
+        await launchProvider(available[0],item,mediaType,seasonNumber,episodeNumber); return;
+      }
+      const chooser=document.getElementById("provider-chooser"), list=document.getElementById("provider-chooser-list"), chooserNote=document.getElementById("provider-chooser-note");
+      list.innerHTML=""; chooserNote.textContent=`${mediaTitle(item)} is available on ${available.length} of your enabled services.`;
+      available.forEach(row=>{
+        const b=document.createElement("button"); b.type="button"; b.className="provider-choice";
+        const name=row.streaming_providers?.name||"Streaming service";
+        b.innerHTML=`<span><strong>${name}</strong><br><small>Open ${name}</small></span><span>→</span>`;
+        b.addEventListener("click",async()=>{ hideProviderChooser(); await launchProvider(row,item,mediaType,seasonNumber,episodeNumber); });
+        list.appendChild(b);
+      });
+      chooser.hidden=false;
+    }
+
     function showMenu(anchor, item, mediaType) {
       const menu = document.getElementById("card-menu");
       menu.innerHTML = "";
@@ -416,7 +499,7 @@
         ["Add to Watchlist", () => DashboardStreaming.setWatchlist(item.id, mediaType, true)],
         ["Mark as Watched", () => markWatched(item.id, mediaType)],
         ["Mark as Unwatched", () => markUnwatched(item.id, mediaType)],
-        ["Change Provider", () => showDetails(item, mediaType, "provider")],
+        ["Change Provider", async () => { await showDetails(item, mediaType, "provider"); const selected = mediaType === "tv" ? getSelectedTvEpisode() : null; await chooseProvider(item, mediaType, selected?.seasonNumber ?? null, selected?.episodeNumber ?? null, true); }],
         ["Restart", () => restartTitle(item, mediaType)],
         ["Remove from Continue Watching", () => DashboardStreaming.removeFromContinueWatching(item.id, mediaType)],
         ["Not Interested", () => DashboardStreaming.setTitleReaction(item.id, mediaType, "not_interested")]
@@ -511,15 +594,7 @@
         return;
       }
 
-      await DashboardStreaming.recordOpen({
-        tmdbId:item.id,
-        mediaType,
-        providerId:null,
-        playbackMethod:"deep_link"
-      });
-
-      document.getElementById("detail-note").textContent =
-        "Dashboard playback preference is off. External provider routing will be used when provider deep links are connected.";
+      await chooseProvider(item, mediaType);
     }
 
 
@@ -1014,11 +1089,11 @@
       document.getElementById("detail-watch").textContent = prefs?.prefer_dashboard_playback ? "Watch in Dashboard" : "Watch";
       document.getElementById("detail-note").textContent =
         requestedMode === "provider"
-          ? "Choose-provider controls will use this title’s exact enabled-provider availability when provider deep-link routing is connected."
+          ? "Choose a different enabled streaming service for this title."
           : (
             prefs?.provider_selection_mode === "ask"
-              ? "Ask Every Time is enabled. Watch will show only your enabled services that currently carry this title once provider deep-link routing is connected."
-              : "Provider Priority is enabled. My Dashboard will use the highest available service in your saved hierarchy once provider deep-link routing is connected."
+              ? "Ask Every Time is enabled. Watch will show only your enabled services that currently carry this title."
+              : "Provider Priority is enabled. My Dashboard will open the highest available service in your saved hierarchy."
           );
 
       document.getElementById("detail-overlay").hidden = false;
@@ -1026,82 +1101,8 @@
     }
 
 
-    function getDashboardFullscreenElement() {
-      return document.fullscreenElement || document.webkitFullscreenElement || null;
-    }
-
-    async function requestDashboardFullscreen(element) {
-      if (element.requestFullscreen) {
-        await element.requestFullscreen();
-        return;
-      }
-
-      if (element.webkitRequestFullscreen) {
-        element.webkitRequestFullscreen();
-        return;
-      }
-
-      throw new Error("Fullscreen is not supported by this browser.");
-    }
-
-    async function exitDashboardFullscreen() {
-      if (document.exitFullscreen) {
-        await document.exitFullscreen();
-        return;
-      }
-
-      if (document.webkitExitFullscreen) {
-        document.webkitExitFullscreen();
-      }
-    }
-
-    async function toggleDashboardFullscreen() {
-      const wrap = document.getElementById("player-wrap");
-      const button = document.getElementById("dashboard-fullscreen");
-
-      try {
-        if (!getDashboardFullscreenElement()) {
-          await requestDashboardFullscreen(wrap);
-        } else {
-          await exitDashboardFullscreen();
-        }
-      } catch (error) {
-        console.warn("Dashboard fullscreen:", error);
-        document.getElementById("player-status").textContent =
-          error.message || "Fullscreen is unavailable in this browser.";
-      }
-
-      if (button) {
-        const active = Boolean(getDashboardFullscreenElement());
-        button.textContent = active ? "⤢" : "⛶";
-        button.setAttribute(
-          "aria-label",
-          active ? "Exit Dashboard fullscreen" : "Enter Dashboard fullscreen"
-        );
-        button.title = active ? "Exit Full Screen" : "Full Screen";
-      }
-    }
-
-    function syncDashboardFullscreenButton() {
-      const button = document.getElementById("dashboard-fullscreen");
-      if (!button) return;
-
-      const wrap = document.getElementById("player-wrap");
-      const active = getDashboardFullscreenElement() === wrap;
-
-      button.textContent = active ? "⤢" : "⛶";
-      button.setAttribute(
-        "aria-label",
-        active ? "Exit Dashboard fullscreen" : "Enter Dashboard fullscreen"
-      );
-      button.title = active ? "Exit Full Screen" : "Full Screen";
-    }
-
     async function closeDetails(){
       await flushProgress(true,false);
-      if (getDashboardFullscreenElement() === document.getElementById("player-wrap")) {
-        try { await exitDashboardFullscreen(); } catch (error) { console.warn(error); }
-      }
       document.getElementById("player-frame").src="about:blank";
       document.getElementById("player-wrap").hidden=true;
       document.getElementById("detail-overlay").hidden=true;
@@ -1135,10 +1136,9 @@
 
       updateTvWatchButton();
     });
+    document.getElementById("provider-chooser-close").addEventListener("click", hideProviderChooser);
+    document.getElementById("provider-chooser").addEventListener("click", event => { if (event.target === event.currentTarget) hideProviderChooser(); });
 
-    document.getElementById("dashboard-fullscreen").addEventListener("click", toggleDashboardFullscreen);
-    document.addEventListener("fullscreenchange", syncDashboardFullscreenButton);
-    document.addEventListener("webkitfullscreenchange", syncDashboardFullscreenButton);
     document.getElementById("detail-close").addEventListener("click", closeDetails);
     document.getElementById("detail-overlay").addEventListener("click", e => {
       if (e.target === e.currentTarget) closeDetails();
@@ -1181,16 +1181,7 @@
         return;
       }
 
-      await DashboardStreaming.recordOpen({
-        tmdbId:currentDetail.item.id,
-        mediaType:currentDetail.mediaType,
-        seasonNumber,
-        episodeNumber,
-        playbackMethod:"deep_link"
-      });
-
-      document.getElementById("detail-note").textContent =
-        "Opened has been recorded. Dashboard playback preference is off, so external provider routing will be used once provider deep links are connected.";
+      await chooseProvider(currentDetail.item,currentDetail.mediaType,seasonNumber,episodeNumber);
     });
 
     document.getElementById("detail-watchlist").addEventListener("click", async () => {
