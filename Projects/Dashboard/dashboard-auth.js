@@ -1,6 +1,6 @@
 /*
-  My Dashboard · Shared Authentication · Version 0.6.7
-  TV Season & Episode Selection · 2026-08-14
+  My Dashboard · Shared Authentication · Version 0.6.8
+  Mobile Streaming Controls & Connected Project Settings · 2026-08-15
 
   Use on protected project pages:
     <script src="../dashboard-config.js"></script>
@@ -371,7 +371,7 @@
   hidePage();
 
   window.DashboardAuth = {
-    version: "0.6.7",
+    version: "0.6.8",
     client: null,
     user: null,
     getClient,

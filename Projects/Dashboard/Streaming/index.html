@@ -2,17 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Dashboard · Streaming · Version 0.6.7</title>
-  <meta name="description" content="My Dashboard unified streaming hub. Restores the embedded streaming player's normal fullscreen capability and removes the Dashboard-owned fullscreen replacement. Provider routing is now active: Provider Priority automatically opens the highest-priority enabled service carrying a title, Ask Every Time shows an enabled-provider chooser, and Change Provider always opens the chooser. Provider launches are recorded as Opened rather than Watched.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>My Dashboard · Streaming · Version 0.6.8</title>
+  <meta name="description" content="My Dashboard unified streaming hub. Optimizes My Dashboard and Streaming for iPhone while redesigning playback controls around an always-visible Watch button and provider selector. My Dashboard now participates in the saved provider hierarchy, title action menus adapt to viewing state, and Streaming Settings open directly inside the Streaming project while remaining synchronized with the main Dashboard account settings.">
   <meta name="theme-color" content="#101218">
 
-  <script src="../dashboard-config.js?v=0.6.7"></script>
+  <script src="../dashboard-config.js?v=0.6.8"></script>
   <script
-    src="../dashboard-auth.js?v=0.6.7"
+    src="../dashboard-auth.js?v=0.6.8"
     data-dashboard-project="streaming">
   </script>
-  <script src="../dashboard-streaming.js?v=0.6.7"></script>
+  <script src="../dashboard-streaming.js?v=0.6.8"></script>
 
   <style>
     *{box-sizing:border-box}
@@ -80,22 +80,34 @@
     .tv-picker-note{margin:9px 0 0;color:var(--muted);font-size:11px;line-height:1.45}
     @media(max-width:600px){.tv-picker-grid{grid-template-columns:1fr}}
 
-    .provider-chooser{position:fixed;inset:0;z-index:80;display:grid;place-items:center;padding:18px;background:rgba(0,0,0,.72)}
-    .provider-chooser[hidden]{display:none}
-    .provider-chooser-card{width:min(100%,480px);max-height:min(80vh,640px);overflow:auto;padding:20px;border:1px solid var(--border);border-radius:18px;background:var(--panel);box-shadow:0 24px 70px rgba(0,0,0,.42)}
-    .provider-chooser-card h3{margin:0;font-size:20px}
-    .provider-chooser-card p{margin:7px 0 14px;color:var(--muted);font-size:12px;line-height:1.45}
-    .provider-chooser-list{display:grid;gap:8px}
-    .provider-choice{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 13px;border:1px solid #485269;border-radius:11px;background:#252a36;color:#fff;cursor:pointer;text-align:left}
-    .provider-choice strong{font-size:13px}
-    .provider-choice small{color:var(--muted);font-size:11px}
-    .provider-chooser-actions{display:flex;justify-content:flex-end;margin-top:14px}
-    .provider-chooser-close{min-height:38px;padding:8px 12px;border:1px solid #485269;border-radius:10px;background:#20242e;color:#fff;cursor:pointer;font-weight:800}
+
+    html{-webkit-text-size-adjust:100%;scroll-padding-top:calc(72px + env(safe-area-inset-top))}
+    body{overflow-x:hidden;min-height:100dvh;-webkit-tap-highlight-color:transparent}
+    button,a,select,input{touch-action:manipulation}
+    .topbar{padding-top:calc(14px + env(safe-area-inset-top));padding-left:max(22px,env(safe-area-inset-left));padding-right:max(22px,env(safe-area-inset-right))}
+    main{padding-bottom:calc(50px + env(safe-area-inset-bottom))}
+    .settings-link{border:0;cursor:pointer}
+    .watch-controls{display:grid;grid-template-columns:minmax(180px,1fr) auto;gap:8px;align-items:stretch;margin-top:14px;max-width:560px}
+    .provider-select{min-height:44px;min-width:0;padding:9px 36px 9px 12px;border:1px solid #485269;border-radius:10px;background:#252a36;color:#fff;font:inherit;font-size:16px;font-weight:700}
+    .secondary-actions{margin-top:8px}
+    .project-settings{position:fixed;inset:0;z-index:90;display:grid;place-items:center;padding:calc(18px + env(safe-area-inset-top)) max(18px,env(safe-area-inset-right)) calc(18px + env(safe-area-inset-bottom)) max(18px,env(safe-area-inset-left));background:rgba(0,0,0,.72)}
+    .project-settings[hidden]{display:none}
+    .project-settings-card{width:min(100%,680px);max-height:calc(100dvh - 36px - env(safe-area-inset-top) - env(safe-area-inset-bottom));overflow:hidden;border:1px solid var(--border);border-radius:20px;background:var(--panel);box-shadow:0 28px 80px rgba(0,0,0,.45);display:flex;flex-direction:column}
+    .project-settings-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px;border-bottom:1px solid var(--border)}
+    .project-settings-header h2{margin:0;font-size:20px}.project-settings-header button{width:44px;height:44px;border:0;border-radius:50%;background:#fff;color:#111;font-size:24px;cursor:pointer}
+    .project-settings-body{overflow:auto;padding:18px;-webkit-overflow-scrolling:touch}.project-settings-copy{margin:0 0 12px;color:var(--muted);font-size:12px;line-height:1.5}
+    .project-setting-block{margin-top:16px;padding:14px;border:1px solid var(--border);border-radius:14px;background:var(--panel2)}.project-setting-block h3{margin:0 0 10px;font-size:14px}
+    .project-provider-list,.project-priority-list{display:grid;gap:8px}.project-provider-row,.project-priority-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px;border:1px solid #3a4254;border-radius:11px;background:#181b23}
+    .project-provider-main{display:flex;align-items:center;gap:9px;min-width:0}.project-provider-logo{width:36px;height:36px;display:grid;place-items:center;flex:0 0 auto;overflow:hidden;border-radius:9px;background:#fff;color:#28487e;font-weight:900}.project-provider-logo img{width:100%;height:100%;object-fit:cover}
+    .project-provider-row button,.project-priority-controls button{min-width:44px;min-height:44px;border:1px solid #536079;border-radius:10px;background:#252a36;color:#fff;font-weight:800;cursor:pointer}.project-priority-controls{display:flex;gap:6px}.project-settings-status{color:var(--muted);font-size:11px}
+    .project-toggle{display:flex;align-items:flex-start;gap:10px}.project-toggle strong,.project-toggle small{display:block}.project-toggle small{margin-top:3px;color:var(--muted);line-height:1.4}
     .menu{position:fixed;z-index:70;min-width:210px;padding:7px;border:1px solid var(--border);border-radius:12px;background:#20242e;box-shadow:0 14px 40px rgba(0,0,0,.35)}
     .menu[hidden]{display:none}
     .menu button{display:block;width:100%;padding:9px 10px;border:0;border-radius:8px;background:transparent;color:white;text-align:left;cursor:pointer;font-size:13px}
     .menu button:hover{background:#2c3240}
-    @media(max-width:600px){:root{--poster:132px}.topbar{padding:12px}.hero,.row-head,.carousel,.status{padding-left:14px;padding-right:14px}.top-actions{flex:1;justify-content:flex-end}.search{width:min(46vw,230px)}.hero h2{font-size:25px}.detail{max-height:94vh}.detail-close{top:21px;right:21px}}
+    @media(max-width:600px){
+      :root{--poster:132px}.topbar{padding-top:calc(10px + env(safe-area-inset-top));padding-bottom:10px;padding-left:max(12px,env(safe-area-inset-left));padding-right:max(12px,env(safe-area-inset-right));flex-wrap:wrap}.brand{width:100%;justify-content:space-between}.top-actions{width:100%;display:grid;grid-template-columns:minmax(0,1fr) auto}.search{width:100%;font-size:16px}.settings-link{min-height:44px}.hero,.row-head,.carousel,.status{padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right))}.hero h2{font-size:25px}.carousel{scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}.poster-button,.more,.action{min-height:44px}.detail{width:100%;height:100dvh;max-height:none;border-radius:0}.overlay{padding:0;align-items:stretch}.detail-close{position:fixed;top:calc(12px + env(safe-area-inset-top));right:max(12px,env(safe-area-inset-right));width:44px;height:44px}.detail-backdrop{min-height:230px;padding:calc(66px + env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) 18px max(16px,env(safe-area-inset-left))}.detail-body{padding:0 max(16px,env(safe-area-inset-right)) calc(20px + env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left))}.watch-controls{grid-template-columns:1fr}.watch-controls .action{width:100%}.tv-picker-grid{grid-template-columns:1fr}.tv-picker-field select,.provider-select{font-size:16px}.menu{left:10px!important;right:10px!important;width:auto;min-width:0;max-height:70dvh;overflow:auto;-webkit-overflow-scrolling:touch}.menu button{min-height:44px}.project-provider-row,.project-priority-row{align-items:stretch;flex-direction:column}.project-provider-row button{width:100%}.project-priority-controls{align-self:flex-end}.player-wrap{border-radius:10px}
+    }
   </style>
 </head>
 <body>
@@ -106,7 +118,7 @@
     </div>
     <div class="top-actions">
       <input id="search" class="search" type="search" placeholder="Search movies & shows" aria-label="Search streaming">
-      <a class="settings-link" href="../#settings">Settings</a>
+      <button id="streaming-settings-button" class="settings-link" type="button">Settings</button>
     </div>
   </header>
 
@@ -135,12 +147,17 @@
           <h2 id="detail-title"></h2>
           <p id="detail-overview"></p>
           <div id="detail-providers" class="provider-pills"></div>
-          <div class="actions">
-            <button id="detail-watch" class="action primary">Watch</button>
-            <button id="detail-watchlist" class="action">+ Watchlist</button>
-            <button id="detail-like" class="action">Like</button>
-            <button id="detail-dislike" class="action">Dislike</button>
-            <button id="detail-full" class="action">Open Full Page</button>
+          <div class="watch-controls" aria-label="Playback controls">
+            <select id="detail-provider-select" class="provider-select" aria-label="Choose where to watch">
+              <option value="dashboard">My Dashboard</option>
+            </select>
+            <button id="detail-watch" class="action primary" type="button">Watch</button>
+          </div>
+          <div class="actions secondary-actions">
+            <button id="detail-watchlist" class="action" type="button">+ Watchlist</button>
+            <button id="detail-like" class="action" type="button">Like</button>
+            <button id="detail-dislike" class="action" type="button">Dislike</button>
+            <button id="detail-full" class="action" type="button">Open Full Page</button>
           </div>
         </div>
       </div>
@@ -179,12 +196,15 @@
   </div>
 
 
-  <div id="provider-chooser" class="provider-chooser" hidden>
-    <section class="provider-chooser-card" role="dialog" aria-modal="true" aria-labelledby="provider-chooser-title">
-      <h3 id="provider-chooser-title">Choose a streaming service</h3>
-      <p id="provider-chooser-note">Choose where you want to watch this title.</p>
-      <div id="provider-chooser-list" class="provider-chooser-list"></div>
-      <div class="provider-chooser-actions"><button id="provider-chooser-close" class="provider-chooser-close" type="button">Cancel</button></div>
+  <div id="project-settings" class="project-settings" hidden>
+    <section class="project-settings-card" role="dialog" aria-modal="true" aria-labelledby="project-settings-title">
+      <header class="project-settings-header"><h2 id="project-settings-title">Streaming Settings</h2><button id="project-settings-close" type="button" aria-label="Close settings">×</button></header>
+      <div class="project-settings-body">
+        <p class="project-settings-copy">These are the same Streaming settings used by My Dashboard. Changes save to your account and appear in both places.</p>
+        <section class="project-setting-block"><h3>Your Streaming Services</h3><div id="project-provider-list" class="project-provider-list"></div><p id="project-settings-status" class="project-settings-status" role="status"></p></section>
+        <section class="project-setting-block"><h3>Playback Preference</h3><label class="project-toggle"><input id="project-dashboard-first" type="checkbox"><span><strong>Prefer My Dashboard Playback</strong><small>Temporarily place My Dashboard first when it is available.</small></span></label></section>
+        <section class="project-setting-block"><h3>Provider Priority</h3><div id="project-priority-list" class="project-priority-list"></div><p class="project-settings-copy">This controls the default provider beside Watch. My Dashboard remains in this hierarchy even when preferred playback is off.</p></section>
+      </div>
     </section>
   </div>
 
@@ -208,10 +228,8 @@
     const PLAYER_ORIGIN = "https://vidsrcme.ru";
 
     /*
-      0.6.7 restored iframe fullscreen + provider deep-link routing:
-      The third-party iframe is intentionally not granted fullscreen permission.
-      My Dashboard owns the visible fullscreen control and expands player-wrap
-      instead, while no-referrer and validated postMessage checks remain enabled.
+      0.6.8 playback: the embedded player keeps its native fullscreen permission.
+      Provider selection is owned by My Dashboard and stays visible beside Watch.
     */
 
     function mediaTitle(item){return item.title || item.name || "Untitled"}
@@ -404,122 +422,65 @@
     }
 
     function providerAliases(row) {
-      const provider = row?.streaming_providers || row || {};
-      const names = new Set([normalizeProviderName(provider.name), normalizeProviderName(provider.slug)]);
-      const slug = String(provider.slug || "");
-      if (slug === "disney-plus") names.add("disney plus");
-      if (slug === "paramount-plus") names.add("paramount plus");
-      if (slug === "prime-video") { names.add("prime video"); names.add("amazon prime video"); }
-      if (slug === "apple-tv-plus") { names.add("apple tv plus"); names.add("apple tv"); }
-      if (slug === "max") { names.add("max"); names.add("hbo max"); }
-      if (slug === "peacock") { names.add("peacock"); names.add("peacock premium"); }
-      return names;
+      const provider=row?.streaming_providers||row||{}, names=new Set([normalizeProviderName(provider.name),normalizeProviderName(provider.slug)]), slug=String(provider.slug||"");
+      if(slug==="disney-plus")names.add("disney plus");if(slug==="paramount-plus")names.add("paramount plus");if(slug==="prime-video"){names.add("prime video");names.add("amazon prime video")};if(slug==="apple-tv-plus"){names.add("apple tv plus");names.add("apple tv")};if(slug==="max"){names.add("max");names.add("hbo max")};if(slug==="peacock"){names.add("peacock");names.add("peacock premium")};return names;
     }
 
     function providerMatches(row, tmdbProvider) {
-      const candidate = normalizeProviderName(tmdbProvider?.provider_name);
-      if (!candidate) return false;
-      return Array.from(providerAliases(row)).some(alias => alias && (candidate === alias || candidate.startsWith(alias + " ") || candidate.includes(" " + alias + " ") || alias.startsWith(candidate + " ")));
+      const candidate=normalizeProviderName(tmdbProvider?.provider_name);if(!candidate)return false;
+      return Array.from(providerAliases(row)).some(alias=>alias&&(candidate===alias||candidate.startsWith(alias+" ")||candidate.includes(" "+alias+" ")||alias.startsWith(candidate+" ")));
     }
 
-    function getProviderSearchUrl(row, item) {
-      const provider = row?.streaming_providers || {};
-      const slug = String(provider.slug || "");
-      const title = encodeURIComponent(mediaTitle(item));
-      const builders = {
-        "netflix": () => `https://www.netflix.com/search?q=${title}`,
-        "hulu": () => `https://www.hulu.com/search?q=${title}`,
-        "disney-plus": () => `https://www.disneyplus.com/search?q=${title}`,
-        "max": () => `https://play.max.com/search?q=${title}`,
-        "peacock": () => `https://www.peacocktv.com/search?q=${title}`,
-        "paramount-plus": () => `https://www.paramountplus.com/search/?query=${title}`,
-        "prime-video": () => `https://www.amazon.com/s?k=${title}&i=instant-video`,
-        "apple-tv-plus": () => `https://tv.apple.com/search?term=${title}`
-      };
-      return builders[slug] ? builders[slug]() : null;
+    function getProviderSearchUrl(row,item) {
+      const provider=row?.streaming_providers||{},slug=String(provider.slug||""),title=encodeURIComponent(mediaTitle(item));
+      const builders={"netflix":()=>`https://www.netflix.com/search?q=${title}`,"hulu":()=>`https://www.hulu.com/search?q=${title}`,"disney-plus":()=>`https://www.disneyplus.com/search?q=${title}`,"max":()=>`https://play.max.com/search?q=${title}`,"peacock":()=>`https://www.peacocktv.com/search?q=${title}`,"paramount-plus":()=>`https://www.paramountplus.com/search/?query=${title}`,"prime-video":()=>`https://www.amazon.com/s?k=${title}&i=instant-video`,"apple-tv-plus":()=>`https://tv.apple.com/search?term=${title}`};
+      return builders[slug]?builders[slug]():null;
     }
 
-    async function getEnabledProvidersForTitle(item, mediaType) {
-      const availability = await DashboardStreaming.getWatchProviders(item.id, mediaType);
-      const region = prefs?.region || "US";
-      const regionData = availability?.results?.[region] || {};
-      const tmdbProviders = [...(regionData.flatrate || []), ...(regionData.free || []), ...(regionData.ads || [])];
-      const seen = new Set();
-      return currentProviders.filter(row => row.enabled !== false).filter(row => {
-        if (seen.has(String(row.provider_id))) return false;
-        const match = tmdbProviders.some(provider => providerMatches(row, provider));
-        if (match) seen.add(String(row.provider_id));
-        return match;
-      }).sort((a,b)=>(a.priority ?? 999)-(b.priority ?? 999));
+    async function getExternalProvidersForTitle(item,mediaType) {
+      const availability=await DashboardStreaming.getWatchProviders(item.id,mediaType),region=prefs?.region||"US",data=availability?.results?.[region]||{},tmdbProviders=[...(data.flatrate||[]),...(data.free||[]),...(data.ads||[])],seen=new Set();
+      return currentProviders.filter(row=>row.enabled!==false).filter(row=>{if(seen.has(String(row.provider_id)))return false;const match=tmdbProviders.some(provider=>providerMatches(row,provider));if(match)seen.add(String(row.provider_id));return match});
     }
 
-    async function launchProvider(row, item, mediaType, seasonNumber=null, episodeNumber=null) {
-      const url = getProviderSearchUrl(row, item);
-      if (!url) {
-        document.getElementById("detail-note").textContent = "A provider deep link is not configured for this service yet.";
-        return;
-      }
-      await DashboardStreaming.recordOpen({tmdbId:item.id,mediaType,providerId:row.provider_id,seasonNumber,episodeNumber,playbackMethod:"deep_link"});
-      window.open(url, "_blank", "noopener,noreferrer");
+    function optionPriority(option) {
+      if(option.kind==="dashboard") return prefs?.prefer_dashboard_playback ? -1 : Number(prefs?.dashboard_provider_priority)||1;
+      return Number(option.row?.priority)||999;
     }
 
-    function hideProviderChooser(){ document.getElementById("provider-chooser").hidden=true; }
-
-    async function chooseProvider(item, mediaType, seasonNumber=null, episodeNumber=null, forceChooser=false) {
-      const note = document.getElementById("detail-note");
-      let available=[];
-      try { available = await getEnabledProvidersForTitle(item, mediaType); }
-      catch(error){ console.error("Provider availability:",error); note.textContent=error.message||"Provider availability could not be loaded."; return; }
-      if (!available.length) { note.textContent="None of your enabled streaming services currently show this title as available."; return; }
-      if (!forceChooser && prefs?.provider_selection_mode === "priority") {
-        await launchProvider(available[0],item,mediaType,seasonNumber,episodeNumber); return;
-      }
-      if (!forceChooser && available.length === 1) {
-        await launchProvider(available[0],item,mediaType,seasonNumber,episodeNumber); return;
-      }
-      const chooser=document.getElementById("provider-chooser"), list=document.getElementById("provider-chooser-list"), chooserNote=document.getElementById("provider-chooser-note");
-      list.innerHTML=""; chooserNote.textContent=`${mediaTitle(item)} is available on ${available.length} of your enabled services.`;
-      available.forEach(row=>{
-        const b=document.createElement("button"); b.type="button"; b.className="provider-choice";
-        const name=row.streaming_providers?.name||"Streaming service";
-        b.innerHTML=`<span><strong>${name}</strong><br><small>Open ${name}</small></span><span>→</span>`;
-        b.addEventListener("click",async()=>{ hideProviderChooser(); await launchProvider(row,item,mediaType,seasonNumber,episodeNumber); });
-        list.appendChild(b);
-      });
-      chooser.hidden=false;
+    async function buildWatchOptions(item,mediaType) {
+      let external=[];try{external=await getExternalProvidersForTitle(item,mediaType)}catch(error){console.warn("Provider availability:",error)}
+      const options=[{key:"dashboard",label:"My Dashboard",kind:"dashboard"},...external.map(row=>({key:"provider:"+row.provider_id,label:row.streaming_providers?.name||"Provider",kind:"provider",row}))];
+      options.sort((a,b)=>optionPriority(a)-optionPriority(b)||a.label.localeCompare(b.label));return options;
     }
 
-    function showMenu(anchor, item, mediaType) {
-      const menu = document.getElementById("card-menu");
-      menu.innerHTML = "";
-      const actions = [
-        ["Details", () => showDetails(item, mediaType)],
-        ["Like", () => DashboardStreaming.setTitleReaction(item.id, mediaType, "like")],
-        ["Dislike", () => DashboardStreaming.setTitleReaction(item.id, mediaType, "dislike")],
-        ["Add to Watchlist", () => DashboardStreaming.setWatchlist(item.id, mediaType, true)],
-        ["Mark as Watched", () => markWatched(item.id, mediaType)],
-        ["Mark as Unwatched", () => markUnwatched(item.id, mediaType)],
-        ["Change Provider", async () => { await showDetails(item, mediaType, "provider"); const selected = mediaType === "tv" ? getSelectedTvEpisode() : null; await chooseProvider(item, mediaType, selected?.seasonNumber ?? null, selected?.episodeNumber ?? null, true); }],
-        ["Restart", () => restartTitle(item, mediaType)],
-        ["Remove from Continue Watching", () => DashboardStreaming.removeFromContinueWatching(item.id, mediaType)],
-        ["Not Interested", () => DashboardStreaming.setTitleReaction(item.id, mediaType, "not_interested")]
-      ];
+    async function populateProviderSelect(item,mediaType) {
+      const select=document.getElementById("detail-provider-select"),options=await buildWatchOptions(item,mediaType);select.innerHTML="";
+      options.forEach(option=>{const el=document.createElement("option");el.value=option.key;el.textContent=option.label;select.appendChild(el)});
+      select.value=options[0]?.key||"dashboard";currentDetail.watchOptions=options;return options;
+    }
 
-      actions.forEach(([label, fn]) => {
-        const b = document.createElement("button");
-        b.type = "button";
-        b.textContent = label;
-        b.addEventListener("click", async () => {
-          menu.hidden = true;
-          try { await fn(); } catch (e) { console.error(e); }
-        });
-        menu.appendChild(b);
-      });
+    async function launchProvider(row,item,mediaType,seasonNumber=null,episodeNumber=null) {
+      const url=getProviderSearchUrl(row,item);if(!url){document.getElementById("detail-note").textContent="A provider link is not configured for this service yet.";return}
+      await DashboardStreaming.recordOpen({tmdbId:item.id,mediaType,providerId:row.provider_id,seasonNumber,episodeNumber,playbackMethod:"deep_link"});window.open(url,"_blank","noopener,noreferrer");
+    }
 
-      const r = anchor.getBoundingClientRect();
-      menu.style.top = Math.min(window.innerHeight - 300, r.bottom + 6) + "px";
-      menu.style.left = Math.max(8, Math.min(window.innerWidth - 220, r.right - 210)) + "px";
-      menu.hidden = false;
+    async function showMenu(anchor,item,mediaType) {
+      const menu=document.getElementById("card-menu");menu.innerHTML='<button type="button" disabled>Loading…</button>';
+      const r=anchor.getBoundingClientRect();menu.style.top=Math.min(window.innerHeight-300,r.bottom+6)+"px";menu.style.left=Math.max(8,Math.min(window.innerWidth-220,r.right-210))+"px";menu.hidden=false;
+      let state=item._state||null;try{state=state||await DashboardStreaming.loadTitleState(item.id,mediaType)}catch(error){console.warn("Title state:",error)}
+      menu.innerHTML="";
+      const watching=Boolean(state?.in_continue_watching),watched=state?.viewing_status==="watched",watchlisted=Boolean(state?.in_watchlist);
+      const actions=[];
+      actions.push(["Details",()=>showDetails(item,mediaType)]);
+      actions.push([watching?"Resume":watched?"Watch Again":"Watch",()=>showDetails(item,mediaType)]);
+      if(watching){actions.push(["Restart",()=>restartTitle(item,mediaType)]);actions.push(["Remove from Continue Watching",()=>DashboardStreaming.removeFromContinueWatching(item.id,mediaType)])}
+      else if(watched){actions.push([watchlisted?"Remove from Watchlist":"Add to Watchlist",()=>DashboardStreaming.setWatchlist(item.id,mediaType,!watchlisted)])}
+      else if(watchlisted){actions.push(["Remove from Watchlist",()=>DashboardStreaming.setWatchlist(item.id,mediaType,false)])}
+      else{actions.push(["Add to Watchlist",()=>DashboardStreaming.setWatchlist(item.id,mediaType,true)])}
+      actions.push(["Like",()=>DashboardStreaming.setTitleReaction(item.id,mediaType,"like")]);actions.push(["Dislike",()=>DashboardStreaming.setTitleReaction(item.id,mediaType,"dislike")]);
+      actions.push([watched?"Mark as Unwatched":"Mark as Watched",()=>watched?markUnwatched(item.id,mediaType):markWatched(item.id,mediaType)]);
+      actions.push(["Not Interested",()=>DashboardStreaming.setTitleReaction(item.id,mediaType,"not_interested")]);
+      actions.forEach(([label,fn])=>{const b=document.createElement("button");b.type="button";b.textContent=label;b.addEventListener("click",async()=>{menu.hidden=true;try{await fn();await init()}catch(error){console.error(error)}});menu.appendChild(b)});
     }
 
     async function markWatched(tmdbId, mediaType) {
@@ -583,252 +544,6 @@
 
     async function startOrChoose(item, mediaType) {
       await showDetails(item, mediaType);
-
-      // TV shows first open the Dashboard-owned season / episode picker.
-      // This avoids forcing the third-party player's picker and lets Dashboard
-      // save the exact episode state before playback begins.
-      if (mediaType === "tv") return;
-
-      if (prefs?.prefer_dashboard_playback) {
-        await startDashboardPlayback(item, mediaType);
-        return;
-      }
-
-      await chooseProvider(item, mediaType);
-    }
-
-
-    function seasonLabel(season) {
-      if (Number(season.season_number) === 0) {
-        return season.name || "Specials";
-      }
-
-      const count = Number(season.episode_count) || 0;
-      return `${season.name || `Season ${season.season_number}`}${count ? ` · ${count} episodes` : ""}`;
-    }
-
-    function episodeLabel(episode) {
-      const number = Number(episode.episode_number);
-      const name = String(episode.name || "").trim();
-      const airDate = String(episode.air_date || "").trim();
-      let label = `Episode ${number}`;
-
-      if (name) label += ` · ${name}`;
-      if (airDate) {
-        const parsed = new Date(airDate + "T12:00:00");
-        if (!Number.isNaN(parsed.getTime())) {
-          label += ` · ${parsed.toLocaleDateString(undefined, {
-            month:"short",
-            day:"numeric",
-            year:"numeric"
-          })}`;
-        }
-      }
-
-      return label;
-    }
-
-    function getSelectedTvEpisode() {
-      const season = Number(document.getElementById("tv-season-select").value);
-      const episode = Number(document.getElementById("tv-episode-select").value);
-
-      if (!Number.isInteger(season) || !Number.isInteger(episode)) {
-        return null;
-      }
-
-      return { seasonNumber: season, episodeNumber: episode };
-    }
-
-    async function loadTvEpisodes(tmdbId, seasonNumber, preferredEpisode = null) {
-      const episodeSelect = document.getElementById("tv-episode-select");
-      const note = document.getElementById("tv-picker-note");
-
-      episodeSelect.disabled = true;
-      episodeSelect.innerHTML = "<option>Loading episodes…</option>";
-      note.textContent = "";
-
-      try {
-        const season =
-          typeof DashboardStreaming.getTvSeasonDetails === "function"
-            ? await DashboardStreaming.getTvSeasonDetails(
-                tmdbId,
-                seasonNumber
-              )
-            : await DashboardStreaming.tmdb(
-                `/tv/${Number(tmdbId)}/season/${Number(seasonNumber)}`
-              );
-
-        const episodes = Array.isArray(season?.episodes)
-          ? season.episodes
-          : [];
-
-        tvSelection.episodes = episodes;
-        tvSelection.seasonNumber = Number(seasonNumber);
-
-        episodeSelect.innerHTML = "";
-
-        if (!episodes.length) {
-          const option = document.createElement("option");
-          option.textContent = "No episodes found";
-          option.value = "";
-          episodeSelect.appendChild(option);
-          note.textContent =
-            "TMDB does not currently list episodes for this season.";
-          return;
-        }
-
-        episodes.forEach(episode => {
-          const option = document.createElement("option");
-          option.value = String(episode.episode_number);
-          option.textContent = episodeLabel(episode);
-          episodeSelect.appendChild(option);
-        });
-
-        const desiredEpisode =
-          episodes.some(ep =>
-            Number(ep.episode_number) === Number(preferredEpisode)
-          )
-            ? Number(preferredEpisode)
-            : Number(episodes[0].episode_number);
-
-        episodeSelect.value = String(desiredEpisode);
-        tvSelection.episodeNumber = desiredEpisode;
-        episodeSelect.disabled = false;
-
-        const selected =
-          episodes.find(ep =>
-            Number(ep.episode_number) === desiredEpisode
-          );
-
-        note.textContent = selected?.overview
-          ? selected.overview
-          : "Choose the episode you want to play.";
-
-        updateTvWatchButton();
-      } catch (error) {
-        console.error("TV episodes:", error);
-        episodeSelect.innerHTML =
-          "<option>Episodes unavailable</option>";
-        note.textContent =
-          error.message || "Episodes could not be loaded.";
-      }
-    }
-
-    function updateTvWatchButton() {
-      if (!currentDetail || currentDetail.mediaType !== "tv") return;
-
-      const selected = getSelectedTvEpisode();
-      const button = document.getElementById("detail-watch");
-
-      if (!selected) {
-        button.textContent = prefs?.prefer_dashboard_playback
-          ? "Watch in Dashboard"
-          : "Watch";
-        return;
-      }
-
-      const isResume =
-        currentDetail.resume &&
-        Number(currentDetail.resume.season_number) === selected.seasonNumber &&
-        Number(currentDetail.resume.episode_number) === selected.episodeNumber &&
-        Number(currentDetail.resume.progress_seconds) > 5;
-
-      button.textContent = isResume
-        ? `Resume S${selected.seasonNumber} E${selected.episodeNumber}`
-        : `Watch S${selected.seasonNumber} E${selected.episodeNumber}`;
-    }
-
-    async function initializeTvPicker(item) {
-      const picker = document.getElementById("tv-picker");
-      const seasonSelect = document.getElementById("tv-season-select");
-      const episodeSelect = document.getElementById("tv-episode-select");
-      const note = document.getElementById("tv-picker-note");
-
-      picker.hidden = false;
-      seasonSelect.disabled = true;
-      episodeSelect.disabled = true;
-      seasonSelect.innerHTML = "<option>Loading seasons…</option>";
-      episodeSelect.innerHTML = "<option>Choose a season first</option>";
-      note.textContent = "";
-
-      let resume = null;
-
-      try {
-        resume = await DashboardStreaming.loadLatestTvProgress(item.id);
-      } catch (error) {
-        console.warn("TV resume lookup:", error);
-      }
-
-      currentDetail.resume = resume || null;
-
-      try {
-        const details =
-          item.seasons
-            ? item
-            : await DashboardStreaming.getTitleDetails(item.id, "tv");
-
-        const seasons = Array.isArray(details?.seasons)
-          ? details.seasons.filter(season =>
-              Number.isInteger(Number(season.season_number)) &&
-              Number(season.episode_count) > 0
-            )
-          : [];
-
-        tvSelection.seasons = seasons;
-        seasonSelect.innerHTML = "";
-
-        if (!seasons.length) {
-          seasonSelect.innerHTML = "<option>No seasons found</option>";
-          note.textContent =
-            "TMDB does not currently list playable seasons for this show.";
-          return;
-        }
-
-        seasons.forEach(season => {
-          const option = document.createElement("option");
-          option.value = String(season.season_number);
-          option.textContent = seasonLabel(season);
-          seasonSelect.appendChild(option);
-        });
-
-        const preferredSeason =
-          resume &&
-          seasons.some(season =>
-            Number(season.season_number) === Number(resume.season_number)
-          )
-            ? Number(resume.season_number)
-            : (
-                seasons.some(season => Number(season.season_number) === 1)
-                  ? 1
-                  : Number(seasons[0].season_number)
-              );
-
-        seasonSelect.value = String(preferredSeason);
-        seasonSelect.disabled = false;
-
-        await loadTvEpisodes(
-          item.id,
-          preferredSeason,
-          resume?.episode_number ?? null
-        );
-      } catch (error) {
-        console.error("TV seasons:", error);
-        seasonSelect.innerHTML = "<option>Seasons unavailable</option>";
-        episodeSelect.innerHTML = "<option>Episodes unavailable</option>";
-        note.textContent =
-          "Season and episode data could not be loaded. You can still open the TV player and choose the episode there.";
-
-        // Null selection means the Watch handler may use the series-level
-        // player as a fallback rather than leaving playback inaccessible.
-        tvSelection.seasonNumber = null;
-        tvSelection.episodeNumber = null;
-
-        const watchButton = document.getElementById("detail-watch");
-        watchButton.textContent = prefs?.prefer_dashboard_playback
-          ? "Open TV Player"
-          : "Watch";
-        watchButton.dataset.tvPickerFallback = "true";
-      }
     }
 
     function formatTime(seconds) {
@@ -1086,20 +801,23 @@
         });
       }
 
-      document.getElementById("detail-watch").textContent = prefs?.prefer_dashboard_playback ? "Watch in Dashboard" : "Watch";
-      document.getElementById("detail-note").textContent =
-        requestedMode === "provider"
-          ? "Choose a different enabled streaming service for this title."
-          : (
-            prefs?.provider_selection_mode === "ask"
-              ? "Ask Every Time is enabled. Watch will show only your enabled services that currently carry this title."
-              : "Provider Priority is enabled. My Dashboard will open the highest available service in your saved hierarchy."
-          );
-
+      document.getElementById("detail-watch").textContent = "Watch";
+      try { await populateProviderSelect(item,mediaType); } catch(error) { console.warn("Watch options:",error); }
+      let state=item._state||null;try{state=state||await DashboardStreaming.loadTitleState(item.id,mediaType)}catch(error){console.warn(error)}
+      document.getElementById("detail-watchlist").textContent=state?.in_watchlist?"Remove Watchlist":"+ Watchlist";
+      document.getElementById("detail-note").textContent="Choose where to watch, then press Watch. The provider dropdown stays available for every title.";
       document.getElementById("detail-overlay").hidden = false;
       document.body.style.overflow = "hidden";
     }
 
+
+    function projectHierarchyRows(rows,preferences){const result=rows.filter(row=>row.enabled).map(row=>({key:String(row.provider_id),name:row.streaming_providers?.name||"Provider",priority:Number(row.priority)||999}));result.push({key:"dashboard",name:"My Dashboard",priority:Number(preferences.dashboard_provider_priority)||1,isDashboard:true});return result.sort((a,b)=>a.priority-b.priority||a.name.localeCompare(b.name))}
+
+    async function refreshProjectSettings(){const list=document.getElementById("project-provider-list"),priority=document.getElementById("project-priority-list"),status=document.getElementById("project-settings-status");status.textContent="Loading…";try{const [providers,rows,preferences]=await Promise.all([DashboardStreaming.listProviders(),DashboardStreaming.loadUserProviders(),DashboardStreaming.loadPreferences()]);const map=new Map(rows.map(row=>[String(row.provider_id),row]));list.innerHTML="";providers.forEach(provider=>{const current=map.get(String(provider.id)),row=document.createElement("div");row.className="project-provider-row";const main=document.createElement("div");main.className="project-provider-main";const logo=document.createElement("div");logo.className="project-provider-logo";if(provider.logo_path){const img=document.createElement("img");img.alt="";img.src="https://image.tmdb.org/t/p/w92"+provider.logo_path;logo.appendChild(img)}else logo.textContent=provider.name.slice(0,1);const name=document.createElement("strong");name.textContent=provider.name;main.append(logo,name);const b=document.createElement("button");b.type="button";b.textContent=current?"Remove":"Add";b.addEventListener("click",async()=>{b.disabled=true;try{current?await DashboardStreaming.removeProvider(provider.id):await DashboardStreaming.addProvider(provider.id);await refreshProjectSettings();currentProviders=await DashboardStreaming.loadUserProviders()}finally{b.disabled=false}});row.append(main,b);list.appendChild(row)});
+      document.getElementById("project-dashboard-first").checked=Boolean(preferences.prefer_dashboard_playback);priority.innerHTML="";const sorted=projectHierarchyRows(rows,preferences);sorted.forEach((entry,index)=>{const row=document.createElement("div");row.className="project-priority-row";const name=document.createElement("strong");name.textContent=`${index+1}. ${entry.name}`;const controls=document.createElement("div");controls.className="project-priority-controls";const up=document.createElement("button"),down=document.createElement("button");up.type=down.type="button";up.textContent="↑";down.textContent="↓";up.disabled=index===0;down.disabled=index===sorted.length-1;const move=async direction=>{const target=index+direction;if(target<0||target>=sorted.length)return;const keys=sorted.map(x=>x.key);[keys[index],keys[target]]=[keys[target],keys[index]];await DashboardStreaming.saveProviderHierarchy(keys);await refreshProjectSettings();prefs=await DashboardStreaming.loadPreferences()};up.addEventListener("click",()=>move(-1));down.addEventListener("click",()=>move(1));controls.append(up,down);row.append(name,controls);priority.appendChild(row)});status.textContent="Saved to your My Dashboard account."}catch(error){console.error(error);status.textContent=error.message||"Settings could not be loaded."}}
+
+    async function openProjectSettings(){document.getElementById("project-settings").hidden=false;document.body.style.overflow="hidden";await refreshProjectSettings()}
+    function closeProjectSettings(){document.getElementById("project-settings").hidden=true;if(document.getElementById("detail-overlay").hidden)document.body.style.overflow=""}
 
     async function closeDetails(){
       await flushProgress(true,false);
@@ -1136,56 +854,29 @@
 
       updateTvWatchButton();
     });
-    document.getElementById("provider-chooser-close").addEventListener("click", hideProviderChooser);
-    document.getElementById("provider-chooser").addEventListener("click", event => { if (event.target === event.currentTarget) hideProviderChooser(); });
 
+    document.getElementById("streaming-settings-button").addEventListener("click",openProjectSettings);
+    document.getElementById("project-settings-close").addEventListener("click",closeProjectSettings);
+    document.getElementById("project-settings").addEventListener("click",event=>{if(event.target===event.currentTarget)closeProjectSettings()});
+    document.getElementById("project-dashboard-first").addEventListener("change",async event=>{const checked=event.target.checked;if(!checked){await DashboardStreaming.savePreferences({prefer_dashboard_playback:false});prefs=await DashboardStreaming.loadPreferences();return}const current=await DashboardStreaming.loadPreferences();if(current.dashboard_playback_warning_acknowledged){await DashboardStreaming.savePreferences({prefer_dashboard_playback:true});prefs=await DashboardStreaming.loadPreferences();return}const accepted=window.confirm("My Dashboard Playback uses a third-party player. Third-party tabs, windows, advertisements, or other content may open. Continue and prefer My Dashboard Playback?");event.target.checked=accepted;await DashboardStreaming.savePreferences({prefer_dashboard_playback:accepted});prefs=await DashboardStreaming.loadPreferences()});
     document.getElementById("detail-close").addEventListener("click", closeDetails);
     document.getElementById("detail-overlay").addEventListener("click", e => {
       if (e.target === e.currentTarget) closeDetails();
     });
     document.getElementById("card-menu").addEventListener("click", e => e.stopPropagation());
-    document.addEventListener("click", e => {
-      if (!e.target.closest(".more")) document.getElementById("card-menu").hidden = true;
-    });
+    document.addEventListener("click", e => { if (!e.target.closest(".more")) document.getElementById("card-menu").hidden = true; });
+    document.addEventListener("keydown", e => { if(e.key!=="Escape")return;if(!document.getElementById("project-settings").hidden)return closeProjectSettings();if(!document.getElementById("detail-overlay").hidden)closeDetails(); });
 
     document.getElementById("detail-watch").addEventListener("click", async () => {
-      if (!currentDetail) return;
-
-      let seasonNumber = null;
-      let episodeNumber = null;
-
-      if (currentDetail.mediaType === "tv") {
-        const selected = getSelectedTvEpisode();
-        const fallbackAllowed =
-          document.getElementById("detail-watch").dataset.tvPickerFallback === "true";
-
-        if (!selected && !fallbackAllowed) {
-          document.getElementById("tv-picker-note").textContent =
-            "Choose a season and episode first.";
-          return;
-        }
-
-        if (selected) {
-          seasonNumber = selected.seasonNumber;
-          episodeNumber = selected.episodeNumber;
-        }
-      }
-
-      if (prefs?.prefer_dashboard_playback) {
-        await startDashboardPlayback(
-          currentDetail.item,
-          currentDetail.mediaType,
-          seasonNumber,
-          episodeNumber
-        );
-        return;
-      }
-
-      await chooseProvider(currentDetail.item,currentDetail.mediaType,seasonNumber,episodeNumber);
+      if(!currentDetail)return;let seasonNumber=null,episodeNumber=null;
+      if(currentDetail.mediaType==="tv"){const selected=getSelectedTvEpisode(),fallback=document.getElementById("detail-watch").dataset.tvPickerFallback==="true";if(!selected&&!fallback){document.getElementById("tv-picker-note").textContent="Choose a season and episode first.";return}if(selected){seasonNumber=selected.seasonNumber;episodeNumber=selected.episodeNumber}}
+      const key=document.getElementById("detail-provider-select").value||"dashboard";
+      if(key==="dashboard"){await startDashboardPlayback(currentDetail.item,currentDetail.mediaType,seasonNumber,episodeNumber);return}
+      const option=currentDetail.watchOptions?.find(option=>option.key===key);if(option?.row)await launchProvider(option.row,currentDetail.item,currentDetail.mediaType,seasonNumber,episodeNumber);
     });
 
     document.getElementById("detail-watchlist").addEventListener("click", async () => {
-      if(currentDetail) await DashboardStreaming.setWatchlist(currentDetail.item.id,currentDetail.mediaType,true);
+      if(!currentDetail)return;const state=await DashboardStreaming.loadTitleState(currentDetail.item.id,currentDetail.mediaType);const next=!Boolean(state?.in_watchlist);await DashboardStreaming.setWatchlist(currentDetail.item.id,currentDetail.mediaType,next);document.getElementById("detail-watchlist").textContent=next?"Remove Watchlist":"+ Watchlist";
     });
     document.getElementById("detail-like").addEventListener("click", async () => {
       if(currentDetail) await DashboardStreaming.setTitleReaction(currentDetail.item.id,currentDetail.mediaType,"like");

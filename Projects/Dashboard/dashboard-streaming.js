@@ -1,5 +1,5 @@
 /*
-  My Dashboard · Streaming Client · Version 0.6.7
+  My Dashboard · Streaming Client · Version 0.6.8
 
   Load after dashboard-config.js and after the Dashboard's authenticated
   Supabase client is available.
@@ -176,7 +176,7 @@
     const { data, error } = await client
       .from("streaming_preferences")
       .select(
-        "user_id,region,prefer_dashboard_playback,provider_selection_mode,dashboard_playback_warning_acknowledged"
+        "user_id,region,prefer_dashboard_playback,provider_selection_mode,dashboard_playback_warning_acknowledged,dashboard_provider_priority"
       )
       .eq("user_id", user.id)
       .maybeSingle();
@@ -191,6 +191,7 @@
       prefer_dashboard_playback: true,
       provider_selection_mode: "priority",
       dashboard_playback_warning_acknowledged: false,
+      dashboard_provider_priority: 1,
     };
 
     const { data: created, error: createError } = await client
@@ -229,6 +230,12 @@
     if ("dashboard_playback_warning_acknowledged" in changes) {
       allowed.dashboard_playback_warning_acknowledged =
         Boolean(changes.dashboard_playback_warning_acknowledged);
+    }
+
+    if ("dashboard_provider_priority" in changes) {
+      const priority = Number(changes.dashboard_provider_priority);
+      allowed.dashboard_provider_priority =
+        Number.isInteger(priority) && priority > 0 ? priority : 1;
     }
 
     const { data, error } = await client
@@ -446,6 +453,55 @@
     if (eventError) throw eventError;
   }
 
+  async function loadTitleState(tmdbId, mediaType) {
+    const client = requireClient();
+    const user = requireUser();
+    const { data, error } = await client
+      .from("user_title_state")
+      .select("*")
+      .eq("user_id", user.id)
+      .eq("tmdb_id", Number(tmdbId))
+      .eq("media_type", mediaType)
+      .maybeSingle();
+    if (error) throw error;
+    return data || null;
+  }
+
+  async function saveProviderHierarchy(keys) {
+    const ordered = Array.from(keys || []).map(String);
+    const dashboardIndex = ordered.indexOf("dashboard");
+    if (dashboardIndex >= 0) {
+      await savePreferences({ dashboard_provider_priority: dashboardIndex + 1 });
+    }
+
+    const client = requireClient();
+    const user = requireUser();
+    const external = ordered.filter(key => key !== "dashboard");
+
+    // Move rows temporarily to avoid unique-priority collisions.
+    for (let index = 0; index < external.length; index += 1) {
+      const { error } = await client
+        .from("user_streaming_providers")
+        .update({ priority: 1000 + index })
+        .eq("user_id", user.id)
+        .eq("provider_id", external[index]);
+      if (error) throw error;
+    }
+
+    for (let index = 0; index < ordered.length; index += 1) {
+      const key = ordered[index];
+      if (key === "dashboard") continue;
+      const { error } = await client
+        .from("user_streaming_providers")
+        .update({ priority: index + 1 })
+        .eq("user_id", user.id)
+        .eq("provider_id", key);
+      if (error) throw error;
+    }
+
+    return Promise.all([loadUserProviders(), loadPreferences()]);
+  }
+
   function getEdgeFunctionBase() {
     const supabaseUrl = window.DashboardConfig?.supabaseUrl;
     if (!supabaseUrl) throw new Error("DashboardConfig.supabaseUrl is missing.");
@@ -627,7 +683,7 @@
   }
 
   window.DashboardStreaming = Object.freeze({
-    version: "0.6.7",
+    version: "0.6.8",
     listProviders,
     loadUserProviders,
     addProvider,
@@ -640,6 +696,8 @@
     setTitleReaction,
     setWatchlist,
     removeFromContinueWatching,
+    loadTitleState,
+    saveProviderHierarchy,
     loadEpisodeProgress,
     loadLatestTvProgress,
     saveMovieProgress,
