@@ -20,8 +20,8 @@
     loginUrl: BASE_PATH + "login.html",
     projectsUrl: BASE_PATH + "projects.json",
     streamingUrl: BASE_PATH + "Streaming/",
-    streamingClientUrl: BASE_PATH + "dashboard-streaming.js",
-    streamingUiUrl: BASE_PATH + "dashboard-streaming-ui.js"
+    streamingClientUrl: BASE_PATH + "dashboard-streaming.js?v=0.6.6",
+    streamingUiUrl: BASE_PATH + "dashboard-streaming-ui.js?v=0.6.6"
   });
 
   // Keep shared pages visually aligned with the current Dashboard version
