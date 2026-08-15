@@ -7,12 +7,12 @@
   <meta name="description" content="My Dashboard unified streaming hub. Adds Dashboard-owned season and episode selection for TV playback and renames the product from Dashboard  to My Dashboard. TV details load real TMDB seasons and episodes into dropdowns, default to saved viewing progress when available, and launch the exact selected episode without manual number entry. All user-facing  branding is removed while the existing playback warning, cross-device resume, and Dashboard-controlled fullscreen behavior remain intact.">
   <meta name="theme-color" content="#101218">
 
-  <script src="../dashboard-config.js"></script>
+  <script src="../dashboard-config.js?v=0.6.6"></script>
   <script
-    src="../dashboard-auth.js"
+    src="../dashboard-auth.js?v=0.6.6"
     data-dashboard-project="streaming">
   </script>
-  <script src="../dashboard-streaming.js"></script>
+  <script src="../dashboard-streaming.js?v=0.6.6"></script>
 
   <style>
     *{box-sizing:border-box}
@@ -574,10 +574,14 @@
 
       try {
         const season =
-          await DashboardStreaming.getTvSeasonDetails(
-            tmdbId,
-            seasonNumber
-          );
+          typeof DashboardStreaming.getTvSeasonDetails === "function"
+            ? await DashboardStreaming.getTvSeasonDetails(
+                tmdbId,
+                seasonNumber
+              )
+            : await DashboardStreaming.tmdb(
+                `/tv/${Number(tmdbId)}/season/${Number(seasonNumber)}`
+              );
 
         const episodes = Array.isArray(season?.episodes)
           ? season.episodes
@@ -735,8 +739,20 @@
       } catch (error) {
         console.error("TV seasons:", error);
         seasonSelect.innerHTML = "<option>Seasons unavailable</option>";
+        episodeSelect.innerHTML = "<option>Episodes unavailable</option>";
         note.textContent =
-          error.message || "Seasons could not be loaded.";
+          "Season and episode data could not be loaded. You can still open the TV player and choose the episode there.";
+
+        // Null selection means the Watch handler may use the series-level
+        // player as a fallback rather than leaving playback inaccessible.
+        tvSelection.seasonNumber = null;
+        tvSelection.episodeNumber = null;
+
+        const watchButton = document.getElementById("detail-watch");
+        watchButton.textContent = prefs?.prefer_dashboard_playback
+          ? "Open TV Player"
+          : "Watch";
+        watchButton.dataset.tvPickerFallback = "true";
       }
     }
 
@@ -872,6 +888,7 @@
 
     async function showDetails(item, mediaType, requestedMode = "") {
       currentDetail = {item, mediaType, resume:null};
+      document.getElementById("detail-watch").removeAttribute("data-tv-picker-fallback");
       document.getElementById("tv-picker").hidden = true;
       document.getElementById("player-wrap").hidden = true;
       document.getElementById("player-frame").src = "about:blank";
@@ -1139,15 +1156,19 @@
 
       if (currentDetail.mediaType === "tv") {
         const selected = getSelectedTvEpisode();
+        const fallbackAllowed =
+          document.getElementById("detail-watch").dataset.tvPickerFallback === "true";
 
-        if (!selected) {
+        if (!selected && !fallbackAllowed) {
           document.getElementById("tv-picker-note").textContent =
             "Choose a season and episode first.";
           return;
         }
 
-        seasonNumber = selected.seasonNumber;
-        episodeNumber = selected.episodeNumber;
+        if (selected) {
+          seasonNumber = selected.seasonNumber;
+          episodeNumber = selected.episodeNumber;
+        }
       }
 
       if (prefs?.prefer_dashboard_playback) {
