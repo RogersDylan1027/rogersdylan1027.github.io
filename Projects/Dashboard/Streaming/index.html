@@ -47,7 +47,7 @@
     .meta{padding-top:8px}
     .title{display:block;font-size:13px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .sub{display:block;margin-top:3px;color:var(--muted);font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .more{position:absolute;top:7px;right:7px;width:32px;height:32px;border:0;border-radius:50%;background:rgba(10,12,16,.82);color:white;cursor:pointer;font-size:18px;font-weight:900}
+    .more{position:absolute;top:7px;right:7px;width:34px;height:34px;min-width:34px;min-height:34px;padding:0;border:1px solid rgba(255,255,255,.16);border-radius:10px;background:rgba(10,12,16,.82);color:white;cursor:pointer;font-size:0;font-weight:900;display:grid;place-items:center;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}.more::before{content:"•••";font-size:14px;line-height:1;letter-spacing:1px;transform:translateY(-1px)}.more:active{transform:scale(.96)}
     .empty{padding:22px;border:1px dashed var(--border);border-radius:14px;background:var(--panel);color:var(--muted);line-height:1.5}
     .status{padding:18px 22px;color:var(--muted);font-size:13px}
     .status.error{color:#ffaca7}
@@ -106,7 +106,7 @@
     .menu button{display:block;width:100%;padding:9px 10px;border:0;border-radius:8px;background:transparent;color:white;text-align:left;cursor:pointer;font-size:13px}
     .menu button:hover{background:#2c3240}
     @media(max-width:600px){
-      :root{--poster:132px}.topbar{padding-top:calc(10px + env(safe-area-inset-top));padding-bottom:10px;padding-left:max(12px,env(safe-area-inset-left));padding-right:max(12px,env(safe-area-inset-right));flex-wrap:wrap}.brand{width:100%;justify-content:space-between}.top-actions{width:100%;display:grid;grid-template-columns:minmax(0,1fr) auto}.search{width:100%;font-size:16px}.settings-link{min-height:44px}.hero,.row-head,.carousel,.status{padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right))}.hero h2{font-size:25px}.carousel{scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}.poster-button,.more,.action{min-height:44px}.detail{width:100%;height:100dvh;max-height:none;border-radius:0}.overlay{padding:0;align-items:stretch}.detail-close{position:fixed;top:calc(12px + env(safe-area-inset-top));right:max(12px,env(safe-area-inset-right));width:44px;height:44px}.detail-backdrop{min-height:230px;padding:calc(66px + env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) 18px max(16px,env(safe-area-inset-left))}.detail-body{padding:0 max(16px,env(safe-area-inset-right)) calc(20px + env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left))}.watch-controls{grid-template-columns:1fr}.watch-controls .action{width:100%}.tv-picker-grid{grid-template-columns:1fr}.tv-picker-field select,.provider-select{font-size:16px}.menu{left:10px!important;right:10px!important;width:auto;min-width:0;max-height:70dvh;overflow:auto;-webkit-overflow-scrolling:touch}.menu button{min-height:44px}.project-provider-row,.project-priority-row{align-items:stretch;flex-direction:column}.project-provider-row button{width:100%}.project-priority-controls{align-self:flex-end}.player-wrap{border-radius:10px}
+      :root{--poster:132px}.topbar{padding-top:calc(10px + env(safe-area-inset-top));padding-bottom:10px;padding-left:max(12px,env(safe-area-inset-left));padding-right:max(12px,env(safe-area-inset-right));flex-wrap:wrap}.brand{width:100%;justify-content:space-between}.top-actions{width:100%;display:grid;grid-template-columns:minmax(0,1fr) auto}.search{width:100%;font-size:16px}.settings-link{min-height:44px}.hero,.row-head,.carousel,.status{padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right))}.hero h2{font-size:25px}.carousel{scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}.poster-button,.action{min-height:44px}.more{width:36px;height:36px;min-width:36px;min-height:36px}.detail{width:100%;height:100dvh;max-height:none;border-radius:0}.overlay{padding:0;align-items:stretch}.detail-close{position:fixed;top:calc(12px + env(safe-area-inset-top));right:max(12px,env(safe-area-inset-right));width:44px;height:44px}.detail-backdrop{min-height:230px;padding:calc(66px + env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) 18px max(16px,env(safe-area-inset-left))}.detail-body{padding:0 max(16px,env(safe-area-inset-right)) calc(20px + env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left))}.watch-controls{grid-template-columns:1fr}.watch-controls .action{width:100%}.tv-picker-grid{grid-template-columns:1fr}.tv-picker-field select,.provider-select{font-size:16px}.menu{left:10px!important;right:10px!important;width:auto;min-width:0;max-height:70dvh;overflow:auto;-webkit-overflow-scrolling:touch}.menu button{min-height:44px}.project-provider-row,.project-priority-row{align-items:stretch;flex-direction:column}.project-provider-row button{width:100%}.project-priority-controls{align-self:flex-end}.player-wrap{border-radius:10px}
     }
   </style>
 </head>
@@ -546,6 +546,239 @@
       await showDetails(item, mediaType);
     }
 
+    function seasonLabel(season) {
+      if (Number(season.season_number) === 0) {
+        return season.name || "Specials";
+      }
+
+      const count = Number(season.episode_count) || 0;
+      return `${season.name || `Season ${season.season_number}`}${count ? ` · ${count} episodes` : ""}`;
+    }
+
+    function episodeLabel(episode) {
+      const number = Number(episode.episode_number);
+      const name = String(episode.name || "").trim();
+      const airDate = String(episode.air_date || "").trim();
+      let label = `Episode ${number}`;
+
+      if (name) label += ` · ${name}`;
+      if (airDate) {
+        const parsed = new Date(airDate + "T12:00:00");
+        if (!Number.isNaN(parsed.getTime())) {
+          label += ` · ${parsed.toLocaleDateString(undefined, {
+            month:"short",
+            day:"numeric",
+            year:"numeric"
+          })}`;
+        }
+      }
+
+      return label;
+    }
+
+    function getSelectedTvEpisode() {
+      const season = Number(document.getElementById("tv-season-select").value);
+      const episode = Number(document.getElementById("tv-episode-select").value);
+
+      if (!Number.isInteger(season) || !Number.isInteger(episode)) {
+        return null;
+      }
+
+      return { seasonNumber: season, episodeNumber: episode };
+    }
+
+    async function loadTvEpisodes(tmdbId, seasonNumber, preferredEpisode = null) {
+      const episodeSelect = document.getElementById("tv-episode-select");
+      const note = document.getElementById("tv-picker-note");
+
+      episodeSelect.disabled = true;
+      episodeSelect.innerHTML = "<option>Loading episodes…</option>";
+      note.textContent = "";
+
+      try {
+        const season =
+          typeof DashboardStreaming.getTvSeasonDetails === "function"
+            ? await DashboardStreaming.getTvSeasonDetails(
+                tmdbId,
+                seasonNumber
+              )
+            : await DashboardStreaming.tmdb(
+                `/tv/${Number(tmdbId)}/season/${Number(seasonNumber)}`
+              );
+
+        const episodes = Array.isArray(season?.episodes)
+          ? season.episodes
+          : [];
+
+        tvSelection.episodes = episodes;
+        tvSelection.seasonNumber = Number(seasonNumber);
+
+        episodeSelect.innerHTML = "";
+
+        if (!episodes.length) {
+          const option = document.createElement("option");
+          option.textContent = "No episodes found";
+          option.value = "";
+          episodeSelect.appendChild(option);
+          note.textContent =
+            "TMDB does not currently list episodes for this season.";
+          return;
+        }
+
+        episodes.forEach(episode => {
+          const option = document.createElement("option");
+          option.value = String(episode.episode_number);
+          option.textContent = episodeLabel(episode);
+          episodeSelect.appendChild(option);
+        });
+
+        const desiredEpisode =
+          episodes.some(ep =>
+            Number(ep.episode_number) === Number(preferredEpisode)
+          )
+            ? Number(preferredEpisode)
+            : Number(episodes[0].episode_number);
+
+        episodeSelect.value = String(desiredEpisode);
+        tvSelection.episodeNumber = desiredEpisode;
+        episodeSelect.disabled = false;
+
+        const selected =
+          episodes.find(ep =>
+            Number(ep.episode_number) === desiredEpisode
+          );
+
+        note.textContent = selected?.overview
+          ? selected.overview
+          : "Choose the episode you want to play.";
+
+        updateTvWatchButton();
+      } catch (error) {
+        console.error("TV episodes:", error);
+        episodeSelect.innerHTML =
+          "<option>Episodes unavailable</option>";
+        note.textContent =
+          error.message || "Episodes could not be loaded.";
+      }
+    }
+
+    function updateTvWatchButton() {
+      if (!currentDetail || currentDetail.mediaType !== "tv") return;
+
+      const selected = getSelectedTvEpisode();
+      const button = document.getElementById("detail-watch");
+
+      if (!selected) {
+        button.textContent = prefs?.prefer_dashboard_playback
+          ? "Watch in Dashboard"
+          : "Watch";
+        return;
+      }
+
+      const isResume =
+        currentDetail.resume &&
+        Number(currentDetail.resume.season_number) === selected.seasonNumber &&
+        Number(currentDetail.resume.episode_number) === selected.episodeNumber &&
+        Number(currentDetail.resume.progress_seconds) > 5;
+
+      button.textContent = isResume
+        ? `Resume S${selected.seasonNumber} E${selected.episodeNumber}`
+        : `Watch S${selected.seasonNumber} E${selected.episodeNumber}`;
+    }
+
+    async function initializeTvPicker(item) {
+      const picker = document.getElementById("tv-picker");
+      const seasonSelect = document.getElementById("tv-season-select");
+      const episodeSelect = document.getElementById("tv-episode-select");
+      const note = document.getElementById("tv-picker-note");
+
+      picker.hidden = false;
+      seasonSelect.disabled = true;
+      episodeSelect.disabled = true;
+      seasonSelect.innerHTML = "<option>Loading seasons…</option>";
+      episodeSelect.innerHTML = "<option>Choose a season first</option>";
+      note.textContent = "";
+
+      let resume = null;
+
+      try {
+        resume = await DashboardStreaming.loadLatestTvProgress(item.id);
+      } catch (error) {
+        console.warn("TV resume lookup:", error);
+      }
+
+      currentDetail.resume = resume || null;
+
+      try {
+        const details =
+          item.seasons
+            ? item
+            : await DashboardStreaming.getTitleDetails(item.id, "tv");
+
+        const seasons = Array.isArray(details?.seasons)
+          ? details.seasons.filter(season =>
+              Number.isInteger(Number(season.season_number)) &&
+              Number(season.episode_count) > 0
+            )
+          : [];
+
+        tvSelection.seasons = seasons;
+        seasonSelect.innerHTML = "";
+
+        if (!seasons.length) {
+          seasonSelect.innerHTML = "<option>No seasons found</option>";
+          note.textContent =
+            "TMDB does not currently list playable seasons for this show.";
+          return;
+        }
+
+        seasons.forEach(season => {
+          const option = document.createElement("option");
+          option.value = String(season.season_number);
+          option.textContent = seasonLabel(season);
+          seasonSelect.appendChild(option);
+        });
+
+        const preferredSeason =
+          resume &&
+          seasons.some(season =>
+            Number(season.season_number) === Number(resume.season_number)
+          )
+            ? Number(resume.season_number)
+            : (
+                seasons.some(season => Number(season.season_number) === 1)
+                  ? 1
+                  : Number(seasons[0].season_number)
+              );
+
+        seasonSelect.value = String(preferredSeason);
+        seasonSelect.disabled = false;
+
+        await loadTvEpisodes(
+          item.id,
+          preferredSeason,
+          resume?.episode_number ?? null
+        );
+      } catch (error) {
+        console.error("TV seasons:", error);
+        seasonSelect.innerHTML = "<option>Seasons unavailable</option>";
+        episodeSelect.innerHTML = "<option>Episodes unavailable</option>";
+        note.textContent =
+          "Season and episode data could not be loaded. You can still open the TV player and choose the episode there.";
+
+        // Null selection means the Watch handler may use the series-level
+        // player as a fallback rather than leaving playback inaccessible.
+        tvSelection.seasonNumber = null;
+        tvSelection.episodeNumber = null;
+
+        const watchButton = document.getElementById("detail-watch");
+        watchButton.textContent = prefs?.prefer_dashboard_playback
+          ? "Open TV Player"
+          : "Watch";
+        watchButton.dataset.tvPickerFallback = "true";
+      }
+    }
+
     function formatTime(seconds) {
       const total = Math.max(0, Math.floor(Number(seconds) || 0));
       const h = Math.floor(total / 3600), m = Math.floor((total % 3600) / 60), sec = total % 60;
@@ -869,7 +1102,25 @@
 
     document.getElementById("detail-watch").addEventListener("click", async () => {
       if(!currentDetail)return;let seasonNumber=null,episodeNumber=null;
-      if(currentDetail.mediaType==="tv"){const selected=getSelectedTvEpisode(),fallback=document.getElementById("detail-watch").dataset.tvPickerFallback==="true";if(!selected&&!fallback){document.getElementById("tv-picker-note").textContent="Choose a season and episode first.";return}if(selected){seasonNumber=selected.seasonNumber;episodeNumber=selected.episodeNumber}}
+      if(currentDetail.mediaType==="tv"){
+        const selected =
+          typeof getSelectedTvEpisode === "function"
+            ? getSelectedTvEpisode()
+            : null;
+        const fallback =
+          document.getElementById("detail-watch").dataset.tvPickerFallback === "true";
+
+        if(!selected && !fallback){
+          document.getElementById("tv-picker-note").textContent =
+            "Choose a season and episode first.";
+          return;
+        }
+
+        if(selected){
+          seasonNumber = selected.seasonNumber;
+          episodeNumber = selected.episodeNumber;
+        }
+      }
       const key=document.getElementById("detail-provider-select").value||"dashboard";
       if(key==="dashboard"){await startDashboardPlayback(currentDetail.item,currentDetail.mediaType,seasonNumber,episodeNumber);return}
       const option=currentDetail.watchOptions?.find(option=>option.key===key);if(option?.row)await launchProvider(option.row,currentDetail.item,currentDetail.mediaType,seasonNumber,episodeNumber);

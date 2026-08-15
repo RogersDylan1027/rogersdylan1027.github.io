@@ -56,3 +56,14 @@ streaming-0.6.8-dashboard-provider-priority.sql
 
 This adds dashboard_provider_priority to streaming_preferences so My Dashboard's place in the provider hierarchy syncs across devices.
 No Edge Function update is required.
+
+
+0.6.8 SAME-VERSION BUG FIX
+==========================
+- Restores the TV season/episode JavaScript functions that were accidentally
+  omitted from the initial 0.6.8 Streaming page.
+- Fixes TV shows failing to open while movies continued to work.
+- Restores season loading, episode loading, saved TV progress selection, and
+  exact-episode Dashboard playback.
+- Fixes the oversized iPhone three-dot card button.
+- Keeps the three-dot control compact while preserving a touch-friendly target.
