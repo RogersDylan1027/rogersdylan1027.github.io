@@ -1,5 +1,5 @@
 /*
-  Dashboard Dylan · Streaming Client · Version 0.6.1
+  Dashboard Dylan · Streaming Client · Version 0.6.4
 
   Load after dashboard-config.js and after the Dashboard's authenticated
   Supabase client is available.
@@ -176,7 +176,7 @@
     const { data, error } = await client
       .from("streaming_preferences")
       .select(
-        "user_id,region,prefer_dashboard_playback,provider_selection_mode"
+        "user_id,region,prefer_dashboard_playback,provider_selection_mode,dashboard_playback_warning_acknowledged"
       )
       .eq("user_id", user.id)
       .maybeSingle();
@@ -190,6 +190,7 @@
       region: "US",
       prefer_dashboard_playback: true,
       provider_selection_mode: "priority",
+      dashboard_playback_warning_acknowledged: false,
     };
 
     const { data: created, error: createError } = await client
@@ -223,6 +224,11 @@
         throw new Error("Invalid provider selection mode.");
       }
       allowed.provider_selection_mode = mode;
+    }
+
+    if ("dashboard_playback_warning_acknowledged" in changes) {
+      allowed.dashboard_playback_warning_acknowledged =
+        Boolean(changes.dashboard_playback_warning_acknowledged);
     }
 
     const { data, error } = await client
