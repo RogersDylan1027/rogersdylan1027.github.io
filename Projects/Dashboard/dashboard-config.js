@@ -1,6 +1,6 @@
 /*
-  Dashboard Dylan · Shared Configuration · Version 0.6.4
-  Dashboard Playback Safety Notice · 2026-08-14
+  My Dashboard · Shared Configuration · Version 0.6.6
+  TV Season & Episode Selection · 2026-08-14
 
   The Supabase publishable key is intentionally browser-safe.
   Never place a service_role key or another secret in browser JavaScript.
@@ -11,7 +11,7 @@
   const BASE_PATH = "/Projects/Dashboard/";
 
   window.DashboardConfig = Object.freeze({
-    version: "0.6.4",
+    version: "0.6.6",
     supabaseUrl: "https://pyefiovoicvhigkjhhts.supabase.co",
     supabasePublishableKey: "sb_publishable_sVrxppe8B1QkXYqAPm6ddQ_x4MA5j32",
     supabaseScriptUrl: "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2",
@@ -29,7 +29,7 @@
   function applyCurrentVersionLabel() {
     const version = window.DashboardConfig.version;
 
-    if (/Dashboard Dylan/.test(document.title)) {
+    if (/My Dashboard/.test(document.title)) {
       document.title = document.title.replace(/Version \d+\.\d+\.\d+/, "Version " + version);
     }
 
@@ -43,9 +43,9 @@
       document.querySelectorAll(selector).forEach(node => {
         if (node.textContent) {
           node.textContent = node.textContent.replace(
-            /Version \d+\.\d+\.\d+|Dashboard Dylan \d+\.\d+\.\d+/g,
-            match => match.startsWith("Dashboard Dylan ")
-              ? "Dashboard Dylan " + version
+            /Version \d+\.\d+\.\d+|My Dashboard \d+\.\d+\.\d+/g,
+            match => match.startsWith("My Dashboard ")
+              ? "My Dashboard " + version
               : "Version " + version
           );
         }
