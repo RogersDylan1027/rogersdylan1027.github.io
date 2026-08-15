@@ -1,6 +1,6 @@
 /*
-  Dashboard Dylan · Shared Configuration · Version 0.6.1
-  Dashboard Playback & Cross-Device Resume · 2026-08-14
+  Dashboard Dylan · Shared Configuration · Version 0.6.4
+  Dashboard Playback Safety Notice · 2026-08-14
 
   The Supabase publishable key is intentionally browser-safe.
   Never place a service_role key or another secret in browser JavaScript.
@@ -11,7 +11,7 @@
   const BASE_PATH = "/Projects/Dashboard/";
 
   window.DashboardConfig = Object.freeze({
-    version: "0.6.1",
+    version: "0.6.4",
     supabaseUrl: "https://pyefiovoicvhigkjhhts.supabase.co",
     supabasePublishableKey: "sb_publishable_sVrxppe8B1QkXYqAPm6ddQ_x4MA5j32",
     supabaseScriptUrl: "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2",
