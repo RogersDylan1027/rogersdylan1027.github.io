@@ -1,5 +1,5 @@
 /*
-  Dashboard Dylan · Streaming Client · Version 0.6.4
+  My Dashboard · Streaming Client · Version 0.6.6
 
   Load after dashboard-config.js and after the Dashboard's authenticated
   Supabase client is available.
@@ -596,6 +596,12 @@
     return tmdb(path);
   }
 
+  async function getTvSeasonDetails(tmdbShowId, seasonNumber) {
+    return tmdb(
+      `/tv/${Number(tmdbShowId)}/season/${Number(seasonNumber)}`
+    );
+  }
+
   async function discoverCombined({ mediaType = "movie", page = 1 } = {}) {
     const [preferences, providers] = await Promise.all([
       loadPreferences(),
@@ -642,6 +648,7 @@
     resolveTmdbProviderIds,
     getTitleDetails,
     getWatchProviders,
+    getTvSeasonDetails,
     discoverCombined,
   });
 })();
