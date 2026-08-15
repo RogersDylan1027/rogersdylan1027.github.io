@@ -1,14 +1,14 @@
 /*
-  Dashboard Dylan · Streaming Settings UI · Version 0.6.5
-  Dashboard Playback & Cross-Device Resume · 2026-08-14
+  My Dashboard · Streaming Settings UI · Version 0.6.6
+  TV Season & Episode Selection · 2026-08-14
 */
 (function () {
   "use strict";
 
-  const VERSION = "0.6.5";
-  const TITLE = "Dashboard-Controlled Fullscreen Playback";
+  const VERSION = "0.6.6";
+  const TITLE = "TV Season & Episode Selection + My Dashboard Rebrand";
   const DESCRIPTION =
-    "Moves fullscreen control out of the third-party Streaming iframe and into Dashboard Dylan. The embedded player no longer receives fullscreen permission, while a Dashboard-owned fullscreen button expands the player container itself. This keeps normal playback and resume tracking intact while avoiding the embedded fullscreen action associated with unwanted tab launches.";
+    "Adds Dashboard-owned season and episode selection for TV playback and renames the product from Dashboard  to My Dashboard. TV details load real TMDB seasons and episodes into dropdowns, default to saved viewing progress when available, and launch the exact selected episode without manual number entry. All user-facing  branding is removed while the existing playback warning, cross-device resume, and Dashboard-controlled fullscreen behavior remain intact.";
 
   let initialized = false;
 
@@ -41,6 +41,17 @@
       .streaming-status{margin:10px 0 0;color:#777;font-size:11px;line-height:1.45}
       .streaming-status.error{color:#b3261e}
       .streaming-settings-link{display:inline-flex;margin-top:12px;min-height:36px;align-items:center;padding:8px 12px;border-radius:10px;background:#28487e;color:white;text-decoration:none;font-size:12px;font-weight:800}
+      .streaming-warning-backdrop{position:fixed;inset:0;z-index:10050;display:grid;place-items:center;padding:18px;background:rgba(15,23,42,.48)}
+      .streaming-warning-backdrop[hidden]{display:none}
+      .streaming-warning-dialog{width:min(100%,470px);padding:22px;border:1px solid #d5d9df;border-radius:18px;background:#fff;box-shadow:0 24px 70px rgba(0,0,0,.22);color:#252525}
+      .streaming-warning-dialog h3{margin:0 0 8px;font-size:20px}
+      .streaming-warning-dialog p{margin:0 0 12px;color:#606873;font-size:13px;line-height:1.55}
+      .streaming-warning-check{display:flex;align-items:flex-start;gap:9px;margin:16px 0 0;padding:11px;border:1px solid #dfe3e8;border-radius:11px;background:#f7f8fa;font-size:12px;font-weight:700;line-height:1.4}
+      .streaming-warning-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}
+      .streaming-warning-actions button{min-height:38px;padding:8px 12px;border-radius:10px;font:inherit;font-size:12px;font-weight:800;cursor:pointer}
+      .streaming-warning-cancel{border:1px solid #c8cdd5;background:#fff;color:#252525}
+      .streaming-warning-enable{border:1px solid #28487e;background:#28487e;color:#fff}
+      .streaming-reset-warning{margin-top:8px;padding:0;border:0;background:transparent;color:#28487e;font:inherit;font-size:11px;font-weight:800;cursor:pointer}
       @media(max-width:520px){.streaming-provider-row{align-items:stretch;flex-direction:column}.streaming-action{width:100%}}
     `;
     document.head.appendChild(style);
@@ -53,7 +64,7 @@
     section.innerHTML = `
       <h3>Streaming</h3>
       <p class="settings-section-description">
-        Choose the streaming services you use and how Dashboard Dylan should
+        Choose the streaming services you use and how My Dashboard should
         choose between providers when the same title is available in more than one place.
       </p>
 
@@ -72,6 +83,11 @@
             <small>Use an approved in-Dashboard player first whenever one is available.</small>
           </span>
         </label>
+        <button
+          id="streaming-reset-playback-warning"
+          class="streaming-reset-warning"
+          type="button"
+        >Show Dashboard Playback warning again</button>
       </div>
 
       <div class="settings-provider-block">
@@ -121,6 +137,69 @@
         settings?.querySelector(".internal-view");
       content?.appendChild(section);
     }
+  }
+
+
+  function ensurePlaybackWarningModal() {
+    let backdrop = get("streaming-playback-warning-backdrop");
+    if (backdrop) return backdrop;
+
+    backdrop = document.createElement("div");
+    backdrop.id = "streaming-playback-warning-backdrop";
+    backdrop.className = "streaming-warning-backdrop";
+    backdrop.hidden = true;
+    backdrop.innerHTML = `
+      <section class="streaming-warning-dialog" role="dialog" aria-modal="true" aria-labelledby="streaming-playback-warning-title">
+        <h3 id="streaming-playback-warning-title">Dashboard Playback Notice</h3>
+        <p>Dashboard Playback uses a third-party player. Third-party tabs, windows, advertisements, or other content may open while using it. Close any tabs or windows you do not want to use.</p>
+        <p>My Dashboard is not affiliated with, endorsed by, responsible for, or associated with third-party advertisements, pop-ups, websites, or other content that may appear.</p>
+        <label class="streaming-warning-check">
+          <input id="streaming-warning-dont-show" type="checkbox">
+          <span>Don’t show this warning again</span>
+        </label>
+        <div class="streaming-warning-actions">
+          <button id="streaming-warning-cancel" class="streaming-warning-cancel" type="button">Cancel</button>
+          <button id="streaming-warning-enable" class="streaming-warning-enable" type="button">Enable Dashboard Playback</button>
+        </div>
+      </section>`;
+    document.body.appendChild(backdrop);
+    return backdrop;
+  }
+
+  function showPlaybackWarning() {
+    const backdrop = ensurePlaybackWarningModal();
+    const checkbox = get("streaming-warning-dont-show");
+    const cancel = get("streaming-warning-cancel");
+    const enable = get("streaming-warning-enable");
+
+    checkbox.checked = false;
+    backdrop.hidden = false;
+    document.body.style.overflow = "hidden";
+
+    return new Promise(resolve => {
+      let settled = false;
+      const finish = result => {
+        if (settled) return;
+        settled = true;
+        backdrop.hidden = true;
+        document.body.style.overflow = "";
+        cancel.removeEventListener("click", cancelHandler);
+        enable.removeEventListener("click", enableHandler);
+        backdrop.removeEventListener("click", backdropHandler);
+        document.removeEventListener("keydown", keyHandler);
+        resolve(result);
+      };
+      const cancelHandler = () => finish({ accepted:false, dontShowAgain:false });
+      const enableHandler = () => finish({ accepted:true, dontShowAgain:checkbox.checked });
+      const backdropHandler = event => { if (event.target === backdrop) cancelHandler(); };
+      const keyHandler = event => { if (event.key === "Escape") cancelHandler(); };
+
+      cancel.addEventListener("click", cancelHandler);
+      enable.addEventListener("click", enableHandler);
+      backdrop.addEventListener("click", backdropHandler);
+      document.addEventListener("keydown", keyHandler);
+      setTimeout(() => enable.focus(), 0);
+    });
   }
 
   async function refresh() {
@@ -210,6 +289,13 @@
       get("streaming-dashboard-first").checked =
         Boolean(prefs.prefer_dashboard_playback);
 
+
+      const resetWarningButton = get("streaming-reset-playback-warning");
+      if (resetWarningButton) {
+        resetWarningButton.hidden =
+          !Boolean(prefs.dashboard_playback_warning_acknowledged);
+      }
+
       document.querySelectorAll('input[name="streaming-provider-mode"]').forEach(input => {
         input.checked = input.value === prefs.provider_selection_mode;
       });
@@ -289,12 +375,56 @@
 
   function bind() {
     get("streaming-dashboard-first")?.addEventListener("change", async event => {
+      const checkbox = event.target;
+      try {
+        if (!checkbox.checked) {
+          await DashboardStreaming.savePreferences({
+            prefer_dashboard_playback: false
+          });
+          return;
+        }
+
+        const prefs = await DashboardStreaming.loadPreferences();
+
+        if (prefs.dashboard_playback_warning_acknowledged) {
+          await DashboardStreaming.savePreferences({
+            prefer_dashboard_playback: true
+          });
+          return;
+        }
+
+        checkbox.checked = false;
+        const decision = await showPlaybackWarning();
+
+        if (!decision.accepted) {
+          await DashboardStreaming.savePreferences({
+            prefer_dashboard_playback: false
+          });
+          return;
+        }
+
+        await DashboardStreaming.savePreferences({
+          prefer_dashboard_playback: true,
+          dashboard_playback_warning_acknowledged:
+            Boolean(decision.dontShowAgain)
+        });
+
+        checkbox.checked = true;
+        await refresh();
+      } catch (error) {
+        checkbox.checked = false;
+        console.error("Dashboard Playback preference:", error);
+      }
+    });
+
+    get("streaming-reset-playback-warning")?.addEventListener("click", async () => {
       try {
         await DashboardStreaming.savePreferences({
-          prefer_dashboard_playback: event.target.checked
+          dashboard_playback_warning_acknowledged: false
         });
+        await refresh();
       } catch (error) {
-        console.error(error);
+        console.error("Reset Dashboard Playback warning:", error);
       }
     });
 
@@ -335,21 +465,21 @@
         view.querySelector(".internal-view-content") ||
         view.querySelector(".changelog-content");
 
-      if (!body || get("streaming-065-changelog-entry")) return;
+      if (!body || get("streaming-066-changelog-entry")) return;
 
       if (body.tagName === "TBODY") {
         const tr = document.createElement("tr");
-        tr.id = "streaming-065-changelog-entry";
+        tr.id = "streaming-066-changelog-entry";
         tr.innerHTML =
-          `<td>${VERSION}</td><td>${TITLE}</td><td>${DESCRIPTION}<br><strong>Bug Fixes:</strong> Removes fullscreen permission from the third-party iframe, adds a Dashboard-owned fullscreen control, and preserves normal playback, no-referrer handling, validated player events, and resume tracking.</td>`;
+          `<td>${VERSION}</td><td>${TITLE}</td><td>${DESCRIPTION}<br><strong>Bug Fixes:</strong> Preserves the Dashboard Playback warning and Dashboard-owned fullscreen behavior while adding TMDB-driven TV season and episode selection.</td>`;
         body.prepend(tr);
       } else {
         const card = document.createElement("div");
-        card.id = "streaming-065-changelog-entry";
+        card.id = "streaming-066-changelog-entry";
         card.style.cssText =
           "margin:0 0 12px;padding:14px;border:1px solid #dfe3e8;border-radius:12px;background:#f7f8fa";
         card.innerHTML =
-          `<strong>${VERSION} · ${TITLE}</strong><p style="margin:7px 0 0;line-height:1.5">${DESCRIPTION}</p><p style="margin:7px 0 0;line-height:1.5"><strong>Bug Fixes:</strong> Removes fullscreen permission from the third-party iframe, adds a Dashboard-owned fullscreen control, and preserves normal playback, no-referrer handling, validated player events, and resume tracking.</p>`;
+          `<strong>${VERSION} · ${TITLE}</strong><p style="margin:7px 0 0;line-height:1.5">${DESCRIPTION}</p><p style="margin:7px 0 0;line-height:1.5"><strong>Bug Fixes:</strong> Preserves the Dashboard Playback warning and Dashboard-owned fullscreen behavior while adding TMDB-driven TV season and episode selection.</p>`;
         body.prepend(card);
       }
     };
