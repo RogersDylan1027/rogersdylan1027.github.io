@@ -1,6 +1,6 @@
 /*
-  Dashboard Dylan · Shared Authentication · Version 0.6.1
-  Dashboard Playback & Cross-Device Resume · 2026-08-14
+  My Dashboard · Shared Authentication · Version 0.6.6
+  TV Season & Episode Selection · 2026-08-14
 
   Use on protected project pages:
     <script src="../dashboard-config.js"></script>
@@ -249,7 +249,7 @@
       );
 
       throw new Error(
-        "Dashboard Dylan could not verify access to this project."
+        "My Dashboard could not verify access to this project."
       );
     }
 
@@ -371,7 +371,7 @@
   hidePage();
 
   window.DashboardAuth = {
-    version: "0.6.1",
+    version: "0.6.6",
     client: null,
     user: null,
     getClient,
