@@ -627,6 +627,7 @@
   }
 
   window.DashboardStreaming = Object.freeze({
+    version: "0.6.6",
     listProviders,
     loadUserProviders,
     addProvider,
