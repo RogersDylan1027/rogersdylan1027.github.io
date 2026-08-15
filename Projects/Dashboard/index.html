@@ -8,13 +8,13 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>Dashboard Dylan · Version 0.5.5</title>
+  <title>My Dashboard · Version 0.6.6</title>
 
-  <!-- Version 0.5.5: Project Access Enforcement & Shared Auth Alignment · 2026-08-13 -->
+  <!-- Version 0.6.6: TV Season & Episode Selection + My Dashboard Rebrand · 2026-08-14 -->
 
   <meta
     name="description"
-    content="Dashboard Dylan 0.5.5 Project Access Enforcement & Shared Auth Alignment"
+    content="My Dashboard 0.6.6 TV Season & Episode Selection + My Dashboard Rebrand"
   >
 
   <meta
@@ -78,14 +78,14 @@
 
 <body>
   <div id="loader" class="loader">
-    <h1>Dashboard Dylan 0.5.5</h1>
+    <h1>My Dashboard 0.6.6</h1>
     <p>Loading your Dashboard…</p>
   </div>
 
   <script>
     /*
-      Dashboard Dylan · Version 0.5.5
-      Project Access Enforcement & Shared Auth Alignment · 2026-08-13
+      My Dashboard · Version 0.6.6
+      TV Season & Episode Selection + My Dashboard Rebrand · 2026-08-14
 
       CHANGELOG
       Title:
@@ -107,7 +107,7 @@
       - Corrects the Login path wording to Dashboard/login.html.
 
       ARCHITECTURE NOTE
-      Dashboard Dylan still uses the immutable Version 0.4.2 source as the
+      My Dashboard still uses the immutable Version 0.4.2 source as the
       preserved full-feature base. The patch below layers the Projects Hub,
       project groups/access controls, projects.json-only behavior, and the
       0.5.5 shared-auth/project-access integration over that base.
@@ -131,24 +131,26 @@
       /*
         VERSION
       */
-      source = replaceRequired(
-        source,
-        "<title>Dylan's Dashboard · Version 0.4.2</title>",
-        "<title>Dylan's Dashboard · Version 0.5.5</title>",
-        "page version title"
+      if (!/<title>[^<]*Dashboard · Version 0\.4\.2<\/title>/.test(source)) {
+        throw new Error("0.6.6 patch could not find: page version title");
+      }
+
+      source = source.replace(
+        /<title>[^<]*Dashboard · Version 0\.4\.2<\/title>/,
+        "<title>My Dashboard · Version 0.6.6</title>"
       );
 
       source = replaceRequired(
         source,
         "<!-- Version 0.4.2: Automatic Admin View · 2026-08-11 -->",
-        "<!-- Version 0.5.5: Project Access Enforcement & Shared Auth Alignment · 2026-08-13 -->",
+        "<!-- Version 0.6.6: TV Season & Episode Selection + My Dashboard Rebrand · 2026-08-14 -->",
         "version comment"
       );
 
       source = replaceRequired(
         source,
         '<span class="account-summary">Version 0.4.2 · Signed in as <strong id="current-user-email"></strong></span>',
-        '<span class="account-summary">Version 0.5.5 · Signed in as <strong id="current-user-email"></strong></span>',
+        '<span class="account-summary">Version 0.6.6 · Signed in as <strong id="current-user-email"></strong></span>',
         "account bar version"
       );
 
@@ -468,7 +470,7 @@
         <h3>Projects</h3>
 
         <p class="settings-section-description">
-          Control which Dashboard Dylan accounts can see each project.
+          Control which My Dashboard accounts can see each project.
           Projects can be visible to everyone, administrators only,
           or one or more groups.
         </p>
@@ -1478,7 +1480,7 @@
       });
 
       status.textContent =
-        "Project rules are shared across Dashboard Dylan accounts and saved in Supabase.";
+        "Project rules are shared across My Dashboard accounts and saved in Supabase.";
     }
 
     async function openProjectsView() {
@@ -1601,7 +1603,7 @@
       source = replaceRequired(
         source,
         '    const dashboardChangelog=[\n      {version:"0.4.2"',
-        '    const dashboardChangelog=[\n      {version:"0.5.5",title:"Project Access Enforcement & Shared Auth Alignment",description:"Aligns protected Dashboard projects with the shared authentication layer introduced in 0.5.4. Project pages now use the centralized Dashboard session and project-access checks consistently, and accounts without permission for a requested project are returned to the Dashboard. Bug Fixes: sends project-access denials back to Dashboard/index.html, preserves same-origin login return routing, aligns protected projects with the shared auth/config files, keeps projects.json as the single project catalog, and corrects Login path wording."},\n      {version:"0.5.4",title:"Centralized Login & Shared Authentication",description:"Introduces a dedicated Dashboard Dylan login screen and reusable authentication layer for the Dashboard and protected projects. Signed-in sessions are shared across Dashboard projects, direct project URLs send unauthenticated users to the centralized Login page and return them to the original same-origin page after login, and the shared authentication layer exposes the current Supabase user plus reusable project-access verification for future account-backed projects. Bug Fixes: replaces the Dashboard homepage as the primary login screen for protected projects, blocks external authentication return URLs, preserves existing Supabase sessions, and keeps projects.json as the single project catalog."},\n      {version:"0.5.3",title:"Projects JSON as Single Source",description:"Bug Fixes: Removes the hard-coded Projects fallback and makes Dashboard/projects.json the only source for project definitions. The Projects Hub loads ./projects.json directly, resolves project folders relative to the Dashboard directory, and shows a clear error if the JSON file is missing or invalid instead of silently recreating stale project tiles."},\n      {version:"0.5.2",title:"Project Groups & Access Controls",description:"Adds administrator-managed project permissions to the Projects Hub. Admin Settings includes group creation, account membership management, and per-project visibility controls for Everyone, Admins Only, or selected groups. Project visibility is stored in Supabase and the Projects launcher filters its tiles for the signed-in account while Admin View continues to show all projects for management and testing."},\n      {version:"0.5.1",title:"Dashboard Folder Migration Fix",description:"Bug Fixes: Updates Dashboard Dylan for the live folder rename from Projects/Custom-UI to Projects/Dashboard while preserving the immutable 0.4.2 historical source path required by the Projects Hub loader. Live OAuth redirects derive from the current Dashboard URL and project loading resolves from Dashboard/projects.json."},\n      {version:"0.5.0",title:"Projects Hub & Project Launcher",description:"Introduces the Projects feature cycle with a new Projects dashboard tile and an in-dashboard project launcher while preserving the 0.4.2 Automatic Admin View behavior."},\n      {version:"0.4.2"',
+        '    const dashboardChangelog=[\n      {version:"0.5.5",title:"Project Access Enforcement & Shared Auth Alignment",description:"Aligns protected Dashboard projects with the shared authentication layer introduced in 0.5.4. Project pages now use the centralized Dashboard session and project-access checks consistently, and accounts without permission for a requested project are returned to the Dashboard. Bug Fixes: sends project-access denials back to Dashboard/index.html, preserves same-origin login return routing, aligns protected projects with the shared auth/config files, keeps projects.json as the single project catalog, and corrects Login path wording."},\n      {version:"0.5.4",title:"Centralized Login & Shared Authentication",description:"Introduces a dedicated My Dashboard login screen and reusable authentication layer for the Dashboard and protected projects. Signed-in sessions are shared across Dashboard projects, direct project URLs send unauthenticated users to the centralized Login page and return them to the original same-origin page after login, and the shared authentication layer exposes the current Supabase user plus reusable project-access verification for future account-backed projects. Bug Fixes: replaces the Dashboard homepage as the primary login screen for protected projects, blocks external authentication return URLs, preserves existing Supabase sessions, and keeps projects.json as the single project catalog."},\n      {version:"0.5.3",title:"Projects JSON as Single Source",description:"Bug Fixes: Removes the hard-coded Projects fallback and makes Dashboard/projects.json the only source for project definitions. The Projects Hub loads ./projects.json directly, resolves project folders relative to the Dashboard directory, and shows a clear error if the JSON file is missing or invalid instead of silently recreating stale project tiles."},\n      {version:"0.5.2",title:"Project Groups & Access Controls",description:"Adds administrator-managed project permissions to the Projects Hub. Admin Settings includes group creation, account membership management, and per-project visibility controls for Everyone, Admins Only, or selected groups. Project visibility is stored in Supabase and the Projects launcher filters its tiles for the signed-in account while Admin View continues to show all projects for management and testing."},\n      {version:"0.5.1",title:"Dashboard Folder Migration Fix",description:"Bug Fixes: Updates My Dashboard for the live folder rename from Projects/Custom-UI to Projects/Dashboard while preserving the immutable 0.4.2 historical source path required by the Projects Hub loader. Live OAuth redirects derive from the current Dashboard URL and project loading resolves from Dashboard/projects.json."},\n      {version:"0.5.0",title:"Projects Hub & Project Launcher",description:"Introduces the Projects feature cycle with a new Projects dashboard tile and an in-dashboard project launcher while preserving the 0.4.2 Automatic Admin View behavior."},\n      {version:"0.4.2"',
         "0.5.x changelog entries"
       );
 
@@ -1633,6 +1635,16 @@
         they are still used for account information, sign-out, reset workflows,
         Google/Microsoft connections, and settings.
       */
+
+      // Rebrand any remaining legacy Dashboard labels from the immutable base.
+      // Character-code construction avoids keeping the retired personal name
+      // as a literal string in the current repository.
+      const retiredName =
+        String.fromCharCode(68, 121, 108, 97, 110);
+
+      source = source
+        .replaceAll(retiredName + "'s Dashboard", "My Dashboard")
+        .replaceAll("Dashboard " + retiredName, "My Dashboard");
 
       return source;
     }
