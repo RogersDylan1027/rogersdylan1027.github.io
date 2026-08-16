@@ -1,5 +1,5 @@
 /*
-  My Dashboard · Shared Configuration · Version 0.6.11
+  My Dashboard · Shared Configuration · Version 0.6.12
   Mobile Streaming Controls & Connected Project Settings · 2026-08-15
 
   The Supabase publishable key is intentionally browser-safe.
@@ -11,7 +11,7 @@
   const BASE_PATH = "/Projects/Dashboard/";
 
   window.DashboardConfig = Object.freeze({
-    version: "0.6.11",
+    version: "0.6.12",
     supabaseUrl: "https://pyefiovoicvhigkjhhts.supabase.co",
     supabasePublishableKey: "sb_publishable_sVrxppe8B1QkXYqAPm6ddQ_x4MA5j32",
     supabaseScriptUrl: "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2",
@@ -20,8 +20,8 @@
     loginUrl: BASE_PATH + "login.html",
     projectsUrl: BASE_PATH + "projects.json",
     streamingUrl: BASE_PATH + "Streaming/",
-    streamingClientUrl: BASE_PATH + "dashboard-streaming.js?v=0.6.11",
-    streamingUiUrl: BASE_PATH + "dashboard-streaming-ui.js?v=0.6.11"
+    streamingClientUrl: BASE_PATH + "dashboard-streaming.js?v=0.6.12",
+    streamingUiUrl: BASE_PATH + "dashboard-streaming-ui.js?v=0.6.12"
   });
 
   // Keep shared pages visually aligned with the current Dashboard version

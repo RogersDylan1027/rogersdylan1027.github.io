@@ -8,7 +8,7 @@
     content="width=device-width, initial-scale=1.0, viewport-fit=cover"
   >
 
-  <title>My Dashboard · Version 0.6.11</title>
+  <title>My Dashboard · Version 0.6.12</title>
 
   <!-- Version 0.6.9: Mobile Streaming Controls & Connected Project Settings · 2026-08-15 -->
 
@@ -28,8 +28,8 @@
     dashboard-entry.js checks the existing Supabase session before the
     Dashboard UI is loaded. Logged-out visitors are sent to Dashboard/login.html.
   -->
-  <script src="./dashboard-config.js?v=0.6.11"></script>
-  <script src="./dashboard-entry.js?v=0.6.11"></script>
+  <script src="./dashboard-config.js?v=0.6.12"></script>
+  <script src="./dashboard-entry.js?v=0.6.12"></script>
 
   <style>
     * { box-sizing: border-box; }
@@ -83,13 +83,13 @@
 
 <body>
   <div id="loader" class="loader">
-    <h1>My Dashboard 0.6.11</h1>
+    <h1>My Dashboard 0.6.12</h1>
     <p>Loading your Dashboard…</p>
   </div>
 
   <script>
     /*
-      My Dashboard · Version 0.6.11
+      My Dashboard · Version 0.6.12
       TV Season & Episode Selection + My Dashboard Rebrand · 2026-08-14
 
       CHANGELOG
@@ -122,6 +122,16 @@
       - Caught-up shows waiting for a new episode/season remain hidden until
         new content actually releases.
 
+      0.6.12 CHANGELOG
+      - Added Dashboard Picture in Picture support with a browser-safe fallback.
+      - Caught-up ongoing TV shows are now moved into the waiting state when
+        all currently released episodes have been watched.
+      - Future announced episodes/seasons no longer keep a caught-up show in
+        Continue Watching.
+      - Waiting shows return only after a new episode actually releases.
+      - Fixed the autoplay progress/duration check used by the Next Episode
+        countdown.
+
       ARCHITECTURE NOTE
       My Dashboard still uses the immutable Version 0.4.2 source as the
       preserved full-feature base. The patch below layers the Projects Hub,
@@ -153,7 +163,7 @@
 
       source = source.replace(
         /<title>[^<]*Dashboard · Version 0\.4\.2<\/title>/,
-        "<title>My Dashboard · Version 0.6.11</title>"
+        "<title>My Dashboard · Version 0.6.12</title>"
       );
 
       source = replaceRequired(

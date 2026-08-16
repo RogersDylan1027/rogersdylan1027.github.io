@@ -1,5 +1,5 @@
 /*
-  My Dashboard · Streaming Client · Version 0.6.11
+  My Dashboard · Streaming Client · Version 0.6.12
 
   Load after dashboard-config.js and after the Dashboard's authenticated
   Supabase client is available.
@@ -452,6 +452,34 @@
       .maybeSingle();
     if (error) throw error;
     return data || null;
+  }
+
+  async function loadTvProgressHistory(
+    tmdbShowId
+  ) {
+    const client = requireClient();
+    const user = requireUser();
+
+    const { data, error } = await client
+      .from("episode_progress")
+      .select(
+        "tmdb_show_id,season_number,episode_number,viewing_status,last_opened_at,progress_seconds,duration_seconds"
+      )
+      .eq("user_id", user.id)
+      .eq(
+        "tmdb_show_id",
+        Number(tmdbShowId)
+      )
+      .order("season_number", {
+        ascending:true
+      })
+      .order("episode_number", {
+        ascending:true
+      });
+
+    if (error) throw error;
+
+    return data || [];
   }
 
   async function loadLatestTvProgressMap(
@@ -934,7 +962,7 @@
   window.DashboardStreaming = Object.freeze({
     getAvailableProvidersForTitle,
     isAdminUser,
-    version: "0.6.11",
+    version: "0.6.12",
     listProviders,
     loadUserProviders,
     addProvider,
@@ -954,6 +982,7 @@
     loadEpisodeProgress,
     loadLatestTvProgress,
     loadLatestTvProgressMap,
+    loadTvProgressHistory,
     saveMovieProgress,
     loadMovieResumeProgress,
     saveEpisodeProgress,

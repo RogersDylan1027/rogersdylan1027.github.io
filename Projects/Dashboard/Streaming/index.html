@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>My Dashboard · Streaming · Version 0.6.11</title>
+  <title>My Dashboard · Streaming · Version 0.6.12</title>
   <meta name="description" content="My Dashboard unified streaming hub. Adds episode-aware Continue Watching behavior for TV shows and makes Continue Watching exclusive from the rest of Streaming. Ongoing shows hide while waiting for their next episode or season and return automatically when new content is released. Ended series trigger the completion feedback prompt, and anything currently in Continue Watching is filtered out of every other discovery row.">
   <meta name="theme-color" content="#101218">
 
-  <script src="../dashboard-config.js?v=0.6.11"></script>
+  <script src="../dashboard-config.js?v=0.6.12"></script>
   <script
-    src="../dashboard-auth.js?v=0.6.11"
+    src="../dashboard-auth.js?v=0.6.12"
     data-dashboard-project="streaming">
   </script>
-  <script src="../dashboard-streaming.js?v=0.6.11"></script>
+  <script src="../dashboard-streaming.js?v=0.6.12"></script>
 
   <style>
     *{box-sizing:border-box}
@@ -68,6 +68,9 @@
     .player-wrap{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:14px;overflow:hidden;margin-top:16px}
     .player-wrap[hidden]{display:none}
     .player-frame{width:100%;height:100%;border:0;background:#000}
+    .player-pip-button{position:absolute;z-index:2;top:10px;right:10px;min-height:40px;padding:8px 12px;border:1px solid rgba(255,255,255,.25);border-radius:10px;background:rgba(20,22,28,.78);color:#fff;font:inherit;font-weight:800;cursor:pointer;backdrop-filter:blur(8px)}
+    .player-pip-button:hover{background:rgba(32,35,44,.9)}
+    .player-pip-button[hidden]{display:none}
     .player-status{margin:9px 0 0;color:var(--muted);font-size:12px;line-height:1.45}
     .tv-picker{margin-top:16px;padding:14px;border:1px solid var(--border);border-radius:14px;background:var(--panel2)}
     .tv-picker[hidden]{display:none}
@@ -195,6 +198,7 @@
         </section>
 
         <div id="player-wrap" class="player-wrap" hidden>
+          <button id="player-pip-button" class="player-pip-button" type="button">Picture in Picture</button>
           <iframe
             id="player-frame"
             class="player-frame"
@@ -743,6 +747,203 @@
       );
     }
 
+
+    async function reconcileCaughtUpContinueWatchingShows() {
+      const candidates =
+        titleStates.filter(state =>
+          state.media_type === "tv" &&
+          state
+            .in_continue_watching ===
+            true &&
+          state.viewing_status !==
+            "watched"
+        );
+
+      if (!candidates.length) {
+        return false;
+      }
+
+      let changed = false;
+
+      for (
+        const state of
+        candidates
+      ) {
+        try {
+          const [
+            details,
+            progressRows
+          ] = await Promise.all([
+            DashboardStreaming
+              .getTitleDetails(
+                state.tmdb_id,
+                "tv"
+              ),
+            DashboardStreaming
+              .loadTvProgressHistory(
+                state.tmdb_id
+              )
+          ]);
+
+          const latestAired =
+            details
+              ?.last_episode_to_air ||
+            null;
+
+          if (
+            !latestAired ||
+            !isReleasedEpisode(
+              latestAired
+            )
+          ) {
+            continue;
+          }
+
+          const watchedKeys =
+            new Set(
+              (progressRows || [])
+                .filter(row =>
+                  row.viewing_status ===
+                    "watched"
+                )
+                .map(row =>
+                  `${Number(row.season_number)}:${Number(row.episode_number)}`
+                )
+            );
+
+          const releasedEpisodeKeys =
+            [];
+
+          const releasedSeasons =
+            (details?.seasons || [])
+              .filter(season =>
+                Number(
+                  season.season_number
+                ) > 0 &&
+                Number(
+                  season.episode_count
+                ) > 0 &&
+                String(
+                  season.air_date || ""
+                ) <= todayIsoDate()
+              );
+
+          for (
+            const season of
+            releasedSeasons
+          ) {
+            try {
+              const seasonDetails =
+                await DashboardStreaming
+                  .getTvSeasonDetails(
+                    state.tmdb_id,
+                    season
+                      .season_number
+                  );
+
+              (seasonDetails
+                ?.episodes || [])
+                .filter(
+                  isReleasedEpisode
+                )
+                .forEach(episode => {
+                  releasedEpisodeKeys
+                    .push(
+                      `${Number(
+                        season
+                          .season_number
+                      )}:${Number(
+                        episode
+                          .episode_number
+                      )}`
+                    );
+                });
+            } catch (error) {
+              console.warn(
+                "Released episode reconciliation:",
+                error
+              );
+            }
+          }
+
+          const userIsCaughtUp =
+            releasedEpisodeKeys
+              .length > 0 &&
+            releasedEpisodeKeys
+              .every(key =>
+                watchedKeys.has(key)
+              );
+
+          if (
+            !userIsCaughtUp ||
+            seriesIsEnded(
+              details
+            )
+          ) {
+            continue;
+          }
+
+          const nextReleased =
+            await findNextReleasedTvEpisode(
+              state.tmdb_id,
+              latestAired
+                .season_number,
+              latestAired
+                .episode_number,
+              details
+            );
+
+          if (nextReleased) {
+            continue;
+          }
+
+          const nextFuture =
+            nextEpisodeFromDetails(
+              details
+            );
+
+          await DashboardStreaming
+            .setTvWaitingState(
+              state.tmdb_id,
+              {
+                waiting:true,
+                inContinueWatching:
+                  false,
+                nextSeasonNumber:
+                  nextFuture
+                    ?.seasonNumber ??
+                  null,
+                nextEpisodeNumber:
+                  nextFuture
+                    ?.episodeNumber ??
+                  null,
+                nextEpisodeAirDate:
+                  nextFuture
+                    ?.airDate ??
+                  null,
+                lastCompletedSeasonNumber:
+                  latestAired
+                    .season_number,
+                lastCompletedEpisodeNumber:
+                  latestAired
+                    .episode_number,
+                newEpisodeAvailable:
+                  false
+              }
+            );
+
+          changed = true;
+        } catch (error) {
+          console.warn(
+            "Caught-up TV reconciliation:",
+            error
+          );
+        }
+      }
+
+      return changed;
+    }
+
     async function refreshWaitingTvShows() {
       const waitingStates =
         titleStates.filter(state =>
@@ -1079,6 +1280,13 @@
         document.getElementById("autoplay-next-seconds").value=String(autoplayNextSeconds);
         document.getElementById("admin-full-catalog-status").hidden=!currentUserIsAdmin;
         await refreshTitleStates();
+
+        const caughtUpChanged =
+          await reconcileCaughtUpContinueWatchingShows();
+
+        if (caughtUpChanged) {
+          await refreshTitleStates();
+        }
 
         const waitingChanged =
           await refreshWaitingTvShows();
@@ -1697,6 +1905,128 @@
       return `${url}?${params.toString()}`;
     }
 
+
+    async function toggleDashboardPictureInPicture() {
+      const iframe =
+        document.getElementById(
+          "player-frame"
+        );
+
+      const button =
+        document.getElementById(
+          "player-pip-button"
+        );
+
+      if (!iframe) return;
+
+      if (
+        "documentPictureInPicture" in
+          window &&
+        typeof window
+          .documentPictureInPicture
+          ?.requestWindow ===
+          "function"
+      ) {
+        try {
+          const pipWindow =
+            await window
+              .documentPictureInPicture
+              .requestWindow({
+                width:520,
+                height:300
+              });
+
+          const placeholder =
+            document.createComment(
+              "player-pip-placeholder"
+            );
+
+          iframe.parentNode
+            .insertBefore(
+              placeholder,
+              iframe
+            );
+
+          const originalStyle =
+            iframe.getAttribute(
+              "style"
+            );
+
+          pipWindow.document
+            .body.style.margin = "0";
+
+          pipWindow.document
+            .body.style.background =
+              "#000";
+
+          iframe.style.width =
+            "100%";
+          iframe.style.height =
+            "100%";
+          iframe.style.border =
+            "0";
+
+          pipWindow.document
+            .body.appendChild(
+              iframe
+            );
+
+          button.textContent =
+            "Exit Picture in Picture";
+
+          pipWindow.addEventListener(
+            "pagehide",
+            () => {
+              if (
+                placeholder
+                  .parentNode
+              ) {
+                placeholder
+                  .parentNode
+                  .insertBefore(
+                    iframe,
+                    placeholder
+                  );
+
+                placeholder.remove();
+              }
+
+              if (
+                originalStyle == null
+              ) {
+                iframe
+                  .removeAttribute(
+                    "style"
+                  );
+              } else {
+                iframe
+                  .setAttribute(
+                    "style",
+                    originalStyle
+                  );
+              }
+
+              button.textContent =
+                "Picture in Picture";
+            },
+            { once:true }
+          );
+
+          return;
+        } catch (error) {
+          console.warn(
+            "Dashboard Picture in Picture:",
+            error
+          );
+        }
+      }
+
+      document.getElementById(
+        "player-status"
+      ).textContent =
+        "Dashboard-controlled Picture in Picture is not available in this browser. If the embedded player has its own Picture in Picture control, it can still be used.";
+    }
+
     async function startDashboardPlayback(
       item,
       mediaType,
@@ -1827,11 +2157,11 @@
       document.getElementById("player-status").textContent=activePlayback.mediaType==="tv"&&activePlayback.seasonNumber!==null?`S${activePlayback.seasonNumber} E${activePlayback.episodeNumber} · ${formatTime(progress)} / ${formatTime(duration)}`:`${formatTime(progress)} / ${formatTime(duration)}`;
       if(
         activePlayback?.mediaType==="tv" &&
-        Number.isFinite(progressSeconds) &&
-        Number.isFinite(durationSeconds) &&
-        durationSeconds>0
+        Number.isFinite(progress) &&
+        Number.isFinite(duration) &&
+        duration>0
       ){
-        const remainingSeconds=Math.max(0,durationSeconds-progressSeconds);
+        const remainingSeconds=Math.max(0,duration-progress);
         if(remainingSeconds<=autoplayNextSeconds&&remainingSeconds>0){
           if(!currentNextEpisode)await refreshNextEpisodeButton();
           if(currentNextEpisode)beginAutoplayCountdown(remainingSeconds);
@@ -2039,6 +2369,12 @@
     document.getElementById("project-settings-close").addEventListener("click",closeProjectSettings);
     document.getElementById("project-settings").addEventListener("click",event=>{if(event.target===event.currentTarget)closeProjectSettings()});
     document.getElementById("project-dashboard-first").addEventListener("change",async event=>{const checked=event.target.checked;if(!checked){await DashboardStreaming.savePreferences({prefer_dashboard_playback:false});prefs=await DashboardStreaming.loadPreferences();return}const current=await DashboardStreaming.loadPreferences();if(current.dashboard_playback_warning_acknowledged){await DashboardStreaming.savePreferences({prefer_dashboard_playback:true});prefs=await DashboardStreaming.loadPreferences();return}const accepted=window.confirm("My Dashboard Playback uses a third-party player. Third-party tabs, windows, advertisements, or other content may open. Continue and prefer My Dashboard Playback?");event.target.checked=accepted;await DashboardStreaming.savePreferences({prefer_dashboard_playback:accepted});prefs=await DashboardStreaming.loadPreferences()});
+    document.getElementById(
+      "player-pip-button"
+    ).addEventListener(
+      "click",
+      toggleDashboardPictureInPicture
+    );
     document.getElementById("next-episode-button").addEventListener("click",startNextEpisode);
     document.getElementById("up-next-play-now").addEventListener("click",startNextEpisode);
     document.getElementById("up-next-cancel").addEventListener("click",()=>{

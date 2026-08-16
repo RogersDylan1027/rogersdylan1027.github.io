@@ -1,5 +1,5 @@
 /*
-  My Dashboard · Dashboard Entry Guard · Version 0.6.11
+  My Dashboard · Dashboard Entry Guard · Version 0.6.12
   Mobile Streaming Controls & Connected Project Settings · 2026-08-15
 
   Load dashboard-config.js first, then this file as early as possible in

@@ -1,5 +1,5 @@
 /*
-  My Dashboard · Shared Authentication · Version 0.6.11
+  My Dashboard · Shared Authentication · Version 0.6.12
   Mobile Streaming Controls & Connected Project Settings · 2026-08-15
 
   Use on protected project pages:
@@ -371,7 +371,7 @@
   hidePage();
 
   window.DashboardAuth = {
-    version: "0.6.11",
+    version: "0.6.12",
     client: null,
     user: null,
     getClient,

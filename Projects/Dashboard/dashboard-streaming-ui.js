@@ -1,14 +1,14 @@
 /*
-  My Dashboard · Streaming Settings UI · Version 0.6.11
+  My Dashboard · Streaming Settings UI · Version 0.6.12
   Mobile Streaming Controls & Connected Project Settings · 2026-08-15
 */
 (function () {
   "use strict";
 
-  const VERSION = "0.6.11";
-  const TITLE = "TV Autoplay, Admin Catalog & Streaming UX";
+  const VERSION = "0.6.12";
+  const TITLE = "Picture in Picture & Caught-Up Series Hiding";
   const DESCRIPTION =
-    "Adds configurable TV autoplay and a permanent Next Episode control, improves Continue Watching with episode labels and New Episode state, keeps caught-up shows hidden until new content arrives, keeps full-catalog search available to everyone while gating Watch for regular users by their added services, centers the Streaming navbar title as a quiet home shortcut, and makes main Dashboard Settings sections collapsible.";
+    "Adds Picture in Picture support for Dashboard Playback and tightens caught-up TV behavior. Shows with no remaining released episodes are hidden while waiting for future episodes or seasons, then return to Continue Watching only when a new episode has actually released.";
   let initialized = false;
   const get = id => document.getElementById(id);
 
@@ -191,10 +191,10 @@
 
   function addChangelogRuntimeEntry() {
     const view=get("changelog-view");if(!view)return;
-    const inject=()=>{const body=view.querySelector(".changelog-list")||view.querySelector("tbody")||view.querySelector(".internal-view-content")||view.querySelector(".changelog-content");if(!body||get("streaming-0611-changelog-entry"))return;
+    const inject=()=>{const body=view.querySelector(".changelog-list")||view.querySelector("tbody")||view.querySelector(".internal-view-content")||view.querySelector(".changelog-content");if(!body||get("streaming-0612-changelog-entry"))return;
       const bug='Improves iPhone safe-area, touch and modal behavior; keeps My Dashboard in the provider hierarchy; makes Watch provider selection persistent and visible; connects Streaming project settings to the same saved account preferences; and makes title menus reflect watch state.';
-      if(body.tagName==="TBODY"){const tr=document.createElement("tr");tr.id="streaming-0611-changelog-entry";tr.innerHTML=`<td>${VERSION}</td><td>${TITLE}</td><td>${DESCRIPTION}<br><strong>Bug Fixes:</strong> ${bug}</td>`;body.prepend(tr)}
-      else{const card=document.createElement("div");card.id="streaming-0611-changelog-entry";card.style.cssText="margin:0 0 12px;padding:14px;border:1px solid #dfe3e8;border-radius:12px;background:#f7f8fa";card.innerHTML=`<strong>${VERSION} · ${TITLE}</strong><p style="margin:7px 0 0;line-height:1.5">${DESCRIPTION}</p><p style="margin:7px 0 0;line-height:1.5"><strong>Bug Fixes:</strong> ${bug}</p>`;body.prepend(card)}
+      if(body.tagName==="TBODY"){const tr=document.createElement("tr");tr.id="streaming-0612-changelog-entry";tr.innerHTML=`<td>${VERSION}</td><td>${TITLE}</td><td>${DESCRIPTION}<br><strong>Bug Fixes:</strong> ${bug}</td>`;body.prepend(tr)}
+      else{const card=document.createElement("div");card.id="streaming-0612-changelog-entry";card.style.cssText="margin:0 0 12px;padding:14px;border:1px solid #dfe3e8;border-radius:12px;background:#f7f8fa";card.innerHTML=`<strong>${VERSION} · ${TITLE}</strong><p style="margin:7px 0 0;line-height:1.5">${DESCRIPTION}</p><p style="margin:7px 0 0;line-height:1.5"><strong>Bug Fixes:</strong> ${bug}</p>`;body.prepend(card)}
     };new MutationObserver(inject).observe(view,{attributes:true,childList:true,subtree:true});inject();
   }
 
