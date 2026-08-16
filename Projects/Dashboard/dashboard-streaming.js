@@ -36,15 +36,18 @@
     return client;
   }
 
-  function isAdminUser(user = requireUser()) {
-    const role =
-      user?.app_metadata?.role ||
-      user?.app_metadata?.dashboard_role ||
-      user?.user_metadata?.role ||
-      user?.user_metadata?.dashboard_role ||
-      "";
+  async function isAdminUser() {
+    const client = requireClient();
+    const user = requireUser();
 
-    return String(role).toLowerCase() === "admin";
+    if (!user?.id) return false;
+
+    const { data, error } =
+      await client.rpc("is_admin");
+
+    if (error) throw error;
+
+    return data === true;
   }
 
   function requireUser() {
@@ -449,6 +452,49 @@
       .maybeSingle();
     if (error) throw error;
     return data || null;
+  }
+
+  async function loadLatestTvProgressMap(
+    tmdbShowIds = []
+  ) {
+    const client = requireClient();
+    const user = requireUser();
+
+    const ids =
+      [...new Set(
+        (tmdbShowIds || [])
+          .map(Number)
+          .filter(Number.isFinite)
+      )];
+
+    if (!ids.length) return {};
+
+    const { data, error } = await client
+      .from("episode_progress")
+      .select(
+        "tmdb_show_id,season_number,episode_number,viewing_status,last_opened_at,progress_seconds,duration_seconds"
+      )
+      .eq("user_id", user.id)
+      .in("tmdb_show_id", ids)
+      .neq("viewing_status", "watched")
+      .order("last_opened_at", {
+        ascending: false,
+        nullsFirst: false
+      });
+
+    if (error) throw error;
+
+    const result = {};
+
+    (data || []).forEach(row => {
+      const key = String(row.tmdb_show_id);
+
+      if (!result[key]) {
+        result[key] = row;
+      }
+    });
+
+    return result;
   }
 
   async function loadLatestTvProgress(tmdbShowId) {
@@ -907,6 +953,7 @@
     saveProviderHierarchy,
     loadEpisodeProgress,
     loadLatestTvProgress,
+    loadLatestTvProgressMap,
     saveMovieProgress,
     loadMovieResumeProgress,
     saveEpisodeProgress,

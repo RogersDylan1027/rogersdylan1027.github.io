@@ -83,13 +83,13 @@
 
 <body>
   <div id="loader" class="loader">
-    <h1>My Dashboard 0.6.10</h1>
+    <h1>My Dashboard 0.6.11</h1>
     <p>Loading your Dashboard…</p>
   </div>
 
   <script>
     /*
-      My Dashboard · Version 0.6.10
+      My Dashboard · Version 0.6.11
       TV Season & Episode Selection + My Dashboard Rebrand · 2026-08-14
 
       CHANGELOG
@@ -110,6 +110,17 @@
       - Aligns protected projects with the shared Dashboard auth/config files.
       - Preserves projects.json as the single project catalog.
       - Corrects the Login path wording to Dashboard/login.html.
+
+      0.6.11 BUG-FIX REVISION
+      - Streaming now uses the same secure Supabase is_admin() RPC as the
+        regular Dashboard.
+      - Continue Watching TV cards fall back to saved episode_progress so
+        existing shows display S# E#.
+      - Movies with future release dates and TV series with no aired episodes
+        are hidden. Existing shows remain allowed if later episodes/seasons are
+        still in the future.
+      - Caught-up shows waiting for a new episode/season remain hidden until
+        new content actually releases.
 
       ARCHITECTURE NOTE
       My Dashboard still uses the immutable Version 0.4.2 source as the
@@ -142,7 +153,7 @@
 
       source = source.replace(
         /<title>[^<]*Dashboard · Version 0\.4\.2<\/title>/,
-        "<title>My Dashboard · Version 0.6.10</title>"
+        "<title>My Dashboard · Version 0.6.11</title>"
       );
 
       source = replaceRequired(

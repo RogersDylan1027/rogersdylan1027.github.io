@@ -85,3 +85,30 @@ Dashboard/README.txt
 
 SQL:
 streaming-0.6.11-autoplay-admin-catalog.sql
+
+
+0.6.11 BUG-FIX REVISION
+=======================
+ADMIN ACCESS
+- Streaming now uses the same Supabase is_admin() RPC as the regular Dashboard.
+- An account recognized as Admin by the Dashboard can Watch any available
+  current/released TMDB title without the added-service warning.
+- Streaming no longer relies on user metadata containing an "admin" role.
+
+CONTINUE WATCHING EPISODE LABELS
+- TV cards now use the following priority for S# E#:
+    1. queued next released episode
+    2. current unfinished episode_progress
+    3. last completed episode
+- This fixes existing shows that showed only "Continue Watching · TV".
+
+FUTURE CONTENT
+- Movies are hidden until their release_date has arrived.
+- Brand-new TV series are hidden until at least one episode has aired.
+- Existing TV series remain allowed even if future episodes or seasons exist.
+- A caught-up show with waiting_for_next_episode remains hidden from Continue
+  Watching and all normal discovery/recommendation rows.
+- Once a new episode actually releases, it returns as New Episode · S# E#.
+- This future-content rule also applies to admins.
+
+No additional SQL migration is required for this 0.6.11 bug-fix revision.

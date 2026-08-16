@@ -344,6 +344,49 @@
       return watchedKeys.has(titleKey(item?.id, mediaType));
     }
 
+    function dateIsReleased(dateValue) {
+      const value =
+        String(dateValue || "").trim();
+
+      if (!value) return false;
+
+      return value <= todayIsoDate();
+    }
+
+    function titleHasReleasedContent(
+      item,
+      mediaType = null
+    ) {
+      const type =
+        mediaType ||
+        item?._mediaType ||
+        item?.media_type ||
+        "movie";
+
+      if (type === "movie") {
+        return dateIsReleased(
+          item?.release_date
+        );
+      }
+
+      if (type === "tv") {
+        // Existing TV shows stay eligible even when later episodes/seasons
+        // are in the future. Only shows with no aired content yet are hidden.
+        const latestAired =
+          item?.last_episode_to_air?.air_date;
+
+        if (latestAired) {
+          return dateIsReleased(latestAired);
+        }
+
+        return dateIsReleased(
+          item?.first_air_date
+        );
+      }
+
+      return true;
+    }
+
     function filterUnwatched(items, mediaType = null) {
       return (items || []).filter(item => {
         const type =
@@ -359,6 +402,10 @@
         const state = stateByKey.get(key);
 
         return (
+          titleHasReleasedContent(
+            item,
+            type
+          ) &&
           !watchedKeys.has(key) &&
           !continueWatchingKeys.has(key) &&
           state?.waiting_for_next_episode !== true &&
@@ -422,7 +469,18 @@
     }
 
     function addRow(title, items, mediaType, labelFn, options = {}) {
-      const sourceItems = options.includeWatched ? (items || []) : filterUnwatched(items, mediaType);
+      const sourceItems =
+        options.includeWatched
+          ? (items || []).filter(item =>
+              titleHasReleasedContent(
+                item,
+                mediaType
+              )
+            )
+          : filterUnwatched(
+              items,
+              mediaType
+            );
       if (!sourceItems.length) return;
       const section = document.createElement("section");
       section.className = "row-section";
@@ -437,7 +495,16 @@
     }
 
     function addMixedRow(title, items, labelFn, options = {}) {
-      const sourceItems = options.includeWatched ? (items || []) : filterUnwatched(items);
+      const sourceItems =
+        options.includeWatched
+          ? (items || []).filter(item =>
+              titleHasReleasedContent(
+                item,
+                item._mediaType ||
+                  item.media_type
+              )
+            )
+          : filterUnwatched(items);
       if (!sourceItems.length) return;
       const section = document.createElement("section");
       section.className = "row-section";
@@ -996,7 +1063,16 @@
           DashboardStreaming.loadUserProviders(),
           DashboardStreaming.loadPreferences()
         ]);
-        currentUserIsAdmin=DashboardStreaming.isAdminUser(window.DashboardAuth?.user);
+        try {
+          currentUserIsAdmin =
+            await DashboardStreaming.isAdminUser();
+        } catch (error) {
+          console.error(
+            "Dashboard admin permission check:",
+            error
+          );
+          currentUserIsAdmin = false;
+        }
         autoplayNextEnabled=prefs?.autoplay_next_episode!==false;
         autoplayNextSeconds=Math.max(0,Math.min(600,Number(prefs?.autoplay_next_seconds??30)||30));
         document.getElementById("autoplay-next-enabled").checked=autoplayNextEnabled;
@@ -1021,19 +1097,83 @@
           )
           .sort((a,b) => new Date(b.last_opened_at||0) - new Date(a.last_opened_at||0));
         if (continueStates.length) {
-          const enriched = await enrichTitleStates(continueStates,20);
-          addMixedRow("Continue Watching",enriched,item => {
-            const state=item._state||{};
-            if(item._mediaType==="tv"){
-              const season=Number(state.next_episode_season_number||state.last_completed_season_number||0);
-              const episode=Number(state.next_episode_number||state.last_completed_episode_number||0);
-              const label=season>0&&episode>0?`S${season} E${episode}`:"TV";
-              return state.new_episode_available===true
-                ? `New Episode · ${label}`
-                : `Continue Watching · ${label}`;
+          const enriched =
+            await enrichTitleStates(
+              continueStates,
+              20
+            );
+
+          const continueTvProgressMap =
+            await DashboardStreaming
+              .loadLatestTvProgressMap(
+                continueStates
+                  .filter(state =>
+                    state.media_type === "tv"
+                  )
+                  .map(state =>
+                    state.tmdb_id
+                  )
+              );
+
+          enriched.forEach(item => {
+            if (item._mediaType === "tv") {
+              item._latestEpisodeProgress =
+                continueTvProgressMap[
+                  String(item.id)
+                ] || null;
             }
-            return "Continue Watching";
-          },{includeWatched:true});
+          });
+
+          addMixedRow(
+            "Continue Watching",
+            enriched,
+            item => {
+              const state =
+                item._state || {};
+
+              if (
+                item._mediaType === "tv"
+              ) {
+                const progress =
+                  item._latestEpisodeProgress ||
+                  null;
+
+                const season =
+                  Number(
+                    state
+                      .next_episode_season_number ||
+                    progress?.season_number ||
+                    state
+                      .last_completed_season_number ||
+                    0
+                  );
+
+                const episode =
+                  Number(
+                    state.next_episode_number ||
+                    progress?.episode_number ||
+                    state
+                      .last_completed_episode_number ||
+                    0
+                  );
+
+                const label =
+                  season > 0 &&
+                  episode > 0
+                    ? `S${season} E${episode}`
+                    : "TV";
+
+                return state
+                  .new_episode_available ===
+                  true
+                    ? `New Episode · ${label}`
+                    : `Continue Watching · ${label}`;
+              }
+
+              return "Continue Watching";
+            },
+            { includeWatched:true }
+          );
         }
 
         const [movies,tv,trendingMovies,trendingTv] = await Promise.all([
