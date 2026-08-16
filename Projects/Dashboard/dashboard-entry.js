@@ -1,11 +1,11 @@
 /*
-  My Dashboard · Dashboard Entry Guard · Version 0.6.8
+  My Dashboard · Dashboard Entry Guard · Version 0.6.9
   Mobile Streaming Controls & Connected Project Settings · 2026-08-15
 
   Load dashboard-config.js first, then this file as early as possible in
   Dashboard/index.html <head>. Logged-out visitors are sent to login.html.
 
-  0.6.8 also loads the authenticated Streaming client and Settings integration
+  0.6.9 also loads the authenticated Streaming client and Settings integration
   after the legacy Dashboard shell has finished rendering.
 */
 (function () {
@@ -130,7 +130,7 @@
 
       // document.write() in the preserved Dashboard shell may happen after
       // this script returns. The timer intentionally survives and waits for
-      // that final shell before attaching 0.6.8 Streaming UI.
+      // that final shell before attaching 0.6.9 Streaming UI.
       setTimeout(startStreamingRuntime, 0);
     } catch (error) {
       console.error("Dashboard entry authentication:", error);

@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>My Dashboard · Streaming · Version 0.6.8</title>
-  <meta name="description" content="My Dashboard unified streaming hub. Optimizes My Dashboard and Streaming for iPhone while redesigning playback controls around an always-visible Watch button and provider selector. My Dashboard now participates in the saved provider hierarchy, title action menus adapt to viewing state, and Streaming Settings open directly inside the Streaming project while remaining synchronized with the main Dashboard account settings.">
+  <title>My Dashboard · Streaming · Version 0.6.9</title>
+  <meta name="description" content="My Dashboard unified streaming hub. Expands Streaming discovery while keeping rows focused on titles you have not watched yet. Marking a title as Watched now asks whether you liked it, saves that preference, and removes the title from discovery rows immediately. Streaming also adds personalized recommendations, recently added availability, mixed trending rows, and source-backed coming/leaving sections.">
   <meta name="theme-color" content="#101218">
 
-  <script src="../dashboard-config.js?v=0.6.8"></script>
+  <script src="../dashboard-config.js?v=0.6.9"></script>
   <script
-    src="../dashboard-auth.js?v=0.6.8"
+    src="../dashboard-auth.js?v=0.6.9"
     data-dashboard-project="streaming">
   </script>
-  <script src="../dashboard-streaming.js?v=0.6.8"></script>
+  <script src="../dashboard-streaming.js?v=0.6.9"></script>
 
   <style>
     *{box-sizing:border-box}
@@ -101,6 +101,15 @@
     .project-provider-main{display:flex;align-items:center;gap:9px;min-width:0}.project-provider-logo{width:36px;height:36px;display:grid;place-items:center;flex:0 0 auto;overflow:hidden;border-radius:9px;background:#fff;color:#28487e;font-weight:900}.project-provider-logo img{width:100%;height:100%;object-fit:cover}
     .project-provider-row button,.project-priority-controls button{min-width:44px;min-height:44px;border:1px solid #536079;border-radius:10px;background:#252a36;color:#fff;font-weight:800;cursor:pointer}.project-priority-controls{display:flex;gap:6px}.project-settings-status{color:var(--muted);font-size:11px}
     .project-toggle{display:flex;align-items:flex-start;gap:10px}.project-toggle strong,.project-toggle small{display:block}.project-toggle small{margin-top:3px;color:var(--muted);line-height:1.4}
+
+    .watched-feedback{position:fixed;inset:0;z-index:95;display:grid;place-items:center;padding:18px;background:rgba(0,0,0,.72)}
+    .watched-feedback[hidden]{display:none}
+    .watched-feedback-card{width:min(100%,430px);padding:20px;border:1px solid var(--border);border-radius:18px;background:var(--panel);box-shadow:0 24px 70px rgba(0,0,0,.42)}
+    .watched-feedback-card h3{margin:0;font-size:20px}
+    .watched-feedback-card p{margin:7px 0 15px;color:var(--muted);font-size:12px;line-height:1.5}
+    .watched-feedback-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .watched-feedback-actions button{min-height:44px;padding:9px 12px;border:1px solid #485269;border-radius:11px;background:#252a36;color:#fff;cursor:pointer;font-weight:800}
+    .watched-feedback-actions button:last-child{grid-column:1/-1;background:#20242e}
     .menu{position:fixed;z-index:70;min-width:210px;padding:7px;border:1px solid var(--border);border-radius:12px;background:#20242e;box-shadow:0 14px 40px rgba(0,0,0,.35)}
     .menu[hidden]{display:none}
     .menu button{display:block;width:100%;padding:9px 10px;border:0;border-radius:8px;background:transparent;color:white;text-align:left;cursor:pointer;font-size:13px}
@@ -208,6 +217,19 @@
     </section>
   </div>
 
+
+  <div id="watched-feedback" class="watched-feedback" hidden>
+    <section class="watched-feedback-card" role="dialog" aria-modal="true" aria-labelledby="watched-feedback-title">
+      <h3 id="watched-feedback-title">Did you like it?</h3>
+      <p id="watched-feedback-note">Your answer helps improve future recommendations.</p>
+      <div class="watched-feedback-actions">
+        <button id="watched-liked" type="button">Liked It</button>
+        <button id="watched-disliked" type="button">Didn't Like It</button>
+        <button id="watched-skip" type="button">Skip</button>
+      </div>
+    </section>
+  </div>
+
   <div id="card-menu" class="menu" hidden></div>
 
   <script>
@@ -216,6 +238,9 @@
     let currentProviders = [];
     let prefs = null;
     let currentDetail = null;
+    let titleStates = [];
+    let watchedKeys = new Set();
+    let stateByKey = new Map();
     let activePlayback = null;
     let lastProgressWriteAt = 0;
     let pendingProgress = null;
@@ -236,6 +261,43 @@
     function mediaYear(item){
       const value = item.release_date || item.first_air_date || "";
       return value ? value.slice(0,4) : "";
+    }
+
+    function titleKey(tmdbId, mediaType) {
+      return `${mediaType}:${Number(tmdbId)}`;
+    }
+
+    function rebuildTitleStateIndex(rows = titleStates) {
+      titleStates = Array.isArray(rows) ? rows : [];
+      watchedKeys = new Set();
+      stateByKey = new Map();
+
+      titleStates.forEach(state => {
+        const key = titleKey(state.tmdb_id, state.media_type);
+        stateByKey.set(key, state);
+        if (state.viewing_status === "watched") watchedKeys.add(key);
+      });
+    }
+
+    function getTitleState(item, mediaType) {
+      return item?._state || stateByKey.get(titleKey(item?.id, mediaType)) || null;
+    }
+
+    function isWatched(item, mediaType) {
+      return watchedKeys.has(titleKey(item?.id, mediaType));
+    }
+
+    function filterUnwatched(items, mediaType = null) {
+      return (items || []).filter(item => {
+        const type = mediaType || item._mediaType || item.media_type || "movie";
+        return !isWatched(item, type);
+      });
+    }
+
+    async function refreshTitleStates() {
+      const rows = await DashboardStreaming.loadTitleStates();
+      rebuildTitleStateIndex(rows);
+      return rows;
     }
 
     function card(item, mediaType, label="") {
@@ -286,136 +348,208 @@
       return wrap;
     }
 
-    function addRow(title, items, mediaType, labelFn) {
-      if (!items?.length) return;
+    function addRow(title, items, mediaType, labelFn, options = {}) {
+      const sourceItems = options.includeWatched ? (items || []) : filterUnwatched(items, mediaType);
+      if (!sourceItems.length) return;
       const section = document.createElement("section");
       section.className = "row-section";
       const head = document.createElement("div");
       head.className = "row-head";
-      head.innerHTML = `<h2>${title}</h2><small>${items.length} shown</small>`;
+      head.innerHTML = `<h2>${title}</h2><small>${sourceItems.length} shown</small>`;
       const strip = document.createElement("div");
       strip.className = "carousel";
-      items.forEach(item => strip.appendChild(card(item, mediaType, labelFn ? labelFn(item) : "")));
+      sourceItems.forEach(item => strip.appendChild(card(item, mediaType, labelFn ? labelFn(item) : "")));
       section.append(head, strip);
       document.getElementById("rows").appendChild(section);
     }
 
-    function addMixedRow(title, items, labelFn) {
-      if (!items?.length) return;
-
+    function addMixedRow(title, items, labelFn, options = {}) {
+      const sourceItems = options.includeWatched ? (items || []) : filterUnwatched(items);
+      if (!sourceItems.length) return;
       const section = document.createElement("section");
       section.className = "row-section";
-
       const head = document.createElement("div");
       head.className = "row-head";
-      head.innerHTML =
-        `<h2>${title}</h2><small>${items.length} shown</small>`;
-
+      head.innerHTML = `<h2>${title}</h2><small>${sourceItems.length} shown</small>`;
       const strip = document.createElement("div");
       strip.className = "carousel";
-
-      items.forEach(item => {
-        strip.appendChild(
-          card(
-            item,
-            item._mediaType || "movie",
-            labelFn ? labelFn(item) : ""
-          )
-        );
+      sourceItems.forEach(item => {
+        strip.appendChild(card(item, item._mediaType || "movie", labelFn ? labelFn(item) : ""));
       });
-
       section.append(head, strip);
       document.getElementById("rows").appendChild(section);
+    }
+
+    async function enrichTitleStates(states, limit = 20) {
+      return (await Promise.all((states || []).slice(0, limit).map(async state => {
+        try {
+          const details = await DashboardStreaming.getTitleDetails(state.tmdb_id, state.media_type);
+          return {...details, _state:state, _mediaType:state.media_type};
+        } catch (error) {
+          console.warn("Title detail enrichment:", error);
+          return null;
+        }
+      }))).filter(Boolean);
+    }
+
+    async function buildRecommendationPool(serviceMovies, serviceTv) {
+      const likedStates = titleStates.filter(state => state.liked === true && !state.not_interested);
+      const likedDetails = await enrichTitleStates(likedStates, 8);
+      const preferredGenres = new Map();
+      likedDetails.forEach(item => (item.genres || []).forEach(genre => {
+        const id = Number(genre.id);
+        preferredGenres.set(id, (preferredGenres.get(id) || 0) + 1);
+      }));
+
+      const score = item => {
+        let total = Number(item.popularity) || 0;
+        (item.genre_ids || []).forEach(id => { total += (preferredGenres.get(Number(id)) || 0) * 1000; });
+        return total;
+      };
+
+      return filterUnwatched([
+        ...(serviceMovies || []).map(item => ({...item,_mediaType:"movie"})),
+        ...(serviceTv || []).map(item => ({...item,_mediaType:"tv"}))
+      ]).sort((a,b) => score(b) - score(a));
+    }
+
+    function mixTrending(movieItems, tvItems, limit = 20) {
+      return filterUnwatched([
+        ...(movieItems || []).map(item => ({...item,_mediaType:"movie"})),
+        ...(tvItems || []).map(item => ({...item,_mediaType:"tv"}))
+      ]).sort((a,b) => (Number(b.popularity)||0) - (Number(a.popularity)||0)).slice(0,limit);
+    }
+
+    function isoDateOffset(days) {
+      const date = new Date();
+      date.setHours(12,0,0,0);
+      date.setDate(date.getDate() + days);
+      return date.toISOString().slice(0,10);
+    }
+
+    async function loadAvailabilityEventTitles({eventType,startDate,endDate,mode}) {
+      try {
+        const events = await DashboardStreaming.loadAvailabilityEvents({
+          eventType,
+          region:prefs?.region || "US",
+          startDate,
+          endDate,
+          limit:80
+        });
+        const enabledProviderIds = new Set(currentProviders.filter(row=>row.enabled!==false).map(row=>String(row.provider_id)));
+        const seen = new Set();
+        const results = [];
+
+        for (const event of events) {
+          if (!enabledProviderIds.has(String(event.provider_id))) continue;
+          const key = titleKey(event.tmdb_id,event.media_type);
+          if (seen.has(key) || watchedKeys.has(key)) continue;
+          seen.add(key);
+
+          try {
+            const details = await DashboardStreaming.getTitleDetails(event.tmdb_id,event.media_type);
+            let currentEnabled = [];
+            try { currentEnabled = await getExternalProvidersForTitle(details,event.media_type); } catch (availabilityError) { console.warn("Availability event check:",availabilityError); }
+
+            // Arrivals are useful only if the title is not already on an enabled external service.
+            if (mode === "coming" && currentEnabled.length) continue;
+            // Leaving is suppressed when another enabled external provider currently carries it.
+            if (mode === "leaving" && currentEnabled.some(row => String(row.provider_id) !== String(event.provider_id))) continue;
+
+            results.push({...details,_mediaType:event.media_type,_availabilityEvent:event});
+          } catch (error) {
+            console.warn("Availability event title:",error);
+          }
+        }
+        return results;
+      } catch (error) {
+        console.warn(`${eventType} availability events:`,error);
+        return [];
+      }
     }
 
     async function init() {
       const status = document.getElementById("status");
       try {
-        if (!window.DashboardAuth?.client || !window.DashboardAuth?.user) {
-          return;
-        }
+        if (!window.DashboardAuth?.client || !window.DashboardAuth?.user) return;
 
-        [currentProviders, prefs] = await Promise.all([
+        [currentProviders,prefs] = await Promise.all([
           DashboardStreaming.loadUserProviders(),
           DashboardStreaming.loadPreferences()
         ]);
-
+        await refreshTitleStates();
         document.getElementById("rows").innerHTML = "";
 
-        const continueStates = await DashboardStreaming.loadContinueWatching();
+        const continueStates = titleStates
+          .filter(state => state.in_continue_watching === true && state.viewing_status !== "watched")
+          .sort((a,b) => new Date(b.last_opened_at||0) - new Date(a.last_opened_at||0));
         if (continueStates.length) {
-          const enriched = (
-            await Promise.all(
-              continueStates.slice(0,20).map(async state => {
-                try {
-                  const details =
-                    await DashboardStreaming.getTitleDetails(
-                      state.tmdb_id,
-                      state.media_type
-                    );
-
-                  return {
-                    ...details,
-                    _state: state,
-                    _mediaType: state.media_type
-                  };
-                } catch (error) {
-                  console.warn(
-                    "Continue Watching title details:",
-                    error
-                  );
-
-                  return {
-                    id: state.tmdb_id,
-                    title:
-                      state.media_type === "movie"
-                        ? `Movie #${state.tmdb_id}`
-                        : undefined,
-                    name:
-                      state.media_type === "tv"
-                        ? `Show #${state.tmdb_id}`
-                        : undefined,
-                    _state: state,
-                    _mediaType: state.media_type
-                  };
-                }
-              })
-            )
-          ).filter(Boolean);
-
-          addMixedRow(
-            "Continue Watching",
-            enriched,
-            item =>
-              item._state?.last_opened_at
-                ? "Opened " +
-                  new Date(
-                    item._state.last_opened_at
-                  ).toLocaleDateString()
-                : "Opened"
-          );
+          const enriched = await enrichTitleStates(continueStates,20);
+          addMixedRow("Continue Watching",enriched,item => item._state?.last_opened_at ? "Opened "+new Date(item._state.last_opened_at).toLocaleDateString() : "Continue watching",{includeWatched:true});
         }
 
-        const [movies, tv] = await Promise.all([
+        const [movies,tv,trendingMovies,trendingTv] = await Promise.all([
           DashboardStreaming.discoverCombined({mediaType:"movie"}),
-          DashboardStreaming.discoverCombined({mediaType:"tv"})
+          DashboardStreaming.discoverCombined({mediaType:"tv"}),
+          DashboardStreaming.tmdb("/trending/movie/week"),
+          DashboardStreaming.tmdb("/trending/tv/week")
         ]);
+        const serviceMovies=movies.results||[], serviceTv=tv.results||[];
+        const recommendationPool=await buildRecommendationPool(serviceMovies,serviceTv);
 
-        addRow("Popular Movies Across Your Services", movies.results || [], "movie");
-        addRow("Popular TV Across Your Services", tv.results || [], "tv");
+        addMixedRow("Recommended for You",recommendationPool.slice(0,20));
+        addRow("Popular Movies Across Your Services",serviceMovies,"movie");
 
-        if (!currentProviders.length) {
-          status.textContent = "Add at least one streaming service in Dashboard Settings to build your combined library.";
-        } else {
-          status.textContent = "";
+        const likedState=titleStates.find(state=>state.liked===true && state.viewing_status==="watched");
+        if(likedState){
+          try{
+            const likedTitle=await DashboardStreaming.getTitleDetails(likedState.tmdb_id,likedState.media_type);
+            const genreIds=new Set((likedTitle.genres||[]).map(g=>Number(g.id)));
+            const because=recommendationPool.filter(item=>(item.genre_ids||[]).some(id=>genreIds.has(Number(id))));
+            addMixedRow(`Because You Liked ${mediaTitle(likedTitle)}`,because.slice(0,20));
+          }catch(error){console.warn("Because You Liked row:",error)}
         }
-      } catch (error) {
+
+        // Accurate "recently added" data requires provider availability events.
+        const recentArrivals=await loadAvailabilityEventTitles({eventType:"arriving",startDate:isoDateOffset(-30),endDate:isoDateOffset(0),mode:"recent"});
+        addMixedRow("Recently Added to Your Services",recentArrivals,item=>{
+          const d=item._availabilityEvent?.effective_date;
+          return d ? "Added "+new Date(d+"T12:00:00").toLocaleDateString(undefined,{month:"short",day:"numeric"}) : "Recently Added";
+        });
+
+        addRow("Movies You May Like",recommendationPool.filter(i=>i._mediaType==="movie").slice(0,20),"movie");
+        addRow("Popular TV Across Your Services",serviceTv,"tv");
+        addRow("TV Shows You May Like",recommendationPool.filter(i=>i._mediaType==="tv").slice(0,20),"tv");
+
+        const serviceKeys=new Set([
+          ...serviceMovies.map(item=>titleKey(item.id,"movie")),
+          ...serviceTv.map(item=>titleKey(item.id,"tv"))
+        ]);
+        const allTrending=mixTrending(trendingMovies.results||[],trendingTv.results||[],40);
+        const onServices=allTrending.filter(item=>serviceKeys.has(titleKey(item.id,item._mediaType))).slice(0,20);
+        addMixedRow("Trending on Your Services",onServices);
+        addMixedRow("Trending Across Everything",mixTrending(trendingMovies.results||[],trendingTv.results||[],20));
+
+        const [comingSoon,leavingSoon]=await Promise.all([
+          loadAvailabilityEventTitles({eventType:"arriving",startDate:isoDateOffset(1),endDate:isoDateOffset(180),mode:"coming"}),
+          loadAvailabilityEventTitles({eventType:"leaving",startDate:isoDateOffset(0),endDate:isoDateOffset(90),mode:"leaving"})
+        ]);
+        addMixedRow("Coming Soon",comingSoon,item=>{
+          const d=item._availabilityEvent?.effective_date;
+          return d ? "Coming "+new Date(d+"T12:00:00").toLocaleDateString(undefined,{month:"short",day:"numeric"}) : "Coming Soon";
+        });
+        addMixedRow("Leaving Soon",leavingSoon,item=>{
+          const d=item._availabilityEvent?.effective_date;
+          return d ? "Leaves "+new Date(d+"T12:00:00").toLocaleDateString(undefined,{month:"short",day:"numeric"}) : "Leaving Soon";
+        });
+
+        status.textContent=currentProviders.length ? "" : "Add at least one streaming service in Settings to build your combined library.";
+      } catch(error) {
         console.error(error);
-        status.textContent = error.message || "Streaming could not load.";
+        status.textContent=error.message||"Streaming could not load.";
         status.classList.add("error");
       }
     }
-
 
     function normalizeProviderName(value) {
       return String(value || "").toLowerCase().replace(/\+/g, " plus ").replace(/[^a-z0-9]+/g, " ").trim();
@@ -465,22 +599,41 @@
     }
 
     async function showMenu(anchor,item,mediaType) {
-      const menu=document.getElementById("card-menu");menu.innerHTML='<button type="button" disabled>Loading…</button>';
-      const r=anchor.getBoundingClientRect();menu.style.top=Math.min(window.innerHeight-300,r.bottom+6)+"px";menu.style.left=Math.max(8,Math.min(window.innerWidth-220,r.right-210))+"px";menu.hidden=false;
-      let state=item._state||null;try{state=state||await DashboardStreaming.loadTitleState(item.id,mediaType)}catch(error){console.warn("Title state:",error)}
+      const menu=document.getElementById("card-menu");
+      menu.innerHTML='<button type="button" disabled>Loading…</button>';
+      const r=anchor.getBoundingClientRect();
+      menu.style.top=Math.min(window.innerHeight-300,r.bottom+6)+"px";
+      menu.style.left=Math.max(8,Math.min(window.innerWidth-220,r.right-210))+"px";
+      menu.hidden=false;
+
+      let state=getTitleState(item,mediaType);
+      if(!state){try{state=await DashboardStreaming.loadTitleState(item.id,mediaType)}catch(error){console.warn("Title state:",error)}}
       menu.innerHTML="";
-      const watching=Boolean(state?.in_continue_watching),watched=state?.viewing_status==="watched",watchlisted=Boolean(state?.in_watchlist);
-      const actions=[];
-      actions.push(["Details",()=>showDetails(item,mediaType)]);
-      actions.push([watching?"Resume":watched?"Watch Again":"Watch",()=>showDetails(item,mediaType)]);
-      if(watching){actions.push(["Restart",()=>restartTitle(item,mediaType)]);actions.push(["Remove from Continue Watching",()=>DashboardStreaming.removeFromContinueWatching(item.id,mediaType)])}
-      else if(watched){actions.push([watchlisted?"Remove from Watchlist":"Add to Watchlist",()=>DashboardStreaming.setWatchlist(item.id,mediaType,!watchlisted)])}
-      else if(watchlisted){actions.push(["Remove from Watchlist",()=>DashboardStreaming.setWatchlist(item.id,mediaType,false)])}
-      else{actions.push(["Add to Watchlist",()=>DashboardStreaming.setWatchlist(item.id,mediaType,true)])}
-      actions.push(["Like",()=>DashboardStreaming.setTitleReaction(item.id,mediaType,"like")]);actions.push(["Dislike",()=>DashboardStreaming.setTitleReaction(item.id,mediaType,"dislike")]);
-      actions.push([watched?"Mark as Unwatched":"Mark as Watched",()=>watched?markUnwatched(item.id,mediaType):markWatched(item.id,mediaType)]);
-      actions.push(["Not Interested",()=>DashboardStreaming.setTitleReaction(item.id,mediaType,"not_interested")]);
-      actions.forEach(([label,fn])=>{const b=document.createElement("button");b.type="button";b.textContent=label;b.addEventListener("click",async()=>{menu.hidden=true;try{await fn();await init()}catch(error){console.error(error)}});menu.appendChild(b)});
+      const watched=state?.viewing_status==="watched";
+      const continuing=Boolean(state?.in_continue_watching) && !watched;
+      const watchlisted=Boolean(state?.in_watchlist);
+      const actions=[["Details",()=>showDetails(item,mediaType)]];
+
+      if(continuing){
+        actions.push(["Resume",()=>showDetails(item,mediaType)]);
+        actions.push(["Restart",()=>restartTitle(item,mediaType)]);
+        actions.push(["Remove from Continue Watching",async()=>{await DashboardStreaming.removeFromContinueWatching(item.id,mediaType);await init()}]);
+        actions.push(["Mark as Watched",()=>markWatchedWithFeedback(item,mediaType)]);
+        actions.push(["Not Interested",async()=>{await DashboardStreaming.setTitleReaction(item.id,mediaType,"not_interested");await init()}]);
+      }else if(watched){
+        actions.push(["Watch Again",()=>restartTitle(item,mediaType)]);
+        actions.push(["Mark as Unwatched",async()=>{await markUnwatched(item.id,mediaType);await init()}]);
+      }else{
+        actions.push([watchlisted?"Remove from Watchlist":"Add to Watchlist",async()=>{await DashboardStreaming.setWatchlist(item.id,mediaType,!watchlisted);await refreshTitleStates()}]);
+        actions.push(["Mark as Watched",()=>markWatchedWithFeedback(item,mediaType)]);
+        actions.push(["Not Interested",async()=>{await DashboardStreaming.setTitleReaction(item.id,mediaType,"not_interested");await init()}]);
+      }
+
+      actions.forEach(([label,fn])=>{
+        const b=document.createElement("button");b.type="button";b.textContent=label;
+        b.addEventListener("click",async()=>{menu.hidden=true;try{await fn()}catch(error){console.error(error)}});
+        menu.appendChild(b);
+      });
     }
 
     async function markWatched(tmdbId, mediaType) {
@@ -493,6 +646,27 @@
         watched_at:new Date().toISOString()
       }, {onConflict:"user_id,tmdb_id,media_type"});
       if(error) throw error;
+    }
+
+    function askWatchedFeedback(item) {
+      const overlay=document.getElementById("watched-feedback");
+      document.getElementById("watched-feedback-note").textContent=`Did you like ${mediaTitle(item)}? Your answer helps improve future recommendations.`;
+      overlay.hidden=false;
+      return new Promise(resolve=>{
+        let settled=false;
+        const finish=value=>{if(settled)return;settled=true;overlay.hidden=true;liked.removeEventListener("click",likeFn);disliked.removeEventListener("click",dislikeFn);skip.removeEventListener("click",skipFn);overlay.removeEventListener("click",backdrop);document.removeEventListener("keydown",keydown);resolve(value)};
+        const liked=document.getElementById("watched-liked"),disliked=document.getElementById("watched-disliked"),skip=document.getElementById("watched-skip");
+        const likeFn=()=>finish("like"),dislikeFn=()=>finish("dislike"),skipFn=()=>finish("skip");
+        const backdrop=e=>{if(e.target===overlay)skipFn()},keydown=e=>{if(e.key==="Escape")skipFn()};
+        liked.addEventListener("click",likeFn);disliked.addEventListener("click",dislikeFn);skip.addEventListener("click",skipFn);overlay.addEventListener("click",backdrop);document.addEventListener("keydown",keydown);
+      });
+    }
+
+    async function markWatchedWithFeedback(item,mediaType) {
+      const reaction=await askWatchedFeedback(item);
+      await markWatched(item.id,mediaType);
+      if(reaction==="like"||reaction==="dislike") await DashboardStreaming.setTitleReaction(item.id,mediaType,reaction);
+      await init();
     }
 
     async function markUnwatched(tmdbId, mediaType) {
@@ -1152,8 +1326,8 @@
           DashboardStreaming.tmdb("/search/tv",{query:q})
         ]);
         document.getElementById("rows").innerHTML = "";
-        addRow("Movie Results",movies.results||[],"movie");
-        addRow("TV Results",tv.results||[],"tv");
+        addRow("Movie Results",movies.results||[],"movie",null,{includeWatched:true});
+        addRow("TV Results",tv.results||[],"tv",null,{includeWatched:true});
         status.textContent = "";
       } catch(error) {
         status.textContent = error.message || "Search failed.";

@@ -1,5 +1,5 @@
 /*
-  My Dashboard · Streaming Client · Version 0.6.8
+  My Dashboard · Streaming Client · Version 0.6.9
 
   Load after dashboard-config.js and after the Dashboard's authenticated
   Supabase client is available.
@@ -271,6 +271,51 @@
     });
 
     if (error) throw error;
+  }
+
+  async function loadTitleStates(limit = 500) {
+    const client = requireClient();
+    const user = requireUser();
+
+    const { data, error } = await client
+      .from("user_title_state")
+      .select("*")
+      .eq("user_id", user.id)
+      .order("last_opened_at", { ascending: false, nullsFirst: false })
+      .limit(limit);
+
+    if (error) throw error;
+    return data || [];
+  }
+
+  async function loadAvailabilityEvents({
+    eventType,
+    region = "US",
+    startDate = null,
+    endDate = null,
+    limit = 80,
+  } = {}) {
+    const client = requireClient();
+    const type = String(eventType || "").trim();
+
+    if (!["arriving", "leaving"].includes(type)) {
+      throw new Error("Invalid availability event type.");
+    }
+
+    let query = client
+      .from("provider_availability_events")
+      .select("*")
+      .eq("event_type", type)
+      .eq("region", String(region || "US").toUpperCase())
+      .order("effective_date", { ascending: true })
+      .limit(limit);
+
+    if (startDate) query = query.gte("effective_date", startDate);
+    if (endDate) query = query.lte("effective_date", endDate);
+
+    const { data, error } = await query;
+    if (error) throw error;
+    return data || [];
   }
 
   async function loadContinueWatching(limit = 30) {
@@ -683,7 +728,7 @@
   }
 
   window.DashboardStreaming = Object.freeze({
-    version: "0.6.8",
+    version: "0.6.9",
     listProviders,
     loadUserProviders,
     addProvider,
@@ -692,6 +737,8 @@
     loadPreferences,
     savePreferences,
     recordOpen,
+    loadTitleStates,
+    loadAvailabilityEvents,
     loadContinueWatching,
     setTitleReaction,
     setWatchlist,

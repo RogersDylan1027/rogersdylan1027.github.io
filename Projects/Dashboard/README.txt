@@ -1,38 +1,57 @@
-My Dashboard · Version 0.6.8
-Mobile Streaming Controls & Connected Project Settings · 2026-08-15
+My Dashboard · Version 0.6.9
+Watched Filtering & Expanded Discovery · 2026-08-16
 
 CHANGELOG
 =========
-Version: 0.6.8
-Title: Mobile Streaming Controls & Connected Project Settings
+Version: 0.6.9
+Title: Watched Filtering & Expanded Discovery
 
 Description:
-Optimizes My Dashboard and Streaming for iPhone while redesigning playback controls around an always-visible Watch button and provider selector. My Dashboard now participates in the saved provider hierarchy, title action menus adapt to viewing state, and Streaming Settings open directly inside the Streaming project while remaining synchronized with the main Dashboard account settings.
+Expands Streaming discovery while keeping rows focused on titles you have not watched yet. Marking a title as Watched now asks whether you liked it, saves that preference, and removes the title from discovery rows immediately. Streaming also adds personalized recommendations, recently added availability, mixed trending rows, and source-backed coming/leaving sections.
 
-New Features:
-- Adds an always-visible provider dropdown beside the Watch button for every title.
-- My Dashboard is a real option in the provider dropdown and the saved Provider Priority hierarchy.
-- Prefer My Dashboard Playback temporarily puts My Dashboard first without removing its saved hierarchy position.
-- Streaming Settings now open inside the Streaming project instead of sending the user back to the main Dashboard.
-- Streaming Settings on both pages use the same Supabase-backed services, preferences and provider hierarchy.
-- Title ••• menus now change according to Normal, Watchlist, Continue Watching and Watched state.
+WATCHED FLOW
+============
+- Mark as Watched now asks: Liked It, Didn't Like It, or Skip.
+- Like/Dislike is saved as a recommendation signal.
+- The watched title is removed from discovery rows immediately.
+- Continue Watching contains only unfinished titles.
+- Watchlist/discovery/recommendation/trending rows filter out watched titles.
+- Search intentionally may still return watched titles.
 
-Mobile / iPhone Improvements:
-- Adds viewport-fit=cover and safe-area support for iPhone notches, Dynamic Island and the Home indicator.
-- Uses dynamic viewport units for full-screen dialogs and project overlays.
-- Increases important touch targets to about 44px or larger.
-- Prevents iOS input zoom by using 16px form controls on phone layouts.
-- Improves horizontal carousel touch scrolling and snap behavior.
-- Improves Streaming details, Settings, provider controls, menus and season/episode selectors on narrow screens.
-- Adds touch and overflow safeguards to the main Dashboard and Login screen.
+STATE-AWARE THREE-DOT MENUS
+============================
+Normal / not started: Details, Add to Watchlist, Mark as Watched, Not Interested.
+Watchlist: Details, Remove from Watchlist, Mark as Watched, Not Interested.
+Continue Watching: Details, Resume, Restart, Remove from Continue Watching, Mark as Watched, Not Interested.
+Watched: Details, Watch Again, Mark as Unwatched.
 
-Playback Behavior:
-- The button is always named Watch.
-- The provider dropdown is always visible.
-- Selecting My Dashboard uses the embedded player.
-- Selecting an external provider opens that provider and records the title/episode as Opened, not Watched.
-- TV Season and Episode selectors remain connected to the exact episode used by Watch.
-- Native iframe fullscreen remains enabled.
+ROWS
+====
+1. Continue Watching
+2. Recommended for You
+3. Popular Movies Across Your Services
+4. Because You Liked...
+5. Recently Added to Your Services (only when provider availability-event data exists)
+6. Movies You May Like
+7. Popular TV Across Your Services
+8. TV Shows You May Like
+9. Trending on Your Services (mixed Movies + TV)
+10. Trending Across Everything (mixed Movies + TV)
+11. Coming Soon (only when sourced availability-event data exists)
+12. Leaving Soon (only when sourced availability-event data exists)
+
+TRENDING
+========
+Trending on Your Services combines TMDB weekly Movie and TV trending and filters it to the titles found in your current enabled-service discovery results.
+Trending Across Everything combines TMDB weekly Movie and TV trending regardless of provider. Both exclude watched titles.
+
+RECOMMENDATIONS
+===============
+Recommended for You and Movies/TV You May Like use genres from liked titles as a strong signal with TMDB popularity as a secondary signal. Because You Liked... uses genre overlap with a watched-and-liked title.
+
+AVAILABILITY-DATE ROWS
+======================
+Recently Added, Coming Soon, and Leaving Soon only appear when provider_availability_events contains corresponding sourced records. My Dashboard does not invent provider arrival/removal dates. Coming Soon suppresses titles already available on an enabled external service; Leaving Soon suppresses titles that are also currently carried by another enabled external service.
 
 FILES TO REPLACE
 ================
@@ -46,24 +65,8 @@ Dashboard/dashboard-streaming-ui.js
 Dashboard/Streaming/index.html
 Dashboard/README.txt
 
-Included unchanged for complete-folder replacement:
-Dashboard/projects.json
-
-SUPABASE
-========
-Run once:
-streaming-0.6.8-dashboard-provider-priority.sql
-
-This adds dashboard_provider_priority to streaming_preferences so My Dashboard's place in the provider hierarchy syncs across devices.
-No Edge Function update is required.
-
-
-0.6.8 SAME-VERSION BUG FIX
-==========================
-- Restores the TV season/episode JavaScript functions that were accidentally
-  omitted from the initial 0.6.8 Streaming page.
-- Fixes TV shows failing to open while movies continued to work.
-- Restores season loading, episode loading, saved TV progress selection, and
-  exact-episode Dashboard playback.
-- Fixes the oversized iPhone three-dot card button.
-- Keeps the three-dot control compact while preserving a touch-friendly target.
+SQL / EDGE FUNCTION
+===================
+No new SQL migration is required for 0.6.9.
+No new Edge Function deployment is required.
+The existing 0.6.8 SQL file remains included in this complete package for reference/replacement workflows.
