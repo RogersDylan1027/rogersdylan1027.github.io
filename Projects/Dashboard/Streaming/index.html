@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>My Dashboard · Streaming · Version 0.6.9</title>
-  <meta name="description" content="My Dashboard unified streaming hub. Expands Streaming discovery while keeping rows focused on titles you have not watched yet. Marking a title as Watched now asks whether you liked it, saves that preference, and removes the title from discovery rows immediately. Streaming also adds personalized recommendations, recently added availability, mixed trending rows, and source-backed coming/leaving sections.">
+  <title>My Dashboard · Streaming · Version 0.6.10</title>
+  <meta name="description" content="My Dashboard unified streaming hub. Adds episode-aware Continue Watching behavior for TV shows and makes Continue Watching exclusive from the rest of Streaming. Ongoing shows hide while waiting for their next episode or season and return automatically when new content is released. Ended series trigger the completion feedback prompt, and anything currently in Continue Watching is filtered out of every other discovery row.">
   <meta name="theme-color" content="#101218">
 
-  <script src="../dashboard-config.js?v=0.6.9"></script>
+  <script src="../dashboard-config.js?v=0.6.10"></script>
   <script
-    src="../dashboard-auth.js?v=0.6.9"
+    src="../dashboard-auth.js?v=0.6.10"
     data-dashboard-project="streaming">
   </script>
-  <script src="../dashboard-streaming.js?v=0.6.9"></script>
+  <script src="../dashboard-streaming.js?v=0.6.10"></script>
 
   <style>
     *{box-sizing:border-box}
@@ -240,6 +240,7 @@
     let currentDetail = null;
     let titleStates = [];
     let watchedKeys = new Set();
+    let continueWatchingKeys = new Set();
     let stateByKey = new Map();
     let activePlayback = null;
     let lastProgressWriteAt = 0;
@@ -270,12 +271,28 @@
     function rebuildTitleStateIndex(rows = titleStates) {
       titleStates = Array.isArray(rows) ? rows : [];
       watchedKeys = new Set();
+      continueWatchingKeys = new Set();
       stateByKey = new Map();
 
       titleStates.forEach(state => {
-        const key = titleKey(state.tmdb_id, state.media_type);
+        const key = titleKey(
+          state.tmdb_id,
+          state.media_type
+        );
+
         stateByKey.set(key, state);
-        if (state.viewing_status === "watched") watchedKeys.add(key);
+
+        if (state.viewing_status === "watched") {
+          watchedKeys.add(key);
+        }
+
+        if (
+          state.in_continue_watching === true &&
+          state.viewing_status !== "watched" &&
+          state.waiting_for_next_episode !== true
+        ) {
+          continueWatchingKeys.add(key);
+        }
       });
     }
 
@@ -289,8 +306,20 @@
 
     function filterUnwatched(items, mediaType = null) {
       return (items || []).filter(item => {
-        const type = mediaType || item._mediaType || item.media_type || "movie";
-        return !isWatched(item, type);
+        const type =
+          mediaType ||
+          item._mediaType ||
+          item.media_type ||
+          "movie";
+
+        const key = titleKey(item?.id, type);
+
+        // Continue Watching is exclusive: active unfinished titles appear
+        // only in the Continue Watching row.
+        return (
+          !watchedKeys.has(key) &&
+          !continueWatchingKeys.has(key)
+        );
       });
     }
 
@@ -468,6 +497,377 @@
       }
     }
 
+
+    function todayIsoDate() {
+      const now = new Date();
+
+      return [
+        now.getFullYear(),
+        String(now.getMonth() + 1).padStart(2, "0"),
+        String(now.getDate()).padStart(2, "0"),
+      ].join("-");
+    }
+
+    function episodePosition(seasonNumber, episodeNumber) {
+      return (
+        Number(seasonNumber || 0) * 100000 +
+        Number(episodeNumber || 0)
+      );
+    }
+
+    function isReleasedEpisode(episode) {
+      const airDate = String(episode?.air_date || "");
+
+      return Boolean(airDate) && airDate <= todayIsoDate();
+    }
+
+    async function findNextReleasedTvEpisode(
+      tmdbShowId,
+      currentSeasonNumber,
+      currentEpisodeNumber,
+      showDetails = null
+    ) {
+      const currentSeason =
+        await DashboardStreaming.getTvSeasonDetails(
+          tmdbShowId,
+          currentSeasonNumber
+        );
+
+      const nextInSeason =
+        (currentSeason?.episodes || [])
+          .filter(episode =>
+            Number(episode.episode_number) >
+              Number(currentEpisodeNumber) &&
+            isReleasedEpisode(episode)
+          )
+          .sort((a, b) =>
+            Number(a.episode_number) -
+            Number(b.episode_number)
+          )[0];
+
+      if (nextInSeason) {
+        return {
+          seasonNumber: Number(currentSeasonNumber),
+          episodeNumber: Number(nextInSeason.episode_number),
+          airDate: nextInSeason.air_date || null,
+        };
+      }
+
+      const details =
+        showDetails ||
+        await DashboardStreaming.getTitleDetails(
+          tmdbShowId,
+          "tv"
+        );
+
+      const laterSeasons =
+        (details?.seasons || [])
+          .filter(season =>
+            Number(season.season_number) >
+              Number(currentSeasonNumber) &&
+            Number(season.episode_count) > 0 &&
+            String(season.air_date || "") <= todayIsoDate()
+          )
+          .sort((a, b) =>
+            Number(a.season_number) -
+            Number(b.season_number)
+          );
+
+      for (const season of laterSeasons) {
+        try {
+          const seasonDetails =
+            await DashboardStreaming.getTvSeasonDetails(
+              tmdbShowId,
+              season.season_number
+            );
+
+          const firstReleased =
+            (seasonDetails?.episodes || [])
+              .filter(isReleasedEpisode)
+              .sort((a, b) =>
+                Number(a.episode_number) -
+                Number(b.episode_number)
+              )[0];
+
+          if (firstReleased) {
+            return {
+              seasonNumber: Number(season.season_number),
+              episodeNumber: Number(firstReleased.episode_number),
+              airDate: firstReleased.air_date || null,
+            };
+          }
+        } catch (error) {
+          console.warn("Later TV season lookup:", error);
+        }
+      }
+
+      return null;
+    }
+
+    function nextEpisodeFromDetails(details) {
+      const next = details?.next_episode_to_air;
+      if (!next) return null;
+
+      return {
+        seasonNumber:
+          next.season_number == null
+            ? null
+            : Number(next.season_number),
+        episodeNumber:
+          next.episode_number == null
+            ? null
+            : Number(next.episode_number),
+        airDate: next.air_date || null,
+      };
+    }
+
+    function seriesIsEnded(details) {
+      const status =
+        String(details?.status || "").toLowerCase();
+
+      return (
+        status === "ended" ||
+        status === "canceled" ||
+        status === "cancelled"
+      );
+    }
+
+    async function refreshWaitingTvShows() {
+      const waitingStates =
+        titleStates.filter(state =>
+          state.media_type === "tv" &&
+          state.waiting_for_next_episode === true
+        );
+
+      if (!waitingStates.length) return false;
+
+      let changed = false;
+
+      for (const state of waitingStates) {
+        try {
+          const details =
+            await DashboardStreaming.getTitleDetails(
+              state.tmdb_id,
+              "tv"
+            );
+
+          const latestReleased =
+            details?.last_episode_to_air || null;
+
+          const completedPosition =
+            episodePosition(
+              state.last_completed_season_number,
+              state.last_completed_episode_number
+            );
+
+          const latestPosition =
+            episodePosition(
+              latestReleased?.season_number,
+              latestReleased?.episode_number
+            );
+
+          if (
+            latestReleased &&
+            isReleasedEpisode(latestReleased) &&
+            latestPosition > completedPosition
+          ) {
+            await DashboardStreaming.setTvWaitingState(
+              state.tmdb_id,
+              {
+                waiting: false,
+                inContinueWatching: true,
+                nextSeasonNumber:
+                  latestReleased.season_number,
+                nextEpisodeNumber:
+                  latestReleased.episode_number,
+                nextEpisodeAirDate:
+                  latestReleased.air_date || null,
+              }
+            );
+
+            changed = true;
+            continue;
+          }
+
+          const next = nextEpisodeFromDetails(details);
+
+          if (
+            String(state.next_episode_air_date || "") !==
+              String(next?.airDate || "") ||
+            Number(state.next_episode_season_number || 0) !==
+              Number(next?.seasonNumber || 0) ||
+            Number(state.next_episode_number || 0) !==
+              Number(next?.episodeNumber || 0)
+          ) {
+            await DashboardStreaming.setTvWaitingState(
+              state.tmdb_id,
+              {
+                waiting: true,
+                inContinueWatching: false,
+                nextSeasonNumber:
+                  next?.seasonNumber ?? null,
+                nextEpisodeNumber:
+                  next?.episodeNumber ?? null,
+                nextEpisodeAirDate:
+                  next?.airDate ?? null,
+              }
+            );
+
+            changed = true;
+          }
+        } catch (error) {
+          console.warn("Waiting TV refresh:", error);
+        }
+      }
+
+      return changed;
+    }
+
+    async function handleCompletedTvEpisode() {
+      if (
+        !activePlayback ||
+        activePlayback.mediaType !== "tv" ||
+        activePlayback.completionHandled
+      ) {
+        return;
+      }
+
+      const seasonNumber =
+        Number(activePlayback.seasonNumber);
+      const episodeNumber =
+        Number(activePlayback.episodeNumber);
+
+      if (
+        !Number.isInteger(seasonNumber) ||
+        !Number.isInteger(episodeNumber)
+      ) {
+        return;
+      }
+
+      activePlayback.completionHandled = true;
+
+      try {
+        const details =
+          await DashboardStreaming.getTitleDetails(
+            activePlayback.tmdbId,
+            "tv"
+          );
+
+        const nextReleased =
+          await findNextReleasedTvEpisode(
+            activePlayback.tmdbId,
+            seasonNumber,
+            episodeNumber,
+            details
+          );
+
+        if (nextReleased) {
+          await DashboardStreaming.setTvWaitingState(
+            activePlayback.tmdbId,
+            {
+              waiting: false,
+              inContinueWatching: true,
+              nextSeasonNumber:
+                nextReleased.seasonNumber,
+              nextEpisodeNumber:
+                nextReleased.episodeNumber,
+              nextEpisodeAirDate:
+                nextReleased.airDate,
+              lastCompletedSeasonNumber:
+                seasonNumber,
+              lastCompletedEpisodeNumber:
+                episodeNumber,
+            }
+          );
+
+          document.getElementById("player-status").textContent =
+            `S${seasonNumber} E${episodeNumber} completed · ` +
+            `S${nextReleased.seasonNumber} E${nextReleased.episodeNumber} is ready next.`;
+
+          await refreshTitleStates();
+          return;
+        }
+
+        if (seriesIsEnded(details)) {
+          await DashboardStreaming.setTvWaitingState(
+            activePlayback.tmdbId,
+            {
+              waiting: false,
+              inContinueWatching: false,
+              nextSeasonNumber: null,
+              nextEpisodeNumber: null,
+              nextEpisodeAirDate: null,
+              lastCompletedSeasonNumber: seasonNumber,
+              lastCompletedEpisodeNumber: episodeNumber,
+            }
+          );
+
+          const reaction =
+            await askWatchedFeedback(
+              currentDetail?.item || details
+            );
+
+          await markWatched(
+            activePlayback.tmdbId,
+            "tv"
+          );
+
+          if (
+            reaction === "like" ||
+            reaction === "dislike"
+          ) {
+            await DashboardStreaming.setTitleReaction(
+              activePlayback.tmdbId,
+              "tv",
+              reaction
+            );
+          }
+
+          document.getElementById("player-status").textContent =
+            "Series completed.";
+
+          await init();
+          return;
+        }
+
+        const next = nextEpisodeFromDetails(details);
+
+        await DashboardStreaming.setTvWaitingState(
+          activePlayback.tmdbId,
+          {
+            waiting: true,
+            inContinueWatching: false,
+            nextSeasonNumber:
+              next?.seasonNumber ?? null,
+            nextEpisodeNumber:
+              next?.episodeNumber ?? null,
+            nextEpisodeAirDate:
+              next?.airDate ?? null,
+            lastCompletedSeasonNumber:
+              seasonNumber,
+            lastCompletedEpisodeNumber:
+              episodeNumber,
+          }
+        );
+
+        document.getElementById("player-status").textContent =
+          next?.airDate
+            ? `Caught up · next episode is expected ${new Date(
+                next.airDate + "T12:00:00"
+              ).toLocaleDateString(undefined, {
+                month: "short",
+                day: "numeric",
+                year: "numeric",
+              })}.`
+            : "Caught up · waiting for the next episode or season.";
+
+        await init();
+      } catch (error) {
+        activePlayback.completionHandled = false;
+        console.error("TV completion check:", error);
+      }
+    }
+
     async function init() {
       const status = document.getElementById("status");
       try {
@@ -478,10 +878,22 @@
           DashboardStreaming.loadPreferences()
         ]);
         await refreshTitleStates();
+
+        const waitingChanged =
+          await refreshWaitingTvShows();
+
+        if (waitingChanged) {
+          await refreshTitleStates();
+        }
+
         document.getElementById("rows").innerHTML = "";
 
         const continueStates = titleStates
-          .filter(state => state.in_continue_watching === true && state.viewing_status !== "watched")
+          .filter(state =>
+            state.in_continue_watching === true &&
+            state.viewing_status !== "watched" &&
+            state.waiting_for_next_episode !== true
+          )
           .sort((a,b) => new Date(b.last_opened_at||0) - new Date(a.last_opened_at||0));
         if (continueStates.length) {
           const enriched = await enrichTitleStates(continueStates,20);
@@ -874,14 +1286,25 @@
       note.textContent = "";
 
       let resume = null;
+      let titleState = null;
 
       try {
-        resume = await DashboardStreaming.loadLatestTvProgress(item.id);
+        [resume, titleState] =
+          await Promise.all([
+            DashboardStreaming.loadLatestTvProgress(
+              item.id
+            ),
+            DashboardStreaming.loadTitleState(
+              item.id,
+              "tv"
+            )
+          ]);
       } catch (error) {
-        console.warn("TV resume lookup:", error);
+        console.warn("TV resume/state lookup:", error);
       }
 
       currentDetail.resume = resume || null;
+      currentDetail.titleState = titleState || null;
 
       try {
         const details =
@@ -913,6 +1336,20 @@
           seasonSelect.appendChild(option);
         });
 
+        const queuedSeason =
+          titleState &&
+          titleState.waiting_for_next_episode !== true &&
+          titleState.next_episode_season_number != null
+            ? Number(titleState.next_episode_season_number)
+            : null;
+
+        const queuedEpisode =
+          titleState &&
+          titleState.waiting_for_next_episode !== true &&
+          titleState.next_episode_number != null
+            ? Number(titleState.next_episode_number)
+            : null;
+
         const preferredSeason =
           resume &&
           seasons.some(season =>
@@ -920,9 +1357,18 @@
           )
             ? Number(resume.season_number)
             : (
-                seasons.some(season => Number(season.season_number) === 1)
-                  ? 1
-                  : Number(seasons[0].season_number)
+                queuedSeason != null &&
+                seasons.some(season =>
+                  Number(season.season_number) === queuedSeason
+                )
+                  ? queuedSeason
+                  : (
+                      seasons.some(season =>
+                        Number(season.season_number) === 1
+                      )
+                        ? 1
+                        : Number(seasons[0].season_number)
+                    )
               );
 
         seasonSelect.value = String(preferredSeason);
@@ -931,7 +1377,12 @@
         await loadTvEpisodes(
           item.id,
           preferredSeason,
-          resume?.episode_number ?? null
+          resume?.episode_number ??
+            (
+              preferredSeason === queuedSeason
+                ? queuedEpisode
+                : null
+            )
         );
       } catch (error) {
         console.error("TV seasons:", error);
@@ -1018,13 +1469,31 @@
         playbackMethod:"dashboard"
       });
 
+      if (mediaType === "tv") {
+        try {
+          await DashboardStreaming.setTvWaitingState(
+            item.id,
+            {
+              waiting: false,
+              inContinueWatching: true,
+              nextSeasonNumber: null,
+              nextEpisodeNumber: null,
+              nextEpisodeAirDate: null,
+            }
+          );
+        } catch (error) {
+          console.warn("Clear TV waiting state:", error);
+        }
+      }
+
       activePlayback = {
         tmdbId:Number(item.id),
         mediaType,
         seasonNumber:
           season === null ? null : Number(season),
         episodeNumber:
-          episode === null ? null : Number(episode)
+          episode === null ? null : Number(episode),
+        completionHandled: false
       };
 
       pendingProgress = null;
@@ -1078,9 +1547,20 @@
       activePlayback.seasonNumber=Number.isFinite(season)?season:null; activePlayback.episodeNumber=Number.isFinite(episode)?episode:null;
       pendingProgress={seasonNumber:activePlayback.seasonNumber,episodeNumber:activePlayback.episodeNumber,progressSeconds:progress,durationSeconds:duration};
       document.getElementById("player-status").textContent=activePlayback.mediaType==="tv"&&activePlayback.seasonNumber!==null?`S${activePlayback.seasonNumber} E${activePlayback.episodeNumber} · ${formatTime(progress)} / ${formatTime(duration)}`:`${formatTime(progress)} / ${formatTime(duration)}`;
-      if(status==="playing") await flushProgress(false,false);
-      else if(status==="paused"||status==="seeked") await flushProgress(true,false);
-      else if(status==="completed") await flushProgress(true,true);
+      if(status==="playing") {
+        await flushProgress(false,false);
+      } else if(
+        status==="paused" ||
+        status==="seeked"
+      ) {
+        await flushProgress(true,false);
+      } else if(status==="completed") {
+        await flushProgress(true,true);
+
+        if(activePlayback.mediaType === "tv") {
+          await handleCompletedTvEpisode();
+        }
+      }
     });
 
     async function showDetails(item, mediaType, requestedMode = "") {

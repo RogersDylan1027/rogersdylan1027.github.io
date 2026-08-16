@@ -1,14 +1,14 @@
 /*
-  My Dashboard · Streaming Settings UI · Version 0.6.9
+  My Dashboard · Streaming Settings UI · Version 0.6.10
   Mobile Streaming Controls & Connected Project Settings · 2026-08-15
 */
 (function () {
   "use strict";
 
-  const VERSION = "0.6.9";
-  const TITLE = "Watched Filtering & Expanded Discovery";
+  const VERSION = "0.6.10";
+  const TITLE = "Caught-Up TV & Continue Watching Cleanup";
   const DESCRIPTION =
-    "Expands Streaming discovery while keeping rows focused on titles you have not watched yet. Marking a title as Watched now asks whether you liked it, saves that preference, and removes the title from discovery rows immediately. Streaming also adds personalized recommendations, recently added availability, mixed trending rows, and source-backed coming/leaving sections.";
+    "Adds episode-aware Continue Watching behavior for TV shows and makes Continue Watching exclusive from the rest of Streaming. Ongoing shows hide while waiting for their next episode or season and return automatically when new content is released. Ended series trigger the completion feedback prompt, and anything currently in Continue Watching is filtered out of every other discovery row.";
   let initialized = false;
   const get = id => document.getElementById(id);
 
@@ -191,10 +191,10 @@
 
   function addChangelogRuntimeEntry() {
     const view=get("changelog-view");if(!view)return;
-    const inject=()=>{const body=view.querySelector(".changelog-list")||view.querySelector("tbody")||view.querySelector(".internal-view-content")||view.querySelector(".changelog-content");if(!body||get("streaming-069-changelog-entry"))return;
+    const inject=()=>{const body=view.querySelector(".changelog-list")||view.querySelector("tbody")||view.querySelector(".internal-view-content")||view.querySelector(".changelog-content");if(!body||get("streaming-0610-changelog-entry"))return;
       const bug='Improves iPhone safe-area, touch and modal behavior; keeps My Dashboard in the provider hierarchy; makes Watch provider selection persistent and visible; connects Streaming project settings to the same saved account preferences; and makes title menus reflect watch state.';
-      if(body.tagName==="TBODY"){const tr=document.createElement("tr");tr.id="streaming-069-changelog-entry";tr.innerHTML=`<td>${VERSION}</td><td>${TITLE}</td><td>${DESCRIPTION}<br><strong>Bug Fixes:</strong> ${bug}</td>`;body.prepend(tr)}
-      else{const card=document.createElement("div");card.id="streaming-069-changelog-entry";card.style.cssText="margin:0 0 12px;padding:14px;border:1px solid #dfe3e8;border-radius:12px;background:#f7f8fa";card.innerHTML=`<strong>${VERSION} · ${TITLE}</strong><p style="margin:7px 0 0;line-height:1.5">${DESCRIPTION}</p><p style="margin:7px 0 0;line-height:1.5"><strong>Bug Fixes:</strong> ${bug}</p>`;body.prepend(card)}
+      if(body.tagName==="TBODY"){const tr=document.createElement("tr");tr.id="streaming-0610-changelog-entry";tr.innerHTML=`<td>${VERSION}</td><td>${TITLE}</td><td>${DESCRIPTION}<br><strong>Bug Fixes:</strong> ${bug}</td>`;body.prepend(tr)}
+      else{const card=document.createElement("div");card.id="streaming-0610-changelog-entry";card.style.cssText="margin:0 0 12px;padding:14px;border:1px solid #dfe3e8;border-radius:12px;background:#f7f8fa";card.innerHTML=`<strong>${VERSION} · ${TITLE}</strong><p style="margin:7px 0 0;line-height:1.5">${DESCRIPTION}</p><p style="margin:7px 0 0;line-height:1.5"><strong>Bug Fixes:</strong> ${bug}</p>`;body.prepend(card)}
     };new MutationObserver(inject).observe(view,{attributes:true,childList:true,subtree:true});inject();
   }
 

@@ -1,5 +1,5 @@
 /*
-  My Dashboard · Streaming Client · Version 0.6.9
+  My Dashboard · Streaming Client · Version 0.6.10
 
   Load after dashboard-config.js and after the Dashboard's authenticated
   Supabase client is available.
@@ -498,6 +498,80 @@
     if (eventError) throw eventError;
   }
 
+
+  async function setTvWaitingState(
+    tmdbShowId,
+    {
+      waiting,
+      inContinueWatching,
+      nextSeasonNumber,
+      nextEpisodeNumber,
+      nextEpisodeAirDate,
+      lastCompletedSeasonNumber,
+      lastCompletedEpisodeNumber,
+    } = {}
+  ) {
+    const client = requireClient();
+    const user = requireUser();
+
+    const updates = {
+      user_id: user.id,
+      tmdb_id: Number(tmdbShowId),
+      media_type: "tv",
+    };
+
+    if (typeof waiting === "boolean") {
+      updates.waiting_for_next_episode = waiting;
+    }
+
+    if (typeof inContinueWatching === "boolean") {
+      updates.in_continue_watching = inContinueWatching;
+      if (inContinueWatching) {
+        updates.viewing_status = "watching";
+      }
+    }
+
+    if (nextSeasonNumber !== undefined) {
+      updates.next_episode_season_number =
+        nextSeasonNumber == null ? null : Number(nextSeasonNumber);
+    }
+
+    if (nextEpisodeNumber !== undefined) {
+      updates.next_episode_number =
+        nextEpisodeNumber == null ? null : Number(nextEpisodeNumber);
+    }
+
+    if (nextEpisodeAirDate !== undefined) {
+      updates.next_episode_air_date = nextEpisodeAirDate || null;
+    }
+
+    if (lastCompletedSeasonNumber !== undefined) {
+      updates.last_completed_season_number =
+        lastCompletedSeasonNumber == null
+          ? null
+          : Number(lastCompletedSeasonNumber);
+    }
+
+    if (lastCompletedEpisodeNumber !== undefined) {
+      updates.last_completed_episode_number =
+        lastCompletedEpisodeNumber == null
+          ? null
+          : Number(lastCompletedEpisodeNumber);
+    }
+
+    const { data, error } = await client
+      .from("user_title_state")
+      .upsert(
+        updates,
+        { onConflict: "user_id,tmdb_id,media_type" }
+      )
+      .select()
+      .single();
+
+    if (error) throw error;
+    return data;
+  }
+
   async function loadTitleState(tmdbId, mediaType) {
     const client = requireClient();
     const user = requireUser();
@@ -728,7 +802,7 @@
   }
 
   window.DashboardStreaming = Object.freeze({
-    version: "0.6.9",
+    version: "0.6.10",
     listProviders,
     loadUserProviders,
     addProvider,
@@ -750,6 +824,7 @@
     saveMovieProgress,
     loadMovieResumeProgress,
     saveEpisodeProgress,
+    setTvWaitingState,
     tmdb,
     resolveTmdbProviderIds,
     getTitleDetails,
