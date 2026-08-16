@@ -1,5 +1,5 @@
 /*
-  My Dashboard · Streaming Client · Version 0.6.10
+  My Dashboard · Streaming Client · Version 0.6.11
 
   Load after dashboard-config.js and after the Dashboard's authenticated
   Supabase client is available.
@@ -34,6 +34,17 @@
       throw new Error("Streaming requires an authenticated Dashboard session.");
     }
     return client;
+  }
+
+  function isAdminUser(user = requireUser()) {
+    const role =
+      user?.app_metadata?.role ||
+      user?.app_metadata?.dashboard_role ||
+      user?.user_metadata?.role ||
+      user?.user_metadata?.dashboard_role ||
+      "";
+
+    return String(role).toLowerCase() === "admin";
   }
 
   function requireUser() {
@@ -176,7 +187,7 @@
     const { data, error } = await client
       .from("streaming_preferences")
       .select(
-        "user_id,region,prefer_dashboard_playback,provider_selection_mode,dashboard_playback_warning_acknowledged,dashboard_provider_priority"
+        "user_id,region,prefer_dashboard_playback,provider_selection_mode,dashboard_playback_warning_acknowledged,dashboard_provider_priority,autoplay_next_episode,autoplay_next_seconds"
       )
       .eq("user_id", user.id)
       .maybeSingle();
@@ -192,6 +203,8 @@
       provider_selection_mode: "priority",
       dashboard_playback_warning_acknowledged: false,
       dashboard_provider_priority: 1,
+      autoplay_next_episode: true,
+      autoplay_next_seconds: 30,
     };
 
     const { data: created, error: createError } = await client
@@ -217,6 +230,22 @@
     if ("prefer_dashboard_playback" in changes) {
       allowed.prefer_dashboard_playback =
         Boolean(changes.prefer_dashboard_playback);
+    }
+
+    if ("autoplay_next_episode" in changes) {
+      allowed.autoplay_next_episode =
+        Boolean(changes.autoplay_next_episode);
+    }
+
+    if ("autoplay_next_seconds" in changes) {
+      allowed.autoplay_next_seconds =
+        Math.max(
+          0,
+          Math.min(
+            600,
+            Number(changes.autoplay_next_seconds) || 30
+          )
+        );
     }
 
     if ("provider_selection_mode" in changes) {
@@ -509,6 +538,7 @@
       nextEpisodeAirDate,
       lastCompletedSeasonNumber,
       lastCompletedEpisodeNumber,
+      newEpisodeAvailable,
     } = {}
   ) {
     const client = requireClient();
@@ -557,6 +587,11 @@
         lastCompletedEpisodeNumber == null
           ? null
           : Number(lastCompletedEpisodeNumber);
+    }
+
+    if (typeof newEpisodeAvailable === "boolean") {
+      updates.new_episode_available =
+        newEpisodeAvailable;
     }
 
     const { data, error } = await client
@@ -753,6 +788,55 @@
     return Array.from(new Set(resolved.values()));
   }
 
+  async function getAvailableProvidersForTitle(
+    tmdbId,
+    mediaType,
+    region = "US"
+  ) {
+    const [availability, rows] =
+      await Promise.all([
+        tmdb(
+          `/${mediaType}/${Number(tmdbId)}/watch/providers`
+        ),
+        loadUserProviders()
+      ]);
+
+    const regionData =
+      availability?.results?.[
+        String(region || "US").toUpperCase()
+      ] || {};
+
+    const tmdbProviders = [
+      ...(regionData.flatrate || []),
+      ...(regionData.free || []),
+      ...(regionData.ads || []),
+      ...(regionData.rent || []),
+      ...(regionData.buy || []),
+    ];
+
+    const enabledIds =
+      new Set(
+        (rows || [])
+          .filter(row => row.enabled !== false)
+          .map(row =>
+            Number(
+              row.streaming_providers?.tmdb_provider_id ??
+              row.tmdb_provider_id
+            )
+          )
+          .filter(Number.isFinite)
+      );
+
+    const seen = new Set();
+
+    return tmdbProviders.filter(provider => {
+      const id = Number(provider.provider_id);
+      if (seen.has(id)) return false;
+      seen.add(id);
+      return enabledIds.has(id);
+    });
+  }
+
   async function getTitleDetails(tmdbId, mediaType) {
     const path =
       mediaType === "tv"
@@ -802,7 +886,9 @@
   }
 
   window.DashboardStreaming = Object.freeze({
-    version: "0.6.10",
+    getAvailableProvidersForTitle,
+    isAdminUser,
+    version: "0.6.11",
     listProviders,
     loadUserProviders,
     addProvider,

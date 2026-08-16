@@ -8,7 +8,7 @@
     content="width=device-width, initial-scale=1.0, viewport-fit=cover"
   >
 
-  <title>My Dashboard · Version 0.6.10</title>
+  <title>My Dashboard · Version 0.6.11</title>
 
   <!-- Version 0.6.9: Mobile Streaming Controls & Connected Project Settings · 2026-08-15 -->
 
@@ -28,8 +28,8 @@
     dashboard-entry.js checks the existing Supabase session before the
     Dashboard UI is loaded. Logged-out visitors are sent to Dashboard/login.html.
   -->
-  <script src="./dashboard-config.js?v=0.6.10"></script>
-  <script src="./dashboard-entry.js?v=0.6.10"></script>
+  <script src="./dashboard-config.js?v=0.6.11"></script>
+  <script src="./dashboard-entry.js?v=0.6.11"></script>
 
   <style>
     * { box-sizing: border-box; }
@@ -73,6 +73,11 @@
     .loader.error h1 {
       color: #b3261e;
     }
+      /* dashboard-settings-collapsible-style */
+    .settings-section.settings-collapsed > :not(h3){display:none!important}
+    .settings-section > h3{cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .settings-section > h3::after{content:"⌄";font-size:16px;transition:transform .18s ease}
+    .settings-section.settings-collapsed > h3::after{transform:rotate(-90deg)}
   </style>
 </head>
 
@@ -1598,6 +1603,40 @@
       if (adminViewEnabled && typeof loadAdminProjectData === "function") loadAdminProjectData();
     });`,
         "Admin View project settings refresh"
+      );
+
+
+      source = replaceRequired(
+        source,
+        "    function openSettingsView(){",
+        `    function initializeCollapsibleDashboardSettings(){
+      const sections=Array.from(document.querySelectorAll("#settings-view .settings-section"));
+      sections.forEach((section,index)=>{
+        const heading=section.querySelector(":scope > h3");
+        if(!heading||heading.dataset.collapseReady==="true")return;
+        heading.dataset.collapseReady="true";
+        heading.setAttribute("role","button");
+        heading.setAttribute("tabindex","0");
+        const key="my-dashboard-settings-section-"+index+"-"+heading.textContent.trim();
+        const apply=collapsed=>{
+          section.classList.toggle("settings-collapsed",collapsed);
+          heading.setAttribute("aria-expanded",collapsed?"false":"true");
+        };
+        apply(localStorage.getItem(key)==="1");
+        const toggle=()=>{
+          const collapsed=!section.classList.contains("settings-collapsed");
+          apply(collapsed);
+          localStorage.setItem(key,collapsed?"1":"0");
+        };
+        heading.addEventListener("click",toggle);
+        heading.addEventListener("keydown",event=>{
+          if(event.key==="Enter"||event.key===" "){event.preventDefault();toggle();}
+        });
+      });
+    }
+    function openSettingsView(){initializeCollapsibleDashboardSettings();`
+        ,
+        "Collapsible Dashboard Settings"
       );
 
       /*

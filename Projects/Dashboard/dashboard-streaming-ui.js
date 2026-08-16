@@ -1,14 +1,14 @@
 /*
-  My Dashboard · Streaming Settings UI · Version 0.6.10
+  My Dashboard · Streaming Settings UI · Version 0.6.11
   Mobile Streaming Controls & Connected Project Settings · 2026-08-15
 */
 (function () {
   "use strict";
 
-  const VERSION = "0.6.10";
-  const TITLE = "Caught-Up TV & Continue Watching Cleanup";
+  const VERSION = "0.6.11";
+  const TITLE = "TV Autoplay, Admin Catalog & Streaming UX";
   const DESCRIPTION =
-    "Adds episode-aware Continue Watching behavior for TV shows and makes Continue Watching exclusive from the rest of Streaming. Ongoing shows hide while waiting for their next episode or season and return automatically when new content is released. Ended series trigger the completion feedback prompt, and anything currently in Continue Watching is filtered out of every other discovery row.";
+    "Adds configurable TV autoplay and a permanent Next Episode control, improves Continue Watching with episode labels and New Episode state, keeps caught-up shows hidden until new content arrives, keeps full-catalog search available to everyone while gating Watch for regular users by their added services, centers the Streaming navbar title as a quiet home shortcut, and makes main Dashboard Settings sections collapsible.";
   let initialized = false;
   const get = id => document.getElementById(id);
 
@@ -191,10 +191,10 @@
 
   function addChangelogRuntimeEntry() {
     const view=get("changelog-view");if(!view)return;
-    const inject=()=>{const body=view.querySelector(".changelog-list")||view.querySelector("tbody")||view.querySelector(".internal-view-content")||view.querySelector(".changelog-content");if(!body||get("streaming-0610-changelog-entry"))return;
+    const inject=()=>{const body=view.querySelector(".changelog-list")||view.querySelector("tbody")||view.querySelector(".internal-view-content")||view.querySelector(".changelog-content");if(!body||get("streaming-0611-changelog-entry"))return;
       const bug='Improves iPhone safe-area, touch and modal behavior; keeps My Dashboard in the provider hierarchy; makes Watch provider selection persistent and visible; connects Streaming project settings to the same saved account preferences; and makes title menus reflect watch state.';
-      if(body.tagName==="TBODY"){const tr=document.createElement("tr");tr.id="streaming-0610-changelog-entry";tr.innerHTML=`<td>${VERSION}</td><td>${TITLE}</td><td>${DESCRIPTION}<br><strong>Bug Fixes:</strong> ${bug}</td>`;body.prepend(tr)}
-      else{const card=document.createElement("div");card.id="streaming-0610-changelog-entry";card.style.cssText="margin:0 0 12px;padding:14px;border:1px solid #dfe3e8;border-radius:12px;background:#f7f8fa";card.innerHTML=`<strong>${VERSION} · ${TITLE}</strong><p style="margin:7px 0 0;line-height:1.5">${DESCRIPTION}</p><p style="margin:7px 0 0;line-height:1.5"><strong>Bug Fixes:</strong> ${bug}</p>`;body.prepend(card)}
+      if(body.tagName==="TBODY"){const tr=document.createElement("tr");tr.id="streaming-0611-changelog-entry";tr.innerHTML=`<td>${VERSION}</td><td>${TITLE}</td><td>${DESCRIPTION}<br><strong>Bug Fixes:</strong> ${bug}</td>`;body.prepend(tr)}
+      else{const card=document.createElement("div");card.id="streaming-0611-changelog-entry";card.style.cssText="margin:0 0 12px;padding:14px;border:1px solid #dfe3e8;border-radius:12px;background:#f7f8fa";card.innerHTML=`<strong>${VERSION} · ${TITLE}</strong><p style="margin:7px 0 0;line-height:1.5">${DESCRIPTION}</p><p style="margin:7px 0 0;line-height:1.5"><strong>Bug Fixes:</strong> ${bug}</p>`;body.prepend(card)}
     };new MutationObserver(inject).observe(view,{attributes:true,childList:true,subtree:true});inject();
   }
 

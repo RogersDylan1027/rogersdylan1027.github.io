@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>My Dashboard · Streaming · Version 0.6.10</title>
+  <title>My Dashboard · Streaming · Version 0.6.11</title>
   <meta name="description" content="My Dashboard unified streaming hub. Adds episode-aware Continue Watching behavior for TV shows and makes Continue Watching exclusive from the rest of Streaming. Ongoing shows hide while waiting for their next episode or season and return automatically when new content is released. Ended series trigger the completion feedback prompt, and anything currently in Continue Watching is filtered out of every other discovery row.">
   <meta name="theme-color" content="#101218">
 
-  <script src="../dashboard-config.js?v=0.6.10"></script>
+  <script src="../dashboard-config.js?v=0.6.11"></script>
   <script
-    src="../dashboard-auth.js?v=0.6.10"
+    src="../dashboard-auth.js?v=0.6.11"
     data-dashboard-project="streaming">
   </script>
-  <script src="../dashboard-streaming.js?v=0.6.10"></script>
+  <script src="../dashboard-streaming.js?v=0.6.11"></script>
 
   <style>
     *{box-sizing:border-box}
@@ -117,13 +117,18 @@
     @media(max-width:600px){
       :root{--poster:132px}.topbar{padding-top:calc(10px + env(safe-area-inset-top));padding-bottom:10px;padding-left:max(12px,env(safe-area-inset-left));padding-right:max(12px,env(safe-area-inset-right));flex-wrap:wrap}.brand{width:100%;justify-content:space-between}.top-actions{width:100%;display:grid;grid-template-columns:minmax(0,1fr) auto}.search{width:100%;font-size:16px}.settings-link{min-height:44px}.hero,.row-head,.carousel,.status{padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right))}.hero h2{font-size:25px}.carousel{scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}.poster-button,.action{min-height:44px}.more{width:36px;height:36px;min-width:36px;min-height:36px}.detail{width:100%;height:100dvh;max-height:none;border-radius:0}.overlay{padding:0;align-items:stretch}.detail-close{position:fixed;top:calc(12px + env(safe-area-inset-top));right:max(12px,env(safe-area-inset-right));width:44px;height:44px}.detail-backdrop{min-height:230px;padding:calc(66px + env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) 18px max(16px,env(safe-area-inset-left))}.detail-body{padding:0 max(16px,env(safe-area-inset-right)) calc(20px + env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left))}.watch-controls{grid-template-columns:1fr}.watch-controls .action{width:100%}.tv-picker-grid{grid-template-columns:1fr}.tv-picker-field select,.provider-select{font-size:16px}.menu{left:10px!important;right:10px!important;width:auto;min-width:0;max-height:70dvh;overflow:auto;-webkit-overflow-scrolling:touch}.menu button{min-height:44px}.project-provider-row,.project-priority-row{align-items:stretch;flex-direction:column}.project-provider-row button{width:100%}.project-priority-controls{align-self:flex-end}.player-wrap{border-radius:10px}
     }
+  
+    .topbar{position:relative}
+    .brand h1{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);margin:0;pointer-events:none}
+    #streaming-home-title{pointer-events:auto;color:inherit;text-decoration:none;background:none;border:0;box-shadow:none;cursor:default}
+    #streaming-home-title:hover,#streaming-home-title:focus,#streaming-home-title:active{color:inherit;text-decoration:none;background:none;box-shadow:none}
   </style>
 </head>
 <body>
   <header class="topbar">
     <div class="brand">
       <a class="back" href="../">← Dashboard</a>
-      <h1>Streaming</h1>
+      <h1><a id="streaming-home-title" href="./index.html" aria-label="Streaming home">Streaming</a></h1>
     </div>
     <div class="top-actions">
       <input id="search" class="search" type="search" placeholder="Search movies & shows" aria-label="Search streaming">
@@ -161,6 +166,7 @@
               <option value="dashboard">My Dashboard</option>
             </select>
             <button id="detail-watch" class="action primary" type="button">Watch</button>
+            <button id="next-episode-button" class="action" type="button" hidden disabled>No Next Episode</button>
           </div>
           <div class="actions secondary-actions">
             <button id="detail-watchlist" class="action" type="button">+ Watchlist</button>
@@ -212,11 +218,38 @@
         <p class="project-settings-copy">These are the same Streaming settings used by My Dashboard. Changes save to your account and appear in both places.</p>
         <section class="project-setting-block"><h3>Your Streaming Services</h3><div id="project-provider-list" class="project-provider-list"></div><p id="project-settings-status" class="project-settings-status" role="status"></p></section>
         <section class="project-setting-block"><h3>Playback Preference</h3><label class="project-toggle"><input id="project-dashboard-first" type="checkbox"><span><strong>Prefer My Dashboard Playback</strong><small>Temporarily place My Dashboard first when it is available.</small></span></label></section>
+        <section class="project-setting-block"><h3>Autoplay Next Episode</h3>
+          <label class="project-toggle"><input id="autoplay-next-enabled" type="checkbox" checked><span><strong>Autoplay Next Episode</strong><small>Start the next released episode automatically near the end.</small></span></label>
+          <label class="project-toggle"><span><strong>Countdown Seconds</strong><small>Default is 30 seconds. Choose 0–600 seconds.</small></span><input id="autoplay-next-seconds" type="number" min="0" max="600" step="1" value="30" inputmode="numeric"></label>
+        </section>
+        <section id="admin-full-catalog-status" class="project-setting-block" hidden><h3>Admin Full Catalog</h3><p class="project-settings-copy">Enabled. Admin accounts may start titles from the full TMDB catalog without the normal added-service gate.</p></section>
         <section class="project-setting-block"><h3>Provider Priority</h3><div id="project-priority-list" class="project-priority-list"></div><p class="project-settings-copy">This controls the default provider beside Watch. My Dashboard remains in this hierarchy even when preferred playback is off.</p></section>
       </div>
     </section>
   </div>
 
+
+  <div id="service-required-modal" class="watched-feedback" hidden>
+    <section class="watched-feedback-card" role="dialog" aria-modal="true" aria-labelledby="service-required-title">
+      <h3 id="service-required-title">Streaming Service Required</h3>
+      <p id="service-required-note">This title is not available through any of your added streaming services.</p>
+      <div class="watched-feedback-actions">
+        <button id="service-required-settings" type="button">Streaming Settings</button>
+        <button id="service-required-close" type="button">Close</button>
+      </div>
+    </section>
+  </div>
+
+  <div id="up-next-overlay" class="watched-feedback" hidden>
+    <section class="watched-feedback-card" role="dialog" aria-live="polite">
+      <h3 id="up-next-title">Up Next</h3>
+      <p id="up-next-countdown">Playing next episode soon.</p>
+      <div class="watched-feedback-actions">
+        <button id="up-next-play-now" type="button">Play Now</button>
+        <button id="up-next-cancel" type="button">Cancel</button>
+      </div>
+    </section>
+  </div>
 
   <div id="watched-feedback" class="watched-feedback" hidden>
     <section class="watched-feedback-card" role="dialog" aria-modal="true" aria-labelledby="watched-feedback-title">
@@ -238,6 +271,13 @@
     let currentProviders = [];
     let prefs = null;
     let currentDetail = null;
+    let currentUserIsAdmin = false;
+    let autoplayNextEnabled = true;
+    let autoplayNextSeconds = 30;
+    let currentNextEpisode = null;
+    let autoplayCountdownTimer = null;
+    let autoplayCountdownStartedFor = null;
+    let autoplayCancelledFor = new Set();
     let titleStates = [];
     let watchedKeys = new Set();
     let continueWatchingKeys = new Set();
@@ -316,9 +356,13 @@
 
         // Continue Watching is exclusive: active unfinished titles appear
         // only in the Continue Watching row.
+        const state = stateByKey.get(key);
+
         return (
           !watchedKeys.has(key) &&
-          !continueWatchingKeys.has(key)
+          !continueWatchingKeys.has(key) &&
+          state?.waiting_for_next_episode !== true &&
+          state?.not_interested !== true
         );
       });
     }
@@ -682,6 +726,7 @@
                   latestReleased.episode_number,
                 nextEpisodeAirDate:
                   latestReleased.air_date || null,
+                newEpisodeAvailable: true,
               }
             );
 
@@ -721,6 +766,80 @@
       }
 
       return changed;
+    }
+
+
+    function playbackEpisodeKey() {
+      if (!activePlayback || activePlayback.mediaType !== "tv") return null;
+      return `${activePlayback.tmdbId}:${activePlayback.seasonNumber}:${activePlayback.episodeNumber}`;
+    }
+
+    function clearAutoplayCountdown() {
+      if (autoplayCountdownTimer) clearInterval(autoplayCountdownTimer);
+      autoplayCountdownTimer=null;
+      document.getElementById("up-next-overlay").hidden=true;
+    }
+
+    async function refreshNextEpisodeButton() {
+      const button=document.getElementById("next-episode-button");
+      if(!currentDetail||currentDetail.mediaType!=="tv"){
+        currentNextEpisode=null;button.hidden=true;button.disabled=true;return;
+      }
+      button.hidden=false;
+      const selected=getSelectedTvEpisode();
+      if(!selected){currentNextEpisode=null;button.disabled=true;button.textContent="No Next Episode";return;}
+      currentNextEpisode=await findNextReleasedTvEpisode(
+        currentDetail.item.id,
+        selected.seasonNumber,
+        selected.episodeNumber,
+        currentDetail.item
+      );
+      button.disabled=!currentNextEpisode;
+      button.textContent=currentNextEpisode?"Next Episode":"No Next Episode";
+    }
+
+    async function startNextEpisode() {
+      if(!currentDetail||currentDetail.mediaType!=="tv")return;
+      if(!currentNextEpisode)await refreshNextEpisodeButton();
+      if(!currentNextEpisode)return;
+      const next=currentNextEpisode;
+      document.getElementById("tv-season-select").value=String(next.seasonNumber);
+      await loadTvEpisodes(currentDetail.item.id,next.seasonNumber,next.episodeNumber);
+      document.getElementById("tv-episode-select").value=String(next.episodeNumber);
+      clearAutoplayCountdown();
+      await startDashboardPlayback(currentDetail.item,"tv",next.seasonNumber,next.episodeNumber);
+      await refreshNextEpisodeButton();
+    }
+
+    function beginAutoplayCountdown(secondsRemaining) {
+      if(!autoplayNextEnabled||!currentNextEpisode)return;
+      const key=playbackEpisodeKey();
+      if(!key||autoplayCancelledFor.has(key)||autoplayCountdownStartedFor===key)return;
+      autoplayCountdownStartedFor=key;
+      let remaining=Math.max(0,Math.ceil(Math.min(Number(secondsRemaining)||autoplayNextSeconds,autoplayNextSeconds)));
+      document.getElementById("up-next-title").textContent=`Up Next · S${currentNextEpisode.seasonNumber} E${currentNextEpisode.episodeNumber}`;
+      const note=document.getElementById("up-next-countdown");
+      note.textContent=`Playing in ${remaining} second${remaining===1?"":"s"}`;
+      document.getElementById("up-next-overlay").hidden=false;
+      autoplayCountdownTimer=setInterval(async()=>{
+        remaining-=1;
+        if(remaining<=0){clearAutoplayCountdown();await startNextEpisode();return;}
+        note.textContent=`Playing in ${remaining} second${remaining===1?"":"s"}`;
+      },1000);
+    }
+
+    async function canCurrentUserWatch(item,mediaType){
+      if(currentUserIsAdmin)return true;
+      const available=await DashboardStreaming.getAvailableProvidersForTitle(
+        item.id,mediaType,prefs?.region||"US"
+      );
+      return available.length>0;
+    }
+
+    function showServiceRequired(item){
+      document.getElementById("service-required-note").textContent=
+        `${mediaTitle(item)} is not available through any of your added streaming services. Add a service that carries this title, then try again.`;
+      document.getElementById("service-required-modal").hidden=false;
     }
 
     async function handleCompletedTvEpisode() {
@@ -877,6 +996,12 @@
           DashboardStreaming.loadUserProviders(),
           DashboardStreaming.loadPreferences()
         ]);
+        currentUserIsAdmin=DashboardStreaming.isAdminUser(window.DashboardAuth?.user);
+        autoplayNextEnabled=prefs?.autoplay_next_episode!==false;
+        autoplayNextSeconds=Math.max(0,Math.min(600,Number(prefs?.autoplay_next_seconds??30)||30));
+        document.getElementById("autoplay-next-enabled").checked=autoplayNextEnabled;
+        document.getElementById("autoplay-next-seconds").value=String(autoplayNextSeconds);
+        document.getElementById("admin-full-catalog-status").hidden=!currentUserIsAdmin;
         await refreshTitleStates();
 
         const waitingChanged =
@@ -897,7 +1022,18 @@
           .sort((a,b) => new Date(b.last_opened_at||0) - new Date(a.last_opened_at||0));
         if (continueStates.length) {
           const enriched = await enrichTitleStates(continueStates,20);
-          addMixedRow("Continue Watching",enriched,item => item._state?.last_opened_at ? "Opened "+new Date(item._state.last_opened_at).toLocaleDateString() : "Continue watching",{includeWatched:true});
+          addMixedRow("Continue Watching",enriched,item => {
+            const state=item._state||{};
+            if(item._mediaType==="tv"){
+              const season=Number(state.next_episode_season_number||state.last_completed_season_number||0);
+              const episode=Number(state.next_episode_number||state.last_completed_episode_number||0);
+              const label=season>0&&episode>0?`S${season} E${episode}`:"TV";
+              return state.new_episode_available===true
+                ? `New Episode · ${label}`
+                : `Continue Watching · ${label}`;
+            }
+            return "Continue Watching";
+          },{includeWatched:true});
         }
 
         const [movies,tv,trendingMovies,trendingTv] = await Promise.all([
@@ -1384,6 +1520,7 @@
                 : null
             )
         );
+        await refreshNextEpisodeButton();
       } catch (error) {
         console.error("TV seasons:", error);
         seasonSelect.innerHTML = "<option>Seasons unavailable</option>";
@@ -1479,6 +1616,7 @@
               nextSeasonNumber: null,
               nextEpisodeNumber: null,
               nextEpisodeAirDate: null,
+              newEpisodeAvailable: false,
             }
           );
         } catch (error) {
@@ -1547,6 +1685,19 @@
       activePlayback.seasonNumber=Number.isFinite(season)?season:null; activePlayback.episodeNumber=Number.isFinite(episode)?episode:null;
       pendingProgress={seasonNumber:activePlayback.seasonNumber,episodeNumber:activePlayback.episodeNumber,progressSeconds:progress,durationSeconds:duration};
       document.getElementById("player-status").textContent=activePlayback.mediaType==="tv"&&activePlayback.seasonNumber!==null?`S${activePlayback.seasonNumber} E${activePlayback.episodeNumber} · ${formatTime(progress)} / ${formatTime(duration)}`:`${formatTime(progress)} / ${formatTime(duration)}`;
+      if(
+        activePlayback?.mediaType==="tv" &&
+        Number.isFinite(progressSeconds) &&
+        Number.isFinite(durationSeconds) &&
+        durationSeconds>0
+      ){
+        const remainingSeconds=Math.max(0,durationSeconds-progressSeconds);
+        if(remainingSeconds<=autoplayNextSeconds&&remainingSeconds>0){
+          if(!currentNextEpisode)await refreshNextEpisodeButton();
+          if(currentNextEpisode)beginAutoplayCountdown(remainingSeconds);
+        }
+      }
+
       if(status==="playing") {
         await flushProgress(false,false);
       } else if(
@@ -1724,9 +1875,10 @@
         seasonNumber,
         null
       );
+      await refreshNextEpisodeButton();
     });
 
-    document.getElementById("tv-episode-select").addEventListener("change", event => {
+    document.getElementById("tv-episode-select").addEventListener("change", async event => {
       tvSelection.episodeNumber = Number(event.target.value);
 
       const selected =
@@ -1740,12 +1892,35 @@
         "Choose the episode you want to play.";
 
       updateTvWatchButton();
+      await refreshNextEpisodeButton();
     });
 
     document.getElementById("streaming-settings-button").addEventListener("click",openProjectSettings);
     document.getElementById("project-settings-close").addEventListener("click",closeProjectSettings);
     document.getElementById("project-settings").addEventListener("click",event=>{if(event.target===event.currentTarget)closeProjectSettings()});
     document.getElementById("project-dashboard-first").addEventListener("change",async event=>{const checked=event.target.checked;if(!checked){await DashboardStreaming.savePreferences({prefer_dashboard_playback:false});prefs=await DashboardStreaming.loadPreferences();return}const current=await DashboardStreaming.loadPreferences();if(current.dashboard_playback_warning_acknowledged){await DashboardStreaming.savePreferences({prefer_dashboard_playback:true});prefs=await DashboardStreaming.loadPreferences();return}const accepted=window.confirm("My Dashboard Playback uses a third-party player. Third-party tabs, windows, advertisements, or other content may open. Continue and prefer My Dashboard Playback?");event.target.checked=accepted;await DashboardStreaming.savePreferences({prefer_dashboard_playback:accepted});prefs=await DashboardStreaming.loadPreferences()});
+    document.getElementById("next-episode-button").addEventListener("click",startNextEpisode);
+    document.getElementById("up-next-play-now").addEventListener("click",startNextEpisode);
+    document.getElementById("up-next-cancel").addEventListener("click",()=>{
+      const key=playbackEpisodeKey();if(key)autoplayCancelledFor.add(key);clearAutoplayCountdown();
+    });
+    document.getElementById("service-required-close").addEventListener("click",()=>{document.getElementById("service-required-modal").hidden=true});
+    document.getElementById("service-required-settings").addEventListener("click",()=>{
+      document.getElementById("service-required-modal").hidden=true;openProjectSettings();
+    });
+    document.getElementById("autoplay-next-enabled").addEventListener("change",async event=>{
+      autoplayNextEnabled=event.target.checked;
+      if(!autoplayNextEnabled)clearAutoplayCountdown();
+      await DashboardStreaming.savePreferences({autoplay_next_episode:autoplayNextEnabled});
+      prefs=await DashboardStreaming.loadPreferences();
+    });
+    document.getElementById("autoplay-next-seconds").addEventListener("change",async event=>{
+      autoplayNextSeconds=Math.max(0,Math.min(600,Number(event.target.value)||30));
+      event.target.value=String(autoplayNextSeconds);
+      await DashboardStreaming.savePreferences({autoplay_next_seconds:autoplayNextSeconds});
+      prefs=await DashboardStreaming.loadPreferences();
+    });
+
     document.getElementById("detail-close").addEventListener("click", closeDetails);
     document.getElementById("detail-overlay").addEventListener("click", e => {
       if (e.target === e.currentTarget) closeDetails();
@@ -1755,7 +1930,12 @@
     document.addEventListener("keydown", e => { if(e.key!=="Escape")return;if(!document.getElementById("project-settings").hidden)return closeProjectSettings();if(!document.getElementById("detail-overlay").hidden)closeDetails(); });
 
     document.getElementById("detail-watch").addEventListener("click", async () => {
-      if(!currentDetail)return;let seasonNumber=null,episodeNumber=null;
+      if(!currentDetail)return;
+      if(!(await canCurrentUserWatch(currentDetail.item,currentDetail.mediaType))){
+        showServiceRequired(currentDetail.item);
+        return;
+      }
+      let seasonNumber=null,episodeNumber=null;
       if(currentDetail.mediaType==="tv"){
         const selected =
           typeof getSelectedTvEpisode === "function"

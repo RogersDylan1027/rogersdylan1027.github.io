@@ -1,59 +1,75 @@
-My Dashboard · Version 0.6.10
-Caught-Up TV & Continue Watching Cleanup · 2026-08-16
+My Dashboard · Version 0.6.11
+TV Autoplay, Admin Catalog & Streaming UX · 2026-08-16
 
 CHANGELOG
 =========
-Version: 0.6.10
-Title: Caught-Up TV & Continue Watching Cleanup
+Version: 0.6.11
+Title: TV Autoplay, Admin Catalog & Streaming UX
 
 Description:
-Adds episode-aware Continue Watching behavior for TV shows and makes Continue Watching exclusive from the rest of Streaming. Ongoing shows hide while waiting for their next episode or season and return automatically when new content is released. Ended series trigger the completion feedback prompt, and anything currently in Continue Watching is filtered out of every other discovery row.
+Adds configurable TV autoplay and a permanent Next Episode control, improves Continue Watching with episode labels and New Episode state, keeps caught-up shows hidden until new content arrives, keeps full-catalog search available to everyone while gating Watch for regular users by their added services, centers the Streaming navbar title as a quiet home shortcut, and makes main Dashboard Settings sections collapsible.
 
-CONTINUE WATCHING IS EXCLUSIVE
-==============================
-If a movie or TV show is currently in Continue Watching, it appears only in
-the Continue Watching row.
+ADMIN FULL CATALOG / REGULAR USER WATCH GATE
+============================================
+- Everyone can search the full TMDB catalog.
+- Everyone can open normal title Details before starting playback.
+- Admin accounts retain unrestricted full-catalog playback access.
+- Regular users are checked only when they press Watch.
+- If a regular user does not have an added streaming service that carries the
+  selected title, a "Streaming Service Required" popup appears.
+- The popup can open Streaming Settings so the user can add a service.
+- Admin-only Full Catalog status is shown in Streaming Settings for admins.
 
-It is filtered out of:
-- Recommended for You
-- Popular Movies Across Your Services
-- Because You Liked...
-- Recently Added to Your Services
-- Movies You May Like
-- Popular TV Across Your Services
-- TV Shows You May Like
-- Trending on Your Services
-- Trending Across Everything
-- Coming Soon
-- Leaving Soon
+AUTOPLAY NEXT EPISODE
+=====================
+- Autoplay Next Episode is enabled by default.
+- Default countdown: 30 seconds before the current episode ends.
+- Streaming Settings lets the user turn autoplay on/off.
+- Streaming Settings lets the user choose 0–600 countdown seconds.
+- These preferences are saved to the user's My Dashboard account.
+- When the countdown begins, an Up Next popup shows the next S# E#.
+- The user can choose Play Now or Cancel.
+- Cancel suppresses autoplay for the rest of that episode's playback session.
+- A countdown is not repeatedly restarted while seeking near the end.
 
-This applies to both movies and TV shows.
-
-CAUGHT-UP TV
+NEXT EPISODE
 ============
-More released episodes available:
-- Keep the show in Continue Watching.
-- Queue the next released episode, including across seasons.
+- TV Details always include a Next Episode control.
+- If another released episode exists, the button is enabled.
+- It can advance into the next released season automatically.
+- If no released episode exists, it says "No Next Episode" and is disabled.
+- Manually pressing Next Episode does not mark the current episode completed.
+- Season and Episode selectors update to the episode that starts.
 
-Caught up but show is still ongoing:
-- Remove the show from Continue Watching.
-- Save it as waiting for the next episode/season.
-- Weekly shows disappear after the newest released episode.
-- Shows between seasons stay hidden.
-- Streaming rechecks waiting shows each time it loads.
-- Once a newer episode is released, the show automatically returns to
-  Continue Watching.
+CONTINUE WATCHING
+=================
+- TV cards show S# E#.
+- When a waiting series gets a newly released episode, its card shows:
+    New Episode · S# E#
+- As soon as the user starts that episode, the label returns to:
+    Continue Watching · S# E#
+- Active Continue Watching titles remain excluded from other rows.
+- waiting_for_next_episode titles remain excluded from recommendation,
+  popular, trending, recently added, coming soon, and leaving soon rows.
+- Not Interested titles are excluded from those discovery rows as well.
 
-True ending of an ended/canceled series:
-- Show the "Did you like it?" prompt.
-- Save Liked It / Didn't Like It / Skip.
-- Mark the whole TV series Watched.
-- Remove it from Continue Watching and discovery rows.
+STREAMING NAVBAR
+================
+- Streaming is centered in the top navbar.
+- It looks like a normal page title rather than a conventional link/button.
+- Clicking Streaming returns to Streaming/index.html.
+
+MAIN DASHBOARD SETTINGS
+=======================
+- Dashboard Settings sections are collapsible.
+- Clicking a section heading expands/collapses that section.
+- Keyboard Enter/Space also toggles the section.
+- The open/collapsed state is remembered locally.
 
 SUPABASE
 ========
 Run once:
-streaming-0.6.10-caught-up-tv.sql
+streaming-0.6.11-autoplay-admin-catalog.sql
 
 FILES UPDATED
 =============
@@ -67,4 +83,5 @@ Dashboard/dashboard-streaming-ui.js
 Dashboard/Streaming/index.html
 Dashboard/README.txt
 
-No Edge Function update is required.
+SQL:
+streaming-0.6.11-autoplay-admin-catalog.sql
