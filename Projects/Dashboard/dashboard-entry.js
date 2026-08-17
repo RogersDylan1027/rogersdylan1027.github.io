@@ -1,6 +1,6 @@
 /*
-  My Dashboard · Dashboard Entry Guard · Version 0.6.12
-  Mobile Streaming Controls & Connected Project Settings · 2026-08-15
+  My Dashboard · Dashboard Entry Guard · Version 0.6.13
+  Streaming Row Personalization & Duplicate Reduction · 2026-08-17
 
   Load dashboard-config.js first, then this file as early as possible in
   Dashboard/index.html <head>. Logged-out visitors are sent to login.html.

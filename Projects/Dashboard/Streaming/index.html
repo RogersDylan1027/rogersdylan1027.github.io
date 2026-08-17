@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>My Dashboard · Streaming · Version 0.6.12</title>
-  <meta name="description" content="My Dashboard unified streaming hub. Adds episode-aware Continue Watching behavior for TV shows and makes Continue Watching exclusive from the rest of Streaming. Ongoing shows hide while waiting for their next episode or season and return automatically when new content is released. Ended series trigger the completion feedback prompt, and anything currently in Continue Watching is filtered out of every other discovery row.">
+  <title>My Dashboard · Streaming · Version 0.6.13</title>
+  <meta name="description" content="My Dashboard unified streaming hub. Version 0.6.13 adds per-account row sizing and reduces repeated titles across discovery rows while preserving Continue Watching, future-release filtering, caught-up-series hiding, admin access, Picture in Picture, provider settings, and autoplay.">
   <meta name="theme-color" content="#101218">
 
-  <script src="../dashboard-config.js?v=0.6.12"></script>
+  <script src="../dashboard-config.js?v=0.6.13"></script>
   <script
-    src="../dashboard-auth.js?v=0.6.12"
+    src="../dashboard-auth.js?v=0.6.13"
     data-dashboard-project="streaming">
   </script>
-  <script src="../dashboard-streaming.js?v=0.6.12"></script>
+  <script src="../dashboard-streaming.js?v=0.6.13"></script>
 
   <style>
     *{box-sizing:border-box}
@@ -226,6 +226,9 @@
           <label class="project-toggle"><input id="autoplay-next-enabled" type="checkbox" checked><span><strong>Autoplay Next Episode</strong><small>Start the next released episode automatically near the end.</small></span></label>
           <label class="project-toggle"><span><strong>Countdown Seconds</strong><small>Default is 30 seconds. Choose 0–600 seconds.</small></span><input id="autoplay-next-seconds" type="number" min="0" max="600" step="1" value="30" inputmode="numeric"></label>
         </section>
+        <section class="project-setting-block"><h3>Row Size</h3>
+          <label class="project-toggle"><span><strong>Titles per row</strong><small>Choose how many movies or shows appear in each Streaming row.</small></span><select id="titles-per-row" class="provider-select" aria-label="Titles per Streaming row"><option value="10">10</option><option value="15">15</option><option value="20" selected>20</option><option value="25">25</option><option value="30">30</option></select></label>
+        </section>
         <section id="admin-full-catalog-status" class="project-setting-block" hidden><h3>Admin Full Catalog</h3><p class="project-settings-copy">Enabled. Admin accounts may start titles from the full TMDB catalog without the normal added-service gate.</p></section>
         <section class="project-setting-block"><h3>Provider Priority</h3><div id="project-priority-list" class="project-priority-list"></div><p class="project-settings-copy">This controls the default provider beside Watch. My Dashboard remains in this hierarchy even when preferred playback is off.</p></section>
       </div>
@@ -278,6 +281,8 @@
     let currentUserIsAdmin = false;
     let autoplayNextEnabled = true;
     let autoplayNextSeconds = 30;
+    let titlesPerRow = 20;
+    const discoveryTitleAppearances = new Map();
     let currentNextEpisode = null;
     let autoplayCountdownTimer = null;
     let autoplayCountdownStartedFor = null;
@@ -472,6 +477,36 @@
       return wrap;
     }
 
+    function resetDiscoveryTitleAppearances() {
+      discoveryTitleAppearances.clear();
+    }
+
+    function applyRowRules(items, mediaType = null, options = {}) {
+      const limit = Math.max(1, Number(options.limit || titlesPerRow) || 20);
+      const allowRepeat = options.allowRepeat === true;
+      const candidates = Array.from(items || []);
+      const result = [];
+
+      if (allowRepeat) return candidates.slice(0, limit);
+
+      // Prefer titles that have not appeared yet. If a row still needs titles,
+      // permit a second appearance, but never a third discovery appearance.
+      for (const allowedAppearanceCount of [0, 1]) {
+        for (const item of candidates) {
+          const type = mediaType || item?._mediaType || item?.media_type || "movie";
+          const key = titleKey(item?.id, type);
+          const appearances = discoveryTitleAppearances.get(key) || 0;
+          if (appearances !== allowedAppearanceCount) continue;
+          if (result.some(existing => titleKey(existing?.id, mediaType || existing?._mediaType || existing?.media_type || "movie") === key)) continue;
+          result.push(item);
+          discoveryTitleAppearances.set(key, appearances + 1);
+          if (result.length >= limit) return result;
+        }
+      }
+
+      return result;
+    }
+
     function addRow(title, items, mediaType, labelFn, options = {}) {
       const sourceItems =
         options.includeWatched
@@ -485,15 +520,16 @@
               items,
               mediaType
             );
-      if (!sourceItems.length) return;
+      const rowItems = applyRowRules(sourceItems, mediaType, options);
+      if (!rowItems.length) return;
       const section = document.createElement("section");
       section.className = "row-section";
       const head = document.createElement("div");
       head.className = "row-head";
-      head.innerHTML = `<h2>${title}</h2><small>${sourceItems.length} shown</small>`;
+      head.innerHTML = `<h2>${title}</h2><small>${rowItems.length} shown</small>`;
       const strip = document.createElement("div");
       strip.className = "carousel";
-      sourceItems.forEach(item => strip.appendChild(card(item, mediaType, labelFn ? labelFn(item) : "")));
+      rowItems.forEach(item => strip.appendChild(card(item, mediaType, labelFn ? labelFn(item) : "")));
       section.append(head, strip);
       document.getElementById("rows").appendChild(section);
     }
@@ -509,15 +545,16 @@
               )
             )
           : filterUnwatched(items);
-      if (!sourceItems.length) return;
+      const rowItems = applyRowRules(sourceItems, null, options);
+      if (!rowItems.length) return;
       const section = document.createElement("section");
       section.className = "row-section";
       const head = document.createElement("div");
       head.className = "row-head";
-      head.innerHTML = `<h2>${title}</h2><small>${sourceItems.length} shown</small>`;
+      head.innerHTML = `<h2>${title}</h2><small>${rowItems.length} shown</small>`;
       const strip = document.createElement("div");
       strip.className = "carousel";
-      sourceItems.forEach(item => {
+      rowItems.forEach(item => {
         strip.appendChild(card(item, item._mediaType || "movie", labelFn ? labelFn(item) : ""));
       });
       section.append(head, strip);
@@ -1276,8 +1313,10 @@
         }
         autoplayNextEnabled=prefs?.autoplay_next_episode!==false;
         autoplayNextSeconds=Math.max(0,Math.min(600,Number(prefs?.autoplay_next_seconds??30)||30));
+        titlesPerRow=[10,15,20,25,30].includes(Number(prefs?.titles_per_row))?Number(prefs.titles_per_row):20;
         document.getElementById("autoplay-next-enabled").checked=autoplayNextEnabled;
         document.getElementById("autoplay-next-seconds").value=String(autoplayNextSeconds);
+        document.getElementById("titles-per-row").value=String(titlesPerRow);
         document.getElementById("admin-full-catalog-status").hidden=!currentUserIsAdmin;
         await refreshTitleStates();
 
@@ -1296,6 +1335,7 @@
         }
 
         document.getElementById("rows").innerHTML = "";
+        resetDiscoveryTitleAppearances();
 
         const continueStates = titleStates
           .filter(state =>
@@ -1380,7 +1420,7 @@
 
               return "Continue Watching";
             },
-            { includeWatched:true }
+            { includeWatched:true, allowRepeat:true }
           );
         }
 
@@ -2322,7 +2362,7 @@
     function projectHierarchyRows(rows,preferences){const result=rows.filter(row=>row.enabled).map(row=>({key:String(row.provider_id),name:row.streaming_providers?.name||"Provider",priority:Number(row.priority)||999}));result.push({key:"dashboard",name:"My Dashboard",priority:Number(preferences.dashboard_provider_priority)||1,isDashboard:true});return result.sort((a,b)=>a.priority-b.priority||a.name.localeCompare(b.name))}
 
     async function refreshProjectSettings(){const list=document.getElementById("project-provider-list"),priority=document.getElementById("project-priority-list"),status=document.getElementById("project-settings-status");status.textContent="Loading…";try{const [providers,rows,preferences]=await Promise.all([DashboardStreaming.listProviders(),DashboardStreaming.loadUserProviders(),DashboardStreaming.loadPreferences()]);const map=new Map(rows.map(row=>[String(row.provider_id),row]));list.innerHTML="";providers.forEach(provider=>{const current=map.get(String(provider.id)),row=document.createElement("div");row.className="project-provider-row";const main=document.createElement("div");main.className="project-provider-main";const logo=document.createElement("div");logo.className="project-provider-logo";if(provider.logo_path){const img=document.createElement("img");img.alt="";img.src="https://image.tmdb.org/t/p/w92"+provider.logo_path;logo.appendChild(img)}else logo.textContent=provider.name.slice(0,1);const name=document.createElement("strong");name.textContent=provider.name;main.append(logo,name);const b=document.createElement("button");b.type="button";b.textContent=current?"Remove":"Add";b.addEventListener("click",async()=>{b.disabled=true;try{current?await DashboardStreaming.removeProvider(provider.id):await DashboardStreaming.addProvider(provider.id);await refreshProjectSettings();currentProviders=await DashboardStreaming.loadUserProviders()}finally{b.disabled=false}});row.append(main,b);list.appendChild(row)});
-      document.getElementById("project-dashboard-first").checked=Boolean(preferences.prefer_dashboard_playback);priority.innerHTML="";const sorted=projectHierarchyRows(rows,preferences);sorted.forEach((entry,index)=>{const row=document.createElement("div");row.className="project-priority-row";const name=document.createElement("strong");name.textContent=`${index+1}. ${entry.name}`;const controls=document.createElement("div");controls.className="project-priority-controls";const up=document.createElement("button"),down=document.createElement("button");up.type=down.type="button";up.textContent="↑";down.textContent="↓";up.disabled=index===0;down.disabled=index===sorted.length-1;const move=async direction=>{const target=index+direction;if(target<0||target>=sorted.length)return;const keys=sorted.map(x=>x.key);[keys[index],keys[target]]=[keys[target],keys[index]];await DashboardStreaming.saveProviderHierarchy(keys);await refreshProjectSettings();prefs=await DashboardStreaming.loadPreferences()};up.addEventListener("click",()=>move(-1));down.addEventListener("click",()=>move(1));controls.append(up,down);row.append(name,controls);priority.appendChild(row)});status.textContent="Saved to your My Dashboard account."}catch(error){console.error(error);status.textContent=error.message||"Settings could not be loaded."}}
+      document.getElementById("project-dashboard-first").checked=Boolean(preferences.prefer_dashboard_playback);const rowSize=document.getElementById("titles-per-row");if(rowSize)rowSize.value=String(Number(preferences.titles_per_row)||20);priority.innerHTML="";const sorted=projectHierarchyRows(rows,preferences);sorted.forEach((entry,index)=>{const row=document.createElement("div");row.className="project-priority-row";const name=document.createElement("strong");name.textContent=`${index+1}. ${entry.name}`;const controls=document.createElement("div");controls.className="project-priority-controls";const up=document.createElement("button"),down=document.createElement("button");up.type=down.type="button";up.textContent="↑";down.textContent="↓";up.disabled=index===0;down.disabled=index===sorted.length-1;const move=async direction=>{const target=index+direction;if(target<0||target>=sorted.length)return;const keys=sorted.map(x=>x.key);[keys[index],keys[target]]=[keys[target],keys[index]];await DashboardStreaming.saveProviderHierarchy(keys);await refreshProjectSettings();prefs=await DashboardStreaming.loadPreferences()};up.addEventListener("click",()=>move(-1));down.addEventListener("click",()=>move(1));controls.append(up,down);row.append(name,controls);priority.appendChild(row)});status.textContent="Saved to your My Dashboard account."}catch(error){console.error(error);status.textContent=error.message||"Settings could not be loaded."}}
 
     async function openProjectSettings(){document.getElementById("project-settings").hidden=false;document.body.style.overflow="hidden";await refreshProjectSettings()}
     function closeProjectSettings(){document.getElementById("project-settings").hidden=true;if(document.getElementById("detail-overlay").hidden)document.body.style.overflow=""}
@@ -2396,6 +2436,14 @@
       await DashboardStreaming.savePreferences({autoplay_next_seconds:autoplayNextSeconds});
       prefs=await DashboardStreaming.loadPreferences();
     });
+    document.getElementById("titles-per-row").addEventListener("change",async event=>{
+      const value=Number(event.target.value);
+      titlesPerRow=[10,15,20,25,30].includes(value)?value:20;
+      event.target.value=String(titlesPerRow);
+      await DashboardStreaming.savePreferences({titles_per_row:titlesPerRow});
+      prefs=await DashboardStreaming.loadPreferences();
+      await init();
+    });
 
     document.getElementById("detail-close").addEventListener("click", closeDetails);
     document.getElementById("detail-overlay").addEventListener("click", e => {
@@ -2462,8 +2510,9 @@
           DashboardStreaming.tmdb("/search/tv",{query:q})
         ]);
         document.getElementById("rows").innerHTML = "";
-        addRow("Movie Results",movies.results||[],"movie",null,{includeWatched:true});
-        addRow("TV Results",tv.results||[],"tv",null,{includeWatched:true});
+        resetDiscoveryTitleAppearances();
+        addRow("Movie Results",movies.results||[],"movie",null,{includeWatched:true,allowRepeat:true});
+        addRow("TV Results",tv.results||[],"tv",null,{includeWatched:true,allowRepeat:true});
         status.textContent = "";
       } catch(error) {
         status.textContent = error.message || "Search failed.";

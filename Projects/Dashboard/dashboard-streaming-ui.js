@@ -1,14 +1,14 @@
 /*
-  My Dashboard · Streaming Settings UI · Version 0.6.12
-  Mobile Streaming Controls & Connected Project Settings · 2026-08-15
+  My Dashboard · Streaming Settings UI · Version 0.6.13
+  Streaming Row Personalization & Duplicate Reduction · 2026-08-17
 */
 (function () {
   "use strict";
 
-  const VERSION = "0.6.12";
-  const TITLE = "Picture in Picture & Caught-Up Series Hiding";
+  const VERSION = "0.6.13";
+  const TITLE = "Streaming Row Personalization & Duplicate Reduction";
   const DESCRIPTION =
-    "Adds Picture in Picture support for Dashboard Playback and tightens caught-up TV behavior. Shows with no remaining released episodes are hidden while waiting for future episodes or seasons, then return to Continue Watching only when a new episode has actually released.";
+    "Adds a per-account titles-per-row preference and reduces repeated movies and shows across Streaming discovery rows, while preserving Continue Watching and other user-specific content.";
   let initialized = false;
   const get = id => document.getElementById(id);
 
@@ -30,6 +30,8 @@
       .streaming-choice input{margin-top:3px}
       .streaming-choice strong{display:block;font-size:13px}
       .streaming-choice small{display:block;margin-top:2px;color:#777;line-height:1.4}
+      .streaming-row-size{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:12px;padding:12px;border:1px solid #dfe3e8;border-radius:11px;background:#f7f8fa}
+      .streaming-row-size strong{display:block;font-size:13px}.streaming-row-size small{display:block;margin-top:2px;color:#777;line-height:1.4}.streaming-row-size select{min-height:44px;padding:8px 32px 8px 10px;border:1px solid #c8cdd5;border-radius:10px;background:#fff;font:inherit;font-size:13px;font-weight:800}
       .streaming-priority-list{display:grid;gap:8px}
       .streaming-priority-row{display:grid;grid-template-columns:32px minmax(0,1fr) auto;align-items:center;gap:8px;padding:10px 11px;border:1px solid #dfe3e8;border-radius:10px;background:white}
       .streaming-priority-number{width:28px;height:28px;display:grid;place-items:center;border-radius:50%;background:#eef3fb;color:#28487e;font-size:12px;font-weight:900}
@@ -80,6 +82,15 @@
           <span><strong>Prefer My Dashboard Playback</strong><small>When available, temporarily place My Dashboard first. If this is off, My Dashboard uses its saved place in Provider Priority.</small></span>
         </label>
         <button id="streaming-reset-playback-warning" class="streaming-reset-warning" type="button">Show My Dashboard Playback warning again</button>
+      </div>
+      <div class="settings-provider-block">
+        <p class="settings-provider-title">Row Size</p>
+        <label class="streaming-row-size">
+          <span><strong>Titles per row</strong><small>Choose how many movies or shows My Dashboard displays in each Streaming row.</small></span>
+          <select id="streaming-titles-per-row" aria-label="Titles per Streaming row">
+            <option value="10">10</option><option value="15">15</option><option value="20">20</option><option value="25">25</option><option value="30">30</option>
+          </select>
+        </label>
       </div>
       <div class="settings-provider-block">
         <p class="settings-provider-title">Provider Priority</p>
@@ -168,6 +179,7 @@
         row.append(main,button);list.appendChild(row);
       });
       get("streaming-dashboard-first").checked=Boolean(prefs.prefer_dashboard_playback);
+      const rowSize=get("streaming-titles-per-row");if(rowSize)rowSize.value=String(Number(prefs.titles_per_row)||20);
       const reset=get("streaming-reset-playback-warning");if(reset)reset.hidden=!Boolean(prefs.dashboard_playback_warning_acknowledged);
       renderPriority(enabledRows,prefs);
       status.textContent=enabledRows.length?`${enabledRows.length} streaming service${enabledRows.length===1?"":"s"} added.`:"Add the services this account can watch.";
@@ -186,15 +198,16 @@
       } catch(error) {checkbox.checked=false;console.error(error)}
     });
     get("streaming-reset-playback-warning")?.addEventListener("click",async()=>{await DashboardStreaming.savePreferences({dashboard_playback_warning_acknowledged:false});await refresh()});
+    get("streaming-titles-per-row")?.addEventListener("change",async event=>{try{await DashboardStreaming.savePreferences({titles_per_row:Number(event.target.value)});await refresh()}catch(error){console.error(error);await refresh()}});
     const settings=get("settings-view");if(settings&&window.MutationObserver)new MutationObserver(()=>{if(!settings.hidden)refresh()}).observe(settings,{attributes:true,attributeFilter:["hidden"]});
   }
 
   function addChangelogRuntimeEntry() {
     const view=get("changelog-view");if(!view)return;
-    const inject=()=>{const body=view.querySelector(".changelog-list")||view.querySelector("tbody")||view.querySelector(".internal-view-content")||view.querySelector(".changelog-content");if(!body||get("streaming-0612-changelog-entry"))return;
-      const bug='Improves iPhone safe-area, touch and modal behavior; keeps My Dashboard in the provider hierarchy; makes Watch provider selection persistent and visible; connects Streaming project settings to the same saved account preferences; and makes title menus reflect watch state.';
-      if(body.tagName==="TBODY"){const tr=document.createElement("tr");tr.id="streaming-0612-changelog-entry";tr.innerHTML=`<td>${VERSION}</td><td>${TITLE}</td><td>${DESCRIPTION}<br><strong>Bug Fixes:</strong> ${bug}</td>`;body.prepend(tr)}
-      else{const card=document.createElement("div");card.id="streaming-0612-changelog-entry";card.style.cssText="margin:0 0 12px;padding:14px;border:1px solid #dfe3e8;border-radius:12px;background:#f7f8fa";card.innerHTML=`<strong>${VERSION} · ${TITLE}</strong><p style="margin:7px 0 0;line-height:1.5">${DESCRIPTION}</p><p style="margin:7px 0 0;line-height:1.5"><strong>Bug Fixes:</strong> ${bug}</p>`;body.prepend(card)}
+    const inject=()=>{const body=view.querySelector(".changelog-list")||view.querySelector("tbody")||view.querySelector(".internal-view-content")||view.querySelector(".changelog-content");if(!body||get("streaming-0613-changelog-entry"))return;
+      const bug='Preserves Continue Watching exclusivity, future-release filtering, caught-up-series hiding, admin catalog access, Picture in Picture, provider priority, and autoplay behavior while applying the new row controls.';
+      if(body.tagName==="TBODY"){const tr=document.createElement("tr");tr.id="streaming-0613-changelog-entry";tr.innerHTML=`<td>${VERSION}</td><td>${TITLE}</td><td>${DESCRIPTION}<br><strong>Bug Fixes:</strong> ${bug}</td>`;body.prepend(tr)}
+      else{const card=document.createElement("div");card.id="streaming-0613-changelog-entry";card.style.cssText="margin:0 0 12px;padding:14px;border:1px solid #dfe3e8;border-radius:12px;background:#f7f8fa";card.innerHTML=`<strong>${VERSION} · ${TITLE}</strong><p style="margin:7px 0 0;line-height:1.5">${DESCRIPTION}</p><p style="margin:7px 0 0;line-height:1.5"><strong>Bug Fixes:</strong> ${bug}</p>`;body.prepend(card)}
     };new MutationObserver(inject).observe(view,{attributes:true,childList:true,subtree:true});inject();
   }
 

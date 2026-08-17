@@ -1,5 +1,6 @@
 /*
-  My Dashboard · Streaming Client · Version 0.6.12
+  My Dashboard · Streaming Client · Version 0.6.13
+  Streaming Row Personalization & Duplicate Reduction · 2026-08-17
 
   Load after dashboard-config.js and after the Dashboard's authenticated
   Supabase client is available.
@@ -190,7 +191,7 @@
     const { data, error } = await client
       .from("streaming_preferences")
       .select(
-        "user_id,region,prefer_dashboard_playback,provider_selection_mode,dashboard_playback_warning_acknowledged,dashboard_provider_priority,autoplay_next_episode,autoplay_next_seconds"
+        "user_id,region,prefer_dashboard_playback,provider_selection_mode,dashboard_playback_warning_acknowledged,dashboard_provider_priority,autoplay_next_episode,autoplay_next_seconds,titles_per_row"
       )
       .eq("user_id", user.id)
       .maybeSingle();
@@ -208,6 +209,7 @@
       dashboard_provider_priority: 1,
       autoplay_next_episode: true,
       autoplay_next_seconds: 30,
+      titles_per_row: 20,
     };
 
     const { data: created, error: createError } = await client
@@ -249,6 +251,14 @@
             Number(changes.autoplay_next_seconds) || 30
           )
         );
+    }
+
+    if ("titles_per_row" in changes) {
+      const requested = Number(changes.titles_per_row);
+      const allowedSizes = [10, 15, 20, 25, 30];
+      allowed.titles_per_row = allowedSizes.includes(requested)
+        ? requested
+        : 20;
     }
 
     if ("provider_selection_mode" in changes) {
@@ -962,7 +972,7 @@
   window.DashboardStreaming = Object.freeze({
     getAvailableProvidersForTitle,
     isAdminUser,
-    version: "0.6.12",
+    version: "0.6.13",
     listProviders,
     loadUserProviders,
     addProvider,
