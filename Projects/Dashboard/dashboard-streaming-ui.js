@@ -1,14 +1,14 @@
 /*
-  My Dashboard · Streaming Settings UI · Version 0.6.17
-  Episode Release-Order Watchlists & Cover Fixes · 2026-08-19
+  My Dashboard · Streaming Settings UI · Version 0.6.18
+  Streaming Loading Experience · 2026-08-19
 */
 (function () {
   "use strict";
 
-  const VERSION = "0.6.17";
-  const TITLE = "Episode Release-Order Watchlists & Cover Fixes";
+  const VERSION = "0.6.18";
+  const TITLE = "Streaming Loading Experience";
   const DESCRIPTION =
-    "Changes watchlist Release Order into a blended movie-and-episode timeline, adds a next-unwatched release view, repairs persistent custom collection covers, and aligns every Streaming row exactly with Watchlists.";
+    "Replaces the plain Streaming loading message with a responsive skeleton screen that keeps the page structure visible while My Dashboard builds the library, watchlists, and search results.";
   let initialized = false;
   const get = id => document.getElementById(id);
 
@@ -204,10 +204,10 @@
 
   function addChangelogRuntimeEntry() {
     const view=get("changelog-view");if(!view)return;
-    const inject=()=>{const body=view.querySelector(".changelog-list")||view.querySelector("tbody")||view.querySelector(".internal-view-content")||view.querySelector(".changelog-content");if(!body||get("streaming-0617-changelog-entry"))return;
-      const bug='Fixes the iPhone Streaming title layout so the heading stays centered above Search and Settings; aligns all Streaming rows to the same horizontal inset; adds cover search from any TMDB movie or TV show; and adds saved collection sorting without changing the manual queue order unless requested.';
-      if(body.tagName==="TBODY"){const tr=document.createElement("tr");tr.id="streaming-0617-changelog-entry";tr.innerHTML=`<td>${VERSION}</td><td>${TITLE}</td><td>${DESCRIPTION}<br><strong>Bug Fixes:</strong> ${bug}</td>`;body.prepend(tr)}
-      else{const card=document.createElement("div");card.id="streaming-0617-changelog-entry";card.style.cssText="margin:0 0 12px;padding:14px;border:1px solid #dfe3e8;border-radius:12px;background:#f7f8fa";card.innerHTML=`<strong>${VERSION} · ${TITLE}</strong><p style="margin:7px 0 0;line-height:1.5">${DESCRIPTION}</p><p style="margin:7px 0 0;line-height:1.5"><strong>Bug Fixes:</strong> ${bug}</p>`;body.prepend(card)}
+    const inject=()=>{const body=view.querySelector(".changelog-list")||view.querySelector("tbody")||view.querySelector(".internal-view-content")||view.querySelector(".changelog-content");if(!body||get("streaming-0618-changelog-entry"))return;
+      const bug='Replaces plain loading text with a responsive skeleton screen, keeps the Streaming header visible during loading, uses the same loader for searches and refreshes, switches cleanly to errors or service guidance when needed, and respects reduced-motion preferences.';
+      if(body.tagName==="TBODY"){const tr=document.createElement("tr");tr.id="streaming-0618-changelog-entry";tr.innerHTML=`<td>${VERSION}</td><td>${TITLE}</td><td>${DESCRIPTION}<br><strong>Bug Fixes:</strong> ${bug}</td>`;body.prepend(tr)}
+      else{const card=document.createElement("div");card.id="streaming-0618-changelog-entry";card.style.cssText="margin:0 0 12px;padding:14px;border:1px solid #dfe3e8;border-radius:12px;background:#f7f8fa";card.innerHTML=`<strong>${VERSION} · ${TITLE}</strong><p style="margin:7px 0 0;line-height:1.5">${DESCRIPTION}</p><p style="margin:7px 0 0;line-height:1.5"><strong>Bug Fixes:</strong> ${bug}</p>`;body.prepend(card)}
     };new MutationObserver(inject).observe(view,{attributes:true,childList:true,subtree:true});inject();
   }
 

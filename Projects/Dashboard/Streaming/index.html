@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>My Dashboard · Streaming · Version 0.6.17</title>
-  <meta name="description" content="My Dashboard unified streaming hub. Version 0.6.17 expands named watchlists into advanced collections with independent cover search, useful sorting modes, richer TV episode browsing, and corrected iPhone header and row alignment while preserving all 0.6.14 and 0.6.15 changes.">
+  <title>My Dashboard · Streaming · Version 0.6.18</title>
+  <meta name="description" content="My Dashboard unified streaming hub. Version 0.6.18 expands named watchlists into advanced collections with independent cover search, useful sorting modes, richer TV episode browsing, and corrected iPhone header and row alignment while preserving all 0.6.14 and 0.6.15 changes.">
   <meta name="theme-color" content="#101218">
 
-  <script src="../dashboard-config.js?v=0.6.17"></script>
+  <script src="../dashboard-config.js?v=0.6.18"></script>
   <script
-    src="../dashboard-auth.js?v=0.6.17"
+    src="../dashboard-auth.js?v=0.6.18"
     data-dashboard-project="streaming">
   </script>
-  <script src="../dashboard-streaming.js?v=0.6.17"></script>
+  <script src="../dashboard-streaming.js?v=0.6.18"></script>
 
   <style>
     *{box-sizing:border-box}
@@ -50,7 +50,27 @@
     .more{position:absolute;top:7px;right:7px;width:34px;height:34px;min-width:34px;min-height:34px;padding:0;border:1px solid rgba(255,255,255,.16);border-radius:10px;background:rgba(10,12,16,.82);color:white;cursor:pointer;font-size:0;font-weight:900;display:grid;place-items:center;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}.more::before{content:"";width:4px;height:4px;border-radius:50%;background:currentColor;box-shadow:-7px 0 currentColor,7px 0 currentColor}.more:active{transform:scale(.96)}
     .empty{padding:22px;border:1px dashed var(--border);border-radius:14px;background:var(--panel);color:var(--muted);line-height:1.5}
     .status{padding:18px 22px;color:var(--muted);font-size:13px}
+    .status[hidden]{display:none}
     .status.error{color:#ffaca7}
+    .streaming-loader{padding:10px 0 6px}
+    .streaming-loader[hidden]{display:none}
+    .streaming-loading-summary{display:flex;align-items:center;gap:12px;padding:8px 22px 2px;color:var(--muted)}
+    .streaming-loading-spinner{width:22px;height:22px;flex:0 0 auto;border:3px solid #343b49;border-top-color:#d8dfeb;border-radius:50%;animation:streaming-spin .85s linear infinite}
+    .streaming-loading-copy{display:grid;gap:2px}
+    .streaming-loading-copy strong{color:var(--text);font-size:14px}
+    .streaming-loading-copy span{font-size:12px;line-height:1.4}
+    .streaming-skeleton-row{margin-top:26px;overflow:hidden}
+    .streaming-skeleton-heading{width:190px;height:18px;margin:0 22px 11px;border-radius:7px;background:#242934}
+    .streaming-skeleton-strip{display:grid;grid-auto-flow:column;grid-auto-columns:var(--poster);gap:14px;overflow:hidden;padding:0 22px 10px}
+    .streaming-skeleton-card{min-width:0}
+    .streaming-skeleton-poster{aspect-ratio:2/3;width:100%;border-radius:13px;background:#20242e}
+    .streaming-skeleton-line{height:10px;margin-top:9px;border-radius:6px;background:#242934}
+    .streaming-skeleton-line.short{width:62%;margin-top:6px}
+    .streaming-skeleton-heading,.streaming-skeleton-poster,.streaming-skeleton-line{position:relative;overflow:hidden}
+    .streaming-skeleton-heading::after,.streaming-skeleton-poster::after,.streaming-skeleton-line::after{content:"";position:absolute;inset:0;transform:translateX(-100%);background:linear-gradient(90deg,transparent,rgba(255,255,255,.075),transparent);animation:streaming-shimmer 1.35s ease-in-out infinite}
+    @keyframes streaming-spin{to{transform:rotate(360deg)}}
+    @keyframes streaming-shimmer{100%{transform:translateX(100%)}}
+    @media(prefers-reduced-motion:reduce){.streaming-loading-spinner,.streaming-skeleton-heading::after,.streaming-skeleton-poster::after,.streaming-skeleton-line::after{animation:none}}
     .overlay{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:18px;background:rgba(0,0,0,.72)}
     .overlay[hidden]{display:none}
     .detail{width:min(100%,920px);max-height:90vh;overflow:auto;border:1px solid var(--border);border-radius:22px;background:var(--panel);box-shadow:0 28px 80px rgba(0,0,0,.45)}
@@ -118,6 +138,7 @@
     .menu button{display:block;width:100%;padding:9px 10px;border:0;border-radius:8px;background:transparent;color:white;text-align:left;cursor:pointer;font-size:13px}
     .menu button:hover{background:#2c3240}
     @media(max-width:600px){
+      .streaming-loading-summary,.streaming-skeleton-heading{margin-left:0;padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right))}.streaming-skeleton-heading{padding-left:0;padding-right:0;margin-left:max(14px,env(safe-area-inset-left))}.streaming-skeleton-strip{padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right))}
       :root{--poster:132px}.topbar{padding-top:calc(10px + env(safe-area-inset-top));padding-bottom:10px;padding-left:max(12px,env(safe-area-inset-left));padding-right:max(12px,env(safe-area-inset-right));flex-wrap:wrap}.brand{width:100%;justify-content:space-between}.top-actions{width:100%;display:grid;grid-template-columns:minmax(0,1fr) auto}.search{width:100%;font-size:16px}.settings-link{min-height:44px}.hero,.row-head,.carousel,.status{padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right))}.hero h2{font-size:25px}.carousel{scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}.poster-button,.action{min-height:44px}.more{width:36px;height:36px;min-width:36px;min-height:36px}.detail{width:100%;height:100dvh;max-height:none;border-radius:0}.overlay{padding:0;align-items:stretch}.detail-close{position:fixed;top:calc(12px + env(safe-area-inset-top));right:max(12px,env(safe-area-inset-right));width:44px;height:44px}.detail-backdrop{min-height:230px;padding:calc(66px + env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) 18px max(16px,env(safe-area-inset-left))}.detail-body{padding:0 max(16px,env(safe-area-inset-right)) calc(20px + env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left))}.watch-controls{grid-template-columns:1fr}.watch-controls .action{width:100%}.tv-picker-grid{grid-template-columns:1fr}.tv-picker-field select,.provider-select{font-size:16px}.menu{left:10px!important;right:10px!important;width:auto;min-width:0;max-height:70dvh;overflow:auto;-webkit-overflow-scrolling:touch}.menu button{min-height:44px}.project-provider-row,.project-priority-row{align-items:stretch;flex-direction:column}.project-provider-row button{width:100%}.project-priority-controls{align-self:flex-end}.player-wrap{border-radius:10px}.brand{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;width:100%;gap:8px}.brand .back{grid-column:1;justify-self:start}.brand h1{position:static;grid-column:2;justify-self:center;transform:none;white-space:nowrap}.top-actions{grid-column:1/-1}
     }
   
@@ -186,7 +207,51 @@
       <p>Combined across your enabled streaming services. Deep-linked titles are recorded as opened, not watched.</p>
     </section>
 
-    <div id="status" class="status">Loading Streaming…</div>
+    <section id="streaming-loader" class="streaming-loader" aria-live="polite" aria-label="Streaming is loading">
+      <div class="streaming-loading-summary">
+        <span class="streaming-loading-spinner" aria-hidden="true"></span>
+        <div class="streaming-loading-copy">
+          <strong>Loading Streaming</strong>
+          <span id="streaming-loading-message">Building your library…</span>
+        </div>
+      </div>
+      <div id="streaming-skeleton" aria-hidden="true">
+        <section class="streaming-skeleton-row">
+          <div class="streaming-skeleton-heading"></div>
+          <div class="streaming-skeleton-strip">
+            <div class="streaming-skeleton-card"><div class="streaming-skeleton-poster"></div><div class="streaming-skeleton-line"></div><div class="streaming-skeleton-line short"></div></div>
+            <div class="streaming-skeleton-card"><div class="streaming-skeleton-poster"></div><div class="streaming-skeleton-line"></div><div class="streaming-skeleton-line short"></div></div>
+            <div class="streaming-skeleton-card"><div class="streaming-skeleton-poster"></div><div class="streaming-skeleton-line"></div><div class="streaming-skeleton-line short"></div></div>
+            <div class="streaming-skeleton-card"><div class="streaming-skeleton-poster"></div><div class="streaming-skeleton-line"></div><div class="streaming-skeleton-line short"></div></div>
+            <div class="streaming-skeleton-card"><div class="streaming-skeleton-poster"></div><div class="streaming-skeleton-line"></div><div class="streaming-skeleton-line short"></div></div>
+            <div class="streaming-skeleton-card"><div class="streaming-skeleton-poster"></div><div class="streaming-skeleton-line"></div><div class="streaming-skeleton-line short"></div></div>
+          </div>
+        </section>
+        <section class="streaming-skeleton-row">
+          <div class="streaming-skeleton-heading" style="width:230px"></div>
+          <div class="streaming-skeleton-strip">
+            <div class="streaming-skeleton-card"><div class="streaming-skeleton-poster"></div><div class="streaming-skeleton-line"></div><div class="streaming-skeleton-line short"></div></div>
+            <div class="streaming-skeleton-card"><div class="streaming-skeleton-poster"></div><div class="streaming-skeleton-line"></div><div class="streaming-skeleton-line short"></div></div>
+            <div class="streaming-skeleton-card"><div class="streaming-skeleton-poster"></div><div class="streaming-skeleton-line"></div><div class="streaming-skeleton-line short"></div></div>
+            <div class="streaming-skeleton-card"><div class="streaming-skeleton-poster"></div><div class="streaming-skeleton-line"></div><div class="streaming-skeleton-line short"></div></div>
+            <div class="streaming-skeleton-card"><div class="streaming-skeleton-poster"></div><div class="streaming-skeleton-line"></div><div class="streaming-skeleton-line short"></div></div>
+            <div class="streaming-skeleton-card"><div class="streaming-skeleton-poster"></div><div class="streaming-skeleton-line"></div><div class="streaming-skeleton-line short"></div></div>
+          </div>
+        </section>
+        <section class="streaming-skeleton-row">
+          <div class="streaming-skeleton-heading" style="width:165px"></div>
+          <div class="streaming-skeleton-strip">
+            <div class="streaming-skeleton-card"><div class="streaming-skeleton-poster"></div><div class="streaming-skeleton-line"></div><div class="streaming-skeleton-line short"></div></div>
+            <div class="streaming-skeleton-card"><div class="streaming-skeleton-poster"></div><div class="streaming-skeleton-line"></div><div class="streaming-skeleton-line short"></div></div>
+            <div class="streaming-skeleton-card"><div class="streaming-skeleton-poster"></div><div class="streaming-skeleton-line"></div><div class="streaming-skeleton-line short"></div></div>
+            <div class="streaming-skeleton-card"><div class="streaming-skeleton-poster"></div><div class="streaming-skeleton-line"></div><div class="streaming-skeleton-line short"></div></div>
+            <div class="streaming-skeleton-card"><div class="streaming-skeleton-poster"></div><div class="streaming-skeleton-line"></div><div class="streaming-skeleton-line short"></div></div>
+            <div class="streaming-skeleton-card"><div class="streaming-skeleton-poster"></div><div class="streaming-skeleton-line"></div><div class="streaming-skeleton-line short"></div></div>
+          </div>
+        </section>
+      </div>
+    </section>
+    <div id="status" class="status" hidden></div>
     <div id="rows"></div>
 
     <p
@@ -1555,8 +1620,35 @@
       }
     }
 
+    function showStreamingLoader(message = "Building your library…") {
+      const loader = document.getElementById("streaming-loader");
+      const status = document.getElementById("status");
+      const loadingMessage = document.getElementById("streaming-loading-message");
+      if (loadingMessage) loadingMessage.textContent = message;
+      if (loader) loader.hidden = false;
+      if (status) {
+        status.hidden = true;
+        status.textContent = "";
+        status.classList.remove("error");
+      }
+    }
+
+    function hideStreamingLoader() {
+      const loader = document.getElementById("streaming-loader");
+      if (loader) loader.hidden = true;
+    }
+
+    function showStreamingStatus(message, isError = false) {
+      const status = document.getElementById("status");
+      if (!status) return;
+      status.textContent = message || "";
+      status.classList.toggle("error", Boolean(isError));
+      status.hidden = !message;
+    }
+
     async function init() {
       const status = document.getElementById("status");
+      showStreamingLoader("Building your library…");
       try {
         if (!window.DashboardAuth?.client || !window.DashboardAuth?.user) return;
 
@@ -1740,11 +1832,16 @@
           return d ? "Leaves "+new Date(d+"T12:00:00").toLocaleDateString(undefined,{month:"short",day:"numeric"}) : "Leaving Soon";
         });
 
-        status.textContent=currentProviders.length ? "" : "Add at least one streaming service in Settings to build your combined library.";
+        hideStreamingLoader();
+        showStreamingStatus(
+          currentProviders.length
+            ? ""
+            : "Add at least one streaming service in Settings to build your combined library."
+        );
       } catch(error) {
         console.error(error);
-        status.textContent=error.message||"Streaming could not load.";
-        status.classList.add("error");
+        hideStreamingLoader();
+        showStreamingStatus(error.message||"Streaming could not load.", true);
       }
     }
 
@@ -2709,7 +2806,7 @@
       if(!q) return;
       const status = document.getElementById("status");
       try {
-        status.textContent = "Searching…";
+        showStreamingLoader("Searching movies and shows…");
         const [movies,tv] = await Promise.all([
           DashboardStreaming.tmdb("/search/movie",{query:q}),
           DashboardStreaming.tmdb("/search/tv",{query:q})

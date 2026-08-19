@@ -1,62 +1,40 @@
-My Dashboard · Version 0.6.17
-Episode Release-Order Watchlists & Cover Fixes · 2026-08-19
+My Dashboard · Version 0.6.18
+Streaming Loading Experience · 2026-08-19
 
 CHANGELOG
 =========
-Version 0.6.17: Episode Release-Order Watchlists & Cover Fixes
+Version 0.6.18: Streaming Loading Experience
 
 Description:
-Improves advanced Streaming watchlists without repeating the earlier 0.6.16
-package. Release Order now works at the episode level across multiple TV shows
-and blends released episodes with movies by release date. Custom collection
-covers are made persistent, and every normal Streaming row is aligned to the
-same left edge as the Watchlists row.
+Replaces the plain Streaming loading message with a responsive skeleton-style
+loading screen. The Streaming header remains visible while My Dashboard loads
+account preferences, watchlists, title state, provider data, and discovery rows.
 
-RELEASE-ORDER WATCHING
-======================
-- Release Order no longer sorts only whole shows.
-- Every released TV episode is expanded into the watchlist timeline.
-- Episodes from different shows are blended together by episode air date.
-- Movies are inserted into the same timeline using their movie release date.
-- Each TV entry shows show name, season/episode number, episode title, date, and
-  episode description when available.
-- Selecting an episode opens the existing Streaming details directly on that
-  exact season and episode.
-- Added Next Unwatched · Release Order.
-- Next Unwatched hides watched movies/episodes while preserving release order.
-- Skip is available for unreleased-order queue entries without marking them
-  watched; skipped-for-now entries move behind active unwatched entries in the
-  Next Unwatched view.
+STREAMING LOADING SCREEN
+========================
+- Replaces the plain “Loading Streaming…” text with a structured loading state.
+- Shows animated poster-shaped skeleton cards and placeholder row headings while
+  the Streaming library is being built.
+- Keeps Search, Settings, and the Streaming header visible during loading.
+- Uses a spinner and short status message to explain what Streaming is doing.
+- Uses the same loading presentation while Streaming searches are being prepared.
+- Fades back to the normal Streaming rows as soon as data is ready.
+- If loading fails, the skeleton is removed and the existing error message is
+  shown instead.
+- If no streaming services are configured, the normal Settings guidance appears
+  after the loading state finishes.
+- Respects the device’s reduced-motion preference by disabling the spinner and
+  shimmer animations when reduced motion is requested.
 
-COLLECTION COVER FIX
-====================
-- Cover search now uses the same movie + TV search endpoints as Streaming.
-- Any TMDB movie or TV poster can be selected, even if it is not in the list.
-- The chosen poster path and title are saved with the collection so the cover
-  persists without depending on a later detail lookup.
-- Existing Use Cover controls now save the same persistent cover information.
-- Existing 0.6.16 cover IDs remain supported as a fallback.
+SUPABASE / EXTERNAL SERVICES
+============================
+No Supabase, Google Cloud, Microsoft Entra, or other external-service changes
+are required for Version 0.6.18.
 
-STREAMING ROW ALIGNMENT
-=======================
-- Watchlists remains the alignment reference.
-- Continue Watching and every discovery/recommendation row now use the same
-  left inset as Watchlists.
-- Carousel positioning uses a fixed outer inset rather than relying on scroll
-  container padding, preventing rows from visually starting at the screen edge.
-
-SUPABASE
-========
-Run Supabase/streaming-0.6.17-watchlists-upgrade.sql after 0.6.16.
-It adds persistent collection-cover fields, adds the new release-unwatched sort
-mode, and adds per-watchlist skip state for release-order movie/episode entries.
-
-FILES UPDATED FROM 0.6.16
+FILES UPDATED FROM 0.6.17
 =========================
 Dashboard/index.html
 Dashboard/dashboard-config.js
-Dashboard/dashboard-streaming.js
 Dashboard/dashboard-streaming-ui.js
 Dashboard/Streaming/index.html
 Dashboard/README.txt
-Supabase/streaming-0.6.17-watchlists-upgrade.sql

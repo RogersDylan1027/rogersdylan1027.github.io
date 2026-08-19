@@ -1,6 +1,6 @@
 /*
-  My Dashboard · Shared Configuration · Version 0.6.17
-  Episode Release-Order Watchlists & Cover Fixes · 2026-08-19
+  My Dashboard · Shared Configuration · Version 0.6.18
+  Streaming Loading Experience · 2026-08-19
 
   The Supabase publishable key is intentionally browser-safe.
   Never place a service_role key or another secret in browser JavaScript.
@@ -11,7 +11,7 @@
   const BASE_PATH = "/Projects/Dashboard/";
 
   window.DashboardConfig = Object.freeze({
-    version: "0.6.17",
+    version: "0.6.18",
     supabaseUrl: "https://pyefiovoicvhigkjhhts.supabase.co",
     supabasePublishableKey: "sb_publishable_sVrxppe8B1QkXYqAPm6ddQ_x4MA5j32",
     supabaseScriptUrl: "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2",
@@ -20,8 +20,8 @@
     loginUrl: BASE_PATH + "login.html",
     projectsUrl: BASE_PATH + "projects.json",
     streamingUrl: BASE_PATH + "Streaming/",
-    streamingClientUrl: BASE_PATH + "dashboard-streaming.js?v=0.6.17",
-    streamingUiUrl: BASE_PATH + "dashboard-streaming-ui.js?v=0.6.17"
+    streamingClientUrl: BASE_PATH + "dashboard-streaming.js?v=0.6.18",
+    streamingUiUrl: BASE_PATH + "dashboard-streaming-ui.js?v=0.6.18"
   });
 
   // Keep shared pages visually aligned with the current Dashboard version
