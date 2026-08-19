@@ -1,5 +1,5 @@
 /*
-  My Dashboard · Streaming Client · Version 0.6.15
+  My Dashboard · Streaming Client · Version 0.6.16
   Streaming Row Personalization & Duplicate Reduction · 2026-08-17
 
   Load after dashboard-config.js and after the Dashboard's authenticated
@@ -728,7 +728,7 @@
     const user = requireUser();
     const { data, error } = await client
       .from("streaming_watchlists")
-      .select("id,user_id,name,position,cover_tmdb_id,cover_media_type,created_at,updated_at")
+      .select("id,user_id,name,position,cover_tmdb_id,cover_media_type,sort_mode,created_at,updated_at")
       .eq("user_id", user.id)
       .order("position", { ascending: true })
       .order("created_at", { ascending: true });
@@ -764,6 +764,12 @@
     if ("cover_tmdb_id" in changes) allowed.cover_tmdb_id = changes.cover_tmdb_id == null ? null : Number(changes.cover_tmdb_id);
     if ("cover_media_type" in changes) allowed.cover_media_type = changes.cover_media_type == null ? null : String(changes.cover_media_type);
     if ("position" in changes) allowed.position = Math.max(1, Number(changes.position) || 1);
+    if ("sort_mode" in changes) {
+      const mode = String(changes.sort_mode || "custom");
+      const allowedModes = ["custom","release","newest","continue","unwatched","series"];
+      if (!allowedModes.includes(mode)) throw new Error("Invalid watchlist sort mode.");
+      allowed.sort_mode = mode;
+    }
     const { data, error } = await client
       .from("streaming_watchlists")
       .update(allowed)
@@ -1087,7 +1093,7 @@
   window.DashboardStreaming = Object.freeze({
     getAvailableProvidersForTitle,
     isAdminUser,
-    version: "0.6.15",
+    version: "0.6.16",
     listProviders,
     loadUserProviders,
     addProvider,

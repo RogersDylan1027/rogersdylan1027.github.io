@@ -1,6 +1,6 @@
 /*
-  My Dashboard · Shared Authentication · Version 0.6.15
-  Multiple Watchlists & Custom Collections · 2026-08-18
+  My Dashboard · Shared Authentication · Version 0.6.16
+  Advanced Watchlists & Collection Browsing · 2026-08-19
 
   Use on protected project pages:
     <script src="../dashboard-config.js"></script>
@@ -371,7 +371,7 @@
   hidePage();
 
   window.DashboardAuth = {
-    version: "0.6.15",
+    version: "0.6.16",
     client: null,
     user: null,
     getClient,

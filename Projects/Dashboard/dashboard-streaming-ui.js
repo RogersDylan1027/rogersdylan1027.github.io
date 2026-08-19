@@ -1,14 +1,14 @@
 /*
-  My Dashboard · Streaming Settings UI · Version 0.6.15
-  Multiple Watchlists & Custom Collections · 2026-08-18
+  My Dashboard · Streaming Settings UI · Version 0.6.16
+  Advanced Watchlists & Collection Browsing · 2026-08-19
 */
 (function () {
   "use strict";
 
-  const VERSION = "0.6.15";
-  const TITLE = "Multiple Watchlists & Custom Collections";
+  const VERSION = "0.6.16";
+  const TITLE = "Advanced Watchlists & Collection Browsing";
   const DESCRIPTION =
-    "Adds multiple named Streaming watchlists that can mix movies and TV shows, keep a custom play order, use a single collection cover, and stay editable at any time. Each watchlist appears as its own collection card in Streaming, with controls to add, remove, reorder, skip, and complete titles.";
+    "Expands Streaming watchlists into advanced custom collections with independent cover search, useful saved sorting modes, richer movie/TV browsing, and corrected row/header alignment on iPhone while preserving all 0.6.14 and 0.6.15 cleanup and watchlist features.";
   let initialized = false;
   const get = id => document.getElementById(id);
 
@@ -204,10 +204,10 @@
 
   function addChangelogRuntimeEntry() {
     const view=get("changelog-view");if(!view)return;
-    const inject=()=>{const body=view.querySelector(".changelog-list")||view.querySelector("tbody")||view.querySelector(".internal-view-content")||view.querySelector(".changelog-content");if(!body||get("streaming-0615-changelog-entry"))return;
-      const bug='Removes the non-working Autoplay Next Episode setting and countdown, removes the unused Open Full Page action, fixes the mobile Streaming title alignment, optically centers card menu dots, and improves iPhone/iPad Picture in Picture guidance while keeping the player permission enabled.';
-      if(body.tagName==="TBODY"){const tr=document.createElement("tr");tr.id="streaming-0615-changelog-entry";tr.innerHTML=`<td>${VERSION}</td><td>${TITLE}</td><td>${DESCRIPTION}<br><strong>Bug Fixes:</strong> ${bug}</td>`;body.prepend(tr)}
-      else{const card=document.createElement("div");card.id="streaming-0615-changelog-entry";card.style.cssText="margin:0 0 12px;padding:14px;border:1px solid #dfe3e8;border-radius:12px;background:#f7f8fa";card.innerHTML=`<strong>${VERSION} · ${TITLE}</strong><p style="margin:7px 0 0;line-height:1.5">${DESCRIPTION}</p><p style="margin:7px 0 0;line-height:1.5"><strong>Bug Fixes:</strong> ${bug}</p>`;body.prepend(card)}
+    const inject=()=>{const body=view.querySelector(".changelog-list")||view.querySelector("tbody")||view.querySelector(".internal-view-content")||view.querySelector(".changelog-content");if(!body||get("streaming-0616-changelog-entry"))return;
+      const bug='Fixes the iPhone Streaming title layout so the heading stays centered above Search and Settings; aligns all Streaming rows to the same horizontal inset; adds cover search from any TMDB movie or TV show; and adds saved collection sorting without changing the manual queue order unless requested.';
+      if(body.tagName==="TBODY"){const tr=document.createElement("tr");tr.id="streaming-0616-changelog-entry";tr.innerHTML=`<td>${VERSION}</td><td>${TITLE}</td><td>${DESCRIPTION}<br><strong>Bug Fixes:</strong> ${bug}</td>`;body.prepend(tr)}
+      else{const card=document.createElement("div");card.id="streaming-0616-changelog-entry";card.style.cssText="margin:0 0 12px;padding:14px;border:1px solid #dfe3e8;border-radius:12px;background:#f7f8fa";card.innerHTML=`<strong>${VERSION} · ${TITLE}</strong><p style="margin:7px 0 0;line-height:1.5">${DESCRIPTION}</p><p style="margin:7px 0 0;line-height:1.5"><strong>Bug Fixes:</strong> ${bug}</p>`;body.prepend(card)}
     };new MutationObserver(inject).observe(view,{attributes:true,childList:true,subtree:true});inject();
   }
 

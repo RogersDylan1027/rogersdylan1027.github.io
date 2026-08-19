@@ -1,58 +1,74 @@
-My Dashboard · Version 0.6.15
-Multiple Watchlists & Custom Collections · 2026-08-18
+My Dashboard · Version 0.6.16
+Advanced Watchlists & Collection Browsing · 2026-08-19
 
 CHANGELOG
 =========
-Version 0.6.15: Multiple Watchlists & Custom Collections
+Version 0.6.16: Advanced Watchlists & Collection Browsing
 
 Description:
-Adds multiple named Streaming watchlists that can mix movies and TV shows, keep a custom play order, use a single collection cover, and stay editable at any time. Each watchlist appears as its own collection card in Streaming, with controls to add, remove, reorder, skip, and complete titles.
+Expands Streaming watchlists into advanced custom collections. Watchlists can
+use the poster from any TMDB movie or TV show as their cover, even when that
+title is not in the collection. Collections now support useful saved sort modes
+and richer TV browsing, while 0.6.16 also corrects the iPhone Streaming header
+and horizontal row alignment.
 
-MULTIPLE WATCHLISTS
-===================
-- Create as many named watchlists as you want.
-- Each watchlist can contain both movies and TV shows.
-- A Watchlists row appears in Streaming, and each card represents one collection.
-- Each collection uses one cover poster. The first added title becomes the default cover, and any item can later be chosen as the cover.
-- Watchlists stay editable at all times.
+WATCHLISTS / COLLECTIONS
+========================
+- Multiple named watchlists remain supported.
+- Movies and TV shows can be mixed in the same collection.
+- Custom Order remains the default queue order.
+- Skip, Done, Queue Again, move up/down, remove, rename, and delete remain.
+- A title may belong to multiple watchlists.
+- Collection covers are independent from collection contents.
+- Search any TMDB movie or TV show and use its poster as the collection cover.
+- Existing collection items can still be selected as the cover with Use Cover.
+- If no custom cover is chosen, the existing automatic cover behavior remains.
 
-ORDERED QUEUES
-==============
-- Titles stay in a saved play order.
-- Move items up or down at any time.
-- Skip moves a queued title to the end without marking it completed.
-- Done marks an item completed so the next queued title becomes Up Next.
-- Queue Again restores a completed item to the active queue.
-- Remove deletes only that item from the selected watchlist.
-- Watch opens the normal Streaming title details/player flow.
+SORTING
+=======
+Each watchlist can save one of these display modes:
+- Custom Order
+- Release Order
+- Newest First
+- Continue First
+- Unwatched First
+- Series First
 
-ADDING TITLES
-=============
-- The title Details screen now has a Watchlists button.
-- Card menus include Add to Watchlist…
-- A title can belong to multiple watchlists at the same time.
-- Creating a new watchlist while adding a title immediately puts that title into the new collection.
+Manual move controls are enabled in Custom Order. Using Skip returns the list
+to Custom Order because Skip changes the actual queue position.
 
-PRESERVED FROM 0.6.14
+TV / EPISODE BROWSING
 =====================
+- TV entries in a watchlist open the normal Streaming show details.
+- From there, the existing Season and Episode selectors remain available with
+  episode title, release date, description, provider selection, and playback.
+- Movies continue to open their normal Streaming details and Watch flow.
+
+IPHONE / LAYOUT FIXES
+=====================
+- Streaming is now centered in its own top navigation row on iPhone.
+- Search and Settings remain on the second row.
+- The mobile rule now overrides the old absolute-position title rule reliably.
+- All Streaming row headings and carousels use the same horizontal inset, so
+  Watchlists, Continue Watching, and discovery rows line up consistently.
+
+PRESERVED FROM 0.6.14 + 0.6.15
+===============================
 - Autoplay Next Episode remains removed.
-- Manual Next Episode remains available.
+- Manual Next Episode remains.
 - Open Full Page remains removed.
-- iPhone/iPad Picture in Picture guidance and permissions remain in place.
-- Mobile Streaming header alignment and centered three-dot menu fixes remain in place.
-
-PRESERVED FROM 0.6.13
-=====================
-- Titles per Row: 10, 15, 20, 25, or 30.
-- Cross-row duplicate reduction with Continue Watching exempt.
-- Future-content filtering and caught-up-series hiding.
-- Admin full-catalog access, provider priority, Dashboard Playback, and TV episode selection.
+- iPhone/iPad Picture in Picture handling remains.
+- Three-dot card controls remain centered.
+- Multiple named watchlists and ordered mixed queues remain.
+- 0.6.13 titles-per-row and duplicate-reduction behavior remains.
+- Continue Watching, future-content filtering, caught-up-series hiding,
+  provider priority, admin access, and Dashboard Playback remain.
 
 SUPABASE
 ========
-Run Supabase/streaming-0.6.15-watchlists.sql before publishing the Dashboard files.
-It creates the per-user streaming_watchlists and streaming_watchlist_items tables with RLS policies.
-The existing 0.6.13 titles_per_row migration remains required if it has not already been run.
+Run Supabase/streaming-0.6.16-watchlists.sql before publishing the Dashboard
+files. This one SQL file includes the 0.6.15 watchlist tables plus the 0.6.16
+saved sort_mode field, so 0.6.15 does not need to be installed separately.
 
 FILES UPDATED
 =============
@@ -65,4 +81,4 @@ Dashboard/dashboard-streaming.js
 Dashboard/dashboard-streaming-ui.js
 Dashboard/Streaming/index.html
 Dashboard/README.txt
-Supabase/streaming-0.6.15-watchlists.sql
+Supabase/streaming-0.6.16-watchlists.sql

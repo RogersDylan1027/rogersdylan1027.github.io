@@ -1,6 +1,6 @@
 /*
-  My Dashboard · Dashboard Entry Guard · Version 0.6.15
-  Multiple Watchlists & Custom Collections · 2026-08-18
+  My Dashboard · Dashboard Entry Guard · Version 0.6.16
+  Advanced Watchlists & Collection Browsing · 2026-08-19
 
   Load dashboard-config.js first, then this file as early as possible in
   Dashboard/index.html <head>. Logged-out visitors are sent to login.html.
