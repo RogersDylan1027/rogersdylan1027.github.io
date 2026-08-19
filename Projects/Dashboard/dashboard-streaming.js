@@ -1,5 +1,5 @@
 /*
-  My Dashboard · Streaming Client · Version 0.6.16
+  My Dashboard · Streaming Client · Version 0.6.17
   Streaming Row Personalization & Duplicate Reduction · 2026-08-17
 
   Load after dashboard-config.js and after the Dashboard's authenticated
@@ -728,7 +728,7 @@
     const user = requireUser();
     const { data, error } = await client
       .from("streaming_watchlists")
-      .select("id,user_id,name,position,cover_tmdb_id,cover_media_type,sort_mode,created_at,updated_at")
+      .select("id,user_id,name,position,cover_tmdb_id,cover_media_type,cover_poster_path,cover_title,sort_mode,created_at,updated_at")
       .eq("user_id", user.id)
       .order("position", { ascending: true })
       .order("created_at", { ascending: true });
@@ -763,10 +763,12 @@
     }
     if ("cover_tmdb_id" in changes) allowed.cover_tmdb_id = changes.cover_tmdb_id == null ? null : Number(changes.cover_tmdb_id);
     if ("cover_media_type" in changes) allowed.cover_media_type = changes.cover_media_type == null ? null : String(changes.cover_media_type);
+    if ("cover_poster_path" in changes) allowed.cover_poster_path = changes.cover_poster_path == null ? null : String(changes.cover_poster_path);
+    if ("cover_title" in changes) allowed.cover_title = changes.cover_title == null ? null : String(changes.cover_title).slice(0, 200);
     if ("position" in changes) allowed.position = Math.max(1, Number(changes.position) || 1);
     if ("sort_mode" in changes) {
       const mode = String(changes.sort_mode || "custom");
-      const allowedModes = ["custom","release","newest","continue","unwatched","series"];
+      const allowedModes = ["custom","release","release_unwatched","newest","continue","unwatched","series"];
       if (!allowedModes.includes(mode)) throw new Error("Invalid watchlist sort mode.");
       allowed.sort_mode = mode;
     }
@@ -859,6 +861,56 @@
     const ordered = items.filter(row => String(row.id) !== String(itemId)).map(row => row.id);
     ordered.push(itemId);
     return reorderWatchlistItems(watchlistId, ordered);
+  }
+
+  async function loadWatchlistReleaseSkips(watchlistId) {
+    const client = requireClient();
+    const user = requireUser();
+    const { data, error } = await client
+      .from("streaming_watchlist_release_skips")
+      .select("id,watchlist_id,user_id,tmdb_id,media_type,season_number,episode_number,skipped_at")
+      .eq("watchlist_id", watchlistId)
+      .eq("user_id", user.id);
+    if (error) throw error;
+    return data || [];
+  }
+
+  async function setWatchlistReleaseSkipped({ watchlistId, tmdbId, mediaType, seasonNumber = 0, episodeNumber = 0, skipped = true }) {
+    const client = requireClient();
+    const user = requireUser();
+    const key = {
+      user_id: user.id,
+      watchlist_id: watchlistId,
+      tmdb_id: Number(tmdbId),
+      media_type: String(mediaType),
+      season_number: Number(seasonNumber) || 0,
+      episode_number: Number(episodeNumber) || 0,
+    };
+
+    if (!skipped) {
+      const { error } = await client
+        .from("streaming_watchlist_release_skips")
+        .delete()
+        .eq("user_id", key.user_id)
+        .eq("watchlist_id", key.watchlist_id)
+        .eq("tmdb_id", key.tmdb_id)
+        .eq("media_type", key.media_type)
+        .eq("season_number", key.season_number)
+        .eq("episode_number", key.episode_number);
+      if (error) throw error;
+      return null;
+    }
+
+    const { data, error } = await client
+      .from("streaming_watchlist_release_skips")
+      .upsert(
+        { ...key, skipped_at: new Date().toISOString() },
+        { onConflict: "user_id,watchlist_id,tmdb_id,media_type,season_number,episode_number" }
+      )
+      .select()
+      .single();
+    if (error) throw error;
+    return data;
   }
 
   function getEdgeFunctionBase() {
@@ -1093,7 +1145,7 @@
   window.DashboardStreaming = Object.freeze({
     getAvailableProvidersForTitle,
     isAdminUser,
-    version: "0.6.16",
+    version: "0.6.17",
     listProviders,
     loadUserProviders,
     addProvider,
@@ -1117,6 +1169,8 @@
     reorderWatchlistItems,
     setWatchlistItemStatus,
     skipWatchlistItem,
+    loadWatchlistReleaseSkips,
+    setWatchlistReleaseSkipped,
     removeFromContinueWatching,
     loadTitleState,
     saveProviderHierarchy,

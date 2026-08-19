@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>My Dashboard · Streaming · Version 0.6.16</title>
-  <meta name="description" content="My Dashboard unified streaming hub. Version 0.6.16 expands named watchlists into advanced collections with independent cover search, useful sorting modes, richer TV episode browsing, and corrected iPhone header and row alignment while preserving all 0.6.14 and 0.6.15 changes.">
+  <title>My Dashboard · Streaming · Version 0.6.17</title>
+  <meta name="description" content="My Dashboard unified streaming hub. Version 0.6.17 expands named watchlists into advanced collections with independent cover search, useful sorting modes, richer TV episode browsing, and corrected iPhone header and row alignment while preserving all 0.6.14 and 0.6.15 changes.">
   <meta name="theme-color" content="#101218">
 
-  <script src="../dashboard-config.js?v=0.6.16"></script>
+  <script src="../dashboard-config.js?v=0.6.17"></script>
   <script
-    src="../dashboard-auth.js?v=0.6.16"
+    src="../dashboard-auth.js?v=0.6.17"
     data-dashboard-project="streaming">
   </script>
-  <script src="../dashboard-streaming.js?v=0.6.16"></script>
+  <script src="../dashboard-streaming.js?v=0.6.17"></script>
 
   <style>
     *{box-sizing:border-box}
@@ -149,7 +149,11 @@
     .watchlist-cover-search{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px}.watchlist-cover-search input{min-height:44px;padding:9px 11px;border:1px solid #485269;border-radius:10px;background:#101218;color:#fff;font:inherit;font-size:16px}.watchlist-cover-search button{min-height:44px;padding:9px 12px;border:1px solid var(--accent);border-radius:10px;background:var(--accent);color:#fff;font-weight:800;cursor:pointer}
     .watchlist-cover-results{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:10px;margin-top:10px}.watchlist-cover-result{padding:0;border:1px solid #343b4b;border-radius:10px;background:#20242e;color:#fff;overflow:hidden;text-align:left;cursor:pointer}.watchlist-cover-result img{display:block;width:100%;aspect-ratio:2/3;object-fit:cover;background:#252a36}.watchlist-cover-result span{display:block;padding:7px;font-size:11px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .watchlist-item-actions .browse-episodes{border-color:#61739a;background:#293246}
-    .row-section .row-head,.row-section .carousel{padding-left:22px;padding-right:22px}
+    :root{--stream-row-inset:40px}
+    .row-section .row-head{padding-left:var(--stream-row-inset);padding-right:var(--stream-row-inset)}
+    .row-section .carousel{padding-left:0;padding-right:0;margin-left:var(--stream-row-inset);width:calc(100% - var(--stream-row-inset));scroll-padding-left:0}
+    .watchlist-release-status{display:inline-flex;align-items:center;margin-left:6px;padding:2px 6px;border-radius:999px;background:#293246;color:#dce6fb;font-size:10px;font-weight:800}
+    .watchlist-item.skipped{opacity:.72;border-style:dashed}
     @media(max-width:600px){
       .topbar{display:grid!important;grid-template-columns:1fr;align-items:center;gap:10px;padding-top:calc(10px + env(safe-area-inset-top));padding-bottom:10px;padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right));}
       .brand{display:grid!important;grid-template-columns:1fr auto 1fr!important;align-items:center;width:100%;gap:8px}
@@ -157,7 +161,9 @@
       .brand h1{position:static!important;left:auto!important;top:auto!important;transform:none!important;grid-column:2;justify-self:center;margin:0;white-space:nowrap;pointer-events:none}
       #streaming-home-title{pointer-events:none}
       .top-actions{grid-column:1;grid-row:2;width:100%;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px}
-      .row-section .row-head,.row-section .carousel{padding-left:max(14px,env(safe-area-inset-left))!important;padding-right:max(14px,env(safe-area-inset-right))!important}
+      :root{--stream-row-inset:max(40px,env(safe-area-inset-left))}
+      .row-section .row-head{padding-left:var(--stream-row-inset)!important;padding-right:max(14px,env(safe-area-inset-right))!important}
+      .row-section .carousel{padding-left:0!important;padding-right:max(14px,env(safe-area-inset-right))!important;margin-left:var(--stream-row-inset)!important;width:calc(100% - var(--stream-row-inset))!important}
       .watchlist-sort-row,.watchlist-cover-search{grid-template-columns:1fr}.watchlist-sort-row select{width:100%}
     }
   </style>
@@ -307,7 +313,7 @@
       <div class="watchlist-dialog-body">
         <div class="watchlist-editor-tools">
           <div class="watchlist-name-row"><input id="watchlist-name-input" type="text" maxlength="80" aria-label="Watchlist name"><button id="save-watchlist-name" class="watchlist-head-action" type="button">Save Name</button></div>
-          <div class="watchlist-sort-row"><label for="watchlist-sort-mode">Sort collection</label><select id="watchlist-sort-mode"><option value="custom">Custom Order</option><option value="release">Release Order</option><option value="newest">Newest First</option><option value="continue">Continue First</option><option value="unwatched">Unwatched First</option><option value="series">Series First</option></select></div>
+          <div class="watchlist-sort-row"><label for="watchlist-sort-mode">Sort collection</label><select id="watchlist-sort-mode"><option value="custom">Custom Order</option><option value="release">Release Order · Episodes + Movies</option><option value="release_unwatched">Next Unwatched · Release Order</option><option value="newest">Newest First</option><option value="continue">Continue First</option><option value="unwatched">Unwatched First</option><option value="series">Series First</option></select></div>
           <section class="watchlist-cover-tools"><h3>Collection Cover</h3><p>Choose any movie or TV show poster as this watchlist cover. The title does not need to be in the watchlist.</p><div class="watchlist-cover-search"><input id="watchlist-cover-search" type="search" placeholder="Search movies & shows" aria-label="Search for a watchlist cover"><button id="watchlist-cover-search-button" type="button">Search Covers</button></div><div id="watchlist-cover-results" class="watchlist-cover-results"></div></section>
           <div class="watchlist-editor-actions"><button id="watchlist-back" type="button">All Watchlists</button><button id="delete-watchlist" class="danger" type="button">Delete Watchlist</button></div>
         </div>
@@ -612,6 +618,9 @@
     }
 
     async function getWatchlistCoverDetails(list) {
+      if (list?.cover_poster_path) {
+        return { poster_path:list.cover_poster_path, title:list.cover_title || list.name };
+      }
       if (!list?.cover_tmdb_id || !list?.cover_media_type) return null;
       try { return await DashboardStreaming.getTitleDetails(list.cover_tmdb_id, list.cover_media_type); }
       catch (error) { console.warn("Watchlist cover:", error); return null; }
@@ -688,23 +697,148 @@
 
     async function searchWatchlistCovers(){
       if(!activeWatchlist)return;
-      const input=document.getElementById("watchlist-cover-search");const results=document.getElementById("watchlist-cover-results");const query=input.value.trim();
+      const input=document.getElementById("watchlist-cover-search");
+      const results=document.getElementById("watchlist-cover-results");
+      const query=input.value.trim();
       if(!query){input.focus();return}
       results.innerHTML='<div class="watchlist-empty">Searching…</div>';
       try{
-        const payload=await DashboardStreaming.tmdb("/search/multi",{query,page:1,include_adult:false});
-        const items=(payload?.results||[]).filter(x=>(x.media_type==="movie"||x.media_type==="tv")&&x.poster_path).slice(0,12);
+        const [movies,tv]=await Promise.all([
+          DashboardStreaming.tmdb("/search/movie",{query,page:1,include_adult:false}),
+          DashboardStreaming.tmdb("/search/tv",{query,page:1,include_adult:false})
+        ]);
+        const items=[
+          ...(movies?.results||[]).map(item=>({...item,media_type:"movie"})),
+          ...(tv?.results||[]).map(item=>({...item,media_type:"tv"}))
+        ].filter(item=>item.poster_path)
+         .sort((a,b)=>(Number(b.popularity)||0)-(Number(a.popularity)||0))
+         .slice(0,16);
         results.innerHTML="";
         if(!items.length){results.innerHTML='<div class="watchlist-empty">No movie or TV posters found.</div>';return}
-        items.forEach(item=>{const button=document.createElement("button");button.type="button";button.className="watchlist-cover-result";const img=document.createElement("img");img.alt="";img.src=IMAGE+item.poster_path;const label=document.createElement("span");label.textContent=mediaTitle(item);button.append(img,label);button.addEventListener("click",async()=>{activeWatchlist=await DashboardStreaming.updateWatchlist(activeWatchlist.id,{cover_tmdb_id:item.id,cover_media_type:item.media_type});results.innerHTML="";input.value="";await init()});results.appendChild(button)});
+        items.forEach(item=>{
+          const button=document.createElement("button");button.type="button";button.className="watchlist-cover-result";
+          const img=document.createElement("img");img.alt="";img.src=IMAGE+item.poster_path;
+          const label=document.createElement("span");label.textContent=mediaTitle(item);
+          button.append(img,label);
+          button.addEventListener("click",async()=>{
+            activeWatchlist=await DashboardStreaming.updateWatchlist(activeWatchlist.id,{
+              cover_tmdb_id:item.id,
+              cover_media_type:item.media_type,
+              cover_poster_path:item.poster_path,
+              cover_title:mediaTitle(item)
+            });
+            results.innerHTML="";input.value="";
+            await renderWatchlistsRowRefresh();
+            await renderWatchlistEditor();
+          });
+          results.appendChild(button);
+        });
       }catch(error){console.error(error);results.innerHTML='<div class="watchlist-empty">Cover search could not be loaded.</div>'}
+    }
+
+    async function renderWatchlistsRowRefresh(){
+      const rows=document.getElementById("rows");
+      if(!rows)return;
+      await init();
+    }
+
+    function releaseTimelineKey(entry){
+      return `${entry.mediaType}:${Number(entry.tmdbId)}:${Number(entry.seasonNumber||0)}:${Number(entry.episodeNumber||0)}`;
+    }
+
+    async function buildWatchlistReleaseTimeline(items,enriched,unwatchedOnly=false){
+      const skipRows=await DashboardStreaming.loadWatchlistReleaseSkips(activeWatchlist.id);
+      const skippedKeys=new Set(skipRows.map(row=>`${row.media_type}:${Number(row.tmdb_id)}:${Number(row.season_number||0)}:${Number(row.episode_number||0)}`));
+      const timeline=[];
+
+      for(const entry of enriched){
+        const {row,details}=entry;
+        if(!details)continue;
+        if(row.media_type==="movie"){
+          const state=stateByKey.get(titleKey(row.tmdb_id,"movie"));
+          const watched=row.status==="completed" || state?.viewing_status==="watched";
+          const date=String(details.release_date||"");
+          if(!date || date>todayIsoDate())continue;
+          const item={kind:"movie",mediaType:"movie",tmdbId:row.tmdb_id,row,details,date,watched,seasonNumber:0,episodeNumber:0};
+          item.skipped=skippedKeys.has(releaseTimelineKey(item));
+          if(!unwatchedOnly || !watched)timeline.push(item);
+          continue;
+        }
+
+        let progress=[];
+        try{progress=await DashboardStreaming.loadTvProgressHistory(row.tmdb_id)}catch(error){console.warn("Watchlist release progress:",error)}
+        const watchedEpisodes=new Set((progress||[]).filter(x=>x.viewing_status==="watched").map(x=>`${Number(x.season_number)}:${Number(x.episode_number)}`));
+        const seasons=(details.seasons||[]).filter(season=>Number(season.season_number)>0 && Number(season.episode_count)>0 && String(season.air_date||"")<=todayIsoDate());
+        for(const season of seasons){
+          try{
+            const seasonDetails=await DashboardStreaming.getTvSeasonDetails(row.tmdb_id,season.season_number);
+            for(const episode of (seasonDetails?.episodes||[])){
+              const date=String(episode.air_date||"");
+              if(!date || date>todayIsoDate())continue;
+              const watched=watchedEpisodes.has(`${Number(season.season_number)}:${Number(episode.episode_number)}`);
+              const item={kind:"episode",mediaType:"tv",tmdbId:row.tmdb_id,row,details,episode,date,watched,seasonNumber:Number(season.season_number),episodeNumber:Number(episode.episode_number)};
+              item.skipped=skippedKeys.has(releaseTimelineKey(item));
+              if(!unwatchedOnly || !watched)timeline.push(item);
+            }
+          }catch(error){console.warn("Watchlist release season:",error)}
+        }
+      }
+
+      timeline.sort((a,b)=>{
+        if(unwatchedOnly && a.skipped!==b.skipped)return Number(a.skipped)-Number(b.skipped);
+        const byDate=a.date.localeCompare(b.date);if(byDate)return byDate;
+        const byTitle=mediaTitle(a.details).localeCompare(mediaTitle(b.details));if(byTitle)return byTitle;
+        return Number(a.seasonNumber)-Number(b.seasonNumber) || Number(a.episodeNumber)-Number(b.episodeNumber);
+      });
+      return timeline;
+    }
+
+    async function openReleaseTimelineEntry(entry){
+      closeWatchlistEditor();
+      if(entry.kind==="movie"){
+        await showDetails({...entry.details,_mediaType:"movie"},"movie");
+        return;
+      }
+      await showDetails({...entry.details,_mediaType:"tv"},"tv",{
+        seasonNumber:entry.seasonNumber,
+        episodeNumber:entry.episodeNumber
+      });
+    }
+
+    async function renderWatchlistReleaseTimeline(queue,items,enriched,mode){
+      const timeline=await buildWatchlistReleaseTimeline(items,enriched,mode==="release_unwatched");
+      if(!timeline.length){queue.innerHTML='<div class="watchlist-empty">No released items match this view yet.</div>';return}
+      for(let index=0;index<timeline.length;index+=1){
+        const entry=timeline[index];
+        const card=document.createElement("div");card.className="watchlist-item"+(entry.watched?" completed":"")+(entry.skipped?" skipped":"");
+        if(entry.details?.poster_path){const img=document.createElement("img");img.className="watchlist-item-thumb";img.alt="";img.src=IMAGE+entry.details.poster_path;card.appendChild(img)}else{card.appendChild(document.createElement("div")).className="watchlist-item-thumb"}
+        const copy=document.createElement("div");copy.className="watchlist-item-copy";
+        const title=document.createElement("strong");
+        title.textContent=entry.kind==="episode"
+          ? `${index+1}. ${mediaTitle(entry.details)} · S${entry.seasonNumber} E${entry.episodeNumber} · ${entry.episode?.name||`Episode ${entry.episodeNumber}`}`
+          : `${index+1}. ${mediaTitle(entry.details)}`;
+        const sub=document.createElement("small");
+        const prettyDate=new Date(entry.date+"T12:00:00").toLocaleDateString(undefined,{month:"short",day:"numeric",year:"numeric"});
+        sub.textContent=`${prettyDate}${entry.watched?" · Watched":""}${entry.skipped?" · Skipped for now":""}`;
+        copy.append(title,sub);
+        if(entry.kind==="episode" && entry.episode?.overview){const overview=document.createElement("small");overview.textContent=entry.episode.overview;copy.appendChild(overview)}
+        const actions=document.createElement("div");actions.className="watchlist-item-actions";
+        const watch=document.createElement("button");watch.type="button";watch.textContent=entry.watched?"Watch Again":"Watch";watch.addEventListener("click",()=>openReleaseTimelineEntry(entry));actions.appendChild(watch);
+        if(!entry.watched){const skip=document.createElement("button");skip.type="button";skip.textContent=entry.skipped?"Unskip":"Skip";skip.addEventListener("click",async()=>{await DashboardStreaming.setWatchlistReleaseSkipped({watchlistId:activeWatchlist.id,tmdbId:entry.tmdbId,mediaType:entry.mediaType,seasonNumber:entry.seasonNumber,episodeNumber:entry.episodeNumber,skipped:!entry.skipped});await renderWatchlistEditor()});actions.appendChild(skip)}
+        card.append(copy,actions);queue.appendChild(card);
+      }
     }
 
     async function renderWatchlistEditor(){
       if(!activeWatchlist)return;const queue=document.getElementById("watchlist-queue");queue.innerHTML="";const items=await DashboardStreaming.loadWatchlistItems(activeWatchlist.id);
       if(!items.length){queue.innerHTML='<div class="watchlist-empty">This watchlist is empty. Add movies or TV shows from their Streaming details. You can still search above for any title to use as the collection cover.</div>';return}
       const enriched=await Promise.all(items.map(async row=>{try{return{row,details:await DashboardStreaming.getTitleDetails(row.tmdb_id,row.media_type)}}catch{return{row,details:null}}}));
-      const mode=activeWatchlist.sort_mode||"custom";const displayEntries=sortedWatchlistEntries(enriched,mode);const customMode=mode==="custom";const firstQueuedId=items.find(x=>x.status!=="completed")?.id;
+      const mode=activeWatchlist.sort_mode||"custom";
+      if(mode==="release"||mode==="release_unwatched"){
+        await renderWatchlistReleaseTimeline(queue,items,enriched,mode);
+        return;
+      }
+      const displayEntries=sortedWatchlistEntries(enriched,mode);const customMode=mode==="custom";const firstQueuedId=items.find(x=>x.status!=="completed")?.id;
       for(let index=0;index<displayEntries.length;index+=1){const {row,details}=displayEntries[index];const card=document.createElement("div");card.className="watchlist-item"+(row.status==="completed"?" completed":"");
         if(details?.poster_path){const img=document.createElement("img");img.className="watchlist-item-thumb";img.alt="";img.src=IMAGE+details.poster_path;card.appendChild(img)}else{const ph=document.createElement("div");ph.className="watchlist-item-thumb";card.appendChild(ph)}
         const copy=document.createElement("div");copy.className="watchlist-item-copy";const title=document.createElement("strong");title.textContent=`${index+1}. ${details?mediaTitle(details):"Title"}`;const sub=document.createElement("small");sub.textContent=`${row.media_type==="tv"?"TV Show":"Movie"}${row.status==="completed"?" · Completed":String(row.id)===String(firstQueuedId)?" · Up Next":watchlistIsInProgress(row)?" · Continue Watching":""}`;copy.append(title,sub);
@@ -714,7 +848,7 @@
         const down=document.createElement("button");down.type="button";down.textContent="↓";down.title=customMode?"Move down":"Switch to Custom Order to reorder";down.disabled=!customMode||Number(row.position)===items.length;down.addEventListener("click",async()=>{const originalIndex=items.findIndex(x=>String(x.id)===String(row.id));if(originalIndex<0||originalIndex===items.length-1)return;const ids=items.map(x=>x.id);[ids[originalIndex+1],ids[originalIndex]]=[ids[originalIndex],ids[originalIndex+1]];await DashboardStreaming.reorderWatchlistItems(activeWatchlist.id,ids);await renderWatchlistEditor();await init()});actions.append(up,down);
         const skip=document.createElement("button");skip.type="button";skip.textContent="Skip";skip.disabled=row.status==="completed";skip.addEventListener("click",async()=>{await DashboardStreaming.skipWatchlistItem(activeWatchlist.id,row.id);activeWatchlist=await DashboardStreaming.updateWatchlist(activeWatchlist.id,{sort_mode:"custom"});document.getElementById("watchlist-sort-mode").value="custom";await renderWatchlistEditor();await init()});actions.appendChild(skip);
         const done=document.createElement("button");done.type="button";done.textContent=row.status==="completed"?"Queue Again":"Done";done.addEventListener("click",async()=>{await DashboardStreaming.setWatchlistItemStatus(row.id,row.status==="completed"?"queued":"completed");await renderWatchlistEditor();await init()});actions.appendChild(done);
-        const cover=document.createElement("button");cover.type="button";cover.textContent="Use Cover";cover.addEventListener("click",async()=>{activeWatchlist=await DashboardStreaming.updateWatchlist(activeWatchlist.id,{cover_tmdb_id:row.tmdb_id,cover_media_type:row.media_type});await init()});actions.appendChild(cover);
+        const cover=document.createElement("button");cover.type="button";cover.textContent="Use Cover";cover.addEventListener("click",async()=>{activeWatchlist=await DashboardStreaming.updateWatchlist(activeWatchlist.id,{cover_tmdb_id:row.tmdb_id,cover_media_type:row.media_type,cover_poster_path:details?.poster_path||null,cover_title:details?mediaTitle(details):null});await init()});actions.appendChild(cover);
         const remove=document.createElement("button");remove.type="button";remove.textContent="Remove";remove.addEventListener("click",async()=>{await DashboardStreaming.removeWatchlistItem(row.id);await renderWatchlistEditor();await init()});actions.appendChild(remove);card.append(copy,actions);queue.appendChild(card);
       }
     }
@@ -2287,7 +2421,7 @@
       }
     });
 
-    async function showDetails(item, mediaType, requestedMode = "") {
+    async function showDetails(item, mediaType, requestedEpisode = null) {
       currentDetail = {item, mediaType, resume:null};
       document.getElementById("detail-watch").removeAttribute("data-tv-picker-fallback");
       document.getElementById("tv-picker").hidden = true;
@@ -2300,9 +2434,24 @@
         item.overview || "More title information will appear here as the detail API layer is expanded.";
 
       if (mediaType === "tv") {
-        initializeTvPicker(item).catch(error =>
-          console.error("TV picker:", error)
-        );
+        try {
+          await initializeTvPicker(item);
+          if (requestedEpisode && Number.isFinite(Number(requestedEpisode.seasonNumber)) && Number.isFinite(Number(requestedEpisode.episodeNumber))) {
+            const seasonSelect=document.getElementById("tv-season-select");
+            seasonSelect.value=String(Number(requestedEpisode.seasonNumber));
+            await loadTvEpisodes(item.id,Number(requestedEpisode.seasonNumber),Number(requestedEpisode.episodeNumber));
+            const episodeSelect=document.getElementById("tv-episode-select");
+            episodeSelect.value=String(Number(requestedEpisode.episodeNumber));
+            tvSelection.seasonNumber=Number(requestedEpisode.seasonNumber);
+            tvSelection.episodeNumber=Number(requestedEpisode.episodeNumber);
+            const selected=tvSelection.episodes.find(ep=>Number(ep.episode_number)===Number(requestedEpisode.episodeNumber));
+            document.getElementById("tv-picker-note").textContent=selected?.overview || "Choose the episode you want to play.";
+            updateTvWatchButton();
+            await refreshNextEpisodeButton();
+          }
+        } catch (error) {
+          console.error("TV picker:", error);
+        }
       }
 
       const bg = document.getElementById("detail-backdrop");

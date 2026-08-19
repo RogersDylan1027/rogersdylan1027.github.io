@@ -1,14 +1,14 @@
 /*
-  My Dashboard · Streaming Settings UI · Version 0.6.16
-  Advanced Watchlists & Collection Browsing · 2026-08-19
+  My Dashboard · Streaming Settings UI · Version 0.6.17
+  Episode Release-Order Watchlists & Cover Fixes · 2026-08-19
 */
 (function () {
   "use strict";
 
-  const VERSION = "0.6.16";
-  const TITLE = "Advanced Watchlists & Collection Browsing";
+  const VERSION = "0.6.17";
+  const TITLE = "Episode Release-Order Watchlists & Cover Fixes";
   const DESCRIPTION =
-    "Expands Streaming watchlists into advanced custom collections with independent cover search, useful saved sorting modes, richer movie/TV browsing, and corrected row/header alignment on iPhone while preserving all 0.6.14 and 0.6.15 cleanup and watchlist features.";
+    "Changes watchlist Release Order into a blended movie-and-episode timeline, adds a next-unwatched release view, repairs persistent custom collection covers, and aligns every Streaming row exactly with Watchlists.";
   let initialized = false;
   const get = id => document.getElementById(id);
 
@@ -204,10 +204,10 @@
 
   function addChangelogRuntimeEntry() {
     const view=get("changelog-view");if(!view)return;
-    const inject=()=>{const body=view.querySelector(".changelog-list")||view.querySelector("tbody")||view.querySelector(".internal-view-content")||view.querySelector(".changelog-content");if(!body||get("streaming-0616-changelog-entry"))return;
+    const inject=()=>{const body=view.querySelector(".changelog-list")||view.querySelector("tbody")||view.querySelector(".internal-view-content")||view.querySelector(".changelog-content");if(!body||get("streaming-0617-changelog-entry"))return;
       const bug='Fixes the iPhone Streaming title layout so the heading stays centered above Search and Settings; aligns all Streaming rows to the same horizontal inset; adds cover search from any TMDB movie or TV show; and adds saved collection sorting without changing the manual queue order unless requested.';
-      if(body.tagName==="TBODY"){const tr=document.createElement("tr");tr.id="streaming-0616-changelog-entry";tr.innerHTML=`<td>${VERSION}</td><td>${TITLE}</td><td>${DESCRIPTION}<br><strong>Bug Fixes:</strong> ${bug}</td>`;body.prepend(tr)}
-      else{const card=document.createElement("div");card.id="streaming-0616-changelog-entry";card.style.cssText="margin:0 0 12px;padding:14px;border:1px solid #dfe3e8;border-radius:12px;background:#f7f8fa";card.innerHTML=`<strong>${VERSION} · ${TITLE}</strong><p style="margin:7px 0 0;line-height:1.5">${DESCRIPTION}</p><p style="margin:7px 0 0;line-height:1.5"><strong>Bug Fixes:</strong> ${bug}</p>`;body.prepend(card)}
+      if(body.tagName==="TBODY"){const tr=document.createElement("tr");tr.id="streaming-0617-changelog-entry";tr.innerHTML=`<td>${VERSION}</td><td>${TITLE}</td><td>${DESCRIPTION}<br><strong>Bug Fixes:</strong> ${bug}</td>`;body.prepend(tr)}
+      else{const card=document.createElement("div");card.id="streaming-0617-changelog-entry";card.style.cssText="margin:0 0 12px;padding:14px;border:1px solid #dfe3e8;border-radius:12px;background:#f7f8fa";card.innerHTML=`<strong>${VERSION} · ${TITLE}</strong><p style="margin:7px 0 0;line-height:1.5">${DESCRIPTION}</p><p style="margin:7px 0 0;line-height:1.5"><strong>Bug Fixes:</strong> ${bug}</p>`;body.prepend(card)}
     };new MutationObserver(inject).observe(view,{attributes:true,childList:true,subtree:true});inject();
   }
 

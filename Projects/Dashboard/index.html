@@ -8,9 +8,9 @@
     content="width=device-width, initial-scale=1.0, viewport-fit=cover"
   >
 
-  <title>My Dashboard · Version 0.6.16</title>
+  <title>My Dashboard · Version 0.6.17</title>
 
-  <!-- Version 0.6.16: Advanced Watchlists & Collection Browsing · 2026-08-19 -->
+  <!-- Version 0.6.17: Episode Release-Order Watchlists & Cover Fixes · 2026-08-19 -->
 
   <meta
     name="description"
@@ -28,8 +28,8 @@
     dashboard-entry.js checks the existing Supabase session before the
     Dashboard UI is loaded. Logged-out visitors are sent to Dashboard/login.html.
   -->
-  <script src="./dashboard-config.js?v=0.6.16"></script>
-  <script src="./dashboard-entry.js?v=0.6.16"></script>
+  <script src="./dashboard-config.js?v=0.6.17"></script>
+  <script src="./dashboard-entry.js?v=0.6.17"></script>
 
   <style>
     * { box-sizing: border-box; }
@@ -89,8 +89,8 @@
 
   <script>
     /*
-      My Dashboard · Version 0.6.16
-      Advanced Watchlists & Collection Browsing · 2026-08-19
+      My Dashboard · Version 0.6.17
+      Episode Release-Order Watchlists & Cover Fixes · 2026-08-19
 
       CHANGELOG
       Title:
@@ -143,6 +143,12 @@
       - Improves iPhone/iPad Picture in Picture guidance while preserving player PiP permission.
       - Fixes the mobile Streaming header alignment and optically centers the three-dot card menu.
 
+      0.6.17 CHANGELOG
+      - Watchlist Release Order now expands TV shows into individual released episodes and blends them with movies by release date.
+      - Added Next Unwatched · Release Order, which hides watched entries and keeps skipped-for-now items behind the active release queue.
+      - Fixed custom collection covers so a poster chosen from any TMDB movie or TV show persists independently of the watchlist contents.
+      - Fixed Streaming row positioning so every standard row starts at the same left edge as Watchlists.
+
       0.6.16 CHANGELOG
       - Advanced Watchlists & Collection Browsing.
       - Watchlist covers can now be chosen from any TMDB movie or TV show, even when that title is not in the collection.
@@ -189,20 +195,20 @@
 
       source = source.replace(
         /<title>[^<]*Dashboard · Version 0\.4\.2<\/title>/,
-        "<title>My Dashboard · Version 0.6.16</title>"
+        "<title>My Dashboard · Version 0.6.17</title>"
       );
 
       source = replaceRequired(
         source,
         "<!-- Version 0.4.2: Automatic Admin View · 2026-08-11 -->",
-        "<!-- Version 0.6.16: Advanced Watchlists & Collection Browsing · 2026-08-19 -->",
+        "<!-- Version 0.6.17: Episode Release-Order Watchlists & Cover Fixes · 2026-08-19 -->",
         "version comment"
       );
 
       source = replaceRequired(
         source,
         '<span class="account-summary">Version 0.4.2 · Signed in as <strong id="current-user-email"></strong></span>',
-        '<span class="account-summary">Version 0.6.16 · Signed in as <strong id="current-user-email"></strong></span>',
+        '<span class="account-summary">Version 0.6.17 · Signed in as <strong id="current-user-email"></strong></span>',
         "account bar version"
       );
 

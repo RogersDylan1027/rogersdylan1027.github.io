@@ -1,84 +1,62 @@
-My Dashboard · Version 0.6.16
-Advanced Watchlists & Collection Browsing · 2026-08-19
+My Dashboard · Version 0.6.17
+Episode Release-Order Watchlists & Cover Fixes · 2026-08-19
 
 CHANGELOG
 =========
-Version 0.6.16: Advanced Watchlists & Collection Browsing
+Version 0.6.17: Episode Release-Order Watchlists & Cover Fixes
 
 Description:
-Expands Streaming watchlists into advanced custom collections. Watchlists can
-use the poster from any TMDB movie or TV show as their cover, even when that
-title is not in the collection. Collections now support useful saved sort modes
-and richer TV browsing, while 0.6.16 also corrects the iPhone Streaming header
-and horizontal row alignment.
+Improves advanced Streaming watchlists without repeating the earlier 0.6.16
+package. Release Order now works at the episode level across multiple TV shows
+and blends released episodes with movies by release date. Custom collection
+covers are made persistent, and every normal Streaming row is aligned to the
+same left edge as the Watchlists row.
 
-WATCHLISTS / COLLECTIONS
-========================
-- Multiple named watchlists remain supported.
-- Movies and TV shows can be mixed in the same collection.
-- Custom Order remains the default queue order.
-- Skip, Done, Queue Again, move up/down, remove, rename, and delete remain.
-- A title may belong to multiple watchlists.
-- Collection covers are independent from collection contents.
-- Search any TMDB movie or TV show and use its poster as the collection cover.
-- Existing collection items can still be selected as the cover with Use Cover.
-- If no custom cover is chosen, the existing automatic cover behavior remains.
+RELEASE-ORDER WATCHING
+======================
+- Release Order no longer sorts only whole shows.
+- Every released TV episode is expanded into the watchlist timeline.
+- Episodes from different shows are blended together by episode air date.
+- Movies are inserted into the same timeline using their movie release date.
+- Each TV entry shows show name, season/episode number, episode title, date, and
+  episode description when available.
+- Selecting an episode opens the existing Streaming details directly on that
+  exact season and episode.
+- Added Next Unwatched · Release Order.
+- Next Unwatched hides watched movies/episodes while preserving release order.
+- Skip is available for unreleased-order queue entries without marking them
+  watched; skipped-for-now entries move behind active unwatched entries in the
+  Next Unwatched view.
 
-SORTING
-=======
-Each watchlist can save one of these display modes:
-- Custom Order
-- Release Order
-- Newest First
-- Continue First
-- Unwatched First
-- Series First
+COLLECTION COVER FIX
+====================
+- Cover search now uses the same movie + TV search endpoints as Streaming.
+- Any TMDB movie or TV poster can be selected, even if it is not in the list.
+- The chosen poster path and title are saved with the collection so the cover
+  persists without depending on a later detail lookup.
+- Existing Use Cover controls now save the same persistent cover information.
+- Existing 0.6.16 cover IDs remain supported as a fallback.
 
-Manual move controls are enabled in Custom Order. Using Skip returns the list
-to Custom Order because Skip changes the actual queue position.
-
-TV / EPISODE BROWSING
-=====================
-- TV entries in a watchlist open the normal Streaming show details.
-- From there, the existing Season and Episode selectors remain available with
-  episode title, release date, description, provider selection, and playback.
-- Movies continue to open their normal Streaming details and Watch flow.
-
-IPHONE / LAYOUT FIXES
-=====================
-- Streaming is now centered in its own top navigation row on iPhone.
-- Search and Settings remain on the second row.
-- The mobile rule now overrides the old absolute-position title rule reliably.
-- All Streaming row headings and carousels use the same horizontal inset, so
-  Watchlists, Continue Watching, and discovery rows line up consistently.
-
-PRESERVED FROM 0.6.14 + 0.6.15
-===============================
-- Autoplay Next Episode remains removed.
-- Manual Next Episode remains.
-- Open Full Page remains removed.
-- iPhone/iPad Picture in Picture handling remains.
-- Three-dot card controls remain centered.
-- Multiple named watchlists and ordered mixed queues remain.
-- 0.6.13 titles-per-row and duplicate-reduction behavior remains.
-- Continue Watching, future-content filtering, caught-up-series hiding,
-  provider priority, admin access, and Dashboard Playback remain.
+STREAMING ROW ALIGNMENT
+=======================
+- Watchlists remains the alignment reference.
+- Continue Watching and every discovery/recommendation row now use the same
+  left inset as Watchlists.
+- Carousel positioning uses a fixed outer inset rather than relying on scroll
+  container padding, preventing rows from visually starting at the screen edge.
 
 SUPABASE
 ========
-Run Supabase/streaming-0.6.16-watchlists.sql before publishing the Dashboard
-files. This one SQL file includes the 0.6.15 watchlist tables plus the 0.6.16
-saved sort_mode field, so 0.6.15 does not need to be installed separately.
+Run Supabase/streaming-0.6.17-watchlists-upgrade.sql after 0.6.16.
+It adds persistent collection-cover fields, adds the new release-unwatched sort
+mode, and adds per-watchlist skip state for release-order movie/episode entries.
 
-FILES UPDATED
-=============
+FILES UPDATED FROM 0.6.16
+=========================
 Dashboard/index.html
-Dashboard/login.html
 Dashboard/dashboard-config.js
-Dashboard/dashboard-auth.js
-Dashboard/dashboard-entry.js
 Dashboard/dashboard-streaming.js
 Dashboard/dashboard-streaming-ui.js
 Dashboard/Streaming/index.html
 Dashboard/README.txt
-Supabase/streaming-0.6.16-watchlists.sql
+Supabase/streaming-0.6.17-watchlists-upgrade.sql
