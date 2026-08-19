@@ -1,14 +1,14 @@
 /*
-  My Dashboard · Streaming Settings UI · Version 0.6.13
-  Streaming Row Personalization & Duplicate Reduction · 2026-08-17
+  My Dashboard · Streaming Settings UI · Version 0.6.15
+  Multiple Watchlists & Custom Collections · 2026-08-18
 */
 (function () {
   "use strict";
 
-  const VERSION = "0.6.13";
-  const TITLE = "Streaming Row Personalization & Duplicate Reduction";
+  const VERSION = "0.6.15";
+  const TITLE = "Multiple Watchlists & Custom Collections";
   const DESCRIPTION =
-    "Adds a per-account titles-per-row preference and reduces repeated movies and shows across Streaming discovery rows, while preserving Continue Watching and other user-specific content.";
+    "Adds multiple named Streaming watchlists that can mix movies and TV shows, keep a custom play order, use a single collection cover, and stay editable at any time. Each watchlist appears as its own collection card in Streaming, with controls to add, remove, reorder, skip, and complete titles.";
   let initialized = false;
   const get = id => document.getElementById(id);
 
@@ -204,10 +204,10 @@
 
   function addChangelogRuntimeEntry() {
     const view=get("changelog-view");if(!view)return;
-    const inject=()=>{const body=view.querySelector(".changelog-list")||view.querySelector("tbody")||view.querySelector(".internal-view-content")||view.querySelector(".changelog-content");if(!body||get("streaming-0613-changelog-entry"))return;
-      const bug='Preserves Continue Watching exclusivity, future-release filtering, caught-up-series hiding, admin catalog access, Picture in Picture, provider priority, and autoplay behavior while applying the new row controls.';
-      if(body.tagName==="TBODY"){const tr=document.createElement("tr");tr.id="streaming-0613-changelog-entry";tr.innerHTML=`<td>${VERSION}</td><td>${TITLE}</td><td>${DESCRIPTION}<br><strong>Bug Fixes:</strong> ${bug}</td>`;body.prepend(tr)}
-      else{const card=document.createElement("div");card.id="streaming-0613-changelog-entry";card.style.cssText="margin:0 0 12px;padding:14px;border:1px solid #dfe3e8;border-radius:12px;background:#f7f8fa";card.innerHTML=`<strong>${VERSION} · ${TITLE}</strong><p style="margin:7px 0 0;line-height:1.5">${DESCRIPTION}</p><p style="margin:7px 0 0;line-height:1.5"><strong>Bug Fixes:</strong> ${bug}</p>`;body.prepend(card)}
+    const inject=()=>{const body=view.querySelector(".changelog-list")||view.querySelector("tbody")||view.querySelector(".internal-view-content")||view.querySelector(".changelog-content");if(!body||get("streaming-0615-changelog-entry"))return;
+      const bug='Removes the non-working Autoplay Next Episode setting and countdown, removes the unused Open Full Page action, fixes the mobile Streaming title alignment, optically centers card menu dots, and improves iPhone/iPad Picture in Picture guidance while keeping the player permission enabled.';
+      if(body.tagName==="TBODY"){const tr=document.createElement("tr");tr.id="streaming-0615-changelog-entry";tr.innerHTML=`<td>${VERSION}</td><td>${TITLE}</td><td>${DESCRIPTION}<br><strong>Bug Fixes:</strong> ${bug}</td>`;body.prepend(tr)}
+      else{const card=document.createElement("div");card.id="streaming-0615-changelog-entry";card.style.cssText="margin:0 0 12px;padding:14px;border:1px solid #dfe3e8;border-radius:12px;background:#f7f8fa";card.innerHTML=`<strong>${VERSION} · ${TITLE}</strong><p style="margin:7px 0 0;line-height:1.5">${DESCRIPTION}</p><p style="margin:7px 0 0;line-height:1.5"><strong>Bug Fixes:</strong> ${bug}</p>`;body.prepend(card)}
     };new MutationObserver(inject).observe(view,{attributes:true,childList:true,subtree:true});inject();
   }
 

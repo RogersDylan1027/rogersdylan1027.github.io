@@ -1,5 +1,5 @@
 /*
-  My Dashboard · Streaming Client · Version 0.6.13
+  My Dashboard · Streaming Client · Version 0.6.15
   Streaming Row Personalization & Duplicate Reduction · 2026-08-17
 
   Load after dashboard-config.js and after the Dashboard's authenticated
@@ -191,7 +191,7 @@
     const { data, error } = await client
       .from("streaming_preferences")
       .select(
-        "user_id,region,prefer_dashboard_playback,provider_selection_mode,dashboard_playback_warning_acknowledged,dashboard_provider_priority,autoplay_next_episode,autoplay_next_seconds,titles_per_row"
+        "user_id,region,prefer_dashboard_playback,provider_selection_mode,dashboard_playback_warning_acknowledged,dashboard_provider_priority,titles_per_row"
       )
       .eq("user_id", user.id)
       .maybeSingle();
@@ -207,8 +207,6 @@
       provider_selection_mode: "priority",
       dashboard_playback_warning_acknowledged: false,
       dashboard_provider_priority: 1,
-      autoplay_next_episode: true,
-      autoplay_next_seconds: 30,
       titles_per_row: 20,
     };
 
@@ -237,21 +235,6 @@
         Boolean(changes.prefer_dashboard_playback);
     }
 
-    if ("autoplay_next_episode" in changes) {
-      allowed.autoplay_next_episode =
-        Boolean(changes.autoplay_next_episode);
-    }
-
-    if ("autoplay_next_seconds" in changes) {
-      allowed.autoplay_next_seconds =
-        Math.max(
-          0,
-          Math.min(
-            600,
-            Number(changes.autoplay_next_seconds) || 30
-          )
-        );
-    }
 
     if ("titles_per_row" in changes) {
       const requested = Number(changes.titles_per_row);
@@ -740,6 +723,138 @@
     return Promise.all([loadUserProviders(), loadPreferences()]);
   }
 
+  async function listWatchlists() {
+    const client = requireClient();
+    const user = requireUser();
+    const { data, error } = await client
+      .from("streaming_watchlists")
+      .select("id,user_id,name,position,cover_tmdb_id,cover_media_type,created_at,updated_at")
+      .eq("user_id", user.id)
+      .order("position", { ascending: true })
+      .order("created_at", { ascending: true });
+    if (error) throw error;
+    return data || [];
+  }
+
+  async function createWatchlist(name) {
+    const client = requireClient();
+    const user = requireUser();
+    const cleanName = String(name || "").trim();
+    if (!cleanName) throw new Error("Enter a watchlist name.");
+    const current = await listWatchlists();
+    const nextPosition = current.length ? Math.max(...current.map(row => Number(row.position) || 0)) + 1 : 1;
+    const { data, error } = await client
+      .from("streaming_watchlists")
+      .insert({ user_id: user.id, name: cleanName.slice(0, 80), position: nextPosition })
+      .select()
+      .single();
+    if (error) throw error;
+    return data;
+  }
+
+  async function updateWatchlist(watchlistId, changes = {}) {
+    const client = requireClient();
+    const user = requireUser();
+    const allowed = { updated_at: new Date().toISOString() };
+    if ("name" in changes) {
+      const cleanName = String(changes.name || "").trim();
+      if (!cleanName) throw new Error("Watchlist name cannot be empty.");
+      allowed.name = cleanName.slice(0, 80);
+    }
+    if ("cover_tmdb_id" in changes) allowed.cover_tmdb_id = changes.cover_tmdb_id == null ? null : Number(changes.cover_tmdb_id);
+    if ("cover_media_type" in changes) allowed.cover_media_type = changes.cover_media_type == null ? null : String(changes.cover_media_type);
+    if ("position" in changes) allowed.position = Math.max(1, Number(changes.position) || 1);
+    const { data, error } = await client
+      .from("streaming_watchlists")
+      .update(allowed)
+      .eq("id", watchlistId)
+      .eq("user_id", user.id)
+      .select()
+      .single();
+    if (error) throw error;
+    return data;
+  }
+
+  async function deleteWatchlist(watchlistId) {
+    const client = requireClient();
+    const user = requireUser();
+    const { error } = await client.from("streaming_watchlists").delete().eq("id", watchlistId).eq("user_id", user.id);
+    if (error) throw error;
+  }
+
+  async function loadWatchlistItems(watchlistId) {
+    const client = requireClient();
+    const user = requireUser();
+    const { data, error } = await client
+      .from("streaming_watchlist_items")
+      .select("id,watchlist_id,user_id,tmdb_id,media_type,position,status,created_at,updated_at")
+      .eq("watchlist_id", watchlistId)
+      .eq("user_id", user.id)
+      .order("position", { ascending: true })
+      .order("created_at", { ascending: true });
+    if (error) throw error;
+    return data || [];
+  }
+
+  async function addTitleToWatchlist(watchlistId, tmdbId, mediaType) {
+    const client = requireClient();
+    const user = requireUser();
+    const current = await loadWatchlistItems(watchlistId);
+    const existing = current.find(row => Number(row.tmdb_id) === Number(tmdbId) && row.media_type === mediaType);
+    if (existing) return existing;
+    const nextPosition = current.length ? Math.max(...current.map(row => Number(row.position) || 0)) + 1 : 1;
+    const { data, error } = await client
+      .from("streaming_watchlist_items")
+      .insert({ user_id: user.id, watchlist_id: watchlistId, tmdb_id: Number(tmdbId), media_type: mediaType, position: nextPosition, status: "queued" })
+      .select()
+      .single();
+    if (error) throw error;
+    const lists = await listWatchlists();
+    const list = lists.find(row => String(row.id) === String(watchlistId));
+    if (list && !list.cover_tmdb_id) {
+      await updateWatchlist(watchlistId, { cover_tmdb_id: Number(tmdbId), cover_media_type: mediaType });
+    }
+    return data;
+  }
+
+  async function removeWatchlistItem(itemId) {
+    const client = requireClient();
+    const user = requireUser();
+    const { error } = await client.from("streaming_watchlist_items").delete().eq("id", itemId).eq("user_id", user.id);
+    if (error) throw error;
+  }
+
+  async function reorderWatchlistItems(watchlistId, orderedItemIds) {
+    const client = requireClient();
+    const user = requireUser();
+    const ids = Array.from(orderedItemIds || []);
+    for (let i = 0; i < ids.length; i += 1) {
+      const { error } = await client.from("streaming_watchlist_items").update({ position: 1000 + i }).eq("id", ids[i]).eq("watchlist_id", watchlistId).eq("user_id", user.id);
+      if (error) throw error;
+    }
+    for (let i = 0; i < ids.length; i += 1) {
+      const { error } = await client.from("streaming_watchlist_items").update({ position: i + 1, updated_at: new Date().toISOString() }).eq("id", ids[i]).eq("watchlist_id", watchlistId).eq("user_id", user.id);
+      if (error) throw error;
+    }
+    return loadWatchlistItems(watchlistId);
+  }
+
+  async function setWatchlistItemStatus(itemId, status) {
+    const client = requireClient();
+    const user = requireUser();
+    if (!["queued", "completed"].includes(status)) throw new Error("Invalid watchlist status.");
+    const { data, error } = await client.from("streaming_watchlist_items").update({ status, updated_at: new Date().toISOString() }).eq("id", itemId).eq("user_id", user.id).select().single();
+    if (error) throw error;
+    return data;
+  }
+
+  async function skipWatchlistItem(watchlistId, itemId) {
+    const items = await loadWatchlistItems(watchlistId);
+    const ordered = items.filter(row => String(row.id) !== String(itemId)).map(row => row.id);
+    ordered.push(itemId);
+    return reorderWatchlistItems(watchlistId, ordered);
+  }
+
   function getEdgeFunctionBase() {
     const supabaseUrl = window.DashboardConfig?.supabaseUrl;
     if (!supabaseUrl) throw new Error("DashboardConfig.supabaseUrl is missing.");
@@ -972,7 +1087,7 @@
   window.DashboardStreaming = Object.freeze({
     getAvailableProvidersForTitle,
     isAdminUser,
-    version: "0.6.13",
+    version: "0.6.15",
     listProviders,
     loadUserProviders,
     addProvider,
@@ -986,6 +1101,16 @@
     loadContinueWatching,
     setTitleReaction,
     setWatchlist,
+    listWatchlists,
+    createWatchlist,
+    updateWatchlist,
+    deleteWatchlist,
+    loadWatchlistItems,
+    addTitleToWatchlist,
+    removeWatchlistItem,
+    reorderWatchlistItems,
+    setWatchlistItemStatus,
+    skipWatchlistItem,
     removeFromContinueWatching,
     loadTitleState,
     saveProviderHierarchy,

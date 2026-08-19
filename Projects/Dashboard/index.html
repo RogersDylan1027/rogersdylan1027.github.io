@@ -8,13 +8,13 @@
     content="width=device-width, initial-scale=1.0, viewport-fit=cover"
   >
 
-  <title>My Dashboard · Version 0.6.13</title>
+  <title>My Dashboard · Version 0.6.15</title>
 
-  <!-- Version 0.6.13: Streaming Row Personalization & Duplicate Reduction · 2026-08-17 -->
+  <!-- Version 0.6.15: Multiple Watchlists & Custom Collections · 2026-08-18 -->
 
   <meta
     name="description"
-    content="My Dashboard 0.6.13 Streaming Row Personalization & Duplicate Reduction"
+    content="My Dashboard 0.6.15 Multiple Watchlists & Custom Collections"
   >
 
   <meta
@@ -28,8 +28,8 @@
     dashboard-entry.js checks the existing Supabase session before the
     Dashboard UI is loaded. Logged-out visitors are sent to Dashboard/login.html.
   -->
-  <script src="./dashboard-config.js?v=0.6.13"></script>
-  <script src="./dashboard-entry.js?v=0.6.13"></script>
+  <script src="./dashboard-config.js?v=0.6.15"></script>
+  <script src="./dashboard-entry.js?v=0.6.15"></script>
 
   <style>
     * { box-sizing: border-box; }
@@ -83,14 +83,14 @@
 
 <body>
   <div id="loader" class="loader">
-    <h1>My Dashboard 0.6.13</h1>
+    <h1>My Dashboard 0.6.15</h1>
     <p>Loading your Dashboard…</p>
   </div>
 
   <script>
     /*
-      My Dashboard · Version 0.6.13
-      Streaming Row Personalization & Duplicate Reduction · 2026-08-17
+      My Dashboard · Version 0.6.15
+      Multiple Watchlists & Custom Collections · 2026-08-18
 
       CHANGELOG
       Title:
@@ -136,8 +136,19 @@
       - Adds a per-account Titles per Row setting with 10, 15, 20, 25, and 30 options.
       - Reduces repeated movies and shows across discovery and recommendation rows.
       - Keeps Continue Watching exempt from cross-row de-duplication.
-      - Preserves future-release filtering, caught-up-series hiding, admin access,
-        Picture in Picture, provider priority, and autoplay behavior.
+
+      0.6.14 CHANGELOG
+      - Removes Autoplay Next Episode and its countdown/settings while keeping manual Next Episode.
+      - Removes the unused Open Full Page action.
+      - Improves iPhone/iPad Picture in Picture guidance while preserving player PiP permission.
+      - Fixes the mobile Streaming header alignment and optically centers the three-dot card menu.
+
+      0.6.15 CHANGELOG
+      - Adds multiple named watchlists that can mix movies and TV shows.
+      - Adds a Watchlists collection row where each card represents one saved list.
+      - Keeps every list editable with rename, delete, add/remove, reorder, Skip, Done, and Queue Again controls.
+      - Adds one selectable cover poster per watchlist, defaulting to the first title added.
+      - Preserves all 0.6.14 playback/mobile cleanup plus 0.6.13 row personalization and duplicate reduction.
 
       ARCHITECTURE NOTE
       My Dashboard still uses the immutable Version 0.4.2 source as the
@@ -170,20 +181,20 @@
 
       source = source.replace(
         /<title>[^<]*Dashboard · Version 0\.4\.2<\/title>/,
-        "<title>My Dashboard · Version 0.6.13</title>"
+        "<title>My Dashboard · Version 0.6.15</title>"
       );
 
       source = replaceRequired(
         source,
         "<!-- Version 0.4.2: Automatic Admin View · 2026-08-11 -->",
-        "<!-- Version 0.6.13: Streaming Row Personalization & Duplicate Reduction · 2026-08-17 -->",
+        "<!-- Version 0.6.15: Multiple Watchlists & Custom Collections · 2026-08-18 -->",
         "version comment"
       );
 
       source = replaceRequired(
         source,
         '<span class="account-summary">Version 0.4.2 · Signed in as <strong id="current-user-email"></strong></span>',
-        '<span class="account-summary">Version 0.6.13 · Signed in as <strong id="current-user-email"></strong></span>',
+        '<span class="account-summary">Version 0.6.15 · Signed in as <strong id="current-user-email"></strong></span>',
         "account bar version"
       );
 

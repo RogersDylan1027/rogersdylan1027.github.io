@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>My Dashboard · Streaming · Version 0.6.13</title>
-  <meta name="description" content="My Dashboard unified streaming hub. Version 0.6.13 adds per-account row sizing and reduces repeated titles across discovery rows while preserving Continue Watching, future-release filtering, caught-up-series hiding, admin access, Picture in Picture, provider settings, and autoplay.">
+  <title>My Dashboard · Streaming · Version 0.6.15</title>
+  <meta name="description" content="My Dashboard unified streaming hub. Version 0.6.15 keeps every 0.6.14 mobile and playback cleanup change and adds multiple named watchlists with ordered mixed movie/TV queues, editable collection covers, skip/reorder/completion controls, and account-synced persistence.">
   <meta name="theme-color" content="#101218">
 
-  <script src="../dashboard-config.js?v=0.6.13"></script>
+  <script src="../dashboard-config.js?v=0.6.15"></script>
   <script
-    src="../dashboard-auth.js?v=0.6.13"
+    src="../dashboard-auth.js?v=0.6.15"
     data-dashboard-project="streaming">
   </script>
-  <script src="../dashboard-streaming.js?v=0.6.13"></script>
+  <script src="../dashboard-streaming.js?v=0.6.15"></script>
 
   <style>
     *{box-sizing:border-box}
@@ -47,7 +47,7 @@
     .meta{padding-top:8px}
     .title{display:block;font-size:13px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .sub{display:block;margin-top:3px;color:var(--muted);font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .more{position:absolute;top:7px;right:7px;width:34px;height:34px;min-width:34px;min-height:34px;padding:0;border:1px solid rgba(255,255,255,.16);border-radius:10px;background:rgba(10,12,16,.82);color:white;cursor:pointer;font-size:0;font-weight:900;display:grid;place-items:center;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}.more::before{content:"•••";font-size:14px;line-height:1;letter-spacing:1px;transform:translateY(-1px)}.more:active{transform:scale(.96)}
+    .more{position:absolute;top:7px;right:7px;width:34px;height:34px;min-width:34px;min-height:34px;padding:0;border:1px solid rgba(255,255,255,.16);border-radius:10px;background:rgba(10,12,16,.82);color:white;cursor:pointer;font-size:0;font-weight:900;display:grid;place-items:center;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}.more::before{content:"";width:4px;height:4px;border-radius:50%;background:currentColor;box-shadow:-7px 0 currentColor,7px 0 currentColor}.more:active{transform:scale(.96)}
     .empty{padding:22px;border:1px dashed var(--border);border-radius:14px;background:var(--panel);color:var(--muted);line-height:1.5}
     .status{padding:18px 22px;color:var(--muted);font-size:13px}
     .status.error{color:#ffaca7}
@@ -118,13 +118,27 @@
     .menu button{display:block;width:100%;padding:9px 10px;border:0;border-radius:8px;background:transparent;color:white;text-align:left;cursor:pointer;font-size:13px}
     .menu button:hover{background:#2c3240}
     @media(max-width:600px){
-      :root{--poster:132px}.topbar{padding-top:calc(10px + env(safe-area-inset-top));padding-bottom:10px;padding-left:max(12px,env(safe-area-inset-left));padding-right:max(12px,env(safe-area-inset-right));flex-wrap:wrap}.brand{width:100%;justify-content:space-between}.top-actions{width:100%;display:grid;grid-template-columns:minmax(0,1fr) auto}.search{width:100%;font-size:16px}.settings-link{min-height:44px}.hero,.row-head,.carousel,.status{padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right))}.hero h2{font-size:25px}.carousel{scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}.poster-button,.action{min-height:44px}.more{width:36px;height:36px;min-width:36px;min-height:36px}.detail{width:100%;height:100dvh;max-height:none;border-radius:0}.overlay{padding:0;align-items:stretch}.detail-close{position:fixed;top:calc(12px + env(safe-area-inset-top));right:max(12px,env(safe-area-inset-right));width:44px;height:44px}.detail-backdrop{min-height:230px;padding:calc(66px + env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) 18px max(16px,env(safe-area-inset-left))}.detail-body{padding:0 max(16px,env(safe-area-inset-right)) calc(20px + env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left))}.watch-controls{grid-template-columns:1fr}.watch-controls .action{width:100%}.tv-picker-grid{grid-template-columns:1fr}.tv-picker-field select,.provider-select{font-size:16px}.menu{left:10px!important;right:10px!important;width:auto;min-width:0;max-height:70dvh;overflow:auto;-webkit-overflow-scrolling:touch}.menu button{min-height:44px}.project-provider-row,.project-priority-row{align-items:stretch;flex-direction:column}.project-provider-row button{width:100%}.project-priority-controls{align-self:flex-end}.player-wrap{border-radius:10px}
+      :root{--poster:132px}.topbar{padding-top:calc(10px + env(safe-area-inset-top));padding-bottom:10px;padding-left:max(12px,env(safe-area-inset-left));padding-right:max(12px,env(safe-area-inset-right));flex-wrap:wrap}.brand{width:100%;justify-content:space-between}.top-actions{width:100%;display:grid;grid-template-columns:minmax(0,1fr) auto}.search{width:100%;font-size:16px}.settings-link{min-height:44px}.hero,.row-head,.carousel,.status{padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right))}.hero h2{font-size:25px}.carousel{scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}.poster-button,.action{min-height:44px}.more{width:36px;height:36px;min-width:36px;min-height:36px}.detail{width:100%;height:100dvh;max-height:none;border-radius:0}.overlay{padding:0;align-items:stretch}.detail-close{position:fixed;top:calc(12px + env(safe-area-inset-top));right:max(12px,env(safe-area-inset-right));width:44px;height:44px}.detail-backdrop{min-height:230px;padding:calc(66px + env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) 18px max(16px,env(safe-area-inset-left))}.detail-body{padding:0 max(16px,env(safe-area-inset-right)) calc(20px + env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left))}.watch-controls{grid-template-columns:1fr}.watch-controls .action{width:100%}.tv-picker-grid{grid-template-columns:1fr}.tv-picker-field select,.provider-select{font-size:16px}.menu{left:10px!important;right:10px!important;width:auto;min-width:0;max-height:70dvh;overflow:auto;-webkit-overflow-scrolling:touch}.menu button{min-height:44px}.project-provider-row,.project-priority-row{align-items:stretch;flex-direction:column}.project-provider-row button{width:100%}.project-priority-controls{align-self:flex-end}.player-wrap{border-radius:10px}.brand{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;width:100%;gap:8px}.brand .back{grid-column:1;justify-self:start}.brand h1{position:static;grid-column:2;justify-self:center;transform:none;white-space:nowrap}.top-actions{grid-column:1/-1}
     }
   
     .topbar{position:relative}
     .brand h1{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);margin:0;pointer-events:none}
     #streaming-home-title{pointer-events:auto;color:inherit;text-decoration:none;background:none;border:0;box-shadow:none;cursor:default}
     #streaming-home-title:hover,#streaming-home-title:focus,#streaming-home-title:active{color:inherit;text-decoration:none;background:none;box-shadow:none}
+
+    .watchlist-head-action{min-height:36px;padding:7px 11px;border:1px solid #485269;border-radius:10px;background:#252a36;color:#fff;font:inherit;font-size:12px;font-weight:800;cursor:pointer}
+    .collection-card .poster-button{min-height:0}
+    .collection-cover{aspect-ratio:2/3;width:100%;display:grid;place-items:center;background:linear-gradient(145deg,#252a36,#151820);color:#cbd2df;font-size:36px;font-weight:900;text-align:center;padding:16px}
+    .watchlist-overlay{position:fixed;inset:0;z-index:110;display:grid;place-items:center;padding:calc(18px + env(safe-area-inset-top)) max(18px,env(safe-area-inset-right)) calc(18px + env(safe-area-inset-bottom)) max(18px,env(safe-area-inset-left));background:rgba(0,0,0,.76)}
+    .watchlist-overlay[hidden]{display:none}
+    .watchlist-dialog{width:min(100%,760px);max-height:calc(100dvh - 36px - env(safe-area-inset-top) - env(safe-area-inset-bottom));display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--border);border-radius:20px;background:var(--panel);box-shadow:0 28px 80px rgba(0,0,0,.5)}
+    .watchlist-dialog-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px;border-bottom:1px solid var(--border)}
+    .watchlist-dialog-header h2{margin:0;font-size:20px}.watchlist-dialog-header button{width:44px;height:44px;border:0;border-radius:50%;background:#fff;color:#111;font-size:24px;cursor:pointer}
+    .watchlist-dialog-body{overflow:auto;padding:18px;-webkit-overflow-scrolling:touch}
+    .watchlist-create{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;margin-bottom:14px}.watchlist-create input{min-height:44px;padding:9px 11px;border:1px solid #485269;border-radius:10px;background:#181b23;color:#fff;font:inherit;font-size:16px}.watchlist-create button{min-height:44px;padding:9px 13px;border:1px solid var(--accent);border-radius:10px;background:var(--accent);color:#fff;font-weight:800;cursor:pointer}
+    .watchlist-list{display:grid;gap:10px}.watchlist-list-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;padding:12px;border:1px solid #3a4254;border-radius:12px;background:var(--panel2)}.watchlist-list-row strong{display:block}.watchlist-list-row small{display:block;margin-top:3px;color:var(--muted)}.watchlist-list-actions{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}.watchlist-list-actions button,.watchlist-editor-actions button,.watchlist-item-actions button{min-height:40px;padding:8px 10px;border:1px solid #536079;border-radius:9px;background:#252a36;color:#fff;font-weight:800;cursor:pointer}.watchlist-list-actions .primary,.watchlist-editor-actions .primary{border-color:var(--accent);background:var(--accent)}
+    .watchlist-editor-tools{display:grid;gap:10px;margin-bottom:14px}.watchlist-name-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px}.watchlist-name-row input{min-height:44px;padding:9px 11px;border:1px solid #485269;border-radius:10px;background:#181b23;color:#fff;font-size:16px}.watchlist-editor-actions{display:flex;gap:8px;flex-wrap:wrap}.watchlist-editor-actions .danger{border-color:#8f3d3d;color:#ffc1bd}.watchlist-queue{display:grid;gap:9px}.watchlist-item{display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:10px;align-items:center;padding:9px;border:1px solid #343b4b;border-radius:12px;background:#181b23}.watchlist-item.completed{opacity:.62}.watchlist-item-thumb{width:52px;aspect-ratio:2/3;object-fit:cover;border-radius:7px;background:#252a36}.watchlist-item-copy strong{display:block;font-size:13px}.watchlist-item-copy small{display:block;margin-top:3px;color:var(--muted);font-size:11px}.watchlist-item-actions{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}.watchlist-item-actions button{min-width:40px;padding:7px 8px}.watchlist-empty{padding:18px;border:1px dashed #3a4254;border-radius:12px;color:var(--muted);text-align:center;line-height:1.5}
+    @media(max-width:600px){.watchlist-create,.watchlist-name-row{grid-template-columns:1fr}.watchlist-list-row{grid-template-columns:1fr}.watchlist-list-actions{justify-content:stretch}.watchlist-list-actions button{flex:1}.watchlist-item{grid-template-columns:44px minmax(0,1fr)}.watchlist-item-thumb{width:44px}.watchlist-item-actions{grid-column:1/-1;justify-content:flex-end}.watchlist-dialog{width:100%;max-height:100dvh;border-radius:0}}
   </style>
 </head>
 <body>
@@ -172,10 +186,9 @@
             <button id="next-episode-button" class="action" type="button" hidden disabled>No Next Episode</button>
           </div>
           <div class="actions secondary-actions">
-            <button id="detail-watchlist" class="action" type="button">+ Watchlist</button>
+            <button id="detail-watchlist" class="action" type="button">Watchlists</button>
             <button id="detail-like" class="action" type="button">Like</button>
             <button id="detail-dislike" class="action" type="button">Dislike</button>
-            <button id="detail-full" class="action" type="button">Open Full Page</button>
           </div>
         </div>
       </div>
@@ -222,10 +235,6 @@
         <p class="project-settings-copy">These are the same Streaming settings used by My Dashboard. Changes save to your account and appear in both places.</p>
         <section class="project-setting-block"><h3>Your Streaming Services</h3><div id="project-provider-list" class="project-provider-list"></div><p id="project-settings-status" class="project-settings-status" role="status"></p></section>
         <section class="project-setting-block"><h3>Playback Preference</h3><label class="project-toggle"><input id="project-dashboard-first" type="checkbox"><span><strong>Prefer My Dashboard Playback</strong><small>Temporarily place My Dashboard first when it is available.</small></span></label></section>
-        <section class="project-setting-block"><h3>Autoplay Next Episode</h3>
-          <label class="project-toggle"><input id="autoplay-next-enabled" type="checkbox" checked><span><strong>Autoplay Next Episode</strong><small>Start the next released episode automatically near the end.</small></span></label>
-          <label class="project-toggle"><span><strong>Countdown Seconds</strong><small>Default is 30 seconds. Choose 0–600 seconds.</small></span><input id="autoplay-next-seconds" type="number" min="0" max="600" step="1" value="30" inputmode="numeric"></label>
-        </section>
         <section class="project-setting-block"><h3>Row Size</h3>
           <label class="project-toggle"><span><strong>Titles per row</strong><small>Choose how many movies or shows appear in each Streaming row.</small></span><select id="titles-per-row" class="provider-select" aria-label="Titles per Streaming row"><option value="10">10</option><option value="15">15</option><option value="20" selected>20</option><option value="25">25</option><option value="30">30</option></select></label>
         </section>
@@ -247,17 +256,6 @@
     </section>
   </div>
 
-  <div id="up-next-overlay" class="watched-feedback" hidden>
-    <section class="watched-feedback-card" role="dialog" aria-live="polite">
-      <h3 id="up-next-title">Up Next</h3>
-      <p id="up-next-countdown">Playing next episode soon.</p>
-      <div class="watched-feedback-actions">
-        <button id="up-next-play-now" type="button">Play Now</button>
-        <button id="up-next-cancel" type="button">Cancel</button>
-      </div>
-    </section>
-  </div>
-
   <div id="watched-feedback" class="watched-feedback" hidden>
     <section class="watched-feedback-card" role="dialog" aria-modal="true" aria-labelledby="watched-feedback-title">
       <h3 id="watched-feedback-title">Did you like it?</h3>
@@ -270,6 +268,31 @@
     </section>
   </div>
 
+
+  <div id="watchlists-overlay" class="watchlist-overlay" hidden>
+    <section class="watchlist-dialog" role="dialog" aria-modal="true" aria-labelledby="watchlists-title">
+      <header class="watchlist-dialog-header"><h2 id="watchlists-title">Watchlists</h2><button id="watchlists-close" type="button" aria-label="Close watchlists">×</button></header>
+      <div class="watchlist-dialog-body">
+        <p id="watchlists-copy" class="project-settings-copy">Create named collections, mix movies and TV shows, and keep them in the order you want to watch.</p>
+        <div class="watchlist-create"><input id="new-watchlist-name" type="text" maxlength="80" placeholder="Watchlist name" aria-label="New watchlist name"><button id="create-watchlist-button" type="button">Create Watchlist</button></div>
+        <div id="watchlists-list" class="watchlist-list"></div>
+      </div>
+    </section>
+  </div>
+
+  <div id="watchlist-editor-overlay" class="watchlist-overlay" hidden>
+    <section class="watchlist-dialog" role="dialog" aria-modal="true" aria-labelledby="watchlist-editor-title">
+      <header class="watchlist-dialog-header"><h2 id="watchlist-editor-title">Watchlist</h2><button id="watchlist-editor-close" type="button" aria-label="Close watchlist">×</button></header>
+      <div class="watchlist-dialog-body">
+        <div class="watchlist-editor-tools">
+          <div class="watchlist-name-row"><input id="watchlist-name-input" type="text" maxlength="80" aria-label="Watchlist name"><button id="save-watchlist-name" class="watchlist-head-action" type="button">Save Name</button></div>
+          <div class="watchlist-editor-actions"><button id="watchlist-back" type="button">All Watchlists</button><button id="delete-watchlist" class="danger" type="button">Delete Watchlist</button></div>
+        </div>
+        <div id="watchlist-queue" class="watchlist-queue"></div>
+      </div>
+    </section>
+  </div>
+
   <div id="card-menu" class="menu" hidden></div>
 
   <script>
@@ -278,15 +301,13 @@
     let currentProviders = [];
     let prefs = null;
     let currentDetail = null;
+    let watchlists = [];
+    let activeWatchlist = null;
+    let pendingWatchlistTitle = null;
     let currentUserIsAdmin = false;
-    let autoplayNextEnabled = true;
-    let autoplayNextSeconds = 30;
     let titlesPerRow = 20;
     const discoveryTitleAppearances = new Map();
     let currentNextEpisode = null;
-    let autoplayCountdownTimer = null;
-    let autoplayCountdownStartedFor = null;
-    let autoplayCancelledFor = new Set();
     let titleStates = [];
     let watchedKeys = new Set();
     let continueWatchingKeys = new Set();
@@ -559,6 +580,85 @@
       });
       section.append(head, strip);
       document.getElementById("rows").appendChild(section);
+    }
+
+
+    async function loadWatchlists() {
+      watchlists = await DashboardStreaming.listWatchlists();
+      return watchlists;
+    }
+
+    async function getWatchlistCoverDetails(list) {
+      if (!list?.cover_tmdb_id || !list?.cover_media_type) return null;
+      try { return await DashboardStreaming.getTitleDetails(list.cover_tmdb_id, list.cover_media_type); }
+      catch (error) { console.warn("Watchlist cover:", error); return null; }
+    }
+
+    async function renderWatchlistsRow() {
+      await loadWatchlists();
+      if (!watchlists.length) return;
+      const section=document.createElement("section");section.className="row-section";
+      const head=document.createElement("div");head.className="row-head";
+      const h=document.createElement("h2");h.textContent="Watchlists";
+      const manage=document.createElement("button");manage.type="button";manage.className="watchlist-head-action";manage.textContent="Manage";manage.addEventListener("click",()=>openWatchlists());
+      head.append(h,manage);
+      const strip=document.createElement("div");strip.className="carousel";
+      for (const list of watchlists) {
+        const [items,cover]=await Promise.all([DashboardStreaming.loadWatchlistItems(list.id),getWatchlistCoverDetails(list)]);
+        const wrap=document.createElement("article");wrap.className="card collection-card";
+        const open=document.createElement("button");open.type="button";open.className="poster-button";open.addEventListener("click",()=>openWatchlistEditor(list.id));
+        if(cover?.poster_path){const img=document.createElement("img");img.className="poster";img.alt=list.name;img.loading="lazy";img.src=IMAGE+cover.poster_path;open.appendChild(img)}else{const ph=document.createElement("div");ph.className="collection-cover";ph.textContent="☰";open.appendChild(ph)}
+        const meta=document.createElement("div");meta.className="meta";const title=document.createElement("span");title.className="title";title.textContent=list.name;const sub=document.createElement("span");sub.className="sub";const queued=items.filter(x=>x.status!=="completed").length;sub.textContent=`${queued} to watch · ${items.length} total`;meta.append(title,sub);open.appendChild(meta);wrap.appendChild(open);strip.appendChild(wrap);
+      }
+      section.append(head,strip);document.getElementById("rows").appendChild(section);
+    }
+
+    async function openWatchlists(item=null,mediaType=null) {
+      pendingWatchlistTitle=item?{item,mediaType}:null;
+      document.getElementById("watchlists-overlay").hidden=false;document.body.style.overflow="hidden";
+      document.getElementById("watchlists-copy").textContent=item?`Choose a watchlist for ${mediaTitle(item)}, or create a new one.`:"Create named collections, mix movies and TV shows, and keep them in the order you want to watch.";
+      await renderWatchlistsManager();
+    }
+
+    function closeWatchlists(){document.getElementById("watchlists-overlay").hidden=true;pendingWatchlistTitle=null;if(document.getElementById("detail-overlay").hidden&&document.getElementById("watchlist-editor-overlay").hidden)document.body.style.overflow=""}
+
+    async function renderWatchlistsManager(){
+      const listEl=document.getElementById("watchlists-list");listEl.innerHTML="";await loadWatchlists();
+      if(!watchlists.length){listEl.innerHTML='<div class="watchlist-empty">No watchlists yet. Create your first collection above.</div>';return}
+      for(const list of watchlists){
+        const items=await DashboardStreaming.loadWatchlistItems(list.id);const row=document.createElement("div");row.className="watchlist-list-row";
+        const info=document.createElement("div");const name=document.createElement("strong");name.textContent=list.name;const note=document.createElement("small");note.textContent=`${items.filter(x=>x.status!=="completed").length} to watch · ${items.length} total`;info.append(name,note);
+        const actions=document.createElement("div");actions.className="watchlist-list-actions";
+        if(pendingWatchlistTitle){const existing=items.find(x=>Number(x.tmdb_id)===Number(pendingWatchlistTitle.item.id)&&x.media_type===pendingWatchlistTitle.mediaType);const add=document.createElement("button");add.type="button";add.className="primary";add.textContent=existing?"Remove":"Add";add.addEventListener("click",async()=>{if(existing)await DashboardStreaming.removeWatchlistItem(existing.id);else await DashboardStreaming.addTitleToWatchlist(list.id,pendingWatchlistTitle.item.id,pendingWatchlistTitle.mediaType);await renderWatchlistsManager();await init()});actions.appendChild(add)}
+        const open=document.createElement("button");open.type="button";open.textContent="Open";open.addEventListener("click",()=>openWatchlistEditor(list.id));actions.appendChild(open);row.append(info,actions);listEl.appendChild(row);
+      }
+    }
+
+    async function createWatchlistFromInput(){const input=document.getElementById("new-watchlist-name");const name=input.value.trim();if(!name){input.focus();return}const created=await DashboardStreaming.createWatchlist(name);input.value="";if(pendingWatchlistTitle)await DashboardStreaming.addTitleToWatchlist(created.id,pendingWatchlistTitle.item.id,pendingWatchlistTitle.mediaType);await renderWatchlistsManager();await init()}
+
+    async function openWatchlistEditor(watchlistId){
+      const lists=await DashboardStreaming.listWatchlists();activeWatchlist=lists.find(x=>String(x.id)===String(watchlistId))||null;if(!activeWatchlist)return;
+      document.getElementById("watchlists-overlay").hidden=true;document.getElementById("watchlist-editor-overlay").hidden=false;document.body.style.overflow="hidden";document.getElementById("watchlist-editor-title").textContent=activeWatchlist.name;document.getElementById("watchlist-name-input").value=activeWatchlist.name;await renderWatchlistEditor();
+    }
+
+    function closeWatchlistEditor(){document.getElementById("watchlist-editor-overlay").hidden=true;activeWatchlist=null;if(document.getElementById("detail-overlay").hidden&&document.getElementById("watchlists-overlay").hidden)document.body.style.overflow=""}
+
+    async function renderWatchlistEditor(){
+      if(!activeWatchlist)return;const queue=document.getElementById("watchlist-queue");queue.innerHTML="";const items=await DashboardStreaming.loadWatchlistItems(activeWatchlist.id);
+      if(!items.length){queue.innerHTML='<div class="watchlist-empty">This watchlist is empty. Add movies or TV shows from their Streaming details.</div>';return}
+      const enriched=await Promise.all(items.map(async row=>{try{return{row,details:await DashboardStreaming.getTitleDetails(row.tmdb_id,row.media_type)}}catch{return{row,details:null}}}));
+      for(let index=0;index<enriched.length;index+=1){const {row,details}=enriched[index];const card=document.createElement("div");card.className="watchlist-item"+(row.status==="completed"?" completed":"");
+        if(details?.poster_path){const img=document.createElement("img");img.className="watchlist-item-thumb";img.alt="";img.src=IMAGE+details.poster_path;card.appendChild(img)}else{const ph=document.createElement("div");ph.className="watchlist-item-thumb";card.appendChild(ph)}
+        const copy=document.createElement("div");copy.className="watchlist-item-copy";const title=document.createElement("strong");title.textContent=`${index+1}. ${details?mediaTitle(details):"Title"}`;const sub=document.createElement("small");sub.textContent=`${row.media_type==="tv"?"TV Show":"Movie"}${row.status==="completed"?" · Completed":index===items.findIndex(x=>x.status!=="completed")?" · Up Next":""}`;copy.append(title,sub);
+        const actions=document.createElement("div");actions.className="watchlist-item-actions";
+        const watch=document.createElement("button");watch.type="button";watch.textContent="Watch";watch.addEventListener("click",()=>{if(details){closeWatchlistEditor();showDetails({...details,_mediaType:row.media_type},row.media_type)}});actions.appendChild(watch);
+        const up=document.createElement("button");up.type="button";up.textContent="↑";up.disabled=index===0;up.addEventListener("click",async()=>{const ids=items.map(x=>x.id);[ids[index-1],ids[index]]=[ids[index],ids[index-1]];await DashboardStreaming.reorderWatchlistItems(activeWatchlist.id,ids);await renderWatchlistEditor();await init()});
+        const down=document.createElement("button");down.type="button";down.textContent="↓";down.disabled=index===items.length-1;down.addEventListener("click",async()=>{const ids=items.map(x=>x.id);[ids[index+1],ids[index]]=[ids[index],ids[index+1]];await DashboardStreaming.reorderWatchlistItems(activeWatchlist.id,ids);await renderWatchlistEditor();await init()});actions.append(up,down);
+        const skip=document.createElement("button");skip.type="button";skip.textContent="Skip";skip.disabled=row.status==="completed";skip.addEventListener("click",async()=>{await DashboardStreaming.skipWatchlistItem(activeWatchlist.id,row.id);await renderWatchlistEditor();await init()});actions.appendChild(skip);
+        const done=document.createElement("button");done.type="button";done.textContent=row.status==="completed"?"Queue Again":"Done";done.addEventListener("click",async()=>{await DashboardStreaming.setWatchlistItemStatus(row.id,row.status==="completed"?"queued":"completed");await renderWatchlistEditor();await init()});actions.appendChild(done);
+        const cover=document.createElement("button");cover.type="button";cover.textContent="Use Cover";cover.addEventListener("click",async()=>{activeWatchlist=await DashboardStreaming.updateWatchlist(activeWatchlist.id,{cover_tmdb_id:row.tmdb_id,cover_media_type:row.media_type});await init()});actions.appendChild(cover);
+        const remove=document.createElement("button");remove.type="button";remove.textContent="Remove";remove.addEventListener("click",async()=>{await DashboardStreaming.removeWatchlistItem(row.id);await renderWatchlistEditor();await init()});actions.appendChild(remove);card.append(copy,actions);queue.appendChild(card);
+      }
     }
 
     async function enrichTitleStates(states, limit = 20) {
@@ -1074,17 +1174,6 @@
     }
 
 
-    function playbackEpisodeKey() {
-      if (!activePlayback || activePlayback.mediaType !== "tv") return null;
-      return `${activePlayback.tmdbId}:${activePlayback.seasonNumber}:${activePlayback.episodeNumber}`;
-    }
-
-    function clearAutoplayCountdown() {
-      if (autoplayCountdownTimer) clearInterval(autoplayCountdownTimer);
-      autoplayCountdownTimer=null;
-      document.getElementById("up-next-overlay").hidden=true;
-    }
-
     async function refreshNextEpisodeButton() {
       const button=document.getElementById("next-episode-button");
       if(!currentDetail||currentDetail.mediaType!=="tv"){
@@ -1111,26 +1200,8 @@
       document.getElementById("tv-season-select").value=String(next.seasonNumber);
       await loadTvEpisodes(currentDetail.item.id,next.seasonNumber,next.episodeNumber);
       document.getElementById("tv-episode-select").value=String(next.episodeNumber);
-      clearAutoplayCountdown();
       await startDashboardPlayback(currentDetail.item,"tv",next.seasonNumber,next.episodeNumber);
       await refreshNextEpisodeButton();
-    }
-
-    function beginAutoplayCountdown(secondsRemaining) {
-      if(!autoplayNextEnabled||!currentNextEpisode)return;
-      const key=playbackEpisodeKey();
-      if(!key||autoplayCancelledFor.has(key)||autoplayCountdownStartedFor===key)return;
-      autoplayCountdownStartedFor=key;
-      let remaining=Math.max(0,Math.ceil(Math.min(Number(secondsRemaining)||autoplayNextSeconds,autoplayNextSeconds)));
-      document.getElementById("up-next-title").textContent=`Up Next · S${currentNextEpisode.seasonNumber} E${currentNextEpisode.episodeNumber}`;
-      const note=document.getElementById("up-next-countdown");
-      note.textContent=`Playing in ${remaining} second${remaining===1?"":"s"}`;
-      document.getElementById("up-next-overlay").hidden=false;
-      autoplayCountdownTimer=setInterval(async()=>{
-        remaining-=1;
-        if(remaining<=0){clearAutoplayCountdown();await startNextEpisode();return;}
-        note.textContent=`Playing in ${remaining} second${remaining===1?"":"s"}`;
-      },1000);
     }
 
     async function canCurrentUserWatch(item,mediaType){
@@ -1311,11 +1382,7 @@
           );
           currentUserIsAdmin = false;
         }
-        autoplayNextEnabled=prefs?.autoplay_next_episode!==false;
-        autoplayNextSeconds=Math.max(0,Math.min(600,Number(prefs?.autoplay_next_seconds??30)||30));
         titlesPerRow=[10,15,20,25,30].includes(Number(prefs?.titles_per_row))?Number(prefs.titles_per_row):20;
-        document.getElementById("autoplay-next-enabled").checked=autoplayNextEnabled;
-        document.getElementById("autoplay-next-seconds").value=String(autoplayNextSeconds);
         document.getElementById("titles-per-row").value=String(titlesPerRow);
         document.getElementById("admin-full-catalog-status").hidden=!currentUserIsAdmin;
         await refreshTitleStates();
@@ -1336,6 +1403,8 @@
 
         document.getElementById("rows").innerHTML = "";
         resetDiscoveryTitleAppearances();
+
+        await renderWatchlistsRow();
 
         const continueStates = titleStates
           .filter(state =>
@@ -1547,8 +1616,7 @@
       menu.innerHTML="";
       const watched=state?.viewing_status==="watched";
       const continuing=Boolean(state?.in_continue_watching) && !watched;
-      const watchlisted=Boolean(state?.in_watchlist);
-      const actions=[["Details",()=>showDetails(item,mediaType)]];
+      const actions=[["Details",()=>showDetails(item,mediaType)],["Add to Watchlist…",()=>openWatchlists(item,mediaType)]];
 
       if(continuing){
         actions.push(["Resume",()=>showDetails(item,mediaType)]);
@@ -1560,7 +1628,6 @@
         actions.push(["Watch Again",()=>restartTitle(item,mediaType)]);
         actions.push(["Mark as Unwatched",async()=>{await markUnwatched(item.id,mediaType);await init()}]);
       }else{
-        actions.push([watchlisted?"Remove from Watchlist":"Add to Watchlist",async()=>{await DashboardStreaming.setWatchlist(item.id,mediaType,!watchlisted);await refreshTitleStates()}]);
         actions.push(["Mark as Watched",()=>markWatchedWithFeedback(item,mediaType)]);
         actions.push(["Not Interested",async()=>{await DashboardStreaming.setTitleReaction(item.id,mediaType,"not_interested");await init()}]);
       }
@@ -1939,131 +2006,80 @@
       let url = mediaType === "tv" ? `${PLAYER_ORIGIN}/embed/tv/${Number(tmdbId)}` : `${PLAYER_ORIGIN}/embed/movie/${Number(tmdbId)}`;
       if (mediaType === "tv" && seasonNumber !== null && episodeNumber !== null) url += `/${Number(seasonNumber)}/${Number(episodeNumber)}`;
       const params = new URLSearchParams();
-      if (mediaType === "tv") params.set("autonext","1");
       params.set("ds_lang","en");
       if (Number(startAt) > 5) params.set("startAt",String(Math.floor(Number(startAt))));
       return `${url}?${params.toString()}`;
     }
 
 
+    function isIOSLike() {
+      return /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+        (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    }
+
+    function isStandaloneWebApp() {
+      return window.matchMedia?.("(display-mode: standalone)")?.matches === true ||
+        window.navigator.standalone === true;
+    }
+
+    function updatePictureInPictureControl() {
+      const button = document.getElementById("player-pip-button");
+      if (!button) return;
+      if (isIOSLike()) {
+        button.textContent = "Use Player PiP";
+        button.title = "On iPhone and iPad, use the Picture in Picture control inside the embedded player.";
+      } else {
+        button.textContent = "Picture in Picture";
+        button.removeAttribute("title");
+      }
+    }
+
     async function toggleDashboardPictureInPicture() {
-      const iframe =
-        document.getElementById(
-          "player-frame"
-        );
+      const iframe = document.getElementById("player-frame");
+      const button = document.getElementById("player-pip-button");
+      const status = document.getElementById("player-status");
+      if (!iframe || !button || !status) return;
 
-      const button =
-        document.getElementById(
-          "player-pip-button"
-        );
-
-      if (!iframe) return;
+      if (isIOSLike()) {
+        status.textContent = isStandaloneWebApp()
+          ? "On iPhone Home Screen apps, iOS may not allow Picture in Picture to start from an embedded player. Use the player’s own PiP control; if it is unavailable, open Streaming in Safari and use the same player control there."
+          : "On iPhone and iPad, use the Picture in Picture control inside the embedded video player. My Dashboard keeps picture-in-picture permission enabled for the player.";
+        iframe.focus?.();
+        return;
+      }
 
       if (
-        "documentPictureInPicture" in
-          window &&
-        typeof window
-          .documentPictureInPicture
-          ?.requestWindow ===
-          "function"
+        "documentPictureInPicture" in window &&
+        typeof window.documentPictureInPicture?.requestWindow === "function"
       ) {
         try {
-          const pipWindow =
-            await window
-              .documentPictureInPicture
-              .requestWindow({
-                width:520,
-                height:300
-              });
-
-          const placeholder =
-            document.createComment(
-              "player-pip-placeholder"
-            );
-
-          iframe.parentNode
-            .insertBefore(
-              placeholder,
-              iframe
-            );
-
-          const originalStyle =
-            iframe.getAttribute(
-              "style"
-            );
-
-          pipWindow.document
-            .body.style.margin = "0";
-
-          pipWindow.document
-            .body.style.background =
-              "#000";
-
-          iframe.style.width =
-            "100%";
-          iframe.style.height =
-            "100%";
-          iframe.style.border =
-            "0";
-
-          pipWindow.document
-            .body.appendChild(
-              iframe
-            );
-
-          button.textContent =
-            "Exit Picture in Picture";
-
-          pipWindow.addEventListener(
-            "pagehide",
-            () => {
-              if (
-                placeholder
-                  .parentNode
-              ) {
-                placeholder
-                  .parentNode
-                  .insertBefore(
-                    iframe,
-                    placeholder
-                  );
-
-                placeholder.remove();
-              }
-
-              if (
-                originalStyle == null
-              ) {
-                iframe
-                  .removeAttribute(
-                    "style"
-                  );
-              } else {
-                iframe
-                  .setAttribute(
-                    "style",
-                    originalStyle
-                  );
-              }
-
-              button.textContent =
-                "Picture in Picture";
-            },
-            { once:true }
-          );
-
+          const pipWindow = await window.documentPictureInPicture.requestWindow({width:520,height:300});
+          const placeholder = document.createComment("player-pip-placeholder");
+          iframe.parentNode.insertBefore(placeholder, iframe);
+          const originalStyle = iframe.getAttribute("style");
+          pipWindow.document.body.style.margin = "0";
+          pipWindow.document.body.style.background = "#000";
+          iframe.style.width = "100%";
+          iframe.style.height = "100%";
+          iframe.style.border = "0";
+          pipWindow.document.body.appendChild(iframe);
+          button.textContent = "Exit Picture in Picture";
+          pipWindow.addEventListener("pagehide", () => {
+            if (placeholder.parentNode) {
+              placeholder.parentNode.insertBefore(iframe, placeholder);
+              placeholder.remove();
+            }
+            if (originalStyle == null) iframe.removeAttribute("style");
+            else iframe.setAttribute("style", originalStyle);
+            updatePictureInPictureControl();
+          }, {once:true});
           return;
         } catch (error) {
-          console.warn(
-            "Dashboard Picture in Picture:",
-            error
-          );
+          console.warn("Dashboard Picture in Picture:", error);
         }
       }
 
-      document.getElementById(
-        "player-status"
-      ).textContent =
+      status.textContent =
         "Dashboard-controlled Picture in Picture is not available in this browser. If the embedded player has its own Picture in Picture control, it can still be used.";
     }
 
@@ -2156,6 +2172,7 @@
         });
 
       document.getElementById("player-wrap").hidden = false;
+      updatePictureInPictureControl();
 
       const episodeLabel =
         mediaType === "tv" &&
@@ -2195,18 +2212,6 @@
       activePlayback.seasonNumber=Number.isFinite(season)?season:null; activePlayback.episodeNumber=Number.isFinite(episode)?episode:null;
       pendingProgress={seasonNumber:activePlayback.seasonNumber,episodeNumber:activePlayback.episodeNumber,progressSeconds:progress,durationSeconds:duration};
       document.getElementById("player-status").textContent=activePlayback.mediaType==="tv"&&activePlayback.seasonNumber!==null?`S${activePlayback.seasonNumber} E${activePlayback.episodeNumber} · ${formatTime(progress)} / ${formatTime(duration)}`:`${formatTime(progress)} / ${formatTime(duration)}`;
-      if(
-        activePlayback?.mediaType==="tv" &&
-        Number.isFinite(progress) &&
-        Number.isFinite(duration) &&
-        duration>0
-      ){
-        const remainingSeconds=Math.max(0,duration-progress);
-        if(remainingSeconds<=autoplayNextSeconds&&remainingSeconds>0){
-          if(!currentNextEpisode)await refreshNextEpisodeButton();
-          if(currentNextEpisode)beginAutoplayCountdown(remainingSeconds);
-        }
-      }
 
       if(status==="playing") {
         await flushProgress(false,false);
@@ -2352,7 +2357,7 @@
       document.getElementById("detail-watch").textContent = "Watch";
       try { await populateProviderSelect(item,mediaType); } catch(error) { console.warn("Watch options:",error); }
       let state=item._state||null;try{state=state||await DashboardStreaming.loadTitleState(item.id,mediaType)}catch(error){console.warn(error)}
-      document.getElementById("detail-watchlist").textContent=state?.in_watchlist?"Remove Watchlist":"+ Watchlist";
+      document.getElementById("detail-watchlist").textContent="Watchlists";
       document.getElementById("detail-note").textContent="Choose where to watch, then press Watch. The provider dropdown stays available for every title.";
       document.getElementById("detail-overlay").hidden = false;
       document.body.style.overflow = "hidden";
@@ -2415,28 +2420,10 @@
       "click",
       toggleDashboardPictureInPicture
     );
-    document.getElementById("next-episode-button").addEventListener("click",startNextEpisode);
-    document.getElementById("up-next-play-now").addEventListener("click",startNextEpisode);
-    document.getElementById("up-next-cancel").addEventListener("click",()=>{
-      const key=playbackEpisodeKey();if(key)autoplayCancelledFor.add(key);clearAutoplayCountdown();
-    });
-    document.getElementById("service-required-close").addEventListener("click",()=>{document.getElementById("service-required-modal").hidden=true});
+    document.getElementById("next-episode-button").addEventListener("click",startNextEpisode);    document.getElementById("service-required-close").addEventListener("click",()=>{document.getElementById("service-required-modal").hidden=true});
     document.getElementById("service-required-settings").addEventListener("click",()=>{
       document.getElementById("service-required-modal").hidden=true;openProjectSettings();
-    });
-    document.getElementById("autoplay-next-enabled").addEventListener("change",async event=>{
-      autoplayNextEnabled=event.target.checked;
-      if(!autoplayNextEnabled)clearAutoplayCountdown();
-      await DashboardStreaming.savePreferences({autoplay_next_episode:autoplayNextEnabled});
-      prefs=await DashboardStreaming.loadPreferences();
-    });
-    document.getElementById("autoplay-next-seconds").addEventListener("change",async event=>{
-      autoplayNextSeconds=Math.max(0,Math.min(600,Number(event.target.value)||30));
-      event.target.value=String(autoplayNextSeconds);
-      await DashboardStreaming.savePreferences({autoplay_next_seconds:autoplayNextSeconds});
-      prefs=await DashboardStreaming.loadPreferences();
-    });
-    document.getElementById("titles-per-row").addEventListener("change",async event=>{
+    });    document.getElementById("titles-per-row").addEventListener("change",async event=>{
       const value=Number(event.target.value);
       titlesPerRow=[10,15,20,25,30].includes(value)?value:20;
       event.target.value=String(titlesPerRow);
@@ -2445,13 +2432,24 @@
       await init();
     });
 
+
+    document.getElementById("watchlists-close").addEventListener("click",closeWatchlists);
+    document.getElementById("watchlists-overlay").addEventListener("click",event=>{if(event.target===event.currentTarget)closeWatchlists()});
+    document.getElementById("create-watchlist-button").addEventListener("click",()=>createWatchlistFromInput().catch(console.error));
+    document.getElementById("new-watchlist-name").addEventListener("keydown",event=>{if(event.key==="Enter")createWatchlistFromInput().catch(console.error)});
+    document.getElementById("watchlist-editor-close").addEventListener("click",closeWatchlistEditor);
+    document.getElementById("watchlist-editor-overlay").addEventListener("click",event=>{if(event.target===event.currentTarget)closeWatchlistEditor()});
+    document.getElementById("watchlist-back").addEventListener("click",async()=>{closeWatchlistEditor();await openWatchlists()});
+    document.getElementById("save-watchlist-name").addEventListener("click",async()=>{if(!activeWatchlist)return;activeWatchlist=await DashboardStreaming.updateWatchlist(activeWatchlist.id,{name:document.getElementById("watchlist-name-input").value});document.getElementById("watchlist-editor-title").textContent=activeWatchlist.name;await init()});
+    document.getElementById("delete-watchlist").addEventListener("click",async()=>{if(!activeWatchlist)return;if(!window.confirm(`Delete “${activeWatchlist.name}”?`))return;await DashboardStreaming.deleteWatchlist(activeWatchlist.id);closeWatchlistEditor();await init()});
+
     document.getElementById("detail-close").addEventListener("click", closeDetails);
     document.getElementById("detail-overlay").addEventListener("click", e => {
       if (e.target === e.currentTarget) closeDetails();
     });
     document.getElementById("card-menu").addEventListener("click", e => e.stopPropagation());
     document.addEventListener("click", e => { if (!e.target.closest(".more")) document.getElementById("card-menu").hidden = true; });
-    document.addEventListener("keydown", e => { if(e.key!=="Escape")return;if(!document.getElementById("project-settings").hidden)return closeProjectSettings();if(!document.getElementById("detail-overlay").hidden)closeDetails(); });
+    document.addEventListener("keydown", e => { if(e.key!=="Escape")return;if(!document.getElementById("watchlist-editor-overlay").hidden)return closeWatchlistEditor();if(!document.getElementById("watchlists-overlay").hidden)return closeWatchlists();if(!document.getElementById("project-settings").hidden)return closeProjectSettings();if(!document.getElementById("detail-overlay").hidden)closeDetails(); });
 
     document.getElementById("detail-watch").addEventListener("click", async () => {
       if(!currentDetail)return;
@@ -2485,17 +2483,14 @@
     });
 
     document.getElementById("detail-watchlist").addEventListener("click", async () => {
-      if(!currentDetail)return;const state=await DashboardStreaming.loadTitleState(currentDetail.item.id,currentDetail.mediaType);const next=!Boolean(state?.in_watchlist);await DashboardStreaming.setWatchlist(currentDetail.item.id,currentDetail.mediaType,next);document.getElementById("detail-watchlist").textContent=next?"Remove Watchlist":"+ Watchlist";
+      if(!currentDetail)return;
+      await openWatchlists(currentDetail.item,currentDetail.mediaType);
     });
     document.getElementById("detail-like").addEventListener("click", async () => {
       if(currentDetail) await DashboardStreaming.setTitleReaction(currentDetail.item.id,currentDetail.mediaType,"like");
     });
     document.getElementById("detail-dislike").addEventListener("click", async () => {
       if(currentDetail) await DashboardStreaming.setTitleReaction(currentDetail.item.id,currentDetail.mediaType,"dislike");
-    });
-    document.getElementById("detail-full").addEventListener("click", () => {
-      document.getElementById("detail-note").textContent =
-        "Full title pages are reserved for the expanded details phase; the large overlay is the default browsing experience.";
     });
 
     document.getElementById("search").addEventListener("keydown", async e => {

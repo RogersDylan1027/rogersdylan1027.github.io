@@ -1,52 +1,58 @@
-My Dashboard · Version 0.6.13
-Streaming Row Personalization & Duplicate Reduction · 2026-08-17
+My Dashboard · Version 0.6.15
+Multiple Watchlists & Custom Collections · 2026-08-18
 
 CHANGELOG
 =========
-Version 0.6.13: Streaming Row Personalization & Duplicate Reduction
+Version 0.6.15: Multiple Watchlists & Custom Collections
 
 Description:
-Adds a per-account titles-per-row preference and reduces repeated movies and
-shows across Streaming discovery rows. Streaming now favors fresh titles as
-users move down the page while preserving user-specific rows and the existing
-0.6 playback, availability, and watched-state behavior.
+Adds multiple named Streaming watchlists that can mix movies and TV shows, keep a custom play order, use a single collection cover, and stay editable at any time. Each watchlist appears as its own collection card in Streaming, with controls to add, remove, reorder, skip, and complete titles.
 
-TITLES PER ROW
-==============
-- Adds a Titles per Row setting with 10, 15, 20, 25, and 30 options.
-- The setting is saved to streaming_preferences for the signed-in Dashboard account.
-- The same saved value is available from both Dashboard Settings and Streaming Settings.
-- The default remains 20 titles per row.
-- The selected limit applies whenever Streaming builds its carousel rows.
-
-DUPLICATE REDUCTION
+MULTIPLE WATCHLISTS
 ===================
-- Discovery, recommendation, popular, trending, arriving, and leaving rows now
-  strongly prefer titles that have not appeared in an earlier discovery row.
-- If a later row needs more titles, a title may appear a second time, but it is
-  capped at two discovery-row appearances instead of repeating throughout the page.
-- Row order still determines which row gets first claim on a title.
-- Continue Watching is exempt from cross-row de-duplication because it is a
-  user-specific state row.
-- Search results are also exempt from cross-row de-duplication so searches show
-  the requested results normally, while still respecting the chosen row size.
+- Create as many named watchlists as you want.
+- Each watchlist can contain both movies and TV shows.
+- A Watchlists row appears in Streaming, and each card represents one collection.
+- Each collection uses one cover poster. The first added title becomes the default cover, and any item can later be chosen as the cover.
+- Watchlists stay editable at all times.
 
-PRESERVED 0.6 BEHAVIOR
-======================
-- Continue Watching remains exclusive from normal discovery rows.
-- Movies with future release dates remain hidden.
-- TV shows with no released episodes remain hidden.
-- Caught-up ongoing shows remain hidden until a new episode actually releases.
-- Admin full-catalog access remains unchanged.
-- Dashboard Picture in Picture remains unchanged.
-- Provider selection and provider priority remain unchanged.
-- Autoplay Next Episode remains unchanged.
+ORDERED QUEUES
+==============
+- Titles stay in a saved play order.
+- Move items up or down at any time.
+- Skip moves a queued title to the end without marking it completed.
+- Done marks an item completed so the next queued title becomes Up Next.
+- Queue Again restores a completed item to the active queue.
+- Remove deletes only that item from the selected watchlist.
+- Watch opens the normal Streaming title details/player flow.
+
+ADDING TITLES
+=============
+- The title Details screen now has a Watchlists button.
+- Card menus include Add to Watchlist…
+- A title can belong to multiple watchlists at the same time.
+- Creating a new watchlist while adding a title immediately puts that title into the new collection.
+
+PRESERVED FROM 0.6.14
+=====================
+- Autoplay Next Episode remains removed.
+- Manual Next Episode remains available.
+- Open Full Page remains removed.
+- iPhone/iPad Picture in Picture guidance and permissions remain in place.
+- Mobile Streaming header alignment and centered three-dot menu fixes remain in place.
+
+PRESERVED FROM 0.6.13
+=====================
+- Titles per Row: 10, 15, 20, 25, or 30.
+- Cross-row duplicate reduction with Continue Watching exempt.
+- Future-content filtering and caught-up-series hiding.
+- Admin full-catalog access, provider priority, Dashboard Playback, and TV episode selection.
 
 SUPABASE
 ========
-Run streaming-0.6.13-preferences.sql once in the Supabase SQL Editor before
-publishing the updated files. It adds streaming_preferences.titles_per_row with
-a default of 20 and constrains it to 10, 15, 20, 25, or 30.
+Run Supabase/streaming-0.6.15-watchlists.sql before publishing the Dashboard files.
+It creates the per-user streaming_watchlists and streaming_watchlist_items tables with RLS policies.
+The existing 0.6.13 titles_per_row migration remains required if it has not already been run.
 
 FILES UPDATED
 =============
@@ -59,4 +65,4 @@ Dashboard/dashboard-streaming.js
 Dashboard/dashboard-streaming-ui.js
 Dashboard/Streaming/index.html
 Dashboard/README.txt
-Dashboard/streaming-0.6.13-preferences.sql
+Supabase/streaming-0.6.15-watchlists.sql
