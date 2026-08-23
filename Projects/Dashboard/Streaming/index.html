@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>My Dashboard · Streaming · Version 0.6.18</title>
-  <meta name="description" content="My Dashboard unified streaming hub. Version 0.6.18 expands named watchlists into advanced collections with independent cover search, useful sorting modes, richer TV episode browsing, and corrected iPhone header and row alignment while preserving all 0.6.14 and 0.6.15 changes.">
+  <title>My Dashboard · Streaming · Version 0.7.0</title>
+  <meta name="description" content="My Dashboard unified streaming hub. Version 0.7.0 improves startup and row-loading performance with short-lived request caching, duplicate-call reuse, batched availability processing, and smarter TV refresh checks while preserving existing Streaming features.">
   <meta name="theme-color" content="#101218">
 
-  <script src="../dashboard-config.js?v=0.6.18"></script>
+  <script src="../dashboard-config.js?v=0.7.0"></script>
   <script
-    src="../dashboard-auth.js?v=0.6.18"
+    src="../dashboard-auth.js?v=0.7.0"
     data-dashboard-project="streaming">
   </script>
-  <script src="../dashboard-streaming.js?v=0.6.18"></script>
+  <script src="../dashboard-streaming.js?v=0.7.0"></script>
 
   <style>
     *{box-sizing:border-box}
@@ -188,6 +188,7 @@
       .watchlist-sort-row,.watchlist-cover-search{grid-template-columns:1fr}.watchlist-sort-row select{width:100%}
     }
   </style>
+  <!-- Version 0.7.0: Dashboard Performance Optimization · 2026-08-23 -->
 </head>
 <body>
   <header class="topbar">
@@ -978,26 +979,32 @@
         const seen = new Set();
         const results = [];
 
-        for (const event of events) {
-          if (!enabledProviderIds.has(String(event.provider_id))) continue;
+        const candidates = events.filter(event => {
+          if (!enabledProviderIds.has(String(event.provider_id))) return false;
           const key = titleKey(event.tmdb_id,event.media_type);
-          if (seen.has(key) || watchedKeys.has(key)) continue;
+          if (seen.has(key) || watchedKeys.has(key)) return false;
           seen.add(key);
+          return true;
+        });
 
-          try {
-            const details = await DashboardStreaming.getTitleDetails(event.tmdb_id,event.media_type);
-            let currentEnabled = [];
-            try { currentEnabled = await getExternalProvidersForTitle(details,event.media_type); } catch (availabilityError) { console.warn("Availability event check:",availabilityError); }
-
-            // Arrivals are useful only if the title is not already on an enabled external service.
-            if (mode === "coming" && currentEnabled.length) continue;
-            // Leaving is suppressed when another enabled external provider currently carries it.
-            if (mode === "leaving" && currentEnabled.some(row => String(row.provider_id) !== String(event.provider_id))) continue;
-
-            results.push({...details,_mediaType:event.media_type,_availabilityEvent:event});
-          } catch (error) {
-            console.warn("Availability event title:",error);
-          }
+        const target = Math.max(titlesPerRow || 20, 20);
+        const batchSize = 6;
+        for (let offset = 0; offset < candidates.length && results.length < target; offset += batchSize) {
+          const batch = candidates.slice(offset, offset + batchSize);
+          const resolved = await Promise.all(batch.map(async event => {
+            try {
+              const details = await DashboardStreaming.getTitleDetails(event.tmdb_id,event.media_type);
+              let currentEnabled = [];
+              try { currentEnabled = await getExternalProvidersForTitle(details,event.media_type); } catch (availabilityError) { console.warn("Availability event check:",availabilityError); }
+              if (mode === "coming" && currentEnabled.length) return null;
+              if (mode === "leaving" && currentEnabled.some(row => String(row.provider_id) !== String(event.provider_id))) return null;
+              return {...details,_mediaType:event.media_type,_availabilityEvent:event};
+            } catch (error) {
+              console.warn("Availability event title:",error);
+              return null;
+            }
+          }));
+          results.push(...resolved.filter(Boolean).slice(0, target - results.length));
         }
         return results;
       } catch (error) {
@@ -1339,10 +1346,12 @@
     }
 
     async function refreshWaitingTvShows() {
+      const today = todayIsoDate();
       const waitingStates =
         titleStates.filter(state =>
           state.media_type === "tv" &&
-          state.waiting_for_next_episode === true
+          state.waiting_for_next_episode === true &&
+          (!state.next_episode_air_date || String(state.next_episode_air_date) <= today)
         );
 
       if (!waitingStates.length) return false;

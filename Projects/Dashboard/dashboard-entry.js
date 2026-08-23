@@ -1,6 +1,6 @@
 /*
-  My Dashboard · Dashboard Entry Guard · Version 0.6.16
-  Advanced Watchlists & Collection Browsing · 2026-08-19
+  My Dashboard · Dashboard Entry Guard · Version 0.7.0
+  Dashboard Performance Optimization · 2026-08-23
 
   Load dashboard-config.js first, then this file as early as possible in
   Dashboard/index.html <head>. Logged-out visitors are sent to login.html.
@@ -57,24 +57,26 @@
   }
 
   function waitForDashboardShell(timeoutMs = 15000) {
+    const ready = () =>
+      document.getElementById("settings-view") &&
+      document.getElementById("changelog-view");
+
+    if (ready()) return Promise.resolve();
+
     return new Promise((resolve, reject) => {
-      const started = Date.now();
-
-      const timer = setInterval(() => {
-        if (
-          document.getElementById("settings-view") &&
-          document.getElementById("changelog-view")
-        ) {
-          clearInterval(timer);
-          resolve();
-          return;
-        }
-
-        if (Date.now() - started > timeoutMs) {
-          clearInterval(timer);
-          reject(new Error("Dashboard shell did not become ready."));
-        }
-      }, 100);
+      const finish = (error) => {
+        observer?.disconnect();
+        clearTimeout(timeout);
+        error ? reject(error) : resolve();
+      };
+      const observer = window.MutationObserver
+        ? new MutationObserver(() => { if (ready()) finish(); })
+        : null;
+      observer?.observe(document.documentElement, { childList: true, subtree: true });
+      const timeout = setTimeout(() =>
+        finish(new Error("Dashboard shell did not become ready.")),
+        timeoutMs
+      );
     });
   }
 
@@ -114,6 +116,13 @@
         }
       );
 
+      // Expose the shared client immediately so the flattened Dashboard shell
+      // can reuse it instead of creating a second Supabase client.
+      window.DashboardEntryAuth = {
+        client,
+        user: null
+      };
+
       const { data, error } = await client.auth.getUser();
 
       if (error || !data?.user) {
@@ -121,16 +130,12 @@
         return;
       }
 
-      window.DashboardEntryAuth = {
-        client,
-        user: data.user
-      };
+      window.DashboardEntryAuth.user = data.user;
 
       document.documentElement.style.removeProperty("visibility");
 
-      // document.write() in the preserved Dashboard shell may happen after
-      // this script returns. The timer intentionally survives and waits for
-      // that final shell before attaching 0.6.9 Streaming UI.
+      // The Dashboard shell is now static, so attach the Streaming runtime
+      // as soon as the parsed Settings/Changelog shell is available.
       setTimeout(startStreamingRuntime, 0);
     } catch (error) {
       console.error("Dashboard entry authentication:", error);

@@ -1,6 +1,6 @@
 /*
-  My Dashboard · Streaming Client · Version 0.6.17
-  Streaming Row Personalization & Duplicate Reduction · 2026-08-17
+  My Dashboard · Streaming Client · Version 0.7.0
+  Dashboard Performance Optimization · 2026-08-23
 
   Load after dashboard-config.js and after the Dashboard's authenticated
   Supabase client is available.
@@ -10,6 +10,27 @@
 */
 (function () {
   "use strict";
+
+
+  // 0.7.0: short-lived request caches prevent duplicate Supabase/TMDB work
+  // during one Streaming render while still allowing fresh data after writes.
+  const requestCache = new Map();
+  function cachedRequest(key, factory, ttlMs = 60000) {
+    const now = Date.now();
+    const hit = requestCache.get(key);
+    if (hit && (hit.promise || now - hit.time < ttlMs)) return hit.promise || Promise.resolve(hit.value);
+    const promise = Promise.resolve().then(factory).then(value => {
+      requestCache.set(key, { value, time: Date.now(), promise: null });
+      return value;
+    }).catch(error => { requestCache.delete(key); throw error; });
+    requestCache.set(key, { promise, time: now });
+    return promise;
+  }
+  function invalidateCache(...prefixes) {
+    for (const key of [...requestCache.keys()]) {
+      if (!prefixes.length || prefixes.some(prefix => key.startsWith(prefix))) requestCache.delete(key);
+    }
+  }
 
   function getSupabaseClient() {
     return (
@@ -60,6 +81,7 @@
   }
 
   async function listProviders() {
+    return cachedRequest("providers:catalog", async () => {
     const client = requireClient();
 
     const { data, error } = await client
@@ -72,11 +94,13 @@
 
     if (error) throw error;
     return data || [];
+    }, 300000);
   }
 
   async function loadUserProviders() {
-    const client = requireClient();
     const user = requireUser();
+    return cachedRequest("user-providers:" + user.id, async () => {
+    const client = requireClient();
 
     const { data, error } = await client
       .from("user_streaming_providers")
@@ -88,6 +112,7 @@
 
     if (error) throw error;
     return data || [];
+    }, 30000);
   }
 
   async function addProvider(providerId) {
@@ -117,6 +142,7 @@
       .single();
 
     if (error) throw error;
+    invalidateCache("user-providers:");
     return data;
   }
 
@@ -131,6 +157,7 @@
       .eq("provider_id", providerId);
 
     if (error) throw error;
+    invalidateCache("user-providers:");
 
     await normalizePriorities();
   }
@@ -185,8 +212,9 @@
   }
 
   async function loadPreferences() {
-    const client = requireClient();
     const user = requireUser();
+    return cachedRequest("preferences:" + user.id, async () => {
+    const client = requireClient();
 
     const { data, error } = await client
       .from("streaming_preferences")
@@ -218,6 +246,7 @@
 
     if (createError) throw createError;
     return created;
+    }, 30000);
   }
 
   async function savePreferences(changes) {
@@ -273,6 +302,7 @@
       .single();
 
     if (error) throw error;
+    invalidateCache("preferences:");
     return data;
   }
 
@@ -920,6 +950,10 @@
   }
 
   async function tmdb(path, params = {}) {
+    const cacheKey = "tmdb:" + path + "?" + new URLSearchParams(
+      Object.entries(params).filter(([,v]) => v !== null && v !== undefined && v !== "").map(([k,v]) => [k,String(v)])
+    ).toString();
+    return cachedRequest(cacheKey, async () => {
     const client = requireClient();
     const {
       data: { session },
@@ -951,6 +985,7 @@
     }
 
     return payload;
+    }, path.includes("watch/providers") ? 300000 : 120000);
   }
 
   function normalizeProviderName(value) {
@@ -1145,7 +1180,7 @@
   window.DashboardStreaming = Object.freeze({
     getAvailableProvidersForTitle,
     isAdminUser,
-    version: "0.6.17",
+    version: "0.7.0",
     listProviders,
     loadUserProviders,
     addProvider,
@@ -1188,5 +1223,6 @@
     getWatchProviders,
     getTvSeasonDetails,
     discoverCombined,
+    invalidateCache,
   });
 })();
