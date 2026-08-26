@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Budget · 0.2.8</title>
+<title>Budget · 0.3.1</title>
 
 <!-- Budget keeps its own 0.2.8 version line. Dashboard 0.7.1 integration only adds shared access protection. -->
-<script src="../dashboard-config.js?v=0.7.1"></script>
-<script src="../dashboard-auth.js?v=0.7.1" data-dashboard-project="budget"></script>
+<script src="../dashboard-config.js?v=0.7.2"></script>
+<script src="../dashboard-auth.js?v=0.7.2" data-dashboard-project="budget"></script>
 <style>
 :root{--blue:#28487e;--soft:#eef3fb;--bg:#f6f7f9;--card:#fff;--text:#18202b;--muted:#667085;--line:#e5e7eb;--green:#147a4a;--red:#b42318}
 *{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}
@@ -182,13 +182,15 @@ dialog{width:min(520px,calc(100% - 24px));border:0;border-radius:18px;padding:0}
 </dialog>
 
 <script>
-const KEY="budget-local-0.2.8", USER="local-user";
-const defaults={current:"main",view:{period:"week",sort:"default"},prefs:{},pay:{payType:"hourly",payAmount:17,hoursPerDay:5.5,daysPerWeek:5},gas:{distance:45,distancePeriod:"week",mpg:15,gasPrice:3.93,tankSize:22.5,oilMiles:6000},budgets:[{id:"main",name:"Main Budget",type:"main",members:[{id:USER,name:"You"}],splitMode:"whole",customSplitCount:2,items:[{id:"paycheck",type:"income",name:"Paycheck",category:"Job",amount:411.4,period:"week",enabled:true},{id:"chatgpt",type:"expense",name:"ChatGPT Plus",category:"School",amount:21.75,period:"month",enabled:true}]}]};
+const KEY="budget-local-0.3.1", USER="local-user";
+const defaults={current:"main",view:{period:"week",sort:"default"},prefs:{},pay:{payType:"hourly",payAmount:17,hoursPerDay:5.5,daysPerWeek:5},gas:{distance:45,distancePeriod:"week",mpg:15,gasPrice:3.93,tankSize:22.5,oilMiles:6000},budgets:[{id:"main",name:"Main Budget",type:"main",members:[{id:USER,name:"You"}],splitMode:"whole",customSplitCount:2,items:[]}]};
 let state;try{state=JSON.parse(localStorage.getItem(KEY))||structuredClone(defaults)}catch{state=structuredClone(defaults)}
 
 if(!localStorage.getItem(KEY)){
   try{
     const previous=
+      JSON.parse(localStorage.getItem("budget-local-0.3.0")) ||
+      JSON.parse(localStorage.getItem("budget-local-0.2.8")) ||
       JSON.parse(localStorage.getItem("budget-local-0.2.7")) ||
       JSON.parse(localStorage.getItem("budget-local-0.2.6")) ||
       JSON.parse(localStorage.getItem("budget-local-0.2.5")) ||
@@ -201,18 +203,56 @@ if(!localStorage.getItem(KEY)){
   }catch{}
 }
 state.view||={period:"week",sort:"default"};state.prefs||={};state.budgets||=structuredClone(defaults.budgets);
-const $=id=>document.getElementById(id), save=()=>localStorage.setItem(KEY,JSON.stringify(state));
+if(cleanupLegacySampleState(state)){localStorage.setItem(KEY,JSON.stringify(state))}
+const $=id=>document.getElementById(id);
+const persistLocal=()=>localStorage.setItem(KEY,JSON.stringify(state));
+const save=()=>{persistLocal();window.BudgetCloud?.scheduleSave?.(state)};
 const cur=()=>state.budgets.find(b=>b.id===state.current)||state.budgets[0];
 const money=n=>(Number(n)||0).toLocaleString(undefined,{style:"currency",currency:"USD"});
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const annual=(a,p)=>({week:a*52,biweekly:a*26,month:a*12,year:a,biyearly:a/2}[p]||0);
 const per=(a,from,to)=>{let y=annual(Number(a)||0,from);return {week:y/52,biweekly:y/26,month:y/12,year:y}[to]||0};
 const sign=n=>(n>0?"+":n<0?"−":"")+money(Math.abs(n));
+
+const LEGACY_SAMPLE_CLEANUP_KEY="budget-sample-cleanup-0.3.1";
+function isExactLegacySampleState(s){
+  if(!s||!Array.isArray(s.budgets)||s.budgets.length!==1)return false;
+  const b=s.budgets[0];
+  if(b?.type!=="main"||!Array.isArray(b.items)||b.items.length!==2)return false;
+
+  const items=[...b.items].sort((a,b)=>String(a.name).localeCompare(String(b.name)));
+  const chat=items.find(i=>i.name==="ChatGPT Plus");
+  const pay=items.find(i=>i.name==="Paycheck");
+
+  return !!(
+    chat&&pay &&
+    chat.type==="expense" &&
+    Number(chat.amount)===21.75 &&
+    chat.period==="month" &&
+    String(chat.category||"")==="School" &&
+    chat.enabled===true &&
+    pay.type==="income" &&
+    Number(pay.amount)===411.4 &&
+    pay.period==="week" &&
+    String(pay.category||"")==="Job" &&
+    pay.enabled===true
+  );
+}
+
+function cleanupLegacySampleState(s){
+  if(localStorage.getItem(LEGACY_SAMPLE_CLEANUP_KEY)==="done")return false;
+  if(!isExactLegacySampleState(s))return false;
+
+  s.budgets[0].items=[];
+  localStorage.setItem(LEGACY_SAMPLE_CLEANUP_KEY,"done");
+  return true;
+}
+
 const plabel=p=>({week:"Weekly",biweekly:"Every 2 Weeks",month:"Monthly",year:"Yearly"}[p]);
 const short=p=>({week:"wk",biweekly:"2 wks",month:"mo",year:"yr"}[p]);
 function pref(id){state.prefs[id]??={include:false};return state.prefs[id]}
 function factor(b){if(b.type!=="shared"||b.splitMode==="whole")return 1;if(b.splitMode==="members")return 1/Math.max(1,b.members?.length||1);return 1/Math.max(1,Number(b.customSplitCount)||1)}
-function effectiveItems(b){let out=(b.items||[]).map(i=>({...i,source:b.name}));if(b.type==="main"){state.budgets.filter(x=>x.id!=="main"&&pref(x.id).include).forEach(x=>(x.items||[]).forEach(i=>out.push({...i,id:x.id+"::"+i.id,amount:i.amount*factor(x),inherited:true,source:x.name})));}return out}
+function effectiveItems(b){let out=(b.items||[]).map(i=>({...i,source:b.name}));if(b.type==="main"){state.budgets.filter(x=>x.type!=="main"&&pref(x.id).include).forEach(x=>(x.items||[]).forEach(i=>out.push({...i,id:x.id+"::"+i.id,amount:i.amount*factor(x),inherited:true,source:x.name})));}return out}
 function renderSelect(){$("budgetSelect").innerHTML=state.budgets.map(b=>`<option value="${b.id}">${esc(b.name)}${b.type==="shared"?" · Shared":""}</option>`).join("");$("budgetSelect").value=cur().id;$("deleteCurrentBudgetBtn").style.display=cur().type==="main"?"none":"inline-block"}
 function renderMeta(){let b=cur(),t=b.type==="main"?"Main":b.type==="shared"?"Shared":"Individual";let x=`<span class="pill">${t}</span>`;if(b.type==="shared"){x+=`<span class="pill">${b.members?.length||1} members</span>`;x+=`<span class="pill">${b.splitMode==="whole"?"Whole":b.splitMode==="members"?"Even split":"Split by "+b.customSplitCount}</span>`}$("meta").innerHTML=x}
 function itemHtml(i){let p=state.view.period,v=per(i.amount,i.period,p);return `<div class="item ${i.enabled?"":"off"}"><label class="switch"><input type="checkbox" ${i.enabled?"checked":""} ${i.inherited?"disabled":""} data-item="${i.id}"><span class="slider"></span></label><div><div class="name">${esc(i.name)}</div><div class="sub">${i.type==="income"?"+":"−"} ${esc(i.category||"Other")} · saved ${i.period}${i.inherited?" · from "+esc(i.source):""}</div></div><div class="amt">${money(v)} / ${short(p)}</div>${i.inherited?"":`<button class="btn secondary edit" data-edit="${i.id}">Edit</button>`}</div>`}
@@ -220,7 +260,7 @@ function renderItems(){let b=cur(),items=effectiveItems(b),mode=state.view.sort;
 if(mode==="name")items.sort((a,b)=>a.name.localeCompare(b.name));if(mode==="amount")items.sort((a,b)=>per(b.amount,b.period,state.view.period)-per(a.amount,a.period,state.view.period));
 if(mode==="category"){let groups={};items.forEach(i=>(groups[i.category||"Other"]??=[]).push(i));$("listTitle").textContent="Budget by Category";$("items").innerHTML=Object.keys(groups).sort().map(c=>{let n=groups[c].filter(i=>i.enabled).reduce((s,i)=>s+(i.type==="income"?1:-1)*per(i.amount,i.period,state.view.period),0);return `<div class="category"><div class="cat-head"><span>${esc(c)}</span><span class="${n<0?"neg":"pos"}">${sign(n)} / ${short(state.view.period)}</span></div>${groups[c].map(itemHtml).join("")}</div>`}).join("")}else{$("listTitle").textContent="Budget Items";$("items").innerHTML=items.map(itemHtml).join("")}}
 function summary(){let items=effectiveItems(cur()).filter(i=>i.enabled),inc=0,exp=0;items.forEach(i=>{let v=per(i.amount,i.period,state.view.period);i.type==="income"?inc+=v:exp+=v});let n=inc-exp,l=plabel(state.view.period);$("incomeLabel").textContent=l+" Income";$("expenseLabel").textContent=l+" Expenses";$("netLabel").textContent=l+" Money Left";$("income").textContent=money(inc);$("expenses").textContent=money(exp);$("net").textContent=money(n);$("net").className=n<0?"neg":"pos"}
-function renderIncluded(){let b=cur();$("includedCard").style.display=b.type==="main"?"block":"none";if(b.type!=="main")return;let arr=state.budgets.filter(x=>x.id!=="main");$("included").innerHTML=arr.length?arr.map(x=>{let n=(x.items||[]).filter(i=>i.enabled).reduce((s,i)=>s+(i.type==="income"?1:-1)*per(i.amount,i.period,state.view.period),0)*factor(x);return `<div class="budget-row"><label class="switch"><input type="checkbox" ${pref(x.id).include?"checked":""} data-budget-toggle="${x.id}"><span class="slider"></span></label><div><div class="name">${esc(x.name)}</div><div class="sub">${x.type==="shared"?"Shared":"Individual"} · ${x.type==="shared"?(x.splitMode==="whole"?"whole":x.splitMode==="members"?"split evenly":"split by "+x.customSplitCount):"whole"}</div></div><div class="amt">${sign(n)} / ${short(state.view.period)}</div></div>`}).join(""):`<div class="muted" style="margin-top:10px">Create another budget and it will appear here.</div>`}
+function renderIncluded(){let b=cur();$("includedCard").style.display=b.type==="main"?"block":"none";if(b.type!=="main")return;let arr=state.budgets.filter(x=>x.type!=="main");$("included").innerHTML=arr.length?arr.map(x=>{let n=(x.items||[]).filter(i=>i.enabled).reduce((s,i)=>s+(i.type==="income"?1:-1)*per(i.amount,i.period,state.view.period),0)*factor(x);return `<div class="budget-row"><label class="switch"><input type="checkbox" ${pref(x.id).include?"checked":""} data-budget-toggle="${x.id}"><span class="slider"></span></label><div><div class="name">${esc(x.name)}</div><div class="sub">${x.type==="shared"?"Shared":"Individual"} · ${x.type==="shared"?(x.splitMode==="whole"?"whole":x.splitMode==="members"?"split evenly":"split by "+x.customSplitCount):"whole"}</div></div><div class="amt">${sign(n)} / ${short(state.view.period)}</div></div>`}).join(""):`<div class="muted" style="margin-top:10px">Create another budget and it will appear here.</div>`}
 function renderSettings(){
 let b=cur(),wrap=$("settingsBody");
 let list=state.budgets.map(x=>`
@@ -237,17 +277,21 @@ let details="";
 if(b.type==="main"){
   details=`<div class="settings-section-title">Selected Budget Settings</div><div class="note">Main Budget cannot be deleted. Include-in-Main toggles are personal to this user.</div>`;
 }else{
-  let shared=b.type==="shared"?`<div class="field" style="margin-top:10px"><label>Shared budget contribution</label><select id="splitMode"><option value="whole" ${b.splitMode==="whole"?"selected":""}>Whole amount for everyone</option><option value="members" ${b.splitMode==="members"?"selected":""}>Split evenly between all members</option><option value="custom" ${b.splitMode==="custom"?"selected":""}>Split by a custom number</option></select></div><div class="field" id="customWrap" style="margin-top:10px;${b.splitMode==="custom"?"":"display:none"}"><label>Custom split number</label><input id="customCount" type="number" min="1" step="1" value="${b.customSplitCount||2}"></div><div class="note" style="margin-top:10px">Local testing: shared members are simulated. Real users will come from Supabase.</div><button class="btn secondary" id="addMember" style="width:100%;margin-top:10px">+ Add Test Member</button>`:"";
+  let shared=b.type==="shared"?`<div class="field" style="margin-top:10px"><label>Shared budget contribution</label><select id="splitMode"><option value="whole" ${b.splitMode==="whole"?"selected":""}>Whole amount for everyone</option><option value="members" ${b.splitMode==="members"?"selected":""}>Split evenly between all members</option><option value="custom" ${b.splitMode==="custom"?"selected":""}>Split by a custom number</option></select></div><div class="field" id="customWrap" style="margin-top:10px;${b.splitMode==="custom"?"":"display:none"}"><label>Custom split number</label><input id="customCount" type="number" min="1" step="1" value="${b.customSplitCount||2}"></div><div class="note" style="margin-top:10px">Shared members are connected to Dashboard accounts through Supabase.</div><button class="btn secondary" id="addMember" style="width:100%;margin-top:10px">+ Add Member by Email</button>`:"";
   details=`<div class="settings-section-title">Selected Budget Settings</div><div class="field"><label>Budget name</label><input id="renameBudget" value="${esc(b.name)}"></div>${shared}<button class="btn primary" id="saveSettings" style="width:100%;margin-top:12px">Save Settings</button><button class="btn danger" id="deleteBudget" style="width:100%;margin-top:10px">Delete Budget</button>`;
 }
 wrap.innerHTML=`<div class="settings-section-title">Your Budgets</div><div class="settings-budget-list">${list}</div>${details}`;
 
 wrap.querySelectorAll('[data-manage-budget]').forEach(btn=>{btn.onclick=()=>{state.current=btn.dataset.manageBudget;save();renderAll()}});
-wrap.querySelectorAll('[data-delete-budget-settings]').forEach(btn=>{btn.onclick=()=>{let target=state.budgets.find(x=>x.id===btn.dataset.deleteBudgetSettings);if(!target||target.type==="main")return;if(!confirm(`Delete "${target.name}"?\n\nThis will permanently remove this budget and all of its items from this browser.`))return;let id=target.id;state.budgets=state.budgets.filter(x=>x.id!==id);delete state.prefs[id];if(state.current===id)state.current="main";save();renderAll()}});
+wrap.querySelectorAll('[data-delete-budget-settings]').forEach(btn=>{btn.onclick=async()=>{let target=state.budgets.find(x=>x.id===btn.dataset.deleteBudgetSettings);if(!target||target.type==="main")return;const leaving=target.ownerUserId&&window.BudgetCloud?.userId&&target.ownerUserId!==window.BudgetCloud.userId;const action=leaving?"Leave":"Delete";if(!confirm(`${action} "${target.name}"?\n\n${leaving?"You will no longer have access to this shared budget.":"This will permanently remove this budget and all of its items."}`))return;let id=target.id;if(window.BudgetCloud?.deleteOrLeaveBudget){const ok=await window.BudgetCloud.deleteOrLeaveBudget(target);if(!ok)return;}state.budgets=state.budgets.filter(x=>x.id!==id);delete state.prefs[id];if(state.current===id)state.current=state.budgets.find(x=>x.type==="main")?.id||state.budgets[0]?.id;persistLocal();renderAll()}});
 
 if(b.type==="shared"){
   $("splitMode").onchange=e=>{$("customWrap").style.display=e.target.value==="custom"?"grid":"none"};
-  $("addMember").onclick=()=>{b.members??=[{id:USER,name:"You"}];b.members.push({id:"test-"+Date.now(),name:"Test User "+(b.members.length+1)});save();renderAll()}
+  $("addMember").onclick=async()=>{
+    if(!window.BudgetCloud?.addMemberByEmail)return;
+    const result=await window.BudgetCloud.addMemberByEmail(b.id);
+    if(result)await window.BudgetCloud.reload();
+  }
 }
 if(b.type!=="main"){
   $("saveSettings").onclick=()=>{b.name=$("renameBudget").value.trim()||b.name;if(b.type==="shared"){b.splitMode=$("splitMode").value;b.customSplitCount=Math.max(1,Number($("customCount").value)||1)}save();renderAll()};
@@ -263,7 +307,7 @@ $("addIncome").onclick=()=>openItem("income");$("addExpense").onclick=()=>openIt
 $("itemForm").onsubmit=e=>{e.preventDefault();let b=cur();b.items??=[];let obj={name:$("itemName").value.trim(),amount:Number($("itemAmount").value),period:$("itemPeriod").value,category:$("itemCategory").value.trim()||"Other"};if(!obj.name||obj.amount<0)return;if(editId){Object.assign(b.items.find(x=>x.id===editId),obj)}else b.items.push({id:crypto.randomUUID?.()||String(Date.now()),type:addType,enabled:true,...obj});save();$("itemDialog").close();renderAll()};
 $("deleteItem").onclick=()=>{cur().items=cur().items.filter(x=>x.id!==editId);save();$("itemDialog").close();renderAll()};
 $("newBudgetBtn").onclick=()=>$("budgetDialog").showModal();$("cancelBudget").onclick=()=>$("budgetDialog").close();$("budgetForm").onsubmit=e=>{e.preventDefault();let id=crypto.randomUUID?.()||"b"+Date.now(),type=$("budgetType").value;state.budgets.push({id,name:$("budgetName").value.trim(),type,members:[{id:USER,name:"You"}],splitMode:"whole",customSplitCount:2,items:[]});pref(id).include=false;state.current=id;save();$("budgetDialog").close();renderAll()};
-$("deleteCurrentBudgetBtn").onclick=()=>{let b=cur();if(!b||b.type==="main")return;if(!confirm(`Delete "${b.name}"?\n\nThis will permanently remove this budget and all of its items from this browser.`))return;let id=b.id;state.budgets=state.budgets.filter(x=>x.id!==id);delete state.prefs[id];state.current="main";save();renderAll()};
+$("deleteCurrentBudgetBtn").onclick=async()=>{let b=cur();if(!b||b.type==="main")return;const leaving=b.ownerUserId&&window.BudgetCloud?.userId&&b.ownerUserId!==window.BudgetCloud.userId;const action=leaving?"Leave":"Delete";if(!confirm(`${action} "${b.name}"?\n\n${leaving?"You will no longer have access to this shared budget.":"This will permanently remove this budget and all of its items."}`))return;let id=b.id;if(window.BudgetCloud?.deleteOrLeaveBudget){const ok=await window.BudgetCloud.deleteOrLeaveBudget(b);if(!ok)return;}state.budgets=state.budgets.filter(x=>x.id!==id);delete state.prefs[id];state.current=state.budgets.find(x=>x.type==="main")?.id||state.budgets[0]?.id;persistLocal();renderAll()};
 $("budgetSelect").onchange=e=>{state.current=e.target.value;save();renderAll()};$("displayPeriod").onchange=e=>{state.view.period=e.target.value;save();renderAll()};$("sortMode").onchange=e=>{state.view.sort=e.target.value;save();renderAll()};
 document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>{document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));document.querySelectorAll(".panel").forEach(x=>x.classList.remove("active"));t.classList.add("active");$(t.dataset.tab).classList.add("active");if(t.dataset.tab==="settings")renderSettings()});
 function taxRate(y){if(y<=11925)return .10;if(y<=48475)return .12;if(y<=103350)return .22;if(y<=197300)return .24;return .32}
@@ -725,9 +769,40 @@ $("importCsv").onchange=async e=>{
   }
 };
 
+
+window.BudgetApp={
+  getState:()=>structuredClone(state),
+  replaceState:next=>{
+    state=next;
+    state.view||={period:"week",sort:"default"};
+    state.prefs||={};
+    state.budgets||=[];
+    const removedLegacySamples=cleanupLegacySampleState(state);
+    persistLocal();
+    renderAll();
+    if(removedLegacySamples){
+      setTimeout(()=>window.BudgetCloud?.scheduleSave?.(state),0);
+    }
+    Object.assign($("payType"),{value:state.pay?.payType||"hourly"});
+    $("payAmount").value=state.pay?.payAmount??17;
+    $("hoursPerDay").value=state.pay?.hoursPerDay??5.5;
+    $("daysPerWeek").value=state.pay?.daysPerWeek??5;
+    ["distance","distancePeriod","mpg","gasPrice","tankSize","oilMiles"].forEach(k=>{if(state.gas?.[k]!=null)$(k).value=state.gas[k]});
+    calcPay();calcGas();
+  },
+  persistLocal,
+  renderAll,
+  getCurrentBudget:cur,
+  setCloudStatus:(message,isError=false)=>{
+    const el=$("importMsg");
+    if(el){el.textContent=message||"";el.style.color=isError?"var(--red)":""}
+  }
+};
+
 Object.assign($("payType"),{value:state.pay?.payType||"hourly"});$("payAmount").value=state.pay?.payAmount??17;$("hoursPerDay").value=state.pay?.hoursPerDay??5.5;$("daysPerWeek").value=state.pay?.daysPerWeek??5;
 ["distance","distancePeriod","mpg","gasPrice","tankSize","oilMiles"].forEach(k=>{if(state.gas?.[k]!=null)$(k).value=state.gas[k]});
 renderAll();calcPay();calcGas();
 </script>
+<script src="./budget-supabase.js?v=0.3.0"></script>
 </body>
 </html>
