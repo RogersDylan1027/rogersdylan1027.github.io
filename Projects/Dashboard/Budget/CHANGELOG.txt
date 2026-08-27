@@ -1,25 +1,17 @@
-Version 0.4.0: Permanent Monthly Expenses
+Version 0.4.1: Local Statement Purchase Reset
 
 Description:
-Adds Monthly Expenses as a second permanent Budget sheet alongside Main Budget.
-Users set a monthly spending allocation and their credit-card statement closing
-day, then record purchases in one ledger. The Monthly Expenses allocation is
-always counted against Main Budget, while individual purchases track how much of
-that allocation has been spent without double-counting the purchases in Main.
+Keeps Budget data local for now and changes Monthly Expenses so purchases are
+kept only for the currently open credit-card statement. When the closing date
+passes and a new statement cycle begins, purchases from the prior cycle are
+removed automatically.
 
 Changes:
-- Adds permanent Monthly Expenses system budget.
-- Main Budget and Monthly Expenses cannot be deleted.
-- Monthly Expenses is always included in Main Budget.
-- User chooses a monthly budget amount.
-- User chooses a credit-card statement closing day from 1 through 31.
-- Statement cycles automatically span from the day after the previous close
-  through the next closing day, clamped correctly for shorter months.
-- Adds purchases with date, description, amount, category, and notes.
-- Shows Budgeted, Spent This Cycle, and Remaining totals.
-- Adds Current Statement and All Purchases views so old purchases remain
-  available as history.
-- Adds complete Supabase persistence and Row Level Security.
-- Preserves existing Main, Individual, Shared, Paycheck, Gas, CSV, and settings
-  features.
-- New Budget accounts start empty; no Paycheck or ChatGPT Plus sample data.
+- Removes the Budget-specific Supabase persistence dependency.
+- Keeps existing Dashboard login/project-access protection.
+- Preserves Main Budget and permanent Monthly Expenses.
+- Monthly purchases are local-browser data only.
+- Previous statement purchases are automatically deleted after the card closes.
+- Removes the All Purchases/history view.
+- Preserves existing Budget, Paycheck, Gas, CSV, settings, and user-created
+  budget functionality.
