@@ -3,9 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<<<<<<< HEAD
 <title>Budget · 0.4.0</title>
 
 <!-- Budget 0.4.0: Permanent Monthly Expenses budget + statement-cycle purchase tracking. -->
+=======
+<title>Budget · 0.3.2</title>
+
+<!-- Budget keeps its own 0.2.8 version line. Dashboard 0.7.1 integration only adds shared access protection. -->
+>>>>>>> bbc813ef0f9c718291777677ce9874c873f25289
 <script src="../dashboard-config.js?v=0.7.2"></script>
 <script src="../dashboard-auth.js?v=0.7.2" data-dashboard-project="budget"></script>
 <style>
@@ -213,6 +219,7 @@ dialog{width:min(520px,calc(100% - 24px));border:0;border-radius:18px;padding:0}
 </dialog>
 
 <script>
+<<<<<<< HEAD
 const KEY="budget-local-0.4.0", USER="local-user";
 const defaults={current:"main",view:{period:"week",sort:"default"},prefs:{},pay:{payType:"hourly",payAmount:17,hoursPerDay:5.5,daysPerWeek:5},gas:{distance:45,distancePeriod:"week",mpg:15,gasPrice:3.93,tankSize:22.5,oilMiles:6000},budgets:[
 {id:"main",systemKey:"main",name:"Main Budget",type:"main",members:[{id:USER,name:"You"}],splitMode:"whole",customSplitCount:2,items:[]},
@@ -262,12 +269,53 @@ function statementCycle(day,now=new Date()){
 function localDateKey(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`}
 function inCycle(p,cycle){const d=new Date(String(p.date||"")+"T12:00:00");return Number.isFinite(d.getTime())&&d>=cycle.start&&d<=cycle.end}
 
+=======
+const KEY="budget-local-0.3.2", USER="local-user";
+const defaults={current:"main",view:{period:"week",sort:"default"},prefs:{},pay:{payType:"hourly",payAmount:17,hoursPerDay:5.5,daysPerWeek:5},gas:{distance:45,distancePeriod:"week",mpg:15,gasPrice:3.93,tankSize:22.5,oilMiles:6000},budgets:[{id:"main",name:"Main Budget",type:"main",members:[{id:USER,name:"You"}],splitMode:"whole",customSplitCount:2,items:[]}]};
+
+const LEGACY_SAMPLE_CLEANUP_KEY="budget-sample-cleanup-0.3.1";
+function isExactLegacySampleState(s){
+  if(!s||!Array.isArray(s.budgets)||s.budgets.length!==1)return false;
+  const b=s.budgets[0];
+  if(b?.type!=="main"||!Array.isArray(b.items)||b.items.length!==2)return false;
+
+  const items=[...b.items].sort((a,b)=>String(a.name).localeCompare(String(b.name)));
+  const chat=items.find(i=>i.name==="ChatGPT Plus");
+  const pay=items.find(i=>i.name==="Paycheck");
+
+  return !!(
+    chat&&pay &&
+    chat.type==="expense" &&
+    Number(chat.amount)===21.75 &&
+    chat.period==="month" &&
+    String(chat.category||"")==="School" &&
+    chat.enabled===true &&
+    pay.type==="income" &&
+    Number(pay.amount)===411.4 &&
+    pay.period==="week" &&
+    String(pay.category||"")==="Job" &&
+    pay.enabled===true
+  );
+}
+
+function cleanupLegacySampleState(s){
+  if(localStorage.getItem(LEGACY_SAMPLE_CLEANUP_KEY)==="done")return false;
+  if(!isExactLegacySampleState(s))return false;
+
+  s.budgets[0].items=[];
+  localStorage.setItem(LEGACY_SAMPLE_CLEANUP_KEY,"done");
+  return true;
+}
+>>>>>>> bbc813ef0f9c718291777677ce9874c873f25289
 let state;try{state=JSON.parse(localStorage.getItem(KEY))||structuredClone(defaults)}catch{state=structuredClone(defaults)}
 
 if(!localStorage.getItem(KEY)){
   try{
     const previous=
+<<<<<<< HEAD
       JSON.parse(localStorage.getItem("budget-local-0.3.2")) ||
+=======
+>>>>>>> bbc813ef0f9c718291777677ce9874c873f25289
       JSON.parse(localStorage.getItem("budget-local-0.3.1")) ||
       JSON.parse(localStorage.getItem("budget-local-0.3.0")) ||
       JSON.parse(localStorage.getItem("budget-local-0.2.8")) ||
@@ -282,7 +330,11 @@ if(!localStorage.getItem(KEY)){
     if(previous){state=previous;localStorage.setItem(KEY,JSON.stringify(state))}
   }catch{}
 }
+<<<<<<< HEAD
 state.view||={period:"week",sort:"default"};state.prefs||={};state.budgets||=structuredClone(defaults.budgets);ensureSystemBudgets(state);
+=======
+state.view||={period:"week",sort:"default"};state.prefs||={};state.budgets||=structuredClone(defaults.budgets);
+>>>>>>> bbc813ef0f9c718291777677ce9874c873f25289
 if(cleanupLegacySampleState(state)){localStorage.setItem(KEY,JSON.stringify(state))}
 const $=id=>document.getElementById(id);
 const persistLocal=()=>localStorage.setItem(KEY,JSON.stringify(state));
@@ -299,6 +351,7 @@ const plabel=p=>({week:"Weekly",biweekly:"Every 2 Weeks",month:"Monthly",year:"Y
 const short=p=>({week:"wk",biweekly:"2 wks",month:"mo",year:"yr"}[p]);
 function pref(id){state.prefs[id]??={include:false};return state.prefs[id]}
 function factor(b){if(b.type!=="shared"||b.splitMode==="whole")return 1;if(b.splitMode==="members")return 1/Math.max(1,b.members?.length||1);return 1/Math.max(1,Number(b.customSplitCount)||1)}
+<<<<<<< HEAD
 function effectiveItems(b){
   let out=(b.items||[]).map(i=>({...i,source:b.name}));
   if(b.type==="main"){
@@ -338,19 +391,51 @@ function renderIncluded(){
   let b=cur();$("includedCard").style.display=b.type==="main"?"block":"none";if(b.type!=="main")return;let arr=state.budgets.filter(x=>x.type!=="main");
   $("included").innerHTML=arr.length?arr.map(x=>{if(x.type==="monthly")return `<div class="budget-row"><span class="locked-switch">✓</span><div><div class="name">${esc(x.name)}<span class="system-lock">Permanent</span></div><div class="sub">Always included in Main · monthly allocation</div></div><div class="amt">${money(per(x.monthlyLimit||0,"month",state.view.period))} / ${short(state.view.period)}</div></div>`;let n=(x.items||[]).filter(i=>i.enabled).reduce((s,i)=>s+(i.type==="income"?1:-1)*per(i.amount,i.period,state.view.period),0)*factor(x);return `<div class="budget-row"><label class="switch"><input type="checkbox" ${pref(x.id).include?"checked":""} data-budget-toggle="${x.id}"><span class="slider"></span></label><div><div class="name">${esc(x.name)}</div><div class="sub">${x.type==="shared"?"Shared":"Individual"} · ${x.type==="shared"?(x.splitMode==="whole"?"whole":x.splitMode==="members"?"split evenly":"split by "+x.customSplitCount):"whole"}</div></div><div class="amt">${sign(n)} / ${short(state.view.period)}</div></div>`}).join(""):`<div class="muted" style="margin-top:10px">No additional budgets yet.</div>`
 }
+=======
+function effectiveItems(b){let out=(b.items||[]).map(i=>({...i,source:b.name}));if(b.type==="main"){state.budgets.filter(x=>x.type!=="main"&&pref(x.id).include).forEach(x=>(x.items||[]).forEach(i=>out.push({...i,id:x.id+"::"+i.id,amount:i.amount*factor(x),inherited:true,source:x.name})));}return out}
+function renderSelect(){$("budgetSelect").innerHTML=state.budgets.map(b=>`<option value="${b.id}">${esc(b.name)}${b.type==="shared"?" · Shared":""}</option>`).join("");$("budgetSelect").value=cur().id;$("deleteCurrentBudgetBtn").style.display=cur().type==="main"?"none":"inline-block"}
+function renderMeta(){let b=cur(),t=b.type==="main"?"Main":b.type==="shared"?"Shared":"Individual";let x=`<span class="pill">${t}</span>`;if(b.type==="shared"){x+=`<span class="pill">${b.members?.length||1} members</span>`;x+=`<span class="pill">${b.splitMode==="whole"?"Whole":b.splitMode==="members"?"Even split":"Split by "+b.customSplitCount}</span>`}$("meta").innerHTML=x}
+function itemHtml(i){let p=state.view.period,v=per(i.amount,i.period,p);return `<div class="item ${i.enabled?"":"off"}"><label class="switch"><input type="checkbox" ${i.enabled?"checked":""} ${i.inherited?"disabled":""} data-item="${i.id}"><span class="slider"></span></label><div><div class="name">${esc(i.name)}</div><div class="sub">${i.type==="income"?"+":"−"} ${esc(i.category||"Other")} · saved ${i.period}${i.inherited?" · from "+esc(i.source):""}</div></div><div class="amt">${money(v)} / ${short(p)}</div>${i.inherited?"":`<button class="btn secondary edit" data-edit="${i.id}">Edit</button>`}</div>`}
+function renderItems(){let b=cur(),items=effectiveItems(b),mode=state.view.sort;$("displayPeriod").value=state.view.period;$("sortMode").value=mode;$("listHelp").textContent=b.type==="main"?"Main includes its own items plus budgets you turn on.":"Turn items on/off without deleting them.";
+if(mode==="name")items.sort((a,b)=>a.name.localeCompare(b.name));if(mode==="amount")items.sort((a,b)=>per(b.amount,b.period,state.view.period)-per(a.amount,a.period,state.view.period));
+if(mode==="category"){let groups={};items.forEach(i=>(groups[i.category||"Other"]??=[]).push(i));$("listTitle").textContent="Budget by Category";$("items").innerHTML=Object.keys(groups).sort().map(c=>{let n=groups[c].filter(i=>i.enabled).reduce((s,i)=>s+(i.type==="income"?1:-1)*per(i.amount,i.period,state.view.period),0);return `<div class="category"><div class="cat-head"><span>${esc(c)}</span><span class="${n<0?"neg":"pos"}">${sign(n)} / ${short(state.view.period)}</span></div>${groups[c].map(itemHtml).join("")}</div>`}).join("")}else{$("listTitle").textContent="Budget Items";$("items").innerHTML=items.map(itemHtml).join("")}}
+function summary(){let items=effectiveItems(cur()).filter(i=>i.enabled),inc=0,exp=0;items.forEach(i=>{let v=per(i.amount,i.period,state.view.period);i.type==="income"?inc+=v:exp+=v});let n=inc-exp,l=plabel(state.view.period);$("incomeLabel").textContent=l+" Income";$("expenseLabel").textContent=l+" Expenses";$("netLabel").textContent=l+" Money Left";$("income").textContent=money(inc);$("expenses").textContent=money(exp);$("net").textContent=money(n);$("net").className=n<0?"neg":"pos"}
+function renderIncluded(){let b=cur();$("includedCard").style.display=b.type==="main"?"block":"none";if(b.type!=="main")return;let arr=state.budgets.filter(x=>x.type!=="main");$("included").innerHTML=arr.length?arr.map(x=>{let n=(x.items||[]).filter(i=>i.enabled).reduce((s,i)=>s+(i.type==="income"?1:-1)*per(i.amount,i.period,state.view.period),0)*factor(x);return `<div class="budget-row"><label class="switch"><input type="checkbox" ${pref(x.id).include?"checked":""} data-budget-toggle="${x.id}"><span class="slider"></span></label><div><div class="name">${esc(x.name)}</div><div class="sub">${x.type==="shared"?"Shared":"Individual"} · ${x.type==="shared"?(x.splitMode==="whole"?"whole":x.splitMode==="members"?"split evenly":"split by "+x.customSplitCount):"whole"}</div></div><div class="amt">${sign(n)} / ${short(state.view.period)}</div></div>`}).join(""):`<div class="muted" style="margin-top:10px">Create another budget and it will appear here.</div>`}
+>>>>>>> bbc813ef0f9c718291777677ce9874c873f25289
 function renderSettings(){
 let b=cur(),wrap=$("settingsBody");
 let list=state.budgets.map(x=>`<div class="settings-budget-row"><div><div class="name">${esc(x.name)}${["main","monthly"].includes(x.type)?'<span class="system-lock">Permanent</span>':""}</div><div class="sub">${x.type==="main"?"Main Budget":x.type==="monthly"?"Monthly Expenses":x.type==="shared"?"Shared Budget":"Individual Budget"}</div></div><button class="btn secondary" type="button" data-manage-budget="${x.id}">${x.id===b.id?"Selected":"Manage"}</button>${["main","monthly"].includes(x.type)?"":`<button class="btn secondary delete-mini" type="button" style="color:#b42318" data-delete-budget-settings="${x.id}">Delete</button>`}</div>`).join("");
 let details="";
+<<<<<<< HEAD
 if(b.type==="main")details=`<div class="settings-section-title">Selected Budget Settings</div><div class="note">Main Budget cannot be deleted. Monthly Expenses is always included; other Include-in-Main toggles are personal to this user.</div>`;
 else if(b.type==="monthly")details=`<div class="settings-section-title">Selected Budget Settings</div><div class="note">Monthly Expenses is permanent and cannot be renamed or deleted. Its monthly allocation is always counted against Main Budget.</div><div class="field" style="margin-top:10px"><label>Monthly budget</label><input id="settingsMonthlyLimit" type="number" min="0" step=".01" value="${Number(b.monthlyLimit||0)}"></div><div class="field" style="margin-top:10px"><label>Credit card closing day</label><select id="settingsClosingDay">${Array.from({length:31},(_,i)=>`<option value="${i+1}" ${Number(b.closingDay||1)===i+1?"selected":""}>${i+1}</option>`).join("")}</select></div><button class="btn primary" id="saveMonthlySettingsFromSettings" style="width:100%;margin-top:12px">Save Settings</button>`;
 else{let shared=b.type==="shared"?`<div class="field" style="margin-top:10px"><label>Shared budget contribution</label><select id="splitMode"><option value="whole" ${b.splitMode==="whole"?"selected":""}>Whole amount for everyone</option><option value="members" ${b.splitMode==="members"?"selected":""}>Split evenly between all members</option><option value="custom" ${b.splitMode==="custom"?"selected":""}>Split by a custom number</option></select></div><div class="field" id="customWrap" style="margin-top:10px;${b.splitMode==="custom"?"":"display:none"}"><label>Custom split number</label><input id="customCount" type="number" min="1" step="1" value="${b.customSplitCount||2}"></div><div class="note" style="margin-top:10px">Shared members are connected to Dashboard accounts through Supabase.</div><button class="btn secondary" id="addMember" style="width:100%;margin-top:10px">+ Add Member by Email</button>`:"";details=`<div class="settings-section-title">Selected Budget Settings</div><div class="field"><label>Budget name</label><input id="renameBudget" value="${esc(b.name)}"></div>${shared}<button class="btn primary" id="saveSettings" style="width:100%;margin-top:12px">Save Settings</button><button class="btn danger" id="deleteBudget" style="width:100%;margin-top:10px">Delete Budget</button>`}
+=======
+if(b.type==="main"){
+  details=`<div class="settings-section-title">Selected Budget Settings</div><div class="note">Main Budget cannot be deleted. Include-in-Main toggles are personal to this user.</div>`;
+}else{
+  let shared=b.type==="shared"?`<div class="field" style="margin-top:10px"><label>Shared budget contribution</label><select id="splitMode"><option value="whole" ${b.splitMode==="whole"?"selected":""}>Whole amount for everyone</option><option value="members" ${b.splitMode==="members"?"selected":""}>Split evenly between all members</option><option value="custom" ${b.splitMode==="custom"?"selected":""}>Split by a custom number</option></select></div><div class="field" id="customWrap" style="margin-top:10px;${b.splitMode==="custom"?"":"display:none"}"><label>Custom split number</label><input id="customCount" type="number" min="1" step="1" value="${b.customSplitCount||2}"></div><div class="note" style="margin-top:10px">Shared members are connected to Dashboard accounts through Supabase.</div><button class="btn secondary" id="addMember" style="width:100%;margin-top:10px">+ Add Member by Email</button>`:"";
+  details=`<div class="settings-section-title">Selected Budget Settings</div><div class="field"><label>Budget name</label><input id="renameBudget" value="${esc(b.name)}"></div>${shared}<button class="btn primary" id="saveSettings" style="width:100%;margin-top:12px">Save Settings</button><button class="btn danger" id="deleteBudget" style="width:100%;margin-top:10px">Delete Budget</button>`;
+}
+>>>>>>> bbc813ef0f9c718291777677ce9874c873f25289
 wrap.innerHTML=`<div class="settings-section-title">Your Budgets</div><div class="settings-budget-list">${list}</div>${details}`;
 wrap.querySelectorAll('[data-manage-budget]').forEach(btn=>{btn.onclick=()=>{state.current=btn.dataset.manageBudget;save();renderAll()}});
+<<<<<<< HEAD
 wrap.querySelectorAll('[data-delete-budget-settings]').forEach(btn=>{btn.onclick=async()=>{let target=state.budgets.find(x=>x.id===btn.dataset.deleteBudgetSettings);if(!target||["main","monthly"].includes(target.type))return;const leaving=target.ownerUserId&&window.BudgetCloud?.userId&&target.ownerUserId!==window.BudgetCloud.userId,action=leaving?"Leave":"Delete";if(!confirm(`${action} "${target.name}"?\n\n${leaving?"You will no longer have access to this shared budget.":"This will permanently remove this budget and all of its items."}`))return;let id=target.id;if(window.BudgetCloud?.deleteOrLeaveBudget){const ok=await window.BudgetCloud.deleteOrLeaveBudget(target);if(!ok)return}state.budgets=state.budgets.filter(x=>x.id!==id);delete state.prefs[id];if(state.current===id)state.current=state.budgets.find(x=>x.type==="main")?.id||state.budgets[0]?.id;persistLocal();renderAll()}});
 if(b.type==="shared"){$("splitMode").onchange=e=>{$("customWrap").style.display=e.target.value==="custom"?"grid":"none"};$("addMember").onclick=async()=>{if(!window.BudgetCloud?.addMemberByEmail)return;const result=await window.BudgetCloud.addMemberByEmail(b.id);if(result)await window.BudgetCloud.reload()}}
 if(b.type==="monthly")$("saveMonthlySettingsFromSettings").onclick=()=>{b.monthlyLimit=Math.max(0,Number($("settingsMonthlyLimit").value)||0);b.closingDay=Math.max(1,Math.min(31,Number($("settingsClosingDay").value)||1));save();renderAll()};
 else if(b.type!=="main"){$("saveSettings").onclick=()=>{b.name=$("renameBudget").value.trim()||b.name;if(b.type==="shared"){b.splitMode=$("splitMode").value;b.customSplitCount=Math.max(1,Number($("customCount").value)||1)}save();renderAll()};$("deleteBudget").onclick=()=>$("deleteCurrentBudgetBtn").click()}
+=======
+wrap.querySelectorAll('[data-delete-budget-settings]').forEach(btn=>{btn.onclick=async()=>{let target=state.budgets.find(x=>x.id===btn.dataset.deleteBudgetSettings);if(!target||target.type==="main")return;const leaving=target.ownerUserId&&window.BudgetCloud?.userId&&target.ownerUserId!==window.BudgetCloud.userId;const action=leaving?"Leave":"Delete";if(!confirm(`${action} "${target.name}"?\n\n${leaving?"You will no longer have access to this shared budget.":"This will permanently remove this budget and all of its items."}`))return;let id=target.id;if(window.BudgetCloud?.deleteOrLeaveBudget){const ok=await window.BudgetCloud.deleteOrLeaveBudget(target);if(!ok)return;}state.budgets=state.budgets.filter(x=>x.id!==id);delete state.prefs[id];if(state.current===id)state.current=state.budgets.find(x=>x.type==="main")?.id||state.budgets[0]?.id;persistLocal();renderAll()}});
+
+if(b.type==="shared"){
+  $("splitMode").onchange=e=>{$("customWrap").style.display=e.target.value==="custom"?"grid":"none"};
+  $("addMember").onclick=async()=>{
+    if(!window.BudgetCloud?.addMemberByEmail)return;
+    const result=await window.BudgetCloud.addMemberByEmail(b.id);
+    if(result)await window.BudgetCloud.reload();
+  }
+>>>>>>> bbc813ef0f9c718291777677ce9874c873f25289
 }
 function renderAll(){ensureSystemBudgets(state);renderSelect();renderMeta();renderMonthlyControls();renderItems();summary();renderIncluded();renderSettings()}
 document.addEventListener("change",e=>{if(e.target.dataset.item){let i=cur().items.find(x=>x.id===e.target.dataset.item);if(i){i.enabled=e.target.checked;save();renderAll()}}if(e.target.dataset.budgetToggle){pref(e.target.dataset.budgetToggle).include=e.target.checked;save();renderAll()}});
@@ -369,7 +454,11 @@ document.addEventListener("click",e=>{if(e.target.dataset.editPurchase)openPurch
 $("saveMonthlySettings").onclick=()=>{let b=cur();if(b.type!=="monthly")return;b.monthlyLimit=Math.max(0,Number($("monthlyLimit").value)||0);b.closingDay=Math.max(1,Math.min(31,Number($("closingDay").value)||1));b.purchaseView=$("purchaseView").value==="all"?"all":"current";save();renderAll()};$("purchaseView").onchange=()=>{let b=cur();if(b.type!=="monthly")return;b.purchaseView=$("purchaseView").value;save();renderAll()};
 
 $("newBudgetBtn").onclick=()=>$("budgetDialog").showModal();$("cancelBudget").onclick=()=>$("budgetDialog").close();$("budgetForm").onsubmit=e=>{e.preventDefault();let id=crypto.randomUUID?.()||"b"+Date.now(),type=$("budgetType").value;state.budgets.push({id,name:$("budgetName").value.trim(),type,members:[{id:USER,name:"You"}],splitMode:"whole",customSplitCount:2,items:[]});pref(id).include=false;state.current=id;save();$("budgetDialog").close();renderAll()};
+<<<<<<< HEAD
 $("deleteCurrentBudgetBtn").onclick=async()=>{let b=cur();if(!b||["main","monthly"].includes(b.type))return;const leaving=b.ownerUserId&&window.BudgetCloud?.userId&&b.ownerUserId!==window.BudgetCloud.userId;const action=leaving?"Leave":"Delete";if(!confirm(`${action} "${b.name}"?\n\n${leaving?"You will no longer have access to this shared budget.":"This will permanently remove this budget and all of its items."}`))return;let id=b.id;if(window.BudgetCloud?.deleteOrLeaveBudget){const ok=await window.BudgetCloud.deleteOrLeaveBudget(b);if(!ok)return;}state.budgets=state.budgets.filter(x=>x.id!==id);delete state.prefs[id];state.current=state.budgets.find(x=>x.type==="main")?.id||state.budgets[0]?.id;persistLocal();renderAll()};
+=======
+$("deleteCurrentBudgetBtn").onclick=async()=>{let b=cur();if(!b||b.type==="main")return;const leaving=b.ownerUserId&&window.BudgetCloud?.userId&&b.ownerUserId!==window.BudgetCloud.userId;const action=leaving?"Leave":"Delete";if(!confirm(`${action} "${b.name}"?\n\n${leaving?"You will no longer have access to this shared budget.":"This will permanently remove this budget and all of its items."}`))return;let id=b.id;if(window.BudgetCloud?.deleteOrLeaveBudget){const ok=await window.BudgetCloud.deleteOrLeaveBudget(b);if(!ok)return;}state.budgets=state.budgets.filter(x=>x.id!==id);delete state.prefs[id];state.current=state.budgets.find(x=>x.type==="main")?.id||state.budgets[0]?.id;persistLocal();renderAll()};
+>>>>>>> bbc813ef0f9c718291777677ce9874c873f25289
 $("budgetSelect").onchange=e=>{state.current=e.target.value;save();renderAll()};$("displayPeriod").onchange=e=>{state.view.period=e.target.value;save();renderAll()};$("sortMode").onchange=e=>{state.view.sort=e.target.value;save();renderAll()};
 document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>{document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));document.querySelectorAll(".panel").forEach(x=>x.classList.remove("active"));t.classList.add("active");$(t.dataset.tab).classList.add("active");if(t.dataset.tab==="settings")renderSettings()});
 function taxRate(y){if(y<=11925)return .10;if(y<=48475)return .12;if(y<=103350)return .22;if(y<=197300)return .24;return .32}
@@ -839,7 +928,10 @@ window.BudgetApp={
     state.view||={period:"week",sort:"default"};
     state.prefs||={};
     state.budgets||=[];
+<<<<<<< HEAD
     ensureSystemBudgets(state);
+=======
+>>>>>>> bbc813ef0f9c718291777677ce9874c873f25289
     const removedLegacySamples=cleanupLegacySampleState(state);
     persistLocal();
     renderAll();
@@ -866,6 +958,10 @@ Object.assign($("payType"),{value:state.pay?.payType||"hourly"});$("payAmount").
 ["distance","distancePeriod","mpg","gasPrice","tankSize","oilMiles"].forEach(k=>{if(state.gas?.[k]!=null)$(k).value=state.gas[k]});
 renderAll();calcPay();calcGas();
 </script>
+<<<<<<< HEAD
 <script src="./budget-supabase.js?v=0.4.0"></script>
+=======
+<script src="./budget-supabase.js?v=0.3.0"></script>
+>>>>>>> bbc813ef0f9c718291777677ce9874c873f25289
 </body>
 </html>
