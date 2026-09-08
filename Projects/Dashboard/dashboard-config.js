@@ -82,7 +82,9 @@
       "Bug Fixes: Restores the centralized Login page when the Supabase browser " +
       "library does not initialize from its primary source. Login now uses a " +
       "pinned library version, retries from a fallback CDN, and shows a visible " +
-      "startup error instead of leaving Sign In and account buttons inactive.";
+      "startup error instead of leaving Sign In and account buttons inactive. " +
+      "Also restores the complete Dashboard startup script so a successful sign-in " +
+      "opens the Dashboard instead of showing the older inactive login screen.";
 
     row.append(version, title, description);
     body.prepend(row);
