@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Budget · 0.4.1</title>
+<title>Budget · 0.4.2</title>
 
-<!-- Budget 0.4.1: Local-only Monthly Expenses with automatic statement rollover. -->
+<!-- Budget 0.4.2: Clean purchase rebuild from the last working Budget baseline. -->
 <script src="../dashboard-config.js?v=0.7.2"></script>
 <script src="../dashboard-auth.js?v=0.7.2" data-dashboard-project="budget"></script>
 <style>
@@ -213,7 +213,7 @@ dialog{width:min(520px,calc(100% - 24px));border:0;border-radius:18px;padding:0}
 </dialog>
 
 <script>
-const KEY="budget-local-0.4.1", USER="local-user";
+const KEY="budget-local-0.4.2", USER="local-user";
 const defaults={current:"main",view:{period:"week",sort:"default"},prefs:{},pay:{payType:"hourly",payAmount:17,hoursPerDay:5.5,daysPerWeek:5},gas:{distance:45,distancePeriod:"week",mpg:15,gasPrice:3.93,tankSize:22.5,oilMiles:6000},budgets:[
 {id:"main",systemKey:"main",name:"Main Budget",type:"main",members:[{id:USER,name:"You"}],splitMode:"whole",customSplitCount:2,items:[]},
 {id:"monthly-expenses",systemKey:"monthly_expenses",name:"Monthly Expenses",type:"monthly",members:[{id:USER,name:"You"}],splitMode:"whole",customSplitCount:2,monthlyLimit:0,closingDay:1,purchases:[],items:[]}
@@ -302,6 +302,7 @@ let state;try{state=JSON.parse(localStorage.getItem(KEY))||structuredClone(defau
 if(!localStorage.getItem(KEY)){
   try{
     const previous=
+      JSON.parse(localStorage.getItem("budget-local-0.4.1")) ||
       JSON.parse(localStorage.getItem("budget-local-0.4.0")) ||
       JSON.parse(localStorage.getItem("budget-local-0.3.2")) ||
       JSON.parse(localStorage.getItem("budget-local-0.3.1")) ||
