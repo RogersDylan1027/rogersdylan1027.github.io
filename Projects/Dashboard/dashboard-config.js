@@ -1,6 +1,6 @@
 /*
-  My Dashboard · Shared Configuration · Version 0.7.1
-  Budget Project Integration · 2026-08-25
+  My Dashboard · Shared Configuration · Version 0.7.2
+  Login Initialization & Auth Recovery · 2026-09-08
 
   The Supabase publishable key is intentionally browser-safe.
   Never place a service_role key or another secret in browser JavaScript.
@@ -11,18 +11,18 @@
   const BASE_PATH = "/Projects/Dashboard/";
 
   window.DashboardConfig = Object.freeze({
-    version: "0.7.1",
+    version: "0.7.2",
     supabaseUrl: "https://pyefiovoicvhigkjhhts.supabase.co",
     supabasePublishableKey: "sb_publishable_sVrxppe8B1QkXYqAPm6ddQ_x4MA5j32",
-    supabaseScriptUrl: "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2",
+    supabaseScriptUrl: "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.js",
     dashboardUrl: BASE_PATH,
     dashboardIndexUrl: BASE_PATH + "index.html",
     loginUrl: BASE_PATH + "login.html",
     projectsUrl: BASE_PATH + "projects.json",
     streamingUrl: BASE_PATH + "Streaming/",
     budgetUrl: BASE_PATH + "Budget/",
-    streamingClientUrl: BASE_PATH + "dashboard-streaming.js?v=0.7.1",
-    streamingUiUrl: BASE_PATH + "dashboard-streaming-ui.js?v=0.7.1"
+    streamingClientUrl: BASE_PATH + "dashboard-streaming.js?v=0.7.2",
+    streamingUiUrl: BASE_PATH + "dashboard-streaming-ui.js?v=0.7.2"
   });
 
   function applyCurrentVersionLabel() {
@@ -61,44 +61,44 @@
 
     const alreadyPresent = Array.from(body.querySelectorAll("tr")).some(row => {
       const versionCell = row.querySelector(".changelog-version, td");
-      return versionCell?.textContent?.trim() === "0.7.1";
+      return versionCell?.textContent?.trim() === "0.7.2";
     });
 
     if (alreadyPresent) return;
 
     const row = document.createElement("tr");
-    row.dataset.dashboardRuntimeRelease = "0.7.1";
+    row.dataset.dashboardRuntimeRelease = "0.7.2";
 
     const version = document.createElement("td");
     version.className = "changelog-version";
-    version.textContent = "0.7.1";
+    version.textContent = "0.7.2";
 
     const title = document.createElement("td");
     title.className = "changelog-title";
-    title.textContent = "Budget Project Integration";
+    title.textContent = "Login Initialization & Auth Recovery";
 
     const description = document.createElement("td");
     description.textContent =
-      "Adds Budget to My Dashboard as a protected project in the Projects Hub. " +
-      "Budget keeps its own Version 0.2.8 release line while using the shared " +
-      "Dashboard session and project-access controls, and projects.json remains " +
-      "the single project catalog.";
+      "Bug Fixes: Restores the centralized Login page when the Supabase browser " +
+      "library does not initialize from its primary source. Login now uses a " +
+      "pinned library version, retries from a fallback CDN, and shows a visible " +
+      "startup error instead of leaving Sign In and account buttons inactive.";
 
     row.append(version, title, description);
     body.prepend(row);
   }
 
-  function applyDashboard071Runtime() {
+  function applyDashboard072Runtime() {
     applyCurrentVersionLabel();
     injectCurrentChangelogEntry();
   }
 
   window.DashboardApplyCurrentVersionLabel = applyCurrentVersionLabel;
-  window.DashboardApplyCurrentRelease = applyDashboard071Runtime;
+  window.DashboardApplyCurrentRelease = applyDashboard072Runtime;
 
   document.addEventListener("DOMContentLoaded", () => {
-    applyDashboard071Runtime();
-    setTimeout(applyDashboard071Runtime, 250);
-    setTimeout(applyDashboard071Runtime, 1000);
+    applyDashboard072Runtime();
+    setTimeout(applyDashboard072Runtime, 250);
+    setTimeout(applyDashboard072Runtime, 1000);
   });
 })();
