@@ -8,7 +8,7 @@
     content="width=device-width, initial-scale=1.0, viewport-fit=cover"
   >
 
-  <title>My Dashboard · Login · Version 0.7.0</title>
+  <title>My Dashboard · Login · Version 0.7.2</title>
 
   <!-- Version 0.5.5: TV Season & Episode Selection + My Dashboard Rebrand · 2026-08-14 -->
 
@@ -24,8 +24,9 @@
 
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 
-  <script src="./dashboard-config.js?v=0.7.0"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+
+  <script src="./dashboard-config.js?v=0.7.2"></script>
 
   <style>
     * {
@@ -463,30 +464,81 @@
       <p id="auth-status" class="status" role="status"></p>
     </section>
 
-    <div class="version">My Dashboard · Version 0.7.0</div>
+    <div class="version">My Dashboard · Version 0.7.2</div>
   </main>
 
   <script>
     /*
-      My Dashboard · Version 0.7.0
-      TV Season & Episode Selection + My Dashboard Rebrand · 2026-08-14
+      My Dashboard · Version 0.7.2
+      Login Initialization & Auth Recovery · 2026-09-08
 
       CHANGELOG
-      Title: Project Access Enforcement & Shared Auth Alignment
+      Title: Login Initialization & Auth Recovery
 
       Description:
-      Keeps the centralized My Dashboard login flow aligned with the 0.5.5
-      shared-auth update. Signed-in sessions continue to carry across protected
-      projects, same-origin return routing is preserved, and project access is
-      enforced by the shared Dashboard authentication layer after login.
+      Restores the centralized My Dashboard login controls when the Supabase
+      browser library does not initialize from its primary CDN. The Login page
+      now uses a pinned library version, retries from a fallback source, and
+      reports a visible loading error instead of leaving inactive buttons.
 
       Bug Fixes:
-      - Preserves the same-origin return target for protected projects.
-      - Keeps existing Supabase sessions active across Dashboard pages.
-      - Aligns the Login page version with the shared 0.5.5 auth release.
+      - Restores Sign In, Google sign-in, account creation, and password reset.
+      - Retries the Supabase library from a secondary CDN when needed.
+      - Preserves existing sessions and same-origin return routing.
     */
 
+    (async function initializeDashboardLoginPage() {
     const config = window.DashboardConfig;
+
+    const startupStatus = document.getElementById("auth-status");
+    const startupControls = document.querySelectorAll("button, input");
+
+    startupControls.forEach(element => {
+      element.disabled = true;
+    });
+    startupStatus.textContent = "Loading secure sign in…";
+
+    function loadScript(src) {
+      return new Promise((resolve, reject) => {
+        const script = document.createElement("script");
+        script.src = src;
+        script.async = true;
+        script.crossOrigin = "anonymous";
+        script.addEventListener("load", resolve, { once: true });
+        script.addEventListener("error", reject, { once: true });
+        document.head.appendChild(script);
+      });
+    }
+
+    async function loadSupabaseLibrary() {
+      if (window.supabase?.createClient) return;
+
+      const sources = [
+        config.supabaseScriptUrl,
+        "https://unpkg.com/@supabase/supabase-js@2.116.0/dist/umd/supabase.js"
+      ];
+
+      for (const source of sources) {
+        try {
+          await loadScript(source);
+          if (window.supabase?.createClient) return;
+        } catch (error) {
+          console.warn("Supabase library source failed:", source, error);
+        }
+      }
+
+      throw new Error("The secure sign-in service could not load.");
+    }
+
+    try {
+      await loadSupabaseLibrary();
+    } catch (error) {
+      console.error("Dashboard login startup:", error);
+      startupStatus.textContent =
+        "My Dashboard could not load secure sign in. Check your connection, then reopen this page.";
+      startupStatus.classList.add("error");
+      return;
+    }
 
     const supabaseClient = window.supabase.createClient(
       config.supabaseUrl,
@@ -508,6 +560,11 @@
     };
 
     const statusElement = document.getElementById("auth-status");
+
+    startupControls.forEach(element => {
+      element.disabled = false;
+    });
+    startupStatus.textContent = "";
 
     function setStatus(message = "", type = "") {
       statusElement.textContent = message;
@@ -771,6 +828,15 @@
         );
       }
     })();
+    })().catch(error => {
+      console.error("Dashboard login initialization:", error);
+      const status = document.getElementById("auth-status");
+      if (status) {
+        status.textContent =
+          "My Dashboard could not start secure sign in. Reopen this page and try again.";
+        status.classList.add("error");
+      }
+    });
   </script>
 </body>
 </html>
