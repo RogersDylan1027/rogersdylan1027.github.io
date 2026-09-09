@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
-  <title>Whiteboard · Version 0.1.0</title>
-  <meta name="description" content="Dashboard Dylan Whiteboard 0.1.0">
+  <title>Whiteboard · Version 0.1.1</title>
+  <meta name="description" content="Dashboard Dylan Whiteboard 0.1.1">
   <meta name="theme-color" content="#f7f8fa">
   <script src="../dashboard-config.js?v=0.7.1"></script>
   <script src="../dashboard-auth.js?v=0.7.1" data-dashboard-project="whiteboard"></script>
@@ -34,7 +34,7 @@
     <div class="toolbar" id="toolbar">
       <button class="tool active" data-tool="pen">Pen</button><button class="tool" data-tool="highlighter">Highlight</button><button class="tool" data-tool="eraser">Eraser</button><button class="tool" data-tool="text">Text</button><button class="tool" data-tool="hand">Hand</button><span class="divider"></span><button class="tool" id="undoBtn">Undo</button><button class="tool" id="redoBtn">Redo</button><span class="divider"></span><button class="tool" id="zoomOutBtn">−</button><span class="zoom-label" id="zoomLabel">100%</span><button class="tool" id="zoomInBtn">+</button><span class="divider"></span><button class="tool" id="settingsBtn">Board</button>
     </div>
-    <aside class="panel files-panel hidden" id="filesPanel"><div class="panel-head"><h2>Whiteboard Files</h2><button class="icon-btn" id="closeFilesBtn">✕</button></div><div class="files-toolbar"><button id="newFolderBtn">New Folder</button><button id="openDDFromDeviceBtn">Open .DD</button></div><div class="crumbs" id="fileCrumbs"></div><div class="file-list" id="fileList"></div></aside>
+    <aside class="panel files-panel hidden" id="filesPanel"><div class="panel-head"><h2>Whiteboard Files</h2><button class="icon-btn" id="closeFilesBtn">✕</button></div><div class="files-toolbar"><button id="newFolderBtn">New Folder</button><button id="openDDFromDeviceBtn">Open .DD File</button></div><div class="crumbs" id="fileCrumbs"></div><div class="file-list" id="fileList"></div></aside>
     <div class="mode-badge" id="modeBadge">Infinite Whiteboard</div>
     <div class="toast hidden" id="toast"></div>
   </main>
@@ -54,7 +54,7 @@
 
 <dialog id="shortcutDialog"><div class="dialog-body"><h2>Create Shortcut</h2><div class="field"><label>Shortcut name</label><input id="shortcutName"></div><div class="field"><label>Save shortcut in</label><div class="folder-picker" id="shortcutFolderPicker"></div></div><div class="dialog-actions"><button class="btn" data-close="shortcutDialog">Cancel</button><button class="btn primary" id="createShortcutBtn">Create Shortcut</button></div></div></dialog>
 
-<input id="ddDeviceInput" type="file" accept=".DD,.dd,application/json" hidden>
-<script src="./whiteboard.js?v=0.1.0"></script>
+<input id="ddDeviceInput" type="file" accept=".DD,.dd,application/octet-stream" hidden>
+<script src="./whiteboard.js?v=0.1.1"></script>
 </body>
 </html>
