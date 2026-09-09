@@ -1,0 +1,172 @@
+name: Budget 0.5.0 Upgrade
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  upgrade-budget:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Upgrade Budget to 0.5.0
+        shell: bash
+        run: |
+          python3 <<'PY'
+          from pathlib import Path
+
+          path = Path('Projects/Dashboard/Budget/index.html')
+          s = path.read_text(encoding='utf-8')
+
+          if '<title>Budget · 0.5.0</title>' in s:
+              print('Budget is already 0.5.0; nothing to do.')
+              raise SystemExit(0)
+
+          if '<title>Budget · 0.4.2</title>' not in s:
+              raise SystemExit('Expected clean Budget 0.4.2 as the upgrade base.')
+
+          s = s.replace('<title>Budget · 0.4.2</title>', '<title>Budget · 0.5.0</title>')
+          s = s.replace(
+              '<!-- Budget 0.4.2: Clean purchase rebuild from the last working Budget baseline. -->',
+              '<!-- Budget 0.5.0: Supabase cross-device sync + flexible Monthly Expenses budget period. -->'
+          )
+          s = s.replace('const KEY="budget-local-0.4.2", USER="local-user";',
+                        'const KEY="budget-local-0.5.0", USER="local-user";')
+          s = s.replace(
+              '    const previous=\n      JSON.parse(localStorage.getItem("budget-local-0.4.1")) ||',
+              '    const previous=\n      JSON.parse(localStorage.getItem("budget-local-0.4.2")) ||\n      JSON.parse(localStorage.getItem("budget-local-0.4.1")) ||'
+          )
+
+          old_monthly_fields = '''<div class="field"><label>Monthly budget</label><input id="monthlyLimit" type="number" min="0" step=".01" placeholder="0.00"></div>
+          <div class="field"><label>Credit card closes on</label><select id="closingDay"></select></div>
+          <div class="field"><label>Purchase cycle</label><input value="Current statement only" disabled></div>'''
+          new_monthly_fields = '''<div class="field"><label>Spending budget</label><input id="monthlyLimit" type="number" min="0" step=".01" placeholder="0.00"></div>
+          <div class="field"><label>Budget period</label><select id="monthlyLimitPeriod">
+          <option value="week">Weekly</option>
+          <option value="biweekly">Every 2 Weeks</option>
+          <option value="month">Monthly</option>
+          <option value="year">Yearly</option>
+          <option value="biyearly">Every 2 Years</option>
+          </select></div>
+          <div class="field"><label>Credit card closes on</label><select id="closingDay"></select></div>'''
+          if old_monthly_fields not in s:
+              raise SystemExit('Monthly Expenses field block did not match expected 0.4.2 file.')
+          s = s.replace(old_monthly_fields, new_monthly_fields)
+
+          s = s.replace(
+              'monthlyLimit:0,closingDay:1,purchases:[],items:[]',
+              'monthlyLimit:0,monthlyLimitPeriod:"month",closingDay:1,purchases:[],items:[]'
+          )
+          s = s.replace(
+              'monthly.monthlyLimit=Math.max(0,Number(monthly.monthlyLimit)||0);monthly.closingDay=Math.max(1,Math.min(31,Number(monthly.closingDay)||1));',
+              'monthly.monthlyLimit=Math.max(0,Number(monthly.monthlyLimit)||0);monthly.monthlyLimitPeriod=["week","biweekly","month","year","biyearly"].includes(monthly.monthlyLimitPeriod)?monthly.monthlyLimitPeriod:"month";monthly.closingDay=Math.max(1,Math.min(31,Number(monthly.closingDay)||1));'
+          )
+          s = s.replace(
+              'if(x.type==="monthly"){if(Number(x.monthlyLimit)>0)out.push({id:x.id+"::monthly-allocation",type:"expense",name:"Monthly Expenses",category:"Monthly Expenses",amount:Number(x.monthlyLimit)||0,period:"month",enabled:true,inherited:true,source:x.name});return}',
+              'if(x.type==="monthly"){if(Number(x.monthlyLimit)>0)out.push({id:x.id+"::monthly-allocation",type:"expense",name:"Monthly Expenses",category:"Monthly Expenses",amount:Number(x.monthlyLimit)||0,period:x.monthlyLimitPeriod||"month",enabled:true,inherited:true,source:x.name});return}'
+          )
+
+          old_controls = 'rolloverMonthlyPurchases(b);$("monthlyLimit").value=Number(b.monthlyLimit||0);$("closingDay").innerHTML=Array.from({length:31},(_,i)=>`<option value="${i+1}">${i+1}</option>`).join("");$("closingDay").value=String(b.closingDay||1);const cycle=statementCycle(b.closingDay);$("monthlyCycleText").textContent=`Current statement period: ${cycle.start.toLocaleDateString()} – ${cycle.end.toLocaleDateString()} · Purchases reset after this statement closes.`'
+          new_controls = 'rolloverMonthlyPurchases(b);$("monthlyLimit").value=Number(b.monthlyLimit||0);$("monthlyLimitPeriod").value=b.monthlyLimitPeriod||"month";$("closingDay").innerHTML=Array.from({length:31},(_,i)=>`<option value="${i+1}">${i+1}</option>`).join("");$("closingDay").value=String(b.closingDay||1);const cycle=statementCycle(b.closingDay);$("monthlyCycleText").textContent=`Current statement period: ${cycle.start.toLocaleDateString()} – ${cycle.end.toLocaleDateString()} · Purchases reset after this statement closes.`'
+          if old_controls not in s:
+              raise SystemExit('Monthly controls render block did not match expected 0.4.2 file.')
+          s = s.replace(old_controls, new_controls)
+
+          old_summary = 'let b=cur();if(b.type==="monthly"){rolloverMonthlyPurchases(b);const cycle=statementCycle(b.closingDay),spent=(b.purchases||[]).filter(p=>inCycle(p,cycle)).reduce((s,p)=>s+(Number(p.amount)||0),0),limit=Number(b.monthlyLimit)||0,remaining=limit-spent;$("incomeLabel").textContent="Monthly Budget";$("expenseLabel").textContent="Spent This Cycle";$("netLabel").textContent="Remaining";$("income").textContent=money(limit);$("expenses").textContent=money(spent);$("net").textContent=money(remaining);$("net").className=remaining<0?"neg":"pos";return}'
+          new_summary = 'let b=cur();if(b.type==="monthly"){rolloverMonthlyPurchases(b);const cycle=statementCycle(b.closingDay),spent=(b.purchases||[]).filter(p=>inCycle(p,cycle)).reduce((s,p)=>s+(Number(p.amount)||0),0),savedLimit=Number(b.monthlyLimit)||0,savedPeriod=b.monthlyLimitPeriod||"month",limit=per(savedLimit,savedPeriod,"month"),remaining=limit-spent;$("incomeLabel").textContent=`${plabel(savedPeriod)||"Monthly"} Budget`;$("expenseLabel").textContent="Spent This Cycle";$("netLabel").textContent="Remaining This Statement";$("income").textContent=money(savedLimit);$("expenses").textContent=money(spent);$("net").textContent=money(remaining);$("net").className=remaining<0?"neg":"pos";return}'
+          if old_summary not in s:
+              raise SystemExit('Monthly summary block did not match expected 0.4.2 file.')
+          s = s.replace(old_summary, new_summary)
+
+          s = s.replace(
+              '<div class="sub">Always included in Main · monthly allocation</div></div><div class="amt">${money(per(x.monthlyLimit||0,"month",state.view.period))} / ${short(state.view.period)}</div>',
+              '<div class="sub">Always included in Main · ${esc(plabel(x.monthlyLimitPeriod||"month")||"Monthly")} allocation</div></div><div class="amt">${money(per(x.monthlyLimit||0,x.monthlyLimitPeriod||"month",state.view.period))} / ${short(state.view.period)}</div>'
+          )
+
+          old_settings = 'else if(b.type==="monthly")details=`<div class="settings-section-title">Selected Budget Settings</div><div class="note">Monthly Expenses is permanent and cannot be renamed or deleted. Its monthly allocation is always counted against Main Budget.</div><div class="field" style="margin-top:10px"><label>Monthly budget</label><input id="settingsMonthlyLimit" type="number" min="0" step=".01" value="${Number(b.monthlyLimit||0)}"></div><div class="field" style="margin-top:10px"><label>Credit card closing day</label><select id="settingsClosingDay">${Array.from({length:31},(_,i)=>`<option value="${i+1}" ${Number(b.closingDay||1)===i+1?"selected":""}>${i+1}</option>`).join("")}</select></div><button class="btn primary" id="saveMonthlySettingsFromSettings" style="width:100%;margin-top:12px">Save Settings</button>`;'
+          new_settings = 'else if(b.type==="monthly")details=`<div class="settings-section-title">Selected Budget Settings</div><div class="note">Monthly Expenses is permanent and cannot be renamed or deleted. Its spending allocation is always counted against Main Budget.</div><div class="field" style="margin-top:10px"><label>Spending budget</label><input id="settingsMonthlyLimit" type="number" min="0" step=".01" value="${Number(b.monthlyLimit||0)}"></div><div class="field" style="margin-top:10px"><label>Budget period</label><select id="settingsMonthlyLimitPeriod"><option value="week" ${(b.monthlyLimitPeriod||"month")==="week"?"selected":""}>Weekly</option><option value="biweekly" ${(b.monthlyLimitPeriod||"month")==="biweekly"?"selected":""}>Every 2 Weeks</option><option value="month" ${(b.monthlyLimitPeriod||"month")==="month"?"selected":""}>Monthly</option><option value="year" ${(b.monthlyLimitPeriod||"month")==="year"?"selected":""}>Yearly</option><option value="biyearly" ${(b.monthlyLimitPeriod||"month")==="biyearly"?"selected":""}>Every 2 Years</option></select></div><div class="field" style="margin-top:10px"><label>Credit card closing day</label><select id="settingsClosingDay">${Array.from({length:31},(_,i)=>`<option value="${i+1}" ${Number(b.closingDay||1)===i+1?"selected":""}>${i+1}</option>`).join("")}</select></div><button class="btn primary" id="saveMonthlySettingsFromSettings" style="width:100%;margin-top:12px">Save Settings</button>`;'
+          if old_settings not in s:
+              raise SystemExit('Monthly settings block did not match expected 0.4.2 file.')
+          s = s.replace(old_settings, new_settings)
+
+          s = s.replace(
+              'if(b.type==="monthly")$("saveMonthlySettingsFromSettings").onclick=()=>{b.monthlyLimit=Math.max(0,Number($("settingsMonthlyLimit").value)||0);b.closingDay=Math.max(1,Math.min(31,Number($("settingsClosingDay").value)||1));save();renderAll()};',
+              'if(b.type==="monthly")$("saveMonthlySettingsFromSettings").onclick=()=>{b.monthlyLimit=Math.max(0,Number($("settingsMonthlyLimit").value)||0);b.monthlyLimitPeriod=$("settingsMonthlyLimitPeriod").value;b.closingDay=Math.max(1,Math.min(31,Number($("settingsClosingDay").value)||1));rolloverMonthlyPurchases(b);save();renderAll()};'
+          )
+          s = s.replace(
+              '$("saveMonthlySettings").onclick=()=>{let b=cur();if(b.type!=="monthly")return;b.monthlyLimit=Math.max(0,Number($("monthlyLimit").value)||0);b.closingDay=Math.max(1,Math.min(31,Number($("closingDay").value)||1));rolloverMonthlyPurchases(b);save();renderAll()};',
+              '$("saveMonthlySettings").onclick=()=>{let b=cur();if(b.type!=="monthly")return;b.monthlyLimit=Math.max(0,Number($("monthlyLimit").value)||0);b.monthlyLimitPeriod=$("monthlyLimitPeriod").value;b.closingDay=Math.max(1,Math.min(31,Number($("closingDay").value)||1));rolloverMonthlyPurchases(b);save();renderAll()};'
+          )
+
+          s = s.replace('const save=()=>persistLocal();', 'const save=()=>{persistLocal();window.BudgetCloud?.scheduleSave?.(state)};')
+          s = s.replace(
+              '<header><h1>Budget</h1><div class="muted">Multiple budgets, one Main Budget.</div></header>',
+              '<header><h1>Budget</h1><div class="muted">Multiple budgets, one Main Budget. <span id="syncStatus">Local cache</span></div></header>'
+          )
+          s = s.replace('</script>\n</body>', '</script>\n<script src="./budget-supabase.js?v=0.5.0"></script>\n</body>')
+
+          path.write_text(s, encoding='utf-8')
+
+          cloud = r'''/*
+            Budget 0.5.0 · Supabase cross-device sync
+            One protected JSON snapshot per authenticated Dashboard user.
+          */
+          (function () {
+            "use strict";
+            let client=null,user=null,ready=false,saveTimer=null,saving=false,pending=false;
+            const TABLE="budget_sync_state_v1";
+            const app=()=>window.BudgetApp;
+            function status(message,error=false){const el=document.getElementById("syncStatus");if(!el)return;el.textContent=message;el.style.color=error?"var(--red)":""}
+            const currentState=()=>app()?.getState?.()||null;
+            async function uploadState(state){if(!ready||!client||!user||!state)return false;const {error}=await client.from(TABLE).upsert({user_id:user.id,data:state},{onConflict:"user_id"});if(error)throw error;return true}
+            async function getCloudRow(){const {data,error}=await client.from(TABLE).select("data,updated_at").eq("user_id",user.id).maybeSingle();if(error)throw error;return data||null}
+            async function saveNow(state){if(!ready)return;if(saving){pending=true;return}saving=true;status("Saving…");try{await uploadState(state||currentState());status("Synced")}catch(error){console.error("Budget sync save failed:",error);status("Local only — sync failed",true)}finally{saving=false;if(pending){pending=false;scheduleSave(currentState())}}}
+            function scheduleSave(state){if(!ready)return;clearTimeout(saveTimer);saveTimer=setTimeout(()=>saveNow(state||currentState()),450)}
+            async function reloadFromCloud(){if(!ready)return false;try{const row=await getCloudRow();if(!row?.data)return false;app()?.replaceState?.(row.data);status("Synced");return true}catch(error){console.error("Budget cloud reload failed:",error);status("Local only — sync failed",true);return false}}
+            async function init(detail){if(ready)return;client=detail?.client||window.DashboardAuth?.client||null;user=detail?.user||window.DashboardAuth?.user||null;if(!client||!user){status("Waiting for login…");return}status("Connecting…");try{const row=await getCloudRow();ready=true;if(row?.data){app()?.replaceState?.(row.data);status("Synced")}else{const local=currentState();if(local){await uploadState(local);status("Uploaded local Budget")}else status("Synced")}}catch(error){console.error("Budget Supabase initialization failed:",error);ready=false;status("Local only — Supabase not ready",true)}}
+            window.BudgetCloud={scheduleSave,saveNow,reloadFromCloud,get userId(){return user?.id||null}};
+            window.addEventListener("dashboard-auth-ready",event=>init(event.detail),{once:true});
+            setTimeout(()=>{if(!ready&&window.DashboardAuth?.client&&window.DashboardAuth?.user)init({client:window.DashboardAuth.client,user:window.DashboardAuth.user})},0);
+          })();
+          '''
+          Path('Projects/Dashboard/Budget/budget-supabase.js').write_text(cloud, encoding='utf-8')
+
+          changelog = '''Version 0.5.0: Supabase Cross-Device Budget Sync
+
+          Description:
+          Connects Budget to the existing My Dashboard Supabase account so the same
+          Budget data can be used across devices. Existing local data from the first
+          device is uploaded when no cloud Budget exists, and later devices load that
+          shared copy. Also adds selectable spending periods to Monthly Expenses.
+
+          Changes:
+          - Adds Supabase synchronization using the existing Dashboard login.
+          - localStorage remains the immediate local cache.
+          - First device uploads its existing local Budget when Supabase is empty.
+          - Other devices load the same Supabase Budget for that account.
+          - Adds Weekly, Every 2 Weeks, Monthly, Yearly, and Every 2 Years spending periods.
+          - Monthly Expenses remains permanently included in Main Budget.
+          - Purchases continue to reset when the credit-card statement closes.
+          - Preserves all existing Budget 0.4.2 functionality.
+          '''
+          Path('Projects/Dashboard/Budget/CHANGELOG.txt').write_text(changelog, encoding='utf-8')
+          PY
+
+      - name: Commit Budget update
+        shell: bash
+        run: |
+          if git diff --quiet -- Projects/Dashboard/Budget; then
+            echo "No Budget changes to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add Projects/Dashboard/Budget/index.html Projects/Dashboard/Budget/budget-supabase.js Projects/Dashboard/Budget/CHANGELOG.txt
+          git commit -m "Budget 0.5.0: Supabase cross-device sync [skip budget-upgrade]"
+          git push
