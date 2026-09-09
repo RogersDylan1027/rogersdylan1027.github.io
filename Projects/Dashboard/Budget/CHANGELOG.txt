@@ -1,17 +1,17 @@
-Version 0.4.1: Local Statement Purchase Reset
+Version 0.5.0: Supabase Cross-Device Budget Sync
 
 Description:
-Keeps Budget data local for now and changes Monthly Expenses so purchases are
-kept only for the currently open credit-card statement. When the closing date
-passes and a new statement cycle begins, purchases from the prior cycle are
-removed automatically.
+Connects Budget to the existing My Dashboard Supabase account so the same
+Budget data can be used across devices. Existing local data from the first
+device is uploaded when no cloud Budget exists, and later devices load that
+shared copy. Also adds selectable spending periods to Monthly Expenses.
 
 Changes:
-- Removes the Budget-specific Supabase persistence dependency.
-- Keeps existing Dashboard login/project-access protection.
-- Preserves Main Budget and permanent Monthly Expenses.
-- Monthly purchases are local-browser data only.
-- Previous statement purchases are automatically deleted after the card closes.
-- Removes the All Purchases/history view.
-- Preserves existing Budget, Paycheck, Gas, CSV, settings, and user-created
-  budget functionality.
+- Adds Supabase synchronization using the existing Dashboard login.
+- localStorage remains the immediate local cache.
+- First device uploads its existing local Budget when Supabase is empty.
+- Other devices load the same Supabase Budget for that account.
+- Adds Weekly, Every 2 Weeks, Monthly, Yearly, and Every 2 Years spending periods.
+- Monthly Expenses remains permanently included in Main Budget.
+- Purchases continue to reset when the credit-card statement closes.
+- Preserves all existing Budget 0.4.2 functionality.
