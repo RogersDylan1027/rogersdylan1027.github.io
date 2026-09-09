@@ -2,6 +2,8 @@
   "use strict";
 
   const VERSION = "0.1.2";
+  const SYNC_TABLE = "whiteboard_sync_state_v1";
+  const DB_KEY = "dashboard-whiteboard-fs-v1";
   const NativeBlob = window.Blob;
 
   function WhiteboardBlob(parts, options = {}) {
@@ -35,6 +37,130 @@
   style.textContent = "@media(max-width:760px){#filesBtn{display:inline-block!important}}";
   document.head.appendChild(style);
 
+  function waitForDashboardAuth() {
+    if (window.DashboardAuth?.client && window.DashboardAuth?.user) {
+      return Promise.resolve({
+        client: window.DashboardAuth.client,
+        user: window.DashboardAuth.user
+      });
+    }
+
+    return new Promise(resolve => {
+      const timeout = setTimeout(() => resolve(null), 10000);
+      window.addEventListener("dashboard-auth-ready", event => {
+        clearTimeout(timeout);
+        const client = event.detail?.client || window.DashboardAuth?.client;
+        const user = event.detail?.user || window.DashboardAuth?.user;
+        resolve(client && user ? { client, user } : null);
+      }, { once: true });
+    });
+  }
+
+  function readLocalFS() {
+    try {
+      const value = JSON.parse(localStorage.getItem(DB_KEY) || "null");
+      return value && typeof value === "object" ? value : null;
+    } catch {
+      return null;
+    }
+  }
+
+  function latestLocalTimestamp(fs) {
+    if (!fs) return 0;
+    const times = [];
+    for (const folder of fs.folders || []) times.push(Number(folder.createdAt) || 0);
+    for (const file of fs.files || []) times.push(Number(file.updatedAt || file.createdAt) || 0);
+    for (const shortcut of fs.shortcuts || []) times.push(Number(shortcut.createdAt) || 0);
+    return Math.max(0, ...times);
+  }
+
+  function hasUserContent(fs) {
+    if (!fs) return false;
+    return (fs.files?.length || 0) > 0 ||
+      (fs.shortcuts?.length || 0) > 0 ||
+      (fs.folders?.filter(folder => folder.id !== "root").length || 0) > 0;
+  }
+
+  const sync = {
+    client: null,
+    user: null,
+    timer: null,
+    pushing: false,
+    queuedPayload: null,
+
+    async initialize() {
+      const auth = await waitForDashboardAuth();
+      if (!auth) return;
+      this.client = auth.client;
+      this.user = auth.user;
+
+      const local = readLocalFS();
+      const { data, error } = await this.client
+        .from(SYNC_TABLE)
+        .select("payload,updated_at")
+        .eq("user_id", this.user.id)
+        .maybeSingle();
+
+      if (error) {
+        console.warn("Whiteboard sync pull failed:", error.message);
+        return;
+      }
+
+      if (!data) {
+        if (local && hasUserContent(local)) {
+          await this.pushNow(local);
+        }
+        return;
+      }
+
+      const remote = data.payload;
+      if (!remote || typeof remote !== "object") return;
+
+      const remoteTime = Date.parse(data.updated_at || "") || 0;
+      const localTime = latestLocalTimestamp(local);
+
+      if (local && hasUserContent(local) && localTime > remoteTime) {
+        await this.pushNow(local);
+      } else {
+        localStorage.setItem(DB_KEY, JSON.stringify(remote));
+      }
+    },
+
+    queuePush(fs) {
+      if (!this.client || !this.user || !fs) return;
+      this.queuedPayload = JSON.parse(JSON.stringify(fs));
+      clearTimeout(this.timer);
+      this.timer = setTimeout(() => this.flush(), 350);
+    },
+
+    async flush() {
+      if (this.pushing || !this.queuedPayload) return;
+      const payload = this.queuedPayload;
+      this.queuedPayload = null;
+      await this.pushNow(payload);
+      if (this.queuedPayload) this.flush();
+    },
+
+    async pushNow(payload) {
+      if (!this.client || !this.user || !payload) return;
+      this.pushing = true;
+      try {
+        const { error } = await this.client
+          .from(SYNC_TABLE)
+          .upsert({
+            user_id: this.user.id,
+            payload,
+            updated_at: new Date().toISOString()
+          }, { onConflict: "user_id" });
+        if (error) console.warn("Whiteboard sync push failed:", error.message);
+      } finally {
+        this.pushing = false;
+      }
+    }
+  };
+
+  window.WhiteboardSync = sync;
+
   function replaceRequired(source, from, to, label) {
     if (!source.includes(from)) {
       throw new Error(`Whiteboard 0.1.2 could not apply ${label}.`);
@@ -53,6 +179,12 @@
       'tool: "pen",',
       'tool: "hand",',
       "default hand tool"
+    );
+
+    source = replaceRequired(source,
+      'function saveFS(fs){ localStorage.setItem(DB_KEY, JSON.stringify(fs)); }',
+      'function saveFS(fs){ localStorage.setItem(DB_KEY, JSON.stringify(fs)); window.WhiteboardSync?.queuePush(fs); }',
+      "Supabase file sync"
     );
 
     source = replaceRequired(source,
@@ -164,7 +296,9 @@
     if (!dialog.open) dialog.showModal();
   }
 
-  fetch(`./whiteboard-core.js?v=${VERSION}`, { cache: "no-store" })
+  sync.initialize()
+    .catch(error => console.warn("Whiteboard sync initialization failed:", error))
+    .then(() => fetch(`./whiteboard-core.js?v=${VERSION}`, { cache: "no-store" }))
     .then(response => {
       if (!response.ok) throw new Error(`Could not load Whiteboard core (${response.status}).`);
       return response.text();
