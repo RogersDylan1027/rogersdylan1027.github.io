@@ -1,6 +1,6 @@
 /*
-  My Dashboard · Shared Configuration · Version 0.7.2
-  Login Initialization & Auth Recovery · 2026-09-08
+  My Dashboard · Shared Configuration · Version 0.8.0
+  Home Screen App & Notification Foundation · 2026-09-10
 
   The Supabase publishable key is intentionally browser-safe.
   Never place a service_role key or another secret in browser JavaScript.
@@ -11,7 +11,7 @@
   const BASE_PATH = "/Projects/Dashboard/";
 
   window.DashboardConfig = Object.freeze({
-    version: "0.7.2",
+    version: "0.8.0",
     supabaseUrl: "https://pyefiovoicvhigkjhhts.supabase.co",
     supabasePublishableKey: "sb_publishable_sVrxppe8B1QkXYqAPm6ddQ_x4MA5j32",
     supabaseScriptUrl: "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.js",
@@ -19,11 +19,54 @@
     dashboardIndexUrl: BASE_PATH + "index.html",
     loginUrl: BASE_PATH + "login.html",
     projectsUrl: BASE_PATH + "projects.json",
+    manifestUrl: BASE_PATH + "manifest.webmanifest?v=0.8.0",
+    serviceWorkerUrl: BASE_PATH + "service-worker.js?v=0.8.0",
+    pwaRuntimeUrl: BASE_PATH + "dashboard-pwa.js?v=0.8.0",
+    logoUrl: BASE_PATH + "logo.svg",
     streamingUrl: BASE_PATH + "Streaming/",
     budgetUrl: BASE_PATH + "Budget/",
-    streamingClientUrl: BASE_PATH + "dashboard-streaming.js?v=0.7.2",
-    streamingUiUrl: BASE_PATH + "dashboard-streaming-ui.js?v=0.7.2"
+    streamingClientUrl: BASE_PATH + "dashboard-streaming.js?v=0.8.0",
+    streamingUiUrl: BASE_PATH + "dashboard-streaming-ui.js?v=0.8.0"
   });
+
+  function installPwaHead() {
+    if (!document.querySelector('link[rel="manifest"]')) {
+      const manifest = document.createElement("link");
+      manifest.rel = "manifest";
+      manifest.href = window.DashboardConfig.manifestUrl;
+      document.head.appendChild(manifest);
+    }
+
+    const metas = [
+      ["apple-mobile-web-app-capable", "yes"],
+      ["apple-mobile-web-app-status-bar-style", "default"],
+      ["apple-mobile-web-app-title", "My Dashboard"],
+      ["mobile-web-app-capable", "yes"]
+    ];
+
+    metas.forEach(([name, content]) => {
+      if (document.querySelector(`meta[name="${name}"]`)) return;
+      const meta = document.createElement("meta");
+      meta.name = name;
+      meta.content = content;
+      document.head.appendChild(meta);
+    });
+
+    if (!document.querySelector('link[rel="apple-touch-icon"]')) {
+      const icon = document.createElement("link");
+      icon.rel = "apple-touch-icon";
+      icon.href = window.DashboardConfig.logoUrl;
+      document.head.appendChild(icon);
+    }
+
+    if (!document.querySelector('script[data-dashboard-pwa]')) {
+      const script = document.createElement("script");
+      script.src = window.DashboardConfig.pwaRuntimeUrl;
+      script.async = false;
+      script.dataset.dashboardPwa = "true";
+      document.head.appendChild(script);
+    }
+  }
 
   function applyCurrentVersionLabel() {
     const version = window.DashboardConfig.version;
@@ -35,22 +78,16 @@
       );
     }
 
-    const selectors = [
-      ".version",
-      ".account-summary",
-      "#loader h1"
-    ];
-
+    const selectors = [".version", ".account-summary", "#loader h1"];
     selectors.forEach(selector => {
       document.querySelectorAll(selector).forEach(node => {
-        if (node.textContent) {
-          node.textContent = node.textContent.replace(
-            /Version \d+\.\d+\.\d+|My Dashboard \d+\.\d+\.\d+/g,
-            match => match.startsWith("My Dashboard ")
-              ? "My Dashboard " + version
-              : "Version " + version
-          );
-        }
+        if (!node.textContent) return;
+        node.textContent = node.textContent.replace(
+          /Version \d+\.\d+\.\d+|My Dashboard \d+\.\d+\.\d+/g,
+          match => match.startsWith("My Dashboard ")
+            ? "My Dashboard " + version
+            : "Version " + version
+        );
       });
     });
   }
@@ -61,46 +98,48 @@
 
     const alreadyPresent = Array.from(body.querySelectorAll("tr")).some(row => {
       const versionCell = row.querySelector(".changelog-version, td");
-      return versionCell?.textContent?.trim() === "0.7.2";
+      return versionCell?.textContent?.trim() === "0.8.0";
     });
-
     if (alreadyPresent) return;
 
     const row = document.createElement("tr");
-    row.dataset.dashboardRuntimeRelease = "0.7.2";
+    row.dataset.dashboardRuntimeRelease = "0.8.0";
 
     const version = document.createElement("td");
     version.className = "changelog-version";
-    version.textContent = "0.7.2";
+    version.textContent = "0.8.0";
 
     const title = document.createElement("td");
     title.className = "changelog-title";
-    title.textContent = "Login Initialization & Auth Recovery";
+    title.textContent = "Home Screen App & Notification Foundation";
 
     const description = document.createElement("td");
     description.textContent =
-      "Bug Fixes: Restores the centralized Login page when the Supabase browser " +
-      "library does not initialize from its primary source. Login now uses a " +
-      "pinned library version, retries from a fallback CDN, and shows a visible " +
-      "startup error instead of leaving Sign In and account buttons inactive. " +
-      "Also restores the complete Dashboard startup script so a successful sign-in " +
-      "opens the Dashboard instead of showing the older inactive login screen.";
+      "Introduces the Dashboard PWA foundation so My Dashboard launches from the " +
+      "iPhone Home Screen as a standalone app, keeps Dashboard pages inside the " +
+      "installed app, caches the core shell for faster and more resilient loading, " +
+      "and adds notification controls with a local test notification. The service " +
+      "worker is also prepared for secure Web Push. External websites remain outside " +
+      "the Dashboard app, while native WidgetKit Home Screen widgets remain a later " +
+      "companion-app feature.";
 
     row.append(version, title, description);
     body.prepend(row);
   }
 
-  function applyDashboard072Runtime() {
+  function applyDashboard080Runtime() {
     applyCurrentVersionLabel();
     injectCurrentChangelogEntry();
   }
 
   window.DashboardApplyCurrentVersionLabel = applyCurrentVersionLabel;
-  window.DashboardApplyCurrentRelease = applyDashboard072Runtime;
+  window.DashboardApplyCurrentRelease = applyDashboard080Runtime;
+
+  installPwaHead();
 
   document.addEventListener("DOMContentLoaded", () => {
-    applyDashboard072Runtime();
-    setTimeout(applyDashboard072Runtime, 250);
-    setTimeout(applyDashboard072Runtime, 1000);
+    applyDashboard080Runtime();
+    setTimeout(applyDashboard080Runtime, 250);
+    setTimeout(applyDashboard080Runtime, 1000);
   });
 })();
