@@ -1,0 +1,38 @@
+{
+  "id": "/Projects/Dashboard/",
+  "name": "My Dashboard",
+  "short_name": "Dashboard",
+  "description": "My Dashboard for apps, services, files, projects, streaming, and connected tools.",
+  "start_url": "/Projects/Dashboard/",
+  "scope": "/Projects/Dashboard/",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "background_color": "#f7f8fa",
+  "theme_color": "#f7f8fa",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/Projects/Dashboard/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Streaming",
+      "short_name": "Streaming",
+      "url": "/Projects/Dashboard/Streaming/"
+    },
+    {
+      "name": "Budget",
+      "short_name": "Budget",
+      "url": "/Projects/Dashboard/Budget/"
+    },
+    {
+      "name": "Whiteboard",
+      "short_name": "Whiteboard",
+      "url": "/Projects/Dashboard/Whiteboard/"
+    }
+  ]
+}
