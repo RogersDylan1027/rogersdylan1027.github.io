@@ -1,5 +1,5 @@
-/* My Dashboard · Service Worker · Version 0.8.0 · 2026-09-10 */
-const CACHE_NAME = "my-dashboard-v0.8.0";
+/* My Dashboard · Service Worker · Version 0.9.0 · 2026-09-12 */
+const CACHE_NAME = "my-dashboard-v0.9.0";
 const BASE_PATH = "/Projects/Dashboard/";
 const CORE_ASSETS = [
   BASE_PATH,
@@ -11,7 +11,8 @@ const CORE_ASSETS = [
   BASE_PATH + "dashboard-pwa.js",
   BASE_PATH + "projects.json",
   BASE_PATH + "manifest.webmanifest",
-  BASE_PATH + "logo.svg"
+  BASE_PATH + "logo.svg",
+  BASE_PATH + "Reviews/"
 ];
 
 self.addEventListener("install", event => {
