@@ -11,10 +11,23 @@
       `'tool: "pen",','tool: "pen",',"default pen tool"`
     );
 
-    source = source
-      .replaceAll('state.tool="hand"', 'state.tool="pen"')
-      .replaceAll('setTool("hand")', 'setTool("pen")')
-      .replaceAll('(e.ctrlKey&&state.tool==="pen")', '(e.pointerType==="mouse"&&e.ctrlKey)');
+    source = source.replace(
+      'state.tool="hand";state.elements=[];',
+      'state.tool="pen";state.elements=[];'
+    );
+    source = source.replace(
+      'updateStatus();setTool("hand");render();',
+      'updateStatus();setTool("pen");render();'
+    );
+    source = source.replace(
+      `'updateModeUI();updateZoom();renderFiles();resize();setTool("hand");',"hand initialization"`,
+      `'updateModeUI();updateZoom();renderFiles();resize();setTool("pen");',"pen initialization"`
+    );
+
+    source = source.replace(
+      `'if(state.tool==="hand"||(e.ctrlKey&&state.tool==="pen")||e.button===1||e.button===2){state.pointer={mode:"pan",sx:p.sx,sy:p.sy,cx:state.camera.x,cy:state.camera.y};canvas.style.cursor="grabbing";return;}',`,
+      `'if(state.tool==="hand"||(e.pointerType==="mouse"&&e.ctrlKey)||e.button===1||e.button===2){state.pointer={mode:"pan",sx:p.sx,sy:p.sy,cx:state.camera.x,cy:state.camera.y};canvas.style.cursor="grabbing";return;}',`
+    );
 
     const anchor = `source = replaceRequired(source,'function saveFS(fs){ localStorage.setItem(DB_KEY, JSON.stringify(fs)); }','function saveFS(fs){ localStorage.setItem(DB_KEY, JSON.stringify(fs)); window.WhiteboardSync?.queuePush(fs); window.WhiteboardHome?.render?.(); }',"Supabase file sync");`;
 
