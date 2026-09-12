@@ -1,8 +1,37 @@
-Whiteboard · Version 0.1.2
-File-First Workspace & Drawing Controls · 2026-09-09
+Whiteboard · Version 0.2.0
+Cross-Device Sync & Files-First Home · 2026-09-12
 
 CHANGELOG
 =========
+Version 0.2.0: Cross-Device Sync & Files-First Home
+
+Description:
+Adds account-based Whiteboard syncing across devices, introduces a full files-first
+Home Screen for opening and switching between boards, and improves input handling
+so fingers pan while Apple Pencil / stylus and mouse input can draw naturally.
+
+NEW / CHANGED IN 0.2.0
+======================
+- Dashboard Storage Whiteboards now sync through Supabase for the signed-in
+  Dashboard account, allowing the same saved boards to appear across devices.
+- Existing local Whiteboard data is preserved during first sync with a newest-copy
+  check instead of blindly overwriting one device with another.
+- Whiteboard now opens to a full files-first Home Screen instead of the older
+  startup chooser.
+- The Home Screen can browse folders and synced Whiteboards, create a new board,
+  create a folder, or open a local .DD file.
+- Inside a board, the Files action becomes Home so the user can leave the current
+  board, return to the file browser, and open a different board.
+- Finger / touch input pans and drags the canvas even when a drawing tool is active.
+- Apple Pencil and other stylus input use the active drawing tool.
+- Mouse input defaults to drawing with the active tool.
+- Holding Control while dragging with a mouse temporarily pans without changing
+  the selected drawing tool.
+- Pen is the default drawing tool for new/opened workspaces while finger navigation
+  remains independent from the selected tool.
+- Existing 0.1.2 page boundaries, partial/whole-stroke erasing, zoom-scaled strokes,
+  import/export workflows, .DD handling, and folder/shortcut support are preserved.
+
 Version 0.1.2: File-First Workspace & Drawing Controls
 
 Description:
