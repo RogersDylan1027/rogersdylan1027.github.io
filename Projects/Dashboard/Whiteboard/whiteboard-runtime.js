@@ -2,6 +2,61 @@
   "use strict";
 
   const RELEASE_VERSION = "0.2.0";
+  const PENCIL_TOUCH_GRACE_MS = 900;
+  const activePenPointers = new Set();
+  let suppressTouchUntil = 0;
+
+  function markPencilActivity(extraMs = PENCIL_TOUCH_GRACE_MS) {
+    suppressTouchUntil = Math.max(suppressTouchUntil, Date.now() + extraMs);
+  }
+
+  function shouldRejectTouch() {
+    return activePenPointers.size > 0 || Date.now() < suppressTouchUntil;
+  }
+
+  function installPalmRejection() {
+    const canvas = document.getElementById("canvas");
+    if (!canvas) return;
+
+    const watchPen = event => {
+      if (event.pointerType !== "pen") return;
+      markPencilActivity();
+    };
+
+    const penDown = event => {
+      if (event.pointerType !== "pen") return;
+      activePenPointers.add(event.pointerId);
+      markPencilActivity(1400);
+    };
+
+    const penUp = event => {
+      if (event.pointerType !== "pen") return;
+      activePenPointers.delete(event.pointerId);
+      markPencilActivity();
+    };
+
+    const rejectPalmTouch = event => {
+      if (event.pointerType !== "touch" || !shouldRejectTouch()) return;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    };
+
+    // Capture-phase listeners run before the Whiteboard's own pointer handlers.
+    // Hover/move support helps reject a resting palm even before Pencil contact
+    // on iPads/Apple Pencil models that expose stylus hover.
+    canvas.addEventListener("pointerover", watchPen, true);
+    canvas.addEventListener("pointerenter", watchPen, true);
+    canvas.addEventListener("pointermove", watchPen, true);
+    canvas.addEventListener("pointerdown", penDown, true);
+    canvas.addEventListener("pointerup", penUp, true);
+    canvas.addEventListener("pointercancel", penUp, true);
+
+    for (const type of ["pointerdown", "pointermove", "pointerup", "pointercancel"]) {
+      canvas.addEventListener(type, rejectPalmTouch, { capture: true, passive: false });
+    }
+  }
+
+  installPalmRejection();
 
   function patchWrapper(source) {
     source = source.replaceAll("0.1.2", RELEASE_VERSION);
