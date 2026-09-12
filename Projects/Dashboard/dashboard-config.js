@@ -1,6 +1,6 @@
 /*
-  My Dashboard · Shared Configuration · Version 0.8.0
-  Home Screen App & Notification Foundation · 2026-09-10
+  My Dashboard · Shared Configuration · Version 0.9.0
+  Reviews Library & Streaming Review Queue · 2026-09-12
 
   The Supabase publishable key is intentionally browser-safe.
   Never place a service_role key or another secret in browser JavaScript.
@@ -11,7 +11,7 @@
   const BASE_PATH = "/Projects/Dashboard/";
 
   window.DashboardConfig = Object.freeze({
-    version: "0.8.0",
+    version: "0.9.0",
     supabaseUrl: "https://pyefiovoicvhigkjhhts.supabase.co",
     supabasePublishableKey: "sb_publishable_sVrxppe8B1QkXYqAPm6ddQ_x4MA5j32",
     supabaseScriptUrl: "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.js",
@@ -19,14 +19,15 @@
     dashboardIndexUrl: BASE_PATH + "index.html",
     loginUrl: BASE_PATH + "login.html",
     projectsUrl: BASE_PATH + "projects.json",
-    manifestUrl: BASE_PATH + "manifest.webmanifest?v=0.8.0",
-    serviceWorkerUrl: BASE_PATH + "service-worker.js?v=0.8.0",
-    pwaRuntimeUrl: BASE_PATH + "dashboard-pwa.js?v=0.8.0",
+    manifestUrl: BASE_PATH + "manifest.webmanifest?v=0.9.0",
+    serviceWorkerUrl: BASE_PATH + "service-worker.js?v=0.9.0",
+    pwaRuntimeUrl: BASE_PATH + "dashboard-pwa.js?v=0.9.0",
     logoUrl: BASE_PATH + "logo.svg",
     streamingUrl: BASE_PATH + "Streaming/",
+    reviewsUrl: BASE_PATH + "Reviews/",
     budgetUrl: BASE_PATH + "Budget/",
-    streamingClientUrl: BASE_PATH + "dashboard-streaming.js?v=0.8.0",
-    streamingUiUrl: BASE_PATH + "dashboard-streaming-ui.js?v=0.8.0"
+    streamingClientUrl: BASE_PATH + "dashboard-streaming.js?v=0.9.0",
+    streamingUiUrl: BASE_PATH + "dashboard-streaming-ui.js?v=0.9.0"
   });
 
   function installPwaHead() {
@@ -98,48 +99,47 @@
 
     const alreadyPresent = Array.from(body.querySelectorAll("tr")).some(row => {
       const versionCell = row.querySelector(".changelog-version, td");
-      return versionCell?.textContent?.trim() === "0.8.0";
+      return versionCell?.textContent?.trim() === "0.9.0";
     });
     if (alreadyPresent) return;
 
     const row = document.createElement("tr");
-    row.dataset.dashboardRuntimeRelease = "0.8.0";
+    row.dataset.dashboardRuntimeRelease = "0.9.0";
 
     const version = document.createElement("td");
     version.className = "changelog-version";
-    version.textContent = "0.8.0";
+    version.textContent = "0.9.0";
 
     const title = document.createElement("td");
     title.className = "changelog-title";
-    title.textContent = "Home Screen App & Notification Foundation";
+    title.textContent = "Reviews Library & Streaming Review Queue";
 
     const description = document.createElement("td");
     description.textContent =
-      "Introduces the Dashboard PWA foundation so My Dashboard launches from the " +
-      "iPhone Home Screen as a standalone app, keeps Dashboard pages inside the " +
-      "installed app, caches the core shell for faster and more resilient loading, " +
-      "and adds notification controls with a local test notification. The service " +
-      "worker is also prepared for secure Web Push. External websites remain outside " +
-      "the Dashboard app, while native WidgetKit Home Screen widgets remain a later " +
-      "companion-app feature.";
+      "Introduces the Reviews project with automatic movie, TV, and book metadata, " +
+      "poster and cover artwork, and a personal review library backed by Supabase. " +
+      "Finished Streaming movies and completed TV seasons automatically appear in a " +
+      "review queue, while season reviews remain grouped under their parent show. " +
+      "Review data is private to each signed-in user and the original Google Form " +
+      "questions are retained as the opinion-focused review fields.";
 
     row.append(version, title, description);
     body.prepend(row);
   }
 
-  function applyDashboard080Runtime() {
+  function applyDashboard090Runtime() {
     applyCurrentVersionLabel();
     injectCurrentChangelogEntry();
   }
 
   window.DashboardApplyCurrentVersionLabel = applyCurrentVersionLabel;
-  window.DashboardApplyCurrentRelease = applyDashboard080Runtime;
+  window.DashboardApplyCurrentRelease = applyDashboard090Runtime;
 
   installPwaHead();
 
   document.addEventListener("DOMContentLoaded", () => {
-    applyDashboard080Runtime();
-    setTimeout(applyDashboard080Runtime, 250);
-    setTimeout(applyDashboard080Runtime, 1000);
+    applyDashboard090Runtime();
+    setTimeout(applyDashboard090Runtime, 250);
+    setTimeout(applyDashboard090Runtime, 1000);
   });
 })();
