@@ -124,6 +124,16 @@
 
   installPalmRejection();
 
+  const fileManagerStyle = document.createElement("style");
+  fileManagerStyle.textContent = `
+    .wb-home-card{border:1px solid #d9dee7;background:#fff;border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+    .wb-home-card .wb-home-item{border:0;border-radius:0;width:100%;flex:1}
+    .wb-home-file-actions{display:flex;gap:8px;padding:9px 10px;border-top:1px solid #edf0f4;background:#fafbfc}
+    .wb-home-file-actions button{flex:1;border:1px solid #d9dee7;background:#fff;border-radius:8px;padding:7px 9px;font-size:12px;font-weight:750;color:#344054}
+    .wb-home-file-actions button.wb-delete{color:#b42318}
+  `;
+  document.head.appendChild(fileManagerStyle);
+
   function patchWrapper(source) {
     source = source.replaceAll("0.1.2", RELEASE_VERSION);
 
@@ -144,6 +154,69 @@
       `'updateModeUI();updateZoom();renderFiles();resize();setTool("hand");',"hand initialization"`,
       `'updateModeUI();updateZoom();renderFiles();resize();setTool("pen");',"pen initialization"`
     );
+
+    source = source.replace(
+      'state.fileFolderId="root";state.selectionPending=',
+      'state.fileFolderId=currentFolderId||"root";state.selectionPending='
+    );
+    source = source.replace(
+      'el.querySelector("#wbNewBoard").onclick = () => {\n        this.bridge?.newBoard?.();',
+      'el.querySelector("#wbNewBoard").onclick = () => {\n        this.bridge?.setFolder?.(this.folderId);\n        this.bridge?.newBoard?.();'
+    );
+
+    source = source.replace(
+      'window.WhiteboardHomeBridge={openFile,newBoard:resetNewBoard,setFolder:id=>{currentFolderId=id||"root";}};window.WhiteboardHome.bridge=window.WhiteboardHomeBridge;',
+      'window.WhiteboardHomeBridge={openFile,newBoard:resetNewBoard,setFolder:id=>{currentFolderId=id||"root";},renameFile:(id,name)=>{const f=fs.files.find(x=>x.id===id);if(!f)return false;let next=String(name||"").trim();if(!next)return false;if(!/\\.dd$/i.test(next))next+=".DD";f.name=next;if(f.content&&typeof f.content==="object"){f.content.title=next.replace(/\\.dd$/i,"");f.content.savedAt=new Date().toISOString()}f.updatedAt=Date.now();if(state.fileId===id){state.title=next.replace(/\\.dd$/i,"");$("docTitle").value=state.title}saveFS(fs);return true;},deleteFile:id=>{const index=fs.files.findIndex(x=>x.id===id);if(index<0)return false;fs.files.splice(index,1);fs.shortcuts=fs.shortcuts.filter(s=>!(s.targetType==="file"&&s.targetId===id));if(state.fileId===id){state.fileId=null;state.fileFolderId=currentFolderId||"root";state.dirty=true;updateStatus()}saveFS(fs);return true;}};window.WhiteboardHome.bridge=window.WhiteboardHomeBridge;'
+    );
+
+    const oldHomeRows = `      rows.forEach(item=>{
+        const b=document.createElement("button");b.className="wb-home-item";
+        const icon=item.kind==="folder"?"📁":item.kind==="shortcut"?"↗":"◻️";
+        const meta=item.kind==="folder"?"Folder":item.kind==="shortcut"?"Shortcut":"Whiteboard .DD";
+        b.innerHTML=\`<span class="wb-home-icon">\${icon}</span><span class="wb-home-name"></span><span class="wb-home-meta">\${meta}</span>\`;
+        b.querySelector(".wb-home-name").textContent=item.name;
+        b.onclick=()=>{
+          if(item.kind==="folder"){this.folderId=item.id;this.render();return;}
+          if(item.kind==="shortcut"){
+            if(item.targetType==="folder"){this.folderId=item.targetId;this.render();return;}
+            this.bridge?.openFile?.(item.targetId);
+          } else this.bridge?.openFile?.(item.id);
+          this.hide();
+        };
+        grid.appendChild(b);
+      });`;
+
+    const newHomeRows = `      rows.forEach(item=>{
+        const card=document.createElement("div");card.className="wb-home-card";
+        const b=document.createElement("button");b.className="wb-home-item";
+        const icon=item.kind==="folder"?"📁":item.kind==="shortcut"?"↗":"◻️";
+        const meta=item.kind==="folder"?"Folder":item.kind==="shortcut"?"Shortcut":"Whiteboard .DD";
+        b.innerHTML=\`<span class="wb-home-icon">\${icon}</span><span class="wb-home-name"></span><span class="wb-home-meta">\${meta}</span>\`;
+        b.querySelector(".wb-home-name").textContent=item.name;
+        b.onclick=()=>{
+          if(item.kind==="folder"){this.folderId=item.id;this.render();return;}
+          if(item.kind==="shortcut"){
+            if(item.targetType==="folder"){this.folderId=item.targetId;this.render();return;}
+            this.bridge?.openFile?.(item.targetId);
+          } else this.bridge?.openFile?.(item.id);
+          this.hide();
+        };
+        card.appendChild(b);
+        if(item.kind==="file"){
+          const actions=document.createElement("div");actions.className="wb-home-file-actions";
+          const rename=document.createElement("button");rename.type="button";rename.textContent="Rename";
+          rename.onclick=e=>{e.stopPropagation();const next=prompt("Rename Whiteboard",item.name);if(next===null)return;if(this.bridge?.renameFile?.(item.id,next))this.render();};
+          const del=document.createElement("button");del.type="button";del.className="wb-delete";del.textContent="Delete";
+          del.onclick=e=>{e.stopPropagation();if(!confirm(\`Delete \"\${item.name}\"? This cannot be undone.\`))return;if(this.bridge?.deleteFile?.(item.id))this.render();};
+          actions.append(rename,del);card.appendChild(actions);
+        }
+        grid.appendChild(card);
+      });`;
+
+    if (!source.includes(oldHomeRows)) {
+      throw new Error("Whiteboard 0.2.0 could not install file rename/delete controls.");
+    }
+    source = source.replace(oldHomeRows, newHomeRows);
 
     source = source.replace(
       `'if(state.tool==="hand"||(e.ctrlKey&&state.tool==="pen")||e.button===1||e.button===2){state.pointer={mode:"pan",sx:p.sx,sy:p.sy,cx:state.camera.x,cy:state.camera.y};canvas.style.cursor="grabbing";return;}',`,
