@@ -20,6 +20,11 @@ NEW / CHANGED IN 0.2.0
   startup chooser.
 - The Home Screen can browse folders and synced Whiteboards, create a new board,
   create a folder, or open a local .DD file.
+- New Whiteboards created while browsing inside a folder now keep that folder as
+  their save location instead of falling back to the top-level Whiteboard folder.
+- Saved Whiteboard files on the Home Screen can now be renamed or deleted.
+  Renaming updates the .DD filename/title, while deleting also removes shortcuts
+  that point to the deleted file.
 - Inside a board, the Files action becomes Home so the user can leave the current
   board, return to the file browser, and open a different board.
 - Finger / touch input pans and drags the canvas even when a drawing tool is active.
