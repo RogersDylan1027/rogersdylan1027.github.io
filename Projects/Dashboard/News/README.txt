@@ -1,51 +1,44 @@
 NEWS PROJECT
 
-Concept
-A mobile-first Dashboard news project built around a TikTok-style vertical swipe feed. Each story should occupy a full-screen card and snap naturally to the next or previous story.
+Current version
+0.1.0
 
-Core experience
-- Full-screen vertical swipe/scroll feed using scroll snapping
-- Headline, image/video, short summary, source, and publication time
+Version 0.1.0: TikTok-Style News Feed
+Built the first working News project as a mobile-first vertical swipe feed. Stories load from a Supabase Edge Function, display publisher and publication age, support read-original, save, share, search, feed categories, feed-style settings, read-history filtering, and a caught-up stopping point.
+
+Current experience
+- Full-screen vertical swipe/scroll feed using CSS scroll snapping
+- Live news supplied through the Supabase news-feed Edge Function
+- Headline, short summary, source, category, and publication time on each card
 - Read original story action
-- Save stories
-- Search stories, people, companies, places, and topics
-- Catch-up marker that shows when the user has reached the last story seen previously
+- Save and share actions
+- Search the loaded feed by headline, source, summary, or topic text
+- Categories: For You, U.S., World, Tech, Business, Sports, Entertainment, Science, Health, Apple, NHL
+- Feed style setting: Personalized, Balanced, or Chronological
+- Option to hide stories already seen
+- Resettable local read history
+- Caught-up card at the end of the current feed
+- Dashboard authentication required through the shared Dashboard auth system
 
-Feed modes
-- For You
-- Following
-- Breaking
-- Local
-- Latest
-- Saved
-- History
+Current storage
+Version 0.1.0 stores saved-story IDs, seen-story IDs, and News settings in localStorage on the current device. A future update can move these to Supabase for cross-device sync.
 
-Personalization concept
-The feed can rank topics based on behavior such as saves, opening the full article, time spent on a story, immediate skips, and explicit "Not interested" feedback. The user should be able to choose between Personalized, Mostly Personalized, Balanced, and Chronological-only feed styles.
+News backend
+Supabase Edge Function: news-feed
+The function fetches RSS feeds server-side so the browser/PWA does not depend on cross-origin RSS requests. Current feeds use Google News RSS topic/search feeds and return normalized story objects to the authenticated Dashboard client.
 
-Story handling
-- Keep publisher/source and timestamp prominent
-- Link back to the original reporting
-- Group duplicate coverage of the same event when practical
-- For major stories, provide a neutral summary and show multiple reporting sources
-
-Possible card types
-- Breaking News
-- Standard Article
-- Video
-- Sports Score
-- Live Event
-- Developing Story / Timeline
-- Market Update
-- Weather Alert
-- Explainer / Why It Matters
-
-Planned gestures
-- Swipe up/down: next/previous story
-- Tap: expand summary/details
-- Swipe left: full story / related coverage
-- Swipe right: save or related action
-- Long press: Less like this, Hide source, Follow topic, etc.
+Future roadmap
+- Following feed with explicit followed topics and sources
+- Breaking, Local, Latest, Saved, and History top-level feed modes
+- Cross-device saved stories and history through Supabase
+- Better recommendation scoring based on saves, opens, dwell time, skips, and explicit feedback
+- Mostly Personalized feed style
+- Not interested / Less like this / Hide source / Follow topic actions
+- Duplicate-story clustering across publishers
+- Multi-source coverage cards for major stories
+- Image/video enrichment where a reliable publisher-safe source is available
+- Additional card types such as sports scores, live events, developing-story timelines, market updates, weather alerts, and explainers
+- Gesture shortcuts for related coverage, save, and topic controls
 
 Dashboard integration
 Project id: news
@@ -53,5 +46,10 @@ Project name: News
 Folder: News
 Icon: 📰
 
+Files
+- index.html — News interface and vertical feed layout
+- news.js — feed loading, ranking, filtering, save/share/history behavior
+- README.txt — project notes and changelog
+
 Status
-Project registered in Dashboard projects.json. No News index.html has been created yet, in keeping with the Dashboard rule not to create a new HTML file unless explicitly requested.
+Version 0.1.0 is built and pushed. The Dashboard project registry already contains News, so the News tile can open the working project.
