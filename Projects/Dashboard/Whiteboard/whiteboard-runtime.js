@@ -171,11 +171,13 @@
 
     const touchPatch = `\n    source = replaceRequired(source,\n      'function beginPointer(e){\\n    if(e.button!==undefined&&e.button>1)return; canvas.setPointerCapture?.(e.pointerId); const p=pointFromEvent(e), w=screenToWorld(p.sx,p.sy);',\n      'function beginPointer(e){\\n    if(e.button!==undefined&&e.button>1)return; canvas.setPointerCapture?.(e.pointerId); const p=pointFromEvent(e), w=screenToWorld(p.sx,p.sy); if(e.pointerType==="touch"){state.pointer={mode:"pan",sx:p.sx,sy:p.sy,cx:state.camera.x,cy:state.camera.y};canvas.style.cursor="grabbing";return;}',\n      "finger pan routing"\n    );`;
 
+    const pastePatch = `\n    source = replaceRequired(source,\n      'function imageDimensions(src){return new Promise((resolve,reject)=>{const img=new Image();img.onload=()=>resolve({w:img.naturalWidth,h:img.naturalHeight});img.onerror=reject;img.src=src})}',\n      'function imageDimensions(src){return new Promise((resolve,reject)=>{const img=new Image();img.onload=()=>resolve({w:img.naturalWidth,h:img.naturalHeight});img.onerror=reject;img.src=src})}\\n  async function pasteImageFile(file){if(!file||!String(file.type||"").startsWith("image/"))return;pushHistory();const dataUrl=await fileToDataURL(file);const dims=await imageDimensions(dataUrl);const id=uid("asset");state.assets[id]={id,name:file.name||"Pasted Image",type:file.type||"image/png",dataUrl};const center=screenToWorld(wrap.clientWidth/2,wrap.clientHeight/2);const maxW=state.mode==="pages"?PAGE.width-80:900;const scale=Math.min(1,maxW/dims.w);state.elements.push({id:uid("image"),type:"image",assetId:id,x:center.x-dims.w*scale/2,y:center.y-dims.h*scale/2,w:dims.w*scale,h:dims.h*scale});markDirty();render();toast("Image pasted")}\\n  document.addEventListener("paste",async e=>{const active=document.activeElement;if(active&&(active.tagName==="INPUT"||active.tagName==="TEXTAREA"||active.isContentEditable))return;const items=[...(e.clipboardData?.items||[])];const item=items.find(x=>String(x.type||"").startsWith("image/"));if(!item)return;const file=item.getAsFile?.();if(!file)return;e.preventDefault();try{await pasteImageFile(file)}catch(err){console.error(err);alert("That pasted image could not be added.")}});',\n      "clipboard image paste"\n    );`;
+
     if (!source.includes(anchor)) {
       throw new Error("Whiteboard 0.2.0 could not install input routing.");
     }
 
-    source = source.replace(anchor, anchor + touchPatch);
+    source = source.replace(anchor, anchor + touchPatch + pastePatch);
     return source;
   }
 
