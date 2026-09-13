@@ -1,5 +1,5 @@
 Whiteboard · Version 0.2.0
-Cross-Device Sync & Files-First Home · 2026-09-12
+Cross-Device Sync & Files-First Home · 2026-09-13
 
 CHANGELOG
 =========
@@ -29,6 +29,15 @@ NEW / CHANGED IN 0.2.0
   the selected drawing tool.
 - Pen is the default drawing tool for new/opened workspaces while finger navigation
   remains independent from the selected tool.
+- Images can now be pasted directly from the clipboard into the current Whiteboard.
+  Pasted images use the same saved asset format as imported images, so they remain
+  part of .DD files, synced boards, and exports.
+- Eraser size controls, eraser cursor feedback, and Pencil-aware palm rejection are
+  preserved in the 0.2.0 runtime.
+- Apple Pencil side double-tap is not exposed to browser JavaScript by iPadOS/Safari.
+  Pen/Eraser switching therefore remains available through the Whiteboard toolbar
+  in the web/PWA build; native iPad app APIs would be required to receive the
+  Pencil double-tap gesture directly.
 - Existing 0.1.2 page boundaries, partial/whole-stroke erasing, zoom-scaled strokes,
   import/export workflows, .DD handling, and folder/shortcut support are preserved.
 
