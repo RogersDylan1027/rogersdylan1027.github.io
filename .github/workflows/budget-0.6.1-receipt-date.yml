@@ -1,0 +1,161 @@
+name: Budget 0.6.1 Receipt Date
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  upgrade-budget:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Apply Budget 0.6.1
+        shell: bash
+        run: |
+          python3 <<'PY'
+          from pathlib import Path
+          p=Path('Projects/Dashboard/Budget/index.html')
+          s=p.read_text(encoding='utf-8')
+          if '<title>Budget · 0.6.1</title>' not in s:
+              if '<title>Budget · 0.6.0</title>' not in s:
+                  raise SystemExit('Expected Budget 0.6.0 as upgrade base.')
+              s=s.replace('<title>Budget · 0.6.0</title>','<title>Budget · 0.6.1</title>')
+              s=s.replace('<!-- Budget 0.6.0: Car fuel history, flexible fill-up inputs, and duration averages. -->','<!-- Budget 0.6.1: Receipt-date fuel tracking and automatic fill-up duration. -->')
+              s=s.replace('const KEY="budget-local-0.6.0", USER="local-user";','const KEY="budget-local-0.6.1", USER="local-user";')
+              s=s.replace('      JSON.parse(localStorage.getItem("budget-local-0.5.0")) ||','      JSON.parse(localStorage.getItem("budget-local-0.6.0")) ||\n      JSON.parse(localStorage.getItem("budget-local-0.5.0")) ||')
+              s=s.replace('budget-supabase.js?v=0.6.0','budget-supabase.js?v=0.6.1')
+
+              old='''<div class="car-grid" style="margin-top:12px">
+<div class="field"><label>Average spending duration</label><select id="carAveragePeriod"><option value="week">Weekly</option><option value="biweekly">Every 2 Weeks</option><option value="month">Monthly</option><option value="year">Yearly</option><option value="biyearly">Every 2 Years</option></select></div>
+<div class="field"><label>Budget display period</label><input id="carBudgetPeriodDisplay" disabled></div>
+</div>'''
+              new='''<div class="car-grid" style="margin-top:12px">
+<div class="field" id="carFallbackPeriodWrap"><label>Assumed duration</label><select id="carAveragePeriod"><option value="week">Weekly</option><option value="biweekly">Every 2 Weeks</option><option value="month">Monthly</option><option value="year">Yearly</option><option value="biyearly">Every 2 Years</option></select><div class="sub">Only used until at least 2 dated fill-ups are available.</div></div>
+<div class="field"><label>Budget display period</label><input id="carBudgetPeriodDisplay" disabled></div>
+</div>'''
+              if old not in s: raise SystemExit('Car duration UI block not found')
+              s=s.replace(old,new)
+
+              start=s.index('function carMetrics(){')
+              end=s.index('function renderAll(){')
+              new_funcs='''function carMetrics(){
+  const rows=(state.car?.fillups||[]).filter(f=>f.date&&Number(f.total)>0&&Number(f.gallons)>0&&Number(f.pricePerGallon)>0).slice().sort((a,b)=>String(a.date).localeCompare(String(b.date)));
+  const totalCost=rows.reduce((sum,f)=>sum+Number(f.total||0),0),totalGallons=rows.reduce((sum,f)=>sum+Number(f.gallons||0),0);
+  const weightedPrice=totalGallons>0?totalCost/totalGallons:0,avgFill=rows.length?totalCost/rows.length:0;
+  const fallbackPeriod=state.car?.averagePeriod||"week";
+  let averageDays=null,nativeSpend=null,budgetSpend=null,valid=false,automatic=false;
+  if(rows.length>=2){
+    const times=rows.map(f=>new Date(f.date+"T12:00:00").getTime()).filter(Number.isFinite);
+    if(times.length>=2){
+      let totalGap=0,gaps=0;
+      for(let i=1;i<times.length;i++){const gap=(times[i]-times[i-1])/86400000;if(gap>0){totalGap+=gap;gaps++}}
+      if(gaps>0){averageDays=totalGap/gaps;automatic=true}
+    }
+  }else if(rows.length===1){averageDays=CAR_PERIOD_DAYS[fallbackPeriod]||7}
+  if(rows.length&&averageDays>0){
+    nativeSpend=avgFill;
+    const budgetDays=CAR_PERIOD_DAYS[state.view.period]||null;
+    if(budgetDays){budgetSpend=(nativeSpend/averageDays)*budgetDays;valid=Number.isFinite(nativeSpend)&&Number.isFinite(budgetSpend)}
+  }
+  return {rows,totalCost,totalGallons,weightedPrice,avgFill,fallbackPeriod,averageDays,nativeSpend,budgetSpend,valid,automatic}
+}
+function formatDuration(days){
+  if(!Number.isFinite(days)||days<=0)return "—";
+  if(days<2)return `${days.toFixed(1)} day`;
+  if(days<60)return `${days.toFixed(1)} days`;
+  const months=days/(365.25/12);if(months<18)return `${months.toFixed(1)} months`;
+  return `${(days/365.25).toFixed(1)} years`;
+}
+function renderCarHistory(){
+  state.car||={averagePeriod:"week",fillups:[]};
+  const m=carMetrics();
+  $("carAveragePeriod").value=state.car.averagePeriod||"week";
+  $("carFallbackPeriodWrap").style.display=m.rows.length<2?"grid":"none";
+  $("carBudgetPeriodDisplay").value=plabel(state.view.period)||state.view.period;
+  $("carAvgPrice").textContent=m.totalGallons?"$"+m.weightedPrice.toFixed(3):"$0.000";
+  $("carAvgFill").textContent=m.rows.length?money(m.avgFill):"$0.00";
+  $("carNativeLabel").textContent=m.automatic?`Avg Spend / ${formatDuration(m.averageDays)}`:`${carPeriodLabel(m.fallbackPeriod)} Avg Spend`;
+  $("carBudgetLabel").textContent=(plabel(state.view.period)||state.view.period)+" Budget Equivalent";
+  $("carNativeSpend").textContent=m.valid?money(m.nativeSpend):"—";
+  $("carBudgetSpend").textContent=m.valid?money(m.budgetSpend):"—";
+  if(!m.rows.length){
+    $("carAverageHelp").textContent="Add your first dated fill-up. Until there are 2 dates, choose the assumed duration for that fill-up.";
+  }else if(m.rows.length===1){
+    $("carAverageHelp").textContent=`One dated fill-up is saved. Using ${carPeriodLabel(m.fallbackPeriod).toLowerCase()} as the temporary duration. Add a second dated fill-up and Budget will calculate your average time between fill-ups automatically.`;
+  }else if(!m.averageDays){
+    $("carAverageHelp").textContent="The saved fill-ups need at least two different dates before Budget can calculate an average duration.";
+  }else{
+    $("carAverageHelp").textContent=`Based on ${m.rows.length} dated fill-ups, you average about ${formatDuration(m.averageDays)} between gas stops. Budget calculates the average cost on that duration first, then scales it to the current Budget display period.`;
+  }
+  $("useAverageGas").disabled=!m.valid;
+  $("fillupList").innerHTML=m.rows.length?m.rows.slice().reverse().map(fillupHtml).join(""):`<div class="muted">No fill-ups saved yet.</div>`;
+}
+'''
+              s=s[:start]+new_funcs+s[end:]
+
+              old='''$("fillupForm").onsubmit=e=>{e.preventDefault();const values=previewFillup(),date=$("fillupDate").value;if(!values||!date)return;state.car||={averagePeriod:"week",fillups:[]};state.car.fillups||=[];const obj={date,...values};if(editFillupId){const f=state.car.fillups.find(x=>x.id===editFillupId);if(f)Object.assign(f,obj)}else state.car.fillups.push({id:crypto.randomUUID?.()||"fillup-"+Date.now(),...obj});save();$("fillupDialog").close();renderAll()};'''
+              new='''$("fillupForm").onsubmit=e=>{e.preventDefault();const values=previewFillup(),date=$("fillupDate").value;if(!values||!date)return;state.car||={averagePeriod:"week",fillups:[]};state.car.fillups||=[];const now=new Date().toISOString(),obj={date,...values,updatedAt:now};if(editFillupId){const f=state.car.fillups.find(x=>x.id===editFillupId);if(f)Object.assign(f,obj,{createdAt:f.createdAt||now})}else state.car.fillups.push({id:crypto.randomUUID?.()||"fillup-"+Date.now(),createdAt:now,...obj});save();$("fillupDialog").close();renderAll()};'''
+              if old not in s: raise SystemExit('Fill-up save block not found')
+              s=s.replace(old,new)
+
+              old='''$("useAverageGas").onclick=()=>{const m=carMetrics(),b=cur();if(!m.valid)return;if(b.type==="monthly"){alert("Use Add Purchase for Monthly Expenses purchases.");return}b.items??=[];b.items.push({id:"gasavg-"+Date.now(),type:"expense",name:"Average Gas Cost",category:"Car",amount:+m.nativeSpend.toFixed(2),period:m.nativePeriod,enabled:true});save();renderAll()};'''
+              new='''$("useAverageGas").onclick=()=>{const m=carMetrics(),b=cur();if(!m.valid)return;if(b.type==="monthly"){alert("Use Add Purchase for Monthly Expenses purchases.");return}b.items??=[];b.items.push({id:"gasavg-"+Date.now(),type:"expense",name:"Average Gas Cost",category:"Car",amount:+m.budgetSpend.toFixed(2),period:state.view.period,enabled:true});save();renderAll()};'''
+              if old not in s: raise SystemExit('Use-average block not found')
+              s=s.replace(old,new)
+              p.write_text(s,encoding='utf-8')
+
+          js=Path('Projects/Dashboard/Budget/budget-supabase.js')
+          js.write_text(js.read_text(encoding='utf-8').replace('Budget 0.6.0 · Supabase cross-device sync','Budget 0.6.1 · Supabase cross-device sync'),encoding='utf-8')
+
+          Path('Projects/Dashboard/Budget/CHANGELOG.txt').write_text('''Version 0.6.1: Receipt-Date Fuel Tracking
+
+Description:
+Refines Car fill-up tracking so receipt dates drive the fuel averages, while
+Budget automatically calculates the user's average time between gas stops once
+there are at least two dated fill-ups.
+
+Changes:
+- Fill-Up Date defaults to today but remains editable before saving.
+- Existing fill-ups can be edited later and moved to the correct receipt date.
+- Fuel averages always use the saved Fill-Up Date, not the day the record was entered.
+- Adds hidden created/updated timestamps for sync bookkeeping without affecting averages.
+- Removes the manual average-duration selector once 2+ dated fill-ups exist.
+- Automatically calculates average days between dated fill-ups.
+- With 0 or 1 dated fill-up, shows the temporary Weekly / Every 2 Weeks / Monthly / Yearly / Every 2 Years duration choice.
+- Average fill-up cost is calculated on the native average fill-up duration first.
+- Only after the native duration is known does Budget scale the cost to the current Budget display period.
+- Preserves 0.6.0 Car history, 2-of-3 receipt entry, weighted gas price, and Supabase sync.
+
+Version 0.6.0: Car Fuel History & Averages
+''',encoding='utf-8')
+          PY
+
+      - name: Validate and commit
+        shell: bash
+        run: |
+          node --check Projects/Dashboard/Budget/budget-supabase.js
+          python3 - <<'PY'
+          from pathlib import Path
+          import re,subprocess
+          s=Path('Projects/Dashboard/Budget/index.html').read_text(encoding='utf-8')
+          required=['<title>Budget · 0.6.1</title>','budget-local-0.6.0','id="carFallbackPeriodWrap"','averageDays=totalGap/gaps','createdAt:now','budget-supabase.js?v=0.6.1']
+          missing=[x for x in required if x not in s]
+          if missing: raise SystemExit('Missing: '+repr(missing))
+          if any(x in s for x in ['<<<<<<<','=======','>>>>>>>']): raise SystemExit('Merge markers found')
+          for i,js in enumerate(re.findall(r'<script(?:\\s[^>]*)?>(.*?)</script>',s,re.S)):
+              if not js.strip(): continue
+              f=Path(f'/tmp/budget061-{i}.js');f.write_text(js,encoding='utf-8')
+              subprocess.run(['node','--check',str(f)],check=True)
+          PY
+          if git diff --quiet -- Projects/Dashboard/Budget; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add Projects/Dashboard/Budget
+          git commit -m "Budget 0.6.1: Receipt-date fuel tracking [skip budget-receipt-date]"
+          git push
