@@ -1,3 +1,17 @@
+Version 0.6.2: Automatic Gas Average Updates
+
+Description:
+Updates the automatically managed Average Gas Cost budget item instead of creating a duplicate each time the Car average is applied.
+
+Changes:
+- Checks the current budget for an existing managed Average Gas Cost item.
+- Overwrites its amount and period when it already exists.
+- Creates the Average Gas Cost item only when none exists.
+- Adopts Average Gas Cost entries created by Budget 0.6.1 so the first 0.6.2 update does not create a duplicate.
+- Uses an internal managed marker so unrelated manually created gas expenses are not overwritten.
+- Preserves the existing enabled/disabled state when updating an existing item.
+- Keeps the existing Supabase sync schema unchanged.
+
 Version 0.6.1: Receipt-Date Fuel Tracking
 
 Description:

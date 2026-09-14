@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Budget · 0.6.1</title>
+<title>Budget · 0.6.2</title>
 
-<!-- Budget 0.6.1: Receipt-date fuel tracking and automatic fill-up duration. -->
+<!-- Budget 0.6.2: Automatic gas average updates without duplicate budget items. -->
 <script src="../dashboard-config.js?v=0.7.2"></script>
 <script src="../dashboard-auth.js?v=0.7.2" data-dashboard-project="budget"></script>
 <style>
@@ -260,7 +260,7 @@ dialog{width:min(520px,calc(100% - 24px));border:0;border-radius:18px;padding:0}
 </dialog>
 
 <script>
-const KEY="budget-local-0.6.1", USER="local-user";
+const KEY="budget-local-0.6.2", USER="local-user";
 const defaults={current:"main",view:{period:"week",sort:"default"},prefs:{},pay:{payType:"hourly",payAmount:17,hoursPerDay:5.5,daysPerWeek:5},gas:{distance:45,distancePeriod:"week",mpg:15,gasPrice:3.93,tankSize:22.5,oilMiles:6000},car:{averagePeriod:"week",fillups:[]},budgets:[
 {id:"main",systemKey:"main",name:"Main Budget",type:"main",members:[{id:USER,name:"You"}],splitMode:"whole",customSplitCount:2,items:[]},
 {id:"monthly-expenses",systemKey:"monthly_expenses",name:"Monthly Expenses",type:"monthly",members:[{id:USER,name:"You"}],splitMode:"whole",customSplitCount:2,monthlyLimit:0,monthlyLimitPeriod:"month",closingDay:1,purchases:[],items:[]}
@@ -351,6 +351,7 @@ let state;try{state=JSON.parse(localStorage.getItem(KEY))||structuredClone(defau
 if(!localStorage.getItem(KEY)){
   try{
     const previous=
+      JSON.parse(localStorage.getItem("budget-local-0.6.1")) ||
       JSON.parse(localStorage.getItem("budget-local-0.6.0")) ||
       JSON.parse(localStorage.getItem("budget-local-0.5.0")) ||
       JSON.parse(localStorage.getItem("budget-local-0.4.2")) ||
@@ -551,7 +552,7 @@ $("fillupForm").onsubmit=e=>{e.preventDefault();const values=previewFillup(),dat
 $("deleteFillup").onclick=()=>{state.car.fillups=(state.car.fillups||[]).filter(x=>x.id!==editFillupId);save();$("fillupDialog").close();renderAll()};
 document.addEventListener("click",e=>{if(e.target.dataset.editFillup)openFillup(e.target.dataset.editFillup)});
 $("carAveragePeriod").onchange=e=>{state.car.averagePeriod=e.target.value;save();renderCarHistory()};
-$("useAverageGas").onclick=()=>{const m=carMetrics(),b=cur();if(!m.valid)return;if(b.type==="monthly"){alert("Use Add Purchase for Monthly Expenses purchases.");return}b.items??=[];b.items.push({id:"gasavg-"+Date.now(),type:"expense",name:"Average Gas Cost",category:"Car",amount:+m.budgetSpend.toFixed(2),period:state.view.period,enabled:true});save();renderAll()};
+$("useAverageGas").onclick=()=>{const m=carMetrics(),b=cur();if(!m.valid)return;if(b.type==="monthly"){alert("Use Add Purchase for Monthly Expenses purchases.");return}b.items??=[];const values={type:"expense",name:"Average Gas Cost",category:"Car",amount:+m.budgetSpend.toFixed(2),period:state.view.period,managedType:"average-gas-cost"};let item=b.items.find(x=>x.managedType==="average-gas-cost");if(!item)item=b.items.find(x=>String(x.id||"").startsWith("gasavg-")&&x.type==="expense"&&x.name==="Average Gas Cost"&&x.category==="Car");if(item)Object.assign(item,values);else b.items.push({id:"gas-average-cost",enabled:true,...values});save();renderAll()};
 
 function csvEscape(v){
   v=String(v??"");
@@ -1039,6 +1040,6 @@ Object.assign($("payType"),{value:state.pay?.payType||"hourly"});$("payAmount").
 ["distance","distancePeriod","mpg","gasPrice","tankSize","oilMiles"].forEach(k=>{if(state.gas?.[k]!=null)$(k).value=state.gas[k]});
 renderAll();calcPay();calcGas();
 </script>
-<script src="./budget-supabase.js?v=0.6.1"></script>
+<script src="./budget-supabase.js?v=0.6.2"></script>
 </body>
 </html>
