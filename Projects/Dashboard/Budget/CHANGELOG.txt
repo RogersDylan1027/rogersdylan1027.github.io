@@ -1,44 +1,18 @@
+Version 0.6.1: Receipt-Date Fuel Tracking
+
+Description:
+Refines Car fill-up tracking so receipt dates drive the fuel averages, while Budget automatically calculates the user's average time between gas stops once there are at least two dated fill-ups.
+
+Changes:
+- Fill-Up Date defaults to today but remains editable before saving.
+- Existing fill-ups can be edited later and moved to the correct receipt date.
+- Fuel averages always use the saved Fill-Up Date, not the day the record was entered.
+- Adds hidden created/updated timestamps for sync bookkeeping without affecting averages.
+- Removes the manual average-duration selector once 2+ dated fill-ups exist.
+- Automatically calculates average days between dated fill-ups.
+- With 0 or 1 dated fill-up, shows the temporary Weekly / Every 2 Weeks / Monthly / Yearly / Every 2 Years duration choice.
+- Average fill-up cost is calculated on the native average fill-up duration first.
+- Only after the native duration is known does Budget scale the cost to the current Budget display period.
+- Preserves 0.6.0 Car history, 2-of-3 receipt entry, weighted gas price, and Supabase sync.
+
 Version 0.6.0: Car Fuel History & Averages
-
-Description:
-Adds a Car-focused fuel history system to Budget. Users can save dated fill-ups
-by entering any two of total cost, gallons, or price per gallon; Budget
-calculates the third value. Fuel history syncs with the rest of Budget through
-the existing Supabase snapshot.
-
-Changes:
-- Renames the Gas tab to Car while preserving the existing Gas Calculator.
-- Adds Gas Fill-Up History under the Car tab.
-- Each fill-up accepts a date plus any 2 of: total cost, gallons, price/gallon.
-- Calculates the missing third value automatically.
-- Validates all three values when the user enters all three.
-- Shows weighted average price per gallon and average fill-up cost.
-- Adds an independent average-spending duration: Weekly, Every 2 Weeks,
-  Monthly, Yearly, or Every 2 Years.
-- Requires enough dated history for the selected native duration before
-  calculating or converting the average.
-- Converts a valid native Car average to the Budget's current display period.
-- Adds "Use Average Gas Cost in Current Budget" using the Car duration as the
-  saved expense frequency.
-- Fill-up history is included automatically in Budget's existing Supabase
-  cross-device state sync.
-- Preserves Budget 0.5.0 features and data migration.
-
-Version 0.5.0: Supabase Cross-Device Budget Sync
-
-Description:
-Connects Budget to the existing My Dashboard Supabase account so the same
-Budget data can be used across devices. Existing local data from the first
-device is uploaded when no cloud Budget exists, and later devices load that
-shared copy. Also adds selectable spending periods to Monthly Expenses.
-
-Changes:
-- Adds Supabase synchronization using the existing Dashboard login.
-- localStorage remains the immediate local cache.
-- First device uploads its existing local Budget when Supabase is empty.
-- Other devices load the same Supabase Budget for that account.
-- Adds Weekly, Every 2 Weeks, Monthly, Yearly, and Every 2 Years spending
-  periods to Monthly Expenses.
-- Monthly Expenses remains permanently included in Main Budget.
-- Purchases continue to reset when the credit-card statement closes.
-- Preserves all existing Budget 0.4.2 functionality.

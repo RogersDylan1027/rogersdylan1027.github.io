@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Budget · 0.6.0</title>
+<title>Budget · 0.6.1</title>
 
-<!-- Budget 0.6.0: Car fuel history, flexible fill-up inputs, and duration averages. -->
+<!-- Budget 0.6.1: Receipt-date fuel tracking and automatic fill-up duration. -->
 <script src="../dashboard-config.js?v=0.7.2"></script>
 <script src="../dashboard-auth.js?v=0.7.2" data-dashboard-project="budget"></script>
 <style>
@@ -180,7 +180,7 @@ dialog{width:min(520px,calc(100% - 24px));border:0;border-radius:18px;padding:0}
 <h2>Gas Fill-Up History</h2>
 <div class="muted">Enter the date and any 2 of these 3 values: total cost, gallons, or price per gallon. Budget calculates the missing value.</div>
 <div class="car-grid" style="margin-top:12px">
-<div class="field"><label>Average spending duration</label><select id="carAveragePeriod"><option value="week">Weekly</option><option value="biweekly">Every 2 Weeks</option><option value="month">Monthly</option><option value="year">Yearly</option><option value="biyearly">Every 2 Years</option></select></div>
+<div class="field" id="carFallbackPeriodWrap"><label>Assumed duration</label><select id="carAveragePeriod"><option value="week">Weekly</option><option value="biweekly">Every 2 Weeks</option><option value="month">Monthly</option><option value="year">Yearly</option><option value="biyearly">Every 2 Years</option></select><div class="sub">Only used until at least 2 dated fill-ups are available.</div></div>
 <div class="field"><label>Budget display period</label><input id="carBudgetPeriodDisplay" disabled></div>
 </div>
 <div class="car-stat-grid">
@@ -260,7 +260,7 @@ dialog{width:min(520px,calc(100% - 24px));border:0;border-radius:18px;padding:0}
 </dialog>
 
 <script>
-const KEY="budget-local-0.6.0", USER="local-user";
+const KEY="budget-local-0.6.1", USER="local-user";
 const defaults={current:"main",view:{period:"week",sort:"default"},prefs:{},pay:{payType:"hourly",payAmount:17,hoursPerDay:5.5,daysPerWeek:5},gas:{distance:45,distancePeriod:"week",mpg:15,gasPrice:3.93,tankSize:22.5,oilMiles:6000},car:{averagePeriod:"week",fillups:[]},budgets:[
 {id:"main",systemKey:"main",name:"Main Budget",type:"main",members:[{id:USER,name:"You"}],splitMode:"whole",customSplitCount:2,items:[]},
 {id:"monthly-expenses",systemKey:"monthly_expenses",name:"Monthly Expenses",type:"monthly",members:[{id:USER,name:"You"}],splitMode:"whole",customSplitCount:2,monthlyLimit:0,monthlyLimitPeriod:"month",closingDay:1,purchases:[],items:[]}
@@ -351,6 +351,7 @@ let state;try{state=JSON.parse(localStorage.getItem(KEY))||structuredClone(defau
 if(!localStorage.getItem(KEY)){
   try{
     const previous=
+      JSON.parse(localStorage.getItem("budget-local-0.6.0")) ||
       JSON.parse(localStorage.getItem("budget-local-0.5.0")) ||
       JSON.parse(localStorage.getItem("budget-local-0.4.2")) ||
       JSON.parse(localStorage.getItem("budget-local-0.4.1")) ||
@@ -458,25 +459,55 @@ function carPeriodLabel(p){return ({week:"Weekly",biweekly:"Every 2 Weeks",month
 function fillupHtml(f){return `<div class="fillup-row"><div><div class="name">${esc(f.date)}</div><div class="sub">${money(f.total)} · ${Number(f.gallons).toFixed(3)} gal · $${Number(f.pricePerGallon).toFixed(3)} / gal</div></div><div class="amt">${money(f.total)}</div><button class="btn secondary fillup-edit" data-edit-fillup="${f.id}">Edit</button></div>`}
 function carMetrics(){
   const rows=(state.car?.fillups||[]).filter(f=>f.date&&Number(f.total)>0&&Number(f.gallons)>0&&Number(f.pricePerGallon)>0).slice().sort((a,b)=>String(a.date).localeCompare(String(b.date)));
-  const totalCost=rows.reduce((s,f)=>s+Number(f.total||0),0),totalGallons=rows.reduce((s,f)=>s+Number(f.gallons||0),0);
-  const weightedPrice=totalGallons>0?totalCost/totalGallons:0,avgFill=rows.length?totalCost/rows.length:0,nativePeriod=state.car?.averagePeriod||"week";
-  let spanDays=0,nativeSpend=null,budgetSpend=null,valid=false;
+  const totalCost=rows.reduce((sum,f)=>sum+Number(f.total||0),0),totalGallons=rows.reduce((sum,f)=>sum+Number(f.gallons||0),0);
+  const weightedPrice=totalGallons>0?totalCost/totalGallons:0,avgFill=rows.length?totalCost/rows.length:0;
+  const fallbackPeriod=state.car?.averagePeriod||"week";
+  let averageDays=null,nativeSpend=null,budgetSpend=null,valid=false,automatic=false;
   if(rows.length>=2){
-    const first=new Date(rows[0].date+"T12:00:00"),last=new Date(rows[rows.length-1].date+"T12:00:00");
-    spanDays=Math.max(1,(last-first)/86400000+1);
-    const needed=CAR_PERIOD_DAYS[nativePeriod]||7;
-    if(spanDays>=needed){nativeSpend=(totalCost/spanDays)*needed;budgetSpend=per(nativeSpend,nativePeriod,state.view.period);valid=Number.isFinite(nativeSpend)&&Number.isFinite(budgetSpend)}
+    const times=rows.map(f=>new Date(f.date+"T12:00:00").getTime()).filter(Number.isFinite);
+    if(times.length>=2){
+      let totalGap=0,gaps=0;
+      for(let i=1;i<times.length;i++){const gap=(times[i]-times[i-1])/86400000;if(gap>0){totalGap+=gap;gaps++}}
+      if(gaps>0){averageDays=totalGap/gaps;automatic=true}
+    }
+  }else if(rows.length===1){averageDays=CAR_PERIOD_DAYS[fallbackPeriod]||7}
+  if(rows.length&&averageDays>0){
+    nativeSpend=avgFill;
+    const budgetDays=CAR_PERIOD_DAYS[state.view.period]||null;
+    if(budgetDays){budgetSpend=(nativeSpend/averageDays)*budgetDays;valid=Number.isFinite(nativeSpend)&&Number.isFinite(budgetSpend)}
   }
-  return {rows,totalCost,totalGallons,weightedPrice,avgFill,nativePeriod,spanDays,nativeSpend,budgetSpend,valid}
+  return {rows,totalCost,totalGallons,weightedPrice,avgFill,fallbackPeriod,averageDays,nativeSpend,budgetSpend,valid,automatic}
+}
+function formatDuration(days){
+  if(!Number.isFinite(days)||days<=0)return "—";
+  if(days<2)return `${days.toFixed(1)} day`;
+  if(days<60)return `${days.toFixed(1)} days`;
+  const months=days/(365.25/12);if(months<18)return `${months.toFixed(1)} months`;
+  return `${(days/365.25).toFixed(1)} years`;
 }
 function renderCarHistory(){
-  state.car||={averagePeriod:"week",fillups:[]};$("carAveragePeriod").value=state.car.averagePeriod||"week";$("carBudgetPeriodDisplay").value=plabel(state.view.period)||state.view.period;
-  const m=carMetrics();$("carAvgPrice").textContent=m.totalGallons?"$"+m.weightedPrice.toFixed(3):"$0.000";$("carAvgFill").textContent=m.rows.length?money(m.avgFill):"$0.00";
-  $("carNativeLabel").textContent=carPeriodLabel(m.nativePeriod)+" Avg Spend";$("carBudgetLabel").textContent=(plabel(state.view.period)||state.view.period)+" Budget Equivalent";
-  $("carNativeSpend").textContent=m.valid?money(m.nativeSpend):"—";$("carBudgetSpend").textContent=m.valid?money(m.budgetSpend):"—";
-  const need=Math.ceil(CAR_PERIOD_DAYS[m.nativePeriod]||7);
-  $("carAverageHelp").textContent=m.rows.length<2?"Add at least two dated fill-ups to calculate a spending rate.":m.spanDays<need?`You have ${Math.floor(m.spanDays)} day${Math.floor(m.spanDays)===1?"":"s"} of history. Keep this on ${carPeriodLabel(m.nativePeriod).toLowerCase()} until you have at least ${need} days; Budget will not force an extrapolated scale before the native duration works.`:`Based on ${m.rows.length} fill-ups across ${Math.floor(m.spanDays)} days. The ${carPeriodLabel(m.nativePeriod).toLowerCase()} average is calculated first, then converted to the Budget display period.`;
-  $("useAverageGas").disabled=!m.valid;$("fillupList").innerHTML=m.rows.length?m.rows.slice().reverse().map(fillupHtml).join(""):`<div class="muted">No fill-ups saved yet.</div>`
+  state.car||={averagePeriod:"week",fillups:[]};
+  const m=carMetrics();
+  $("carAveragePeriod").value=state.car.averagePeriod||"week";
+  $("carFallbackPeriodWrap").style.display=m.rows.length<2?"grid":"none";
+  $("carBudgetPeriodDisplay").value=plabel(state.view.period)||state.view.period;
+  $("carAvgPrice").textContent=m.totalGallons?"$"+m.weightedPrice.toFixed(3):"$0.000";
+  $("carAvgFill").textContent=m.rows.length?money(m.avgFill):"$0.00";
+  $("carNativeLabel").textContent=m.automatic?`Avg Spend / ${formatDuration(m.averageDays)}`:`${carPeriodLabel(m.fallbackPeriod)} Avg Spend`;
+  $("carBudgetLabel").textContent=(plabel(state.view.period)||state.view.period)+" Budget Equivalent";
+  $("carNativeSpend").textContent=m.valid?money(m.nativeSpend):"—";
+  $("carBudgetSpend").textContent=m.valid?money(m.budgetSpend):"—";
+  if(!m.rows.length){
+    $("carAverageHelp").textContent="Add your first dated fill-up. Until there are 2 dates, choose the assumed duration for that fill-up.";
+  }else if(m.rows.length===1){
+    $("carAverageHelp").textContent=`One dated fill-up is saved. Using ${carPeriodLabel(m.fallbackPeriod).toLowerCase()} as the temporary duration. Add a second dated fill-up and Budget will calculate your average time between fill-ups automatically.`;
+  }else if(!m.averageDays){
+    $("carAverageHelp").textContent="The saved fill-ups need at least two different dates before Budget can calculate an average duration.";
+  }else{
+    $("carAverageHelp").textContent=`Based on ${m.rows.length} dated fill-ups, you average about ${formatDuration(m.averageDays)} between gas stops. Budget calculates the average cost on that duration first, then scales it to the current Budget display period.`;
+  }
+  $("useAverageGas").disabled=!m.valid;
+  $("fillupList").innerHTML=m.rows.length?m.rows.slice().reverse().map(fillupHtml).join(""):`<div class="muted">No fill-ups saved yet.</div>`;
 }
 function renderAll(){ensureSystemBudgets(state);renderSelect();renderMeta();renderMonthlyControls();renderItems();summary();renderIncluded();renderSettings();renderCarHistory()}
 document.addEventListener("change",e=>{if(e.target.dataset.item){let i=cur().items.find(x=>x.id===e.target.dataset.item);if(i){i.enabled=e.target.checked;save();renderAll()}}if(e.target.dataset.budgetToggle){pref(e.target.dataset.budgetToggle).include=e.target.checked;save();renderAll()}});
@@ -516,11 +547,11 @@ function previewFillup(){
 }
 function openFillup(id=null){state.car||={averagePeriod:"week",fillups:[]};editFillupId=id;const f=id?(state.car.fillups||[]).find(x=>x.id===id):null;$("fillupTitle").textContent=f?"Edit Fill-Up":"Add Fill-Up";$("fillupDate").value=f?.date||localDateKey(new Date());$("fillupTotal").value=f?.total??"";$("fillupGallons").value=f?.gallons??"";$("fillupPrice").value=f?.pricePerGallon??"";$("deleteFillup").style.display=f?"block":"none";previewFillup();$("fillupDialog").showModal()}
 ["fillupTotal","fillupGallons","fillupPrice"].forEach(id=>$(id).oninput=previewFillup);$("addFillup").onclick=()=>openFillup();$("cancelFillup").onclick=()=>$("fillupDialog").close();
-$("fillupForm").onsubmit=e=>{e.preventDefault();const values=previewFillup(),date=$("fillupDate").value;if(!values||!date)return;state.car||={averagePeriod:"week",fillups:[]};state.car.fillups||=[];const obj={date,...values};if(editFillupId){const f=state.car.fillups.find(x=>x.id===editFillupId);if(f)Object.assign(f,obj)}else state.car.fillups.push({id:crypto.randomUUID?.()||"fillup-"+Date.now(),...obj});save();$("fillupDialog").close();renderAll()};
+$("fillupForm").onsubmit=e=>{e.preventDefault();const values=previewFillup(),date=$("fillupDate").value;if(!values||!date)return;state.car||={averagePeriod:"week",fillups:[]};state.car.fillups||=[];const now=new Date().toISOString(),obj={date,...values,updatedAt:now};if(editFillupId){const f=state.car.fillups.find(x=>x.id===editFillupId);if(f)Object.assign(f,obj,{createdAt:f.createdAt||now})}else state.car.fillups.push({id:crypto.randomUUID?.()||"fillup-"+Date.now(),createdAt:now,...obj});save();$("fillupDialog").close();renderAll()};
 $("deleteFillup").onclick=()=>{state.car.fillups=(state.car.fillups||[]).filter(x=>x.id!==editFillupId);save();$("fillupDialog").close();renderAll()};
 document.addEventListener("click",e=>{if(e.target.dataset.editFillup)openFillup(e.target.dataset.editFillup)});
 $("carAveragePeriod").onchange=e=>{state.car.averagePeriod=e.target.value;save();renderCarHistory()};
-$("useAverageGas").onclick=()=>{const m=carMetrics(),b=cur();if(!m.valid)return;if(b.type==="monthly"){alert("Use Add Purchase for Monthly Expenses purchases.");return}b.items??=[];b.items.push({id:"gasavg-"+Date.now(),type:"expense",name:"Average Gas Cost",category:"Car",amount:+m.nativeSpend.toFixed(2),period:m.nativePeriod,enabled:true});save();renderAll()};
+$("useAverageGas").onclick=()=>{const m=carMetrics(),b=cur();if(!m.valid)return;if(b.type==="monthly"){alert("Use Add Purchase for Monthly Expenses purchases.");return}b.items??=[];b.items.push({id:"gasavg-"+Date.now(),type:"expense",name:"Average Gas Cost",category:"Car",amount:+m.budgetSpend.toFixed(2),period:state.view.period,enabled:true});save();renderAll()};
 
 function csvEscape(v){
   v=String(v??"");
@@ -1008,6 +1039,6 @@ Object.assign($("payType"),{value:state.pay?.payType||"hourly"});$("payAmount").
 ["distance","distancePeriod","mpg","gasPrice","tankSize","oilMiles"].forEach(k=>{if(state.gas?.[k]!=null)$(k).value=state.gas[k]});
 renderAll();calcPay();calcGas();
 </script>
-<script src="./budget-supabase.js?v=0.6.0"></script>
+<script src="./budget-supabase.js?v=0.6.1"></script>
 </body>
 </html>
