@@ -14,81 +14,14 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: Apply Budget 0.6.2
+      - name: Apply and validate Budget 0.6.2
         shell: bash
         run: |
-          python3 <<'PY'
-          from pathlib import Path
-          p=Path('Projects/Dashboard/Budget/index.html')
-          s=p.read_text(encoding='utf-8')
-          if '<title>Budget · 0.6.2</title>' not in s:
-              if '<title>Budget · 0.6.1</title>' not in s:
-                  raise SystemExit('Expected Budget 0.6.1 as upgrade base.')
-              s=s.replace('<title>Budget · 0.6.1</title>','<title>Budget · 0.6.2</title>')
-              s=s.replace('<!-- Budget 0.6.1: Receipt-date fuel tracking and automatic fill-up duration. -->','<!-- Budget 0.6.2: Automatic gas average updates without duplicate budget items. -->')
-              s=s.replace('const KEY="budget-local-0.6.1", USER="local-user";','const KEY="budget-local-0.6.2", USER="local-user";')
-              s=s.replace('      JSON.parse(localStorage.getItem("budget-local-0.6.0")) ||','      JSON.parse(localStorage.getItem("budget-local-0.6.1")) ||\n      JSON.parse(localStorage.getItem("budget-local-0.6.0")) ||')
-              s=s.replace('budget-supabase.js?v=0.6.1','budget-supabase.js?v=0.6.2')
-              old='''$("useAverageGas").onclick=()=>{const m=carMetrics(),b=cur();if(!m.valid)return;if(b.type==="monthly"){alert("Use Add Purchase for Monthly Expenses purchases.");return}b.items??=[];b.items.push({id:"gasavg-"+Date.now(),type:"expense",name:"Average Gas Cost",category:"Car",amount:+m.budgetSpend.toFixed(2),period:state.view.period,enabled:true});save();renderAll()};'''
-              new='''$("useAverageGas").onclick=()=>{
-  const m=carMetrics(),b=cur();
-  if(!m.valid)return;
-  if(b.type==="monthly"){alert("Use Add Purchase for Monthly Expenses purchases.");return}
-  b.items??=[];
-  const values={type:"expense",name:"Average Gas Cost",category:"Car",amount:+m.budgetSpend.toFixed(2),period:state.view.period,managedType:"average-gas-cost"};
-  let item=b.items.find(x=>x.managedType==="average-gas-cost");
-  if(!item)item=b.items.find(x=>String(x.id||"").startsWith("gasavg-")&&x.type==="expense"&&x.name==="Average Gas Cost"&&x.category==="Car");
-  if(item)Object.assign(item,values);
-  else b.items.push({id:"gas-average-cost",enabled:true,...values});
-  save();renderAll();
-};'''
-              if old not in s: raise SystemExit('Average gas handler not found')
-              s=s.replace(old,new)
-              p.write_text(s,encoding='utf-8')
-
-          js=Path('Projects/Dashboard/Budget/budget-supabase.js')
-          t=js.read_text(encoding='utf-8').replace('Budget 0.6.1 · Supabase cross-device sync','Budget 0.6.2 · Supabase cross-device sync')
-          js.write_text(t,encoding='utf-8')
-
-          ch=Path('Projects/Dashboard/Budget/CHANGELOG.txt')
-          old_ch=ch.read_text(encoding='utf-8')
-          if not old_ch.startswith('Version 0.6.2:'):
-              prefix='''Version 0.6.2: Automatic Gas Average Updates
-
-Description:
-Updates the automatically managed Average Gas Cost budget item instead of creating a duplicate each time the Car average is applied.
-
-Changes:
-- Checks the current budget for an existing managed Average Gas Cost item.
-- Overwrites its amount and period when it already exists.
-- Creates the Average Gas Cost item only when none exists.
-- Adopts Average Gas Cost entries created by Budget 0.6.1 so the first 0.6.2 update does not create a duplicate.
-- Uses an internal managed marker so unrelated manually created gas expenses are not overwritten.
-- Preserves the existing enabled/disabled state when updating an existing item.
-- Keeps the existing Supabase sync schema unchanged.
-
-'''
-              ch.write_text(prefix+old_ch,encoding='utf-8')
-          PY
-
-      - name: Validate and commit
+          echo 'ZnJvbSBwYXRobGliIGltcG9ydCBQYXRoCmltcG9ydCByZSwgc3VicHJvY2VzcwoKcD1QYXRoKCJQcm9qZWN0cy9EYXNoYm9hcmQvQnVkZ2V0L2luZGV4Lmh0bWwiKQpzPXAucmVhZF90ZXh0KGVuY29kaW5nPSJ1dGYtOCIpCmlmICI8dGl0bGU+QnVkZ2V0IMK3IDAuNi4yPC90aXRsZT4iIG5vdCBpbiBzOgogICAgaWYgIjx0aXRsZT5CdWRnZXQgwrcgMC42LjE8L3RpdGxlPiIgbm90IGluIHM6CiAgICAgICAgcmFpc2UgU3lzdGVtRXhpdCgiRXhwZWN0ZWQgQnVkZ2V0IDAuNi4xIGFzIHVwZ3JhZGUgYmFzZS4iKQogICAgcz1zLnJlcGxhY2UoIjx0aXRsZT5CdWRnZXQgwrcgMC42LjE8L3RpdGxlPiIsIjx0aXRsZT5CdWRnZXQgwrcgMC42LjI8L3RpdGxlPiIpCiAgICBzPXMucmVwbGFjZSgiPCEtLSBCdWRnZXQgMC42LjE6IFJlY2VpcHQtZGF0ZSBmdWVsIHRyYWNraW5nIGFuZCBhdXRvbWF0aWMgZmlsbC11cCBkdXJhdGlvbi4gLS0+IiwiPCEtLSBCdWRnZXQgMC42LjI6IEF1dG9tYXRpYyBnYXMgYXZlcmFnZSB1cGRhdGVzIHdpdGhvdXQgZHVwbGljYXRlIGJ1ZGdldCBpdGVtcy4gLS0+IikKICAgIHM9cy5yZXBsYWNlKCdjb25zdCBLRVk9ImJ1ZGdldC1sb2NhbC0wLjYuMSIsIFVTRVI9ImxvY2FsLXVzZXIiOycsJ2NvbnN0IEtFWT0iYnVkZ2V0LWxvY2FsLTAuNi4yIiwgVVNFUj0ibG9jYWwtdXNlciI7JykKICAgIHM9cy5yZXBsYWNlKCcgICAgICBKU09OLnBhcnNlKGxvY2FsU3RvcmFnZS5nZXRJdGVtKCJidWRnZXQtbG9jYWwtMC42LjAiKSkgfHwnLCcgICAgICBKU09OLnBhcnNlKGxvY2FsU3RvcmFnZS5nZXRJdGVtKCJidWRnZXQtbG9jYWwtMC42LjEiKSkgfHxcbiAgICAgIEpTT04ucGFyc2UobG9jYWxTdG9yYWdlLmdldEl0ZW0oImJ1ZGdldC1sb2NhbC0wLjYuMCIpKSB8fCcpCiAgICBzPXMucmVwbGFjZSgiYnVkZ2V0LXN1cGFiYXNlLmpzP3Y9MC42LjEiLCJidWRnZXQtc3VwYWJhc2UuanM/dj0wLjYuMiIpCiAgICBvbGQ9JyQoInVzZUF2ZXJhZ2VHYXMiKS5vbmNsaWNrPSgpPT57Y29uc3QgbT1jYXJNZXRyaWNzKCksYj1jdXIoKTtpZighbS52YWxpZClyZXR1cm47aWYoYi50eXBlPT09Im1vbnRobHkiKXthbGVydCgiVXNlIEFkZCBQdXJjaGFzZSBmb3IgTW9udGhseSBFeHBlbnNlcyBwdXJjaGFzZXMuIik7cmV0dXJufWIuaXRlbXM/Pz1bXTtiLml0ZW1zLnB1c2goe2lkOiJnYXNhdmctIitEYXRlLm5vdygpLHR5cGU6ImV4cGVuc2UiLG5hbWU6IkF2ZXJhZ2UgR2FzIENvc3QiLGNhdGVnb3J5OiJDYXIiLGFtb3VudDor bS5idWRnZXRTcGVuZC50b0ZpeGVkKDIpLHBlcmlvZDpzdGF0ZS52aWV3LnBlcmlvZCxlbmFibGVkOnRydWV9KTtzYXZlKCk7cmVuZGVyQWxsKCl9OycucmVwbGFjZSgiICIsIiIpCiAgICBuZXc9JyQoInVzZUF2ZXJhZ2VHYXMiKS5vbmNsaWNrPSgpPT57Y29uc3QgbT1jYXJNZXRyaWNzKCksYj1jdXIoKTtpZighbS52YWxpZClyZXR1cm47aWYoYi50eXBlPT09Im1vbnRobHkiKXthbGVydCgiVXNlIEFkZCBQdXJjaGFzZSBmb3IgTW9udGhseSBFeHBlbnNlcyBwdXJjaGFzZXMuIik7cmV0dXJufWIuaXRlbXM/Pz1bXTtjb25zdCB2YWx1ZXM9e3R5cGU6ImV4cGVuc2UiLG5hbWU6IkF2ZXJhZ2UgR2FzIENvc3QiLGNhdGVnb3J5OiJDYXIiLGFtb3VudDor bS5idWRnZXRTcGVuZC50b0ZpeGVkKDIpLHBlcmlvZDpzdGF0ZS52aWV3LnBlcmlvZCxtYW5hZ2VkVHlwZToiYXZlcmFnZS1nYXMtY29zdCJ9O2xldCBpdGVtPWIuaXRlbXMuZmluZCh4PT54Lm1hbmFnZWRUeXBlPT09ImF2ZXJhZ2UtZ2FzLWNvc3QiKTtpZighaXRlbSlpdGVtPWIuaXRlbXMuZmluZCh4PT5TdHJpbmcoeC5pZHx8IiIpLnN0YXJ0c1dpdGgoImdhc2F2Zy0iKSYmeC50eXBlPT09ImV4cGVuc2UiJiZ4Lm5hbWU9PT0iQXZlcmFnZSBHYXMgQ29zdCImJnguY2F0ZWdvcnk9PT0iQ2FyIik7aWYoaXRlbSlPYmplY3QuYXNzaWduKGl0ZW0sdmFsdWVzKTtlbHNlIGIuaXRlbXMucHVzaCh7aWQ6Imdhcy1hdmVyYWdlLWNvc3QiLGVuYWJsZWQ6dHJ1ZSwuLi52YWx1ZXN9KTtzYXZlKCk7cmVuZGVyQWxsKCl9OycucmVwbGFjZSgiICIsIiIpCiAgICBpZiBvbGQgbm90IGluIHM6CiAgICAgICAgcmFpc2UgU3lzdGVtRXhpdCgiQXZlcmFnZSBnYXMgaGFuZGxlciBub3QgZm91bmQiKQogICAgcz1zLnJlcGxhY2Uob2xkLG5ldykKICAgIHAud3JpdGVfdGV4dChzLGVuY29kaW5nPSJ1dGYtOCIpCgpqcz1QYXRoKCJQcm9qZWN0cy9EYXNoYm9hcmQvQnVkZ2V0L2J1ZGdldC1zdXBhYmFzZS5qcyIpCmpzLndyaXRlX3RleHQoanMucmVhZF90ZXh0KGVuY29kaW5nPSJ1dGYtOCIpLnJlcGxhY2UoIkJ1ZGdldCAwLjYuMSDCtyBTdXBhYmFzZSBjcm9zcy1kZXZpY2Ugc3luYyIsIkJ1ZGdldCAwLjYuMiDCtyBTdXBhYmFzZSBjcm9zcy1kZXZpY2Ugc3luYyIpLGVuY29kaW5nPSJ1dGYtOCIpCgpjaD1QYXRoKCJQcm9qZWN0cy9EYXNoYm9hcmQvQnVkZ2V0L0NIQU5HRUxPRy50eHQiKQpvbGRfY2g9Y2gucmVhZF90ZXh0KGVuY29kaW5nPSJ1dGYtOCIpCmlmIG5vdCBvbGRfY2guc3RhcnRzd2l0aCgiVmVyc2lvbiAwLjYuMjoiKToKICAgIHByZWZpeD0iIiJWZXJzaW9uIDAuNi4yOiBBdXRvbWF0aWMgR2FzIEF2ZXJhZ2UgVXBkYXRlcwoKRGVzY3JpcHRpb246ClVwZGF0ZXMgdGhlIGF1dG9tYXRpY2FsbHkgbWFuYWdlZCBBdmVyYWdlIEdhcyBDb3N0IGJ1ZGdldCBpdGVtIGluc3RlYWQgb2YgY3JlYXRpbmcgYSBkdXBsaWNhdGUgZWFjaCB0aW1lIHRoZSBDYXIgYXZlcmFnZSBpcyBhcHBsaWVkLgoKQ2hhbmdlczotIENoZWNrcyB0aGUgY3VycmVudCBidWRnZXQgZm9yIGFuIGV4aXN0aW5nIG1hbmFnZWQgQXZlcmFnZSBHYXMgQ29zdCBpdGVtLgotIE92ZXJ3cml0ZXMgaXRzIGFtb3VudCBhbmQgcGVyaW9kIHdoZW4gaXQgYWxyZWFkeSBleGlzdHMuCi0gQ3JlYXRlcyB0aGUgQXZlcmFnZSBHYXMgQ29zdCBpdGVtIG9ubHkgd2hlbiBub25lIGV4aXN0cy4KLSBBZG9wdHMgQXZlcmFnZSBHYXMgQ29zdCBlbnRyaWVzIGNyZWF0ZWQgYnkgQnVkZ2V0IDAuNi4xIHNvIHRoZSBmaXJzdCAwLjYuMiB1cGRhdGUgZG9lcyBub3QgY3JlYXRlIGEgZHVwbGljYXRlLgotIFVzZXMgYW4gaW50ZXJuYWwgbWFuYWdlZCBtYXJrZXIgc28gdW5yZWxhdGVkIG1hbnVhbGx5IGNyZWF0ZWQgZ2FzIGV4cGVuc2VzIGFyZSBub3Qgb3ZlcndyaXR0ZW4uCi0gUHJlc2VydmVzIHRoZSBleGlzdGluZyBlbmFibGVkL2Rpc2FibGVkIHN0YXRlIHdoZW4gdXBkYXRpbmcgYW4gZXhpc3RpbmcgaXRlbS4KLSBLZWVwcyB0aGUgZXhpc3RpbmcgU3VwYWJhc2Ugc3luYyBzY2hlbWEgdW5jaGFuZ2VkLgoKIiIiCiAgICBjaC53cml0ZV90ZXh0KHByZWZpeCtvbGRfY2gsZW5jb2Rpbmc9InV0Zi04IikKCnM9cC5yZWFkX3RleHQoZW5jb2Rpbmc9InV0Zi04IikKcmVxdWlyZWQ9WyI8dGl0bGU+QnVkZ2V0IMK3IDAuNi4yPC90aXRsZT4iLCJidWRnZXQtbG9jYWwtMC42LjEiLCdtYW5hZ2VkVHlwZToiYXZlcmFnZS1nYXMtY29zdCInLCdpZDoiZ2FzLWF2ZXJhZ2UtY29zdCInLCJidWRnZXQtc3VwYWJhc2UuanM/dj0wLjYuMiJdCm1pc3Npbmc9W3ggZm9yIHggaW4gcmVxdWlyZWQgaWYgeCBub3QgaW4gc10KaWYgbWlzc2luZzoKICAgIHJhaXNlIFN5c3RlbUV4aXQoIk1pc3Npbmc6ICIrcmVwcihtaXNzaW5nKSkKaWYgYW55KHggaW4gcyBmb3IgeCBpbiBbIjw8PDw8PDwiLCI9PT09PT09IiwiPj4+Pj4+PiJdKToKICAgIHJhaXNlIFN5c3RlbUV4aXQoIk1lcmdlIG1hcmtlcnMgZm91bmQiKQpmb3IgaSxzcmMgaW4gZW51bWVyYXRlKHJlLmZpbmRhbGwociciPHNjcmlwdCg/Olxcc1tePl0qKT8+KC4qPyk8L3NjcmlwdD4iJyxzLHJlLlMpKToKICAgIGlmIG5vdCBzcmMuc3RyaXAoKTogY29udGludWUKICAgIGY9UGF0aChmIi90bXAvYnVkZ2V0MDYyLXtpfS5qcyIpOyBmLndyaXRlX3RleHQoc3JjLGVuY29kaW5nPSJ1dGYtOCIpCiAgICBzdWJwcm9jZXNzLnJ1bihbIm5vZGUiLCItLWNoZWNrIixzdHIoZildLGNoZWNrPVRydWUpCnN1YnByb2Nlc3MucnVuKFsibm9kZSIsIi0tY2hlY2siLCJQcm9qZWN0cy9EYXNoYm9hcmQvQnVkZ2V0L2J1ZGdldC1zdXBhYmFzZS5qcyJdLGNoZWNrPVRydWUpCg==' | base64 -d > /tmp/budget062.py
+          python3 /tmp/budget062.py
+      - name: Commit Budget update
         shell: bash
         run: |
-          node --check Projects/Dashboard/Budget/budget-supabase.js
-          python3 - <<'PY'
-          from pathlib import Path
-          import re, subprocess
-          s=Path('Projects/Dashboard/Budget/index.html').read_text(encoding='utf-8')
-          required=['<title>Budget · 0.6.2</title>','budget-local-0.6.1','managedType:"average-gas-cost"','id:"gas-average-cost"','budget-supabase.js?v=0.6.2']
-          missing=[x for x in required if x not in s]
-          if missing: raise SystemExit('Missing: '+repr(missing))
-          if any(x in s for x in ['<<<<<<<','=======','>>>>>>>']): raise SystemExit('Merge markers found')
-          for i,js in enumerate(re.findall(r'<script(?:\\s[^>]*)?>(.*?)</script>',s,re.S)):
-              if not js.strip(): continue
-              f=Path(f'/tmp/budget062-{i}.js');f.write_text(js,encoding='utf-8')
-              subprocess.run(['node','--check',str(f)],check=True)
-          PY
           if git diff --quiet -- Projects/Dashboard/Budget; then exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
