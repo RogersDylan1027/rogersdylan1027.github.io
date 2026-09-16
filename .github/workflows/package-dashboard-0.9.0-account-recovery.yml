@@ -1,0 +1,25 @@
+name: Package Dashboard 0.9.0 Account Recovery
+on:
+  push:
+    paths:
+      - .github/workflows/package-dashboard-0.9.0-account-recovery.yml
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build package
+        run: |
+          mkdir -p release/Dashboard
+          cp Projects/Dashboard/index.html release/Dashboard/index.html
+          cp Projects/Dashboard/login.html release/Dashboard/login.html
+          cp Projects/Dashboard/dashboard-entry.js release/Dashboard/dashboard-entry.js
+          cp Projects/Dashboard/dashboard-config.js release/Dashboard/dashboard-config.js
+          cp Projects/Dashboard/service-worker.js release/Dashboard/service-worker.js
+      - name: Upload package
+        uses: actions/upload-artifact@v4
+        with:
+          name: Dashboard-0.9.0-account-recovery
+          path: release/Dashboard
+          if-no-files-found: error
+          retention-days: 30
