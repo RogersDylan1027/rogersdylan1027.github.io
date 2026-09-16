@@ -1,6 +1,6 @@
 /*
-  My Dashboard · Shared Configuration · Version 0.9.0
-  Reviews Library & Streaming Review Queue · 2026-09-12
+  My Dashboard · Shared Configuration · Version 0.9.1
+  Connected Account Recovery & Account Selection · 2026-09-16
 
   The Supabase publishable key is intentionally browser-safe.
   Never place a service_role key or another secret in browser JavaScript.
@@ -91,7 +91,7 @@
   }
 
   window.DashboardConfig = Object.freeze({
-    version: "0.9.0",
+    version: "0.9.1",
     supabaseUrl: "https://pyefiovoicvhigkjhhts.supabase.co",
     supabasePublishableKey: "sb_publishable_sVrxppe8B1QkXYqAPm6ddQ_x4MA5j32",
     supabaseScriptUrl: "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.js",
@@ -99,15 +99,15 @@
     dashboardIndexUrl: BASE_PATH + "index.html",
     loginUrl: BASE_PATH + "login.html",
     projectsUrl: BASE_PATH + "projects.json",
-    manifestUrl: BASE_PATH + "manifest.webmanifest?v=0.9.0",
-    serviceWorkerUrl: BASE_PATH + "service-worker.js?v=0.9.0",
-    pwaRuntimeUrl: BASE_PATH + "dashboard-pwa.js?v=0.9.0",
+    manifestUrl: BASE_PATH + "manifest.webmanifest?v=0.9.1",
+    serviceWorkerUrl: BASE_PATH + "service-worker.js?v=0.9.1",
+    pwaRuntimeUrl: BASE_PATH + "dashboard-pwa.js?v=0.9.1",
     logoUrl: BASE_PATH + "logo.svg",
     streamingUrl: BASE_PATH + "Streaming/",
     reviewsUrl: BASE_PATH + "Reviews/",
     budgetUrl: BASE_PATH + "Budget/",
-    streamingClientUrl: BASE_PATH + "dashboard-streaming.js?v=0.9.0",
-    streamingUiUrl: BASE_PATH + "dashboard-streaming-ui.js?v=0.9.0"
+    streamingClientUrl: BASE_PATH + "dashboard-streaming.js?v=0.9.1",
+    streamingUiUrl: BASE_PATH + "dashboard-streaming-ui.js?v=0.9.1"
   });
 
   function installPwaHead() {
@@ -179,29 +179,24 @@
 
     const alreadyPresent = Array.from(body.querySelectorAll("tr")).some(row => {
       const versionCell = row.querySelector(".changelog-version, td");
-      return versionCell?.textContent?.trim() === "0.9.0";
+      return versionCell?.textContent?.trim() === "0.9.1";
     });
     if (alreadyPresent) return;
 
     const row = document.createElement("tr");
-    row.dataset.dashboardRuntimeRelease = "0.9.0";
+    row.dataset.dashboardRuntimeRelease = "0.9.1";
 
     const version = document.createElement("td");
     version.className = "changelog-version";
-    version.textContent = "0.9.0";
+    version.textContent = "0.9.1";
 
     const title = document.createElement("td");
     title.className = "changelog-title";
-    title.textContent = "Reviews Library & Streaming Review Queue";
+    title.textContent = "Connected Account Recovery & Account Selection";
 
     const description = document.createElement("td");
     description.textContent =
-      "Introduces the Reviews project with automatic movie, TV, and book metadata, " +
-      "poster and cover artwork, and a personal review library backed by Supabase. " +
-      "Finished Streaming movies and completed TV seasons automatically appear in a " +
-      "review queue, while season reviews remain grouped under their parent show. " +
-      "Review data is private to each signed-in user and the original Google Form " +
-      "questions are retained as the opinion-focused review fields.";
+      "Adds a Refresh Connected Accounts action in Settings to reload saved Google and Microsoft connections, re-fetch available account data, and repopulate Calendar-related account state after cache clears or stale sessions. OAuth account connections now request explicit account selection where supported so linking Google, Microsoft, and future providers is less likely to auto-sign into the wrong account. Also refreshes the PWA cache path so Home Screen installs pick up the corrected authentication files.";
 
     row.append(version, title, description);
     body.prepend(row);

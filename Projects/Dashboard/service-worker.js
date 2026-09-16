@@ -1,5 +1,5 @@
-/* My Dashboard · Service Worker · Version 0.9.0 · Account Recovery Maintenance · 2026-09-16 */
-const CACHE_NAME = "my-dashboard-v0.9.0-account-recovery-1";
+/* My Dashboard · Service Worker · Version 0.9.1 · Connected Account Recovery & Account Selection · 2026-09-16 */
+const CACHE_NAME = "my-dashboard-v0.9.1";
 const BASE_PATH = "/Projects/Dashboard/";
 const CORE_ASSETS = [
   BASE_PATH,

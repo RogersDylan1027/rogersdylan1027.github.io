@@ -1,6 +1,6 @@
 /*
-  My Dashboard · Dashboard Entry Guard · Version 0.7.0
-  Dashboard Performance Optimization · 2026-08-23
+  My Dashboard · Dashboard Entry Guard · Version 0.9.1
+  Connected Account Recovery & Account Selection · 2026-09-16
 
   Load dashboard-config.js first, then this file as early as possible in
   Dashboard/index.html <head>. Logged-out visitors are sent to login.html.
