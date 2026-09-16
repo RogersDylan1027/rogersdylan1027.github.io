@@ -1,1 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#f7f8fa">
+  <meta name="description" content="Terms of Service for My Dashboard.">
+  <title>Terms of Service · My Dashboard</title>
+  <link rel="icon" href="../logo.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../logo.svg">
+  <style>
+    * { box-sizing: border-box; }
+    :root {
+      color-scheme: light;
+      --bg: #f7f8fa;
+      --panel: #ffffff;
+      --text: #252525;
+      --muted: #68707c;
+      --border: #d5d9df;
+      --accent: rgb(40, 72, 126);
+      --accent-soft: rgba(40, 72, 126, 0.09);
+      --shadow: 0 18px 55px rgba(18, 28, 45, 0.10);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: radial-gradient(circle at 50% 0%, rgba(40, 72, 126, 0.08), transparent 34%), var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65;
+      -webkit-text-size-adjust: 100%;
+    }
+    a { color: var(--accent); }
+    .page-shell { width: min(100% - 32px, 920px); margin: 0 auto; padding: 34px 0 60px; }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      margin-bottom: 22px;
+      color: inherit;
+      text-decoration: none;
+    }
+    .brand img { width: 48px; height: 48px; border-radius: 13px; }
+    .brand-name { font-size: 19px; font-weight: 800; letter-spacing: -0.02em; }
+    .card {
+      padding: clamp(24px, 4vw, 46px);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+    .eyebrow {
+      display: inline-flex;
+      margin-bottom: 10px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    h1 { margin: 0; font-size: clamp(34px, 7vw, 50px); line-height: 1.08; letter-spacing: -0.045em; }
+    .updated { margin: 12px 0 0; color: var(--muted); font-size: 14px; }
+    .intro { margin: 24px 0 0; font-size: 17px; }
+    .toc {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 28px 0 34px;
+      padding: 16px;
+      border-radius: 16px;
+      background: #f8f9fb;
+      border: 1px solid #e4e7eb;
+    }
+    .toc a {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: white;
+      border: 1px solid var(--border);
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    section + section { margin-top: 34px; padding-top: 30px; border-top: 1px solid #e9ebee; }
+    h2 { margin: 0 0 12px; font-size: 23px; line-height: 1.25; letter-spacing: -0.02em; }
+    p { margin: 0 0 13px; }
+    ul { margin: 10px 0 14px; padding-left: 22px; }
+    li + li { margin-top: 8px; }
+    .notice {
+      margin: 18px 0;
+      padding: 16px 18px;
+      border-left: 4px solid var(--accent);
+      border-radius: 0 12px 12px 0;
+      background: var(--accent-soft);
+    }
+    footer {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 22px 4px 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    footer nav { display: flex; flex-wrap: wrap; gap: 14px; }
+    @media (max-width: 600px) {
+      .page-shell { width: min(100% - 22px, 920px); padding-top: 20px; }
+      .card { border-radius: 19px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page-shell">
+    <a class="brand" href="../" aria-label="Return to My Dashboard">
+      <img src="../logo.svg" alt="My Dashboard logo">
+      <span class="brand-name">My Dashboard</span>
+    </a>
 
+    <article class="card">
+      <span class="eyebrow">Legal</span>
+      <h1>Terms of Service</h1>
+      <p class="updated">Effective date: September 16, 2026 · Last updated: September 16, 2026</p>
+
+      <p class="intro">
+        These Terms of Service ("Terms") govern your access to and use of My Dashboard, including its website, applications, projects, connected-service integrations, and related features.
+      </p>
+
+      <nav class="toc" aria-label="Terms of Service sections">
+        <a href="#acceptance">Acceptance</a>
+        <a href="#accounts">Accounts</a>
+        <a href="#services">Connected Services</a>
+        <a href="#content">Your Content</a>
+        <a href="#conduct">Acceptable Use</a>
+        <a href="#availability">Availability</a>
+        <a href="#liability">Disclaimers</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <section id="acceptance">
+        <h2>1. Acceptance of These Terms</h2>
+        <p>By accessing or using My Dashboard, you agree to these Terms and to the <a href="./privacy.html">Privacy Policy</a>. If you do not agree, do not use My Dashboard.</p>
+        <p>My Dashboard is an independently operated personal software project and may change as features are developed, tested, or improved.</p>
+      </section>
+
+      <section id="accounts">
+        <h2>2. Accounts and Access</h2>
+        <p>Some or all Dashboard features require an approved account. You are responsible for maintaining the confidentiality of your sign-in credentials and for activity performed through your account.</p>
+        <p>Account requests may be approved or declined by a Dashboard administrator. Access may also be restricted, suspended, or removed when reasonably necessary to protect the Dashboard, other users, connected services, or data.</p>
+        <p>You must provide accurate information when requesting or maintaining an account and must not impersonate another person or attempt to access an account you are not authorized to use.</p>
+      </section>
+
+      <section id="services">
+        <h2>3. Connected Third-Party Services</h2>
+        <p>My Dashboard may allow you to connect third-party services such as Google, Microsoft, streaming providers, file services, or other platforms. These services are operated by their respective providers and are subject to their own terms, privacy policies, availability, and technical limitations.</p>
+        <p>When you connect a service, you authorize My Dashboard to request and use the permissions necessary for the Dashboard features you choose. You may disconnect supported integrations or revoke provider permissions at any time, although doing so may disable related features.</p>
+        <div class="notice">
+          My Dashboard is not affiliated with or endorsed by Google, Microsoft, Apple, GitHub, Supabase, or any other third-party provider merely because an integration or link is available.
+        </div>
+      </section>
+
+      <section id="content">
+        <h2>4. Your Content and Data</h2>
+        <p>You retain ownership of content and information that you create or provide through My Dashboard, subject to any rights held by third-party services from which the content originates.</p>
+        <p>You give My Dashboard permission to process, store, display, transmit, and modify your content only as reasonably necessary to operate the features you request, maintain the service, and provide synchronization or connected-service functionality.</p>
+        <p>You are responsible for ensuring that content you upload, import, connect, or share through My Dashboard is content you are authorized to use.</p>
+      </section>
+
+      <section id="conduct">
+        <h2>5. Acceptable Use</h2>
+        <p>You may not use My Dashboard to:</p>
+        <ul>
+          <li>break the law or facilitate unlawful activity;</li>
+          <li>gain unauthorized access to accounts, systems, data, or connected services;</li>
+          <li>circumvent security, access controls, account approvals, or provider restrictions;</li>
+          <li>interfere with, overload, damage, reverse engineer, or disrupt the Dashboard or its supporting services except where applicable law expressly permits such activity;</li>
+          <li>upload malware, malicious code, or content intended to compromise another system or person; or</li>
+          <li>use the Dashboard in a way that infringes another person's rights.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>6. Experimental and Personal-Use Features</h2>
+        <p>Some Dashboard features may be experimental, incomplete, or provided for personal use and testing. Features may change, stop working, be replaced, or be removed without notice. Information displayed by integrations may be incomplete, delayed, or affected by third-party services.</p>
+        <p>You should independently verify important information before relying on the Dashboard for financial, legal, medical, safety-critical, academic, scheduling, or other consequential decisions.</p>
+      </section>
+
+      <section id="availability">
+        <h2>7. Availability and Changes</h2>
+        <p>We may modify, suspend, or discontinue any Dashboard feature at any time. We do not guarantee uninterrupted access, compatibility with every device or provider, or continued availability of any third-party API or integration.</p>
+        <p>We may update these Terms as the Dashboard changes. Continued use after updated Terms become effective constitutes acceptance of the revised Terms.</p>
+      </section>
+
+      <section id="liability">
+        <h2>8. Disclaimers and Limitation of Liability</h2>
+        <p>My Dashboard is provided on an "as is" and "as available" basis, to the fullest extent permitted by law. No warranty is made that the Dashboard will be error-free, uninterrupted, secure, accurate, or suitable for a particular purpose.</p>
+        <p>To the fullest extent permitted by applicable law, the operator of My Dashboard will not be liable for indirect, incidental, special, consequential, exemplary, or punitive damages, or for loss of data, profits, access, or opportunities arising from or related to use of the Dashboard.</p>
+        <p>Nothing in these Terms excludes liability that cannot legally be excluded or limited.</p>
+      </section>
+
+      <section>
+        <h2>9. Termination</h2>
+        <p>You may stop using My Dashboard at any time. We may suspend or terminate access when reasonably necessary for security, abuse prevention, violation of these Terms, technical reasons, or discontinuation of the service.</p>
+        <p>Provisions that by their nature should survive termination, including ownership, disclaimers, limitations of liability, and applicable legal obligations, will survive.</p>
+      </section>
+
+      <section>
+        <h2>10. Governing Terms</h2>
+        <p>If any provision of these Terms is found unenforceable, the remaining provisions will remain in effect. Failure to enforce a provision does not waive the right to enforce it later.</p>
+        <p>These Terms and the Privacy Policy constitute the agreement governing use of My Dashboard unless a separate written agreement expressly applies.</p>
+      </section>
+
+      <section id="contact">
+        <h2>11. Contact</h2>
+        <p>Questions about these Terms or My Dashboard can be sent to:</p>
+        <p><a href="mailto:dashboard1027.notifications@gmail.com">dashboard1027.notifications@gmail.com</a></p>
+      </section>
+    </article>
+
+    <footer>
+      <span>© 2026 My Dashboard</span>
+      <nav aria-label="Legal links">
+        <a href="./privacy.html">Privacy Policy</a>
+        <a href="./tos.html">Terms of Service</a>
+        <a href="../">Dashboard</a>
+      </nav>
+    </footer>
+  </main>
+</body>
+</html>
