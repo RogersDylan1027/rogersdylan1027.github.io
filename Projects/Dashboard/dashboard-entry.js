@@ -1,10 +1,12 @@
 /*
-  My Dashboard · Dashboard Entry Guard · Version 0.7.3
-  Account Selection & Connection Recovery · 2026-09-16
+  My Dashboard · Dashboard Entry Guard · Version 0.7.0
+  Dashboard Performance Optimization · 2026-08-23
 
-  Loads the shared Dashboard authentication client, applies the account-choice
-  policy to OAuth sign-in/linking flows, and installs Connected Accounts
-  recovery controls after the Dashboard shell is available.
+  Load dashboard-config.js first, then this file as early as possible in
+  Dashboard/index.html <head>. Logged-out visitors are sent to login.html.
+
+  0.6.9 also loads the authenticated Streaming client and Settings integration
+  after the legacy Dashboard shell has finished rendering.
 */
 (function () {
   "use strict";
@@ -78,65 +80,13 @@
     });
   }
 
-  function addAccountChooserPrompt(options = {}) {
-    const queryParams = { ...(options.queryParams || {}) };
-    const promptParts = String(queryParams.prompt || "")
-      .split(/\s+/)
-      .filter(Boolean);
-
-    if (!promptParts.includes("select_account")) {
-      promptParts.push("select_account");
-    }
-
-    queryParams.prompt = promptParts.join(" ");
-
-    return {
-      ...options,
-      queryParams
-    };
-  }
-
-  function enforceAccountChooserForOAuth(client) {
-    const auth = client?.auth;
-    if (!auth || auth.__dashboardAccountChooserPolicy) return client;
-
-    const originalSignInWithOAuth = auth.signInWithOAuth?.bind(auth);
-    const originalLinkIdentity = auth.linkIdentity?.bind(auth);
-
-    if (originalSignInWithOAuth) {
-      auth.signInWithOAuth = (credentials = {}) =>
-        originalSignInWithOAuth({
-          ...credentials,
-          options: addAccountChooserPrompt(credentials.options)
-        });
-    }
-
-    if (originalLinkIdentity) {
-      auth.linkIdentity = (credentials = {}) =>
-        originalLinkIdentity({
-          ...credentials,
-          options: addAccountChooserPrompt(credentials.options)
-        });
-    }
-
-    Object.defineProperty(auth, "__dashboardAccountChooserPolicy", {
-      value: true,
-      configurable: false,
-      enumerable: false,
-      writable: false
-    });
-
-    return client;
-  }
-
   function installConnectedAccountRefresh(client) {
     if (document.getElementById("connected-accounts-refresh-button")) return;
 
     const googleConnectButton = document.getElementById("calendar-connect-button");
-    const connectedAccountsSection = googleConnectButton?.closest(".settings-section");
-    const description = connectedAccountsSection?.querySelector(".settings-section-description");
-
-    if (!connectedAccountsSection || !description) return;
+    const section = googleConnectButton?.closest(".settings-section");
+    const description = section?.querySelector(".settings-section-description");
+    if (!section || !description) return;
 
     const controls = document.createElement("div");
     controls.className = "settings-account-buttons";
@@ -171,9 +121,8 @@
         if (userError) throw userError;
         if (!userData?.user) throw new Error("Your Dashboard session is no longer signed in.");
 
-        if (typeof window.updateMicrosoftConnectionView === "function") {
-          window.updateMicrosoftConnectionView(userData.user);
-        }
+        window.updateMicrosoftConnectionView?.(userData.user);
+        await window.refreshDashboardServicePreferencesFromUser?.();
 
         let googleAccounts = null;
         if (typeof window.listGoogleAccounts === "function") {
@@ -192,14 +141,13 @@
         window.renderFilesAccountSidebar?.();
         window.updateFilesGoogleAccountSelector?.();
 
-        const googleSummary = Array.isArray(googleAccounts)
-          ? `${googleAccounts.length} Google account${googleAccounts.length === 1 ? "" : "s"}`
-          : "connected accounts";
-        status.textContent = `Refresh complete · ${googleSummary} reloaded.`;
+        const count = Array.isArray(googleAccounts) ? googleAccounts.length : null;
+        status.textContent = count === null
+          ? "Connected accounts refreshed."
+          : `Refresh complete · ${count} Google account${count === 1 ? "" : "s"} reloaded.`;
       } catch (error) {
         console.error("Connected account refresh:", error);
-        status.textContent =
-          error?.message ||
+        status.textContent = error?.message ||
           "Connected accounts could not be refreshed. Reconnect any account that asks you to sign in again.";
       } finally {
         button.disabled = false;
@@ -231,22 +179,18 @@
     try {
       await loadSupabase();
 
-      const client = enforceAccountChooserForOAuth(
-        window.supabase.createClient(
-          config.supabaseUrl,
-          config.supabasePublishableKey,
-          {
-            auth: {
-              persistSession: true,
-              autoRefreshToken: true,
-              detectSessionInUrl: true
-            }
+      const client = window.supabase.createClient(
+        config.supabaseUrl,
+        config.supabasePublishableKey,
+        {
+          auth: {
+            persistSession: true,
+            autoRefreshToken: true,
+            detectSessionInUrl: true
           }
-        )
+        }
       );
 
-      // Expose the shared client immediately so the flattened Dashboard shell
-      // can reuse it instead of creating a second Supabase client.
       window.DashboardEntryAuth = {
         client,
         user: null
@@ -263,8 +207,6 @@
 
       document.documentElement.style.removeProperty("visibility");
 
-      // The Dashboard shell is now static, so attach account recovery controls
-      // and Streaming as soon as the parsed Settings/Changelog shell exists.
       setTimeout(async () => {
         try {
           await waitForDashboardShell();
