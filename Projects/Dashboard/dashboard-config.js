@@ -1,6 +1,6 @@
 /*
-  My Dashboard · Shared Configuration · Version 0.10.1
-  Branding & Legal Verification Polish · 2026-09-16
+  My Dashboard · Shared Configuration · Version 0.10.2
+  Personal Logo Placement & Brand Assets · 2026-09-16
 
   The Supabase publishable key is intentionally browser-safe.
   Never place a service_role key or another secret in browser JavaScript.
@@ -84,8 +84,8 @@
   }
 
   window.DashboardConfig = Object.freeze({
-    version: "0.10.1",
-    releaseTitle: "Branding & Legal Verification Polish",
+    version: "0.10.2",
+    releaseTitle: "Personal Logo Placement & Brand Assets",
     supabaseUrl: "https://pyefiovoicvhigkjhhts.supabase.co",
     supabasePublishableKey: "sb_publishable_sVrxppe8B1QkXYqAPm6ddQ_x4MA5j32",
     supabaseScriptUrl: "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.js",
@@ -93,16 +93,19 @@
     dashboardIndexUrl: BASE_PATH + "index.html",
     loginUrl: BASE_PATH + "login.html",
     projectsUrl: BASE_PATH + "projects.json",
-    manifestUrl: BASE_PATH + "manifest.webmanifest?v=0.10.1",
-    serviceWorkerUrl: BASE_PATH + "service-worker.js?v=0.10.1",
-    pwaRuntimeUrl: BASE_PATH + "dashboard-pwa.js?v=0.10.1",
-    accountAccessRuntimeUrl: BASE_PATH + "dashboard-account-access.js?v=0.10.1",
-    logoUrl: BASE_PATH + "logo.svg",
+    manifestUrl: BASE_PATH + "manifest.webmanifest?v=0.10.2",
+    serviceWorkerUrl: BASE_PATH + "service-worker.js?v=0.10.2",
+    pwaRuntimeUrl: BASE_PATH + "dashboard-pwa.js?v=0.10.2",
+    accountAccessRuntimeUrl: BASE_PATH + "dashboard-account-access.js?v=0.10.2",
+    logoUrl: BASE_PATH + "logo-app.png",
+    appLogoUrl: BASE_PATH + "logo-app.png",
+    dashboardLogoUrl: BASE_PATH + "logo-dashboard.png",
+    professionalLogoUrl: BASE_PATH + "logo-professional.png",
     streamingUrl: BASE_PATH + "Streaming/",
     reviewsUrl: BASE_PATH + "Reviews/",
     budgetUrl: BASE_PATH + "Budget/",
-    streamingClientUrl: BASE_PATH + "dashboard-streaming.js?v=0.10.1",
-    streamingUiUrl: BASE_PATH + "dashboard-streaming-ui.js?v=0.10.1"
+    streamingClientUrl: BASE_PATH + "dashboard-streaming.js?v=0.10.2",
+    streamingUiUrl: BASE_PATH + "dashboard-streaming-ui.js?v=0.10.2"
   });
 
   function installRuntimeScript(src, marker) {
@@ -167,7 +170,7 @@
     if (!document.querySelector('link[rel="apple-touch-icon"]')) {
       const icon = document.createElement("link");
       icon.rel = "apple-touch-icon";
-      icon.href = window.DashboardConfig.logoUrl;
+      icon.href = window.DashboardConfig.appLogoUrl;
       document.head.appendChild(icon);
     }
 
@@ -177,8 +180,8 @@
       favicon.rel = "icon";
       document.head.appendChild(favicon);
     }
-    favicon.href = window.DashboardConfig.logoUrl;
-    favicon.type = "image/svg+xml";
+    favicon.href = window.DashboardConfig.appLogoUrl;
+    favicon.type = "image/png";
 
     installRuntimeScript(window.DashboardConfig.pwaRuntimeUrl, "dashboard-pwa");
     installRuntimeScript(window.DashboardConfig.accountAccessRuntimeUrl, "dashboard-account-access");
@@ -186,14 +189,15 @@
 
   function applyBranding() {
     installBrandingStyles();
-    const logoUrl = window.DashboardConfig.logoUrl;
+    const appLogoUrl = window.DashboardConfig.appLogoUrl || window.DashboardConfig.logoUrl;
+    const dashboardLogoUrl = window.DashboardConfig.dashboardLogoUrl || appLogoUrl;
 
     document.querySelectorAll(".brand-mark").forEach(mark => {
       if (mark.querySelector("img")) return;
       mark.classList.add("dashboard-logo-mark");
       mark.textContent = "";
       const img = document.createElement("img");
-      img.src = logoUrl;
+      img.src = appLogoUrl;
       img.alt = "My Dashboard";
       mark.appendChild(img);
     });
@@ -209,7 +213,7 @@
       wrap.className = "dashboard-header-brand";
       const logo = document.createElement("img");
       logo.className = "dashboard-brand-logo";
-      logo.src = logoUrl;
+      logo.src = dashboardLogoUrl;
       logo.alt = "My Dashboard logo";
       headerTitle.parentNode.insertBefore(wrap, headerTitle);
       wrap.append(logo, headerTitle);
@@ -221,7 +225,7 @@
       holder.className = "dashboard-auth-brand";
       const logo = document.createElement("img");
       logo.className = "dashboard-brand-logo";
-      logo.src = logoUrl;
+      logo.src = appLogoUrl;
       logo.alt = "My Dashboard logo";
       holder.appendChild(logo);
       card.prepend(holder);
@@ -231,7 +235,7 @@
     if (loader && !loader.querySelector(".dashboard-loader-brand")) {
       const logo = document.createElement("img");
       logo.className = "dashboard-loader-brand";
-      logo.src = logoUrl;
+      logo.src = appLogoUrl;
       logo.alt = "My Dashboard logo";
       const heading = loader.querySelector("h1, h2, .loader-title");
       if (heading) heading.before(logo); else loader.prepend(logo);
@@ -277,6 +281,11 @@
   }
 
   const runtimeChangelogEntries = [
+    {
+      version: "0.10.2",
+      title: "Personal Logo Placement & Brand Assets",
+      description: "Replaces the single generic Dashboard logo with dedicated app, Dashboard, and professional brand assets. Personal Logo 2 now powers the app/PWA, favicon, login, loading, and notification identity; Personal Logo 1 is used for primary Dashboard/header branding; and the Professional DR logo is used on formal legal pages. Also refreshes PWA cache/version references so installed Home Screen apps receive the new branding while preserving the 0.10.1 legal verification and 0.10.0 account-approval features."
+    },
     {
       version: "0.10.1",
       title: "Branding & Legal Verification Polish",

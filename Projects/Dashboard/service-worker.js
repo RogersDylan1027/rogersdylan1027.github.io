@@ -1,5 +1,5 @@
-/* My Dashboard · Service Worker · Version 0.10.1 · Branding & Legal Verification Polish · 2026-09-16 */
-const CACHE_NAME = "my-dashboard-v0.10.1";
+/* My Dashboard · Service Worker · Version 0.10.2 · Personal Logo Placement & Brand Assets · 2026-09-16 */
+const CACHE_NAME = "my-dashboard-v0.10.2";
 const BASE_PATH = "/Projects/Dashboard/";
 const CORE_ASSETS = [
   BASE_PATH,
@@ -12,7 +12,9 @@ const CORE_ASSETS = [
   BASE_PATH + "dashboard-account-access.js",
   BASE_PATH + "projects.json",
   BASE_PATH + "manifest.webmanifest",
-  BASE_PATH + "logo.svg",
+  BASE_PATH + "logo-app.png",
+  BASE_PATH + "logo-dashboard.png",
+  BASE_PATH + "logo-professional.png",
   BASE_PATH + "Documents/privacy.html",
   BASE_PATH + "Documents/tos.html",
   BASE_PATH + "Reviews/"
@@ -78,8 +80,8 @@ self.addEventListener("push", event => {
   const title = payload.title || "My Dashboard";
   const options = {
     body: payload.body || "You have a new Dashboard notification.",
-    icon: BASE_PATH + "logo.svg",
-    badge: BASE_PATH + "logo.svg",
+    icon: BASE_PATH + "logo-app.png",
+    badge: BASE_PATH + "logo-app.png",
     tag: payload.tag || "my-dashboard-notification",
     data: { url: payload.url || BASE_PATH }
   };
