@@ -1,5 +1,5 @@
-/* My Dashboard · Service Worker · Version 0.9.1 · Connected Account Recovery & Account Selection · 2026-09-16 */
-const CACHE_NAME = "my-dashboard-v0.9.1";
+/* My Dashboard · Service Worker · Version 0.10.0 · Account Approval & Admin Messaging · 2026-09-16 */
+const CACHE_NAME = "my-dashboard-v0.10.0";
 const BASE_PATH = "/Projects/Dashboard/";
 const CORE_ASSETS = [
   BASE_PATH,
@@ -9,6 +9,7 @@ const CORE_ASSETS = [
   BASE_PATH + "dashboard-entry.js",
   BASE_PATH + "dashboard-auth.js",
   BASE_PATH + "dashboard-pwa.js",
+  BASE_PATH + "dashboard-account-access.js",
   BASE_PATH + "projects.json",
   BASE_PATH + "manifest.webmanifest",
   BASE_PATH + "logo.svg",
@@ -34,14 +35,8 @@ self.addEventListener("activate", event => {
 self.addEventListener("fetch", event => {
   const request = event.request;
   if (request.method !== "GET") return;
-
   let url;
-  try {
-    url = new URL(request.url);
-  } catch {
-    return;
-  }
-
+  try { url = new URL(request.url); } catch { return; }
   if (url.origin !== self.location.origin || !url.pathname.startsWith(BASE_PATH)) return;
 
   if (request.mode === "navigate") {
@@ -52,9 +47,7 @@ self.addEventListener("fetch", event => {
           caches.open(CACHE_NAME).then(cache => cache.put(request, copy));
           return response;
         })
-        .catch(async () => {
-          return (await caches.match(request)) || (await caches.match(BASE_PATH + "index.html"));
-        })
+        .catch(async () => (await caches.match(request)) || (await caches.match(BASE_PATH + "index.html")))
     );
     return;
   }
@@ -77,11 +70,8 @@ self.addEventListener("fetch", event => {
 
 self.addEventListener("push", event => {
   let payload = {};
-  try {
-    payload = event.data ? event.data.json() : {};
-  } catch {
-    payload = { body: event.data ? event.data.text() : "You have a new Dashboard notification." };
-  }
+  try { payload = event.data ? event.data.json() : {}; }
+  catch { payload = { body: event.data ? event.data.text() : "You have a new Dashboard notification." }; }
 
   const title = payload.title || "My Dashboard";
   const options = {
@@ -89,11 +79,8 @@ self.addEventListener("push", event => {
     icon: BASE_PATH + "logo.svg",
     badge: BASE_PATH + "logo.svg",
     tag: payload.tag || "my-dashboard-notification",
-    data: {
-      url: payload.url || BASE_PATH
-    }
+    data: { url: payload.url || BASE_PATH }
   };
-
   event.waitUntil(self.registration.showNotification(title, options));
 });
 
