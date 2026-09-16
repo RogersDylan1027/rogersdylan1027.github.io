@@ -1,5 +1,5 @@
-/* My Dashboard · Service Worker · Version 0.10.0 · Account Approval & Admin Messaging · 2026-09-16 */
-const CACHE_NAME = "my-dashboard-v0.10.0";
+/* My Dashboard · Service Worker · Version 0.10.1 · Branding & Legal Verification Polish · 2026-09-16 */
+const CACHE_NAME = "my-dashboard-v0.10.1";
 const BASE_PATH = "/Projects/Dashboard/";
 const CORE_ASSETS = [
   BASE_PATH,
@@ -13,6 +13,8 @@ const CORE_ASSETS = [
   BASE_PATH + "projects.json",
   BASE_PATH + "manifest.webmanifest",
   BASE_PATH + "logo.svg",
+  BASE_PATH + "Documents/privacy.html",
+  BASE_PATH + "Documents/tos.html",
   BASE_PATH + "Reviews/"
 ];
 
