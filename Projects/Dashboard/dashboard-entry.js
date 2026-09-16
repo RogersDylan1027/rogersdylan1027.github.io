@@ -131,6 +131,84 @@
     return client;
   }
 
+  function installConnectedAccountRefresh(client) {
+    if (document.getElementById("connected-accounts-refresh-button")) return;
+
+    const googleConnectButton = document.getElementById("calendar-connect-button");
+    const connectedAccountsSection = googleConnectButton?.closest(".settings-section");
+    const description = connectedAccountsSection?.querySelector(".settings-section-description");
+
+    if (!connectedAccountsSection || !description) return;
+
+    const controls = document.createElement("div");
+    controls.className = "settings-account-buttons";
+    controls.style.margin = "12px 0 6px";
+
+    const button = document.createElement("button");
+    button.id = "connected-accounts-refresh-button";
+    button.className = "calendar-action-button secondary";
+    button.type = "button";
+    button.textContent = "Refresh Connected Accounts";
+
+    const status = document.createElement("p");
+    status.id = "connected-accounts-refresh-status";
+    status.className = "calendar-connection-status";
+    status.setAttribute("role", "status");
+    status.setAttribute("aria-live", "polite");
+    status.textContent = "Reload saved account connections and their available data.";
+
+    controls.appendChild(button);
+    description.insertAdjacentElement("afterend", controls);
+    controls.insertAdjacentElement("afterend", status);
+
+    button.addEventListener("click", async () => {
+      button.disabled = true;
+      status.textContent = "Refreshing connected accounts…";
+
+      try {
+        const { error: refreshError } = await client.auth.refreshSession();
+        if (refreshError) throw refreshError;
+
+        const { data: userData, error: userError } = await client.auth.getUser();
+        if (userError) throw userError;
+        if (!userData?.user) throw new Error("Your Dashboard session is no longer signed in.");
+
+        if (typeof window.updateMicrosoftConnectionView === "function") {
+          window.updateMicrosoftConnectionView(userData.user);
+        }
+
+        let googleAccounts = null;
+        if (typeof window.listGoogleAccounts === "function") {
+          googleAccounts = await window.listGoogleAccounts();
+        }
+
+        if (
+          Array.isArray(googleAccounts) &&
+          googleAccounts.length &&
+          typeof window.loadGoogleCalendarEvents === "function"
+        ) {
+          await window.loadGoogleCalendarEvents();
+        }
+
+        window.renderCalendarAccountPreferences?.();
+        window.renderFilesAccountSidebar?.();
+        window.updateFilesGoogleAccountSelector?.();
+
+        const googleSummary = Array.isArray(googleAccounts)
+          ? `${googleAccounts.length} Google account${googleAccounts.length === 1 ? "" : "s"}`
+          : "connected accounts";
+        status.textContent = `Refresh complete · ${googleSummary} reloaded.`;
+      } catch (error) {
+        console.error("Connected account refresh:", error);
+        status.textContent =
+          error?.message ||
+          "Connected accounts could not be refreshed. Reconnect any account that asks you to sign in again.";
+      } finally {
+        button.disabled = false;
+      }
+    });
+  }
+
   async function startStreamingRuntime() {
     try {
       await waitForDashboardShell();
@@ -187,8 +265,16 @@
 
       document.documentElement.style.removeProperty("visibility");
 
-      // The Dashboard shell is now static, so attach the Streaming runtime
-      // as soon as the parsed Settings/Changelog shell is available.
+      // The Dashboard shell is now static, so attach account recovery controls
+      // and Streaming as soon as the parsed Settings/Changelog shell exists.
+      setTimeout(async () => {
+        try {
+          await waitForDashboardShell();
+          installConnectedAccountRefresh(client);
+        } catch (error) {
+          console.warn("Connected account recovery controls:", error);
+        }
+      }, 0);
       setTimeout(startStreamingRuntime, 0);
     } catch (error) {
       console.error("Dashboard entry authentication:", error);
