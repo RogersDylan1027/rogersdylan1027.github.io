@@ -1,12 +1,10 @@
 /*
-  My Dashboard · Dashboard Entry Guard · Version 0.7.0
-  Dashboard Performance Optimization · 2026-08-23
+  My Dashboard · Dashboard Entry Guard · Version 0.7.3
+  Account Selection & Connection Recovery · 2026-09-16
 
-  Load dashboard-config.js first, then this file as early as possible in
-  Dashboard/index.html <head>. Logged-out visitors are sent to login.html.
-
-  0.6.9 also loads the authenticated Streaming client and Settings integration
-  after the legacy Dashboard shell has finished rendering.
+  Loads the shared Dashboard authentication client, applies the account-choice
+  policy to OAuth sign-in/linking flows, and installs Connected Accounts
+  recovery controls after the Dashboard shell is available.
 */
 (function () {
   "use strict";
