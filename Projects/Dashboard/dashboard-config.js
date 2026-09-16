@@ -10,6 +10,86 @@
 
   const BASE_PATH = "/Projects/Dashboard/";
 
+  function addAccountChooserPrompt(options = {}) {
+    const queryParams = { ...(options.queryParams || {}) };
+    const promptParts = String(queryParams.prompt || "")
+      .split(/\s+/)
+      .filter(Boolean);
+
+    if (!promptParts.includes("select_account")) {
+      promptParts.push("select_account");
+    }
+
+    queryParams.prompt = promptParts.join(" ");
+    return { ...options, queryParams };
+  }
+
+  function patchSupabaseAuth(auth) {
+    if (!auth || auth.__dashboardAccountChooserPolicy) return;
+
+    const originalSignInWithOAuth = auth.signInWithOAuth?.bind(auth);
+    const originalLinkIdentity = auth.linkIdentity?.bind(auth);
+
+    if (originalSignInWithOAuth) {
+      auth.signInWithOAuth = (credentials = {}) =>
+        originalSignInWithOAuth({
+          ...credentials,
+          options: addAccountChooserPrompt(credentials.options)
+        });
+    }
+
+    if (originalLinkIdentity) {
+      auth.linkIdentity = (credentials = {}) =>
+        originalLinkIdentity({
+          ...credentials,
+          options: addAccountChooserPrompt(credentials.options)
+        });
+    }
+
+    Object.defineProperty(auth, "__dashboardAccountChooserPolicy", {
+      value: true,
+      configurable: false,
+      enumerable: false,
+      writable: false
+    });
+  }
+
+  function patchSupabaseLibrary(library) {
+    if (!library?.createClient || library.__dashboardOAuthPolicy) return library;
+
+    const originalCreateClient = library.createClient.bind(library);
+    library.createClient = function (...args) {
+      const client = originalCreateClient(...args);
+      patchSupabaseAuth(client?.auth);
+      return client;
+    };
+
+    Object.defineProperty(library, "__dashboardOAuthPolicy", {
+      value: true,
+      configurable: false,
+      enumerable: false,
+      writable: false
+    });
+
+    return library;
+  }
+
+  if (window.supabase) {
+    patchSupabaseLibrary(window.supabase);
+  } else {
+    let supabaseLibrary;
+    Object.defineProperty(window, "supabase", {
+      configurable: true,
+      enumerable: true,
+      get() {
+        return supabaseLibrary;
+      },
+      set(value) {
+        supabaseLibrary = patchSupabaseLibrary(value);
+      }
+    });
+  }
+
   window.DashboardConfig = Object.freeze({
     version: "0.9.0",
     supabaseUrl: "https://pyefiovoicvhigkjhhts.supabase.co",
