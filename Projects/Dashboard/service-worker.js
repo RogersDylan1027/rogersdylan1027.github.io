@@ -1,5 +1,5 @@
-/* My Dashboard · Service Worker · Version 0.10.3 · Final Logo Asset Alignment · 2026-09-16 */
-const CACHE_NAME = "my-dashboard-v0.10.3";
+/* My Dashboard · Service Worker · Version 0.10.4 · Approved Logo Assets & Placement Verification · 2026-09-16 */
+const CACHE_NAME = "my-dashboard-v0.10.4";
 const BASE_PATH = "/Projects/Dashboard/";
 const CORE_ASSETS = [
   BASE_PATH,
@@ -80,8 +80,8 @@ self.addEventListener("push", event => {
   const title = payload.title || "My Dashboard";
   const options = {
     body: payload.body || "You have a new Dashboard notification.",
-    icon: BASE_PATH + "logo-app.png?v=0.10.3",
-    badge: BASE_PATH + "logo-app.png?v=0.10.3",
+    icon: BASE_PATH + "logo-app.png?v=0.10.4",
+    badge: BASE_PATH + "logo-app.png?v=0.10.4",
     tag: payload.tag || "my-dashboard-notification",
     data: { url: payload.url || BASE_PATH }
   };
