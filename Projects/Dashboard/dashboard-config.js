@@ -1,6 +1,6 @@
 /*
-  My Dashboard · Shared Configuration · Version 0.10.2
-  Personal Logo Placement & Brand Assets · 2026-09-16
+  My Dashboard · Shared Configuration · Version 0.10.3
+  Final Logo Asset Alignment · 2026-09-16
 
   The Supabase publishable key is intentionally browser-safe.
   Never place a service_role key or another secret in browser JavaScript.
@@ -84,8 +84,8 @@
   }
 
   window.DashboardConfig = Object.freeze({
-    version: "0.10.2",
-    releaseTitle: "Personal Logo Placement & Brand Assets",
+    version: "0.10.3",
+    releaseTitle: "Final Logo Asset Alignment",
     supabaseUrl: "https://pyefiovoicvhigkjhhts.supabase.co",
     supabasePublishableKey: "sb_publishable_sVrxppe8B1QkXYqAPm6ddQ_x4MA5j32",
     supabaseScriptUrl: "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.js",
@@ -93,19 +93,19 @@
     dashboardIndexUrl: BASE_PATH + "index.html",
     loginUrl: BASE_PATH + "login.html",
     projectsUrl: BASE_PATH + "projects.json",
-    manifestUrl: BASE_PATH + "manifest.webmanifest?v=0.10.2",
-    serviceWorkerUrl: BASE_PATH + "service-worker.js?v=0.10.2",
-    pwaRuntimeUrl: BASE_PATH + "dashboard-pwa.js?v=0.10.2",
-    accountAccessRuntimeUrl: BASE_PATH + "dashboard-account-access.js?v=0.10.2",
-    logoUrl: BASE_PATH + "logo-app.png",
-    appLogoUrl: BASE_PATH + "logo-app.png",
-    dashboardLogoUrl: BASE_PATH + "logo-dashboard.png",
-    professionalLogoUrl: BASE_PATH + "logo-professional.png",
+    manifestUrl: BASE_PATH + "manifest.webmanifest?v=0.10.3",
+    serviceWorkerUrl: BASE_PATH + "service-worker.js?v=0.10.3",
+    pwaRuntimeUrl: BASE_PATH + "dashboard-pwa.js?v=0.10.3",
+    accountAccessRuntimeUrl: BASE_PATH + "dashboard-account-access.js?v=0.10.3",
+    logoUrl: BASE_PATH + "logo-app.png?v=0.10.3",
+    appLogoUrl: BASE_PATH + "logo-app.png?v=0.10.3",
+    dashboardLogoUrl: BASE_PATH + "logo-dashboard.png?v=0.10.3",
+    professionalLogoUrl: BASE_PATH + "logo-professional.png?v=0.10.3",
     streamingUrl: BASE_PATH + "Streaming/",
     reviewsUrl: BASE_PATH + "Reviews/",
     budgetUrl: BASE_PATH + "Budget/",
-    streamingClientUrl: BASE_PATH + "dashboard-streaming.js?v=0.10.2",
-    streamingUiUrl: BASE_PATH + "dashboard-streaming-ui.js?v=0.10.2"
+    streamingClientUrl: BASE_PATH + "dashboard-streaming.js?v=0.10.3",
+    streamingUiUrl: BASE_PATH + "dashboard-streaming-ui.js?v=0.10.3"
   });
 
   function installRuntimeScript(src, marker) {
@@ -281,6 +281,11 @@
   }
 
   const runtimeChangelogEntries = [
+    {
+      version: "0.10.3",
+      title: "Final Logo Asset Alignment",
+      description: "Finalizes the approved logo set across My Dashboard by keeping Personal Logo 2 as the app/PWA, favicon, login, loading, and notification mark; Personal Logo 1 as the primary Dashboard/header identity; and the Professional DR mark on formal legal surfaces. Versioned logo URLs and PWA assets are refreshed so installed Home Screen apps pick up the finalized branding without changing the 0.10 account-approval workflow or other Dashboard behavior."
+    },
     {
       version: "0.10.2",
       title: "Personal Logo Placement & Brand Assets",
