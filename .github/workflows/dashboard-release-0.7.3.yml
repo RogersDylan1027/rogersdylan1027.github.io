@@ -1,0 +1,93 @@
+name: Dashboard 0.7.3 Release
+
+on:
+  push:
+    paths:
+      - .github/workflows/dashboard-release-0.7.3.yml
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Update Dashboard 0.7.3 release metadata
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          path = Path("Projects/Dashboard/index.html")
+          text = path.read_text(encoding="utf-8")
+
+          if "0.7.2" not in text:
+              raise SystemExit("Expected Dashboard 0.7.2 references were not found in index.html")
+
+          text = text.replace("0.7.2", "0.7.3")
+          text = text.replace(
+              "<!-- Version 0.7.3: Login Initialization & Auth Recovery · 2026-09-08 -->",
+              "<!-- Version 0.7.3: Account Selection & Connection Recovery · 2026-09-16 -->"
+          )
+          text = text.replace(
+              'document.title=value+" · Version 0.4.2";',
+              'document.title=value+" · Version 0.7.3";'
+          )
+
+          marker = "    const dashboardChangelog=[\n"
+          if marker not in text:
+              raise SystemExit("Dashboard changelog marker was not found")
+
+          release = (
+              '      {version:"0.7.3",title:"Account Selection & Connection Recovery",'
+              'description:"Improves connected-account sign-in and recovery across My Dashboard. OAuth sign-in and account linking now request an account chooser where supported so Google, Microsoft, and future providers do not silently reuse the previously active account, while preserving provider-specific consent prompts. Settings adds Refresh Connected Accounts to reload saved connection state, provider UI, Calendar data, and related account controls after browser, cache, or Home Screen app session disruptions."},\n'
+          )
+
+          if 'version:"0.7.3"' not in text:
+              text = text.replace(marker, marker + release, 1)
+
+          path.write_text(text, encoding="utf-8")
+          PY
+
+      - name: Verify release files
+        shell: bash
+        run: |
+          grep -q 'Version 0.7.3' Projects/Dashboard/index.html
+          grep -q 'version:"0.7.3"' Projects/Dashboard/index.html
+          grep -q 'Account Selection & Connection Recovery' Projects/Dashboard/index.html
+          grep -q 'Version 0.7.3' Projects/Dashboard/login.html
+          grep -q 'prompt: "select_account"' Projects/Dashboard/login.html
+          grep -q 'Version 0.7.3' Projects/Dashboard/dashboard-entry.js
+          grep -q 'connected-accounts-refresh-button' Projects/Dashboard/dashboard-entry.js
+
+      - name: Build replacement-file package
+        shell: bash
+        run: |
+          mkdir -p release/Dashboard
+          cp Projects/Dashboard/index.html release/Dashboard/index.html
+          cp Projects/Dashboard/login.html release/Dashboard/login.html
+          cp Projects/Dashboard/dashboard-entry.js release/Dashboard/dashboard-entry.js
+
+      - name: Upload Dashboard 0.7.3 package
+        uses: actions/upload-artifact@v4
+        with:
+          name: Dashboard-0.7.3
+          path: release/Dashboard
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Commit Dashboard changelog and remove one-time workflow
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add Projects/Dashboard/index.html
+          git rm .github/workflows/dashboard-release-0.7.3.yml
+          git commit -m "Release My Dashboard 0.7.3"
+          git push
