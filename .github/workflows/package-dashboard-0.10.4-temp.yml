@@ -1,0 +1,41 @@
+name: Package Dashboard 0.10.4 Final
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/package-dashboard-0.10.4-temp.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout release
+        uses: actions/checkout@v4
+      - name: Build replacement ZIP
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p release/Dashboard/Documents
+          cp Projects/Dashboard/index.html release/Dashboard/index.html
+          cp Projects/Dashboard/login.html release/Dashboard/login.html
+          cp Projects/Dashboard/dashboard-config.js release/Dashboard/dashboard-config.js
+          cp Projects/Dashboard/service-worker.js release/Dashboard/service-worker.js
+          cp Projects/Dashboard/manifest.webmanifest release/Dashboard/manifest.webmanifest
+          cp Projects/Dashboard/README.txt release/Dashboard/README.txt
+          cp Projects/Dashboard/logo-app.png release/Dashboard/logo-app.png
+          cp Projects/Dashboard/logo-dashboard.png release/Dashboard/logo-dashboard.png
+          cp Projects/Dashboard/logo-professional.png release/Dashboard/logo-professional.png
+          cp Projects/Dashboard/Documents/privacy.html release/Dashboard/Documents/privacy.html
+          cp Projects/Dashboard/Documents/tos.html release/Dashboard/Documents/tos.html
+          cd release
+          zip -r Dashboard-0.10.4.zip Dashboard
+      - name: Upload package
+        uses: actions/upload-artifact@v4
+        with:
+          name: Dashboard-0.10.4
+          path: release/Dashboard-0.10.4.zip
+          if-no-files-found: error
