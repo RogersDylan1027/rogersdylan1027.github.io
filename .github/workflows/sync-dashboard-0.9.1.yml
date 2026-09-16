@@ -1,0 +1,100 @@
+name: Sync Dashboard 0.9.1
+
+on:
+  push:
+    paths:
+      - .github/workflows/sync-dashboard-0.9.1.yml
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Apply Dashboard 0.9.1
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          new_ver = '0.9.1'
+          title = 'Connected Account Recovery & Account Selection'
+          desc = ('Adds a Refresh Connected Accounts action in Settings to reload saved Google and '
+                  'Microsoft connections, re-fetch available account data, and repopulate Calendar-related '
+                  'account state after cache clears or stale sessions. OAuth account connections now request '
+                  'explicit account selection where supported so linking Google, Microsoft, and future '
+                  'providers is less likely to auto-sign into the wrong account. Also refreshes the PWA cache '
+                  'path so Home Screen installs pick up the corrected authentication files.')
+
+          cfg_path = Path('Projects/Dashboard/dashboard-config.js')
+          cfg = cfg_path.read_text(encoding='utf-8')
+          cfg = cfg.replace('Shared Configuration · Version 0.9.0', f'Shared Configuration · Version {new_ver}')
+          cfg = cfg.replace('Reviews Library & Streaming Review Queue · 2026-09-12', f'{title} · 2026-09-16')
+          cfg = cfg.replace('version: "0.9.0"', f'version: "{new_ver}"')
+          for old in ['manifest.webmanifest?v=0.9.0','service-worker.js?v=0.9.0','dashboard-pwa.js?v=0.9.0','dashboard-streaming.js?v=0.9.0','dashboard-streaming-ui.js?v=0.9.0']:
+              cfg = cfg.replace(old, old.replace('0.9.0', new_ver))
+          cfg = cfg.replace('trim() === "0.9.0"', f'trim() === "{new_ver}"')
+          cfg = cfg.replace('row.dataset.dashboardRuntimeRelease = "0.9.0";', f'row.dataset.dashboardRuntimeRelease = "{new_ver}";')
+          cfg = cfg.replace('version.textContent = "0.9.0";', f'version.textContent = "{new_ver}";')
+          cfg = cfg.replace('title.textContent = "Reviews Library & Streaming Review Queue";', f'title.textContent = "{title}";')
+          cfg = re.sub(r'description\.textContent =\n\s+"Introduces the Reviews project with automatic movie, TV, and book metadata, " \+\n\s+"poster and cover artwork, and a personal review library backed by Supabase\. " \+\n\s+"Finished Streaming movies and completed TV seasons automatically appear in a " \+\n\s+"review queue, while season reviews remain grouped under their parent show\. " \+\n\s+"Review data is private to each signed-in user and the original Google Form " \+\n\s+"questions are retained as the opinion-focused review fields\.";',
+                       'description.textContent =\n      "Adds a Refresh Connected Accounts action in Settings to reload saved Google and Microsoft connections, re-fetch available account data, and repopulate Calendar-related account state after cache clears or stale sessions. OAuth account connections now request explicit account selection where supported so linking Google, Microsoft, and future providers is less likely to auto-sign into the wrong account. Also refreshes the PWA cache path so Home Screen installs pick up the corrected authentication files.";', cfg)
+          cfg_path.write_text(cfg, encoding='utf-8')
+
+          entry_path = Path('Projects/Dashboard/dashboard-entry.js')
+          entry = entry_path.read_text(encoding='utf-8')
+          entry = entry.replace('Dashboard Entry Guard · Version 0.7.0', f'Dashboard Entry Guard · Version {new_ver}')
+          entry = entry.replace('Dashboard Performance Optimization · 2026-08-23', f'{title} · 2026-09-16')
+          entry_path.write_text(entry, encoding='utf-8')
+
+          index_path = Path('Projects/Dashboard/index.html')
+          index = index_path.read_text(encoding='utf-8')
+          index = index.replace('<title>My Dashboard · Version 0.7.2</title>', f'<title>My Dashboard · Version {new_ver}</title>')
+          index = index.replace('<!-- Version 0.7.2: Login Initialization & Auth Recovery · 2026-09-08 -->', f'<!-- Version {new_ver}: {title} · 2026-09-16 -->')
+          index = index.replace('./dashboard-config.js?v=0.7.2', f'./dashboard-config.js?v={new_ver}')
+          index = index.replace('./dashboard-entry.js?v=0.7.2', f'./dashboard-entry.js?v={new_ver}')
+          needle = '    const dashboardChangelog=[\n'
+          insert = f'    const dashboardChangelog=[\n      {{version:"{new_ver}",title:"{title}",description:"{desc}"}},\n      {{version:"0.9.0",title:"Reviews Library & Streaming Review Queue",description:"Introduces the Reviews project with automatic movie, TV, and book metadata, poster and cover artwork, and a personal review library backed by Supabase. Finished Streaming movies and completed TV seasons automatically appear in a review queue, while season reviews remain grouped under their parent show. Review data is private to each signed-in user and the original Google Form questions are retained as the opinion-focused review fields."}},\n'
+          if 'version:"0.9.1"' not in index:
+              index = index.replace(needle, insert, 1)
+          index_path.write_text(index, encoding='utf-8')
+
+          login_path = Path('Projects/Dashboard/login.html')
+          login = login_path.read_text(encoding='utf-8')
+          login = login.replace('<title>My Dashboard · Login · Version 0.7.2</title>', f'<title>My Dashboard · Login · Version {new_ver}</title>')
+          login = login.replace('<!-- Version 0.5.5: TV Season & Episode Selection + My Dashboard Rebrand · 2026-08-14 -->', f'<!-- Version {new_ver}: {title} · 2026-09-16 -->')
+          login = login.replace('./dashboard-config.js?v=0.7.2', f'./dashboard-config.js?v={new_ver}')
+          login_path.write_text(login, encoding='utf-8')
+
+          sw_path = Path('Projects/Dashboard/service-worker.js')
+          sw = sw_path.read_text(encoding='utf-8')
+          sw = sw.replace('Service Worker · Version 0.9.0 · Account Recovery Maintenance · 2026-09-16', f'Service Worker · Version {new_ver} · {title} · 2026-09-16')
+          sw = sw.replace('my-dashboard-v0.9.0-account-recovery-1', 'my-dashboard-v0.9.1')
+          sw_path.write_text(sw, encoding='utf-8')
+          PY
+
+      - name: Verify exact release content
+        shell: bash
+        run: |
+          test "$(git hash-object Projects/Dashboard/index.html)" = "1cb369d9ef4d572be33179abad1c302bef7e0955"
+          test "$(git hash-object Projects/Dashboard/login.html)" = "55c5bf3a1583ec5bbb1d2ac1d58ef6dd6c4d3e92"
+          test "$(git hash-object Projects/Dashboard/dashboard-entry.js)" = "5d8dfb6220b20a9ec16c609bc198ddd661a25389"
+          test "$(git hash-object Projects/Dashboard/dashboard-config.js)" = "21eca2afd7d4c1dc69b889c107fd14a2fee8f1cb"
+          test "$(git hash-object Projects/Dashboard/service-worker.js)" = "40b7eca9cceb2cb3c595f18ae448deb6ce090bcd"
+
+      - name: Commit synchronized Dashboard release
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add Projects/Dashboard/index.html Projects/Dashboard/login.html Projects/Dashboard/dashboard-entry.js Projects/Dashboard/dashboard-config.js Projects/Dashboard/service-worker.js
+          git commit -m "My Dashboard 0.9.1: Connected account recovery and selection"
+          git push
