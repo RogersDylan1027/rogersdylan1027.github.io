@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <title>NHL Analytics · Version 0.1.0</title>
-  <meta name="description" content="My Dashboard NHL Analytics · Version 0.1.0 · NHL Analytics Foundation & Data Insights">
+  <title>NHL Analytics · Version 0.2.0</title>
+  <meta name="description" content="My Dashboard NHL Analytics · Version 0.2.0 · Roster Simulation & Admin Model Diagnostics">
   <meta name="theme-color" content="#f4f7fb">
   <script src="../dashboard-config.js?v=0.10.4"></script>
   <script src="../dashboard-auth.js?v=0.10.4" data-dashboard-project="nhl-analytics"></script>
@@ -26,9 +26,10 @@
     .filters{display:flex;align-items:end;gap:9px;flex-wrap:wrap;margin-bottom:13px}.field{display:grid;gap:5px}.field label{color:var(--muted);font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.06em}.field input,.field select{height:39px;border:1px solid var(--line);background:#fff;color:var(--text);border-radius:10px;padding:0 11px;min-width:150px}.field.grow{flex:1}.field.grow input{width:100%;min-width:220px}.secondary{height:39px;border:1px solid var(--line);background:#fff;border-radius:10px;padding:0 12px;font-weight:800;color:#45546a}
     .load-more{display:block;margin:14px auto 0;border:1px solid var(--blue);background:#fff;color:var(--blue);border-radius:11px;padding:10px 15px;font-weight:850}.empty{padding:35px 18px;text-align:center;color:var(--muted)}
     .team-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.team-card{background:#fff;border:1px solid var(--line);border-radius:15px;padding:15px}.team-card-head{display:flex;align-items:center;justify-content:space-between}.team-card h4{margin:0;font-size:19px}.team-card .big{font-size:22px;font-weight:900}.team-card dl{display:grid;grid-template-columns:1fr auto;gap:7px 12px;margin:12px 0 0;font-size:11px}.team-card dt{color:var(--muted)}.team-card dd{margin:0;font-weight:800}
+    .roster-panel{padding:0;overflow:hidden;min-height:760px;position:relative}.roster-frame{display:block;width:100%;height:min(1100px,calc(100vh - 190px));min-height:760px;border:0;background:#fff}.roster-loading{position:absolute;inset:0;display:grid;place-items:center;align-content:center;gap:8px;background:#fff;color:var(--muted);z-index:1;text-align:center;padding:30px}.roster-loading strong{color:var(--text);font-size:17px}.roster-loading span{font-size:12px}.roster-spinner{width:34px;height:34px;border:4px solid #e4eaf1;border-top-color:var(--blue2);border-radius:50%;animation:roster-spin .8s linear infinite}@keyframes roster-spin{to{transform:rotate(360deg)}}
     .footer{max-width:1380px;margin:8px auto 0;padding:0 16px;color:#8792a2;font-size:11px;text-align:center;line-height:1.5}
     @media(max-width:980px){.metrics{grid-template-columns:repeat(3,1fr)}.grid-2{grid-template-columns:1fr}.today-grid{grid-template-columns:1fr}.team-grid{grid-template-columns:repeat(2,1fr)}}
-    @media(max-width:640px){.topbar{padding-left:9px;padding-right:9px}.topbar-inner{grid-template-columns:42px 1fr 42px}.back,.refresh{width:42px;padding:0;font-size:0}.back::after{content:"←";font-size:20px}.refresh::after{content:"↻";font-size:20px}.brand h1{font-size:17px}.brand p{font-size:10px}.nav-wrap{margin-top:10px}.metrics{grid-template-columns:repeat(2,1fr)}.metric:last-child{grid-column:1/-1}.metric-value{font-size:24px}.view-head{align-items:flex-start;flex-direction:column}.source-note{text-align:left}.today-grid,.team-grid{grid-template-columns:1fr}.game-details{grid-template-columns:1fr}.scorers{grid-column:auto}.field,.field.grow{width:100%}.field input,.field select,.field.grow input{width:100%;min-width:0}main{padding-left:11px;padding-right:11px}}
+    @media(max-width:640px){.roster-panel{min-height:720px}.roster-frame{height:calc(100vh - 165px);min-height:720px}.topbar{padding-left:9px;padding-right:9px}.topbar-inner{grid-template-columns:42px 1fr 42px}.back,.refresh{width:42px;padding:0;font-size:0}.back::after{content:"←";font-size:20px}.refresh::after{content:"↻";font-size:20px}.brand h1{font-size:17px}.brand p{font-size:10px}.nav-wrap{margin-top:10px}.metrics{grid-template-columns:repeat(2,1fr)}.metric:last-child{grid-column:1/-1}.metric-value{font-size:24px}.view-head{align-items:flex-start;flex-direction:column}.source-note{text-align:left}.today-grid,.team-grid{grid-template-columns:1fr}.game-details{grid-template-columns:1fr}.scorers{grid-column:auto}.field,.field.grow{width:100%}.field input,.field select,.field.grow input{width:100%;min-width:0}main{padding-left:11px;padding-right:11px}}
   </style>
 </head>
 <body>
@@ -36,15 +37,17 @@
   <header class="topbar">
     <div class="topbar-inner">
       <button class="back" id="backBtn" type="button" aria-label="Back to Dashboard">Dashboard</button>
-      <div class="brand"><h1>NHL Analytics</h1><p>Version 0.1.0 · NHL Analytics Foundation & Data Insights</p></div>
+      <div class="brand"><h1>NHL Analytics</h1><p>Version 0.2.0 · NHL Analytics Foundation & Data Insights</p></div>
       <button class="refresh" id="refreshBtn" type="button" aria-label="Refresh NHL data">Refresh</button>
     </div>
     <div class="nav-wrap"><nav class="tabs" aria-label="NHL Analytics sections">
       <button class="tab active" data-view="overview">Overview</button>
       <button class="tab" data-view="today">Today</button>
       <button class="tab" data-view="games">Games</button>
-      <button class="tab" data-view="model">Model</button>
+      
       <button class="tab" data-view="betting">Betting</button>
+      <button class="tab" data-view="roster">Roster Simulation</button>
+      <button class="tab admin-only hidden" data-view="model" data-admin-only="true">Model Diagnostics</button>
     </nav></div>
   </header>
   <main>
@@ -64,8 +67,17 @@
       <div class="filters"><div class="field grow"><label for="gameSearch">Team / goalie / prediction</label><input id="gameSearch" type="search" placeholder="Search games…"></div><div class="field"><label for="teamFilter">Team</label><select id="teamFilter"><option value="">All teams</option></select></div><div class="field"><label for="dateFrom">From</label><input id="dateFrom" type="date"></div><div class="field"><label for="dateTo">To</label><input id="dateTo" type="date"></div><button class="secondary" id="clearFilters" type="button">Clear</button></div>
       <div id="gamesTable"></div><button id="loadMoreGames" class="load-more hidden" type="button">Load more</button>
     </section>
-    <section id="model" class="view">
-      <div class="view-head"><div><h2>Model Analytics</h2><p>Mean Squared Error, Log Loss, and line accuracy summarized from stored results.</p></div><div class="source-note">Metrics are shown only where historical records contain them.</div></div>
+
+    <section id="roster" class="view">
+      <div class="view-head"><div><h2>Roster Simulation</h2><p>Build custom NHL rosters and simulate matchups without leaving NHL Analytics.</p></div><div class="source-note">Embedded NHL Game Simulator</div></div>
+      <section class="panel roster-panel">
+        <div id="rosterLoading" class="roster-loading"><div class="roster-spinner"></div><strong>Loading Roster Simulation…</strong><span>The simulator is running inside NHL Analytics.</span></div>
+        <iframe id="rosterFrame" class="roster-frame" title="NHL Roster Simulation" src="https://rogersdylan1027.shinyapps.io/NHL-Game-Simulator/" loading="lazy" allow="clipboard-read; clipboard-write" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      </section>
+    </section>
+
+    <section id="model" class="view admin-only hidden" data-admin-only="true">
+      <div class="view-head"><div><h2>Model Diagnostics</h2><p>Mean Squared Error, Log Loss, and line accuracy summarized from stored results.</p></div><div class="source-note">Metrics are shown only where historical records contain them.</div></div>
       <div id="modelMetrics" class="metrics"></div>
       <div class="grid-2"><section class="panel"><div class="panel-head"><h3>Daily Model Error</h3><span class="panel-note">Average MSE and Log Loss</span></div><div id="modelChart"></div></section><section class="panel"><div class="panel-head"><h3>Team Model Summary</h3><span class="panel-note">Games involving each team</span></div><div id="teamModelTable"></div></section></div>
       <section><div class="panel-head"><h3>Team Performance</h3><span class="panel-note">Line accuracy is for games involving the team</span></div><div id="teamCards" class="team-grid"></div></section>
@@ -78,6 +90,6 @@
   </main>
   <footer class="footer">NHL Analytics reads model outputs produced by the NHL-Predictions repository. It does not recalculate or replace the prediction model.</footer>
 </div>
-<script src="./nhl-analytics.js?v=0.1.0"></script>
+<script src="./nhl-analytics.js?v=0.2.0"></script>
 </body>
 </html>
