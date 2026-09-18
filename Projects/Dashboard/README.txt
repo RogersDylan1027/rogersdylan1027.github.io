@@ -104,3 +104,20 @@ NHL Analytics metric clarification · 2026-09-18
 - The displayed value now uses totalLines, representing all tracked prediction
   lines instead of counting only games.
 - NHL Analytics remains Version 0.1.0; My Dashboard remains Version 0.10.4.
+
+
+PROJECT CHANGELOG · 2026-09-18
+==============================
+NHL Analytics · Version 0.2.0: Roster Simulation & Admin Model Diagnostics
+
+Adds the existing NHL Shiny simulator directly inside NHL Analytics as Roster Simulation so users can build custom rosters and simulate matchups without leaving the Dashboard, while restricting MSE, Log Loss, team error summaries, and other Model Diagnostics to administrators through the existing Dashboard admin system.
+
+- Added embedded Roster Simulation using the existing deployed NHL Shiny app.
+- Renamed Model to Model Diagnostics and restricted it to administrators.
+- Reused the existing Dashboard admin/authentication system; no new Supabase
+  tables or permission model were added.
+- Dashboard/projects.json was checked and does not require a change.
+- Documents/privacy.html and Documents/tos.html were checked; no legal-text
+  change is required because this release adds no new user-data collection.
+- My Dashboard remains Version 0.10.4 because the Dashboard page itself only
+  received this project changelog entry.
