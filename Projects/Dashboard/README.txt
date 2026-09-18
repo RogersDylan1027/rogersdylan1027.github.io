@@ -97,3 +97,10 @@ Introduces the NHL Analytics project with live current-day predictions from Game
   adds no new user-data collection.
 - My Dashboard remains Version 0.10.4. This project changelog entry alone does
   not increment the Dashboard version.
+
+
+NHL Analytics metric clarification · 2026-09-18
+- Changed the NHL Analytics Overview card from "Games Analyzed" to "Bets".
+- The displayed value now uses totalLines, representing all tracked prediction
+  lines instead of counting only games.
+- NHL Analytics remains Version 0.1.0; My Dashboard remains Version 0.10.4.
