@@ -40,7 +40,7 @@ VERSION 0.1.0 FEATURES
 ======================
 Overview
 - Overall correct-line accuracy.
-- Total games analyzed.
+- Total bets/prediction lines tracked.
 - Number of historical prediction days.
 - Seven-day and 30-day accuracy windows based on the most recent stored date.
 - Daily accuracy trend chart.
@@ -128,3 +128,9 @@ FUTURE ROADMAP
 - Additional visualizations and export options.
 - Database-backed analytics only if the JSON history becomes too large for
   practical browser-side analysis.
+
+
+Dashboard label clarification · 2026-09-18
+- The Overview metric previously labeled "Games Analyzed" now displays "Bets".
+- Its value is the sum of totalLines across historical results, so it represents
+  the number of tracked prediction lines rather than the number of games.
