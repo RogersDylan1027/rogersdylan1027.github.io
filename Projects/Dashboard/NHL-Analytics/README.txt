@@ -1,11 +1,11 @@
 NHL ANALYTICS PROJECT
 
 Current version
-0.1.0
+0.2.0
 
-Version 0.1.0: NHL Analytics Foundation & Data Insights
+Version 0.2.0: Roster Simulation & Admin Model Diagnostics
 
-Introduces the NHL Analytics project with live current-day predictions from Game Results.json and historical performance analysis from All Results.json, including overall line accuracy, game history, MSE/Log Loss trends, team filters, and tracked betting-line performance, while keeping the NHL-Predictions workflow as the single source of truth.
+Adds the existing NHL Shiny simulator directly inside NHL Analytics as the user-facing Roster Simulation view, keeping users inside the Dashboard while they build custom rosters and simulate matchups. Model Diagnostics is now restricted to administrators so MSE, Log Loss, team error summaries, and other technical model-development metrics remain available for model review without cluttering the regular-user experience.
 
 PURPOSE
 =======
@@ -134,3 +134,28 @@ Dashboard label clarification · 2026-09-18
 - The Overview metric previously labeled "Games Analyzed" now displays "Bets".
 - Its value is the sum of totalLines across historical results, so it represents
   the number of tracked prediction lines rather than the number of games.
+
+
+VERSION 0.2.0 FEATURES
+======================
+Roster Simulation
+- Adds a new Roster Simulation tab for all approved NHL Analytics users.
+- Embeds the existing deployed NHL Game Simulator directly in NHL Analytics.
+- Users remain inside the Dashboard while using the Shiny app.
+- Uses responsive iframe sizing for desktop, iPhone, PWA, and app-shell use.
+- Shows an in-page loading state while the Shiny session starts.
+
+Admin Model Diagnostics
+- Renames the former Model view to Model Diagnostics.
+- Restricts the Model Diagnostics navigation tab and view to administrators.
+- Uses the Dashboard's existing authenticated admin state, with the existing
+  is_admin RPC as a fallback.
+- Regular users do not render the MSE, Log Loss, or team model-error panels.
+- Direct navigation to #model falls back to Overview for non-admin users.
+
+Regular-user navigation
+Overview | Today | Games | Betting | Roster Simulation
+
+Admin navigation
+Overview | Today | Games | Betting | Roster Simulation | Model Diagnostics
+
