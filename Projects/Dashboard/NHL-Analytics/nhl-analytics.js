@@ -1,10 +1,10 @@
 (() => {
   "use strict";
-  const VERSION = "0.1.0";
+  const VERSION = "0.2.0";
   const HISTORY_URL = "/All%20Results.json";
   const TODAY_URL = "/Game%20Results.json";
   const $ = id => document.getElementById(id);
-  const state = { history: [], games: [], today: [], filtered: [], shown: 100, loadedAt: null };
+  const state = { history: [], games: [], today: [], filtered: [], shown: 100, loadedAt: null, isAdmin: false };
   const esc = value => String(value ?? "").replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
   const num = value => { const n = Number(value); return Number.isFinite(n) ? n : null; };
   const pct = value => Number.isFinite(value) ? (value * 100).toFixed(1) + "%" : "—";
@@ -38,6 +38,31 @@
     const correct = num(game.correctLines), total = num(game.totalLines), bets = bettingSelections(game.bettingLines);
     return {...game,date,home,away,outcome,homeGoalie:normalizeGoalie(game.homeGoalie),awayGoalie:normalizeGoalie(game.awayGoalie),homeScorersList:normalizeList(game.homeScorers),awayScorersList:normalizeList(game.awayScorers),correct,total,lineAccuracy:Number.isFinite(correct)&&Number.isFinite(total)&&total>0?correct/total:null,homeMSE:num(game.homeMeanSquaredError),awayMSE:num(game.awayMeanSquaredError),homeLL:num(game.homeLogLoss),awayLL:num(game.awayLogLoss),bets,correctBets:num(game.correctBettingLines)};
   }
+
+  async function resolveAdminAccess() {
+    const access = window.DashboardEntryAuth?.access;
+    if (typeof access?.admin === "boolean") return access.admin;
+    const client = window.DashboardEntryAuth?.client || window.DashboardAuth?.client || window.supabaseClient || null;
+    if (!client?.rpc) return false;
+    try {
+      const { data, error } = await client.rpc("is_admin");
+      if (error) throw error;
+      return data === true;
+    } catch (error) {
+      console.warn("NHL Analytics admin check failed.", error);
+      return false;
+    }
+  }
+  function applyAdminAccess() {
+    document.querySelectorAll("[data-admin-only='true']").forEach(el => el.classList.toggle("hidden", !state.isAdmin));
+    if (!state.isAdmin && location.hash === "#model") switchView("overview");
+  }
+  function setupRosterSimulation() {
+    const frame = $("rosterFrame"), loading = $("rosterLoading");
+    if (!frame || !loading) return;
+    frame.addEventListener("load", () => loading.classList.add("hidden"));
+  }
+
   async function fetchJson(url) { const response=await fetch(url+"?t="+Date.now(),{cache:"no-store"}); if(!response.ok) throw new Error(response.status+" "+response.statusText); return response.json(); }
   async function loadData() {
     $("refreshBtn").disabled=true; setStatus("Loading NHL prediction data…","");
@@ -99,13 +124,15 @@
     $("bettingMetrics").innerHTML=metric("Tracked Games",games.length.toString(),"Games with betting data")+metric("Recorded Picks",picks.toString(),"Parsed betting selections")+metric("Correct Picks",correct.toString(),"Sum of correctBettingLines")+metric("Pick Accuracy",denom?pct(correct/denom):"—",denom?correct+" of "+denom+" parsed picks":"No denominator available")+metric("Scored Betting Games",gamesWithCorrect.length.toString(),"Games with correctBettingLines");
     $("bettingTable").innerHTML=games.length?'<div class="table-wrap"><table class="data-table"><thead><tr><th>Date</th><th>Matchup</th><th>Betting Selection</th><th>Correct Picks</th><th>Game Line Accuracy</th></tr></thead><tbody>'+games.slice(0,500).map(g=>'<tr><td class="nowrap">'+esc(formatDate(g.date))+'</td><td><span class="team">'+esc(g.away)+'</span> @ <span class="team">'+esc(g.home)+'</span></td><td>'+esc(g.bets.join("; ")||"—")+'</td><td>'+esc(Number.isFinite(g.correctBets)?g.correctBets:"—")+'</td><td>'+pct(g.lineAccuracy)+'</td></tr>').join("")+'</tbody></table></div>':'<div class="empty">No historical betting fields are available yet.</div>';
   }
-  function renderAll(){state.filtered=[...state.games];renderOverview();renderToday();renderGames();renderModel();renderBetting();}
-  function switchView(id){document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id===id));document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b.dataset.view===id));history.replaceState(null,"","#"+id);window.scrollTo({top:0,behavior:"smooth"});}
+  function renderAll(){state.filtered=[...state.games];renderOverview();renderToday();renderGames();renderBetting();if(state.isAdmin)renderModel();}
+  function switchView(id){if(id==="model"&&!state.isAdmin)id="overview";document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id===id));document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b.dataset.view===id));history.replaceState(null,"","#"+id);window.scrollTo({top:0,behavior:"smooth"});}
   document.querySelectorAll(".tab").forEach(btn=>btn.addEventListener("click",()=>switchView(btn.dataset.view)));
   $("backBtn").addEventListener("click",()=>location.href="../");$("refreshBtn").addEventListener("click",loadData);
   ["gameSearch","teamFilter","dateFrom","dateTo"].forEach(id=>$(id).addEventListener(id==="gameSearch"?"input":"change",applyGameFilters));
   $("clearFilters").addEventListener("click",()=>{$("gameSearch").value="";$("teamFilter").value="";$("dateFrom").value="";$("dateTo").value="";applyGameFilters();});
   $("loadMoreGames").addEventListener("click",()=>{state.shown+=100;renderGamesTable();});
-  const initial=location.hash.slice(1);if(["overview","today","games","model","betting"].includes(initial))switchView(initial);
+  const initial=location.hash.slice(1);if(["overview","today","games","model","betting","roster"].includes(initial))switchView(initial);
+  setupRosterSimulation();
+  resolveAdminAccess().then(isAdmin=>{state.isAdmin=isAdmin;applyAdminAccess();if(state.games.length)renderAll();}).catch(()=>{state.isAdmin=false;applyAdminAccess();});
   loadData().catch(error=>{console.error(error);setStatus("NHL Analytics could not initialize. "+error.message,"bad");$("refreshBtn").disabled=false;});
 })();
