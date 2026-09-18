@@ -79,3 +79,21 @@ TEST CHECKLIST
 8. Confirm account approval, decline, support messaging, Calendar, Projects,
    Streaming, Reviews, Budget, Files, and other existing Dashboard behavior are
    unchanged.
+
+
+PROJECT CHANGELOG · 2026-09-18
+==============================
+NHL Analytics · Version 0.1.0: NHL Analytics Foundation & Data Insights
+
+Introduces the NHL Analytics project with live current-day predictions from Game Results.json and historical performance analysis from All Results.json, including overall line accuracy, game history, MSE/Log Loss trends, team filters, and tracked betting-line performance, while keeping the NHL-Predictions workflow as the single source of truth.
+
+- Added Dashboard/NHL-Analytics/index.html.
+- Added Dashboard/NHL-Analytics/nhl-analytics.js.
+- Added Dashboard/NHL-Analytics/README.txt.
+- Dashboard/projects.json was checked; NHL Analytics was already registered and
+  did not require a registry change.
+- Documents/privacy.html and Documents/tos.html were checked; no legal-text
+  change is required because this project reads existing public JSON output and
+  adds no new user-data collection.
+- My Dashboard remains Version 0.10.4. This project changelog entry alone does
+  not increment the Dashboard version.
