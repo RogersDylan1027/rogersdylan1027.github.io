@@ -1,6 +1,6 @@
 /*
-  My Dashboard · Account Approval Runtime · Version 0.10.0
-  Account Approval & Admin Messaging · 2026-09-16
+  My Dashboard · Account Approval Runtime · Version 0.10.5
+  Account Request & Signup Initialization Fix · 2026-09-23
 */
 (function () {
   "use strict";
@@ -402,5 +402,13 @@
     setTimeout(() => showUnreadNotifications().catch(console.warn), 1200);
   }
 
-  document.addEventListener("DOMContentLoaded", () => { init().catch(console.error); });
+  if (document.readyState === "loading") {
+    document.addEventListener(
+      "DOMContentLoaded",
+      () => { init().catch(console.error); },
+      { once: true }
+    );
+  } else {
+    init().catch(console.error);
+  }
 })();
