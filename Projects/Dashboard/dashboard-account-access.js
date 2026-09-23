@@ -225,14 +225,15 @@
   }
 
   async function installAdminAccessControls() {
-    if (!location.pathname.endsWith("/index.html") && !location.pathname.endsWith("/Dashboard/")) return;
+    if (!location.pathname.endsWith("/index.html") && !location.pathname.endsWith("/Dashboard/")) return false;
     const settings = document.getElementById("settings-view");
     const host = settings?.querySelector(".settings-content");
-    if (!host || document.getElementById("dashboard-account-admin-section")) return;
+    if (!host) return false;
+    if (document.getElementById("dashboard-account-admin-section")) return true;
 
     const client = await getClient();
     const { data: access, error } = await client.rpc("dashboard_account_access_state");
-    if (error || !access?.admin) return;
+    if (error || !access?.admin) return false;
 
     const section = makeSection(
       access.main_admin ? "Account Approvals & Administrators" : "Account Support",
@@ -369,6 +370,7 @@
     catch (error) {
       content.textContent = error?.message || "Account administration could not be loaded.";
     }
+    return true;
   }
 
   async function installNotificationCenter() {
@@ -567,25 +569,43 @@
   }
 
   function ensureNotificationCenter(attempt = 0) {
-    if (document.getElementById("dashboard-notification-center")) return;
+    const root = document.getElementById("dashboard-notification-center");
+    if (root?.dataset.dashboardNotificationHydrated === "true") return;
     installNotificationCenter()
       .then(installed => {
-        if (installed === false && attempt < 40) {
+        if (installed === false && attempt < 60) {
           setTimeout(() => ensureNotificationCenter(attempt + 1), 250);
         }
       })
       .catch(error => {
         console.warn("Notification center:", error);
-        if (attempt < 40) setTimeout(() => ensureNotificationCenter(attempt + 1), 250);
+        if (attempt < 60) setTimeout(() => ensureNotificationCenter(attempt + 1), 250);
+      });
+  }
+
+  function ensureAdminAccessControls(attempt = 0) {
+    if (document.getElementById("dashboard-account-admin-section")) return;
+    installAdminAccessControls()
+      .then(installed => {
+        if (installed === false && attempt < 60) {
+          setTimeout(() => ensureAdminAccessControls(attempt + 1), 250);
+        }
+      })
+      .catch(error => {
+        console.warn("Account administration:", error);
+        if (attempt < 60) setTimeout(() => ensureAdminAccessControls(attempt + 1), 250);
       });
   }
 
   async function init() {
     installAccountRequestView();
     await installSupportView();
-    setTimeout(() => installAdminAccessControls().catch(console.warn), 350);
+    ensureAdminAccessControls();
     ensureNotificationCenter();
-    window.addEventListener("dashboard-auth-ready", () => ensureNotificationCenter(), { passive: true });
+    window.addEventListener("dashboard-auth-ready", () => {
+      ensureAdminAccessControls();
+      ensureNotificationCenter();
+    }, { passive: true });
   }
 
   if (document.readyState === "loading") {
