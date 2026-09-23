@@ -93,19 +93,19 @@
     dashboardIndexUrl: BASE_PATH + "index.html",
     loginUrl: BASE_PATH + "login.html",
     projectsUrl: BASE_PATH + "projects.json",
-    manifestUrl: BASE_PATH + "manifest.webmanifest?v=0.10.7-bellcorefix",
-    serviceWorkerUrl: BASE_PATH + "service-worker.js?v=0.10.7-bellcorefix",
-    pwaRuntimeUrl: BASE_PATH + "dashboard-pwa.js?v=0.10.7-bellcorefix",
-    accountAccessRuntimeUrl: BASE_PATH + "dashboard-account-access.js?v=0.10.7-bellcorefix",
-    logoUrl: BASE_PATH + "logo-app.png?v=0.10.7-bellcorefix",
-    appLogoUrl: BASE_PATH + "logo-app.png?v=0.10.7-bellcorefix",
-    dashboardLogoUrl: BASE_PATH + "logo-dashboard.png?v=0.10.7-bellcorefix",
-    professionalLogoUrl: BASE_PATH + "logo-professional.png?v=0.10.7-bellcorefix",
+    manifestUrl: BASE_PATH + "manifest.webmanifest?v=0.10.7-modalbell",
+    serviceWorkerUrl: BASE_PATH + "service-worker.js?v=0.10.7-modalbell",
+    pwaRuntimeUrl: BASE_PATH + "dashboard-pwa.js?v=0.10.7-modalbell",
+    accountAccessRuntimeUrl: BASE_PATH + "dashboard-account-access.js?v=0.10.7-modalbell",
+    logoUrl: BASE_PATH + "logo-app.png?v=0.10.7-modalbell",
+    appLogoUrl: BASE_PATH + "logo-app.png?v=0.10.7-modalbell",
+    dashboardLogoUrl: BASE_PATH + "logo-dashboard.png?v=0.10.7-modalbell",
+    professionalLogoUrl: BASE_PATH + "logo-professional.png?v=0.10.7-modalbell",
     streamingUrl: BASE_PATH + "Streaming/",
     reviewsUrl: BASE_PATH + "Reviews/",
     budgetUrl: BASE_PATH + "Budget/",
-    streamingClientUrl: BASE_PATH + "dashboard-streaming.js?v=0.10.7-bellcorefix",
-    streamingUiUrl: BASE_PATH + "dashboard-streaming-ui.js?v=0.10.7-bellcorefix"
+    streamingClientUrl: BASE_PATH + "dashboard-streaming.js?v=0.10.7-modalbell",
+    streamingUiUrl: BASE_PATH + "dashboard-streaming-ui.js?v=0.10.7-modalbell"
   });
 
   function installRuntimeScript(src, marker) {
@@ -291,7 +291,7 @@
     {
       version: "0.10.7",
       title: "Persistent Admin Notification Bell",
-      description: "Keeps the notification bell permanently visible for administrators whether or not there are unread notifications, preserves the unread badge only when needed, and ensures the same admin notification control appears reliably in the installed Home Screen app."
+      description: "Keeps the notification bell permanently visible for administrators, preserves unread counts, uses a centered Dashboard-style notification popup on web and the installed Home Screen app, and keeps account-request approval and decline actions accessible inside the notification experience."
     },
     {
       version: "0.10.6",
