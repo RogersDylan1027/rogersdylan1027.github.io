@@ -1,4 +1,4 @@
-/* My Dashboard · PWA Runtime · Version 0.10.6 · Reliable Admin Notifications & Notification Center · 2026-09-23 */
+/* My Dashboard · PWA Runtime · Version 0.10.7 · Persistent Admin Notification Bell · 2026-09-23 */
 (function () {
   "use strict";
   const config = window.DashboardConfig;
