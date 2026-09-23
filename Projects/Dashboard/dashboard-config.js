@@ -93,19 +93,19 @@
     dashboardIndexUrl: BASE_PATH + "index.html",
     loginUrl: BASE_PATH + "login.html",
     projectsUrl: BASE_PATH + "projects.json",
-    manifestUrl: BASE_PATH + "manifest.webmanifest?v=0.10.7-bellfix",
-    serviceWorkerUrl: BASE_PATH + "service-worker.js?v=0.10.7-bellfix",
-    pwaRuntimeUrl: BASE_PATH + "dashboard-pwa.js?v=0.10.7-bellfix",
-    accountAccessRuntimeUrl: BASE_PATH + "dashboard-account-access.js?v=0.10.7-bellfix",
-    logoUrl: BASE_PATH + "logo-app.png?v=0.10.7-bellfix",
-    appLogoUrl: BASE_PATH + "logo-app.png?v=0.10.7-bellfix",
-    dashboardLogoUrl: BASE_PATH + "logo-dashboard.png?v=0.10.7-bellfix",
-    professionalLogoUrl: BASE_PATH + "logo-professional.png?v=0.10.7-bellfix",
+    manifestUrl: BASE_PATH + "manifest.webmanifest?v=0.10.7-staticbell",
+    serviceWorkerUrl: BASE_PATH + "service-worker.js?v=0.10.7-staticbell",
+    pwaRuntimeUrl: BASE_PATH + "dashboard-pwa.js?v=0.10.7-staticbell",
+    accountAccessRuntimeUrl: BASE_PATH + "dashboard-account-access.js?v=0.10.7-staticbell",
+    logoUrl: BASE_PATH + "logo-app.png?v=0.10.7-staticbell",
+    appLogoUrl: BASE_PATH + "logo-app.png?v=0.10.7-staticbell",
+    dashboardLogoUrl: BASE_PATH + "logo-dashboard.png?v=0.10.7-staticbell",
+    professionalLogoUrl: BASE_PATH + "logo-professional.png?v=0.10.7-staticbell",
     streamingUrl: BASE_PATH + "Streaming/",
     reviewsUrl: BASE_PATH + "Reviews/",
     budgetUrl: BASE_PATH + "Budget/",
-    streamingClientUrl: BASE_PATH + "dashboard-streaming.js?v=0.10.7-bellfix",
-    streamingUiUrl: BASE_PATH + "dashboard-streaming-ui.js?v=0.10.7-bellfix"
+    streamingClientUrl: BASE_PATH + "dashboard-streaming.js?v=0.10.7-staticbell",
+    streamingUiUrl: BASE_PATH + "dashboard-streaming-ui.js?v=0.10.7-staticbell"
   });
 
   function installRuntimeScript(src, marker) {
