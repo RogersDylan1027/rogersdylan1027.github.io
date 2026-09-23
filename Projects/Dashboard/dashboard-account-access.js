@@ -372,35 +372,37 @@
   }
 
   async function installNotificationCenter() {
-    if (document.getElementById("dashboard-notification-center")) return;
+    const existingRoot = document.getElementById("dashboard-notification-center");
+    if (existingRoot?.dataset.dashboardNotificationHydrated === "true") return true;
     if (!window.DashboardEntryAuth?.user || !window.DashboardEntryAuth?.access) return false;
     const access = window.DashboardEntryAuth.access;
     if (!access?.admin) return false;
 
     const client = await getClient();
     const bar = document.querySelector(".account-bar");
-    const root = document.createElement("div");
+    const root = existingRoot || document.createElement("div");
     root.id = "dashboard-notification-center";
+    root.hidden = false;
     root.dataset.dashboardNotificationPersistent = "true";
     root.style.cssText = bar
       ? "position:relative;display:inline-flex;align-items:center;"
       : "position:fixed;z-index:10030;top:calc(12px + env(safe-area-inset-top));right:calc(12px + env(safe-area-inset-right));display:inline-flex;align-items:center;";
 
-    const button = document.createElement("button");
+    const button = root.querySelector("#dashboard-notification-button") || document.createElement("button");
     button.id = "dashboard-notification-button";
     button.type = "button";
     button.setAttribute("aria-label", "Notifications");
     button.setAttribute("aria-expanded", "false");
     button.style.cssText = "position:relative;min-width:38px;height:34px;padding:5px 10px;border:1px solid #b9c0ca;border-radius:18px;background:#fff;color:#252525;font-size:18px;line-height:1;cursor:pointer;";
-    button.textContent = "🔔";
+    if (!button.textContent.trim()) button.textContent = "🔔";
 
-    const badge = document.createElement("span");
+    const badge = root.querySelector("#dashboard-notification-badge") || document.createElement("span");
     badge.id = "dashboard-notification-badge";
     badge.hidden = true;
     badge.style.cssText = "position:absolute;top:-5px;right:-4px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:#b3261e;color:#fff;font-size:10px;font-weight:800;line-height:18px;text-align:center;";
-    button.appendChild(badge);
+    if (!badge.parentElement) button.appendChild(badge);
 
-    const panel = document.createElement("div");
+    const panel = root.querySelector("#dashboard-notification-panel") || document.createElement("div");
     panel.id = "dashboard-notification-panel";
     panel.hidden = true;
     panel.style.cssText = "position:absolute;z-index:10020;top:42px;right:0;width:min(360px,calc(100vw - 32px));max-height:70vh;overflow:auto;padding:12px;border:1px solid #d5d9df;border-radius:16px;background:#fff;box-shadow:0 18px 45px rgba(0,0,0,.16);";
@@ -418,12 +420,13 @@
     const list = document.createElement("div");
     list.id = "dashboard-notification-list";
     panel.append(header, list);
-    root.append(button, panel);
-    if (bar) {
-      bar.insertBefore(root, bar.firstChild);
-    } else {
-      document.body.appendChild(root);
+    if (!button.parentElement) root.appendChild(button);
+    if (!panel.parentElement) root.appendChild(panel);
+    if (!root.parentElement) {
+      if (bar) bar.insertBefore(root, bar.firstChild);
+      else document.body.appendChild(root);
     }
+    root.dataset.dashboardNotificationHydrated = "true";
 
     async function openAccountRequests(requestId = null) {
       const settings = document.getElementById("settings-view");
