@@ -1,6 +1,6 @@
 /*
-  My Dashboard · Shared Configuration · Version 0.10.4
-  Approved Logo Assets & Placement Verification · 2026-09-16
+  My Dashboard · Shared Configuration · Version 0.10.5
+  Account Request & Signup Initialization Fix · 2026-09-23
 
   The Supabase publishable key is intentionally browser-safe.
   Never place a service_role key or another secret in browser JavaScript.
@@ -84,8 +84,8 @@
   }
 
   window.DashboardConfig = Object.freeze({
-    version: "0.10.4",
-    releaseTitle: "Approved Logo Assets & Placement Verification",
+    version: "0.10.5",
+    releaseTitle: "Account Request & Signup Initialization Fix",
     supabaseUrl: "https://pyefiovoicvhigkjhhts.supabase.co",
     supabasePublishableKey: "sb_publishable_sVrxppe8B1QkXYqAPm6ddQ_x4MA5j32",
     supabaseScriptUrl: "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.js",
@@ -93,19 +93,19 @@
     dashboardIndexUrl: BASE_PATH + "index.html",
     loginUrl: BASE_PATH + "login.html",
     projectsUrl: BASE_PATH + "projects.json",
-    manifestUrl: BASE_PATH + "manifest.webmanifest?v=0.10.4",
-    serviceWorkerUrl: BASE_PATH + "service-worker.js?v=0.10.4",
-    pwaRuntimeUrl: BASE_PATH + "dashboard-pwa.js?v=0.10.4",
-    accountAccessRuntimeUrl: BASE_PATH + "dashboard-account-access.js?v=0.10.4",
-    logoUrl: BASE_PATH + "logo-app.png?v=0.10.4",
-    appLogoUrl: BASE_PATH + "logo-app.png?v=0.10.4",
-    dashboardLogoUrl: BASE_PATH + "logo-dashboard.png?v=0.10.4",
-    professionalLogoUrl: BASE_PATH + "logo-professional.png?v=0.10.4",
+    manifestUrl: BASE_PATH + "manifest.webmanifest?v=0.10.5",
+    serviceWorkerUrl: BASE_PATH + "service-worker.js?v=0.10.5",
+    pwaRuntimeUrl: BASE_PATH + "dashboard-pwa.js?v=0.10.5",
+    accountAccessRuntimeUrl: BASE_PATH + "dashboard-account-access.js?v=0.10.5",
+    logoUrl: BASE_PATH + "logo-app.png?v=0.10.5",
+    appLogoUrl: BASE_PATH + "logo-app.png?v=0.10.5",
+    dashboardLogoUrl: BASE_PATH + "logo-dashboard.png?v=0.10.5",
+    professionalLogoUrl: BASE_PATH + "logo-professional.png?v=0.10.5",
     streamingUrl: BASE_PATH + "Streaming/",
     reviewsUrl: BASE_PATH + "Reviews/",
     budgetUrl: BASE_PATH + "Budget/",
-    streamingClientUrl: BASE_PATH + "dashboard-streaming.js?v=0.10.4",
-    streamingUiUrl: BASE_PATH + "dashboard-streaming-ui.js?v=0.10.4"
+    streamingClientUrl: BASE_PATH + "dashboard-streaming.js?v=0.10.5",
+    streamingUiUrl: BASE_PATH + "dashboard-streaming-ui.js?v=0.10.5"
   });
 
   function installRuntimeScript(src, marker) {
@@ -281,6 +281,11 @@
   }
 
   const runtimeChangelogEntries = [
+    {
+      version: "0.10.5",
+      title: "Account Request & Signup Initialization Fix",
+      description: "Fixes the account request and signup initialization issue that could prevent the login flow from initializing correctly."
+    },
     {
       version: "0.10.4",
       title: "Approved Logo Assets & Placement Verification",
