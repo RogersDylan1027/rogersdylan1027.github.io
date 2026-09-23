@@ -93,19 +93,19 @@
     dashboardIndexUrl: BASE_PATH + "index.html",
     loginUrl: BASE_PATH + "login.html",
     projectsUrl: BASE_PATH + "projects.json",
-    manifestUrl: BASE_PATH + "manifest.webmanifest?v=0.10.7-pushserverfix",
-    serviceWorkerUrl: BASE_PATH + "service-worker.js?v=0.10.7-pushserverfix",
-    pwaRuntimeUrl: BASE_PATH + "dashboard-pwa.js?v=0.10.7-pushserverfix",
-    accountAccessRuntimeUrl: BASE_PATH + "dashboard-account-access.js?v=0.10.7-pushserverfix",
-    logoUrl: BASE_PATH + "logo-app.png?v=0.10.7-pushserverfix",
-    appLogoUrl: BASE_PATH + "logo-app.png?v=0.10.7-pushserverfix",
-    dashboardLogoUrl: BASE_PATH + "logo-dashboard.png?v=0.10.7-pushserverfix",
-    professionalLogoUrl: BASE_PATH + "logo-professional.png?v=0.10.7-pushserverfix",
+    manifestUrl: BASE_PATH + "manifest.webmanifest?v=0.10.7-bellcorefix",
+    serviceWorkerUrl: BASE_PATH + "service-worker.js?v=0.10.7-bellcorefix",
+    pwaRuntimeUrl: BASE_PATH + "dashboard-pwa.js?v=0.10.7-bellcorefix",
+    accountAccessRuntimeUrl: BASE_PATH + "dashboard-account-access.js?v=0.10.7-bellcorefix",
+    logoUrl: BASE_PATH + "logo-app.png?v=0.10.7-bellcorefix",
+    appLogoUrl: BASE_PATH + "logo-app.png?v=0.10.7-bellcorefix",
+    dashboardLogoUrl: BASE_PATH + "logo-dashboard.png?v=0.10.7-bellcorefix",
+    professionalLogoUrl: BASE_PATH + "logo-professional.png?v=0.10.7-bellcorefix",
     streamingUrl: BASE_PATH + "Streaming/",
     reviewsUrl: BASE_PATH + "Reviews/",
     budgetUrl: BASE_PATH + "Budget/",
-    streamingClientUrl: BASE_PATH + "dashboard-streaming.js?v=0.10.7-pushserverfix",
-    streamingUiUrl: BASE_PATH + "dashboard-streaming-ui.js?v=0.10.7-pushserverfix"
+    streamingClientUrl: BASE_PATH + "dashboard-streaming.js?v=0.10.7-bellcorefix",
+    streamingUiUrl: BASE_PATH + "dashboard-streaming-ui.js?v=0.10.7-bellcorefix"
   });
 
   function installRuntimeScript(src, marker) {
