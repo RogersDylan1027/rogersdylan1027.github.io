@@ -93,19 +93,19 @@
     dashboardIndexUrl: BASE_PATH + "index.html",
     loginUrl: BASE_PATH + "login.html",
     projectsUrl: BASE_PATH + "projects.json",
-    manifestUrl: BASE_PATH + "manifest.webmanifest?v=0.10.7-staticbell",
-    serviceWorkerUrl: BASE_PATH + "service-worker.js?v=0.10.7-staticbell",
-    pwaRuntimeUrl: BASE_PATH + "dashboard-pwa.js?v=0.10.7-staticbell",
-    accountAccessRuntimeUrl: BASE_PATH + "dashboard-account-access.js?v=0.10.7-staticbell",
-    logoUrl: BASE_PATH + "logo-app.png?v=0.10.7-staticbell",
-    appLogoUrl: BASE_PATH + "logo-app.png?v=0.10.7-staticbell",
-    dashboardLogoUrl: BASE_PATH + "logo-dashboard.png?v=0.10.7-staticbell",
-    professionalLogoUrl: BASE_PATH + "logo-professional.png?v=0.10.7-staticbell",
+    manifestUrl: BASE_PATH + "manifest.webmanifest?v=0.10.7-loginfix",
+    serviceWorkerUrl: BASE_PATH + "service-worker.js?v=0.10.7-loginfix",
+    pwaRuntimeUrl: BASE_PATH + "dashboard-pwa.js?v=0.10.7-loginfix",
+    accountAccessRuntimeUrl: BASE_PATH + "dashboard-account-access.js?v=0.10.7-loginfix",
+    logoUrl: BASE_PATH + "logo-app.png?v=0.10.7-loginfix",
+    appLogoUrl: BASE_PATH + "logo-app.png?v=0.10.7-loginfix",
+    dashboardLogoUrl: BASE_PATH + "logo-dashboard.png?v=0.10.7-loginfix",
+    professionalLogoUrl: BASE_PATH + "logo-professional.png?v=0.10.7-loginfix",
     streamingUrl: BASE_PATH + "Streaming/",
     reviewsUrl: BASE_PATH + "Reviews/",
     budgetUrl: BASE_PATH + "Budget/",
-    streamingClientUrl: BASE_PATH + "dashboard-streaming.js?v=0.10.7-staticbell",
-    streamingUiUrl: BASE_PATH + "dashboard-streaming-ui.js?v=0.10.7-staticbell"
+    streamingClientUrl: BASE_PATH + "dashboard-streaming.js?v=0.10.7-loginfix",
+    streamingUiUrl: BASE_PATH + "dashboard-streaming-ui.js?v=0.10.7-loginfix"
   });
 
   function installRuntimeScript(src, marker) {
@@ -183,8 +183,15 @@
     favicon.href = window.DashboardConfig.appLogoUrl;
     favicon.type = "image/png";
 
-    installRuntimeScript(window.DashboardConfig.pwaRuntimeUrl, "dashboard-pwa");
-    installRuntimeScript(window.DashboardConfig.accountAccessRuntimeUrl, "dashboard-account-access");
+    const installDashboardRuntimes = () => {
+      installRuntimeScript(window.DashboardConfig.pwaRuntimeUrl, "dashboard-pwa");
+      installRuntimeScript(window.DashboardConfig.accountAccessRuntimeUrl, "dashboard-account-access");
+    };
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", installDashboardRuntimes, { once: true });
+    } else {
+      installDashboardRuntimes();
+    }
   }
 
   function applyBranding() {
