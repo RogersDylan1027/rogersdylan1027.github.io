@@ -25,9 +25,9 @@
 
   <!-- Shared Dashboard configuration and authentication guard. -->
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-  <script src="./dashboard-config.js?v=0.10.7-approvalfix"></script>
+  <script src="./dashboard-config.js?v=0.10.7-reviewfix"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="./dashboard-entry.js?v=0.10.7-approvalfix"></script>
+  <script src="./dashboard-entry.js?v=0.10.7-reviewfix"></script>
 
   <style>
     * { box-sizing: border-box; }
@@ -918,10 +918,30 @@
             .eq("request_id", request.request_id)
             .is("read_at", null);
 
+          const resultMessage = data?.email_sent === false
+            ? "Request " + decision + ", but the email could not be sent. The account review itself was saved."
+            : "Request " + decision + " and email sent.";
+
           await renderDashboardNotificationPanel();
+          const pendingHostAfter = getById("dashboard-pending-account-requests");
+          if (pendingHostAfter) {
+            const notice = document.createElement("div");
+            notice.style.cssText = "margin-top:10px;padding:10px 12px;border-radius:10px;background:" + (data?.email_sent === false ? "#fff4e5" : "#eef7ee") + ";color:#252525;font-size:12px;line-height:1.4;";
+            notice.textContent = resultMessage;
+            pendingHostAfter.prepend(notice);
+          }
         } catch (error) {
           console.error("Account review from notification popup:", error);
-          alert(error?.message || "The account request could not be reviewed.");
+          const message = error?.context?.body?.error || error?.message || "The account request could not be reviewed.";
+          const pendingHostAfter = getById("dashboard-pending-account-requests");
+          if (pendingHostAfter) {
+            const notice = document.createElement("div");
+            notice.style.cssText = "margin-top:10px;padding:10px 12px;border-radius:10px;background:#fdecec;color:#8a1c15;font-size:12px;line-height:1.4;";
+            notice.textContent = message;
+            pendingHostAfter.prepend(notice);
+          } else {
+            alert(message);
+          }
           (buttons || []).forEach(function (button) { button.disabled = false; });
         }
       }
