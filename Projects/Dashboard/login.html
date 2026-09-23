@@ -26,7 +26,7 @@
 
   <link rel="preconnect" href="https://unpkg.com" crossorigin>
 
-  <script src="./dashboard-config.js?v=0.10.7-staticbell"></script>
+  <script src="./dashboard-config.js?v=0.10.7-loginfix"></script>
 
   <style>
     * {
@@ -763,31 +763,31 @@
 
     document
       .getElementById("sign-in-form")
-      .addEventListener("submit", signInWithPassword);
+      ?.addEventListener("submit", signInWithPassword);
 
     document
       .getElementById("google-sign-in")
-      .addEventListener("click", signInWithGoogle);
+      ?.addEventListener("click", signInWithGoogle);
 
     document
       .getElementById("sign-up-form")
-      .addEventListener("submit", createAccount);
+      ?.addEventListener("submit", createAccount);
 
     document
       .getElementById("forgot-form")
-      .addEventListener("submit", sendReset);
+      ?.addEventListener("submit", sendReset);
 
     document
       .getElementById("recovery-form")
-      .addEventListener("submit", saveNewPassword);
+      ?.addEventListener("submit", saveNewPassword);
 
     document
       .getElementById("show-sign-up")
-      .addEventListener("click", () => showView("signUp"));
+      ?.addEventListener("click", () => showView("signUp"));
 
     document
       .getElementById("show-forgot")
-      .addEventListener("click", () => showView("forgot"));
+      ?.addEventListener("click", () => showView("forgot"));
 
     document
       .querySelectorAll(".back-to-sign-in")
