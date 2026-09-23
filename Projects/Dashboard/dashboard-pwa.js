@@ -1,4 +1,4 @@
-/* My Dashboard · PWA Runtime · Version 0.10.5 · Account Request & Signup Initialization Fix · 2026-09-23 */
+/* My Dashboard · PWA Runtime · Version 0.10.6 · Reliable Admin Notifications & Notification Center · 2026-09-23 */
 (function () {
   "use strict";
   const config = window.DashboardConfig;
@@ -45,26 +45,46 @@
     return Uint8Array.from([...raw].map(char => char.charCodeAt(0)));
   }
   async function syncPushSubscription() {
-    if (Notification.permission !== "granted" || !("serviceWorker" in navigator)) return;
+    if (Notification.permission !== "granted" || !("serviceWorker" in navigator)) {
+      throw new Error("Notification permission is not enabled on this device.");
+    }
     const authClient = window.DashboardEntryAuth?.client;
     const access = window.DashboardEntryAuth?.access;
-    if (!authClient || !access?.admin) return;
+    if (!authClient || !access?.admin) {
+      throw new Error("Administrator access is required to register notifications.");
+    }
+
     const registration = await navigator.serviceWorker.ready;
+    const { data: configData, error: configError } =
+      await authClient.functions.invoke("dashboard-push-config", { body: {} });
+    if (configError) throw configError;
+    if (!configData?.publicKey) throw new Error("Push configuration is unavailable.");
+
     let subscription = await registration.pushManager.getSubscription();
     if (!subscription) {
-      const { data, error } = await authClient.functions.invoke("dashboard-push-config", { body: {} });
-      if (error) throw error;
-      if (!data?.publicKey) throw new Error("Push configuration is unavailable.");
-      subscription = await registration.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: base64UrlToUint8Array(data.publicKey) });
+      subscription = await registration.pushManager.subscribe({
+        userVisibleOnly: true,
+        applicationServerKey: base64UrlToUint8Array(configData.publicKey)
+      });
     }
+
     const json = subscription.toJSON();
-    const { error } = await authClient.rpc("save_dashboard_push_subscription", {
-      requested_endpoint: json.endpoint,
-      requested_p256dh: json.keys?.p256dh,
-      requested_auth_key: json.keys?.auth,
-      requested_user_agent: navigator.userAgent
-    });
-    if (error) throw error;
+    const { data: saveData, error: saveError } =
+      await authClient.functions.invoke("dashboard-push-config", {
+        body: {
+          subscription: {
+            endpoint: json.endpoint,
+            p256dh: json.keys?.p256dh,
+            auth: json.keys?.auth,
+            userAgent: navigator.userAgent
+          }
+        }
+      });
+    if (saveError) throw saveError;
+    if (saveData?.registered !== true) {
+      throw new Error("This device could not be verified for Dashboard push notifications.");
+    }
+    return true;
   }
   async function showTestNotification() {
     const registration = await navigator.serviceWorker.ready;
@@ -82,21 +102,33 @@
     const testButton = document.createElement("button"); testButton.type = "button"; testButton.textContent = "Send Test Notification"; testButton.style.cssText = "padding:9px 14px;border:1px solid #2450a4;border-radius:18px;background:#fff;color:#2450a4;font:inherit;font-size:13px;font-weight:600;cursor:pointer;";
     const refresh = () => {
       notificationStatus.textContent = statusText();
-      enableButton.disabled = !("Notification" in window) || Notification.permission === "granted" || Notification.permission === "denied";
+      enableButton.disabled = !("Notification" in window) || Notification.permission === "denied";
+      enableButton.textContent = Notification.permission === "granted" ? "Register This Device" : "Enable Notifications";
       testButton.disabled = !("Notification" in window) || Notification.permission !== "granted" || !("serviceWorker" in navigator);
     };
     enableButton.addEventListener("click", async () => {
       try {
-        await registerServiceWorker(); await Notification.requestPermission();
+        await registerServiceWorker();
+        if (Notification.permission !== "granted") await Notification.requestPermission();
         if (Notification.permission === "granted") {
-          notificationStatus.textContent = "Notifications enabled. Registering this device…";
+          notificationStatus.textContent = "Registering this admin device…";
           await syncPushSubscription();
-          notificationStatus.textContent = "Notifications are enabled and this admin device is registered.";
+          notificationStatus.textContent = "Notifications are enabled and this admin device is registered with My Dashboard.";
         }
       } catch (error) { console.warn("Notification permission/subscription failed:", error); notificationStatus.textContent = error?.message || "Notifications could not be enabled on this device."; }
       refresh();
     });
-    testButton.addEventListener("click", async () => { try { await syncPushSubscription().catch(() => {}); await showTestNotification(); } catch (error) { console.warn("Test notification failed:", error); notificationStatus.textContent = "The test notification could not be sent on this device."; } });
+    testButton.addEventListener("click", async () => {
+      try {
+        notificationStatus.textContent = "Verifying this device…";
+        await syncPushSubscription();
+        await showTestNotification();
+        notificationStatus.textContent = "Test notification sent and this admin device is registered.";
+      } catch (error) {
+        console.warn("Test notification failed:", error);
+        notificationStatus.textContent = error?.message || "The test notification could not be sent on this device.";
+      }
+    });
     actions.append(enableButton, testButton); section.append(heading, appStatus, notificationStatus, actions); host.appendChild(section); refresh();
     if (Notification.permission === "granted") setTimeout(() => syncPushSubscription().catch(console.warn), 0);
   }
