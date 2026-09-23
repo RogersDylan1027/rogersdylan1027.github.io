@@ -10,6 +10,11 @@ Keeps the notification bell permanently visible for administrators whether or no
 
 NOTIFICATION BELL
 =================
+- Core bell wiring hotfix: the main Dashboard now owns the notification bell
+  click handler and notification rendering directly. It no longer depends on the
+  separate account-access runtime to make the bell interactive.
+- Pending account-request notifications can now be approved or declined directly
+  inside the bell panel by the Main Admin.
 - Push server-auth hotfix: dashboard-push-config now verifies the authenticated
   user's role through the service-role lookup of user_roles after validating the
   signed-in user, avoiding a second auth-context RPC mismatch.
