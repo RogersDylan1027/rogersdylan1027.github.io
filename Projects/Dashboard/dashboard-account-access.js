@@ -558,7 +558,6 @@
     await installSupportView();
     setTimeout(() => installAdminAccessControls().catch(console.warn), 350);
     setTimeout(() => installNotificationCenter().catch(console.warn), 500);
-    setTimeout(() => showUnreadNotifications().catch(console.warn), 1200);
   }
 
   if (document.readyState === "loading") {
