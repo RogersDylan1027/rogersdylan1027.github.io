@@ -372,10 +372,10 @@
   }
 
   async function installNotificationCenter() {
-    if (!window.DashboardEntryAuth?.user) return;
-    const access = window.DashboardEntryAuth?.access;
-    if (!access?.admin) return;
     if (document.getElementById("dashboard-notification-center")) return;
+    if (!window.DashboardEntryAuth?.user || !window.DashboardEntryAuth?.access) return false;
+    const access = window.DashboardEntryAuth.access;
+    if (!access?.admin) return false;
 
     const client = await getClient();
     const bar = document.querySelector(".account-bar");
@@ -536,6 +536,7 @@
     if (params.get("accountRequests") === "1" || params.get("accountRequest")) {
       await openAccountRequests(params.get("accountRequest"));
     }
+    return true;
   }
 
   async function showUnreadNotifications() {
@@ -562,11 +563,26 @@
     }
   }
 
+  function ensureNotificationCenter(attempt = 0) {
+    if (document.getElementById("dashboard-notification-center")) return;
+    installNotificationCenter()
+      .then(installed => {
+        if (installed === false && attempt < 40) {
+          setTimeout(() => ensureNotificationCenter(attempt + 1), 250);
+        }
+      })
+      .catch(error => {
+        console.warn("Notification center:", error);
+        if (attempt < 40) setTimeout(() => ensureNotificationCenter(attempt + 1), 250);
+      });
+  }
+
   async function init() {
     installAccountRequestView();
     await installSupportView();
     setTimeout(() => installAdminAccessControls().catch(console.warn), 350);
-    setTimeout(() => installNotificationCenter().catch(console.warn), 500);
+    ensureNotificationCenter();
+    window.addEventListener("dashboard-auth-ready", () => ensureNotificationCenter(), { passive: true });
   }
 
   if (document.readyState === "loading") {
