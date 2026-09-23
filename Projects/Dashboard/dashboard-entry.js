@@ -90,6 +90,7 @@
         redirectToLogin(access?.status || "not-approved"); return;
       }
       window.DashboardEntryAuth.user = data.user; window.DashboardEntryAuth.access = access;
+      window.dispatchEvent(new CustomEvent("dashboard-auth-ready", { detail: { user: data.user, access } }));
       document.documentElement.style.removeProperty("visibility");
       setTimeout(async () => { try { await waitForDashboardShell(); installConnectedAccountRefresh(client); } catch (error) { console.warn("Connected account recovery controls:", error); } }, 0);
       setTimeout(startStreamingRuntime, 0);
