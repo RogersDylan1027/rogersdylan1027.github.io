@@ -10,6 +10,11 @@ Keeps the notification bell permanently visible for administrators whether or no
 
 NOTIFICATION BELL
 =================
+- Push server-auth hotfix: dashboard-push-config now verifies the authenticated
+  user's role through the service-role lookup of user_roles after validating the
+  signed-in user, avoiding a second auth-context RPC mismatch.
+- Register This Device no longer overwrites a failed registration message with
+  the generic "Notifications are enabled" permission status.
 - Admin push-auth hotfix: Register This Device and Test Notification no longer
   depend on the cached DashboardEntryAuth.access.admin flag. They verify the
   current signed-in user directly through Supabase is_admin before registering,
