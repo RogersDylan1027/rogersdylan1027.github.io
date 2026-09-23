@@ -1,41 +1,36 @@
-My Dashboard · Version 0.10.6
-Reliable Admin Notifications & Notification Center · 2026-09-23
+My Dashboard · Version 0.10.7
+Persistent Admin Notification Bell · 2026-09-23
 
 CHANGELOG
 =========
-Version 0.10.6: Reliable Admin Notifications & Notification Center
+Version 0.10.7: Persistent Admin Notification Bell
 
 Description:
-Fixes admin push-device registration so enabled devices are saved and verified
-in Supabase, adds a visible Dashboard notification bell with unread counts and
-account-request links, and keeps approval requests accessible in-app even when
-a push notification is missed.
+Keeps the notification bell permanently visible for administrators whether or not there are unread notifications, preserves the unread badge only when needed, and ensures the same admin notification control appears reliably in the installed Home Screen app.
 
-NOTIFICATIONS
-=============
-- Adds a notification bell to the Dashboard account bar.
-- Shows an unread-count badge and a scrollable in-app notification list.
-- Account-request notifications open the Account Approvals & Administrators
-  area so the Main Admin can review the request.
-- Notifications remain available in the Dashboard until read, even if a push
-  notification is missed.
-- Adds Mark all read and per-notification read handling.
-- Refreshes the notification list automatically and attempts realtime updates.
-- Push-device registration is now saved and verified by the
-  dashboard-push-config Edge Function using the signed-in admin identity.
-- The App & Notifications controls now let an already-approved device explicitly
-  register again and verify that registration before reporting success.
-- The old local-only unread popup trigger is no longer used as the notification
-  source; server push and the in-app notification center are now authoritative.
+NOTIFICATION BELL
+=================
+- Keeps the admin notification bell visible at all times, including when the
+  unread count is zero.
+- The red badge remains hidden when there are no unread notifications and
+  appears only when an unread count exists.
+- The bell remains usable with an empty notification list, which displays
+  "No notifications yet."
+- Restricts the persistent notification control to administrator accounts.
+- Uses the normal Dashboard account bar when available.
+- Adds a safe fixed-position fallback so the bell still appears for admins in
+  the installed iPhone Home Screen app if the account bar is not available at
+  the moment the notification runtime initializes.
+- Preserves the Version 0.10.6 notification center, account-request routing,
+  mark-read behavior, realtime/polling refresh, and push notifications.
 
-ACCOUNT REQUESTS
-================
-- Preserves the Version 0.10.5 Request Access signup fix.
-- New account requests continue to create a pending account request and a
-  persistent Dashboard notification for the Main Admin.
-- Push notifications link back to the account-request area.
-- Approval, decline, administrator roles, and declined-user support messaging
-  are unchanged.
+HOME SCREEN APP
+===============
+- Refreshes PWA/service-worker/cache references to Version 0.10.7.
+- dashboard-pwa.js and dashboard-account-access.js are loaded with new 0.10.7
+  cache-busting references so the installed Home Screen app receives the
+  persistent bell behavior.
+- No Supabase schema or Edge Function changes are required for this release.
 
 FILES UPDATED
 =============
@@ -48,13 +43,6 @@ Dashboard/service-worker.js
 Dashboard/manifest.webmanifest
 Dashboard/README.txt
 
-SUPABASE UPDATED
-================
-- dashboard-push-config Edge Function updated to Version 2.
-- Push registrations are now persisted and verified server-side for the
-  authenticated admin account.
-- No table/schema migration was required.
-
 CHECKED / NO CHANGE NEEDED
 ==========================
 Dashboard/projects.json
@@ -63,20 +51,16 @@ Dashboard/Documents/tos.html
 
 TEST CHECKLIST
 ==============
-1. Reopen the installed My Dashboard Home Screen app and confirm Version 0.10.6.
-2. Open Settings > App & Notifications.
-3. Tap Register This Device (or Enable Notifications if permission is not yet
-   granted).
-4. Tap Send Test Notification and confirm the status says the admin device is
-   registered.
-5. Confirm a bell appears in the Dashboard account bar.
-6. Confirm the existing pending account request appears in the bell panel.
-7. Tap the account-request notification and confirm Account Approvals &
-   Administrators opens.
-8. Submit another test account request and confirm the bell unread count updates.
-9. With the Home Screen app closed/backgrounded, submit a request and verify the
-   push notification arrives.
-10. Confirm approval/decline still works normally.
+1. Fully close and reopen the installed My Dashboard Home Screen app.
+2. Confirm Version 0.10.7 is shown.
+3. Sign in as an administrator.
+4. Confirm the bell is visible even when there are zero unread notifications.
+5. Open the bell with no unread notifications and confirm the notification
+   center still opens normally.
+6. Submit a new account request and confirm the red unread badge appears.
+7. Mark/read the notification and confirm the badge disappears while the bell
+   remains visible.
+8. Confirm the same behavior in a normal browser session.
 
 BRANDING
 ========
@@ -89,7 +73,7 @@ BRANDING
 - dashboard-config.js applies the shared logo placement rules across Dashboard
   surfaces and version-busts the logo URLs for this release.
 - manifest.webmanifest points installed app icons to the versioned app logo.
-- service-worker.js uses the 0.10.5 cache and the app logo for notifications.
+- service-worker.js uses the 0.10.7 cache and the app logo for notifications.
 - The legacy logo.svg asset is removed because current Dashboard code no longer
   references it.
 
@@ -101,7 +85,7 @@ ACCOUNT ACCESS / ADMIN SYSTEM
   admin who declined them.
 - Support access uses a rolling 24-hour expiration from the most recent message
   sent by either participant.
-- These behaviors are preserved unchanged in 0.10.4.
+- These behaviors remain preserved.
 
 LEGAL PAGES
 ===========
