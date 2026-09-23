@@ -1,6 +1,6 @@
 /*
-  My Dashboard · Account Approval Runtime · Version 0.10.6
-  Reliable Admin Notifications & Notification Center · 2026-09-23
+  My Dashboard · Account Approval Runtime · Version 0.10.7
+  Persistent Admin Notification Bell · 2026-09-23
 */
 (function () {
   "use strict";
@@ -373,13 +373,18 @@
 
   async function installNotificationCenter() {
     if (!window.DashboardEntryAuth?.user) return;
-    const bar = document.querySelector(".account-bar");
-    if (!bar || document.getElementById("dashboard-notification-center")) return;
+    const access = window.DashboardEntryAuth?.access;
+    if (!access?.admin) return;
+    if (document.getElementById("dashboard-notification-center")) return;
 
     const client = await getClient();
+    const bar = document.querySelector(".account-bar");
     const root = document.createElement("div");
     root.id = "dashboard-notification-center";
-    root.style.cssText = "position:relative;display:inline-flex;align-items:center;";
+    root.dataset.dashboardNotificationPersistent = "true";
+    root.style.cssText = bar
+      ? "position:relative;display:inline-flex;align-items:center;"
+      : "position:fixed;z-index:10030;top:calc(12px + env(safe-area-inset-top));right:calc(12px + env(safe-area-inset-right));display:inline-flex;align-items:center;";
 
     const button = document.createElement("button");
     button.id = "dashboard-notification-button";
@@ -414,7 +419,11 @@
     list.id = "dashboard-notification-list";
     panel.append(header, list);
     root.append(button, panel);
-    bar.insertBefore(root, bar.firstChild);
+    if (bar) {
+      bar.insertBefore(root, bar.firstChild);
+    } else {
+      document.body.appendChild(root);
+    }
 
     async function openAccountRequests(requestId = null) {
       const settings = document.getElementById("settings-view");
