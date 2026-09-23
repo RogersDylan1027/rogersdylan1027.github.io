@@ -1,5 +1,5 @@
 /* My Dashboard · Service Worker · Version 0.10.7 · Persistent Admin Notification Bell · 2026-09-23 */
-const CACHE_NAME = "my-dashboard-v0.10.7-adminpushfix";
+const CACHE_NAME = "my-dashboard-v0.10.7-pushserverfix";
 const BASE_PATH = "/Projects/Dashboard/";
 const CORE_ASSETS = [
   BASE_PATH,
@@ -80,8 +80,8 @@ self.addEventListener("push", event => {
   const title = payload.title || "My Dashboard";
   const options = {
     body: payload.body || "You have a new Dashboard notification.",
-    icon: BASE_PATH + "logo-app.png?v=0.10.7-adminpushfix",
-    badge: BASE_PATH + "logo-app.png?v=0.10.7-adminpushfix",
+    icon: BASE_PATH + "logo-app.png?v=0.10.7-pushserverfix",
+    badge: BASE_PATH + "logo-app.png?v=0.10.7-pushserverfix",
     tag: payload.tag || "my-dashboard-notification",
     data: { url: payload.url || BASE_PATH }
   };
