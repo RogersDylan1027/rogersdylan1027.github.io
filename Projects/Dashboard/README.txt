@@ -97,10 +97,12 @@ NOTIFICATION BELL
 HOME SCREEN APP
 ===============
 - Refreshes PWA/service-worker/cache references to Version 0.10.8.
-- dashboard-pwa.js and dashboard-account-access.js are loaded with new 0.10.7
-  cache-busting references so the installed Home Screen app receives the
-  persistent bell behavior.
-- No Supabase schema or Edge Function changes are required for this release.
+- dashboard-pwa.js and dashboard-account-access.js are loaded with Version
+  0.10.8 cache-busting references so the installed Home Screen app receives
+  notification-management and review-reliability updates.
+- Supabase adds a DELETE RLS policy for read notifications only.
+- dashboard-account-review is updated to separate saved review state from
+  follow-up email delivery and retry the email path when appropriate.
 
 FILES UPDATED
 =============
@@ -119,18 +121,19 @@ Dashboard/projects.json
 Dashboard/Documents/privacy.html
 Dashboard/Documents/tos.html
 
-TEST CHECKLIST
-==============
+TEST CHECKLIST · 0.10.8
+=======================
 1. Fully close and reopen the installed My Dashboard Home Screen app.
-2. Confirm Version 0.10.7 is shown.
-3. Sign in as an administrator.
-4. Confirm the bell is visible even when there are zero unread notifications.
-5. Open the bell with no unread notifications and confirm the notification
-   center still opens normally.
-6. Submit a new account request and confirm the red unread badge appears.
-7. Mark/read the notification and confirm the badge disappears while the bell
-   remains visible.
-8. Confirm the same behavior in a normal browser session.
+2. Confirm Version 0.10.8 is shown.
+3. Sign in as an administrator and open the notification bell.
+4. Confirm unread notifications do not show a Delete control.
+5. Open/read a notification and confirm a Delete control appears afterward.
+6. Delete a read notification, confirm the deletion, and verify it disappears.
+7. Submit a new account request and confirm it appears under Pending Account
+   Requests with Approve and Decline actions.
+8. Approve or decline a request and confirm the popup reports the saved review
+   separately from email-delivery status.
+9. Confirm the same notification behavior in a normal browser session.
 
 BRANDING
 ========
@@ -161,7 +164,9 @@ LEGAL PAGES
 ===========
 - Documents/privacy.html and Documents/tos.html were checked for this release.
 - Both continue to reference ../logo-professional.png for formal branding.
-- No legal-text changes were required for this logo-only patch.
+- No legal-text changes are required for Version 0.10.8 because notification
+  deletion and account-review reliability do not change the categories of user
+  data collected or the connected-service terms already described.
 
 PROJECT REGISTRY
 ================
