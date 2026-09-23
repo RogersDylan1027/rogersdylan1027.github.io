@@ -25,9 +25,9 @@
 
   <!-- Shared Dashboard configuration and authentication guard. -->
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-  <script src="./dashboard-config.js?v=0.10.7-pushserverfix"></script>
+  <script src="./dashboard-config.js?v=0.10.7-bellcorefix"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="./dashboard-entry.js?v=0.10.7-pushserverfix"></script>
+  <script src="./dashboard-entry.js?v=0.10.7-bellcorefix"></script>
 
   <style>
     * { box-sizing: border-box; }
@@ -615,7 +615,7 @@
 
   <div id="dashboard-app" class="dashboard-container" hidden>
     <div class="account-bar">
-      <div id="dashboard-notification-center" hidden style="position:relative;display:inline-flex;align-items:center;">
+      <div id="dashboard-notification-center" data-dashboard-notification-hydrated="true" hidden style="position:relative;display:inline-flex;align-items:center;">
         <button id="dashboard-notification-button" type="button" aria-label="Notifications" aria-expanded="false" style="position:relative;min-width:38px;height:34px;padding:5px 10px;border:1px solid #b9c0ca;border-radius:18px;background:#fff;color:#252525;font-size:18px;line-height:1;cursor:pointer;">
           🔔
           <span id="dashboard-notification-badge" hidden style="position:absolute;top:-5px;right:-4px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:#b3261e;color:#fff;font-size:10px;font-weight:800;line-height:18px;text-align:center;"></span>
@@ -832,6 +832,186 @@
     let dashboardTileVisibilityLoaded = false;
     let dashboardTileVisibility = {};
 
+    let dashboardNotificationBellWired = false;
+
+    function formatDashboardNotificationDate(value) {
+      if (!value) return "";
+      try { return new Date(value).toLocaleString(); }
+      catch { return String(value); }
+    }
+
+    function escapeDashboardNotificationText(value) {
+      return String(value ?? "").replace(/[&<>"']/g, function (ch) {
+        return ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" })[ch];
+      });
+    }
+
+    async function renderDashboardNotificationPanel() {
+      const panel = getById("dashboard-notification-panel");
+      const badge = getById("dashboard-notification-badge");
+      const button = getById("dashboard-notification-button");
+      if (!panel || !badge || !button) return;
+
+      panel.innerHTML =
+        '<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px;">' +
+          '<strong>Notifications</strong>' +
+          '<button id="dashboard-notifications-mark-all-read" type="button" style="padding:5px 9px;border:0;background:transparent;color:#2450a4;font:inherit;font-size:11px;font-weight:700;cursor:pointer;">Mark all read</button>' +
+        '</div>' +
+        '<div id="dashboard-notifications-inline-list"><p style="margin:12px 4px;color:#68707c;font-size:13px;">Loading notifications…</p></div>';
+
+      const list = getById("dashboard-notifications-inline-list");
+
+      const [{ data: notifications, error: notificationError }, { data: access, error: accessError }] = await Promise.all([
+        supabaseClient.from("dashboard_notifications")
+          .select("id,notification_type,title,body,request_id,read_at,created_at")
+          .order("created_at", { ascending: false })
+          .limit(30),
+        supabaseClient.rpc("dashboard_account_access_state")
+      ]);
+
+      if (notificationError) {
+        list.innerHTML = '<p style="margin:12px 4px;color:#b3261e;font-size:13px;">Notifications could not be loaded.</p>';
+        throw notificationError;
+      }
+      if (accessError) console.warn("Notification access state:", accessError);
+
+      const rows = notifications || [];
+      const unread = rows.filter(function (row) { return !row.read_at; }).length;
+      badge.hidden = unread === 0;
+      badge.textContent = unread > 99 ? "99+" : String(unread);
+      button.setAttribute("aria-label", unread ? "Notifications, " + unread + " unread" : "Notifications");
+
+      let pendingById = {};
+      if (access?.main_admin) {
+        try {
+          const { data: requests, error: requestError } = await supabaseClient.rpc("main_admin_list_account_requests");
+          if (requestError) throw requestError;
+          (requests || []).forEach(function (request) {
+            pendingById[String(request.request_id)] = request;
+          });
+        } catch (error) {
+          console.warn("Pending account requests:", error);
+        }
+      }
+
+      if (!rows.length) {
+        list.innerHTML = '<p style="margin:12px 4px;color:#68707c;font-size:13px;">No notifications yet.</p>';
+      } else {
+        list.innerHTML = "";
+        rows.forEach(function (row) {
+          const card = document.createElement("div");
+          card.style.cssText = "padding:11px 10px;border-top:1px solid #edf0f3;background:" + (row.read_at ? "#fff" : "#f3f7ff") + ";";
+          card.innerHTML =
+            '<div style="font-size:13px;font-weight:800;">' + escapeDashboardNotificationText(row.title) + '</div>' +
+            '<div style="margin-top:3px;font-size:12px;line-height:1.4;color:#59616d;">' + escapeDashboardNotificationText(row.body) + '</div>' +
+            '<div style="margin-top:5px;font-size:10px;color:#8a919d;">' + escapeDashboardNotificationText(formatDashboardNotificationDate(row.created_at)) + '</div>';
+
+          const request = row.request_id ? pendingById[String(row.request_id)] : null;
+          if (request && request.status === "pending" && access?.main_admin) {
+            const actions = document.createElement("div");
+            actions.style.cssText = "display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;";
+
+            const approve = document.createElement("button");
+            approve.type = "button";
+            approve.textContent = "Approve";
+            approve.style.cssText = "padding:7px 11px;border:1px solid #2450a4;border-radius:16px;background:#2450a4;color:#fff;font:inherit;font-size:12px;font-weight:700;cursor:pointer;";
+
+            const decline = document.createElement("button");
+            decline.type = "button";
+            decline.textContent = "Decline";
+            decline.style.cssText = "padding:7px 11px;border:1px solid #b3261e;border-radius:16px;background:#fff;color:#b3261e;font:inherit;font-size:12px;font-weight:700;cursor:pointer;";
+
+            async function reviewRequest(decision, reason) {
+              approve.disabled = true;
+              decline.disabled = true;
+              try {
+                const { data, error } = await supabaseClient.functions.invoke("dashboard-account-review", {
+                  body: { requestId: request.request_id, decision: decision, reason: reason || null }
+                });
+                if (error) throw error;
+                if (data?.error) throw new Error(data.error);
+
+                await supabaseClient.from("dashboard_notifications")
+                  .update({ read_at: new Date().toISOString() })
+                  .eq("request_id", request.request_id)
+                  .is("read_at", null);
+
+                await renderDashboardNotificationPanel();
+              } catch (error) {
+                console.error("Account review from notification bell:", error);
+                alert(error?.message || "The account request could not be reviewed.");
+                approve.disabled = false;
+                decline.disabled = false;
+              }
+            }
+
+            approve.addEventListener("click", function (event) {
+              event.stopPropagation();
+              reviewRequest("approved", null);
+            });
+
+            decline.addEventListener("click", function (event) {
+              event.stopPropagation();
+              const reason = window.prompt("Reason for declining (optional):", "");
+              if (reason === null) return;
+              reviewRequest("declined", reason);
+            });
+
+            actions.append(approve, decline);
+            card.appendChild(actions);
+          }
+
+          card.addEventListener("click", async function () {
+            if (!row.read_at) {
+              const { error } = await supabaseClient.from("dashboard_notifications")
+                .update({ read_at: new Date().toISOString() })
+                .eq("id", row.id);
+              if (error) console.warn("Mark notification read:", error);
+              await renderDashboardNotificationPanel();
+            }
+          });
+
+          list.appendChild(card);
+        });
+      }
+
+      getById("dashboard-notifications-mark-all-read")?.addEventListener("click", async function (event) {
+        event.stopPropagation();
+        const { error } = await supabaseClient.from("dashboard_notifications")
+          .update({ read_at: new Date().toISOString() })
+          .is("read_at", null);
+        if (error) console.warn("Mark all notifications read:", error);
+        await renderDashboardNotificationPanel();
+      });
+    }
+
+    function wireDashboardNotificationBell() {
+      if (dashboardNotificationBellWired) return;
+      const root = getById("dashboard-notification-center");
+      const button = getById("dashboard-notification-button");
+      const panel = getById("dashboard-notification-panel");
+      if (!root || !button || !panel) return;
+
+      dashboardNotificationBellWired = true;
+      root.dataset.dashboardNotificationHydrated = "true";
+
+      button.addEventListener("click", async function (event) {
+        event.stopPropagation();
+        panel.hidden = !panel.hidden;
+        button.setAttribute("aria-expanded", panel.hidden ? "false" : "true");
+        if (!panel.hidden) {
+          try { await renderDashboardNotificationPanel(); }
+          catch (error) { console.warn("Dashboard notifications:", error); }
+        }
+      });
+
+      panel.addEventListener("click", function (event) { event.stopPropagation(); });
+      document.addEventListener("click", function () {
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+      });
+    }
+
     function getTileAdminOnly(tileInformation) {
       if (!tileInformation) return false;
       if (Object.prototype.hasOwnProperty.call(dashboardTileVisibility, tileInformation.title)) {
@@ -930,7 +1110,10 @@
       const control = getById("admin-view-control");
       const toggle = getById("admin-view-toggle-input");
       const notificationCenter = getById("dashboard-notification-center");
-      if (notificationCenter) notificationCenter.hidden = !currentDashboardUserIsAdmin;
+      if (notificationCenter) {
+        notificationCenter.hidden = !currentDashboardUserIsAdmin;
+        if (currentDashboardUserIsAdmin) wireDashboardNotificationBell();
+      }
       if (!control || !toggle) return;
       control.hidden = !currentDashboardUserIsAdmin;
       toggle.checked = currentDashboardUserIsAdmin && adminViewEnabled;
