@@ -10,6 +10,11 @@ Keeps the notification bell permanently visible for administrators whether or no
 
 NOTIFICATION BELL
 =================
+- Login-startup hotfix: shared PWA/account runtimes now wait until the document
+  is parsed before loading, preventing Request Access from replacing the legacy
+  signup form while login.html is still attaching startup listeners.
+- Login event binding now tolerates an already-replaced legacy signup element,
+  eliminating the "could not start secure sign in" startup failure.
 - Auth-timing hotfix: the bell now retries while the Dashboard session and admin
   access state are still loading, and it also listens for the Dashboard auth-ready
 - Static-bell reliability fix: the bell now exists directly in Dashboard/index.html
