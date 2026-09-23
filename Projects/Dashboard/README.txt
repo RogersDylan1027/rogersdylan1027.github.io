@@ -10,6 +10,10 @@ Keeps the notification bell permanently visible for administrators whether or no
 
 NOTIFICATION BELL
 =================
+- Auth-timing hotfix: the bell now retries while the Dashboard session and admin
+  access state are still loading, and it also listens for the Dashboard auth-ready
+  event. This fixes the iPhone Home Screen case where the first check could run
+  before the admin role was available and permanently skip the bell.
 - Keeps the admin notification bell visible at all times, including when the
   unread count is zero.
 - The red badge remains hidden when there are no unread notifications and
@@ -26,7 +30,7 @@ NOTIFICATION BELL
 
 HOME SCREEN APP
 ===============
-- Refreshes PWA/service-worker/cache references to Version 0.10.7.
+- Refreshes PWA/service-worker/cache references to Version 0.10.7 (bell timing hotfix cache).
 - dashboard-pwa.js and dashboard-account-access.js are loaded with new 0.10.7
   cache-busting references so the installed Home Screen app receives the
   persistent bell behavior.
