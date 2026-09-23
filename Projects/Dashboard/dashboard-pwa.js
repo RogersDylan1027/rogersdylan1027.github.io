@@ -132,6 +132,7 @@
       testButton.disabled = !("Notification" in window) || Notification.permission !== "granted" || !("serviceWorker" in navigator);
     };
     enableButton.addEventListener("click", async () => {
+      let succeeded = false;
       try {
         await registerServiceWorker();
         if (Notification.permission !== "granted") await Notification.requestPermission();
@@ -139,9 +140,18 @@
           notificationStatus.textContent = "Registering this admin device…";
           await syncPushSubscription();
           notificationStatus.textContent = "Notifications are enabled and this admin device is registered with My Dashboard.";
+          succeeded = true;
         }
-      } catch (error) { console.warn("Notification permission/subscription failed:", error); notificationStatus.textContent = error?.message || "Notifications could not be enabled on this device."; }
-      refresh();
+      } catch (error) {
+        console.warn("Notification permission/subscription failed:", error);
+        notificationStatus.textContent = error?.message || "Notifications could not be enabled on this device.";
+      }
+      enableButton.disabled = !("Notification" in window) || Notification.permission === "denied";
+      enableButton.textContent = Notification.permission === "granted" ? "Register This Device" : "Enable Notifications";
+      testButton.disabled = !(("Notification" in window) && Notification.permission === "granted" && ("serviceWorker" in navigator));
+      if (!succeeded && Notification.permission === "granted") {
+        notificationStatus.textContent = notificationStatus.textContent || "Notification permission is enabled, but this device is not registered with My Dashboard.";
+      }
     });
     testButton.addEventListener("click", async () => {
       try {
