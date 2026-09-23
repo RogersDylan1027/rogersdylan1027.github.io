@@ -1,12 +1,34 @@
-My Dashboard · Version 0.10.7
-Persistent Admin Notification Bell · 2026-09-23
+My Dashboard · Version 0.10.8
+Notification Management & Account Review Reliability · 2026-09-23
 
 CHANGELOG
 =========
-Version 0.10.7: Persistent Admin Notification Bell
+Version 0.10.8: Notification Management & Account Review Reliability
 
 Description:
-Keeps the notification bell permanently visible for administrators whether or not there are unread notifications, preserves the unread badge only when needed, and ensures the same admin notification control appears reliably in the installed Home Screen app.
+Adds manual deletion for read notifications while protecting unread alerts, and improves account-request review feedback so approvals and declines remain saved even when email delivery is delayed or fails.
+
+NOTIFICATION MANAGEMENT · 0.10.8
+================================
+- Adds a manual Delete control to notifications only after they have been read.
+- Unread notifications cannot be deleted from the interface.
+- Supabase Row Level Security independently enforces that users can delete only
+  their own notifications and only when read_at is already set.
+- Deletion is never automatic; the user chooses the notification and confirms
+  before it is permanently removed.
+- Preserves the centered notification popup, unread badge, Mark all read,
+  pending-account-request section, and Main Admin approval controls.
+
+ACCOUNT REVIEW RELIABILITY · 0.10.8
+===================================
+- Account approval/decline is treated separately from transactional email
+  delivery so a saved review does not falsely appear to fail when Supabase Auth
+  email delivery times out.
+- dashboard-account-review retries the email path when an invite request times
+  out after the user may already have been created.
+- The notification popup reports whether the account review was saved and
+  whether its follow-up email was successfully sent.
+
 
 NOTIFICATION BELL
 =================
@@ -74,7 +96,7 @@ NOTIFICATION BELL
 
 HOME SCREEN APP
 ===============
-- Refreshes PWA/service-worker/cache references to Version 0.10.7 (bell timing hotfix cache).
+- Refreshes PWA/service-worker/cache references to Version 0.10.8.
 - dashboard-pwa.js and dashboard-account-access.js are loaded with new 0.10.7
   cache-busting references so the installed Home Screen app receives the
   persistent bell behavior.
@@ -121,7 +143,7 @@ BRANDING
 - dashboard-config.js applies the shared logo placement rules across Dashboard
   surfaces and version-busts the logo URLs for this release.
 - manifest.webmanifest points installed app icons to the versioned app logo.
-- service-worker.js uses the 0.10.7 cache and the app logo for notifications.
+- service-worker.js uses the 0.10.8 cache and the app logo for notifications.
 - The legacy logo.svg asset is removed because current Dashboard code no longer
   references it.
 
