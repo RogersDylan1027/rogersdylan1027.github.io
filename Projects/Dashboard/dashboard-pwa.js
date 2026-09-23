@@ -1,4 +1,4 @@
-/* My Dashboard · PWA Runtime · Version 0.10.0 · 2026-09-16 */
+/* My Dashboard · PWA Runtime · Version 0.10.5 · Account Request & Signup Initialization Fix · 2026-09-23 */
 (function () {
   "use strict";
   const config = window.DashboardConfig;
@@ -100,6 +100,18 @@
     actions.append(enableButton, testButton); section.append(heading, appStatus, notificationStatus, actions); host.appendChild(section); refresh();
     if (Notification.permission === "granted") setTimeout(() => syncPushSubscription().catch(console.warn), 0);
   }
-  keepDashboardNavigationInApp(); registerServiceWorker();
-  document.addEventListener("DOMContentLoaded", () => { addSettingsSection(); setTimeout(addSettingsSection, 500); setTimeout(addSettingsSection, 1500); });
+  keepDashboardNavigationInApp();
+  registerServiceWorker();
+
+  function initializePwaSettings() {
+    addSettingsSection();
+    setTimeout(addSettingsSection, 500);
+    setTimeout(addSettingsSection, 1500);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initializePwaSettings, { once: true });
+  } else {
+    initializePwaSettings();
+  }
 })();
