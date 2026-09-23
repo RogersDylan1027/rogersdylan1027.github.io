@@ -9,9 +9,9 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>My Dashboard · Version 0.10.7</title>
+  <title>My Dashboard · Version 0.10.8</title>
 
-  <!-- Version 0.10.7: Persistent Admin Notification Bell · 2026-09-23 -->
+  <!-- Version 0.10.8: Notification Management & Account Review Reliability · 2026-09-23 -->
 
   <meta
     name="description"
@@ -25,9 +25,9 @@
 
   <!-- Shared Dashboard configuration and authentication guard. -->
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-  <script src="./dashboard-config.js?v=0.10.7-reviewfix"></script>
+  <script src="./dashboard-config.js?v=0.10.8"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="./dashboard-entry.js?v=0.10.7-reviewfix"></script>
+  <script src="./dashboard-entry.js?v=0.10.8"></script>
 
   <style>
     * { box-sizing: border-box; }
@@ -1011,6 +1011,37 @@
             card.appendChild(status);
           }
 
+          if (row.read_at) {
+            const actions = document.createElement("div");
+            actions.style.cssText = "display:flex;justify-content:flex-end;margin-top:9px;";
+
+            const deleteButton = document.createElement("button");
+            deleteButton.type = "button";
+            deleteButton.textContent = "Delete";
+            deleteButton.setAttribute("aria-label", "Delete this read notification");
+            deleteButton.style.cssText = "padding:6px 10px;border:1px solid #d7a09c;border-radius:14px;background:#fff;color:#b3261e;font:inherit;font-size:11px;font-weight:700;cursor:pointer;";
+
+            deleteButton.addEventListener("click", async function (event) {
+              event.stopPropagation();
+              if (!window.confirm("Delete this read notification?")) return;
+              deleteButton.disabled = true;
+              try {
+                const { error } = await supabaseClient.from("dashboard_notifications")
+                  .delete()
+                  .eq("id", row.id)
+                  .not("read_at", "is", null);
+                if (error) throw error;
+                await renderDashboardNotificationPanel();
+              } catch (error) {
+                console.error("Delete Dashboard notification:", error);
+                deleteButton.disabled = false;
+              }
+            });
+
+            actions.appendChild(deleteButton);
+            card.appendChild(actions);
+          }
+
           card.addEventListener("click", async function () {
             if (!row.read_at) {
               const { error } = await supabaseClient.from("dashboard_notifications")
@@ -1490,6 +1521,7 @@
     }
 
     const dashboardChangelog=[
+      {version:"0.10.8",title:"Notification Management & Account Review Reliability",description:"Adds manual deletion for read notifications while protecting unread alerts, and improves account-request review feedback so approvals and declines remain saved even when email delivery is delayed or fails."},
       {version:"0.10.7",title:"Persistent Admin Notification Bell",description:"Keeps the notification bell permanently visible for administrators, preserves unread counts, uses a centered Dashboard-style notification popup on web and the installed Home Screen app, and keeps account-request approval and decline actions accessible inside the notification experience."},
       {version:"0.10.6",title:"Reliable Admin Notifications & Notification Center",description:"Fixes admin push-device registration so enabled devices are saved and verified in Supabase, adds a visible Dashboard notification bell with unread counts and account-request links, and keeps approval requests accessible in-app even when a push notification is missed."},
       {version:"0.10.5",title:"Account Request & Signup Initialization Fix",description:"Fixes the account request and signup initialization issue that could prevent the login flow from initializing correctly."},
