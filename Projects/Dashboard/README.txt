@@ -12,6 +12,10 @@ NOTIFICATION BELL
 =================
 - Auth-timing hotfix: the bell now retries while the Dashboard session and admin
   access state are still loading, and it also listens for the Dashboard auth-ready
+- Static-bell reliability fix: the bell now exists directly in Dashboard/index.html
+  and the existing verified admin permission check controls its visibility. The
+  notification runtime hydrates the existing bell instead of being responsible
+  for creating it, so web and Home Screen admin sessions always have the control.
   event. This fixes the iPhone Home Screen case where the first check could run
   before the admin role was available and permanently skip the bell.
 - Keeps the admin notification bell visible at all times, including when the
