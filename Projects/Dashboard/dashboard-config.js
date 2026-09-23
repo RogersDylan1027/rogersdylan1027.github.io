@@ -1,6 +1,6 @@
 /*
-  My Dashboard · Shared Configuration · Version 0.10.7
-  Persistent Admin Notification Bell · 2026-09-23
+  My Dashboard · Shared Configuration · Version 0.10.8
+  Notification Management & Account Review Reliability · 2026-09-23
 
   The Supabase publishable key is intentionally browser-safe.
   Never place a service_role key or another secret in browser JavaScript.
@@ -84,8 +84,8 @@
   }
 
   window.DashboardConfig = Object.freeze({
-    version: "0.10.7",
-    releaseTitle: "Persistent Admin Notification Bell",
+    version: "0.10.8",
+    releaseTitle: "Notification Management & Account Review Reliability",
     supabaseUrl: "https://pyefiovoicvhigkjhhts.supabase.co",
     supabasePublishableKey: "sb_publishable_sVrxppe8B1QkXYqAPm6ddQ_x4MA5j32",
     supabaseScriptUrl: "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.js",
@@ -93,19 +93,19 @@
     dashboardIndexUrl: BASE_PATH + "index.html",
     loginUrl: BASE_PATH + "login.html",
     projectsUrl: BASE_PATH + "projects.json",
-    manifestUrl: BASE_PATH + "manifest.webmanifest?v=0.10.7-reviewfix",
-    serviceWorkerUrl: BASE_PATH + "service-worker.js?v=0.10.7-reviewfix",
-    pwaRuntimeUrl: BASE_PATH + "dashboard-pwa.js?v=0.10.7-reviewfix",
-    accountAccessRuntimeUrl: BASE_PATH + "dashboard-account-access.js?v=0.10.7-reviewfix",
-    logoUrl: BASE_PATH + "logo-app.png?v=0.10.7-reviewfix",
-    appLogoUrl: BASE_PATH + "logo-app.png?v=0.10.7-reviewfix",
-    dashboardLogoUrl: BASE_PATH + "logo-dashboard.png?v=0.10.7-reviewfix",
-    professionalLogoUrl: BASE_PATH + "logo-professional.png?v=0.10.7-reviewfix",
+    manifestUrl: BASE_PATH + "manifest.webmanifest?v=0.10.8",
+    serviceWorkerUrl: BASE_PATH + "service-worker.js?v=0.10.8",
+    pwaRuntimeUrl: BASE_PATH + "dashboard-pwa.js?v=0.10.8",
+    accountAccessRuntimeUrl: BASE_PATH + "dashboard-account-access.js?v=0.10.8",
+    logoUrl: BASE_PATH + "logo-app.png?v=0.10.8",
+    appLogoUrl: BASE_PATH + "logo-app.png?v=0.10.8",
+    dashboardLogoUrl: BASE_PATH + "logo-dashboard.png?v=0.10.8",
+    professionalLogoUrl: BASE_PATH + "logo-professional.png?v=0.10.8",
     streamingUrl: BASE_PATH + "Streaming/",
     reviewsUrl: BASE_PATH + "Reviews/",
     budgetUrl: BASE_PATH + "Budget/",
-    streamingClientUrl: BASE_PATH + "dashboard-streaming.js?v=0.10.7-reviewfix",
-    streamingUiUrl: BASE_PATH + "dashboard-streaming-ui.js?v=0.10.7-reviewfix"
+    streamingClientUrl: BASE_PATH + "dashboard-streaming.js?v=0.10.8",
+    streamingUiUrl: BASE_PATH + "dashboard-streaming-ui.js?v=0.10.8"
   });
 
   function installRuntimeScript(src, marker) {
@@ -288,6 +288,11 @@
   }
 
   const runtimeChangelogEntries = [
+    {
+      version: "0.10.8",
+      title: "Notification Management & Account Review Reliability",
+      description: "Adds manual deletion for read notifications while protecting unread alerts, and improves account-request review feedback so approvals and declines remain saved even when email delivery is delayed or fails."
+    },
     {
       version: "0.10.7",
       title: "Persistent Admin Notification Bell",
