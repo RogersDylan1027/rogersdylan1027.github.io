@@ -9,9 +9,9 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>My Dashboard · Version 0.10.6</title>
+  <title>My Dashboard · Version 0.10.7</title>
 
-  <!-- Version 0.10.6: Reliable Admin Notifications & Notification Center · 2026-09-23 -->
+  <!-- Version 0.10.7: Persistent Admin Notification Bell · 2026-09-23 -->
 
   <meta
     name="description"
@@ -25,9 +25,9 @@
 
   <!-- Shared Dashboard configuration and authentication guard. -->
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-  <script src="./dashboard-config.js?v=0.10.6"></script>
+  <script src="./dashboard-config.js?v=0.10.7"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="./dashboard-entry.js?v=0.10.6"></script>
+  <script src="./dashboard-entry.js?v=0.10.7"></script>
 
   <style>
     * { box-sizing: border-box; }
@@ -1235,6 +1235,7 @@
     }
 
     const dashboardChangelog=[
+      {version:"0.10.7",title:"Persistent Admin Notification Bell",description:"Keeps the notification bell permanently visible for administrators whether or not there are unread notifications, preserves the unread badge only when needed, and ensures the same admin notification control appears reliably in the installed Home Screen app."},
       {version:"0.10.6",title:"Reliable Admin Notifications & Notification Center",description:"Fixes admin push-device registration so enabled devices are saved and verified in Supabase, adds a visible Dashboard notification bell with unread counts and account-request links, and keeps approval requests accessible in-app even when a push notification is missed."},
       {version:"0.10.5",title:"Account Request & Signup Initialization Fix",description:"Fixes the account request and signup initialization issue that could prevent the login flow from initializing correctly."},
       {version:"NHL Analytics 0.2.0",title:"Roster Simulation & Admin Model Diagnostics",description:"Adds the existing NHL Shiny simulator directly inside NHL Analytics as Roster Simulation so users can build custom rosters and simulate matchups without leaving the Dashboard, while restricting MSE, Log Loss, team error summaries, and other Model Diagnostics to administrators through the existing Dashboard admin system."},
