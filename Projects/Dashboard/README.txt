@@ -10,6 +10,10 @@ Keeps the notification bell permanently visible for administrators whether or no
 
 NOTIFICATION BELL
 =================
+- Admin push-auth hotfix: Register This Device and Test Notification no longer
+  depend on the cached DashboardEntryAuth.access.admin flag. They verify the
+  current signed-in user directly through Supabase is_admin before registering,
+  so Main Admin devices work even when the cached access object is unavailable.
 - Bell-hydration hotfix: the static bell is no longer treated as "already
   initialized." The notification runtime now hydrates it, attaches its click
   handler, loads unread notifications, and opens the notification panel.
