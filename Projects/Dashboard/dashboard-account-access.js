@@ -1,6 +1,6 @@
 /*
-  My Dashboard · Account Approval Runtime · Version 0.10.5
-  Account Request & Signup Initialization Fix · 2026-09-23
+  My Dashboard · Account Approval Runtime · Version 0.10.6
+  Reliable Admin Notifications & Notification Center · 2026-09-23
 */
 (function () {
   "use strict";
@@ -371,6 +371,164 @@
     }
   }
 
+  async function installNotificationCenter() {
+    if (!window.DashboardEntryAuth?.user) return;
+    const bar = document.querySelector(".account-bar");
+    if (!bar || document.getElementById("dashboard-notification-center")) return;
+
+    const client = await getClient();
+    const root = document.createElement("div");
+    root.id = "dashboard-notification-center";
+    root.style.cssText = "position:relative;display:inline-flex;align-items:center;";
+
+    const button = document.createElement("button");
+    button.id = "dashboard-notification-button";
+    button.type = "button";
+    button.setAttribute("aria-label", "Notifications");
+    button.setAttribute("aria-expanded", "false");
+    button.style.cssText = "position:relative;min-width:38px;height:34px;padding:5px 10px;border:1px solid #b9c0ca;border-radius:18px;background:#fff;color:#252525;font-size:18px;line-height:1;cursor:pointer;";
+    button.textContent = "🔔";
+
+    const badge = document.createElement("span");
+    badge.id = "dashboard-notification-badge";
+    badge.hidden = true;
+    badge.style.cssText = "position:absolute;top:-5px;right:-4px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:#b3261e;color:#fff;font-size:10px;font-weight:800;line-height:18px;text-align:center;";
+    button.appendChild(badge);
+
+    const panel = document.createElement("div");
+    panel.id = "dashboard-notification-panel";
+    panel.hidden = true;
+    panel.style.cssText = "position:absolute;z-index:10020;top:42px;right:0;width:min(360px,calc(100vw - 32px));max-height:70vh;overflow:auto;padding:12px;border:1px solid #d5d9df;border-radius:16px;background:#fff;box-shadow:0 18px 45px rgba(0,0,0,.16);";
+
+    const header = document.createElement("div");
+    header.style.cssText = "display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px;";
+    const heading = document.createElement("strong");
+    heading.textContent = "Notifications";
+    const markAll = document.createElement("button");
+    markAll.type = "button";
+    markAll.textContent = "Mark all read";
+    markAll.style.cssText = "padding:5px 9px;border:0;background:transparent;color:#2450a4;font:inherit;font-size:11px;font-weight:700;cursor:pointer;";
+    header.append(heading, markAll);
+
+    const list = document.createElement("div");
+    list.id = "dashboard-notification-list";
+    panel.append(header, list);
+    root.append(button, panel);
+    bar.insertBefore(root, bar.firstChild);
+
+    async function openAccountRequests(requestId = null) {
+      const settings = document.getElementById("settings-view");
+      if (settings) settings.hidden = false;
+      await installAdminAccessControls().catch(console.warn);
+      setTimeout(() => {
+        const section = document.getElementById("dashboard-account-admin-section");
+        section?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 100);
+      if (requestId) {
+        const nextUrl = new URL(location.href);
+        nextUrl.searchParams.set("accountRequest", requestId);
+        history.replaceState({}, "", nextUrl);
+      }
+    }
+
+    async function markRead(id) {
+      const { error } = await client.from("dashboard_notifications")
+        .update({ read_at: new Date().toISOString() })
+        .eq("id", id);
+      if (error) throw error;
+    }
+
+    async function refresh() {
+      const { data, error } = await client.from("dashboard_notifications")
+        .select("id,notification_type,title,body,request_id,read_at,created_at")
+        .order("created_at", { ascending: false })
+        .limit(30);
+      if (error) throw error;
+
+      const rows = data || [];
+      const unread = rows.filter(row => !row.read_at).length;
+      badge.hidden = unread === 0;
+      badge.textContent = unread > 99 ? "99+" : String(unread);
+      button.setAttribute("aria-label", unread ? `Notifications, ${unread} unread` : "Notifications");
+
+      if (!rows.length) {
+        list.innerHTML = '<p style="margin:12px 4px;color:#68707c;font-size:13px;">No notifications yet.</p>';
+        return;
+      }
+
+      list.innerHTML = "";
+      rows.forEach(row => {
+        const item = document.createElement("button");
+        item.type = "button";
+        item.style.cssText =
+          "display:block;width:100%;padding:11px 10px;border:0;border-top:1px solid #edf0f3;background:" +
+          (row.read_at ? "#fff" : "#f3f7ff") +
+          ";color:#252525;text-align:left;font:inherit;cursor:pointer;";
+        item.innerHTML =
+          '<div style="font-size:13px;font-weight:800;">' + esc(row.title) + '</div>' +
+          '<div style="margin-top:3px;font-size:12px;line-height:1.4;color:#59616d;">' + esc(row.body) + '</div>' +
+          '<div style="margin-top:5px;font-size:10px;color:#8a919d;">' + esc(formatDate(row.created_at)) + '</div>';
+        item.addEventListener("click", async () => {
+          try {
+            if (!row.read_at) await markRead(row.id);
+            panel.hidden = true;
+            button.setAttribute("aria-expanded", "false");
+            await refresh();
+            if (row.notification_type === "account_request" || row.request_id) {
+              await openAccountRequests(row.request_id);
+            }
+          } catch (error) {
+            console.warn("Dashboard notification:", error);
+          }
+        });
+        list.appendChild(item);
+      });
+    }
+
+    button.addEventListener("click", async event => {
+      event.stopPropagation();
+      panel.hidden = !panel.hidden;
+      button.setAttribute("aria-expanded", panel.hidden ? "false" : "true");
+      if (!panel.hidden) await refresh().catch(console.warn);
+    });
+    panel.addEventListener("click", event => event.stopPropagation());
+    document.addEventListener("click", () => {
+      panel.hidden = true;
+      button.setAttribute("aria-expanded", "false");
+    });
+    markAll.addEventListener("click", async () => {
+      const { error } = await client.from("dashboard_notifications")
+        .update({ read_at: new Date().toISOString() })
+        .is("read_at", null);
+      if (error) console.warn("Mark notifications read:", error);
+      await refresh().catch(console.warn);
+    });
+
+    await refresh();
+
+    try {
+      const userId = window.DashboardEntryAuth.user.id;
+      const channel = client.channel("dashboard-notifications-" + userId)
+        .on("postgres_changes", {
+          event: "*",
+          schema: "public",
+          table: "dashboard_notifications",
+          filter: "user_id=eq." + userId
+        }, () => refresh().catch(console.warn))
+        .subscribe();
+      window.addEventListener("pagehide", () => client.removeChannel(channel), { once: true });
+    } catch (error) {
+      console.warn("Notification realtime subscription:", error);
+    }
+
+    setInterval(() => refresh().catch(() => {}), 30000);
+
+    const params = new URLSearchParams(location.search);
+    if (params.get("accountRequests") === "1" || params.get("accountRequest")) {
+      await openAccountRequests(params.get("accountRequest"));
+    }
+  }
+
   async function showUnreadNotifications() {
     if (!window.DashboardEntryAuth?.user) return;
     const client = await getClient();
@@ -399,6 +557,7 @@
     installAccountRequestView();
     await installSupportView();
     setTimeout(() => installAdminAccessControls().catch(console.warn), 350);
+    setTimeout(() => installNotificationCenter().catch(console.warn), 500);
     setTimeout(() => showUnreadNotifications().catch(console.warn), 1200);
   }
 
