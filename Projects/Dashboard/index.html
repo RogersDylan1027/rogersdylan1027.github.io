@@ -25,9 +25,9 @@
 
   <!-- Shared Dashboard configuration and authentication guard. -->
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-  <script src="./dashboard-config.js?v=0.10.7-modalbell"></script>
+  <script src="./dashboard-config.js?v=0.10.7-approvalfix"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="./dashboard-entry.js?v=0.10.7-modalbell"></script>
+  <script src="./dashboard-entry.js?v=0.10.7-approvalfix"></script>
 
   <style>
     * { box-sizing: border-box; }
@@ -864,9 +864,11 @@
           '<div style="display:flex;justify-content:flex-end;padding:8px 14px;border-bottom:1px solid #edf0f3;">' +
             '<button id="dashboard-notifications-mark-all-read" type="button" style="padding:6px 9px;border:0;background:transparent;color:#2450a4;font:inherit;font-size:11px;font-weight:700;cursor:pointer;">Mark all read</button>' +
           '</div>' +
+          '<div id="dashboard-pending-account-requests" style="padding:14px;border-bottom:1px solid #edf0f3;"></div>' +
           '<div id="dashboard-notifications-inline-list" style="overflow:auto;padding:0 14px 14px;-webkit-overflow-scrolling:touch;"><p style="margin:18px 4px;color:#68707c;font-size:13px;">Loading notifications…</p></div>' +
         '</div>';
 
+      const pendingHost = getById("dashboard-pending-account-requests");
       const list = getById("dashboard-notifications-inline-list");
 
       const [{ data: notifications, error: notificationError }, { data: access, error: accessError }] = await Promise.all([
@@ -890,15 +892,82 @@
       button.setAttribute("aria-label", unread ? "Notifications, " + unread + " unread" : "Notifications");
 
       let pendingById = {};
-      if (access?.main_admin) {
+      let pendingRequests = [];
+      try {
+        const { data: requests, error: requestError } = await supabaseClient.rpc("main_admin_list_account_requests");
+        if (requestError) throw requestError;
+        pendingRequests = (requests || []).filter(function (request) { return request.status === "pending"; });
+        (requests || []).forEach(function (request) {
+          pendingById[String(request.request_id)] = request;
+        });
+      } catch (error) {
+        console.warn("Pending account requests:", error);
+      }
+
+      async function reviewPendingAccountRequest(request, decision, reason, buttons) {
+        (buttons || []).forEach(function (button) { button.disabled = true; });
         try {
-          const { data: requests, error: requestError } = await supabaseClient.rpc("main_admin_list_account_requests");
-          if (requestError) throw requestError;
-          (requests || []).forEach(function (request) {
-            pendingById[String(request.request_id)] = request;
+          const { data, error } = await supabaseClient.functions.invoke("dashboard-account-review", {
+            body: { requestId: request.request_id, decision: decision, reason: reason || null }
           });
+          if (error) throw error;
+          if (data?.error) throw new Error(data.error);
+
+          await supabaseClient.from("dashboard_notifications")
+            .update({ read_at: new Date().toISOString() })
+            .eq("request_id", request.request_id)
+            .is("read_at", null);
+
+          await renderDashboardNotificationPanel();
         } catch (error) {
-          console.warn("Pending account requests:", error);
+          console.error("Account review from notification popup:", error);
+          alert(error?.message || "The account request could not be reviewed.");
+          (buttons || []).forEach(function (button) { button.disabled = false; });
+        }
+      }
+
+      if (pendingHost) {
+        pendingHost.innerHTML = '<div style="font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:#68707c;margin-bottom:8px;">Pending Account Requests</div>';
+
+        if (!pendingRequests.length) {
+          pendingHost.insertAdjacentHTML("beforeend", '<p style="margin:0;color:#68707c;font-size:13px;">No pending account requests.</p>');
+        } else {
+          pendingRequests.forEach(function (request) {
+            const row = document.createElement("div");
+            row.style.cssText = "padding:12px;border:1px solid #dfe3e8;border-radius:12px;background:#f7f8fa;margin-top:8px;";
+            row.innerHTML =
+              '<div style="font-size:13px;font-weight:800;color:#252525;overflow-wrap:anywhere;">' + escapeDashboardNotificationText(request.email) + '</div>' +
+              '<div style="margin-top:4px;color:#68707c;font-size:11px;">Requested ' + escapeDashboardNotificationText(formatDashboardNotificationDate(request.requested_at)) + '</div>';
+
+            const actions = document.createElement("div");
+            actions.style.cssText = "display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;";
+
+            const approve = document.createElement("button");
+            approve.type = "button";
+            approve.textContent = "Approve";
+            approve.style.cssText = "padding:8px 12px;border:1px solid #2450a4;border-radius:16px;background:#2450a4;color:#fff;font:inherit;font-size:12px;font-weight:700;cursor:pointer;";
+
+            const decline = document.createElement("button");
+            decline.type = "button";
+            decline.textContent = "Decline";
+            decline.style.cssText = "padding:8px 12px;border:1px solid #b3261e;border-radius:16px;background:#fff;color:#b3261e;font:inherit;font-size:12px;font-weight:700;cursor:pointer;";
+
+            approve.addEventListener("click", function (event) {
+              event.stopPropagation();
+              reviewPendingAccountRequest(request, "approved", null, [approve, decline]);
+            });
+
+            decline.addEventListener("click", function (event) {
+              event.stopPropagation();
+              const reason = window.prompt("Reason for declining (optional):", "");
+              if (reason === null) return;
+              reviewPendingAccountRequest(request, "declined", reason, [approve, decline]);
+            });
+
+            actions.append(approve, decline);
+            row.appendChild(actions);
+            pendingHost.appendChild(row);
+          });
         }
       }
 
@@ -915,58 +984,11 @@
             '<div style="margin-top:5px;font-size:10px;color:#8a919d;">' + escapeDashboardNotificationText(formatDashboardNotificationDate(row.created_at)) + '</div>';
 
           const request = row.request_id ? pendingById[String(row.request_id)] : null;
-          if (request && request.status === "pending" && access?.main_admin) {
-            const actions = document.createElement("div");
-            actions.style.cssText = "display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;";
-
-            const approve = document.createElement("button");
-            approve.type = "button";
-            approve.textContent = "Approve";
-            approve.style.cssText = "padding:7px 11px;border:1px solid #2450a4;border-radius:16px;background:#2450a4;color:#fff;font:inherit;font-size:12px;font-weight:700;cursor:pointer;";
-
-            const decline = document.createElement("button");
-            decline.type = "button";
-            decline.textContent = "Decline";
-            decline.style.cssText = "padding:7px 11px;border:1px solid #b3261e;border-radius:16px;background:#fff;color:#b3261e;font:inherit;font-size:12px;font-weight:700;cursor:pointer;";
-
-            async function reviewRequest(decision, reason) {
-              approve.disabled = true;
-              decline.disabled = true;
-              try {
-                const { data, error } = await supabaseClient.functions.invoke("dashboard-account-review", {
-                  body: { requestId: request.request_id, decision: decision, reason: reason || null }
-                });
-                if (error) throw error;
-                if (data?.error) throw new Error(data.error);
-
-                await supabaseClient.from("dashboard_notifications")
-                  .update({ read_at: new Date().toISOString() })
-                  .eq("request_id", request.request_id)
-                  .is("read_at", null);
-
-                await renderDashboardNotificationPanel();
-              } catch (error) {
-                console.error("Account review from notification bell:", error);
-                alert(error?.message || "The account request could not be reviewed.");
-                approve.disabled = false;
-                decline.disabled = false;
-              }
-            }
-
-            approve.addEventListener("click", function (event) {
-              event.stopPropagation();
-              reviewRequest("approved", null);
-            });
-
-            decline.addEventListener("click", function (event) {
-              event.stopPropagation();
-              const reason = window.prompt("Reason for declining (optional):", "");
-              if (reason === null) return;
-              reviewRequest("declined", reason);
-            });
-
-            actions.append(approve, decline);
-            card.appendChild(actions);
+          if (request && request.status === "pending") {
+            const status = document.createElement("div");
+            status.style.cssText = "margin-top:8px;color:#2450a4;font-size:11px;font-weight:700;";
+            status.textContent = "Pending account request · review above";
+            card.appendChild(status);
           }
 
           card.addEventListener("click", async function () {
