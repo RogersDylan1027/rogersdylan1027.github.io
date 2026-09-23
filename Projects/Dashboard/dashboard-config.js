@@ -93,19 +93,19 @@
     dashboardIndexUrl: BASE_PATH + "index.html",
     loginUrl: BASE_PATH + "login.html",
     projectsUrl: BASE_PATH + "projects.json",
-    manifestUrl: BASE_PATH + "manifest.webmanifest?v=0.10.7-notifyfix",
-    serviceWorkerUrl: BASE_PATH + "service-worker.js?v=0.10.7-notifyfix",
-    pwaRuntimeUrl: BASE_PATH + "dashboard-pwa.js?v=0.10.7-notifyfix",
-    accountAccessRuntimeUrl: BASE_PATH + "dashboard-account-access.js?v=0.10.7-notifyfix",
-    logoUrl: BASE_PATH + "logo-app.png?v=0.10.7-notifyfix",
-    appLogoUrl: BASE_PATH + "logo-app.png?v=0.10.7-notifyfix",
-    dashboardLogoUrl: BASE_PATH + "logo-dashboard.png?v=0.10.7-notifyfix",
-    professionalLogoUrl: BASE_PATH + "logo-professional.png?v=0.10.7-notifyfix",
+    manifestUrl: BASE_PATH + "manifest.webmanifest?v=0.10.7-adminpushfix",
+    serviceWorkerUrl: BASE_PATH + "service-worker.js?v=0.10.7-adminpushfix",
+    pwaRuntimeUrl: BASE_PATH + "dashboard-pwa.js?v=0.10.7-adminpushfix",
+    accountAccessRuntimeUrl: BASE_PATH + "dashboard-account-access.js?v=0.10.7-adminpushfix",
+    logoUrl: BASE_PATH + "logo-app.png?v=0.10.7-adminpushfix",
+    appLogoUrl: BASE_PATH + "logo-app.png?v=0.10.7-adminpushfix",
+    dashboardLogoUrl: BASE_PATH + "logo-dashboard.png?v=0.10.7-adminpushfix",
+    professionalLogoUrl: BASE_PATH + "logo-professional.png?v=0.10.7-adminpushfix",
     streamingUrl: BASE_PATH + "Streaming/",
     reviewsUrl: BASE_PATH + "Reviews/",
     budgetUrl: BASE_PATH + "Budget/",
-    streamingClientUrl: BASE_PATH + "dashboard-streaming.js?v=0.10.7-notifyfix",
-    streamingUiUrl: BASE_PATH + "dashboard-streaming-ui.js?v=0.10.7-notifyfix"
+    streamingClientUrl: BASE_PATH + "dashboard-streaming.js?v=0.10.7-adminpushfix",
+    streamingUiUrl: BASE_PATH + "dashboard-streaming-ui.js?v=0.10.7-adminpushfix"
   });
 
   function installRuntimeScript(src, marker) {
