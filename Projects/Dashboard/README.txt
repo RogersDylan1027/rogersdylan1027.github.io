@@ -10,6 +10,10 @@ Keeps the notification bell permanently visible for administrators whether or no
 
 NOTIFICATION BELL
 =================
+- Dedicated pending-request controls: the notification popup now has a
+  "Pending Account Requests" section at the top. It loads pending requests
+  directly from the Main Admin approval RPC and shows Approve/Decline there,
+  independently of notification read state, duplicates, or request-link matching.
 - Centered notification modal: tapping the admin bell now opens a Dashboard-style
   centered popup instead of an edge-anchored dropdown. The modal uses the same
   dimmed/blurred backdrop pattern as other Dashboard dialogs, stays within safe
