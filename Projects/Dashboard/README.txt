@@ -1,16 +1,23 @@
-My Dashboard · Version 0.10.4
-Approved Logo Assets & Placement Verification · 2026-09-16
+My Dashboard · Version 0.10.5
+Account Request & Signup Initialization Fix · 2026-09-23
 
 CHANGELOG
 =========
-Version 0.10.4: Approved Logo Assets & Placement Verification
+Version 0.10.5: Account Request & Signup Initialization Fix
 
 Description:
-Replaces the temporary branding assets with the approved Personal Logo 2,
-Personal Logo 1, and Professional DR files, verifies each logo is used on its
-intended app, Dashboard, and legal surfaces, and refreshes versioned PWA/cache
-references so installed Home Screen apps receive the corrected branding without
-changing account approval or other Dashboard behavior.
+Fixes the account request and signup initialization issue that could prevent the login flow from initializing correctly.
+
+BUG FIX
+=======
+- Ensures dashboard-account-access.js initializes even when its dynamically
+  loaded script finishes after DOMContentLoaded.
+- Restores Request Access on the login page instead of leaving the legacy
+  Create Account form active for unapproved users.
+- Refreshes login, PWA, manifest, and service-worker version references so
+  iPhone/Safari and installed Home Screen copies receive the corrected runtime.
+- Preserves the existing Main Admin approval, decline, support messaging, and
+  notification workflow.
 
 BRANDING
 ========
@@ -23,7 +30,7 @@ BRANDING
 - dashboard-config.js applies the shared logo placement rules across Dashboard
   surfaces and version-busts the logo URLs for this release.
 - manifest.webmanifest points installed app icons to the versioned app logo.
-- service-worker.js uses the 0.10.4 cache and the app logo for notifications.
+- service-worker.js uses the 0.10.5 cache and the app logo for notifications.
 - The legacy logo.svg asset is removed because current Dashboard code no longer
   references it.
 
