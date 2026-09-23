@@ -10,6 +10,14 @@ Keeps the notification bell permanently visible for administrators whether or no
 
 NOTIFICATION BELL
 =================
+- Bell-hydration hotfix: the static bell is no longer treated as "already
+  initialized." The notification runtime now hydrates it, attaches its click
+  handler, loads unread notifications, and opens the notification panel.
+- Account-approval controls now retry until the authenticated admin session is
+  available, so pending requests remain approvable after slower page loads.
+- Push registration now retries automatically after Dashboard auth is ready when
+  notification permission is already granted, restoring the server-side device
+  subscription needed for real account-request push notifications.
 - Login-startup hotfix: shared PWA/account runtimes now wait until the document
   is parsed before loading, preventing Request Access from replacing the legacy
   signup form while login.html is still attaching startup listeners.
