@@ -10,6 +10,10 @@ Keeps the notification bell permanently visible for administrators whether or no
 
 NOTIFICATION BELL
 =================
+- Account-review delivery status: Approve/Decline now reports the review result
+  separately from email delivery. A saved review no longer appears to fail just
+  because Supabase Auth email delivery times out, and the popup shows whether
+  the email was sent or needs attention.
 - Dedicated pending-request controls: the notification popup now has a
   "Pending Account Requests" section at the top. It loads pending requests
   directly from the Main Admin approval RPC and shows Approve/Decline there,
