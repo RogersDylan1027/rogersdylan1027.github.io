@@ -1,26 +1,82 @@
-My Dashboard · Version 0.10.5
-Account Request & Signup Initialization Fix · 2026-09-23
+My Dashboard · Version 0.10.6
+Reliable Admin Notifications & Notification Center · 2026-09-23
 
 CHANGELOG
 =========
-Version 0.10.5: Account Request & Signup Initialization Fix
+Version 0.10.6: Reliable Admin Notifications & Notification Center
 
 Description:
-Fixes the account request and signup initialization issue that could prevent the login flow from initializing correctly.
+Fixes admin push-device registration so enabled devices are saved and verified
+in Supabase, adds a visible Dashboard notification bell with unread counts and
+account-request links, and keeps approval requests accessible in-app even when
+a push notification is missed.
 
-BUG FIX
-=======
-- Ensures dashboard-account-access.js initializes even when its dynamically
-  loaded script finishes after DOMContentLoaded.
-- Restores Request Access on the login page instead of leaving the legacy
-  Create Account form active for unapproved users.
-- Ensures the App & Notifications settings also initialize when the PWA runtime
-  finishes loading after DOMContentLoaded, allowing admin devices to register
-  push subscriptions reliably.
-- Refreshes login, PWA, manifest, and service-worker version references so
-  iPhone/Safari and installed Home Screen copies receive the corrected runtime.
-- Preserves the existing Main Admin approval, decline, support messaging, and
-  notification workflow.
+NOTIFICATIONS
+=============
+- Adds a notification bell to the Dashboard account bar.
+- Shows an unread-count badge and a scrollable in-app notification list.
+- Account-request notifications open the Account Approvals & Administrators
+  area so the Main Admin can review the request.
+- Notifications remain available in the Dashboard until read, even if a push
+  notification is missed.
+- Adds Mark all read and per-notification read handling.
+- Refreshes the notification list automatically and attempts realtime updates.
+- Push-device registration is now saved and verified by the
+  dashboard-push-config Edge Function using the signed-in admin identity.
+- The App & Notifications controls now let an already-approved device explicitly
+  register again and verify that registration before reporting success.
+- The old local-only unread popup trigger is no longer used as the notification
+  source; server push and the in-app notification center are now authoritative.
+
+ACCOUNT REQUESTS
+================
+- Preserves the Version 0.10.5 Request Access signup fix.
+- New account requests continue to create a pending account request and a
+  persistent Dashboard notification for the Main Admin.
+- Push notifications link back to the account-request area.
+- Approval, decline, administrator roles, and declined-user support messaging
+  are unchanged.
+
+FILES UPDATED
+=============
+Dashboard/index.html
+Dashboard/login.html
+Dashboard/dashboard-config.js
+Dashboard/dashboard-account-access.js
+Dashboard/dashboard-pwa.js
+Dashboard/service-worker.js
+Dashboard/manifest.webmanifest
+Dashboard/README.txt
+
+SUPABASE UPDATED
+================
+- dashboard-push-config Edge Function updated to Version 2.
+- Push registrations are now persisted and verified server-side for the
+  authenticated admin account.
+- No table/schema migration was required.
+
+CHECKED / NO CHANGE NEEDED
+==========================
+Dashboard/projects.json
+Dashboard/Documents/privacy.html
+Dashboard/Documents/tos.html
+
+TEST CHECKLIST
+==============
+1. Reopen the installed My Dashboard Home Screen app and confirm Version 0.10.6.
+2. Open Settings > App & Notifications.
+3. Tap Register This Device (or Enable Notifications if permission is not yet
+   granted).
+4. Tap Send Test Notification and confirm the status says the admin device is
+   registered.
+5. Confirm a bell appears in the Dashboard account bar.
+6. Confirm the existing pending account request appears in the bell panel.
+7. Tap the account-request notification and confirm Account Approvals &
+   Administrators opens.
+8. Submit another test account request and confirm the bell unread count updates.
+9. With the Home Screen app closed/backgrounded, submit a request and verify the
+   push notification arrives.
+10. Confirm approval/decline still works normally.
 
 BRANDING
 ========
