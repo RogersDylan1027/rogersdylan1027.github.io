@@ -44,16 +44,41 @@
     const raw = atob(base64);
     return Uint8Array.from([...raw].map(char => char.charCodeAt(0)));
   }
+  async function getAuthenticatedAdminClient() {
+    let authClient = window.DashboardEntryAuth?.client || null;
+
+    if (!authClient) {
+      if (!window.supabase?.createClient) {
+        throw new Error("The Dashboard sign-in service is not ready yet.");
+      }
+      window.__dashboardPwaClient ||= window.supabase.createClient(
+        config.supabaseUrl,
+        config.supabasePublishableKey,
+        { auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true } }
+      );
+      authClient = window.__dashboardPwaClient;
+    }
+
+    const { data: userData, error: userError } = await authClient.auth.getUser();
+    if (userError || !userData?.user) {
+      throw new Error("Sign in to My Dashboard before registering notifications.");
+    }
+
+    const { data: isAdmin, error: adminError } = await authClient.rpc("is_admin");
+    if (adminError) throw adminError;
+    if (isAdmin !== true) {
+      throw new Error("Administrator access is required to register notifications.");
+    }
+
+    return authClient;
+  }
+
   async function syncPushSubscription() {
     if (Notification.permission !== "granted" || !("serviceWorker" in navigator)) {
       throw new Error("Notification permission is not enabled on this device.");
     }
-    const authClient = window.DashboardEntryAuth?.client;
-    const access = window.DashboardEntryAuth?.access;
-    if (!authClient || !access?.admin) {
-      throw new Error("Administrator access is required to register notifications.");
-    }
 
+    const authClient = await getAuthenticatedAdminClient();
     const registration = await navigator.serviceWorker.ready;
     const { data: configData, error: configError } =
       await authClient.functions.invoke("dashboard-push-config", { body: {} });
