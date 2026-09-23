@@ -10,6 +10,11 @@ Keeps the notification bell permanently visible for administrators whether or no
 
 NOTIFICATION BELL
 =================
+- Centered notification modal: tapping the admin bell now opens a Dashboard-style
+  centered popup instead of an edge-anchored dropdown. The modal uses the same
+  dimmed/blurred backdrop pattern as other Dashboard dialogs, stays within safe
+  mobile margins, scrolls internally, closes with ×, backdrop tap, or Escape,
+  and keeps account-request Approve/Decline actions inside the popup.
 - Core bell wiring hotfix: the main Dashboard now owns the notification bell
   click handler and notification rendering directly. It no longer depends on the
   separate account-access runtime to make the bell interactive.
