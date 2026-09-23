@@ -9,9 +9,9 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>My Dashboard · Version 0.9.1</title>
+  <title>My Dashboard · Version 0.10.5</title>
 
-  <!-- Version 0.9.1: Connected Account Recovery & Account Selection · 2026-09-16 -->
+  <!-- Version 0.10.5: Account Request & Signup Initialization Fix · 2026-09-23 -->
 
   <meta
     name="description"
@@ -25,9 +25,9 @@
 
   <!-- Shared Dashboard configuration and authentication guard. -->
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-  <script src="./dashboard-config.js?v=0.9.1"></script>
+  <script src="./dashboard-config.js?v=0.10.5"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="./dashboard-entry.js?v=0.9.1"></script>
+  <script src="./dashboard-entry.js?v=0.10.5"></script>
 
   <style>
     * { box-sizing: border-box; }
@@ -1235,6 +1235,7 @@
     }
 
     const dashboardChangelog=[
+      {version:"0.10.5",title:"Account Request & Signup Initialization Fix",description:"Fixes the account request and signup initialization issue that could prevent the login flow from initializing correctly."},
       {version:"NHL Analytics 0.2.0",title:"Roster Simulation & Admin Model Diagnostics",description:"Adds the existing NHL Shiny simulator directly inside NHL Analytics as Roster Simulation so users can build custom rosters and simulate matchups without leaving the Dashboard, while restricting MSE, Log Loss, team error summaries, and other Model Diagnostics to administrators through the existing Dashboard admin system."},
       {version:"NHL Analytics 0.1.0",title:"NHL Analytics Foundation & Data Insights",description:"Introduces the NHL Analytics project with live current-day predictions from Game Results.json and historical performance analysis from All Results.json, including overall line accuracy, total tracked bets/prediction lines, game history, MSE/Log Loss trends, team filters, and tracked betting-line performance, while keeping the NHL-Predictions workflow as the single source of truth."},
       {version:"0.9.1",title:"Connected Account Recovery & Account Selection",description:"Adds a Refresh Connected Accounts action in Settings to reload saved Google and Microsoft connections, re-fetch available account data, and repopulate Calendar-related account state after cache clears or stale sessions. OAuth account connections now request explicit account selection where supported so linking Google, Microsoft, and future providers is less likely to auto-sign into the wrong account. Also refreshes the PWA cache path so Home Screen installs pick up the corrected authentication files."},
