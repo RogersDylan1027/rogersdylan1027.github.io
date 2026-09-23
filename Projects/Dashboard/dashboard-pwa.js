@@ -141,9 +141,29 @@
     setTimeout(addSettingsSection, 1500);
   }
 
+  function ensurePushRegistration(attempt = 0) {
+    if (!("Notification" in window) || Notification.permission !== "granted") return;
+    syncPushSubscription().catch(error => {
+      if (attempt < 60) {
+        setTimeout(() => ensurePushRegistration(attempt + 1), 250);
+      } else {
+        console.warn("Automatic push registration failed:", error);
+      }
+    });
+  }
+
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initializePwaSettings, { once: true });
+    document.addEventListener("DOMContentLoaded", () => {
+      initializePwaSettings();
+      ensurePushRegistration();
+    }, { once: true });
   } else {
     initializePwaSettings();
+    ensurePushRegistration();
   }
+
+  window.addEventListener("dashboard-auth-ready", () => {
+    initializePwaSettings();
+    ensurePushRegistration();
+  }, { passive: true });
 })();
