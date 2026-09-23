@@ -1,6 +1,6 @@
 /*
-  My Dashboard · Shared Configuration · Version 0.10.5
-  Account Request & Signup Initialization Fix · 2026-09-23
+  My Dashboard · Shared Configuration · Version 0.10.6
+  Reliable Admin Notifications & Notification Center · 2026-09-23
 
   The Supabase publishable key is intentionally browser-safe.
   Never place a service_role key or another secret in browser JavaScript.
@@ -84,8 +84,8 @@
   }
 
   window.DashboardConfig = Object.freeze({
-    version: "0.10.5",
-    releaseTitle: "Account Request & Signup Initialization Fix",
+    version: "0.10.6",
+    releaseTitle: "Reliable Admin Notifications & Notification Center",
     supabaseUrl: "https://pyefiovoicvhigkjhhts.supabase.co",
     supabasePublishableKey: "sb_publishable_sVrxppe8B1QkXYqAPm6ddQ_x4MA5j32",
     supabaseScriptUrl: "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.js",
@@ -93,19 +93,19 @@
     dashboardIndexUrl: BASE_PATH + "index.html",
     loginUrl: BASE_PATH + "login.html",
     projectsUrl: BASE_PATH + "projects.json",
-    manifestUrl: BASE_PATH + "manifest.webmanifest?v=0.10.5",
-    serviceWorkerUrl: BASE_PATH + "service-worker.js?v=0.10.5",
-    pwaRuntimeUrl: BASE_PATH + "dashboard-pwa.js?v=0.10.5",
-    accountAccessRuntimeUrl: BASE_PATH + "dashboard-account-access.js?v=0.10.5",
-    logoUrl: BASE_PATH + "logo-app.png?v=0.10.5",
-    appLogoUrl: BASE_PATH + "logo-app.png?v=0.10.5",
-    dashboardLogoUrl: BASE_PATH + "logo-dashboard.png?v=0.10.5",
-    professionalLogoUrl: BASE_PATH + "logo-professional.png?v=0.10.5",
+    manifestUrl: BASE_PATH + "manifest.webmanifest?v=0.10.6",
+    serviceWorkerUrl: BASE_PATH + "service-worker.js?v=0.10.6",
+    pwaRuntimeUrl: BASE_PATH + "dashboard-pwa.js?v=0.10.6",
+    accountAccessRuntimeUrl: BASE_PATH + "dashboard-account-access.js?v=0.10.6",
+    logoUrl: BASE_PATH + "logo-app.png?v=0.10.6",
+    appLogoUrl: BASE_PATH + "logo-app.png?v=0.10.6",
+    dashboardLogoUrl: BASE_PATH + "logo-dashboard.png?v=0.10.6",
+    professionalLogoUrl: BASE_PATH + "logo-professional.png?v=0.10.6",
     streamingUrl: BASE_PATH + "Streaming/",
     reviewsUrl: BASE_PATH + "Reviews/",
     budgetUrl: BASE_PATH + "Budget/",
-    streamingClientUrl: BASE_PATH + "dashboard-streaming.js?v=0.10.5",
-    streamingUiUrl: BASE_PATH + "dashboard-streaming-ui.js?v=0.10.5"
+    streamingClientUrl: BASE_PATH + "dashboard-streaming.js?v=0.10.6",
+    streamingUiUrl: BASE_PATH + "dashboard-streaming-ui.js?v=0.10.6"
   });
 
   function installRuntimeScript(src, marker) {
@@ -281,6 +281,11 @@
   }
 
   const runtimeChangelogEntries = [
+    {
+      version: "0.10.6",
+      title: "Reliable Admin Notifications & Notification Center",
+      description: "Fixes admin push-device registration so enabled devices are saved and verified in Supabase, adds a visible Dashboard notification bell with unread counts and account-request links, and keeps approval requests accessible in-app even when a push notification is missed."
+    },
     {
       version: "0.10.5",
       title: "Account Request & Signup Initialization Fix",
