@@ -14,6 +14,9 @@ BUG FIX
   loaded script finishes after DOMContentLoaded.
 - Restores Request Access on the login page instead of leaving the legacy
   Create Account form active for unapproved users.
+- Ensures the App & Notifications settings also initialize when the PWA runtime
+  finishes loading after DOMContentLoaded, allowing admin devices to register
+  push subscriptions reliably.
 - Refreshes login, PWA, manifest, and service-worker version references so
   iPhone/Safari and installed Home Screen copies receive the corrected runtime.
 - Preserves the existing Main Admin approval, decline, support messaging, and
