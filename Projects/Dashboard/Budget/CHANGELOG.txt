@@ -1,3 +1,18 @@
+Version 0.6.3: Estimated MPG Tracking
+
+Description:
+Adds optional odometer readings to Car fill-ups so Budget can estimate fuel economy without requiring an odometer entry every time gas is purchased.
+
+Changes:
+- Adds an optional Odometer field to each dated fill-up.
+- Keeps the existing receipt workflow unchanged when no odometer is entered.
+- Uses consecutive saved odometer checkpoints to calculate miles driven.
+- Includes all gallons purchased between those checkpoints, even when intermediate fill-ups do not have odometer readings.
+- Shows a combined Estimated MPG based on total valid checkpoint miles divided by total gallons between checkpoints.
+- Allows older fill-ups to be edited later to add or correct an odometer reading.
+- Syncs odometer readings through the existing Budget Supabase state with no new database table or schema change.
+- Preserves receipt-date tracking, automatic fill-up duration, weighted gas price, and managed Average Gas Cost behavior.
+
 Version 0.6.2: Automatic Gas Average Updates
 
 Description:

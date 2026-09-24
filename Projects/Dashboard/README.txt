@@ -206,6 +206,28 @@ TEST CHECKLIST
    unchanged.
 
 
+PROJECT CHANGELOG · 2026-09-24
+==============================
+Budget · Version 0.6.3: Estimated MPG Tracking
+
+Adds optional odometer readings to Car fill-ups and estimates MPG from saved
+odometer checkpoints while allowing odometer entry to be skipped whenever it is
+not convenient.
+
+- Budget uses miles between valid odometer checkpoints and all gallons purchased
+  between those checkpoints to calculate the estimate.
+- Existing receipt-date, 2-of-3 fuel entry, average-duration, and managed
+  Average Gas Cost behavior remain unchanged.
+- Added Dashboard/Budget/README.txt and documented the current Budget feature set.
+- Dashboard/projects.json was checked conceptually; the Budget project path and
+  registry metadata do not change for this release.
+- Documents/privacy.html and Documents/tos.html were checked; no legal-text
+  change is required because this release adds no new external service or
+  sharing behavior.
+- My Dashboard remains Version 0.10.8. This project changelog entry alone does
+  not increment the Dashboard version.
+
+
 PROJECT CHANGELOG · 2026-09-18
 ==============================
 NHL Analytics · Version 0.1.0: NHL Analytics Foundation & Data Insights

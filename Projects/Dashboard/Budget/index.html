@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Budget · 0.6.2</title>
+<title>Budget · 0.6.3</title>
 
-<!-- Budget 0.6.2: Automatic gas average updates without duplicate budget items. -->
+<!-- Budget 0.6.3: Optional odometer readings and estimated MPG tracking. -->
 <script src="../dashboard-config.js?v=0.7.2"></script>
 <script src="../dashboard-auth.js?v=0.7.2" data-dashboard-project="budget"></script>
 <style>
@@ -67,7 +67,7 @@ dialog{width:min(520px,calc(100% - 24px));border:0;border-radius:18px;padding:0}
 @media(max-width:640px){.monthly-config{grid-template-columns:1fr}.purchase-row{grid-template-columns:1fr auto}.purchase-row .purchase-edit{grid-column:2}}
 
 .car-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.car-stat-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:12px}
+.car-stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:12px}
 .car-stat{border:1px solid var(--line);border-radius:14px;padding:12px;background:#fff}
 .car-stat span{display:block;color:var(--muted);font-size:12px;font-weight:700}
 .car-stat strong{display:block;margin-top:4px;font-size:20px}
@@ -178,7 +178,7 @@ dialog{width:min(520px,calc(100% - 24px));border:0;border-radius:18px;padding:0}
 
 <div class="card">
 <h2>Gas Fill-Up History</h2>
-<div class="muted">Enter the date and any 2 of these 3 values: total cost, gallons, or price per gallon. Budget calculates the missing value.</div>
+<div class="muted">Enter the date and any 2 of these 3 values: total cost, gallons, or price per gallon. Budget calculates the missing value. Odometer is optional and can be added whenever you have it.</div>
 <div class="car-grid" style="margin-top:12px">
 <div class="field" id="carFallbackPeriodWrap"><label>Assumed duration</label><select id="carAveragePeriod"><option value="week">Weekly</option><option value="biweekly">Every 2 Weeks</option><option value="month">Monthly</option><option value="year">Yearly</option><option value="biyearly">Every 2 Years</option></select><div class="sub">Only used until at least 2 dated fill-ups are available.</div></div>
 <div class="field"><label>Budget display period</label><input id="carBudgetPeriodDisplay" disabled></div>
@@ -188,8 +188,10 @@ dialog{width:min(520px,calc(100% - 24px));border:0;border-radius:18px;padding:0}
 <div class="car-stat"><span>Avg Cost / Fill-Up</span><strong id="carAvgFill">$0.00</strong></div>
 <div class="car-stat"><span id="carNativeLabel">Weekly Avg Spend</span><strong id="carNativeSpend">—</strong></div>
 <div class="car-stat"><span id="carBudgetLabel">Budget Equivalent</span><strong id="carBudgetSpend">—</strong></div>
+<div class="car-stat"><span>Estimated MPG</span><strong id="carEstimatedMpg">—</strong></div>
 </div>
 <div class="car-note" id="carAverageHelp">Add at least two dated fill-ups to calculate a spending rate.</div>
+<div class="car-note" id="carMpgHelp">Odometer readings are optional. Add one whenever convenient; Budget needs two readings to estimate MPG.</div>
 <div class="actions"><button class="btn primary" id="addFillup" type="button">+ Add Fill-Up</button><button class="btn secondary" id="useAverageGas" type="button">Use Average Gas Cost in Current Budget</button></div>
 <div id="fillupList" style="margin-top:12px"></div>
 </div>
@@ -223,6 +225,7 @@ dialog{width:min(520px,calc(100% - 24px));border:0;border-radius:18px;padding:0}
 <dialog id="fillupDialog"><form class="modal" id="fillupForm"><h2 id="fillupTitle">Add Fill-Up</h2>
 <div class="row">
 <div class="field"><label>Date</label><input id="fillupDate" type="date" required></div>
+<div class="field"><label>Odometer (optional)</label><input id="fillupOdometer" type="number" min="0" step=".1" placeholder="e.g. 128542"></div>
 <div class="field"><label>Total cost</label><input id="fillupTotal" type="number" min="0" step=".01" placeholder="e.g. 42.00"></div>
 <div class="field"><label>Gallons</label><input id="fillupGallons" type="number" min="0" step=".001" placeholder="e.g. 12.000"></div>
 <div class="field"><label>Price per gallon</label><input id="fillupPrice" type="number" min="0" step=".001" placeholder="e.g. 3.500"></div>
@@ -260,7 +263,7 @@ dialog{width:min(520px,calc(100% - 24px));border:0;border-radius:18px;padding:0}
 </dialog>
 
 <script>
-const KEY="budget-local-0.6.2", USER="local-user";
+const KEY="budget-local-0.6.3", USER="local-user";
 const defaults={current:"main",view:{period:"week",sort:"default"},prefs:{},pay:{payType:"hourly",payAmount:17,hoursPerDay:5.5,daysPerWeek:5},gas:{distance:45,distancePeriod:"week",mpg:15,gasPrice:3.93,tankSize:22.5,oilMiles:6000},car:{averagePeriod:"week",fillups:[]},budgets:[
 {id:"main",systemKey:"main",name:"Main Budget",type:"main",members:[{id:USER,name:"You"}],splitMode:"whole",customSplitCount:2,items:[]},
 {id:"monthly-expenses",systemKey:"monthly_expenses",name:"Monthly Expenses",type:"monthly",members:[{id:USER,name:"You"}],splitMode:"whole",customSplitCount:2,monthlyLimit:0,monthlyLimitPeriod:"month",closingDay:1,purchases:[],items:[]}
@@ -351,6 +354,7 @@ let state;try{state=JSON.parse(localStorage.getItem(KEY))||structuredClone(defau
 if(!localStorage.getItem(KEY)){
   try{
     const previous=
+      JSON.parse(localStorage.getItem("budget-local-0.6.2")) ||
       JSON.parse(localStorage.getItem("budget-local-0.6.1")) ||
       JSON.parse(localStorage.getItem("budget-local-0.6.0")) ||
       JSON.parse(localStorage.getItem("budget-local-0.5.0")) ||
@@ -457,9 +461,9 @@ else if(b.type!=="main"){$("saveSettings").onclick=()=>{b.name=$("renameBudget")
 
 const CAR_PERIOD_DAYS={week:7,biweekly:14,month:365.25/12,year:365.25,biyearly:365.25*2};
 function carPeriodLabel(p){return ({week:"Weekly",biweekly:"Every 2 Weeks",month:"Monthly",year:"Yearly",biyearly:"Every 2 Years"}[p]||"Weekly")}
-function fillupHtml(f){return `<div class="fillup-row"><div><div class="name">${esc(f.date)}</div><div class="sub">${money(f.total)} · ${Number(f.gallons).toFixed(3)} gal · $${Number(f.pricePerGallon).toFixed(3)} / gal</div></div><div class="amt">${money(f.total)}</div><button class="btn secondary fillup-edit" data-edit-fillup="${f.id}">Edit</button></div>`}
+function fillupHtml(f){const odo=Number(f.odometer)>0?` · Odometer ${Number(f.odometer).toLocaleString(undefined,{maximumFractionDigits:1})} mi`:"";return `<div class="fillup-row"><div><div class="name">${esc(f.date)}</div><div class="sub">${money(f.total)} · ${Number(f.gallons).toFixed(3)} gal · ${Number(f.pricePerGallon).toFixed(3)} / gal${odo}</div></div><div class="amt">${money(f.total)}</div><button class="btn secondary fillup-edit" data-edit-fillup="${f.id}">Edit</button></div>`}
 function carMetrics(){
-  const rows=(state.car?.fillups||[]).filter(f=>f.date&&Number(f.total)>0&&Number(f.gallons)>0&&Number(f.pricePerGallon)>0).slice().sort((a,b)=>String(a.date).localeCompare(String(b.date)));
+  const rows=(state.car?.fillups||[]).filter(f=>f.date&&Number(f.total)>0&&Number(f.gallons)>0&&Number(f.pricePerGallon)>0).slice().sort((a,b)=>String(a.date).localeCompare(String(b.date))||String(a.createdAt||"").localeCompare(String(b.createdAt||"")));
   const totalCost=rows.reduce((sum,f)=>sum+Number(f.total||0),0),totalGallons=rows.reduce((sum,f)=>sum+Number(f.gallons||0),0);
   const weightedPrice=totalGallons>0?totalCost/totalGallons:0,avgFill=rows.length?totalCost/rows.length:0;
   const fallbackPeriod=state.car?.averagePeriod||"week";
@@ -477,7 +481,21 @@ function carMetrics(){
     const budgetDays=CAR_PERIOD_DAYS[state.view.period]||null;
     if(budgetDays){budgetSpend=(nativeSpend/averageDays)*budgetDays;valid=Number.isFinite(nativeSpend)&&Number.isFinite(budgetSpend)}
   }
-  return {rows,totalCost,totalGallons,weightedPrice,avgFill,fallbackPeriod,averageDays,nativeSpend,budgetSpend,valid,automatic}
+
+  const checkpoints=rows.map((f,index)=>({index,odometer:Number(f.odometer)})).filter(x=>Number.isFinite(x.odometer)&&x.odometer>0);
+  let mpgMiles=0,mpgGallons=0,mpgSegments=0;
+  if(checkpoints.length>=2){
+    let previous=checkpoints[0];
+    for(let i=1;i<checkpoints.length;i++){
+      const current=checkpoints[i];
+      if(current.odometer<=previous.odometer)continue;
+      const gallons=rows.slice(previous.index+1,current.index+1).reduce((sum,f)=>sum+Number(f.gallons||0),0);
+      const miles=current.odometer-previous.odometer;
+      if(miles>0&&gallons>0){mpgMiles+=miles;mpgGallons+=gallons;mpgSegments++;previous=current}
+    }
+  }
+  const estimatedMpg=mpgMiles>0&&mpgGallons>0?mpgMiles/mpgGallons:null;
+  return {rows,totalCost,totalGallons,weightedPrice,avgFill,fallbackPeriod,averageDays,nativeSpend,budgetSpend,valid,automatic,checkpoints,mpgMiles,mpgGallons,mpgSegments,estimatedMpg}
 }
 function formatDuration(days){
   if(!Number.isFinite(days)||days<=0)return "—";
@@ -498,6 +516,7 @@ function renderCarHistory(){
   $("carBudgetLabel").textContent=(plabel(state.view.period)||state.view.period)+" Budget Equivalent";
   $("carNativeSpend").textContent=m.valid?money(m.nativeSpend):"—";
   $("carBudgetSpend").textContent=m.valid?money(m.budgetSpend):"—";
+  $("carEstimatedMpg").textContent=m.estimatedMpg?m.estimatedMpg.toFixed(1)+" MPG":"—";
   if(!m.rows.length){
     $("carAverageHelp").textContent="Add your first dated fill-up. Until there are 2 dates, choose the assumed duration for that fill-up.";
   }else if(m.rows.length===1){
@@ -507,6 +526,7 @@ function renderCarHistory(){
   }else{
     $("carAverageHelp").textContent=`Based on ${m.rows.length} dated fill-ups, you average about ${formatDuration(m.averageDays)} between gas stops. Budget calculates the average cost on that duration first, then scales it to the current Budget display period.`;
   }
+  if(!m.checkpoints.length){$("carMpgHelp").textContent="Odometer readings are optional. Add one whenever convenient; Budget needs two readings to estimate MPG."}else if(m.checkpoints.length===1){$("carMpgHelp").textContent="One odometer reading is saved. Add another on a later fill-up to estimate MPG. You can skip odometer entries in between."}else if(!m.estimatedMpg){$("carMpgHelp").textContent="Budget has multiple odometer readings, but it needs a later reading higher than the previous checkpoint to estimate MPG."}else{$("carMpgHelp").textContent=`Estimated from ${m.mpgMiles.toFixed(1)} miles and ${m.mpgGallons.toFixed(3)} gallons across ${m.mpgSegments} odometer segment${m.mpgSegments===1?"":"s"}. Fill-ups without odometer readings are included in the gallons between checkpoints.`}
   $("useAverageGas").disabled=!m.valid;
   $("fillupList").innerHTML=m.rows.length?m.rows.slice().reverse().map(fillupHtml).join(""):`<div class="muted">No fill-ups saved yet.</div>`;
 }
@@ -546,9 +566,9 @@ function previewFillup(){
   else{const expected=gallons*price,diff=Math.abs(total-expected);if(diff>0.05){status.textContent=`These three values do not match. ${gallons.toFixed(3)} gal × $${price.toFixed(3)} = ${money(expected)}. Clear one field to have Budget calculate it.`;status.classList.add("bad");return null}status.textContent="All three values match.";status.classList.add("good")}
   return {total:+total.toFixed(2),gallons:+gallons.toFixed(3),pricePerGallon:+price.toFixed(3)}
 }
-function openFillup(id=null){state.car||={averagePeriod:"week",fillups:[]};editFillupId=id;const f=id?(state.car.fillups||[]).find(x=>x.id===id):null;$("fillupTitle").textContent=f?"Edit Fill-Up":"Add Fill-Up";$("fillupDate").value=f?.date||localDateKey(new Date());$("fillupTotal").value=f?.total??"";$("fillupGallons").value=f?.gallons??"";$("fillupPrice").value=f?.pricePerGallon??"";$("deleteFillup").style.display=f?"block":"none";previewFillup();$("fillupDialog").showModal()}
+function openFillup(id=null){state.car||={averagePeriod:"week",fillups:[]};editFillupId=id;const f=id?(state.car.fillups||[]).find(x=>x.id===id):null;$("fillupTitle").textContent=f?"Edit Fill-Up":"Add Fill-Up";$("fillupDate").value=f?.date||localDateKey(new Date());$("fillupOdometer").value=f?.odometer??"";$("fillupTotal").value=f?.total??"";$("fillupGallons").value=f?.gallons??"";$("fillupPrice").value=f?.pricePerGallon??"";$("deleteFillup").style.display=f?"block":"none";previewFillup();$("fillupDialog").showModal()}
 ["fillupTotal","fillupGallons","fillupPrice"].forEach(id=>$(id).oninput=previewFillup);$("addFillup").onclick=()=>openFillup();$("cancelFillup").onclick=()=>$("fillupDialog").close();
-$("fillupForm").onsubmit=e=>{e.preventDefault();const values=previewFillup(),date=$("fillupDate").value;if(!values||!date)return;state.car||={averagePeriod:"week",fillups:[]};state.car.fillups||=[];const now=new Date().toISOString(),obj={date,...values,updatedAt:now};if(editFillupId){const f=state.car.fillups.find(x=>x.id===editFillupId);if(f)Object.assign(f,obj,{createdAt:f.createdAt||now})}else state.car.fillups.push({id:crypto.randomUUID?.()||"fillup-"+Date.now(),createdAt:now,...obj});save();$("fillupDialog").close();renderAll()};
+$("fillupForm").onsubmit=e=>{e.preventDefault();const values=previewFillup(),date=$("fillupDate").value;if(!values||!date)return;state.car||={averagePeriod:"week",fillups:[]};state.car.fillups||=[];const now=new Date().toISOString(),rawOdometer=Number($("fillupOdometer").value),odometer=Number.isFinite(rawOdometer)&&rawOdometer>0?+rawOdometer.toFixed(1):null,obj={date,...values,odometer,updatedAt:now};if(editFillupId){const f=state.car.fillups.find(x=>x.id===editFillupId);if(f)Object.assign(f,obj,{createdAt:f.createdAt||now})}else state.car.fillups.push({id:crypto.randomUUID?.()||"fillup-"+Date.now(),createdAt:now,...obj});save();$("fillupDialog").close();renderAll()};
 $("deleteFillup").onclick=()=>{state.car.fillups=(state.car.fillups||[]).filter(x=>x.id!==editFillupId);save();$("fillupDialog").close();renderAll()};
 document.addEventListener("click",e=>{if(e.target.dataset.editFillup)openFillup(e.target.dataset.editFillup)});
 $("carAveragePeriod").onchange=e=>{state.car.averagePeriod=e.target.value;save();renderCarHistory()};
@@ -1040,6 +1060,6 @@ Object.assign($("payType"),{value:state.pay?.payType||"hourly"});$("payAmount").
 ["distance","distancePeriod","mpg","gasPrice","tankSize","oilMiles"].forEach(k=>{if(state.gas?.[k]!=null)$(k).value=state.gas[k]});
 renderAll();calcPay();calcGas();
 </script>
-<script src="./budget-supabase.js?v=0.6.2"></script>
+<script src="./budget-supabase.js?v=0.6.3"></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 /*
-  Budget 0.6.2 · Supabase cross-device sync
+  Budget 0.6.3 · Supabase cross-device sync
 
   This intentionally stores the complete Budget state as one JSON snapshot
   per authenticated Dashboard user. localStorage remains the immediate cache.
