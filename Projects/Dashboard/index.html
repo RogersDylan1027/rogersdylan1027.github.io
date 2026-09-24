@@ -9,9 +9,9 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>My Dashboard · Version 0.10.8</title>
+  <title>My Dashboard · Version 0.10.9</title>
 
-  <!-- Version 0.10.8: Notification Management & Account Review Reliability · 2026-09-23 -->
+  <!-- Version 0.10.9: Hourly Weather Refresh · 2026-09-24 -->
 
   <meta
     name="description"
@@ -25,9 +25,9 @@
 
   <!-- Shared Dashboard configuration and authentication guard. -->
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-  <script src="./dashboard-config.js?v=0.10.8"></script>
+  <script src="./dashboard-config.js?v=0.10.9"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="./dashboard-entry.js?v=0.10.8"></script>
+  <script src="./dashboard-entry.js?v=0.10.9"></script>
 
   <style>
     * { box-sizing: border-box; }
@@ -1522,6 +1522,7 @@
 
     const dashboardChangelog=[
       {version:"Budget 0.6.3",title:"Estimated MPG Tracking",description:"Adds optional odometer readings to Car fill-ups and estimates MPG from the miles between saved odometer checkpoints and all gallons purchased between them, while allowing odometer entry to be skipped on any fill-up."},
+      {version:"0.10.9",title:"Hourly Weather Refresh",description:"Adds automatic weather refresh at the top of every hour while preserving refresh on dashboard open and manual refresh."},
       {version:"0.10.8",title:"Notification Management & Account Review Reliability",description:"Adds manual deletion for read notifications while protecting unread alerts, and improves account-request review feedback so approvals and declines remain saved even when email delivery is delayed or fails."},
       {version:"0.10.7",title:"Persistent Admin Notification Bell",description:"Keeps the notification bell permanently visible for administrators, preserves unread counts, uses a centered Dashboard-style notification popup on web and the installed Home Screen app, and keeps account-request approval and decline actions accessible inside the notification experience."},
       {version:"0.10.6",title:"Reliable Admin Notifications & Notification Center",description:"Fixes admin push-device registration so enabled devices are saved and verified in Supabase, adds a visible Dashboard notification bell with unread counts and account-request links, and keeps approval requests accessible in-app even when a push notification is missed."},
@@ -2651,7 +2652,10 @@
     function renderGoogleCalendarEvents(events){const containers=[getById("today-events"),getById("tomorrow-events"),getById("two-days-events")];containers.forEach(c=>c.innerHTML="");const keys=[0,1,2].map(o=>{const d=new Date(selectedCalendarStartDate);d.setDate(d.getDate()+o);return getLocalDateKey(d);});events.forEach(event=>{const i=keys.indexOf(getLocalDateKey(getGoogleEventStart(event)));if(i>=0)containers[i].appendChild(createGoogleCalendarEventElement(event));});containers.forEach(c=>{if(!c.children.length){const el=document.createElement("div");el.className="calendar-event-pill";el.innerHTML='<span class="event-dot"></span><span>No events</span>';c.appendChild(el);}});}
 
     function getWeatherDescription(code,isDay){const map={0:["Clear sky","☀️","🌙"],1:["Mainly clear","🌤️","🌙"],2:["Partly cloudy","⛅","☁️"],3:["Overcast","☁️","☁️"],45:["Fog","🌫️","🌫️"],48:["Rime fog","🌫️","🌫️"],51:["Light drizzle","🌦️","🌧️"],53:["Drizzle","🌦️","🌧️"],55:["Heavy drizzle","🌧️","🌧️"],61:["Light rain","🌦️","🌧️"],63:["Rain","🌧️","🌧️"],65:["Heavy rain","🌧️","🌧️"],71:["Light snow","🌨️","🌨️"],73:["Snow","🌨️","🌨️"],75:["Heavy snow","❄️","❄️"],80:["Light rain showers","🌦️","🌧️"],81:["Rain showers","🌧️","🌧️"],82:["Heavy rain showers","⛈️","⛈️"],85:["Light snow showers","🌨️","🌨️"],86:["Heavy snow showers","❄️","❄️"],95:["Thunderstorm","⛈️","⛈️"],96:["Thunderstorm with hail","⛈️","⛈️"],99:["Severe thunderstorm","⛈️","⛈️"]},v=map[code]||["Current conditions","🌤️","🌙"];return{text:v[0],icon:isDay?v[1]:v[2]};}
-    function loadWeather(){const refresh=getById("weather-refresh-button"),condition=getById("weather-condition"),status=getById("weather-status");refresh.disabled=true;condition.textContent="Finding your location...";status.textContent="";if(!navigator.geolocation){condition.textContent="Location is unavailable";status.textContent="This browser does not support location services.";refresh.disabled=false;return;}navigator.geolocation.getCurrentPosition(async position=>{try{const lat=position.coords.latitude,lon=position.coords.longitude,response=await fetch("https://api.open-meteo.com/v1/forecast?latitude="+encodeURIComponent(lat)+"&longitude="+encodeURIComponent(lon)+"&current=temperature_2m,apparent_temperature,weather_code,is_day&daily=temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit&timezone=auto&forecast_days=1");if(!response.ok)throw new Error("Weather request failed.");const data=await response.json(),current=data.current,daily=data.daily,desc=getWeatherDescription(current.weather_code,current.is_day===1);getById("weather-icon").textContent=desc.icon;getById("weather-temperature").textContent=Math.round(current.temperature_2m)+"°";condition.textContent=desc.text;getById("weather-details").textContent="Feels like "+Math.round(current.apparent_temperature)+"° · High "+Math.round(daily.temperature_2m_max[0])+"° · Low "+Math.round(daily.temperature_2m_min[0])+"°";status.textContent="Updated "+new Date().toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit"});}catch(error){condition.textContent="Weather unavailable";status.textContent="Check your internet connection and try again.";console.error(error);}finally{refresh.disabled=false;}},error=>{condition.textContent="Location permission needed";status.textContent=error.code===1?"Allow location access, then press refresh.":"Your location could not be found. Try again.";refresh.disabled=false;},{enableHighAccuracy:false,timeout:10000,maximumAge:900000});}
+    let lastWeatherRefreshAt=0,weatherRefreshTimer=null;
+    function loadWeather(){lastWeatherRefreshAt=Date.now();const refresh=getById("weather-refresh-button"),condition=getById("weather-condition"),status=getById("weather-status");refresh.disabled=true;condition.textContent="Finding your location...";status.textContent="";if(!navigator.geolocation){condition.textContent="Location is unavailable";status.textContent="This browser does not support location services.";refresh.disabled=false;return;}navigator.geolocation.getCurrentPosition(async position=>{try{const lat=position.coords.latitude,lon=position.coords.longitude,response=await fetch("https://api.open-meteo.com/v1/forecast?latitude="+encodeURIComponent(lat)+"&longitude="+encodeURIComponent(lon)+"&current=temperature_2m,apparent_temperature,weather_code,is_day&daily=temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit&timezone=auto&forecast_days=1");if(!response.ok)throw new Error("Weather request failed.");const data=await response.json(),current=data.current,daily=data.daily,desc=getWeatherDescription(current.weather_code,current.is_day===1);getById("weather-icon").textContent=desc.icon;getById("weather-temperature").textContent=Math.round(current.temperature_2m)+"°";condition.textContent=desc.text;getById("weather-details").textContent="Feels like "+Math.round(current.apparent_temperature)+"° · High "+Math.round(daily.temperature_2m_max[0])+"° · Low "+Math.round(daily.temperature_2m_min[0])+"°";status.textContent="Updated "+new Date().toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit"});}catch(error){condition.textContent="Weather unavailable";status.textContent="Check your internet connection and try again.";console.error(error);}finally{refresh.disabled=false;}},error=>{condition.textContent="Location permission needed";status.textContent=error.code===1?"Allow location access, then press refresh.":"Your location could not be found. Try again.";refresh.disabled=false;},{enableHighAccuracy:false,timeout:10000,maximumAge:900000});}
+    function scheduleHourlyWeatherRefresh(){if(weatherRefreshTimer)clearTimeout(weatherRefreshTimer);const now=new Date(),nextHour=new Date(now);nextHour.setMinutes(60,0,0);const delay=Math.max(1000,nextHour.getTime()-now.getTime());weatherRefreshTimer=setTimeout(()=>{loadWeather();scheduleHourlyWeatherRefresh();},delay);}
+    function refreshWeatherAfterResume(){if(document.visibilityState!=="visible")return;const currentHour=new Date();currentHour.setMinutes(0,0,0);if(lastWeatherRefreshAt<currentHour.getTime())loadWeather();scheduleHourlyWeatherRefresh();}
     function setupEditableDashboardTitle(){const title=getById("dashboard-title"),defaultTitle="My Dashboard",max=40,saved=localStorage.getItem("dashboardTitle");if(saved)title.textContent=saved;function save(){let value=title.textContent.replace(/\s+/g," ").trim()||defaultTitle;value=value.slice(0,max);title.textContent=value;localStorage.setItem("dashboardTitle",value);document.title=value+" · Version 0.4.2";}title.addEventListener("input",()=>{if(title.textContent.length>max)title.textContent=title.textContent.slice(0,max);});title.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();title.blur();}});title.addEventListener("blur",save);save();}
     function looksLikeWebsiteAddress(value){const text=value.trim();if(!text||/\s/.test(text))return false;if(/^[a-z][a-z0-9+.-]*:\/\//i.test(text))return true;if(/^localhost(?::\d+)?(?:[\/?#]|$)/i.test(text))return true;if(/^(?:\d{1,3}\.){3}\d{1,3}(?::\d+)?(?:[\/?#]|$)/.test(text))return true;return /^(?:[a-z0-9-]+\.)+[a-z]{2,}(?::\d+)?(?:[\/?#]|$)/i.test(text);}
     function createDestinationFromSearch(value){const text=value.trim();if(looksLikeWebsiteAddress(text))return /^[a-z][a-z0-9+.-]*:\/\//i.test(text)?text:"https://"+text;return"https://www.google.com/search?q="+encodeURIComponent(text);}
@@ -2681,9 +2685,9 @@
     document.addEventListener("click",e=>{const menu=getById("files-combined-context-menu");if(menu&&!menu.hidden&&!menu.contains(e.target))closeCombinedContextMenu();const temp=getById("files-context-menu");if(temp&&!temp.hidden&&!temp.contains(e.target))closeFilesContextMenu();});
     window.addEventListener("resize",displayTiles);
 
-    displayTiles();renderDashboardChangelog();updateDateAndTime();buildMiniCalendar();updateCalendarHeadings();setupEditableDashboardTitle();loadWeather();
+    displayTiles();renderDashboardChangelog();updateDateAndTime();buildMiniCalendar();updateCalendarHeadings();setupEditableDashboardTitle();loadWeather();scheduleHourlyWeatherRefresh();
     initializeDashboardAuth();
-    setInterval(updateDateAndTime,1000);
+    document.addEventListener("visibilitychange",refreshWeatherAfterResume);\n    setInterval(updateDateAndTime,1000);
     setInterval(()=>{if(latestGoogleCalendarEvents.length){renderGoogleCalendarEvents(latestGoogleCalendarEvents);buildMiniCalendar(latestGoogleCalendarEvents);}},60000);
   </script>
 </body>
