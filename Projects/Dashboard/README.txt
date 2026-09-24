@@ -1,8 +1,63 @@
-My Dashboard · Version 0.10.8
-Notification Management & Account Review Reliability · 2026-09-23
+My Dashboard · Version 0.10.9
+Hourly Weather Refresh · 2026-09-24
 
 CHANGELOG
 =========
+Version 0.10.9: Hourly Weather Refresh
+
+Description:
+Adds automatic weather refresh at the top of every hour while preserving refresh on dashboard open and manual refresh.
+
+WEATHER REFRESH · 0.10.9
+========================
+- Keeps the existing weather refresh whenever the Dashboard opens.
+- Automatically refreshes weather at the top of each clock hour while the
+  Dashboard remains open.
+- Uses the next real hour boundary rather than a 60-minute interval from page
+  load, so opening at 10:28 refreshes again at 11:00.
+- When an installed iPhone/Home Screen app is suspended across an hour boundary,
+  returning to the Dashboard refreshes weather immediately and reschedules the
+  next top-of-hour update.
+- Preserves the manual weather refresh button, Open-Meteo weather source, and
+  existing location-permission behavior.
+
+HOME SCREEN APP · 0.10.9
+========================
+- Advances the service-worker cache to Version 0.10.9 so installed Dashboard
+  copies receive the hourly weather behavior.
+- Refreshes versioned Dashboard runtime and manifest references for this release.
+
+CHECKED / NO CHANGE NEEDED
+==========================
+Dashboard/projects.json
+Dashboard/Documents/privacy.html
+Dashboard/Documents/tos.html
+Supabase database, policies, and Edge Functions
+
+FILES UPDATED
+=============
+Dashboard/index.html
+Dashboard/dashboard-config.js
+Dashboard/dashboard-pwa.js
+Dashboard/dashboard-account-access.js
+Dashboard/login.html
+Dashboard/service-worker.js
+Dashboard/manifest.webmanifest
+Dashboard/README.txt
+
+TEST CHECKLIST · 0.10.9
+=======================
+1. Open My Dashboard and confirm weather refreshes immediately.
+2. Leave the Dashboard open across the next clock-hour boundary and confirm the
+   weather status updates at :00.
+3. On iPhone/Home Screen, background the Dashboard across an hour boundary,
+   reopen it, and confirm weather refreshes immediately.
+4. Press the manual weather refresh button and confirm it still works.
+5. Confirm Calendar, notifications, account approval, Projects, Files, Streaming,
+   Reviews, Budget, and login behavior remain unchanged.
+
+PREVIOUS RELEASE
+================
 Version 0.10.8: Notification Management & Account Review Reliability
 
 Description:
