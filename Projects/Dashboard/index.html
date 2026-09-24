@@ -2687,7 +2687,8 @@
 
     displayTiles();renderDashboardChangelog();updateDateAndTime();buildMiniCalendar();updateCalendarHeadings();setupEditableDashboardTitle();loadWeather();scheduleHourlyWeatherRefresh();
     initializeDashboardAuth();
-    document.addEventListener("visibilitychange",refreshWeatherAfterResume);\n    setInterval(updateDateAndTime,1000);
+    document.addEventListener("visibilitychange",refreshWeatherAfterResume);
+    setInterval(updateDateAndTime,1000);
     setInterval(()=>{if(latestGoogleCalendarEvents.length){renderGoogleCalendarEvents(latestGoogleCalendarEvents);buildMiniCalendar(latestGoogleCalendarEvents);}},60000);
   </script>
 </body>
