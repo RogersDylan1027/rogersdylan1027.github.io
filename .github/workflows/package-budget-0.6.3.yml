@@ -1,0 +1,32 @@
+name: Package Budget 0.6.3
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/package-budget-0.6.3.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build replacement-file package
+        shell: bash
+        run: |
+          mkdir -p package/Dashboard/Budget
+          cp Projects/Dashboard/Budget/index.html package/Dashboard/Budget/index.html
+          cp Projects/Dashboard/Budget/budget-supabase.js package/Dashboard/Budget/budget-supabase.js
+          cp Projects/Dashboard/Budget/CHANGELOG.txt package/Dashboard/Budget/CHANGELOG.txt
+          cp Projects/Dashboard/Budget/README.txt package/Dashboard/Budget/README.txt
+          cp Projects/Dashboard/index.html package/Dashboard/index.html
+          cp Projects/Dashboard/README.txt package/Dashboard/README.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Budget-0.6.3-Estimated-MPG-Tracking
+          path: package/
+          if-no-files-found: error
+          retention-days: 7
