@@ -1,6 +1,6 @@
 /*
-  My Dashboard · Shared Configuration · Version 0.10.8
-  Notification Management & Account Review Reliability · 2026-09-23
+  My Dashboard · Shared Configuration · Version 0.10.9
+  Hourly Weather Refresh · 2026-09-24
 
   The Supabase publishable key is intentionally browser-safe.
   Never place a service_role key or another secret in browser JavaScript.
@@ -84,8 +84,8 @@
   }
 
   window.DashboardConfig = Object.freeze({
-    version: "0.10.8",
-    releaseTitle: "Notification Management & Account Review Reliability",
+    version: "0.10.9",
+    releaseTitle: "Hourly Weather Refresh",
     supabaseUrl: "https://pyefiovoicvhigkjhhts.supabase.co",
     supabasePublishableKey: "sb_publishable_sVrxppe8B1QkXYqAPm6ddQ_x4MA5j32",
     supabaseScriptUrl: "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.js",
@@ -93,19 +93,19 @@
     dashboardIndexUrl: BASE_PATH + "index.html",
     loginUrl: BASE_PATH + "login.html",
     projectsUrl: BASE_PATH + "projects.json",
-    manifestUrl: BASE_PATH + "manifest.webmanifest?v=0.10.8",
-    serviceWorkerUrl: BASE_PATH + "service-worker.js?v=0.10.8",
-    pwaRuntimeUrl: BASE_PATH + "dashboard-pwa.js?v=0.10.8",
-    accountAccessRuntimeUrl: BASE_PATH + "dashboard-account-access.js?v=0.10.8",
-    logoUrl: BASE_PATH + "logo-app.png?v=0.10.8",
-    appLogoUrl: BASE_PATH + "logo-app.png?v=0.10.8",
-    dashboardLogoUrl: BASE_PATH + "logo-dashboard.png?v=0.10.8",
-    professionalLogoUrl: BASE_PATH + "logo-professional.png?v=0.10.8",
+    manifestUrl: BASE_PATH + "manifest.webmanifest?v=0.10.9",
+    serviceWorkerUrl: BASE_PATH + "service-worker.js?v=0.10.9",
+    pwaRuntimeUrl: BASE_PATH + "dashboard-pwa.js?v=0.10.9",
+    accountAccessRuntimeUrl: BASE_PATH + "dashboard-account-access.js?v=0.10.9",
+    logoUrl: BASE_PATH + "logo-app.png?v=0.10.9",
+    appLogoUrl: BASE_PATH + "logo-app.png?v=0.10.9",
+    dashboardLogoUrl: BASE_PATH + "logo-dashboard.png?v=0.10.9",
+    professionalLogoUrl: BASE_PATH + "logo-professional.png?v=0.10.9",
     streamingUrl: BASE_PATH + "Streaming/",
     reviewsUrl: BASE_PATH + "Reviews/",
     budgetUrl: BASE_PATH + "Budget/",
-    streamingClientUrl: BASE_PATH + "dashboard-streaming.js?v=0.10.8",
-    streamingUiUrl: BASE_PATH + "dashboard-streaming-ui.js?v=0.10.8"
+    streamingClientUrl: BASE_PATH + "dashboard-streaming.js?v=0.10.9",
+    streamingUiUrl: BASE_PATH + "dashboard-streaming-ui.js?v=0.10.9"
   });
 
   function installRuntimeScript(src, marker) {
@@ -288,6 +288,11 @@
   }
 
   const runtimeChangelogEntries = [
+    {
+      version: "0.10.9",
+      title: "Hourly Weather Refresh",
+      description: "Adds automatic weather refresh at the top of every hour while preserving refresh on dashboard open and manual refresh."
+    },
     {
       version: "0.10.8",
       title: "Notification Management & Account Review Reliability",
