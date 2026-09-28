@@ -9,9 +9,9 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>My Dashboard · Version 0.10.9</title>
+  <title>My Dashboard · Version 0.10.10</title>
 
-  <!-- Version 0.10.9: Hourly Weather Refresh · 2026-09-24 -->
+  <!-- Version 0.10.10: Account Approval & Password Setup · 2026-09-28 -->
 
   <meta
     name="description"
@@ -25,9 +25,9 @@
 
   <!-- Shared Dashboard configuration and authentication guard. -->
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-  <script src="./dashboard-config.js?v=0.10.9"></script>
+  <script src="./dashboard-config.js?v=0.10.10"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="./dashboard-entry.js?v=0.10.9"></script>
+  <script src="./dashboard-entry.js?v=0.10.10"></script>
 
   <style>
     * { box-sizing: border-box; }
@@ -865,10 +865,12 @@
             '<button id="dashboard-notifications-mark-all-read" type="button" style="padding:6px 9px;border:0;background:transparent;color:#2450a4;font:inherit;font-size:11px;font-weight:700;cursor:pointer;">Mark all read</button>' +
           '</div>' +
           '<div id="dashboard-pending-account-requests" style="padding:14px;border-bottom:1px solid #edf0f3;"></div>' +
+          '<div id="dashboard-approved-account-requests" style="padding:14px;border-bottom:1px solid #edf0f3;"></div>' +
           '<div id="dashboard-notifications-inline-list" style="overflow:auto;padding:0 14px 14px;-webkit-overflow-scrolling:touch;"><p style="margin:18px 4px;color:#68707c;font-size:13px;">Loading notifications…</p></div>' +
         '</div>';
 
       const pendingHost = getById("dashboard-pending-account-requests");
+      const approvedHost = getById("dashboard-approved-account-requests");
       const list = getById("dashboard-notifications-inline-list");
 
       const [{ data: notifications, error: notificationError }, { data: access, error: accessError }] = await Promise.all([
@@ -893,15 +895,17 @@
 
       let pendingById = {};
       let pendingRequests = [];
+      let approvedRequests = [];
       try {
         const { data: requests, error: requestError } = await supabaseClient.rpc("main_admin_list_account_requests");
         if (requestError) throw requestError;
         pendingRequests = (requests || []).filter(function (request) { return request.status === "pending"; });
+        approvedRequests = (requests || []).filter(function (request) { return request.status === "approved"; });
         (requests || []).forEach(function (request) {
           pendingById[String(request.request_id)] = request;
         });
       } catch (error) {
-        console.warn("Pending account requests:", error);
+        console.warn("Account requests:", error);
       }
 
       async function reviewPendingAccountRequest(request, decision, reason, buttons) {
@@ -918,15 +922,20 @@
             .eq("request_id", request.request_id)
             .is("read_at", null);
 
-          const resultMessage = data?.email_sent === false
-            ? "Request " + decision + ", but the email could not be sent. The account review itself was saved."
-            : "Request " + decision + " and email sent.";
+          const resultMessage = decision === "approved"
+            ? (data?.setup_sent === false
+                ? "Account approved, but the password setup email could not be sent. Use Resend Password Setup Link below."
+                : "Account approved. A password setup link was sent.")
+            : (data?.email_sent === false
+                ? "Request declined, but the support email could not be sent. The decline itself was saved."
+                : "Request declined and support email sent.");
 
           await renderDashboardNotificationPanel();
           const pendingHostAfter = getById("dashboard-pending-account-requests");
           if (pendingHostAfter) {
             const notice = document.createElement("div");
-            notice.style.cssText = "margin-top:10px;padding:10px 12px;border-radius:10px;background:" + (data?.email_sent === false ? "#fff4e5" : "#eef7ee") + ";color:#252525;font-size:12px;line-height:1.4;";
+            const sendFailed = decision === "approved" ? data?.setup_sent === false : data?.email_sent === false;
+            notice.style.cssText = "margin-top:10px;padding:10px 12px;border-radius:10px;background:" + (sendFailed ? "#fff4e5" : "#eef7ee") + ";color:#252525;font-size:12px;line-height:1.4;";
             notice.textContent = resultMessage;
             pendingHostAfter.prepend(notice);
           }
@@ -987,6 +996,54 @@
             actions.append(approve, decline);
             row.appendChild(actions);
             pendingHost.appendChild(row);
+          });
+        }
+      }
+
+      if (approvedHost) {
+        approvedHost.innerHTML = '<div style="font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:#68707c;margin-bottom:8px;">Approved Accounts</div>';
+
+        if (!approvedRequests.length) {
+          approvedHost.insertAdjacentHTML("beforeend", '<p style="margin:0;color:#68707c;font-size:13px;">No approved accounts yet.</p>');
+        } else {
+          approvedRequests.slice(0, 20).forEach(function (request) {
+            const row = document.createElement("div");
+            row.style.cssText = "padding:12px;border:1px solid #dfe3e8;border-radius:12px;background:#fff;margin-top:8px;";
+            row.innerHTML =
+              '<div style="font-size:13px;font-weight:800;color:#252525;overflow-wrap:anywhere;">' + escapeDashboardNotificationText(request.email) + '</div>' +
+              '<div style="margin-top:4px;color:#68707c;font-size:11px;">Approved ' + escapeDashboardNotificationText(formatDashboardNotificationDate(request.reviewed_at)) + '</div>';
+
+            const resend = document.createElement("button");
+            resend.type = "button";
+            resend.textContent = "Resend Password Setup Link";
+            resend.style.cssText = "margin-top:10px;padding:8px 12px;border:1px solid #2450a4;border-radius:16px;background:#fff;color:#2450a4;font:inherit;font-size:12px;font-weight:700;cursor:pointer;";
+
+            resend.addEventListener("click", async function (event) {
+              event.stopPropagation();
+              resend.disabled = true;
+              const oldText = resend.textContent;
+              resend.textContent = "Sending…";
+              try {
+                const { data, error } = await supabaseClient.functions.invoke("dashboard-account-review", {
+                  body: { requestId: request.request_id, action: "resend_setup" }
+                });
+                if (error) throw error;
+                if (data?.error) throw new Error(data.error);
+                resend.textContent = "Password Setup Link Sent";
+                setTimeout(function () {
+                  resend.disabled = false;
+                  resend.textContent = oldText;
+                }, 2500);
+              } catch (error) {
+                console.error("Resend password setup link:", error);
+                resend.disabled = false;
+                resend.textContent = oldText;
+                alert(error?.message || "The password setup link could not be sent.");
+              }
+            });
+
+            row.appendChild(resend);
+            approvedHost.appendChild(row);
           });
         }
       }
@@ -1521,6 +1578,7 @@
     }
 
     const dashboardChangelog=[
+      {version:"0.10.10",title:"Account Approval & Password Setup",description:"Completes the account-approval flow by creating the approved Supabase Auth account, sending a password-setup link, and giving the Main Admin a resend option when setup email needs to be sent again."},
       {version:"Budget 0.6.3",title:"Estimated MPG Tracking",description:"Adds optional odometer readings to Car fill-ups and estimates MPG from the miles between saved odometer checkpoints and all gallons purchased between them, while allowing odometer entry to be skipped on any fill-up."},
       {version:"0.10.9",title:"Hourly Weather Refresh",description:"Adds automatic weather refresh at the top of every hour while preserving refresh on dashboard open and manual refresh."},
       {version:"0.10.8",title:"Notification Management & Account Review Reliability",description:"Adds manual deletion for read notifications while protecting unread alerts, and improves account-request review feedback so approvals and declines remain saved even when email delivery is delayed or fails."},
