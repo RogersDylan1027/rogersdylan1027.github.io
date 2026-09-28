@@ -1,6 +1,6 @@
 /*
-  My Dashboard · Shared Configuration · Version 0.10.9
-  Hourly Weather Refresh · 2026-09-24
+  My Dashboard · Shared Configuration · Version 0.10.10
+  Account Approval & Password Setup · 2026-09-28
 
   The Supabase publishable key is intentionally browser-safe.
   Never place a service_role key or another secret in browser JavaScript.
@@ -84,8 +84,8 @@
   }
 
   window.DashboardConfig = Object.freeze({
-    version: "0.10.9",
-    releaseTitle: "Hourly Weather Refresh",
+    version: "0.10.10",
+    releaseTitle: "Account Approval & Password Setup",
     supabaseUrl: "https://pyefiovoicvhigkjhhts.supabase.co",
     supabasePublishableKey: "sb_publishable_sVrxppe8B1QkXYqAPm6ddQ_x4MA5j32",
     supabaseScriptUrl: "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.js",
@@ -93,19 +93,19 @@
     dashboardIndexUrl: BASE_PATH + "index.html",
     loginUrl: BASE_PATH + "login.html",
     projectsUrl: BASE_PATH + "projects.json",
-    manifestUrl: BASE_PATH + "manifest.webmanifest?v=0.10.9",
-    serviceWorkerUrl: BASE_PATH + "service-worker.js?v=0.10.9",
-    pwaRuntimeUrl: BASE_PATH + "dashboard-pwa.js?v=0.10.9",
-    accountAccessRuntimeUrl: BASE_PATH + "dashboard-account-access.js?v=0.10.9",
-    logoUrl: BASE_PATH + "logo-app.png?v=0.10.9",
-    appLogoUrl: BASE_PATH + "logo-app.png?v=0.10.9",
-    dashboardLogoUrl: BASE_PATH + "logo-dashboard.png?v=0.10.9",
-    professionalLogoUrl: BASE_PATH + "logo-professional.png?v=0.10.9",
+    manifestUrl: BASE_PATH + "manifest.webmanifest?v=0.10.10",
+    serviceWorkerUrl: BASE_PATH + "service-worker.js?v=0.10.10",
+    pwaRuntimeUrl: BASE_PATH + "dashboard-pwa.js?v=0.10.10",
+    accountAccessRuntimeUrl: BASE_PATH + "dashboard-account-access.js?v=0.10.10",
+    logoUrl: BASE_PATH + "logo-app.png?v=0.10.10",
+    appLogoUrl: BASE_PATH + "logo-app.png?v=0.10.10",
+    dashboardLogoUrl: BASE_PATH + "logo-dashboard.png?v=0.10.10",
+    professionalLogoUrl: BASE_PATH + "logo-professional.png?v=0.10.10",
     streamingUrl: BASE_PATH + "Streaming/",
     reviewsUrl: BASE_PATH + "Reviews/",
     budgetUrl: BASE_PATH + "Budget/",
-    streamingClientUrl: BASE_PATH + "dashboard-streaming.js?v=0.10.9",
-    streamingUiUrl: BASE_PATH + "dashboard-streaming-ui.js?v=0.10.9"
+    streamingClientUrl: BASE_PATH + "dashboard-streaming.js?v=0.10.10",
+    streamingUiUrl: BASE_PATH + "dashboard-streaming-ui.js?v=0.10.10"
   });
 
   function installRuntimeScript(src, marker) {
@@ -288,6 +288,11 @@
   }
 
   const runtimeChangelogEntries = [
+    {
+      version: "0.10.10",
+      title: "Account Approval & Password Setup",
+      description: "Completes the account-approval flow by creating the approved Supabase Auth account, sending a password-setup link, and giving the Main Admin a resend option when setup email needs to be sent again."
+    },
     {
       version: "0.10.9",
       title: "Hourly Weather Refresh",
