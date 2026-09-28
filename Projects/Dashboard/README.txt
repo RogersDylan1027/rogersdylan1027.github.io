@@ -1,8 +1,71 @@
-My Dashboard · Version 0.10.9
-Hourly Weather Refresh · 2026-09-24
+My Dashboard · Version 0.10.10
+Account Approval & Password Setup · 2026-09-28
 
 CHANGELOG
 =========
+Version 0.10.10: Account Approval & Password Setup
+
+Description:
+Completes the account-approval flow by creating the approved Supabase Auth account, sending a password-setup link, and giving the Main Admin a resend option when setup email needs to be sent again.
+
+ACCOUNT APPROVAL & PASSWORD SETUP · 0.10.10
+==========================================
+- Approving a pending request now creates the actual Supabase Auth user if one
+  does not already exist.
+- The approved user is sent a password-setup/recovery email that returns them to
+  Dashboard/login.html, where the existing recovery form lets them choose their
+  password.
+- Approval and password-email delivery are reported separately, so an approved
+  request remains approved even if the setup email has a delivery problem.
+- The Notifications popup now includes an Approved Accounts section with a
+  Resend Password Setup Link button for each approved account.
+- Resend uses the same authenticated Main Admin Edge Function and only works for
+  an approved account request.
+- dashboard-account-review is now Edge Function version 3.
+- The previous test applicant was reset out of the approved state so the next
+  Request Access submission starts the new flow from the beginning.
+
+HOME SCREEN APP · 0.10.10
+=========================
+- Advances the service-worker cache and runtime references to Version 0.10.10.
+- Preserves the Version 0.10.9 hourly weather refresh behavior.
+
+FILES UPDATED
+=============
+Dashboard/index.html
+Dashboard/login.html
+Dashboard/dashboard-config.js
+Dashboard/dashboard-account-access.js
+Dashboard/dashboard-pwa.js
+Dashboard/service-worker.js
+Dashboard/manifest.webmanifest
+Dashboard/README.txt
+Supabase Edge Function: dashboard-account-review (version 3)
+
+CHECKED / NO CHANGE NEEDED
+==========================
+Dashboard/projects.json
+Dashboard/Documents/privacy.html
+Dashboard/Documents/tos.html
+
+TEST CHECKLIST · 0.10.10
+========================
+1. Fully close and reopen My Dashboard and confirm Version 0.10.10.
+2. Have a new email submit Request Access and confirm the Main Admin receives the
+   request notification.
+3. Open the bell and confirm the email appears under Pending Account Requests.
+4. Tap Approve and confirm the request moves to Approved Accounts.
+5. Confirm the approved user receives a password-setup email.
+6. Open the password-setup link, create a password, and sign in successfully.
+7. From Approved Accounts, use Resend Password Setup Link and confirm another
+   setup email is received.
+8. Confirm Decline and declined-user support behavior remain available.
+9. Confirm read-notification deletion still works.
+10. Confirm Version 0.10.9 hourly weather refresh still works at the top of the
+    hour and after returning from a suspended Home Screen app.
+
+PREVIOUS RELEASE
+================
 Version 0.10.9: Hourly Weather Refresh
 
 Description:
