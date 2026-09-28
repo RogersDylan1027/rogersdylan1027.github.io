@@ -1,4 +1,4 @@
-/* My Dashboard · Service Worker · Version 0.10.10 · Hourly Weather Refresh · 2026-09-24 */
+/* My Dashboard · Service Worker · Version 0.10.10 · Account Approval & Password Setup · 2026-09-28 */
 const CACHE_NAME = "my-dashboard-v0.10.10";
 const BASE_PATH = "/Projects/Dashboard/";
 const CORE_ASSETS = [
