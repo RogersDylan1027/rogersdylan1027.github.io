@@ -1,7 +1,7 @@
 NHL ANALYTICS PROJECT
 
 Current version
-0.3.2
+0.3.3
 
 Version 0.2.0: Roster Simulation & Admin Model Diagnostics
 
@@ -76,6 +76,24 @@ VERSION 0.3.2 FEATURES
   line is offered unless the prediction program itself generates it.
 - This feature tracks model selections only; it does not place wagers or connect
   to a sportsbook.
+
+Version 0.3.3: Betting Accuracy Breakdowns
+
+Adds three Betting-page accuracy breakdowns—Moneyline Accuracy, Player Pick Accuracy, and Overall Accuracy—calculated from the model’s historical bettingLines and matching correctBettingLines results, while preserving Selected Model Picks and the detailed betting history.
+
+VERSION 0.3.3 FEATURES
+======================
+- Adds Moneyline Accuracy to the Betting page.
+- Adds Player Pick Accuracy for model-generated +1 Point selections.
+- Adds Overall Accuracy across all scored model betting picks.
+- Moneyline uses the first bettingLines entry for each game and its matching
+  first correctBettingLines result.
+- Player Pick Accuracy uses all bettingLines entries after the moneyline and
+  their matching correctBettingLines results.
+- Historical records without scored betting results are excluded from the
+  accuracy denominators.
+- Handles both single-value and array-shaped correctBettingLines records.
+- Preserves Selected Model Picks and the detailed historical betting table.
 
 PURPOSE
 =======
