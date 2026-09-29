@@ -33,6 +33,33 @@
     const perc = raw.match(new RegExp("\\("+escapeReg(home)+":\\s*([\\d.]+)%\\s*,\\s*"+escapeReg(away)+":\\s*([\\d.]+)%\\)","i"));
     return { raw, winner, expectedDifference: diff ? Number(diff[1]) : null, homeExpected: first ? Number(first[1]) : null, awayExpected: first ? Number(first[2]) : null, homeWinPct: perc ? Number(perc[1])/100 : null, awayWinPct: perc ? Number(perc[2])/100 : null };
   }
+  function easternDateKey() {
+    const parts = new Intl.DateTimeFormat("en-CA", { timeZone: "America/New_York", year: "numeric", month: "2-digit", day: "2-digit" }).formatToParts(new Date());
+    const get = type => parts.find(p => p.type === type)?.value || "";
+    return get("year") + "-" + get("month") + "-" + get("day");
+  }
+  function zonedLocalToUtc(dateKey, timeText, timeZone) {
+    const match = String(timeText || "").match(/^(\d{1,2}):(\d{2})(?::(\d{2}))?$/);
+    if (!match || !dateKey) return null;
+    const [year, month, day] = dateKey.split("-").map(Number);
+    const target = { year, month, day, hour: Number(match[1]), minute: Number(match[2]), second: Number(match[3] || 0) };
+    let guess = Date.UTC(year, month - 1, day, target.hour, target.minute, target.second);
+    const formatter = new Intl.DateTimeFormat("en-US", { timeZone, hour12: false, year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", second: "2-digit" });
+    for (let i = 0; i < 3; i++) {
+      const parts = formatter.formatToParts(new Date(guess));
+      const value = type => Number(parts.find(p => p.type === type)?.value || 0);
+      const seen = Date.UTC(value("year"), value("month") - 1, value("day"), value("hour") % 24, value("minute"), value("second"));
+      const wanted = Date.UTC(target.year, target.month - 1, target.day, target.hour, target.minute, target.second);
+      guess += wanted - seen;
+    }
+    return new Date(guess);
+  }
+  function formatStartTimeForViewer(timeText, dateKey="") {
+    const instant = zonedLocalToUtc(dateKey || easternDateKey(), timeText, "America/New_York");
+    if (!instant || Number.isNaN(instant.getTime())) return timeText || "—";
+    return instant.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit", hour12: true });
+  }
+
   function normalizeGame(game={}, date="") {
     const home = String(game.homeABV || "?"), away = String(game.awayABV || "?"), outcome = parseOutcome(game.outcome, home, away);
     const correct = num(game.correctLines), total = num(game.totalLines), bets = bettingSelections(game.bettingLines);
@@ -99,13 +126,13 @@
   function gameTable(games){if(!games.length)return'<div class="empty">No games match this view.</div>';return'<div class="table-wrap"><table class="data-table"><thead><tr><th>Date</th><th>Matchup</th><th>Predicted Winner</th><th>Line Accuracy</th><th>Correct / Total</th><th>Betting</th></tr></thead><tbody>'+games.map(gameRow).join("")+'</tbody></table></div>';}
   function renderLatestGames(){$("latestGames").innerHTML=gameTable(state.games.slice(0,10));}
   function renderToday(){
-    const predicted=state.today.filter(g=>g.outcome.winner).length,withGoalies=state.today.filter(g=>g.homeGoalie!=="Not confirmed"&&g.awayGoalie!=="Not confirmed").length,betCount=sum(state.today.map(g=>g.bets.length));
-    $("todaySummary").innerHTML=metric("Games",state.today.length.toString(),"Current Game Results.json")+metric("Predictions",predicted.toString(),"Games with a parsed winner")+metric("Goalies Confirmed",withGoalies.toString(),"Both goalies present")+metric("Betting Picks",betCount.toString(),"Current tracked selections")+metric("Last Refresh",state.loadedAt?state.loadedAt.toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit"}):"—","Dashboard data refresh");
+    const predicted=state.today.filter(g=>g.outcome.winner).length,confirmedGoalies=sum(state.today.map(g=>(g.homeGoalie!=="Not confirmed"?1:0)+(g.awayGoalie!=="Not confirmed"?1:0))),totalGoalieSlots=state.today.length*2,betCount=sum(state.today.map(g=>g.bets.length));
+    $("todaySummary").innerHTML=metric("Games",state.today.length.toString(),"Current Game Results.json")+metric("Predictions",predicted.toString(),"Games with a parsed winner")+metric("Goalies Confirmed",confirmedGoalies+" / "+totalGoalieSlots,"Confirmed starting goalies")+metric("Betting Picks",betCount.toString(),"Current tracked selections")+metric("Last Refresh",state.loadedAt?state.loadedAt.toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit"}):"—","Dashboard data refresh");
     $("todayGames").innerHTML=state.today.length?state.today.map(todayCard).join(""):'<div class="panel empty">No current-day games are available in Game Results.json.</div>';
   }
   function todayCard(g){
     const confidence=g.outcome.winner===g.home?g.outcome.homeWinPct:g.outcome.winner===g.away?g.outcome.awayWinPct:null,scorers=[...g.awayScorersList,...g.homeScorersList];
-    return'<article class="game-card"><div class="matchup"><div class="club"><strong>'+esc(g.away)+'</strong><span>'+esc(g.awayGoalie)+'</span></div><span class="at">@</span><div class="club" style="text-align:right"><strong>'+esc(g.home)+'</strong><span>'+esc(g.homeGoalie)+'</span></div></div><div class="prediction"><strong>Prediction: '+esc(g.outcome.winner||"Unavailable")+(Number.isFinite(confidence)?" · "+pct(confidence):"")+'</strong><small>'+esc(g.outcome.raw||"The model outcome text is not available.")+'</small></div><div class="game-details"><div class="detail"><label>Start</label><p>'+esc(g.startingTime||"—")+'</p></div><div class="detail"><label>Last Model Run</label><p>'+esc(g.timeLastRun||"—")+'</p></div><div class="detail"><label>Betting</label><p>'+esc(g.bets.join("; ")||"No betting line stored")+'</p></div><div class="detail"><label>Expected Difference</label><p>'+esc(Number.isFinite(g.outcome.expectedDifference)?fixed(g.outcome.expectedDifference,3):"—")+'</p></div><div class="detail scorers"><label>Expected Point Scorers</label>'+(scorers.length?'<div class="chips">'+scorers.map(s=>'<span class="chip">'+esc(s)+'</span>').join("")+'</div>':'<p>No scorer prediction stored for this game.</p>')+'</div></div></article>';
+    return'<article class="game-card"><div class="matchup"><div class="club"><strong>'+esc(g.away)+'</strong><span>'+esc(g.awayGoalie)+'</span></div><span class="at">@</span><div class="club" style="text-align:right"><strong>'+esc(g.home)+'</strong><span>'+esc(g.homeGoalie)+'</span></div></div><div class="prediction"><strong>Prediction: '+esc(g.outcome.winner||"Unavailable")+(Number.isFinite(confidence)?" · "+pct(confidence):"")+'</strong></div><div class="game-details"><div class="detail"><label>Start</label><p>'+esc(formatStartTimeForViewer(g.startingTime,g.date))+'</p></div><div class="detail"><label>Last Model Run</label><p>'+esc(g.timeLastRun||"—")+'</p></div><div class="detail"><label>Betting</label><p>'+esc(g.bets.join("; ")||"No betting line stored")+'</p></div><div class="detail"><label>Expected Difference</label><p>'+esc(Number.isFinite(g.outcome.expectedDifference)?fixed(g.outcome.expectedDifference,3):"—")+'</p></div><div class="detail scorers"><label>Expected Point Scorers</label>'+(scorers.length?'<div class="chips">'+scorers.map(s=>'<span class="chip">'+esc(s)+'</span>').join("")+'</div>':'<p>No scorer prediction stored for this game.</p>')+'</div></div></article>';
   }
   function populateTeamFilter(){const teams=[...new Set(state.games.flatMap(g=>[g.home,g.away]).filter(t=>t&&t!=="?"))].sort(),select=$("teamFilter"),current=select.value;select.innerHTML='<option value="">All teams</option>'+teams.map(t=>'<option value="'+esc(t)+'">'+esc(t)+'</option>').join("");select.value=teams.includes(current)?current:"";}
   function applyGameFilters(){const q=$("gameSearch").value.trim().toLowerCase(),team=$("teamFilter").value,from=$("dateFrom").value,to=$("dateTo").value;state.filtered=state.games.filter(g=>{if(team&&g.home!==team&&g.away!==team)return false;if(from&&g.date<from)return false;if(to&&g.date>to)return false;if(q){const text=[g.home,g.away,g.homeGoalie,g.awayGoalie,g.outcome.raw,g.bets.join(" "),...g.homeScorersList,...g.awayScorersList].join(" ").toLowerCase();if(!text.includes(q))return false;}return true;});state.shown=100;renderGamesTable();}
