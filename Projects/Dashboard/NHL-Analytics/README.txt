@@ -1,7 +1,7 @@
 NHL ANALYTICS PROJECT
 
 Current version
-0.3.1
+0.3.2
 
 Version 0.2.0: Roster Simulation & Admin Model Diagnostics
 
@@ -56,6 +56,26 @@ VERSION 0.3.1 CHANGES
   local time zone.
 - Last Refresh uses 12-hour AM/PM formatting.
 - All Version 0.3.0 player-prediction features remain unchanged.
+
+Version 0.3.2: Model-Driven Selectable Betting Picks
+
+Adds selectable model picks to each current NHL matchup while limiting every choice to predictions the program actually generated: the predicted team’s moneyline and only players the model expects to record a point, with selected picks summarized in the Betting view and no arbitrary sportsbook lines.
+
+VERSION 0.3.2 FEATURES
+======================
+- Adds a Model Picks section to each current-game card.
+- The only team selection offered is the team the model predicts to win, as a
+  Moneyline pick.
+- The only player selections offered are players present in homeScorers or
+  awayScorers, meaning the model expects them to record a point.
+- Players who merely appear in allHomePoints/allAwayPoints are not selectable
+  unless they also cross the model's expected-point threshold.
+- Selected model picks are summarized in the Betting view.
+- Selections can be toggled on/off and are stored locally for the current day.
+- No opposing team, arbitrary player, spread, total, or sportsbook-generated
+  line is offered unless the prediction program itself generates it.
+- This feature tracks model selections only; it does not place wagers or connect
+  to a sportsbook.
 
 PURPOSE
 =======
