@@ -1,10 +1,11 @@
 (() => {
   "use strict";
-  const VERSION = "0.3.1";
+  const VERSION = "0.3.2";
   const HISTORY_URL = "/All%20Results.json";
   const TODAY_URL = "/Game%20Results.json";
+  const PICKS_STORAGE_KEY = "nhlAnalyticsModelPicks:v1";
   const $ = id => document.getElementById(id);
-  const state = { history: [], games: [], today: [], filtered: [], shown: 100, loadedAt: null, isAdmin: false };
+  const state = { history: [], games: [], today: [], filtered: [], shown: 100, loadedAt: null, isAdmin: false, selectedPicks: new Map() };
   const esc = value => String(value ?? "").replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
   const num = value => { const n = Number(value); return Number.isFinite(n) ? n : null; };
   const pct = value => Number.isFinite(value) ? (value * 100).toFixed(1) + "%" : "—";
@@ -66,6 +67,69 @@
     if(!runs.length) return "—";
     const latest=new Date(Math.max(...runs.map(d=>d.getTime())));
     return latest.toLocaleTimeString(undefined,{hour:"numeric",minute:"2-digit",hour12:true});
+  }
+
+  function loadSelectedPicks() {
+    try {
+      const raw=JSON.parse(localStorage.getItem(PICKS_STORAGE_KEY)||"[]");
+      const today=easternDateKey();
+      state.selectedPicks=new Map((Array.isArray(raw)?raw:[]).filter(p=>p?.date===today&&p?.id).map(p=>[p.id,p]));
+    } catch { state.selectedPicks=new Map(); }
+  }
+  function saveSelectedPicks() {
+    try { localStorage.setItem(PICKS_STORAGE_KEY,JSON.stringify([...state.selectedPicks.values()])); } catch {}
+  }
+  function playerPercentForName(g,name,side) {
+    const list=side==="home"?g.homePlayerPredictions:g.awayPlayerPredictions;
+    return list.find(p=>p.name===name)?.percentText||"";
+  }
+  function modelPicksForGame(g,index) {
+    const date=easternDateKey(),matchup=g.away+" @ "+g.home,picks=[];
+    if(g.outcome.winner){
+      const id=[date,matchup,"moneyline",g.outcome.winner].join("|");
+      picks.push({id,date,matchup,type:"Moneyline",label:g.outcome.winner+" Moneyline",detail:"Model-predicted winner"});
+    }
+    [...g.awayScorerNames].forEach(name=>{
+      const pctText=playerPercentForName(g,name,"away");
+      const id=[date,matchup,"point",name].join("|");
+      picks.push({id,date,matchup,type:"Player Point",label:name+" — 1+ Point",detail:g.away+(pctText?" · "+pctText:"")});
+    });
+    [...g.homeScorerNames].forEach(name=>{
+      const pctText=playerPercentForName(g,name,"home");
+      const id=[date,matchup,"point",name].join("|");
+      picks.push({id,date,matchup,type:"Player Point",label:name+" — 1+ Point",detail:g.home+(pctText?" · "+pctText:"")});
+    });
+    return picks;
+  }
+  function toggleModelPick(pick) {
+    if(state.selectedPicks.has(pick.id)) state.selectedPicks.delete(pick.id);
+    else state.selectedPicks.set(pick.id,pick);
+    saveSelectedPicks();
+    renderToday();
+    renderSelectedModelPicks();
+  }
+  function renderModelPicks(g,index) {
+    const picks=modelPicksForGame(g,index);
+    if(!picks.length) return '<div class="model-picks"><div class="model-picks-head"><strong>Model Picks</strong><span>No selectable predictions</span></div></div>';
+    return '<div class="model-picks"><div class="model-picks-head"><strong>Model Picks</strong><span>Select only what the model predicted</span></div><div class="pick-options">'+picks.map(p=>'<button type="button" class="pick-option'+(state.selectedPicks.has(p.id)?" selected":"")+'" data-model-pick="'+esc(p.id)+'">'+esc(p.label)+(p.detail?' <span aria-hidden="true">·</span> '+esc(p.detail):'')+'</button>').join("")+'</div></div>';
+  }
+  function bindModelPickButtons() {
+    document.querySelectorAll("[data-model-pick]").forEach(button=>{
+      button.addEventListener("click",()=>{
+        const id=button.dataset.modelPick;
+        const pick=state.today.flatMap((g,i)=>modelPicksForGame(g,i)).find(p=>p.id===id);
+        if(pick) toggleModelPick(pick);
+      });
+    });
+  }
+  function renderSelectedModelPicks() {
+    const host=$("selectedModelPicks"); if(!host) return;
+    const picks=[...state.selectedPicks.values()];
+    if(!picks.length){host.innerHTML='<div class="selected-picks-empty">No model picks selected yet.</div>';return;}
+    host.innerHTML='<div class="selected-picks-list">'+picks.map(p=>'<div class="selected-pick-row"><div><strong>'+esc(p.label)+'</strong><span>'+esc(p.matchup)+' · '+esc(p.type)+(p.detail?' · '+esc(p.detail):'')+'</span></div><button type="button" class="selected-pick-remove" data-remove-pick="'+esc(p.id)+'">Remove</button></div>').join("")+'</div>';
+    host.querySelectorAll("[data-remove-pick]").forEach(button=>button.addEventListener("click",()=>{
+      state.selectedPicks.delete(button.dataset.removePick); saveSelectedPicks(); renderSelectedModelPicks(); renderToday();
+    }));
   }
 
   function normalizePlayerPredictions(value) {
@@ -154,7 +218,7 @@
   function renderToday(){
     const predicted=state.today.filter(g=>g.outcome.winner).length,confirmedGoalies=sum(state.today.map(g=>(g.homeGoalie!=="Not confirmed"?1:0)+(g.awayGoalie!=="Not confirmed"?1:0))),totalGoalieSlots=state.today.length*2,betCount=sum(state.today.map(g=>g.bets.length));
     $("todaySummary").innerHTML=metric("Games",state.today.length.toString(),"Current Game Results.json")+metric("Predictions",predicted.toString(),"Games with a parsed winner")+metric("Goalies Confirmed",confirmedGoalies+" / "+totalGoalieSlots,"Confirmed starting goalies")+metric("Betting Picks",betCount.toString(),"Current tracked selections")+metric("Last Refresh",latestModelRunForViewer(state.today),"Latest Start Day / Loop for Games model run");
-    $("todayGames").innerHTML=state.today.length?state.today.map((g,i)=>todayCard(g,i)).join(""):'<div class="panel empty">No current-day games are available in Game Results.json.</div>';setupPlayerPredictionToggles();
+    $("todayGames").innerHTML=state.today.length?state.today.map((g,i)=>todayCard(g,i)).join(""):'<div class="panel empty">No current-day games are available in Game Results.json.</div>';setupPlayerPredictionToggles();bindModelPickButtons();
   }
   function playerTeamSection(team, players, scorerNames) {
     if (!players.length) return '<section class="player-team-section"><div class="player-team-header"><strong>'+esc(team)+'</strong><span>0 players</span></div><div class="player-empty">No player prediction data stored for this team.</div></section>';
@@ -184,7 +248,7 @@
 
   function todayCard(g,index){
     const confidence=g.outcome.winner===g.home?g.outcome.homeWinPct:g.outcome.winner===g.away?g.outcome.awayWinPct:null,scorers=[...g.awayScorersList,...g.homeScorersList];
-    return'<article class="game-card"><div class="matchup"><div class="club"><strong>'+esc(g.away)+'</strong><span>'+esc(g.awayGoalie)+'</span></div><span class="at">@</span><div class="club" style="text-align:right"><strong>'+esc(g.home)+'</strong><span>'+esc(g.homeGoalie)+'</span></div></div><div class="prediction"><strong>Prediction: '+esc(g.outcome.winner||"Unavailable")+(Number.isFinite(confidence)?" · "+pct(confidence):"")+'</strong></div><div class="game-details"><div class="detail"><label>Start</label><p>'+esc(formatStartTimeForViewer(g.startingTime,g.date))+'</p></div><div class="detail"><label>Last Model Run</label><p>'+esc(g.timeLastRun||"—")+'</p></div><div class="detail"><label>Betting</label><p>'+esc(g.bets.join("; ")||"No betting line stored")+'</p></div><div class="detail"><label>Expected Difference</label><p>'+esc(Number.isFinite(g.outcome.expectedDifference)?fixed(g.outcome.expectedDifference,3):"—")+'</p></div><div class="detail scorers"><label>Expected Point Scorers</label>'+(scorers.length?'<div class="chips">'+scorers.map(s=>'<span class="chip">'+esc(s)+'</span>').join("")+'</div>':'<p>No scorer prediction stored for this game.</p>')+'</div></div>'+playerPredictionsBlock(g,index)+'</article>';
+    return'<article class="game-card"><div class="matchup"><div class="club"><strong>'+esc(g.away)+'</strong><span>'+esc(g.awayGoalie)+'</span></div><span class="at">@</span><div class="club" style="text-align:right"><strong>'+esc(g.home)+'</strong><span>'+esc(g.homeGoalie)+'</span></div></div><div class="prediction"><strong>Prediction: '+esc(g.outcome.winner||"Unavailable")+(Number.isFinite(confidence)?" · "+pct(confidence):"")+'</strong></div><div class="game-details"><div class="detail"><label>Start</label><p>'+esc(formatStartTimeForViewer(g.startingTime,g.date))+'</p></div><div class="detail"><label>Last Model Run</label><p>'+esc(g.timeLastRun||"—")+'</p></div><div class="detail"><label>Betting</label><p>'+esc(g.bets.join("; ")||"No betting line stored")+'</p></div><div class="detail"><label>Expected Difference</label><p>'+esc(Number.isFinite(g.outcome.expectedDifference)?fixed(g.outcome.expectedDifference,3):"—")+'</p></div><div class="detail scorers"><label>Expected Point Scorers</label>'+(scorers.length?'<div class="chips">'+scorers.map(s=>'<span class="chip">'+esc(s)+'</span>').join("")+'</div>':'<p>No scorer prediction stored for this game.</p>')+'</div></div>'+renderModelPicks(g,index)+playerPredictionsBlock(g,index)+'</article>';
   }
   function populateTeamFilter(){const teams=[...new Set(state.games.flatMap(g=>[g.home,g.away]).filter(t=>t&&t!=="?"))].sort(),select=$("teamFilter"),current=select.value;select.innerHTML='<option value="">All teams</option>'+teams.map(t=>'<option value="'+esc(t)+'">'+esc(t)+'</option>').join("");select.value=teams.includes(current)?current:"";}
   function applyGameFilters(){const q=$("gameSearch").value.trim().toLowerCase(),team=$("teamFilter").value,from=$("dateFrom").value,to=$("dateTo").value;state.filtered=state.games.filter(g=>{if(team&&g.home!==team&&g.away!==team)return false;if(from&&g.date<from)return false;if(to&&g.date>to)return false;if(q){const text=[g.home,g.away,g.homeGoalie,g.awayGoalie,g.outcome.raw,g.bets.join(" "),...g.homeScorersList,...g.awayScorersList].join(" ").toLowerCase();if(!text.includes(q))return false;}return true;});state.shown=100;renderGamesTable();}
@@ -199,6 +263,7 @@
     $("teamCards").innerHTML=teams.map(r=>'<article class="team-card"><div class="team-card-head"><h4>'+esc(r.team)+'</h4><span class="big">'+pct(r.accuracy)+'</span></div><dl><dt>Games</dt><dd>'+r.games+'</dd><dt>Correct / Total Lines</dt><dd>'+r.correct+' / '+r.total+'</dd><dt>Average MSE</dt><dd>'+fixed(r.mseAvg,4)+'</dd><dt>Average Log Loss</dt><dd>'+fixed(r.llAvg,4)+'</dd></dl></article>').join("")||'<div class="empty">No team data available.</div>';
   }
   function renderBetting(){
+    renderSelectedModelPicks();
     const games=state.games.filter(g=>g.bets.length||Number.isFinite(g.correctBets)),picks=sum(games.map(g=>g.bets.length)),correct=sum(games.map(g=>g.correctBets)),denom=picks>0?picks:null,gamesWithCorrect=games.filter(g=>Number.isFinite(g.correctBets));
     $("bettingMetrics").innerHTML=metric("Tracked Games",games.length.toString(),"Games with betting data")+metric("Recorded Picks",picks.toString(),"Parsed betting selections")+metric("Correct Picks",correct.toString(),"Sum of correctBettingLines")+metric("Pick Accuracy",denom?pct(correct/denom):"—",denom?correct+" of "+denom+" parsed picks":"No denominator available")+metric("Scored Betting Games",gamesWithCorrect.length.toString(),"Games with correctBettingLines");
     $("bettingTable").innerHTML=games.length?'<div class="table-wrap"><table class="data-table"><thead><tr><th>Date</th><th>Matchup</th><th>Betting Selection</th><th>Correct Picks</th><th>Game Line Accuracy</th></tr></thead><tbody>'+games.slice(0,500).map(g=>'<tr><td class="nowrap">'+esc(formatDate(g.date))+'</td><td><span class="team">'+esc(g.away)+'</span> @ <span class="team">'+esc(g.home)+'</span></td><td>'+esc(g.bets.join("; ")||"—")+'</td><td>'+esc(Number.isFinite(g.correctBets)?g.correctBets:"—")+'</td><td>'+pct(g.lineAccuracy)+'</td></tr>').join("")+'</tbody></table></div>':'<div class="empty">No historical betting fields are available yet.</div>';
@@ -211,6 +276,7 @@
   $("clearFilters").addEventListener("click",()=>{$("gameSearch").value="";$("teamFilter").value="";$("dateFrom").value="";$("dateTo").value="";applyGameFilters();});
   $("loadMoreGames").addEventListener("click",()=>{state.shown+=100;renderGamesTable();});
   const initial=location.hash.slice(1);if(["overview","today","games","model","betting","roster"].includes(initial))switchView(initial);
+  loadSelectedPicks();
   setupRosterSimulation();
   resolveAdminAccess().then(isAdmin=>{state.isAdmin=isAdmin;applyAdminAccess();if(state.games.length)renderAll();}).catch(()=>{state.isAdmin=false;applyAdminAccess();});
   loadData().catch(error=>{console.error(error);setStatus("NHL Analytics could not initialize. "+error.message,"bad");$("refreshBtn").disabled=false;});
