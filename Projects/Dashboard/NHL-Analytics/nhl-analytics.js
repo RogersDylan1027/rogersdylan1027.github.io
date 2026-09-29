@@ -1,6 +1,6 @@
 (() => {
   "use strict";
-  const VERSION = "0.3.0";
+  const VERSION = "0.3.1";
   const HISTORY_URL = "/All%20Results.json";
   const TODAY_URL = "/Game%20Results.json";
   const $ = id => document.getElementById(id);
