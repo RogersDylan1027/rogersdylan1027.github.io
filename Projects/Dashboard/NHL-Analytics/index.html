@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <title>NHL Analytics · Version 0.3.2</title>
-  <meta name="description" content="My Dashboard NHL Analytics · Version 0.3.2 · Model-Driven Selectable Betting Picks">
+  <title>NHL Analytics · Version 0.3.3</title>
+  <meta name="description" content="My Dashboard NHL Analytics · Version 0.3.3 · Betting Accuracy Breakdowns">
   <meta name="theme-color" content="#f4f7fb">
   <script src="../dashboard-config.js?v=0.10.4"></script>
   <script src="../dashboard-auth.js?v=0.10.4" data-dashboard-project="nhl-analytics"></script>
@@ -20,6 +20,7 @@
     main{max-width:1380px;margin:0 auto;padding:20px 16px}.view{display:none}.view.active{display:block}.view-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:15px}.view-head h2{margin:0;font-size:27px;letter-spacing:-.03em}.view-head p{margin:5px 0 0;color:var(--muted);font-size:14px;line-height:1.45}.source-note{color:var(--muted);font-size:12px;text-align:right}
     .status{display:flex;align-items:center;gap:10px;padding:12px 14px;margin-bottom:15px;border:1px solid var(--line);background:#fff;border-radius:13px;color:var(--muted);font-size:13px}.dot{width:9px;height:9px;border-radius:50%;background:#9aa6b6}.status.good .dot{background:var(--good)}.status.warn .dot{background:var(--warn)}.status.bad .dot{background:var(--bad)}
     .metrics{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-bottom:16px}.metric{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:17px;box-shadow:var(--shadow)}.metric-label{display:block;color:var(--muted);font-size:11px;font-weight:850;text-transform:uppercase;letter-spacing:.07em}.metric-value{display:block;margin-top:8px;font-size:28px;font-weight:900;letter-spacing:-.04em}.metric-sub{display:block;margin-top:5px;color:var(--muted);font-size:12px;line-height:1.35}
+    .betting-accuracy-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
     .grid-2{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(320px,.65fr);gap:14px;margin-bottom:14px}.panel{background:#fff;border:1px solid var(--line);border-radius:17px;padding:17px;box-shadow:var(--shadow);min-width:0}.panel-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}.panel h3{margin:0;font-size:16px}.panel-note{color:var(--muted);font-size:11px}.chart{width:100%;height:245px;display:block;overflow:visible}.chart-empty{height:245px;display:grid;place-items:center;color:var(--muted);font-size:13px;text-align:center}.chart-grid{stroke:#e7ecf2;stroke-width:1}.chart-label{fill:#7b8798;font-size:10px}
     .table-wrap{overflow:auto;border:1px solid var(--line);border-radius:14px}.data-table{width:100%;border-collapse:collapse;min-width:760px;background:#fff}.data-table th,.data-table td{padding:11px 12px;border-bottom:1px solid #edf0f4;text-align:left;font-size:12px;vertical-align:top}.data-table th{position:sticky;top:0;background:#f8fafc;color:#5e6b7d;font-size:10px;text-transform:uppercase;letter-spacing:.06em;z-index:1}.data-table tr:last-child td{border-bottom:0}.team{font-weight:850}.muted{color:var(--muted)}.nowrap{white-space:nowrap}
     .today-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.game-card{background:#fff;border:1px solid var(--line);border-radius:17px;padding:17px;box-shadow:var(--shadow)}.matchup{display:flex;align-items:center;justify-content:space-between;gap:12px}.club{display:grid;gap:2px}.club strong{font-size:21px}.club span{color:var(--muted);font-size:11px}.at{color:#8c97a6;font-weight:900}.prediction{margin:15px 0;padding:12px 13px;background:#f3f6fb;border-radius:12px}.prediction strong{display:block;font-size:14px}.prediction small{display:block;margin-top:4px;color:var(--muted);line-height:1.4}.game-details{display:grid;grid-template-columns:1fr 1fr;gap:11px}.detail{border-top:1px solid #edf0f4;padding-top:10px}.detail label{display:block;color:var(--muted);font-size:10px;font-weight:850;text-transform:uppercase;letter-spacing:.06em}.detail p{margin:5px 0 0;font-size:12px;line-height:1.45}.scorers{grid-column:1/-1}.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}.chip{padding:5px 8px;border-radius:999px;background:#edf3fb;color:#34537f;font-size:11px;font-weight:750}
@@ -31,7 +32,7 @@
     .roster-panel{padding:0;overflow:hidden;min-height:760px;position:relative}.roster-frame{display:block;width:100%;height:min(1100px,calc(100vh - 190px));min-height:760px;border:0;background:#fff}.roster-loading{position:absolute;inset:0;display:grid;place-items:center;align-content:center;gap:8px;background:#fff;color:var(--muted);z-index:1;text-align:center;padding:30px}.roster-loading strong{color:var(--text);font-size:17px}.roster-loading span{font-size:12px}.roster-spinner{width:34px;height:34px;border:4px solid #e4eaf1;border-top-color:var(--blue2);border-radius:50%;animation:roster-spin .8s linear infinite}@keyframes roster-spin{to{transform:rotate(360deg)}}
     .footer{max-width:1380px;margin:8px auto 0;padding:0 16px;color:#8792a2;font-size:11px;text-align:center;line-height:1.5}
     @media(max-width:980px){.metrics{grid-template-columns:repeat(3,1fr)}.grid-2{grid-template-columns:1fr}.today-grid{grid-template-columns:1fr}.team-grid{grid-template-columns:repeat(2,1fr)}}
-    @media(max-width:640px){.player-row{grid-template-columns:minmax(0,1fr) 84px 72px;gap:7px;padding:10px}.player-value strong,.player-percent strong{font-size:11px}.roster-panel{min-height:720px}.roster-frame{height:calc(100vh - 165px);min-height:720px}.topbar{padding-left:9px;padding-right:9px}.topbar-inner{grid-template-columns:42px 1fr 42px}.back,.refresh{width:42px;padding:0;font-size:0}.back::after{content:"←";font-size:20px}.refresh::after{content:"↻";font-size:20px}.brand h1{font-size:17px}.brand p{font-size:10px}.nav-wrap{margin-top:10px}.metrics{grid-template-columns:repeat(2,1fr)}.metric:last-child{grid-column:1/-1}.metric-value{font-size:24px}.view-head{align-items:flex-start;flex-direction:column}.source-note{text-align:left}.today-grid,.team-grid{grid-template-columns:1fr}.game-details{grid-template-columns:1fr}.scorers{grid-column:auto}.field,.field.grow{width:100%}.field input,.field select,.field.grow input{width:100%;min-width:0}main{padding-left:11px;padding-right:11px}}
+    @media(max-width:640px){.betting-accuracy-grid{grid-template-columns:1fr}.betting-accuracy-grid .metric:last-child{grid-column:auto}.player-row{grid-template-columns:minmax(0,1fr) 84px 72px;gap:7px;padding:10px}.player-value strong,.player-percent strong{font-size:11px}.roster-panel{min-height:720px}.roster-frame{height:calc(100vh - 165px);min-height:720px}.topbar{padding-left:9px;padding-right:9px}.topbar-inner{grid-template-columns:42px 1fr 42px}.back,.refresh{width:42px;padding:0;font-size:0}.back::after{content:"←";font-size:20px}.refresh::after{content:"↻";font-size:20px}.brand h1{font-size:17px}.brand p{font-size:10px}.nav-wrap{margin-top:10px}.metrics{grid-template-columns:repeat(2,1fr)}.metric:last-child{grid-column:1/-1}.metric-value{font-size:24px}.view-head{align-items:flex-start;flex-direction:column}.source-note{text-align:left}.today-grid,.team-grid{grid-template-columns:1fr}.game-details{grid-template-columns:1fr}.scorers{grid-column:auto}.field,.field.grow{width:100%}.field input,.field select,.field.grow input{width:100%;min-width:0}main{padding-left:11px;padding-right:11px}}
   </style>
 </head>
 <body>
@@ -39,7 +40,7 @@
   <header class="topbar">
     <div class="topbar-inner">
       <button class="back" id="backBtn" type="button" aria-label="Back to Dashboard">Dashboard</button>
-      <div class="brand"><h1>NHL Analytics</h1><p>Version 0.3.2 · Model-Driven Selectable Betting Picks</p></div>
+      <div class="brand"><h1>NHL Analytics</h1><p>Version 0.3.3 · Betting Accuracy Breakdowns</p></div>
       <button class="refresh" id="refreshBtn" type="button" aria-label="Refresh NHL data">Refresh</button>
     </div>
     <div class="nav-wrap"><nav class="tabs" aria-label="NHL Analytics sections">
@@ -87,12 +88,12 @@
     <section id="betting" class="view">
       <div class="view-head"><div><h2>Betting Analytics</h2><p>Performance of betting selections recorded by the NHL model.</p></div><div class="source-note">Older games without betting fields are excluded.</div></div>
       <section class="panel" style="margin-bottom:14px"><div class="panel-head"><h3>Selected Model Picks</h3><span class="panel-note">Only predictions generated by your model can be selected</span></div><div id="selectedModelPicks"></div></section>
-      <div id="bettingMetrics" class="metrics"></div>
+      <div id="bettingMetrics" class="metrics betting-accuracy-grid"></div>
       <section class="panel"><div class="panel-head"><h3>Tracked Betting Predictions</h3><span class="panel-note">Historical records with bettingLines</span></div><div id="bettingTable"></div></section>
     </section>
   </main>
   <footer class="footer">NHL Analytics reads model outputs produced by the NHL-Predictions repository. It does not recalculate or replace the prediction model.</footer>
 </div>
-<script src="./nhl-analytics.js?v=0.3.2"></script>
+<script src="./nhl-analytics.js?v=0.3.3"></script>
 </body>
 </html>
