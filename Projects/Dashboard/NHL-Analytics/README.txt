@@ -1,7 +1,7 @@
 NHL ANALYTICS PROJECT
 
 Current version
-0.3.0
+0.3.1
 
 Version 0.2.0: Roster Simulation & Admin Model Diagnostics
 
@@ -41,6 +41,21 @@ VERSION 0.3.0 FEATURES
   when that scorer data is available.
 - Preserves Roster Simulation, local-time game starts, goalie confirmation
   fractions, Betting, Games, Overview, and admin-only Model Diagnostics.
+
+Version 0.3.1: GitHub Model Refresh Timing
+
+Changes the Today view’s Last Refresh metric to reflect the newest model run written by the Start Day or Loop for Games GitHub Actions workflow, using timeLastRun from Game Results.json instead of the viewer’s browser refresh time, with local-time conversion and 12-hour formatting.
+
+VERSION 0.3.1 CHANGES
+=====================
+- Last Refresh now reflects the newest timeLastRun stored in Game Results.json.
+- timeLastRun is written by the Start Day and Loop for Games model workflows.
+- Pressing the Dashboard Refresh button no longer changes Last Refresh unless
+  the underlying prediction JSON was actually updated.
+- The stored America/New_York model-run time is converted into the viewer's
+  local time zone.
+- Last Refresh uses 12-hour AM/PM formatting.
+- All Version 0.3.0 player-prediction features remain unchanged.
 
 PURPOSE
 =======
