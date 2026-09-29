@@ -60,6 +60,14 @@
     return instant.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit", hour12: true });
   }
 
+  function latestModelRunForViewer(games) {
+    const dateKey=easternDateKey();
+    const runs=(games||[]).map(g=>zonedLocalToUtc(dateKey,g.timeLastRun,"America/New_York")).filter(d=>d && !Number.isNaN(d.getTime()));
+    if(!runs.length) return "—";
+    const latest=new Date(Math.max(...runs.map(d=>d.getTime())));
+    return latest.toLocaleTimeString(undefined,{hour:"numeric",minute:"2-digit",hour12:true});
+  }
+
   function normalizePlayerPredictions(value) {
     if (!value || typeof value !== "object" || Array.isArray(value)) return [];
     return Object.entries(value).map(([name, raw]) => {
@@ -145,7 +153,7 @@
   function renderLatestGames(){$("latestGames").innerHTML=gameTable(state.games.slice(0,10));}
   function renderToday(){
     const predicted=state.today.filter(g=>g.outcome.winner).length,confirmedGoalies=sum(state.today.map(g=>(g.homeGoalie!=="Not confirmed"?1:0)+(g.awayGoalie!=="Not confirmed"?1:0))),totalGoalieSlots=state.today.length*2,betCount=sum(state.today.map(g=>g.bets.length));
-    $("todaySummary").innerHTML=metric("Games",state.today.length.toString(),"Current Game Results.json")+metric("Predictions",predicted.toString(),"Games with a parsed winner")+metric("Goalies Confirmed",confirmedGoalies+" / "+totalGoalieSlots,"Confirmed starting goalies")+metric("Betting Picks",betCount.toString(),"Current tracked selections")+metric("Last Refresh",state.loadedAt?state.loadedAt.toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit"}):"—","Dashboard data refresh");
+    $("todaySummary").innerHTML=metric("Games",state.today.length.toString(),"Current Game Results.json")+metric("Predictions",predicted.toString(),"Games with a parsed winner")+metric("Goalies Confirmed",confirmedGoalies+" / "+totalGoalieSlots,"Confirmed starting goalies")+metric("Betting Picks",betCount.toString(),"Current tracked selections")+metric("Last Refresh",latestModelRunForViewer(state.today),"Latest Start Day / Loop for Games model run");
     $("todayGames").innerHTML=state.today.length?state.today.map((g,i)=>todayCard(g,i)).join(""):'<div class="panel empty">No current-day games are available in Game Results.json.</div>';setupPlayerPredictionToggles();
   }
   function playerTeamSection(team, players, scorerNames) {
