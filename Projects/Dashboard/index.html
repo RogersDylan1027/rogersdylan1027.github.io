@@ -1578,6 +1578,7 @@
     }
 
     const dashboardChangelog=[
+      {version:"NHL Analytics 0.3.1",title:"GitHub Model Refresh Timing",description:"Changes the Today view’s Last Refresh metric to reflect the newest model run written by the Start Day or Loop for Games GitHub Actions workflow, using timeLastRun from Game Results.json instead of the viewer’s browser refresh time, with local-time conversion and 12-hour formatting."},
       {version:"NHL Analytics 0.3.0",title:"Per-Game Player Predictions",description:"Adds expandable player-level predictions to each current NHL matchup, using allHomePoints and allAwayPoints to show every player’s model value and point percentage in separate team sections sorted from highest probability to lowest, while preserving the compact game-card view until the user chooses to expand it."},
       {version:"NHL Analytics 0.2.1",title:"Prediction Card & Time Display Polish",description:"Simplifies each current-game prediction card to the predicted winner and confidence only, converts stored New York start times into the viewer’s local time zone using 12-hour AM/PM formatting, and changes Goalies Confirmed to show confirmed goalies over all available goalie slots."},
       {version:"0.10.10",title:"Account Approval & Password Setup",description:"Completes the account-approval flow by creating the approved Supabase Auth account, sending a password-setup link, and giving the Main Admin a resend option when setup email needs to be sent again."},
