@@ -439,3 +439,23 @@ Changes the Today view’s Last Refresh metric to reflect the newest model run w
   change is required because this release changes display behavior only.
 - My Dashboard remains Version 0.10.10 because the Dashboard itself only
   receives this project changelog entry.
+
+
+PROJECT CHANGELOG · 2026-09-29
+==============================
+NHL Analytics · Version 0.3.2: Model-Driven Selectable Betting Picks
+
+Adds selectable model picks to each current NHL matchup while limiting every choice to predictions the program actually generated: the predicted team’s moneyline and only players the model expects to record a point, with selected picks summarized in the Betting view and no arbitrary sportsbook lines.
+
+- Users can select only model-generated picks.
+- Moneyline selection is limited to the model-predicted winning team.
+- Player point selections are limited to players the model expects to record a
+  point.
+- Selected model picks appear in the Betting view.
+- No sportsbook integration or wager placement was added.
+- Dashboard/projects.json was checked and does not require a change.
+- Documents/privacy.html and Documents/tos.html were checked. No legal-text
+  change is required because selections remain local model-tracking controls and
+  the Dashboard does not place wagers or transmit bets to a sportsbook.
+- My Dashboard remains Version 0.10.10 because the Dashboard itself only
+  receives this project changelog entry.
