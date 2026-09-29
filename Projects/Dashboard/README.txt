@@ -402,3 +402,23 @@ Simplifies each current-game prediction card to the predicted winner and confide
   legal-text change is required because this release changes presentation only.
 - My Dashboard remains Version 0.10.10 because the Dashboard itself only
   receives this project changelog entry.
+
+
+PROJECT CHANGELOG · 2026-09-29
+==============================
+NHL Analytics · Version 0.3.0: Per-Game Player Predictions
+
+Adds expandable player-level predictions to each current NHL matchup, using allHomePoints and allAwayPoints to show every player’s model value and point percentage in separate team sections sorted from highest probability to lowest, while preserving the compact game-card view until the user chooses to expand it.
+
+- Added expandable player-level predictions to every current matchup.
+- Player predictions remain separated by away team and home team on all screen
+  sizes.
+- Uses allHomePoints and allAwayPoints directly from Game Results.json.
+- Displays model value and point percentage, sorted highest percentage first.
+- Highlights expected scorers when scorer-threshold data is available.
+- Dashboard/projects.json was checked and does not require a change.
+- Documents/privacy.html and Documents/tos.html were checked; no legal-text
+  change is required because this release exposes additional existing public
+  model output without adding user-data collection.
+- My Dashboard remains Version 0.10.10 because the Dashboard itself only
+  receives this project changelog entry.
