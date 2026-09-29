@@ -386,3 +386,19 @@ Adds the existing NHL Shiny simulator directly inside NHL Analytics as Roster Si
   change is required because this release adds no new user-data collection.
 - My Dashboard remains Version 0.10.4 because the Dashboard page itself only
   received this project changelog entry.
+
+
+PROJECT CHANGELOG · 2026-09-29
+==============================
+NHL Analytics · Version 0.2.1: Prediction Card & Time Display Polish
+
+Simplifies each current-game prediction card to the predicted winner and confidence only, converts stored New York start times into the viewer’s local time zone using 12-hour AM/PM formatting, and changes Goalies Confirmed to show confirmed goalies over all available goalie slots.
+
+- Simplified current-game prediction cards.
+- Converted game start times to each viewer's local time zone in 12-hour format.
+- Updated Goalies Confirmed to show confirmed / total goalie slots.
+- Dashboard/projects.json was checked and does not require a change.
+- Documents/privacy.html and Documents/tos.html were checked conceptually; no
+  legal-text change is required because this release changes presentation only.
+- My Dashboard remains Version 0.10.10 because the Dashboard itself only
+  receives this project changelog entry.
