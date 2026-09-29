@@ -1,6 +1,6 @@
 (() => {
   "use strict";
-  const VERSION = "0.3.2";
+  const VERSION = "0.3.3";
   const HISTORY_URL = "/All%20Results.json";
   const TODAY_URL = "/Game%20Results.json";
   const PICKS_STORAGE_KEY = "nhlAnalyticsModelPicks:v1";
@@ -25,6 +25,36 @@
     if (typeof value !== "string" || !value.trim()) return [];
     return value.split(/\s*;\s*|\s*\|\s*/).map(s=>s.trim()).filter(Boolean);
   };
+  function normalizeCorrectBettingLines(value) {
+    if (Array.isArray(value)) return value.map(num);
+    const single=num(value);
+    if (Number.isFinite(single)) return [single];
+    if (value && typeof value==="object") return Object.values(value).map(num);
+    return [];
+  }
+  function bettingAccuracyBreakdown(games) {
+    const result={
+      moneyline:{correct:0,total:0},
+      player:{correct:0,total:0},
+      overall:{correct:0,total:0}
+    };
+    games.forEach(g=>{
+      const lines=Array.isArray(g.bets)?g.bets:[];
+      const scored=Array.isArray(g.correctBettingResults)?g.correctBettingResults:[];
+      lines.forEach((line,index)=>{
+        const correct=scored[index];
+        if(!Number.isFinite(correct)) return;
+        const bucket=index===0?result.moneyline:result.player;
+        bucket.total+=1;
+        bucket.correct+=correct===1?1:0;
+        result.overall.total+=1;
+        result.overall.correct+=correct===1?1:0;
+      });
+    });
+    [result.moneyline,result.player,result.overall].forEach(row=>row.accuracy=row.total?row.correct/row.total:null);
+    return result;
+  }
+
   function escapeReg(value){ return String(value||"").replace(/[-/\\^$*+?.()|[\]{}]/g,"\\$&"); }
   function parseOutcome(text, home, away) {
     const raw = typeof text === "string" ? text : "";
@@ -153,7 +183,7 @@
   function normalizeGame(game={}, date="") {
     const home = String(game.homeABV || "?"), away = String(game.awayABV || "?"), outcome = parseOutcome(game.outcome, home, away);
     const correct = num(game.correctLines), total = num(game.totalLines), bets = bettingSelections(game.bettingLines);
-    return {...game,date,home,away,outcome,homeGoalie:normalizeGoalie(game.homeGoalie),awayGoalie:normalizeGoalie(game.awayGoalie),homeScorersList:normalizeList(game.homeScorers),awayScorersList:normalizeList(game.awayScorers),homeScorerNames:scorerNameSet(game.homeScorers),awayScorerNames:scorerNameSet(game.awayScorers),homePlayerPredictions:normalizePlayerPredictions(game.allHomePoints),awayPlayerPredictions:normalizePlayerPredictions(game.allAwayPoints),correct,total,lineAccuracy:Number.isFinite(correct)&&Number.isFinite(total)&&total>0?correct/total:null,homeMSE:num(game.homeMeanSquaredError),awayMSE:num(game.awayMeanSquaredError),homeLL:num(game.homeLogLoss),awayLL:num(game.awayLogLoss),bets,correctBets:num(game.correctBettingLines)};
+    return {...game,date,home,away,outcome,homeGoalie:normalizeGoalie(game.homeGoalie),awayGoalie:normalizeGoalie(game.awayGoalie),homeScorersList:normalizeList(game.homeScorers),awayScorersList:normalizeList(game.awayScorers),homeScorerNames:scorerNameSet(game.homeScorers),awayScorerNames:scorerNameSet(game.awayScorers),homePlayerPredictions:normalizePlayerPredictions(game.allHomePoints),awayPlayerPredictions:normalizePlayerPredictions(game.allAwayPoints),correct,total,lineAccuracy:Number.isFinite(correct)&&Number.isFinite(total)&&total>0?correct/total:null,homeMSE:num(game.homeMeanSquaredError),awayMSE:num(game.awayMeanSquaredError),homeLL:num(game.homeLogLoss),awayLL:num(game.awayLogLoss),bets,correctBettingResults:normalizeCorrectBettingLines(game.correctBettingLines),correctBets:sum(normalizeCorrectBettingLines(game.correctBettingLines))};
   }
 
   async function resolveAdminAccess() {
@@ -264,9 +294,13 @@
   }
   function renderBetting(){
     renderSelectedModelPicks();
-    const games=state.games.filter(g=>g.bets.length||Number.isFinite(g.correctBets)),picks=sum(games.map(g=>g.bets.length)),correct=sum(games.map(g=>g.correctBets)),denom=picks>0?picks:null,gamesWithCorrect=games.filter(g=>Number.isFinite(g.correctBets));
-    $("bettingMetrics").innerHTML=metric("Tracked Games",games.length.toString(),"Games with betting data")+metric("Recorded Picks",picks.toString(),"Parsed betting selections")+metric("Correct Picks",correct.toString(),"Sum of correctBettingLines")+metric("Pick Accuracy",denom?pct(correct/denom):"—",denom?correct+" of "+denom+" parsed picks":"No denominator available")+metric("Scored Betting Games",gamesWithCorrect.length.toString(),"Games with correctBettingLines");
-    $("bettingTable").innerHTML=games.length?'<div class="table-wrap"><table class="data-table"><thead><tr><th>Date</th><th>Matchup</th><th>Betting Selection</th><th>Correct Picks</th><th>Game Line Accuracy</th></tr></thead><tbody>'+games.slice(0,500).map(g=>'<tr><td class="nowrap">'+esc(formatDate(g.date))+'</td><td><span class="team">'+esc(g.away)+'</span> @ <span class="team">'+esc(g.home)+'</span></td><td>'+esc(g.bets.join("; ")||"—")+'</td><td>'+esc(Number.isFinite(g.correctBets)?g.correctBets:"—")+'</td><td>'+pct(g.lineAccuracy)+'</td></tr>').join("")+'</tbody></table></div>':'<div class="empty">No historical betting fields are available yet.</div>';
+    const accuracy=bettingAccuracyBreakdown(state.games);
+    $("bettingMetrics").innerHTML=
+      metric("Moneyline Accuracy",pct(accuracy.moneyline.accuracy),accuracy.moneyline.total?accuracy.moneyline.correct+" of "+accuracy.moneyline.total+" moneylines":"No scored moneylines")+
+      metric("Player Pick Accuracy",pct(accuracy.player.accuracy),accuracy.player.total?accuracy.player.correct+" of "+accuracy.player.total+" player picks":"No scored player picks")+
+      metric("Overall Accuracy",pct(accuracy.overall.accuracy),accuracy.overall.total?accuracy.overall.correct+" of "+accuracy.overall.total+" model picks":"No scored model picks");
+    const games=state.games.filter(g=>g.bets.length||g.correctBettingResults.length);
+    $("bettingTable").innerHTML=games.length?'<div class="table-wrap"><table class="data-table"><thead><tr><th>Date</th><th>Matchup</th><th>Betting Selection</th><th>Correct Picks</th><th>Game Line Accuracy</th></tr></thead><tbody>'+games.slice(0,500).map(g=>'<tr><td class="nowrap">'+esc(formatDate(g.date))+'</td><td><span class="team">'+esc(g.away)+'</span> @ <span class="team">'+esc(g.home)+'</span></td><td>'+esc(g.bets.join("; ")||"—")+'</td><td>'+esc(g.correctBettingResults.length?g.correctBets+" / "+g.correctBettingResults.length:"—")+'</td><td>'+pct(g.lineAccuracy)+'</td></tr>').join("")+'</tbody></table></div>':'<div class="empty">No historical betting fields are available yet.</div>';
   }
   function renderAll(){state.filtered=[...state.games];renderOverview();renderToday();renderGames();renderBetting();if(state.isAdmin)renderModel();}
   function switchView(id){if(id==="model"&&!state.isAdmin)id="overview";document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id===id));document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b.dataset.view===id));history.replaceState(null,"","#"+id);window.scrollTo({top:0,behavior:"smooth"});}
