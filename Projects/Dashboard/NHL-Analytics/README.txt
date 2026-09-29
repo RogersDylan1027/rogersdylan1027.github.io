@@ -1,11 +1,27 @@
 NHL ANALYTICS PROJECT
 
 Current version
-0.2.0
+0.2.1
 
 Version 0.2.0: Roster Simulation & Admin Model Diagnostics
 
 Adds the existing NHL Shiny simulator directly inside NHL Analytics as the user-facing Roster Simulation view, keeping users inside the Dashboard while they build custom rosters and simulate matchups. Model Diagnostics is now restricted to administrators so MSE, Log Loss, team error summaries, and other technical model-development metrics remain available for model review without cluttering the regular-user experience.
+
+Version 0.2.1: Prediction Card & Time Display Polish
+
+Simplifies each current-game prediction card to the predicted winner and confidence only, converts stored New York start times into the viewer’s local time zone using 12-hour AM/PM formatting, and changes Goalies Confirmed to show confirmed goalies over all available goalie slots.
+
+VERSION 0.2.1 CHANGES
+=====================
+- Prediction cards now show only the predicted winner and confidence percentage.
+- Removed the raw outcome/model string from beneath the prediction headline.
+- Game start times are converted from the stored America/New_York time into the
+  viewer's browser time zone.
+- Start times use 12-hour AM/PM formatting.
+- Goalies Confirmed now displays confirmed goalies over total goalie slots.
+- The denominator is total current games × 2.
+- Existing Roster Simulation, Betting, Games, Overview, and admin-only Model
+  Diagnostics behavior remain unchanged.
 
 PURPOSE
 =======
