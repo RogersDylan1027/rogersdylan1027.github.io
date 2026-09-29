@@ -459,3 +459,23 @@ Adds selectable model picks to each current NHL matchup while limiting every cho
   the Dashboard does not place wagers or transmit bets to a sportsbook.
 - My Dashboard remains Version 0.10.10 because the Dashboard itself only
   receives this project changelog entry.
+
+
+PROJECT CHANGELOG · 2026-09-29
+==============================
+NHL Analytics · Version 0.3.3: Betting Accuracy Breakdowns
+
+Adds three Betting-page accuracy breakdowns—Moneyline Accuracy, Player Pick Accuracy, and Overall Accuracy—calculated from the model’s historical bettingLines and matching correctBettingLines results, while preserving Selected Model Picks and the detailed betting history.
+
+- Added Moneyline Accuracy, Player Pick Accuracy, and Overall Accuracy cards.
+- Accuracy is calculated from historical bettingLines aligned with
+  correctBettingLines.
+- Single-value and array-shaped betting results are both supported.
+- Records without scored betting results are excluded from denominators.
+- Selected Model Picks and detailed betting history remain unchanged.
+- Dashboard/projects.json was checked and does not require a change.
+- Documents/privacy.html and Documents/tos.html were checked; no legal-text
+  change is required because this release only summarizes existing model-result
+  data and does not add data collection or sportsbook integration.
+- My Dashboard remains Version 0.10.10 because the Dashboard itself only
+  receives this project changelog entry.
