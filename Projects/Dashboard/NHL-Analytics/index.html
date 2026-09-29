@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <title>NHL Analytics · Version 0.3.1</title>
-  <meta name="description" content="My Dashboard NHL Analytics · Version 0.3.1 · GitHub Model Refresh Timing">
+  <title>NHL Analytics · Version 0.3.2</title>
+  <meta name="description" content="My Dashboard NHL Analytics · Version 0.3.2 · Model-Driven Selectable Betting Picks">
   <meta name="theme-color" content="#f4f7fb">
   <script src="../dashboard-config.js?v=0.10.4"></script>
   <script src="../dashboard-auth.js?v=0.10.4" data-dashboard-project="nhl-analytics"></script>
@@ -24,6 +24,7 @@
     .table-wrap{overflow:auto;border:1px solid var(--line);border-radius:14px}.data-table{width:100%;border-collapse:collapse;min-width:760px;background:#fff}.data-table th,.data-table td{padding:11px 12px;border-bottom:1px solid #edf0f4;text-align:left;font-size:12px;vertical-align:top}.data-table th{position:sticky;top:0;background:#f8fafc;color:#5e6b7d;font-size:10px;text-transform:uppercase;letter-spacing:.06em;z-index:1}.data-table tr:last-child td{border-bottom:0}.team{font-weight:850}.muted{color:var(--muted)}.nowrap{white-space:nowrap}
     .today-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.game-card{background:#fff;border:1px solid var(--line);border-radius:17px;padding:17px;box-shadow:var(--shadow)}.matchup{display:flex;align-items:center;justify-content:space-between;gap:12px}.club{display:grid;gap:2px}.club strong{font-size:21px}.club span{color:var(--muted);font-size:11px}.at{color:#8c97a6;font-weight:900}.prediction{margin:15px 0;padding:12px 13px;background:#f3f6fb;border-radius:12px}.prediction strong{display:block;font-size:14px}.prediction small{display:block;margin-top:4px;color:var(--muted);line-height:1.4}.game-details{display:grid;grid-template-columns:1fr 1fr;gap:11px}.detail{border-top:1px solid #edf0f4;padding-top:10px}.detail label{display:block;color:var(--muted);font-size:10px;font-weight:850;text-transform:uppercase;letter-spacing:.06em}.detail p{margin:5px 0 0;font-size:12px;line-height:1.45}.scorers{grid-column:1/-1}.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}.chip{padding:5px 8px;border-radius:999px;background:#edf3fb;color:#34537f;font-size:11px;font-weight:750}
     .player-prediction-toggle{width:100%;margin-top:14px;min-height:40px;border:1px solid var(--blue);border-radius:11px;background:#fff;color:var(--blue);font-weight:850}.player-prediction-toggle:hover{background:#f3f6fb}.player-predictions{display:grid;gap:12px;margin-top:12px}.player-team-section{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fbfcfe}.player-team-header{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 13px;background:#f3f6fb;border-bottom:1px solid var(--line)}.player-team-header strong{font-size:15px}.player-team-header span{color:var(--muted);font-size:11px}.player-list{display:grid}.player-row{display:grid;grid-template-columns:minmax(0,1fr) 110px 90px;align-items:center;gap:10px;padding:10px 13px;border-bottom:1px solid #edf0f4}.player-row:last-child{border-bottom:0}.player-name{min-width:0;font-size:12px;font-weight:800}.player-name-line{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.player-badge{display:inline-flex;align-items:center;padding:3px 6px;border-radius:999px;background:#e8f3eb;color:var(--good);font-size:9px;font-weight:850;text-transform:uppercase;letter-spacing:.04em}.player-value,.player-percent{text-align:right}.player-value span,.player-percent span{display:block;color:var(--muted);font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.05em}.player-value strong,.player-percent strong{display:block;margin-top:2px;font-size:12px}.player-empty{padding:14px;color:var(--muted);font-size:12px;text-align:center}
+    .model-picks{margin-top:14px;padding-top:13px;border-top:1px solid #edf0f4}.model-picks-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}.model-picks-head strong{font-size:12px}.model-picks-head span{color:var(--muted);font-size:10px}.pick-options{display:flex;flex-wrap:wrap;gap:7px}.pick-option{border:1px solid var(--line);background:#fff;color:#405069;border-radius:999px;padding:7px 10px;font-size:11px;font-weight:800}.pick-option:hover{background:#f4f7fb}.pick-option.selected{background:var(--blue);border-color:var(--blue);color:#fff}.selected-picks-list{display:grid;gap:8px}.selected-pick-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 11px;border:1px solid var(--line);border-radius:11px;background:#fff}.selected-pick-row strong{font-size:12px}.selected-pick-row span{display:block;margin-top:2px;color:var(--muted);font-size:10px}.selected-pick-remove{border:1px solid var(--line);background:#fff;border-radius:9px;padding:6px 8px;color:#5b6676;font-size:11px;font-weight:800}.selected-picks-empty{padding:20px;text-align:center;color:var(--muted);font-size:12px;border:1px dashed var(--line);border-radius:12px}
     .filters{display:flex;align-items:end;gap:9px;flex-wrap:wrap;margin-bottom:13px}.field{display:grid;gap:5px}.field label{color:var(--muted);font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.06em}.field input,.field select{height:39px;border:1px solid var(--line);background:#fff;color:var(--text);border-radius:10px;padding:0 11px;min-width:150px}.field.grow{flex:1}.field.grow input{width:100%;min-width:220px}.secondary{height:39px;border:1px solid var(--line);background:#fff;border-radius:10px;padding:0 12px;font-weight:800;color:#45546a}
     .load-more{display:block;margin:14px auto 0;border:1px solid var(--blue);background:#fff;color:var(--blue);border-radius:11px;padding:10px 15px;font-weight:850}.empty{padding:35px 18px;text-align:center;color:var(--muted)}
     .team-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.team-card{background:#fff;border:1px solid var(--line);border-radius:15px;padding:15px}.team-card-head{display:flex;align-items:center;justify-content:space-between}.team-card h4{margin:0;font-size:19px}.team-card .big{font-size:22px;font-weight:900}.team-card dl{display:grid;grid-template-columns:1fr auto;gap:7px 12px;margin:12px 0 0;font-size:11px}.team-card dt{color:var(--muted)}.team-card dd{margin:0;font-weight:800}
@@ -38,7 +39,7 @@
   <header class="topbar">
     <div class="topbar-inner">
       <button class="back" id="backBtn" type="button" aria-label="Back to Dashboard">Dashboard</button>
-      <div class="brand"><h1>NHL Analytics</h1><p>Version 0.3.1 · GitHub Model Refresh Timing</p></div>
+      <div class="brand"><h1>NHL Analytics</h1><p>Version 0.3.2 · Model-Driven Selectable Betting Picks</p></div>
       <button class="refresh" id="refreshBtn" type="button" aria-label="Refresh NHL data">Refresh</button>
     </div>
     <div class="nav-wrap"><nav class="tabs" aria-label="NHL Analytics sections">
@@ -85,12 +86,13 @@
     </section>
     <section id="betting" class="view">
       <div class="view-head"><div><h2>Betting Analytics</h2><p>Performance of betting selections recorded by the NHL model.</p></div><div class="source-note">Older games without betting fields are excluded.</div></div>
+      <section class="panel" style="margin-bottom:14px"><div class="panel-head"><h3>Selected Model Picks</h3><span class="panel-note">Only predictions generated by your model can be selected</span></div><div id="selectedModelPicks"></div></section>
       <div id="bettingMetrics" class="metrics"></div>
       <section class="panel"><div class="panel-head"><h3>Tracked Betting Predictions</h3><span class="panel-note">Historical records with bettingLines</span></div><div id="bettingTable"></div></section>
     </section>
   </main>
   <footer class="footer">NHL Analytics reads model outputs produced by the NHL-Predictions repository. It does not recalculate or replace the prediction model.</footer>
 </div>
-<script src="./nhl-analytics.js?v=0.3.1"></script>
+<script src="./nhl-analytics.js?v=0.3.2"></script>
 </body>
 </html>
