@@ -1,6 +1,6 @@
 (() => {
   "use strict";
-  const VERSION = "0.2.1";
+  const VERSION = "0.3.0";
   const HISTORY_URL = "/All%20Results.json";
   const TODAY_URL = "/Game%20Results.json";
   const $ = id => document.getElementById(id);
@@ -60,10 +60,28 @@
     return instant.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit", hour12: true });
   }
 
+  function normalizePlayerPredictions(value) {
+    if (!value || typeof value !== "object" || Array.isArray(value)) return [];
+    return Object.entries(value).map(([name, raw]) => {
+      const parts = Array.isArray(raw) ? raw : [raw];
+      const modelValue = num(parts[0]);
+      const percentText = typeof parts[1] === "string" ? parts[1].trim() : "";
+      const percentValue = percentText ? Number(percentText.replace("%","")) : null;
+      return { name, modelValue, percentText: percentText || (Number.isFinite(percentValue) ? percentValue.toFixed(2)+"%" : "—"), percentValue: Number.isFinite(percentValue) ? percentValue : null };
+    }).sort((a,b) => (b.percentValue ?? -1) - (a.percentValue ?? -1) || a.name.localeCompare(b.name));
+  }
+  function scorerNameSet(value) {
+    if (!value) return new Set();
+    if (Array.isArray(value)) return new Set(value.map(String));
+    if (typeof value === "string") return new Set([value]);
+    if (typeof value === "object") return new Set(Object.keys(value));
+    return new Set();
+  }
+
   function normalizeGame(game={}, date="") {
     const home = String(game.homeABV || "?"), away = String(game.awayABV || "?"), outcome = parseOutcome(game.outcome, home, away);
     const correct = num(game.correctLines), total = num(game.totalLines), bets = bettingSelections(game.bettingLines);
-    return {...game,date,home,away,outcome,homeGoalie:normalizeGoalie(game.homeGoalie),awayGoalie:normalizeGoalie(game.awayGoalie),homeScorersList:normalizeList(game.homeScorers),awayScorersList:normalizeList(game.awayScorers),correct,total,lineAccuracy:Number.isFinite(correct)&&Number.isFinite(total)&&total>0?correct/total:null,homeMSE:num(game.homeMeanSquaredError),awayMSE:num(game.awayMeanSquaredError),homeLL:num(game.homeLogLoss),awayLL:num(game.awayLogLoss),bets,correctBets:num(game.correctBettingLines)};
+    return {...game,date,home,away,outcome,homeGoalie:normalizeGoalie(game.homeGoalie),awayGoalie:normalizeGoalie(game.awayGoalie),homeScorersList:normalizeList(game.homeScorers),awayScorersList:normalizeList(game.awayScorers),homeScorerNames:scorerNameSet(game.homeScorers),awayScorerNames:scorerNameSet(game.awayScorers),homePlayerPredictions:normalizePlayerPredictions(game.allHomePoints),awayPlayerPredictions:normalizePlayerPredictions(game.allAwayPoints),correct,total,lineAccuracy:Number.isFinite(correct)&&Number.isFinite(total)&&total>0?correct/total:null,homeMSE:num(game.homeMeanSquaredError),awayMSE:num(game.awayMeanSquaredError),homeLL:num(game.homeLogLoss),awayLL:num(game.awayLogLoss),bets,correctBets:num(game.correctBettingLines)};
   }
 
   async function resolveAdminAccess() {
@@ -128,11 +146,37 @@
   function renderToday(){
     const predicted=state.today.filter(g=>g.outcome.winner).length,confirmedGoalies=sum(state.today.map(g=>(g.homeGoalie!=="Not confirmed"?1:0)+(g.awayGoalie!=="Not confirmed"?1:0))),totalGoalieSlots=state.today.length*2,betCount=sum(state.today.map(g=>g.bets.length));
     $("todaySummary").innerHTML=metric("Games",state.today.length.toString(),"Current Game Results.json")+metric("Predictions",predicted.toString(),"Games with a parsed winner")+metric("Goalies Confirmed",confirmedGoalies+" / "+totalGoalieSlots,"Confirmed starting goalies")+metric("Betting Picks",betCount.toString(),"Current tracked selections")+metric("Last Refresh",state.loadedAt?state.loadedAt.toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit"}):"—","Dashboard data refresh");
-    $("todayGames").innerHTML=state.today.length?state.today.map(todayCard).join(""):'<div class="panel empty">No current-day games are available in Game Results.json.</div>';
+    $("todayGames").innerHTML=state.today.length?state.today.map((g,i)=>todayCard(g,i)).join(""):'<div class="panel empty">No current-day games are available in Game Results.json.</div>';setupPlayerPredictionToggles();
   }
-  function todayCard(g){
+  function playerTeamSection(team, players, scorerNames) {
+    if (!players.length) return '<section class="player-team-section"><div class="player-team-header"><strong>'+esc(team)+'</strong><span>0 players</span></div><div class="player-empty">No player prediction data stored for this team.</div></section>';
+    return '<section class="player-team-section"><div class="player-team-header"><strong>'+esc(team)+'</strong><span>'+players.length+' players</span></div><div class="player-list">'+players.map(player => {
+      const badge=scorerNames.has(player.name)?'<span class="player-badge">Expected scorer</span>':'';
+      return '<div class="player-row"><div class="player-name"><div class="player-name-line">'+esc(player.name)+badge+'</div></div><div class="player-value"><span>Model value</span><strong>'+esc(Number.isFinite(player.modelValue)?fixed(player.modelValue,4):"—")+'</strong></div><div class="player-percent"><span>Point %</span><strong>'+esc(player.percentText||"—")+'</strong></div></div>';
+    }).join("")+'</div></section>';
+  }
+  function playerPredictionsBlock(g,index) {
+    const id='player-predictions-'+index;
+    const total=g.awayPlayerPredictions.length+g.homePlayerPredictions.length;
+    return '<button class="player-prediction-toggle" type="button" aria-expanded="false" aria-controls="'+id+'" data-player-toggle="'+id+'">View Player Predictions'+(total?' ('+total+')':'')+'</button><div id="'+id+'" class="player-predictions hidden">'+playerTeamSection(g.away,g.awayPlayerPredictions,g.awayScorerNames)+playerTeamSection(g.home,g.homePlayerPredictions,g.homeScorerNames)+'</div>';
+  }
+  function setupPlayerPredictionToggles() {
+    document.querySelectorAll("[data-player-toggle]").forEach(button => {
+      button.addEventListener("click", () => {
+        const target=$(button.dataset.playerToggle);
+        if (!target) return;
+        const opening=target.classList.contains("hidden");
+        target.classList.toggle("hidden",!opening);
+        button.setAttribute("aria-expanded",opening?"true":"false");
+        button.textContent=opening?"Hide Player Predictions":button.dataset.closedLabel||"View Player Predictions";
+      });
+      if (!button.dataset.closedLabel) button.dataset.closedLabel=button.textContent;
+    });
+  }
+
+  function todayCard(g,index){
     const confidence=g.outcome.winner===g.home?g.outcome.homeWinPct:g.outcome.winner===g.away?g.outcome.awayWinPct:null,scorers=[...g.awayScorersList,...g.homeScorersList];
-    return'<article class="game-card"><div class="matchup"><div class="club"><strong>'+esc(g.away)+'</strong><span>'+esc(g.awayGoalie)+'</span></div><span class="at">@</span><div class="club" style="text-align:right"><strong>'+esc(g.home)+'</strong><span>'+esc(g.homeGoalie)+'</span></div></div><div class="prediction"><strong>Prediction: '+esc(g.outcome.winner||"Unavailable")+(Number.isFinite(confidence)?" · "+pct(confidence):"")+'</strong></div><div class="game-details"><div class="detail"><label>Start</label><p>'+esc(formatStartTimeForViewer(g.startingTime,g.date))+'</p></div><div class="detail"><label>Last Model Run</label><p>'+esc(g.timeLastRun||"—")+'</p></div><div class="detail"><label>Betting</label><p>'+esc(g.bets.join("; ")||"No betting line stored")+'</p></div><div class="detail"><label>Expected Difference</label><p>'+esc(Number.isFinite(g.outcome.expectedDifference)?fixed(g.outcome.expectedDifference,3):"—")+'</p></div><div class="detail scorers"><label>Expected Point Scorers</label>'+(scorers.length?'<div class="chips">'+scorers.map(s=>'<span class="chip">'+esc(s)+'</span>').join("")+'</div>':'<p>No scorer prediction stored for this game.</p>')+'</div></div></article>';
+    return'<article class="game-card"><div class="matchup"><div class="club"><strong>'+esc(g.away)+'</strong><span>'+esc(g.awayGoalie)+'</span></div><span class="at">@</span><div class="club" style="text-align:right"><strong>'+esc(g.home)+'</strong><span>'+esc(g.homeGoalie)+'</span></div></div><div class="prediction"><strong>Prediction: '+esc(g.outcome.winner||"Unavailable")+(Number.isFinite(confidence)?" · "+pct(confidence):"")+'</strong></div><div class="game-details"><div class="detail"><label>Start</label><p>'+esc(formatStartTimeForViewer(g.startingTime,g.date))+'</p></div><div class="detail"><label>Last Model Run</label><p>'+esc(g.timeLastRun||"—")+'</p></div><div class="detail"><label>Betting</label><p>'+esc(g.bets.join("; ")||"No betting line stored")+'</p></div><div class="detail"><label>Expected Difference</label><p>'+esc(Number.isFinite(g.outcome.expectedDifference)?fixed(g.outcome.expectedDifference,3):"—")+'</p></div><div class="detail scorers"><label>Expected Point Scorers</label>'+(scorers.length?'<div class="chips">'+scorers.map(s=>'<span class="chip">'+esc(s)+'</span>').join("")+'</div>':'<p>No scorer prediction stored for this game.</p>')+'</div></div>'+playerPredictionsBlock(g,index)+'</article>';
   }
   function populateTeamFilter(){const teams=[...new Set(state.games.flatMap(g=>[g.home,g.away]).filter(t=>t&&t!=="?"))].sort(),select=$("teamFilter"),current=select.value;select.innerHTML='<option value="">All teams</option>'+teams.map(t=>'<option value="'+esc(t)+'">'+esc(t)+'</option>').join("");select.value=teams.includes(current)?current:"";}
   function applyGameFilters(){const q=$("gameSearch").value.trim().toLowerCase(),team=$("teamFilter").value,from=$("dateFrom").value,to=$("dateTo").value;state.filtered=state.games.filter(g=>{if(team&&g.home!==team&&g.away!==team)return false;if(from&&g.date<from)return false;if(to&&g.date>to)return false;if(q){const text=[g.home,g.away,g.homeGoalie,g.awayGoalie,g.outcome.raw,g.bets.join(" "),...g.homeScorersList,...g.awayScorersList].join(" ").toLowerCase();if(!text.includes(q))return false;}return true;});state.shown=100;renderGamesTable();}
