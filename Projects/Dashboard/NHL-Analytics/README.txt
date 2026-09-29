@@ -1,7 +1,7 @@
 NHL ANALYTICS PROJECT
 
 Current version
-0.2.1
+0.3.0
 
 Version 0.2.0: Roster Simulation & Admin Model Diagnostics
 
@@ -22,6 +22,25 @@ VERSION 0.2.1 CHANGES
 - The denominator is total current games × 2.
 - Existing Roster Simulation, Betting, Games, Overview, and admin-only Model
   Diagnostics behavior remain unchanged.
+
+Version 0.3.0: Per-Game Player Predictions
+
+Adds expandable player-level predictions to each current NHL matchup, using allHomePoints and allAwayPoints to show every player’s model value and point percentage in separate team sections sorted from highest probability to lowest, while preserving the compact game-card view until the user chooses to expand it.
+
+VERSION 0.3.0 FEATURES
+======================
+- Adds View Player Predictions to every current-game card.
+- Keeps the main game card compact until the user chooses to expand it.
+- Reads player data directly from allHomePoints and allAwayPoints.
+- Displays every stored player, not only players above the scorer threshold.
+- Shows each player's model value and point percentage.
+- Sorts each team's players from highest point percentage to lowest.
+- Away-team and home-team player predictions always appear in separate sections
+  on desktop, tablet, and mobile.
+- Players present in homeScorers or awayScorers receive an Expected scorer badge
+  when that scorer data is available.
+- Preserves Roster Simulation, local-time game starts, goalie confirmation
+  fractions, Betting, Games, Overview, and admin-only Model Diagnostics.
 
 PURPOSE
 =======
