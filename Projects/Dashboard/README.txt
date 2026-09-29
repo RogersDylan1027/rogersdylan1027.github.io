@@ -422,3 +422,20 @@ Adds expandable player-level predictions to each current NHL matchup, using allH
   model output without adding user-data collection.
 - My Dashboard remains Version 0.10.10 because the Dashboard itself only
   receives this project changelog entry.
+
+
+PROJECT CHANGELOG · 2026-09-29
+==============================
+NHL Analytics · Version 0.3.1: GitHub Model Refresh Timing
+
+Changes the Today view’s Last Refresh metric to reflect the newest model run written by the Start Day or Loop for Games GitHub Actions workflow, using timeLastRun from Game Results.json instead of the viewer’s browser refresh time, with local-time conversion and 12-hour formatting.
+
+- Last Refresh now uses the newest model-run time from Game Results.json.
+- Start Day / Loop for Games workflow output is the source of that timestamp.
+- Browser refresh time no longer affects the displayed Last Refresh value.
+- Model-run time is converted to the viewer's local time zone and 12-hour format.
+- Dashboard/projects.json was checked and does not require a change.
+- Documents/privacy.html and Documents/tos.html were checked; no legal-text
+  change is required because this release changes display behavior only.
+- My Dashboard remains Version 0.10.10 because the Dashboard itself only
+  receives this project changelog entry.
