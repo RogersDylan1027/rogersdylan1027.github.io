@@ -479,3 +479,19 @@ Adds three Betting-page accuracy breakdowns—Moneyline Accuracy, Player Pick Ac
   data and does not add data collection or sportsbook integration.
 - My Dashboard remains Version 0.10.10 because the Dashboard itself only
   receives this project changelog entry.
+
+
+PROJECT CHANGELOG · 2026-09-30
+==============================
+NHL Analytics · Version 0.3.4: Last Model Run Time Formatting
+
+Updates each Today game card’s Last Model Run display to use the same localized 12-hour AM/PM format as game start times, while keeping the underlying model-run timestamp sourced from Game Results.json.
+
+- Last Model Run now uses localized 12-hour AM/PM formatting.
+- Reuses the same viewer-local conversion used for game start times.
+- timeLastRun from Game Results.json remains the source of truth.
+- Dashboard/projects.json was checked and does not require a change.
+- Documents/privacy.html and Documents/tos.html were checked; no legal-text
+  change is required because this release changes presentation only.
+- My Dashboard remains Version 0.10.10 because the Dashboard itself only
+  receives this project changelog entry.
