@@ -5,10 +5,6 @@
 (function () {
   "use strict";
 
-  const VERSION = "0.7.0";
-  const TITLE = "Dashboard Performance Optimization";
-  const DESCRIPTION =
-    "Optimizes My Dashboard without changing its existing features or workflows. Reduces startup and Streaming wait time with browser caching, shared in-flight request reuse, fewer duplicate Supabase/TMDB calls, batched availability processing, and smarter TV refresh checks while preserving current Dashboard, Streaming, Projects, Settings, account, and playback behavior.";
   let initialized = false;
   const get = id => document.getElementById(id);
 
@@ -202,15 +198,6 @@
     const settings=get("settings-view");if(settings&&window.MutationObserver)new MutationObserver(()=>{if(!settings.hidden)refresh()}).observe(settings,{attributes:true,attributeFilter:["hidden"]});
   }
 
-  function addChangelogRuntimeEntry() {
-    const view=get("changelog-view");if(!view)return;
-    const inject=()=>{const body=view.querySelector(".changelog-list")||view.querySelector("tbody")||view.querySelector(".internal-view-content")||view.querySelector(".changelog-content");if(!body||get("streaming-0700-changelog-entry"))return;
-      const bug='Replaces plain loading text with a responsive skeleton screen, keeps the Streaming header visible during loading, uses the same loader for searches and refreshes, switches cleanly to errors or service guidance when needed, and respects reduced-motion preferences.';
-      if(body.tagName==="TBODY"){const tr=document.createElement("tr");tr.id="streaming-0700-changelog-entry";tr.innerHTML=`<td>${VERSION}</td><td>${TITLE}</td><td>${DESCRIPTION}<br><strong>Bug Fixes:</strong> ${bug}</td>`;body.prepend(tr)}
-      else{const card=document.createElement("div");card.id="streaming-0700-changelog-entry";card.style.cssText="margin:0 0 12px;padding:14px;border:1px solid #dfe3e8;border-radius:12px;background:#f7f8fa";card.innerHTML=`<strong>${VERSION} · ${TITLE}</strong><p style="margin:7px 0 0;line-height:1.5">${DESCRIPTION}</p><p style="margin:7px 0 0;line-height:1.5"><strong>Bug Fixes:</strong> ${bug}</p>`;body.prepend(card)}
-    };new MutationObserver(inject).observe(view,{attributes:true,childList:true,subtree:true});inject();
-  }
-
-  async function init() {if(initialized||!get("settings-view")||!window.DashboardStreaming)return;initialized=true;css();makeSection();bind();addChangelogRuntimeEntry();window.DashboardApplyCurrentVersionLabel?.();await refresh()}
+  async function init() {if(initialized||!get("settings-view")||!window.DashboardStreaming)return;initialized=true;css();makeSection();bind();window.DashboardApplyCurrentVersionLabel?.();await refresh()}
   const timer=setInterval(()=>{if(initialized){clearInterval(timer);return}init().catch(console.error)},150);setTimeout(()=>clearInterval(timer),20000);
 })();
