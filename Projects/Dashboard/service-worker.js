@@ -1,5 +1,5 @@
-/* My Dashboard · Service Worker · Version 0.10.10 · Account Approval & Password Setup · 2026-09-28 */
-const CACHE_NAME = "my-dashboard-v0.10.10";
+/* My Dashboard · Service Worker · Version 0.10.11 · Runtime Changelog Injector Removal · 2026-09-30 */
+const CACHE_NAME = "my-dashboard-v0.10.11";
 const BASE_PATH = "/Projects/Dashboard/";
 const CORE_ASSETS = [
   BASE_PATH,
@@ -80,8 +80,8 @@ self.addEventListener("push", event => {
   const title = payload.title || "My Dashboard";
   const options = {
     body: payload.body || "You have a new Dashboard notification.",
-    icon: BASE_PATH + "logo-app.png?v=0.10.10",
-    badge: BASE_PATH + "logo-app.png?v=0.10.10",
+    icon: BASE_PATH + "logo-app.png?v=0.10.11",
+    badge: BASE_PATH + "logo-app.png?v=0.10.11",
     tag: payload.tag || "my-dashboard-notification",
     data: { url: payload.url || BASE_PATH }
   };
