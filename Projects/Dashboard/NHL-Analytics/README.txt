@@ -1,7 +1,7 @@
 NHL ANALYTICS PROJECT
 
 Current version
-0.3.3
+0.3.4
 
 Version 0.2.0: Roster Simulation & Admin Model Diagnostics
 
@@ -94,6 +94,19 @@ VERSION 0.3.3 FEATURES
   accuracy denominators.
 - Handles both single-value and array-shaped correctBettingLines records.
 - Preserves Selected Model Picks and the detailed historical betting table.
+
+Version 0.3.4: Last Model Run Time Formatting
+
+Updates each Today game card’s Last Model Run display to use the same localized 12-hour AM/PM format as game start times, while keeping the underlying model-run timestamp sourced from Game Results.json.
+
+VERSION 0.3.4 CHANGES
+=====================
+- Last Model Run now displays in 12-hour AM/PM format.
+- The stored America/New_York time is converted into the viewer's local time
+  zone before display.
+- Uses the same time-formatting behavior as the game Start field.
+- The timestamp source remains timeLastRun from Game Results.json.
+- Version 0.3.3 Betting Accuracy Breakdowns remain unchanged.
 
 PURPOSE
 =======
