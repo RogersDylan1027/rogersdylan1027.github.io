@@ -1,4 +1,4 @@
-/* My Dashboard · PWA Runtime · Version 0.10.10 · Account Approval & Password Setup · 2026-09-28 */
+/* My Dashboard · PWA Runtime · Version 0.10.11 · Runtime Changelog Injector Removal · 2026-09-30 */
 (function () {
   "use strict";
   const config = window.DashboardConfig;
