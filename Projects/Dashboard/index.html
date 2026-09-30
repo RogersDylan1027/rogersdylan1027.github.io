@@ -9,9 +9,9 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>My Dashboard · Version 0.10.10</title>
+  <title>My Dashboard · Version 0.10.11</title>
 
-  <!-- Version 0.10.10: Account Approval & Password Setup · 2026-09-28 -->
+  <!-- Version 0.10.11: Runtime Changelog Injector Removal · 2026-09-30 -->
 
   <meta
     name="description"
@@ -25,9 +25,9 @@
 
   <!-- Shared Dashboard configuration and authentication guard. -->
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-  <script src="./dashboard-config.js?v=0.10.10"></script>
+  <script src="./dashboard-config.js?v=0.10.11"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="./dashboard-entry.js?v=0.10.10"></script>
+  <script src="./dashboard-entry.js?v=0.10.11"></script>
 
   <style>
     * { box-sizing: border-box; }
@@ -1578,6 +1578,7 @@
     }
 
     const dashboardChangelog=[
+      {version:"0.10.11",title:"Runtime Changelog Injector Removal",description:"Removes the old runtime changelog injector that pinned Dashboard 0.7.0 to the top of the changelog while preserving 0.7.0 in its normal historical position. Bug Fixes: eliminates the legacy runtime override without changing the existing 0.7.0 release entry or its ordering."},
       {version:"NHL Analytics 0.3.4",title:"Last Model Run Time Formatting",description:"Updates each Today game card’s Last Model Run display to use the same localized 12-hour AM/PM format as game start times, while keeping the underlying model-run timestamp sourced from Game Results.json."},
       {version:"NHL Analytics 0.3.3",title:"Betting Accuracy Breakdowns",description:"Adds three Betting-page accuracy breakdowns—Moneyline Accuracy, Player Pick Accuracy, and Overall Accuracy—calculated from the model’s historical bettingLines and matching correctBettingLines results, while preserving Selected Model Picks and the detailed betting history."},
       {version:"NHL Analytics 0.3.2",title:"Model-Driven Selectable Betting Picks",description:"Adds selectable model picks to each current NHL matchup while limiting every choice to predictions the program actually generated: the predicted team’s moneyline and only players the model expects to record a point, with selected picks summarized in the Betting view and no arbitrary sportsbook lines."},
