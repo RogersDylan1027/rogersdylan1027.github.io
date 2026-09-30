@@ -1578,6 +1578,7 @@
     }
 
     const dashboardChangelog=[
+      {version:"NHL Analytics 0.3.4",title:"Last Model Run Time Formatting",description:"Updates each Today game card’s Last Model Run display to use the same localized 12-hour AM/PM format as game start times, while keeping the underlying model-run timestamp sourced from Game Results.json."},
       {version:"NHL Analytics 0.3.3",title:"Betting Accuracy Breakdowns",description:"Adds three Betting-page accuracy breakdowns—Moneyline Accuracy, Player Pick Accuracy, and Overall Accuracy—calculated from the model’s historical bettingLines and matching correctBettingLines results, while preserving Selected Model Picks and the detailed betting history."},
       {version:"NHL Analytics 0.3.2",title:"Model-Driven Selectable Betting Picks",description:"Adds selectable model picks to each current NHL matchup while limiting every choice to predictions the program actually generated: the predicted team’s moneyline and only players the model expects to record a point, with selected picks summarized in the Betting view and no arbitrary sportsbook lines."},
       {version:"NHL Analytics 0.3.1",title:"GitHub Model Refresh Timing",description:"Changes the Today view’s Last Refresh metric to reflect the newest model run written by the Start Day or Loop for Games GitHub Actions workflow, using timeLastRun from Game Results.json instead of the viewer’s browser refresh time, with local-time conversion and 12-hour formatting."},
