@@ -1,6 +1,54 @@
-My Dashboard · Version 0.10.10
-Account Approval & Password Setup · 2026-09-28
+My Dashboard · Version 0.10.11
+Runtime Changelog Injector Removal · 2026-09-30
 
+CHANGELOG
+=========
+Version 0.10.11: Runtime Changelog Injector Removal
+
+Description:
+Removes the old runtime changelog injector that pinned Dashboard 0.7.0 to the top of the changelog while preserving 0.7.0 in its normal historical position. Bug Fixes: eliminates the legacy runtime override without changing the existing 0.7.0 release entry or its ordering.
+
+CHANGELOG FIX · 0.10.11
+=======================
+- Removes the legacy Streaming runtime changelog injector that prepended the
+  Dashboard 0.7.0 entry whenever the Streaming settings UI initialized.
+- Keeps Dashboard 0.7.0 in the canonical Dashboard changelog in its normal
+  historical position.
+- Does not change Streaming playback, account approval, weather, Projects,
+  Supabase data, or any other Dashboard feature behavior.
+- Advances Dashboard cache/version references to 0.10.11 so existing installs
+  receive the corrected runtime file.
+
+FILES UPDATED
+=============
+Dashboard/index.html
+Dashboard/login.html
+Dashboard/dashboard-config.js
+Dashboard/dashboard-streaming-ui.js
+Dashboard/dashboard-pwa.js
+Dashboard/dashboard-account-access.js
+Dashboard/service-worker.js
+Dashboard/manifest.webmanifest
+Dashboard/README.txt
+
+CHECKED / NO CHANGE NEEDED
+==========================
+Dashboard/projects.json
+Dashboard/Documents/privacy.html
+Dashboard/Documents/tos.html
+Supabase
+
+TEST CHECKLIST · 0.10.11
+========================
+1. Fully close and reopen My Dashboard and confirm Version 0.10.11.
+2. Open the changelog and confirm 0.10.11 appears at the top.
+3. Confirm Dashboard 0.7.0 appears only in its historical position and is not
+   prepended above newer releases.
+4. Open Streaming settings and reopen the changelog; confirm 0.7.0 does not move
+   to the top.
+
+PREVIOUS RELEASE
+================
 CHANGELOG
 =========
 Version 0.10.10: Account Approval & Password Setup
