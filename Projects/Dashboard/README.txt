@@ -579,3 +579,22 @@ Reorders NHL Analytics navigation to Today, Overview, Games, Betting, and Roster
   change is required because this release changes navigation/presentation only.
 - My Dashboard remains Version 0.10.11 because the Dashboard itself only
   receives this project changelog entry.
+
+
+PROJECT CHANGELOG · 2026-10-01
+==============================
+NHL Analytics · Version 0.3.7: Dynamic Season Selectors
+
+Adds dynamic season selectors to the Overview and Games pages, defaults to the current season, and includes an Everything option for viewing all stored seasons.
+
+- Added synchronized season selectors to Overview and Games.
+- Season options are generated dynamically from All Results.json.
+- Current season is selected by default when available; Everything combines all
+  stored seasons.
+- Overview metrics/charts and Games history now respect the selected season.
+- Existing search, team, and date filters remain available within the season.
+- Dashboard/projects.json was checked and does not require a change.
+- Documents/privacy.html and Documents/tos.html were checked; no legal-text
+  change is required because this release changes filtering/presentation only.
+- My Dashboard remains Version 0.10.11 because the Dashboard itself only
+  receives this project changelog entry.
