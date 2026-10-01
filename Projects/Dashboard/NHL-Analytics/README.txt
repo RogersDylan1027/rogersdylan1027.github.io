@@ -1,7 +1,7 @@
 NHL ANALYTICS PROJECT
 
 Current version
-0.3.4
+0.3.5
 
 Version 0.2.0: Roster Simulation & Admin Model Diagnostics
 
@@ -107,6 +107,21 @@ VERSION 0.3.4 CHANGES
 - Uses the same time-formatting behavior as the game Start field.
 - The timestamp source remains timeLastRun from Game Results.json.
 - Version 0.3.3 Betting Accuracy Breakdowns remain unchanged.
+
+Version 0.3.5: Prediction Label Cleanup
+
+Simplifies current-game prediction labels by showing only player names in Expected Point Scorers and keeping Model Picks concise for both moneylines and player point selections, while leaving the detailed Player Predictions section unchanged.
+
+VERSION 0.3.5 CHANGES
+=====================
+- Expected Point Scorers now displays only each player's name.
+- Removes team/model-value/percentage text from the compact scorer chips.
+- Model Picks now uses concise labels such as "FLA Moneyline" and
+  "Sam Reinhart 1+ Point".
+- Removes extra team tags, explanatory text, and percentages from Model Picks.
+- Player Predictions remains unchanged and continues to show the detailed model
+  value and point percentage for every player.
+- No prediction logic, thresholds, or betting accuracy calculations changed.
 
 PURPOSE
 =======
