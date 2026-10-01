@@ -381,43 +381,148 @@
     "homeScorers": "Nathan MacKinnon, COL: 0.55061      (0.917683333333333)",
     "awayScorers": {},
     "allHomePoints": {
-      "Nazem Kadri": ["0.2826", "9.42%"],
-      "Parker Kelly": ["0.1003", "3.45%"],
-      "Gabriel Landeskog": ["0.2773", "9.25%"],
-      "Artturi Lehkonen": ["0.2959", "9.84%"],
-      "Nathan MacKinnon": ["1.5732", "42.34%"],
-      "Martin Necas": ["0.6189", "19.48%"],
-      "Brock Nelson": ["0.4177", "13.6%"],
-      "Nicolas Roy": ["0.0415", "1.44%"],
-      "Jaden Schwartz": ["0.1504", "5.13%"],
-      "Fedor Svechkov": ["0.0178", "0.62%"],
-      "Brent Burns": ["0.1258", "4.31%"],
-      "Noah Juulsen": ["0.0029", "0.1%"],
-      "Brett Kulak": ["0.0067", "0.24%"],
-      "Sam Malinski": ["0.0889", "3.06%"],
-      "Josh Manson": ["0.0409", "1.42%"],
-      "Devon Toews": ["0.0599", "2.08%"]
+      "Nazem Kadri": [
+        "0.2826",
+        "9.42%"
+      ],
+      "Parker Kelly": [
+        "0.1003",
+        "3.45%"
+      ],
+      "Gabriel Landeskog": [
+        "0.2773",
+        "9.25%"
+      ],
+      "Artturi Lehkonen": [
+        "0.2959",
+        "9.84%"
+      ],
+      "Nathan MacKinnon": [
+        "1.5732",
+        "42.34%"
+      ],
+      "Martin Necas": [
+        "0.6189",
+        "19.48%"
+      ],
+      "Brock Nelson": [
+        "0.4177",
+        "13.6%"
+      ],
+      "Nicolas Roy": [
+        "0.0415",
+        "1.44%"
+      ],
+      "Jaden Schwartz": [
+        "0.1504",
+        "5.13%"
+      ],
+      "Fedor Svechkov": [
+        "0.0178",
+        "0.62%"
+      ],
+      "Brent Burns": [
+        "0.1258",
+        "4.31%"
+      ],
+      "Noah Juulsen": [
+        "0.0029",
+        "0.1%"
+      ],
+      "Brett Kulak": [
+        "0.0067",
+        "0.24%"
+      ],
+      "Sam Malinski": [
+        "0.0889",
+        "3.06%"
+      ],
+      "Josh Manson": [
+        "0.0409",
+        "1.42%"
+      ],
+      "Devon Toews": [
+        "0.0599",
+        "2.08%"
+      ]
     },
     "allAwayPoints": {
-      "Joel Armia": ["0.0993", "3.42%"],
-      "Quinton Byfield": ["0.3966", "12.96%"],
-      "Erik Haula": ["0.1299", "4.44%"],
-      "Samuel Helenius": ["0.0148", "0.52%"],
-      "Adrian Kempe": ["0.6565", "20.53%"],
-      "Alex Laferriere": ["0.3383", "11.17%"],
-      "Scott Laughton": ["0.1244", "4.26%"],
-      "Andre Lee": ["0.0302", "1.05%"],
-      "Artemi Panarin": ["0.6176", "19.44%"],
-      "Corey Perry": ["0.1456", "4.97%"],
-      "Alex Turcotte": ["0.0158", "0.55%"],
-      "Mats Zuccarello": ["0.2775", "9.26%"],
-      "Mikey Anderson": ["0.0211", "0.74%"],
-      "Cody Ceci": ["0.0042", "0.15%"],
-      "Brandt Clarke": ["0.101", "3.47%"],
-      "Drew Doughty": ["0.0589", "2.04%"],
-      "Brian Dumoulin": ["0.0087", "0.3%"],
-      "Joel Edmundson": ["0.0239", "0.83%"],
-      "Erik Gustafsson": ["0", "0%"]
+      "Joel Armia": [
+        "0.0993",
+        "3.42%"
+      ],
+      "Quinton Byfield": [
+        "0.3966",
+        "12.96%"
+      ],
+      "Erik Haula": [
+        "0.1299",
+        "4.44%"
+      ],
+      "Samuel Helenius": [
+        "0.0148",
+        "0.52%"
+      ],
+      "Adrian Kempe": [
+        "0.6565",
+        "20.53%"
+      ],
+      "Alex Laferriere": [
+        "0.3383",
+        "11.17%"
+      ],
+      "Scott Laughton": [
+        "0.1244",
+        "4.26%"
+      ],
+      "Andre Lee": [
+        "0.0302",
+        "1.05%"
+      ],
+      "Artemi Panarin": [
+        "0.6176",
+        "19.44%"
+      ],
+      "Corey Perry": [
+        "0.1456",
+        "4.97%"
+      ],
+      "Alex Turcotte": [
+        "0.0158",
+        "0.55%"
+      ],
+      "Mats Zuccarello": [
+        "0.2775",
+        "9.26%"
+      ],
+      "Mikey Anderson": [
+        "0.0211",
+        "0.74%"
+      ],
+      "Cody Ceci": [
+        "0.0042",
+        "0.15%"
+      ],
+      "Brandt Clarke": [
+        "0.101",
+        "3.47%"
+      ],
+      "Drew Doughty": [
+        "0.0589",
+        "2.04%"
+      ],
+      "Brian Dumoulin": [
+        "0.0087",
+        "0.3%"
+      ],
+      "Joel Edmundson": [
+        "0.0239",
+        "0.83%"
+      ],
+      "Erik Gustafsson": [
+        "0",
+        "0%"
+      ]
     },
     "outcome": "COL, COL: 1.43531 v LAK: 1.07252      Expected difference: 0.36279, (COL: 2.39218 v LAK: 1.78753) (COL: 58.97% , LAK: 41.03%)",
     "startingTime": "22:05:00",
@@ -426,8 +531,14 @@
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
     "awayLogLoss": {},
-    "bettingLines": ["COL: Money Line", "Nathan MacKinnon: +1 Point"],
-    "correctBettingLines": [0, 0],
+    "bettingLines": [
+      "COL: Money Line",
+      "Nathan MacKinnon: +1 Point"
+    ],
+    "correctBettingLines": [
+      0,
+      0
+    ],
     "correctLines": 0,
     "totalLines": 2
   }
