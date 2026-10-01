@@ -583,9 +583,9 @@ Reorders NHL Analytics navigation to Today, Overview, Games, Betting, and Roster
 
 PROJECT CHANGELOG · 2026-10-01
 ==============================
-NHL Analytics · Version 0.3.7: Dynamic Season Selectors
+NHL Analytics · Version 0.3.7: Season & Personal Performance Views
 
-Adds dynamic season selectors to the Overview and Games pages, defaults to the current season, and includes an Everything option for viewing all stored seasons.
+Adds dynamic season filtering to Overview and Games, saves each user’s selected NHL model picks to their account, limits regular-user Overview stats to their own selections, and lets administrators switch between full model results and their personal pick performance.
 
 - Added synchronized season selectors to Overview and Games.
 - Season options are generated dynamically from All Results.json.
@@ -593,8 +593,14 @@ Adds dynamic season selectors to the Overview and Games pages, defaults to the c
   stored seasons.
 - Overview metrics/charts and Games history now respect the selected season.
 - Existing search, team, and date filters remain available within the season.
+- Selected Model Picks now sync to the signed-in user's Supabase account.
+- Regular-user Overview is limited to the signed-in user's selected model picks.
+- Administrators can switch Overview between All Model Results and My Picks.
+- My Picks history persists across days and devices and separates pending from
+  scored selections.
 - Dashboard/projects.json was checked and does not require a change.
-- Documents/privacy.html and Documents/tos.html were checked; no legal-text
-  change is required because this release changes filtering/presentation only.
+- Documents/privacy.html was updated to disclose account-linked NHL model-pick
+  history. Documents/tos.html was checked and requires no change because NHL
+  Analytics still does not place wagers or connect to a sportsbook.
 - My Dashboard remains Version 0.10.11 because the Dashboard itself only
   receives this project changelog entry.
