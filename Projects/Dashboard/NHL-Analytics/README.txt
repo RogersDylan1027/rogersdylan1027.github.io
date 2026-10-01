@@ -1,7 +1,7 @@
 NHL ANALYTICS PROJECT
 
 Current version
-0.3.5
+0.3.6
 
 Version 0.2.0: Roster Simulation & Admin Model Diagnostics
 
@@ -124,6 +124,20 @@ VERSION 0.3.5 CHANGES
 - Player Predictions remains unchanged and continues to show the detailed model
   value and point percentage for every player.
 - No prediction logic, thresholds, or betting accuracy calculations changed.
+
+Version 0.3.6: Today-First Navigation
+
+Reorders NHL Analytics navigation to Today, Overview, Games, Betting, and Roster Simulation, and makes Today the default landing view when no specific section is requested.
+
+VERSION 0.3.6 CHANGES
+=====================
+- Reorders the primary tabs to Today, Overview, Games, Betting, and Roster
+  Simulation.
+- Today is now the default view when NHL Analytics opens without a section hash.
+- Existing section hashes still open their requested views.
+- Admin-only Model Diagnostics remains available after the regular navigation
+  tabs for administrators.
+- No prediction, betting, roster simulation, or model-calculation logic changed.
 
 PURPOSE
 =======
