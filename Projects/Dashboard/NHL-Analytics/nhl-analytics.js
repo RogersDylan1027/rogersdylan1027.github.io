@@ -1,6 +1,6 @@
 (() => {
   "use strict";
-  const VERSION = "0.3.4";
+  const VERSION = "0.3.5";
   const HISTORY_URL = "/All%20Results.json";
   const TODAY_URL = "/Game%20Results.json";
   const PICKS_STORAGE_KEY = "nhlAnalyticsModelPicks:v1";
@@ -120,12 +120,10 @@
       picks.push({id,date,matchup,type:"Moneyline",label:g.outcome.winner+" Moneyline",detail:""});
     }
     [...g.awayScorerNames].forEach(name=>{
-      const pctText=playerPercentForName(g,name,"away");
       const id=[date,matchup,"point",name].join("|");
       picks.push({id,date,matchup,type:"Player Point",label:name+" 1+ Point",detail:""});
     });
     [...g.homeScorerNames].forEach(name=>{
-      const pctText=playerPercentForName(g,name,"home");
       const id=[date,matchup,"point",name].join("|");
       picks.push({id,date,matchup,type:"Player Point",label:name+" 1+ Point",detail:""});
     });
