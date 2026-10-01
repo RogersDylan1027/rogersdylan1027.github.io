@@ -561,3 +561,21 @@ Simplifies current-game prediction labels by showing only player names in Expect
   change is required because this release changes presentation only.
 - My Dashboard remains Version 0.10.10 because the Dashboard itself only
   receives this project changelog entry.
+
+
+PROJECT CHANGELOG · 2026-10-01
+==============================
+NHL Analytics · Version 0.3.6: Today-First Navigation
+
+Reorders NHL Analytics navigation to Today, Overview, Games, Betting, and Roster Simulation, and makes Today the default landing view when no specific section is requested.
+
+- Reordered the primary navigation to Today, Overview, Games, Betting, and
+  Roster Simulation.
+- Today is now the default landing view when no section hash is present.
+- Existing deep links to specific NHL Analytics sections remain supported.
+- Admin-only Model Diagnostics remains available after the regular user tabs.
+- Dashboard/projects.json was checked and does not require a change.
+- Documents/privacy.html and Documents/tos.html were checked; no legal-text
+  change is required because this release changes navigation/presentation only.
+- My Dashboard remains Version 0.10.10 because the Dashboard itself only
+  receives this project changelog entry.
