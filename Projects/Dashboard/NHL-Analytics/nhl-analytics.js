@@ -121,11 +121,11 @@
     }
     [...g.awayScorerNames].forEach(name=>{
       const id=[date,matchup,"point",name].join("|");
-      picks.push({id,date,matchup,type:"Player Point",label:name+" 1+ Point",detail:""});
+      picks.push({id,date,matchup,type:"Player Point",label:name+": "+g.away+" 1+ Point",detail:""});
     });
     [...g.homeScorerNames].forEach(name=>{
       const id=[date,matchup,"point",name].join("|");
-      picks.push({id,date,matchup,type:"Player Point",label:name+" 1+ Point",detail:""});
+      picks.push({id,date,matchup,type:"Player Point",label:name+": "+g.home+" 1+ Point",detail:""});
     });
     return picks;
   }
