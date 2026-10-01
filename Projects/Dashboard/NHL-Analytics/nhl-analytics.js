@@ -178,9 +178,14 @@
   }
   function scorerNameSet(value) {
     if (!value) return new Set();
-    if (Array.isArray(value)) return new Set(value.map(String));
-    if (typeof value === "string") return new Set([value]);
-    if (typeof value === "object") return new Set(Object.keys(value));
+    const clean = item => expectedScorerDisplayName(item);
+    if (Array.isArray(value)) return new Set(value.map(clean).filter(Boolean));
+    if (typeof value === "string") return new Set([clean(value)].filter(Boolean));
+    if (typeof value === "object") {
+      const keys=Object.keys(value);
+      const source=keys.length ? keys : Object.values(value).flatMap(normalizeList);
+      return new Set(source.map(clean).filter(Boolean));
+    }
     return new Set();
   }
 
