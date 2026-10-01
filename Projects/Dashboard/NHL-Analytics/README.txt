@@ -117,9 +117,10 @@ VERSION 0.3.5 CHANGES
 - Expected Point Scorers now displays only each player's name.
 - Removes team/model-value/percentage text from the compact scorer chips.
 - Model Picks now uses concise labels such as "FLA Moneyline" and
-  "Sam Reinhart 1+ Point".
+  "Sam Reinhart: FLA 1+ Point".
 - Normalizes raw expected-scorer strings before Model Picks uses them, so player pick labels contain only the player name plus "1+ Point".
 - Removes extra team tags, explanatory text, and percentages from Model Picks.
+- Player Model Picks use the "Player: Team ABV" format before the 1+ Point pick type.
 - Player Predictions remains unchanged and continues to show the detailed model
   value and point percentage for every player.
 - No prediction logic, thresholds, or betting accuracy calculations changed.
