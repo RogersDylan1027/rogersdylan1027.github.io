@@ -117,17 +117,17 @@
     const date=easternDateKey(),matchup=g.away+" @ "+g.home,picks=[];
     if(g.outcome.winner){
       const id=[date,matchup,"moneyline",g.outcome.winner].join("|");
-      picks.push({id,date,matchup,type:"Moneyline",label:g.outcome.winner+" Moneyline",detail:"Model-predicted winner"});
+      picks.push({id,date,matchup,type:"Moneyline",label:g.outcome.winner+" Moneyline",detail:""});
     }
     [...g.awayScorerNames].forEach(name=>{
       const pctText=playerPercentForName(g,name,"away");
       const id=[date,matchup,"point",name].join("|");
-      picks.push({id,date,matchup,type:"Player Point",label:name+" — 1+ Point",detail:g.away+(pctText?" · "+pctText:"")});
+      picks.push({id,date,matchup,type:"Player Point",label:name+" 1+ Point",detail:""});
     });
     [...g.homeScorerNames].forEach(name=>{
       const pctText=playerPercentForName(g,name,"home");
       const id=[date,matchup,"point",name].join("|");
-      picks.push({id,date,matchup,type:"Player Point",label:name+" — 1+ Point",detail:g.home+(pctText?" · "+pctText:"")});
+      picks.push({id,date,matchup,type:"Player Point",label:name+" 1+ Point",detail:""});
     });
     return picks;
   }
@@ -141,7 +141,7 @@
   function renderModelPicks(g,index) {
     const picks=modelPicksForGame(g,index);
     if(!picks.length) return '<div class="model-picks"><div class="model-picks-head"><strong>Model Picks</strong><span>No selectable predictions</span></div></div>';
-    return '<div class="model-picks"><div class="model-picks-head"><strong>Model Picks</strong><span>Select only what the model predicted</span></div><div class="pick-options">'+picks.map(p=>'<button type="button" class="pick-option'+(state.selectedPicks.has(p.id)?" selected":"")+'" data-model-pick="'+esc(p.id)+'">'+esc(p.label)+(p.detail?' <span aria-hidden="true">·</span> '+esc(p.detail):'')+'</button>').join("")+'</div></div>';
+    return '<div class="model-picks"><div class="model-picks-head"><strong>Model Picks</strong><span>Select only what the model predicted</span></div><div class="pick-options">'+picks.map(p=>'<button type="button" class="pick-option'+(state.selectedPicks.has(p.id)?" selected":"")+'" data-model-pick="'+esc(p.id)+'">'+esc(p.label)+'</button>').join("")+'</div></div>';
   }
   function bindModelPickButtons() {
     document.querySelectorAll("[data-model-pick]").forEach(button=>{
