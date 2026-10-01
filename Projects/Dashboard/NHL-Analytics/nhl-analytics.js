@@ -162,6 +162,12 @@
     }));
   }
 
+  function expectedScorerDisplayName(value) {
+    const text=String(value||"").trim();
+    if(!text) return "";
+    return text.split(",")[0].trim();
+  }
+
   function normalizePlayerPredictions(value) {
     if (!value || typeof value !== "object" || Array.isArray(value)) return [];
     return Object.entries(value).map(([name, raw]) => {
@@ -278,7 +284,7 @@
 
   function todayCard(g,index){
     const confidence=g.outcome.winner===g.home?g.outcome.homeWinPct:g.outcome.winner===g.away?g.outcome.awayWinPct:null,scorers=[...g.awayScorersList,...g.homeScorersList];
-    return'<article class="game-card"><div class="matchup"><div class="club"><strong>'+esc(g.away)+'</strong><span>'+esc(g.awayGoalie)+'</span></div><span class="at">@</span><div class="club" style="text-align:right"><strong>'+esc(g.home)+'</strong><span>'+esc(g.homeGoalie)+'</span></div></div><div class="prediction"><strong>Prediction: '+esc(g.outcome.winner||"Unavailable")+(Number.isFinite(confidence)?" · "+pct(confidence):"")+'</strong></div><div class="game-details"><div class="detail"><label>Start</label><p>'+esc(formatStartTimeForViewer(g.startingTime,g.date))+'</p></div><div class="detail"><label>Last Model Run</label><p>'+esc(formatStartTimeForViewer(g.timeLastRun,g.date))+'</p></div><div class="detail"><label>Betting</label><p>'+esc(g.bets.join("; ")||"No betting line stored")+'</p></div><div class="detail"><label>Expected Difference</label><p>'+esc(Number.isFinite(g.outcome.expectedDifference)?fixed(g.outcome.expectedDifference,3):"—")+'</p></div><div class="detail scorers"><label>Expected Point Scorers</label>'+(scorers.length?'<div class="chips">'+scorers.map(s=>'<span class="chip">'+esc(s)+'</span>').join("")+'</div>':'<p>No scorer prediction stored for this game.</p>')+'</div></div>'+renderModelPicks(g,index)+playerPredictionsBlock(g,index)+'</article>';
+    return'<article class="game-card"><div class="matchup"><div class="club"><strong>'+esc(g.away)+'</strong><span>'+esc(g.awayGoalie)+'</span></div><span class="at">@</span><div class="club" style="text-align:right"><strong>'+esc(g.home)+'</strong><span>'+esc(g.homeGoalie)+'</span></div></div><div class="prediction"><strong>Prediction: '+esc(g.outcome.winner||"Unavailable")+(Number.isFinite(confidence)?" · "+pct(confidence):"")+'</strong></div><div class="game-details"><div class="detail"><label>Start</label><p>'+esc(formatStartTimeForViewer(g.startingTime,g.date))+'</p></div><div class="detail"><label>Last Model Run</label><p>'+esc(formatStartTimeForViewer(g.timeLastRun,g.date))+'</p></div><div class="detail"><label>Betting</label><p>'+esc(g.bets.join("; ")||"No betting line stored")+'</p></div><div class="detail"><label>Expected Difference</label><p>'+esc(Number.isFinite(g.outcome.expectedDifference)?fixed(g.outcome.expectedDifference,3):"—")+'</p></div><div class="detail scorers"><label>Expected Point Scorers</label>'+(scorers.length?'<div class="chips">'+scorers.map(s=>'<span class="chip">'+esc(expectedScorerDisplayName(s))+'</span>').join("")+'</div>':'<p>No scorer prediction stored for this game.</p>')+'</div></div>'+renderModelPicks(g,index)+playerPredictionsBlock(g,index)+'</article>';
   }
   function populateTeamFilter(){const teams=[...new Set(state.games.flatMap(g=>[g.home,g.away]).filter(t=>t&&t!=="?"))].sort(),select=$("teamFilter"),current=select.value;select.innerHTML='<option value="">All teams</option>'+teams.map(t=>'<option value="'+esc(t)+'">'+esc(t)+'</option>').join("");select.value=teams.includes(current)?current:"";}
   function applyGameFilters(){const q=$("gameSearch").value.trim().toLowerCase(),team=$("teamFilter").value,from=$("dateFrom").value,to=$("dateTo").value;state.filtered=state.games.filter(g=>{if(team&&g.home!==team&&g.away!==team)return false;if(from&&g.date<from)return false;if(to&&g.date>to)return false;if(q){const text=[g.home,g.away,g.homeGoalie,g.awayGoalie,g.outcome.raw,g.bets.join(" "),...g.homeScorersList,...g.awayScorersList].join(" ").toLowerCase();if(!text.includes(q))return false;}return true;});state.shown=100;renderGamesTable();}
