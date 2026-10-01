@@ -577,5 +577,5 @@ Reorders NHL Analytics navigation to Today, Overview, Games, Betting, and Roster
 - Dashboard/projects.json was checked and does not require a change.
 - Documents/privacy.html and Documents/tos.html were checked; no legal-text
   change is required because this release changes navigation/presentation only.
-- My Dashboard remains Version 0.10.10 because the Dashboard itself only
+- My Dashboard remains Version 0.10.11 because the Dashboard itself only
   receives this project changelog entry.
