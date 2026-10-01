@@ -1,6 +1,6 @@
 (() => {
   "use strict";
-  const VERSION = "0.3.5";
+  const VERSION = "0.3.6";
   const HISTORY_URL = "/All%20Results.json";
   const TODAY_URL = "/Game%20Results.json";
   const PICKS_STORAGE_KEY = "nhlAnalyticsModelPicks:v1";
