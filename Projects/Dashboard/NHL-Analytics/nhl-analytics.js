@@ -525,6 +525,6 @@
   const initial=location.hash.slice(1);if(["overview","today","games","model","betting","roster"].includes(initial))switchView(initial);
   loadSelectedPicks();
   setupRosterSimulation();
-  resolveAdminAccess().then(isAdmin=>{state.isAdmin=isAdmin;applyAdminAccess();if(state.games.length)renderAll();}).catch(()=>{state.isAdmin=false;applyAdminAccess();});
+  resolveAdminAccess().then(async isAdmin=>{state.isAdmin=isAdmin;applyAdminAccess();await loadAccountPickHistory();if(state.games.length)renderAll();}).catch(()=>{state.isAdmin=false;applyAdminAccess();});
   loadData().catch(error=>{console.error(error);setStatus("NHL Analytics could not initialize. "+error.message,"bad");$("refreshBtn").disabled=false;});
 })();
