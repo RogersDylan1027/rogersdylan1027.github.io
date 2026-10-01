@@ -5,7 +5,7 @@
   const TODAY_URL = "/Game%20Results.json";
   const PICKS_STORAGE_KEY = "nhlAnalyticsModelPicks:v1";
   const $ = id => document.getElementById(id);
-  const state = { history: [], games: [], today: [], filtered: [], shown: 100, loadedAt: null, isAdmin: false, selectedPicks: new Map(), selectedSeason: "" };
+  const state = { history: [], games: [], today: [], filtered: [], shown: 100, loadedAt: null, isAdmin: false, selectedPicks: new Map(), selectedSeason: "", overviewMode: "", pickHistory: [] };
   const esc = value => String(value ?? "").replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
   const num = value => { const n = Number(value); return Number.isFinite(n) ? n : null; };
   const pct = value => Number.isFinite(value) ? (value * 100).toFixed(1) + "%" : "—";
@@ -99,6 +99,83 @@
     return latest.toLocaleTimeString(undefined,{hour:"numeric",minute:"2-digit",hour12:true});
   }
 
+  function dashboardSupabaseClient() {
+    return window.DashboardEntryAuth?.client || window.DashboardAuth?.client || window.supabaseClient || null;
+  }
+  function normalizeStoredPick(row) {
+    if(!row) return null;
+    const id=String(row.pick_id||row.id||"");
+    const date=String(row.pick_date||row.date||"");
+    const type=String(row.pick_type||row.type||"");
+    const label=String(row.label||"");
+    let target=String(row.target||"");
+    let teamAbv=String(row.team_abv||row.teamAbv||"");
+    if(!target && type==="Moneyline") target=label.split(/\s+/)[0]||"";
+    if(!target && type==="Player Point") target=label.split(":")[0].trim();
+    if(!teamAbv && type==="Moneyline") teamAbv=target;
+    if(!teamAbv && type==="Player Point"){
+      const after=label.split(":")[1]||"";
+      teamAbv=after.trim().split(/\s+/)[0]||"";
+    }
+    return {id,date,matchup:String(row.matchup||""),type,target,label,teamAbv,detail:""};
+  }
+  async function currentDashboardUser() {
+    const client=dashboardSupabaseClient();
+    if(!client?.auth?.getUser) return null;
+    try {
+      const {data,error}=await client.auth.getUser();
+      if(error) throw error;
+      return data?.user||null;
+    } catch(error) {
+      console.warn("NHL Analytics user lookup failed.",error);
+      return null;
+    }
+  }
+  async function persistModelPick(pick) {
+    const client=dashboardSupabaseClient(),user=await currentDashboardUser();
+    if(!client?.from||!user||!pick) return;
+    const row={
+      user_id:user.id,
+      pick_id:pick.id,
+      pick_date:pick.date,
+      matchup:pick.matchup,
+      pick_type:pick.type,
+      target:pick.target||"",
+      label:pick.label,
+      team_abv:pick.teamAbv||null
+    };
+    const {error}=await client.from("nhl_model_picks").upsert(row,{onConflict:"user_id,pick_id"});
+    if(error) throw error;
+  }
+  async function deleteModelPickFromAccount(pickId) {
+    const client=dashboardSupabaseClient(),user=await currentDashboardUser();
+    if(!client?.from||!user) return;
+    const {error}=await client.from("nhl_model_picks").delete().eq("user_id",user.id).eq("pick_id",pickId);
+    if(error) throw error;
+  }
+  async function loadAccountPickHistory() {
+    const client=dashboardSupabaseClient(),user=await currentDashboardUser();
+    if(!client?.from||!user){state.pickHistory=[...state.selectedPicks.values()];return;}
+    try {
+      const {data,error}=await client.from("nhl_model_picks").select("pick_id,pick_date,matchup,pick_type,target,label,team_abv,created_at").order("pick_date",{ascending:true});
+      if(error) throw error;
+      let rows=(data||[]).map(normalizeStoredPick).filter(Boolean);
+      const local=[...state.selectedPicks.values()].map(normalizeStoredPick).filter(Boolean);
+      for(const pick of local){
+        if(!rows.some(row=>row.id===pick.id)){
+          try{await persistModelPick(pick);rows.push(pick);}catch(error){console.warn("NHL Analytics local pick migration failed.",error);}
+        }
+      }
+      state.pickHistory=rows;
+      const today=easternDateKey();
+      state.selectedPicks=new Map(rows.filter(p=>p.date===today).map(p=>[p.id,p]));
+      saveSelectedPicks();
+    } catch(error) {
+      console.warn("NHL Analytics pick history load failed.",error);
+      state.pickHistory=[...state.selectedPicks.values()];
+    }
+  }
+
   function loadSelectedPicks() {
     try {
       const raw=JSON.parse(localStorage.getItem(PICKS_STORAGE_KEY)||"[]");
@@ -117,24 +194,34 @@
     const date=easternDateKey(),matchup=g.away+" @ "+g.home,picks=[];
     if(g.outcome.winner){
       const id=[date,matchup,"moneyline",g.outcome.winner].join("|");
-      picks.push({id,date,matchup,type:"Moneyline",label:g.outcome.winner+" Moneyline",detail:""});
+      picks.push({id,date,matchup,type:"Moneyline",target:g.outcome.winner,teamAbv:g.outcome.winner,label:g.outcome.winner+" Moneyline",detail:""});
     }
     [...g.awayScorerNames].forEach(name=>{
       const id=[date,matchup,"point",name].join("|");
-      picks.push({id,date,matchup,type:"Player Point",label:name+": "+g.away+" 1+ Point",detail:""});
+      picks.push({id,date,matchup,type:"Player Point",target:name,teamAbv:g.away,label:name+": "+g.away+" 1+ Point",detail:""});
     });
     [...g.homeScorerNames].forEach(name=>{
       const id=[date,matchup,"point",name].join("|");
-      picks.push({id,date,matchup,type:"Player Point",label:name+": "+g.home+" 1+ Point",detail:""});
+      picks.push({id,date,matchup,type:"Player Point",target:name,teamAbv:g.home,label:name+": "+g.home+" 1+ Point",detail:""});
     });
     return picks;
   }
-  function toggleModelPick(pick) {
-    if(state.selectedPicks.has(pick.id)) state.selectedPicks.delete(pick.id);
+  async function toggleModelPick(pick) {
+    const removing=state.selectedPicks.has(pick.id);
+    if(removing) state.selectedPicks.delete(pick.id);
     else state.selectedPicks.set(pick.id,pick);
     saveSelectedPicks();
+    if(removing) state.pickHistory=state.pickHistory.filter(p=>p.id!==pick.id);
+    else if(!state.pickHistory.some(p=>p.id===pick.id)) state.pickHistory.push(pick);
     renderToday();
     renderSelectedModelPicks();
+    renderOverview();
+    try {
+      if(removing) await deleteModelPickFromAccount(pick.id);
+      else await persistModelPick(pick);
+    } catch(error) {
+      console.warn("NHL Analytics pick sync failed.",error);
+    }
   }
   function renderModelPicks(g,index) {
     const picks=modelPicksForGame(g,index);
@@ -146,7 +233,7 @@
       button.addEventListener("click",()=>{
         const id=button.dataset.modelPick;
         const pick=state.today.flatMap((g,i)=>modelPicksForGame(g,i)).find(p=>p.id===id);
-        if(pick) toggleModelPick(pick);
+        if(pick) toggleModelPick(pick).catch(error=>console.warn("NHL Analytics pick update failed.",error));
       });
     });
   }
@@ -156,7 +243,7 @@
     if(!picks.length){host.innerHTML='<div class="selected-picks-empty">No model picks selected yet.</div>';return;}
     host.innerHTML='<div class="selected-picks-list">'+picks.map(p=>'<div class="selected-pick-row"><div><strong>'+esc(p.label)+'</strong><span>'+esc(p.matchup)+' · '+esc(p.type)+(p.detail?' · '+esc(p.detail):'')+'</span></div><button type="button" class="selected-pick-remove" data-remove-pick="'+esc(p.id)+'">Remove</button></div>').join("")+'</div>';
     host.querySelectorAll("[data-remove-pick]").forEach(button=>button.addEventListener("click",()=>{
-      state.selectedPicks.delete(button.dataset.removePick); saveSelectedPicks(); renderSelectedModelPicks(); renderToday();
+      const id=button.dataset.removePick; state.selectedPicks.delete(id); state.pickHistory=state.pickHistory.filter(p=>p.id!==id); saveSelectedPicks(); renderSelectedModelPicks(); renderToday(); renderOverview(); deleteModelPickFromAccount(id).catch(error=>console.warn("NHL Analytics pick removal sync failed.",error));
     }));
   }
 
@@ -211,6 +298,9 @@
   }
   function applyAdminAccess() {
     document.querySelectorAll("[data-admin-only='true']").forEach(el => el.classList.toggle("hidden", !state.isAdmin));
+    if (!state.isAdmin) state.overviewMode="mine";
+    else if(!state.overviewMode) state.overviewMode="all";
+    if ($("overviewMode")) $("overviewMode").value=state.overviewMode||"mine";
     if (!state.isAdmin && location.hash === "#model") switchView("overview");
   }
   function setupRosterSimulation() {
@@ -225,7 +315,7 @@
     const [historyResult,todayResult]=await Promise.allSettled([fetchJson(HISTORY_URL),fetchJson(TODAY_URL)]);
     if(historyResult.status==="fulfilled"&&Array.isArray(historyResult.value)){state.history=historyResult.value;state.games=state.history.flatMap(day=>Array.isArray(day?.games)?day.games.map(g=>normalizeGame(g,day.date||"")):[]);state.games.sort((a,b)=>(b.date||"").localeCompare(a.date||"")||String(b.startingTime||"").localeCompare(String(a.startingTime||"")));}else{state.history=[];state.games=[];}
     state.today=todayResult.status==="fulfilled"&&Array.isArray(todayResult.value)?todayResult.value.map(g=>normalizeGame(g,"")):[];
-    state.loadedAt=new Date();state.shown=100;populateTeamFilter();populateSeasonSelectors();renderAll();
+    state.loadedAt=new Date();state.shown=100;populateTeamFilter();populateSeasonSelectors();await loadAccountPickHistory();renderAll();
     if(state.games.length&&state.today.length)setStatus("Historical and current-day NHL data loaded.","good");else if(state.games.length||state.today.length)setStatus("Part of the NHL data loaded. One source is currently unavailable.","warn");else setStatus("NHL data could not be loaded. Check the JSON outputs and try again.","bad");
     $("refreshBtn").disabled=false;
   }
@@ -268,10 +358,85 @@
     applyGameFilters();
   }
 
+  function pickGame(pick) {
+    return state.games.find(g=>g.date===pick.date && (g.away+" @ "+g.home)===pick.matchup)||null;
+  }
+  function bettingLinePlayerName(line) {
+    return String(line||"").split(":")[0].trim();
+  }
+  function scorePersonalPick(pick) {
+    const game=pickGame(pick);
+    if(!game) return null;
+    let index=-1;
+    if(pick.type==="Moneyline") index=0;
+    else if(pick.type==="Player Point") index=game.bets.findIndex((line,i)=>i>0&&bettingLinePlayerName(line)===pick.target);
+    if(index<0) return null;
+    const result=game.correctBettingResults[index];
+    return Number.isFinite(result)?(result===1?1:0):null;
+  }
+  function personalPickRecords() {
+    return state.pickHistory.filter(p=>!state.selectedSeason||seasonKeyFromDate(p.date)===state.selectedSeason).map(p=>({...p,correct:scorePersonalPick(p)})).sort((a,b)=>b.date.localeCompare(a.date));
+  }
+  function personalAggregate(records) {
+    const scored=records.filter(r=>Number.isFinite(r.correct));
+    const correct=sum(scored.map(r=>r.correct));
+    return {correct,total:scored.length,accuracy:scored.length?correct/scored.length:null,picks:records.length};
+  }
+  function personalInLastDays(days,records) {
+    const dates=records.map(r=>r.date).filter(Boolean).sort();
+    if(!dates.length) return [];
+    const end=new Date(dates.at(-1)+"T12:00:00"),start=new Date(end);start.setDate(start.getDate()-(days-1));
+    return records.filter(r=>{const d=new Date(r.date+"T12:00:00");return d>=start&&d<=end;});
+  }
+  function personalDailySeries(records) {
+    const map=new Map();
+    records.forEach(r=>{
+      if(!Number.isFinite(r.correct)||!r.date)return;
+      const row=map.get(r.date)||{date:r.date,correct:0,total:0};
+      row.correct+=r.correct;row.total+=1;map.set(r.date,row);
+    });
+    return [...map.values()].sort((a,b)=>a.date.localeCompare(b.date)).map(r=>({...r,accuracy:r.total?r.correct/r.total:null}));
+  }
+  function personalWindowRows(records) {
+    if(!records.length)return'<div class="empty">No selected picks are stored for this season.</div>';
+    return '<div class="table-wrap"><table class="data-table" style="min-width:0"><thead><tr><th>Window</th><th>Accuracy</th><th>Picks</th></tr></thead><tbody>'+[7,14,30,60].map(days=>{const a=personalAggregate(personalInLastDays(days,records));return '<tr><td>Last '+days+' days</td><td><strong>'+pct(a.accuracy)+'</strong></td><td>'+a.correct+' / '+a.total+'</td></tr>';}).join("")+'</tbody></table></div>';
+  }
+  function personalPickTable(records) {
+    if(!records.length)return'<div class="empty">No model picks selected for this season yet.</div>';
+    return '<div class="table-wrap"><table class="data-table" style="min-width:620px"><thead><tr><th>Date</th><th>Matchup</th><th>Pick</th><th>Result</th></tr></thead><tbody>'+records.slice(0,50).map(r=>'<tr><td class="nowrap">'+esc(formatDate(r.date))+'</td><td>'+esc(r.matchup)+'</td><td><strong>'+esc(r.label)+'</strong></td><td>'+(!Number.isFinite(r.correct)?'Pending':r.correct===1?'Correct':'Incorrect')+'</td></tr>').join("")+'</tbody></table></div>';
+  }
+  function setOverviewLabels(mode) {
+    const mine=mode==="mine";
+    if($("overviewDescription"))$("overviewDescription").textContent=mine?"Historical performance for the model picks you selected.":"Historical line accuracy and model performance across completed prediction days.";
+    if($("overviewChartTitle"))$("overviewChartTitle").textContent=mine?"My Pick Accuracy Over Time":"Accuracy Over Time";
+    if($("overviewChartNote"))$("overviewChartNote").textContent=mine?"Daily accuracy for your scored selections":"Daily correct lines ÷ total lines";
+    if($("overviewWindowTitle"))$("overviewWindowTitle").textContent="Recent Windows";
+    if($("overviewWindowNote"))$("overviewWindowNote").textContent=mine?"Based on your latest selected-pick date":"Based on latest stored date";
+    if($("overviewLatestTitle"))$("overviewLatestTitle").textContent=mine?"Latest Selected Picks":"Latest Completed Games";
+    if($("overviewLatestNote"))$("overviewLatestNote").textContent=mine?"Your most recent tracked selections":"Most recent historical results";
+  }
+  function renderPersonalOverview() {
+    const records=personalPickRecords(),all=personalAggregate(records),last7=personalAggregate(personalInLastDays(7,records)),last30=personalAggregate(personalInLastDays(30,records));
+    const scored=records.filter(r=>Number.isFinite(r.correct)).length;
+    $("overviewMetrics").innerHTML=
+      metric("Overall Accuracy",pct(all.accuracy),all.total?all.correct+" of "+all.total+" scored picks":"No scored picks")+
+      metric("Picks",all.picks.toLocaleString(),"Model picks you selected")+
+      metric("Scored Picks",scored.toLocaleString(),(all.picks-scored)+" pending")+
+      metric("Last 7 Days",pct(last7.accuracy),last7.total?last7.correct+" of "+last7.total+" picks":"No scored picks")+
+      metric("Last 30 Days",pct(last30.accuracy),last30.total?last30.correct+" of "+last30.total+" picks":"No scored picks");
+    lineChart("accuracyChart",personalDailySeries(records),[{label:"My Accuracy",value:r=>Number.isFinite(r.accuracy)?r.accuracy*100:null}],100);
+    $("recentWindows").innerHTML=personalWindowRows(records);
+    $("latestGames").innerHTML=personalPickTable(records);
+  }
+
   function aggregateLineAccuracy(games){const correct=sum(games.map(g=>g.correct)),total=sum(games.map(g=>g.total));return{correct,total,accuracy:total>0?correct/total:null};}
   function latestDatasetDate(games=state.games){return games.map(g=>g.date).filter(Boolean).sort().at(-1)||null;}
   function gamesInLastDays(days,games=state.games){const latest=latestDatasetDate(games);if(!latest)return[];const end=new Date(latest+"T12:00:00"),start=new Date(end);start.setDate(start.getDate()-(days-1));return games.filter(g=>{const d=new Date(g.date+"T12:00:00");return d>=start&&d<=end;});}
   function renderOverview(){
+    const mode=state.isAdmin?(state.overviewMode||"all"):"mine";
+    if($("overviewMode"))$("overviewMode").value=mode;
+    setOverviewLabels(mode);
+    if(mode==="mine"){renderPersonalOverview();return;}
     const seasonGames=seasonFilteredGames(),all=aggregateLineAccuracy(seasonGames),last7=aggregateLineAccuracy(gamesInLastDays(7,seasonGames)),last30=aggregateLineAccuracy(gamesInLastDays(30,seasonGames));
     $("overviewMetrics").innerHTML=metric("Overall Accuracy",pct(all.accuracy),all.correct+" of "+all.total+" tracked lines")+metric("Bets",all.total.toLocaleString(),"Total prediction lines tracked")+metric("Prediction Days",new Set(seasonGames.map(g=>g.date).filter(Boolean)).size.toLocaleString(),"Historical dates stored")+metric("Last 7 Days",pct(last7.accuracy),last7.total?last7.correct+" of "+last7.total+" lines":"No stored lines")+metric("Last 30 Days",pct(last30.accuracy),last30.total?last30.correct+" of "+last30.total+" lines":"No stored lines");
     renderAccuracyChart(seasonGames);$("recentWindows").innerHTML=windowRows([7,14,30,60].map(days=>({days,data:aggregateLineAccuracy(gamesInLastDays(days,seasonGames))})));renderLatestGames(seasonGames);
@@ -354,6 +519,7 @@
   $("backBtn").addEventListener("click",()=>location.href="../");$("refreshBtn").addEventListener("click",loadData);
   ["gameSearch","teamFilter","dateFrom","dateTo"].forEach(id=>$(id).addEventListener(id==="gameSearch"?"input":"change",applyGameFilters));
   ["overviewSeason","gamesSeason"].forEach(id=>$(id).addEventListener("change",event=>setSelectedSeason(event.target.value)));
+  $("overviewMode").addEventListener("change",event=>{if(!state.isAdmin)return;state.overviewMode=event.target.value==="mine"?"mine":"all";renderOverview();});
   $("clearFilters").addEventListener("click",()=>{$("gameSearch").value="";$("teamFilter").value="";$("dateFrom").value="";$("dateTo").value="";applyGameFilters();});
   $("loadMoreGames").addEventListener("click",()=>{state.shown+=100;renderGamesTable();});
   const initial=location.hash.slice(1);if(["overview","today","games","model","betting","roster"].includes(initial))switchView(initial);
