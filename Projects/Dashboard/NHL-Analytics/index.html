@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <title>NHL Analytics · Version 0.3.7</title>
-  <meta name="description" content="My Dashboard NHL Analytics · Version 0.3.7 · Dynamic Season Selectors">
+  <meta name="description" content="My Dashboard NHL Analytics · Version 0.3.7 · Season & Personal Performance Views">
   <meta name="theme-color" content="#f4f7fb">
   <script src="../dashboard-config.js?v=0.10.4"></script>
   <script src="../dashboard-auth.js?v=0.10.4" data-dashboard-project="nhl-analytics"></script>
@@ -40,7 +40,7 @@
   <header class="topbar">
     <div class="topbar-inner">
       <button class="back" id="backBtn" type="button" aria-label="Back to Dashboard">Dashboard</button>
-      <div class="brand"><h1>NHL Analytics</h1><p>Version 0.3.7 · Dynamic Season Selectors</p></div>
+      <div class="brand"><h1>NHL Analytics</h1><p>Version 0.3.7 · Season & Personal Performance Views</p></div>
       <button class="refresh" id="refreshBtn" type="button" aria-label="Refresh NHL data">Refresh</button>
     </div>
     <div class="nav-wrap"><nav class="tabs" aria-label="NHL Analytics sections">
@@ -55,10 +55,10 @@
   <main>
     <div id="dataStatus" class="status"><span class="dot"></span><span>Loading NHL prediction data…</span></div>
     <section id="overview" class="view">
-      <div class="view-head"><div><h2>Overview</h2><p>Historical line accuracy and model performance across completed prediction days.</p></div><div class="field"><label for="overviewSeason">Season</label><select id="overviewSeason"></select></div></div>
+      <div class="view-head"><div><h2>Overview</h2><p id="overviewDescription">Historical performance for your selected model picks.</p></div><div class="filters" style="margin:0"><div class="field admin-only hidden" data-admin-only="true"><label for="overviewMode">View</label><select id="overviewMode"><option value="all">All Model Results</option><option value="mine">My Picks</option></select></div><div class="field"><label for="overviewSeason">Season</label><select id="overviewSeason"></select></div></div></div>
       <div class="metrics" id="overviewMetrics"></div>
-      <div class="grid-2"><section class="panel"><div class="panel-head"><h3>Accuracy Over Time</h3><span class="panel-note">Daily correct lines ÷ total lines</span></div><div id="accuracyChart"></div></section><section class="panel"><div class="panel-head"><h3>Recent Windows</h3><span class="panel-note">Based on latest stored date</span></div><div id="recentWindows"></div></section></div>
-      <section class="panel"><div class="panel-head"><h3>Latest Completed Games</h3><span class="panel-note">Most recent historical results</span></div><div id="latestGames"></div></section>
+      <div class="grid-2"><section class="panel"><div class="panel-head"><h3 id="overviewChartTitle">Accuracy Over Time</h3><span class="panel-note" id="overviewChartNote">Daily correct lines ÷ total lines</span></div><div id="accuracyChart"></div></section><section class="panel"><div class="panel-head"><h3 id="overviewWindowTitle">Recent Windows</h3><span class="panel-note" id="overviewWindowNote">Based on latest stored date</span></div><div id="recentWindows"></div></section></div>
+      <section class="panel"><div class="panel-head"><h3 id="overviewLatestTitle">Latest Completed Games</h3><span class="panel-note" id="overviewLatestNote">Most recent historical results</span></div><div id="latestGames"></div></section>
     </section>
     <section id="today" class="view active">
       <div class="view-head"><div><h2>Today's Predictions</h2><p>Current NHL model output, including matchup, predicted winner, goalies, scorers, and betting lines.</p></div><div class="source-note">Live source: Game Results.json</div></div>
