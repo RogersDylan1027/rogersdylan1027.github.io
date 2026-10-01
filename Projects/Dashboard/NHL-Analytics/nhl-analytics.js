@@ -1,11 +1,11 @@
 (() => {
   "use strict";
-  const VERSION = "0.3.6";
+  const VERSION = "0.3.7";
   const HISTORY_URL = "/All%20Results.json";
   const TODAY_URL = "/Game%20Results.json";
   const PICKS_STORAGE_KEY = "nhlAnalyticsModelPicks:v1";
   const $ = id => document.getElementById(id);
-  const state = { history: [], games: [], today: [], filtered: [], shown: 100, loadedAt: null, isAdmin: false, selectedPicks: new Map() };
+  const state = { history: [], games: [], today: [], filtered: [], shown: 100, loadedAt: null, isAdmin: false, selectedPicks: new Map(), selectedSeason: "" };
   const esc = value => String(value ?? "").replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
   const num = value => { const n = Number(value); return Number.isFinite(n) ? n : null; };
   const pct = value => Number.isFinite(value) ? (value * 100).toFixed(1) + "%" : "—";
@@ -225,22 +225,59 @@
     const [historyResult,todayResult]=await Promise.allSettled([fetchJson(HISTORY_URL),fetchJson(TODAY_URL)]);
     if(historyResult.status==="fulfilled"&&Array.isArray(historyResult.value)){state.history=historyResult.value;state.games=state.history.flatMap(day=>Array.isArray(day?.games)?day.games.map(g=>normalizeGame(g,day.date||"")):[]);state.games.sort((a,b)=>(b.date||"").localeCompare(a.date||"")||String(b.startingTime||"").localeCompare(String(a.startingTime||"")));}else{state.history=[];state.games=[];}
     state.today=todayResult.status==="fulfilled"&&Array.isArray(todayResult.value)?todayResult.value.map(g=>normalizeGame(g,"")):[];
-    state.loadedAt=new Date();state.shown=100;populateTeamFilter();renderAll();
+    state.loadedAt=new Date();state.shown=100;populateTeamFilter();populateSeasonSelectors();renderAll();
     if(state.games.length&&state.today.length)setStatus("Historical and current-day NHL data loaded.","good");else if(state.games.length||state.today.length)setStatus("Part of the NHL data loaded. One source is currently unavailable.","warn");else setStatus("NHL data could not be loaded. Check the JSON outputs and try again.","bad");
     $("refreshBtn").disabled=false;
   }
   function setStatus(message,type){const el=$("dataStatus");el.className="status"+(type?" "+type:"");el.querySelector("span:last-child").textContent=message;}
   function metric(label,value,sub=""){return '<article class="metric"><span class="metric-label">'+esc(label)+'</span><strong class="metric-value">'+esc(value)+'</strong><span class="metric-sub">'+esc(sub)+'</span></article>';}
+  function seasonKeyFromDate(dateText) {
+    const m=String(dateText||"").match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if(!m) return "";
+    const year=Number(m[1]),month=Number(m[2]);
+    const start=month>=7?year:year-1;
+    return start+"-"+String((start+1)%100).padStart(2,"0");
+  }
+  function currentSeasonKey() {
+    const parts=new Intl.DateTimeFormat("en-US",{timeZone:"America/New_York",year:"numeric",month:"2-digit"}).formatToParts(new Date());
+    const year=Number(parts.find(p=>p.type==="year")?.value||0),month=Number(parts.find(p=>p.type==="month")?.value||0);
+    const start=month>=7?year:year-1;
+    return start+"-"+String((start+1)%100).padStart(2,"0");
+  }
+  function availableSeasons() {
+    return [...new Set(state.games.map(g=>seasonKeyFromDate(g.date)).filter(Boolean))].sort().reverse();
+  }
+  function seasonFilteredGames() {
+    if(!state.selectedSeason) return state.games;
+    return state.games.filter(g=>seasonKeyFromDate(g.date)===state.selectedSeason);
+  }
+  function populateSeasonSelectors() {
+    const seasons=availableSeasons(),current=currentSeasonKey();
+    if(!state.selectedSeason) state.selectedSeason=seasons.includes(current)?current:(seasons[0]||"");
+    const options='<option value="">Everything</option>'+seasons.map(s=>'<option value="'+esc(s)+'">'+esc(s.replace("-", "–"))+'</option>').join("");
+    ["overviewSeason","gamesSeason"].forEach(id=>{
+      const el=$(id); if(!el) return;
+      el.innerHTML=options;
+      el.value=state.selectedSeason;
+    });
+  }
+  function setSelectedSeason(value) {
+    state.selectedSeason=value||"";
+    ["overviewSeason","gamesSeason"].forEach(id=>{const el=$(id);if(el)el.value=state.selectedSeason;});
+    renderOverview();
+    applyGameFilters();
+  }
+
   function aggregateLineAccuracy(games){const correct=sum(games.map(g=>g.correct)),total=sum(games.map(g=>g.total));return{correct,total,accuracy:total>0?correct/total:null};}
-  function latestDatasetDate(){return state.games.map(g=>g.date).filter(Boolean).sort().at(-1)||null;}
-  function gamesInLastDays(days){const latest=latestDatasetDate();if(!latest)return[];const end=new Date(latest+"T12:00:00"),start=new Date(end);start.setDate(start.getDate()-(days-1));return state.games.filter(g=>{const d=new Date(g.date+"T12:00:00");return d>=start&&d<=end;});}
+  function latestDatasetDate(games=state.games){return games.map(g=>g.date).filter(Boolean).sort().at(-1)||null;}
+  function gamesInLastDays(days,games=state.games){const latest=latestDatasetDate(games);if(!latest)return[];const end=new Date(latest+"T12:00:00"),start=new Date(end);start.setDate(start.getDate()-(days-1));return games.filter(g=>{const d=new Date(g.date+"T12:00:00");return d>=start&&d<=end;});}
   function renderOverview(){
-    const all=aggregateLineAccuracy(state.games),last7=aggregateLineAccuracy(gamesInLastDays(7)),last30=aggregateLineAccuracy(gamesInLastDays(30));
-    $("overviewMetrics").innerHTML=metric("Overall Accuracy",pct(all.accuracy),all.correct+" of "+all.total+" tracked lines")+metric("Bets",all.total.toLocaleString(),"Total prediction lines tracked")+metric("Prediction Days",new Set(state.games.map(g=>g.date).filter(Boolean)).size.toLocaleString(),"Historical dates stored")+metric("Last 7 Days",pct(last7.accuracy),last7.total?last7.correct+" of "+last7.total+" lines":"No stored lines")+metric("Last 30 Days",pct(last30.accuracy),last30.total?last30.correct+" of "+last30.total+" lines":"No stored lines");
-    renderAccuracyChart();$("recentWindows").innerHTML=windowRows([7,14,30,60].map(days=>({days,data:aggregateLineAccuracy(gamesInLastDays(days))})));renderLatestGames();
+    const seasonGames=seasonFilteredGames(),all=aggregateLineAccuracy(seasonGames),last7=aggregateLineAccuracy(gamesInLastDays(7,seasonGames)),last30=aggregateLineAccuracy(gamesInLastDays(30,seasonGames));
+    $("overviewMetrics").innerHTML=metric("Overall Accuracy",pct(all.accuracy),all.correct+" of "+all.total+" tracked lines")+metric("Bets",all.total.toLocaleString(),"Total prediction lines tracked")+metric("Prediction Days",new Set(seasonGames.map(g=>g.date).filter(Boolean)).size.toLocaleString(),"Historical dates stored")+metric("Last 7 Days",pct(last7.accuracy),last7.total?last7.correct+" of "+last7.total+" lines":"No stored lines")+metric("Last 30 Days",pct(last30.accuracy),last30.total?last30.correct+" of "+last30.total+" lines":"No stored lines");
+    renderAccuracyChart(seasonGames);$("recentWindows").innerHTML=windowRows([7,14,30,60].map(days=>({days,data:aggregateLineAccuracy(gamesInLastDays(days,seasonGames))})));renderLatestGames(seasonGames);
   }
   function windowRows(rows){if(!state.games.length)return'<div class="empty">No historical results are available.</div>';return'<div class="table-wrap"><table class="data-table" style="min-width:0"><thead><tr><th>Window</th><th>Accuracy</th><th>Lines</th></tr></thead><tbody>'+rows.map(r=>'<tr><td>Last '+r.days+' days</td><td><strong>'+pct(r.data.accuracy)+'</strong></td><td>'+r.data.correct+' / '+r.data.total+'</td></tr>').join("")+'</tbody></table></div>';}
-  function dailySeries(){const map=new Map();state.games.forEach(g=>{if(!g.date)return;const row=map.get(g.date)||{date:g.date,correct:0,total:0,mse:[],ll:[]};row.correct+=Number.isFinite(g.correct)?g.correct:0;row.total+=Number.isFinite(g.total)?g.total:0;row.mse.push(g.homeMSE,g.awayMSE);row.ll.push(g.homeLL,g.awayLL);map.set(g.date,row);});return[...map.values()].sort((a,b)=>a.date.localeCompare(b.date)).map(r=>({...r,accuracy:r.total?r.correct/r.total:null,mseAvg:avg(r.mse),llAvg:avg(r.ll)}));}
+  function dailySeries(games=state.games){const map=new Map();games.forEach(g=>{if(!g.date)return;const row=map.get(g.date)||{date:g.date,correct:0,total:0,mse:[],ll:[]};row.correct+=Number.isFinite(g.correct)?g.correct:0;row.total+=Number.isFinite(g.total)?g.total:0;row.mse.push(g.homeMSE,g.awayMSE);row.ll.push(g.homeLL,g.awayLL);map.set(g.date,row);});return[...map.values()].sort((a,b)=>a.date.localeCompare(b.date)).map(r=>({...r,accuracy:r.total?r.correct/r.total:null,mseAvg:avg(r.mse),llAvg:avg(r.ll)}));}
   function lineChart(containerId,series,accessors,yMaxOverride=null){
     const host=$(containerId),valid=series.filter(row=>accessors.some(a=>Number.isFinite(a.value(row))));
     if(!valid.length){host.innerHTML='<div class="chart-empty">Not enough stored data to draw this chart.</div>';return;}
@@ -250,10 +287,10 @@
     if(recent.length)svg+='<text class="chart-label" x="'+pad.l+'" y="'+(height-7)+'">'+esc(recent[0].date.slice(5))+'</text><text class="chart-label" text-anchor="end" x="'+(width-pad.r)+'" y="'+(height-7)+'">'+esc(recent.at(-1).date.slice(5))+'</text>';
     svg+='</svg><div class="panel-note">'+accessors.map((a,i)=>'<span style="margin-right:12px"><b style="color:'+(i===0?"#3769b0":"#9a6515")+'">●</b> '+esc(a.label)+'</span>').join("")+'</div>';host.innerHTML=svg;
   }
-  function renderAccuracyChart(){lineChart("accuracyChart",dailySeries(),[{label:"Accuracy",value:r=>Number.isFinite(r.accuracy)?r.accuracy*100:null}],100);}
+  function renderAccuracyChart(games=state.games){lineChart("accuracyChart",dailySeries(games),[{label:"Accuracy",value:r=>Number.isFinite(r.accuracy)?r.accuracy*100:null}],100);}
   function gameRow(g){return'<tr><td class="nowrap">'+esc(formatDate(g.date))+'</td><td><span class="team">'+esc(g.away)+'</span> @ <span class="team">'+esc(g.home)+'</span></td><td>'+esc(g.outcome.winner||"—")+'</td><td>'+esc(Number.isFinite(g.lineAccuracy)?pct(g.lineAccuracy):"—")+'</td><td>'+esc(Number.isFinite(g.correct)&&Number.isFinite(g.total)?g.correct+" / "+g.total:"—")+'</td><td>'+esc(g.bets.join("; ")||"—")+'</td></tr>';}
   function gameTable(games){if(!games.length)return'<div class="empty">No games match this view.</div>';return'<div class="table-wrap"><table class="data-table"><thead><tr><th>Date</th><th>Matchup</th><th>Predicted Winner</th><th>Line Accuracy</th><th>Correct / Total</th><th>Betting</th></tr></thead><tbody>'+games.map(gameRow).join("")+'</tbody></table></div>';}
-  function renderLatestGames(){$("latestGames").innerHTML=gameTable(state.games.slice(0,10));}
+  function renderLatestGames(games=state.games){$("latestGames").innerHTML=gameTable(games.slice(0,10));}
   function renderToday(){
     const predicted=state.today.filter(g=>g.outcome.winner).length,confirmedGoalies=sum(state.today.map(g=>(g.homeGoalie!=="Not confirmed"?1:0)+(g.awayGoalie!=="Not confirmed"?1:0))),totalGoalieSlots=state.today.length*2,betCount=sum(state.today.map(g=>g.bets.length));
     $("todaySummary").innerHTML=metric("Games",state.today.length.toString(),"Current Game Results.json")+metric("Predictions",predicted.toString(),"Games with a parsed winner")+metric("Goalies Confirmed",confirmedGoalies+" / "+totalGoalieSlots,"Confirmed starting goalies")+metric("Betting Picks",betCount.toString(),"Current tracked selections")+metric("Last Refresh",latestModelRunForViewer(state.today),"Latest Start Day / Loop for Games model run");
@@ -290,8 +327,8 @@
     return'<article class="game-card"><div class="matchup"><div class="club"><strong>'+esc(g.away)+'</strong><span>'+esc(g.awayGoalie)+'</span></div><span class="at">@</span><div class="club" style="text-align:right"><strong>'+esc(g.home)+'</strong><span>'+esc(g.homeGoalie)+'</span></div></div><div class="prediction"><strong>Prediction: '+esc(g.outcome.winner||"Unavailable")+(Number.isFinite(confidence)?" · "+pct(confidence):"")+'</strong></div><div class="game-details"><div class="detail"><label>Start</label><p>'+esc(formatStartTimeForViewer(g.startingTime,g.date))+'</p></div><div class="detail"><label>Last Model Run</label><p>'+esc(formatStartTimeForViewer(g.timeLastRun,g.date))+'</p></div><div class="detail"><label>Betting</label><p>'+esc(g.bets.join("; ")||"No betting line stored")+'</p></div><div class="detail"><label>Expected Difference</label><p>'+esc(Number.isFinite(g.outcome.expectedDifference)?fixed(g.outcome.expectedDifference,3):"—")+'</p></div><div class="detail scorers"><label>Expected Point Scorers</label>'+(scorers.length?'<div class="chips">'+scorers.map(s=>'<span class="chip">'+esc(expectedScorerDisplayName(s))+'</span>').join("")+'</div>':'<p>No scorer prediction stored for this game.</p>')+'</div></div>'+renderModelPicks(g,index)+playerPredictionsBlock(g,index)+'</article>';
   }
   function populateTeamFilter(){const teams=[...new Set(state.games.flatMap(g=>[g.home,g.away]).filter(t=>t&&t!=="?"))].sort(),select=$("teamFilter"),current=select.value;select.innerHTML='<option value="">All teams</option>'+teams.map(t=>'<option value="'+esc(t)+'">'+esc(t)+'</option>').join("");select.value=teams.includes(current)?current:"";}
-  function applyGameFilters(){const q=$("gameSearch").value.trim().toLowerCase(),team=$("teamFilter").value,from=$("dateFrom").value,to=$("dateTo").value;state.filtered=state.games.filter(g=>{if(team&&g.home!==team&&g.away!==team)return false;if(from&&g.date<from)return false;if(to&&g.date>to)return false;if(q){const text=[g.home,g.away,g.homeGoalie,g.awayGoalie,g.outcome.raw,g.bets.join(" "),...g.homeScorersList,...g.awayScorersList].join(" ").toLowerCase();if(!text.includes(q))return false;}return true;});state.shown=100;renderGamesTable();}
-  function renderGames(){if(!state.filtered.length&&state.games.length)state.filtered=[...state.games];renderGamesTable();}
+  function applyGameFilters(){const q=$("gameSearch").value.trim().toLowerCase(),team=$("teamFilter").value,from=$("dateFrom").value,to=$("dateTo").value;state.filtered=seasonFilteredGames().filter(g=>{if(team&&g.home!==team&&g.away!==team)return false;if(from&&g.date<from)return false;if(to&&g.date>to)return false;if(q){const text=[g.home,g.away,g.homeGoalie,g.awayGoalie,g.outcome.raw,g.bets.join(" "),...g.homeScorersList,...g.awayScorersList].join(" ").toLowerCase();if(!text.includes(q))return false;}return true;});state.shown=100;renderGamesTable();}
+  function renderGames(){const seasonGames=seasonFilteredGames();if(!state.filtered.length&&seasonGames.length)state.filtered=[...seasonGames];renderGamesTable();}
   function renderGamesTable(){const shown=state.filtered.slice(0,state.shown);$("gameCountNote").textContent=state.filtered.length.toLocaleString()+" matching games";$("gamesTable").innerHTML=gameTable(shown);$("loadMoreGames").classList.toggle("hidden",shown.length>=state.filtered.length);}
   function teamAggregates(){const map=new Map();state.games.forEach(g=>{[[g.home,g.homeMSE,g.homeLL],[g.away,g.awayMSE,g.awayLL]].forEach(([team,mse,ll])=>{if(!team||team==="?")return;const r=map.get(team)||{team,games:0,correct:0,total:0,mse:[],ll:[]};r.games++;if(Number.isFinite(g.correct))r.correct+=g.correct;if(Number.isFinite(g.total))r.total+=g.total;if(Number.isFinite(mse))r.mse.push(mse);if(Number.isFinite(ll))r.ll.push(ll);map.set(team,r);});});return[...map.values()].map(r=>({...r,accuracy:r.total?r.correct/r.total:null,mseAvg:avg(r.mse),llAvg:avg(r.ll)})).sort((a,b)=>a.team.localeCompare(b.team));}
   function renderModel(){
@@ -311,11 +348,12 @@
     const games=state.games.filter(g=>g.bets.length||g.correctBettingResults.length);
     $("bettingTable").innerHTML=games.length?'<div class="table-wrap"><table class="data-table"><thead><tr><th>Date</th><th>Matchup</th><th>Betting Selection</th><th>Correct Picks</th><th>Game Line Accuracy</th></tr></thead><tbody>'+games.slice(0,500).map(g=>'<tr><td class="nowrap">'+esc(formatDate(g.date))+'</td><td><span class="team">'+esc(g.away)+'</span> @ <span class="team">'+esc(g.home)+'</span></td><td>'+esc(g.bets.join("; ")||"—")+'</td><td>'+esc(g.correctBettingResults.length?g.correctBets+" / "+g.correctBettingResults.length:"—")+'</td><td>'+pct(g.lineAccuracy)+'</td></tr>').join("")+'</tbody></table></div>':'<div class="empty">No historical betting fields are available yet.</div>';
   }
-  function renderAll(){state.filtered=[...state.games];renderOverview();renderToday();renderGames();renderBetting();if(state.isAdmin)renderModel();}
+  function renderAll(){state.filtered=[...seasonFilteredGames()];renderOverview();renderToday();renderGames();renderBetting();if(state.isAdmin)renderModel();}
   function switchView(id){if(id==="model"&&!state.isAdmin)id="overview";document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id===id));document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b.dataset.view===id));history.replaceState(null,"","#"+id);window.scrollTo({top:0,behavior:"smooth"});}
   document.querySelectorAll(".tab").forEach(btn=>btn.addEventListener("click",()=>switchView(btn.dataset.view)));
   $("backBtn").addEventListener("click",()=>location.href="../");$("refreshBtn").addEventListener("click",loadData);
   ["gameSearch","teamFilter","dateFrom","dateTo"].forEach(id=>$(id).addEventListener(id==="gameSearch"?"input":"change",applyGameFilters));
+  ["overviewSeason","gamesSeason"].forEach(id=>$(id).addEventListener("change",event=>setSelectedSeason(event.target.value)));
   $("clearFilters").addEventListener("click",()=>{$("gameSearch").value="";$("teamFilter").value="";$("dateFrom").value="";$("dateTo").value="";applyGameFilters();});
   $("loadMoreGames").addEventListener("click",()=>{state.shown+=100;renderGamesTable();});
   const initial=location.hash.slice(1);if(["overview","today","games","model","betting","roster"].includes(initial))switchView(initial);
