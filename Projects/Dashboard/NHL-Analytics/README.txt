@@ -1,7 +1,7 @@
 NHL ANALYTICS PROJECT
 
 Current version
-0.3.6
+0.3.7
 
 Version 0.2.0: Roster Simulation & Admin Model Diagnostics
 
@@ -138,6 +138,24 @@ VERSION 0.3.6 CHANGES
 - Admin-only Model Diagnostics remains available after the regular navigation
   tabs for administrators.
 - No prediction, betting, roster simulation, or model-calculation logic changed.
+
+Version 0.3.7: Dynamic Season Selectors
+
+Adds dynamic season selectors to the Overview and Games pages, defaults to the current season, and includes an Everything option for viewing all stored seasons.
+
+VERSION 0.3.7 FEATURES
+======================
+- Adds a Season selector to both Overview and Games.
+- Season choices are generated dynamically from dates stored in All Results.json.
+- Uses NHL-style July-to-June season boundaries, so historical dates are grouped
+  into labels such as 2025–26 and 2026–27.
+- Defaults to the current season when that season exists in the stored history.
+- Includes an Everything option to combine all stored seasons.
+- The Overview selector recalculates accuracy metrics, prediction days, recent
+  windows, the accuracy chart, and latest completed games for the selected season.
+- The Games selector filters the historical game list while preserving team,
+  search, and date filters.
+- Changing the season on either page keeps the other page on the same selection.
 
 PURPOSE
 =======
