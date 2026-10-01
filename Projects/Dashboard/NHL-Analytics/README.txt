@@ -139,9 +139,9 @@ VERSION 0.3.6 CHANGES
   tabs for administrators.
 - No prediction, betting, roster simulation, or model-calculation logic changed.
 
-Version 0.3.7: Dynamic Season Selectors
+Version 0.3.7: Season & Personal Performance Views
 
-Adds dynamic season selectors to the Overview and Games pages, defaults to the current season, and includes an Everything option for viewing all stored seasons.
+Adds dynamic season filtering to Overview and Games, saves each user’s selected NHL model picks to their account, limits regular-user Overview stats to their own selections, and lets administrators switch between full model results and their personal pick performance.
 
 VERSION 0.3.7 FEATURES
 ======================
@@ -156,6 +156,12 @@ VERSION 0.3.7 FEATURES
 - The Games selector filters the historical game list while preserving team,
   search, and date filters.
 - Changing the season on either page keeps the other page on the same selection.
+- Selected Model Picks are now stored per signed-in user in Supabase so personal
+  performance history follows the account across days and devices.
+- Regular users see only My Picks performance on Overview.
+- Administrators can switch Overview between All Model Results and My Picks.
+- The My Picks view calculates accuracy only from selections the signed-in user
+  actually chose and shows pending picks separately from scored picks.
 
 PURPOSE
 =======
