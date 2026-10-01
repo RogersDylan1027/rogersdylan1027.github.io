@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <title>NHL Analytics · Version 0.3.5</title>
-  <meta name="description" content="My Dashboard NHL Analytics · Version 0.3.5 · Prediction Label Cleanup">
+  <title>NHL Analytics · Version 0.3.6</title>
+  <meta name="description" content="My Dashboard NHL Analytics · Version 0.3.6 · Today-First Navigation">
   <meta name="theme-color" content="#f4f7fb">
   <script src="../dashboard-config.js?v=0.10.4"></script>
   <script src="../dashboard-auth.js?v=0.10.4" data-dashboard-project="nhl-analytics"></script>
@@ -40,14 +40,13 @@
   <header class="topbar">
     <div class="topbar-inner">
       <button class="back" id="backBtn" type="button" aria-label="Back to Dashboard">Dashboard</button>
-      <div class="brand"><h1>NHL Analytics</h1><p>Version 0.3.5 · Prediction Label Cleanup</p></div>
+      <div class="brand"><h1>NHL Analytics</h1><p>Version 0.3.6 · Today-First Navigation</p></div>
       <button class="refresh" id="refreshBtn" type="button" aria-label="Refresh NHL data">Refresh</button>
     </div>
     <div class="nav-wrap"><nav class="tabs" aria-label="NHL Analytics sections">
-      <button class="tab active" data-view="overview">Overview</button>
-      <button class="tab" data-view="today">Today</button>
+      <button class="tab active" data-view="today">Today</button>
+      <button class="tab" data-view="overview">Overview</button>
       <button class="tab" data-view="games">Games</button>
-      
       <button class="tab" data-view="betting">Betting</button>
       <button class="tab" data-view="roster">Roster Simulation</button>
       <button class="tab admin-only hidden" data-view="model" data-admin-only="true">Model Diagnostics</button>
@@ -55,13 +54,13 @@
   </header>
   <main>
     <div id="dataStatus" class="status"><span class="dot"></span><span>Loading NHL prediction data…</span></div>
-    <section id="overview" class="view active">
+    <section id="overview" class="view">
       <div class="view-head"><div><h2>Overview</h2><p>Historical line accuracy and model performance across completed prediction days.</p></div><div class="source-note">Historical source: All Results.json</div></div>
       <div class="metrics" id="overviewMetrics"></div>
       <div class="grid-2"><section class="panel"><div class="panel-head"><h3>Accuracy Over Time</h3><span class="panel-note">Daily correct lines ÷ total lines</span></div><div id="accuracyChart"></div></section><section class="panel"><div class="panel-head"><h3>Recent Windows</h3><span class="panel-note">Based on latest stored date</span></div><div id="recentWindows"></div></section></div>
       <section class="panel"><div class="panel-head"><h3>Latest Completed Games</h3><span class="panel-note">Most recent historical results</span></div><div id="latestGames"></div></section>
     </section>
-    <section id="today" class="view">
+    <section id="today" class="view active">
       <div class="view-head"><div><h2>Today's Predictions</h2><p>Current NHL model output, including matchup, predicted winner, goalies, scorers, and betting lines.</p></div><div class="source-note">Live source: Game Results.json</div></div>
       <div id="todaySummary" class="metrics"></div><div id="todayGames" class="today-grid"></div>
     </section>
@@ -94,6 +93,6 @@
   </main>
   <footer class="footer">NHL Analytics reads model outputs produced by the NHL-Predictions repository. It does not recalculate or replace the prediction model.</footer>
 </div>
-<script src="./nhl-analytics.js?v=0.3.5"></script>
+<script src="./nhl-analytics.js?v=0.3.6"></script>
 </body>
 </html>
