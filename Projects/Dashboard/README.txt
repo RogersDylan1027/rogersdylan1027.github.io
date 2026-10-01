@@ -543,3 +543,21 @@ Updates each Today game card’s Last Model Run display to use the same localize
   change is required because this release changes presentation only.
 - My Dashboard remains Version 0.10.10 because the Dashboard itself only
   receives this project changelog entry.
+
+
+PROJECT CHANGELOG · 2026-10-01
+==============================
+NHL Analytics · Version 0.3.5: Prediction Label Cleanup
+
+Simplifies current-game prediction labels by showing only player names in Expected Point Scorers and keeping Model Picks concise for both moneylines and player point selections, while leaving the detailed Player Predictions section unchanged.
+
+- Expected Point Scorers now shows player names only.
+- Model Picks now uses concise labels for both moneylines and 1+ Point picks.
+- Detailed Player Predictions remains unchanged.
+- No model logic, prediction thresholds, or betting accuracy calculations were
+  changed.
+- Dashboard/projects.json was checked and does not require a change.
+- Documents/privacy.html and Documents/tos.html were checked; no legal-text
+  change is required because this release changes presentation only.
+- My Dashboard remains Version 0.10.10 because the Dashboard itself only
+  receives this project changelog entry.
