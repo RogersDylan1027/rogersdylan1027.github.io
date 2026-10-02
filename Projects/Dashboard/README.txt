@@ -625,14 +625,18 @@ Converts the Today page’s Expected Difference from the model’s raw score int
 
 PROJECT CHANGELOG · 2026-10-02
 ==============================
-NHL Analytics · Version 0.3.9: Overview & Betting Metric Swap
+NHL Analytics · Version 0.3.9: Overview & Betting Analytics Swap
 
-Moves the overall Moneyline, Player Pick, and Overall Accuracy cards to Overview, and moves the signed-in user’s selected-pick performance cards to Betting, without changing administrator controls or permissions.
+Swaps the Overview and Betting analytics so Overview shows overall betting accuracy and season-filtered tracked betting predictions, while Betting shows the signed-in user’s selected-pick performance and latest selected picks, without changing administrator controls or permissions.
 
 - Overview top metrics now show overall model Moneyline Accuracy, Player Pick
   Accuracy, and Overall Accuracy for the selected season.
 - Betting top metrics now show the signed-in user's selected-pick performance:
   Overall Accuracy, Picks, Scored Picks, Last 7 Days, and Last 30 Days.
+- Overview My Picks now shows season-filtered Tracked Betting Predictions in
+  the bottom table.
+- Betting now shows Latest Selected Picks in the bottom table.
+- Overview All Model Results continues to show Latest Completed Games.
 - Administrator controls and permissions are unchanged.
 - Dashboard/projects.json was checked and does not require a change.
 - Documents/privacy.html and Documents/tos.html were checked; no legal-text
