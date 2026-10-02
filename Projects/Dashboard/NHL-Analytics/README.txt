@@ -176,28 +176,28 @@ VERSION 0.3.8 CHANGES
 - Existing season selectors, personal/admin Overview modes, Model Picks, and
   Player Predictions remain unchanged.
 
-Version 0.3.9: Overview & Betting Analytics Swap
+Version 0.3.9: Model vs User Analytics Separation
 
-Swaps the Overview and Betting analytics so Overview shows overall betting accuracy and season-filtered tracked betting predictions, while Betting shows the signed-in user’s selected-pick performance and latest selected picks, without changing administrator controls or permissions.
+Finalizes the NHL Analytics split so Overview is entirely model-generated performance for the selected season, while Betting is entirely the signed-in user’s selected-pick performance and history; administrator access and Model Diagnostics remain unchanged.
 
 VERSION 0.3.9 CHANGES
 =====================
-- Overview now shows Moneyline Accuracy, Player Pick Accuracy, and Overall
-  Accuracy in its top metric cards.
-- Those Overview cards use all model betting results within the selected season.
-- Betting now shows the signed-in user's Overall Accuracy, Picks, Scored Picks,
-  Last 7 Days, and Last 30 Days for their selected model picks.
-- Administrator-only controls, the All Model Results / My Picks switch, and
-  permissions are unchanged.
-- Overview My Picks bottom table now shows Tracked Betting Predictions and
-  follows the existing Overview season selector.
-- Betting bottom table now shows the signed-in user's Latest Selected Picks.
-- Overview accuracy graph now tracks the model's scored betting picks over time
-  for the selected season.
-- The user's My Pick Accuracy Over Time graph has moved to Betting.
-- Overview All Model Results still keeps Latest Completed Games.
-- Existing personal pick history, Expected Difference scaling, charts, model
-  logic, administrator controls, and permissions remain unchanged.
+- Overview is now exclusively model-generated analytics.
+- Overview top cards show the model's Moneyline Accuracy, Player Pick Accuracy,
+  and Overall Accuracy for the selected season.
+- Overview's graph shows model-pick accuracy over time for the selected season.
+- Overview Recent Windows now uses all scored model betting picks rather than
+  the signed-in user's selections.
+- Overview Tracked Betting Predictions follows the existing season selector.
+- Betting is now exclusively based on the signed-in user's selected picks.
+- Betting shows personal Overall Accuracy, Picks, Scored Picks, Last 7 Days,
+  and Last 30 Days.
+- My Pick Accuracy Over Time, personal Recent Windows, and Latest Selected Picks
+  are all shown on Betting.
+- The obsolete Overview All Model Results / My Picks selector was removed.
+- Admin-only Model Diagnostics and administrator permissions are unchanged.
+- Existing Goal-Scaled Expected Difference, Games filters, Roster Simulation,
+  model calculations, and prediction data sources are unchanged.
 
 PURPOSE
 =======
