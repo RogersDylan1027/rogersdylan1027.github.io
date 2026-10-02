@@ -644,3 +644,25 @@ Finalizes the NHL Analytics split so Overview is entirely model-generated perfor
   change is required because this only reorganizes existing NHL analytics.
 - My Dashboard remains Version 0.10.11 because the Dashboard itself only
   receives this project changelog entry.
+
+
+PROJECT CHANGELOG · 2026-10-02
+==============================
+NHL Analytics · Version 0.3.10: Expected Shots & Overtime Prediction Detail
+
+Adds each player’s expected shots to the expandable player-prediction tables using the third value already supplied by the NHL model, and preserves overtime-win predictions in the Today display without creating separate shot or overtime betting selections.
+
+- Player Prediction rows now show Expected Shots from the third value exported
+  for each player by the NHL prediction model.
+- Expected Shots is display-only; no shot pick selection, bet tracking, result
+  tracking, or accuracy calculations were added.
+- OTW predictions now display "Overtime Win" next to the predicted winner while
+  keeping the selectable team pick as the same Moneyline selection.
+- Overview remains model-only analytics and Betting remains user-selected
+  analytics.
+- Dashboard/projects.json was checked and does not require a change.
+- Documents/privacy.html and Documents/tos.html were checked; no legal-text
+  change is required because this release displays additional existing model
+  output and does not introduce new data collection or wagering integration.
+- My Dashboard remains Version 0.10.11 because the Dashboard itself only
+  receives this project changelog entry.
