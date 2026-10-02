@@ -604,3 +604,20 @@ Adds dynamic season filtering to Overview and Games, saves each user’s selecte
   Analytics still does not place wagers or connect to a sportsbook.
 - My Dashboard remains Version 0.10.11 because the Dashboard itself only
   receives this project changelog entry.
+
+
+PROJECT CHANGELOG · 2026-10-01
+==============================
+NHL Analytics · Version 0.3.8: Goal-Scaled Expected Difference
+
+Converts the Today page’s Expected Difference from the model’s raw score into an estimated goal margin by dividing by the prediction model’s 0.6 goalValue, while leaving the underlying model output unchanged.
+
+- Expected Difference now displays as a goal-scaled margin.
+- Uses the current NHL-Predictions goalValue of 0.6.
+- Conversion is display-only: raw expected difference / 0.6.
+- Underlying prediction output and model calculations are unchanged.
+- Dashboard/projects.json was checked and does not require a change.
+- Documents/privacy.html and Documents/tos.html were checked; no legal-text
+  change is required because this release changes numerical presentation only.
+- My Dashboard remains Version 0.10.11 because the Dashboard itself only
+  receives this project changelog entry.
