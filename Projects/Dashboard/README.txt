@@ -621,3 +621,21 @@ Converts the Today page’s Expected Difference from the model’s raw score int
   change is required because this release changes numerical presentation only.
 - My Dashboard remains Version 0.10.11 because the Dashboard itself only
   receives this project changelog entry.
+
+
+PROJECT CHANGELOG · 2026-10-02
+==============================
+NHL Analytics · Version 0.3.9: Overview & Betting Metric Swap
+
+Moves the overall Moneyline, Player Pick, and Overall Accuracy cards to Overview, and moves the signed-in user’s selected-pick performance cards to Betting, without changing administrator controls or permissions.
+
+- Overview top metrics now show overall model Moneyline Accuracy, Player Pick
+  Accuracy, and Overall Accuracy for the selected season.
+- Betting top metrics now show the signed-in user's selected-pick performance:
+  Overall Accuracy, Picks, Scored Picks, Last 7 Days, and Last 30 Days.
+- Administrator controls and permissions are unchanged.
+- Dashboard/projects.json was checked and does not require a change.
+- Documents/privacy.html and Documents/tos.html were checked; no legal-text
+  change is required because this release only reorganizes existing analytics.
+- My Dashboard remains Version 0.10.11 because the Dashboard itself only
+  receives this project changelog entry.
