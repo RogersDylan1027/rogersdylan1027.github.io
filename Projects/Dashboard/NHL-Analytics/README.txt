@@ -1,7 +1,7 @@
 NHL ANALYTICS PROJECT
 
 Current version
-0.3.10
+0.3.11
 
 Version 0.2.0: Roster Simulation & Admin Model Diagnostics
 
@@ -219,6 +219,21 @@ VERSION 0.3.10 CHANGES
   Moneyline pick for the predicted winner.
 - Existing Overview = model analytics and Betting = user-selected analytics
   separation remains unchanged.
+
+Version 0.3.11: Recent Window Card Cleanup
+
+Removes the redundant Last 7 Days and Last 30 Days metric cards from both Overview and Betting, keeping Recent Windows as the single place for rolling-period performance while preserving the model-versus-user analytics split.
+
+VERSION 0.3.11 CHANGES
+======================
+- Removed Last 7 Days and Last 30 Days cards from Overview.
+- Overview keeps Moneyline Accuracy, Player Pick Accuracy, and Overall Accuracy.
+- Model Recent Windows remains the single rolling-period summary on Overview.
+- Removed Last 7 Days and Last 30 Days cards from Betting.
+- Betting keeps Overall Accuracy, Picks, and Scored Picks.
+- User Recent Windows remains the single rolling-period summary on Betting.
+- Expected Shots, overtime-win display, model-vs-user analytics separation,
+  and all existing tracking behavior remain unchanged.
 
 PURPOSE
 =======
