@@ -627,7 +627,7 @@ PROJECT CHANGELOG · 2026-10-02
 ==============================
 NHL Analytics · Version 0.3.9: Overview & Betting Analytics Swap
 
-Swaps the Overview and Betting analytics so Overview shows overall betting accuracy and season-filtered tracked betting predictions, while Betting shows the signed-in user’s selected-pick performance and latest selected picks, without changing administrator controls or permissions.
+Swaps the Overview and Betting analytics so Overview shows overall betting accuracy, model-pick accuracy over time, and season-filtered tracked betting predictions, while Betting shows the signed-in user’s selected-pick performance, personal accuracy graph, and latest selected picks, without changing administrator controls or permissions.
 
 - Overview top metrics now show overall model Moneyline Accuracy, Player Pick
   Accuracy, and Overall Accuracy for the selected season.
@@ -636,6 +636,9 @@ Swaps the Overview and Betting analytics so Overview shows overall betting accur
 - Overview My Picks now shows season-filtered Tracked Betting Predictions in
   the bottom table.
 - Betting now shows Latest Selected Picks in the bottom table.
+- Overview accuracy graph now shows model-pick accuracy over time for the
+  selected season.
+- My Pick Accuracy Over Time moved to Betting for the signed-in user's picks.
 - Overview All Model Results continues to show Latest Completed Games.
 - Administrator controls and permissions are unchanged.
 - Dashboard/projects.json was checked and does not require a change.
