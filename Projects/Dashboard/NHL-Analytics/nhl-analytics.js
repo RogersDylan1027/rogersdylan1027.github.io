@@ -1,6 +1,6 @@
 (() => {
   "use strict";
-  const VERSION = "0.3.9";
+  const VERSION = "0.3.10";
   const HISTORY_URL = "/All%20Results.json";
   const TODAY_URL = "/Game%20Results.json";
   const PICKS_STORAGE_KEY = "nhlAnalyticsModelPicks:v1";
@@ -59,11 +59,12 @@
   function escapeReg(value){ return String(value||"").replace(/[-/\\^$*+?.()|[\]{}]/g,"\\$&"); }
   function parseOutcome(text, home, away) {
     const raw = typeof text === "string" ? text : "";
+    const overtimeWin = /\(OTW\)/i.test(raw.split(",")[0]||"");
     const winner = raw.includes(",") ? raw.split(",")[0].trim().replace(/\s*\(OTW\)\s*/i,"") : "";
     const diff = raw.match(/Expected difference:\s*([-+]?\d*\.?\d+)/i);
     const first = raw.match(new RegExp(escapeReg(home)+":\\s*([-+]?\\d*\\.?\\d+)\\s*v\\s*"+escapeReg(away)+":\\s*([-+]?\\d*\\.?\\d+)","i"));
     const perc = raw.match(new RegExp("\\("+escapeReg(home)+":\\s*([\\d.]+)%\\s*,\\s*"+escapeReg(away)+":\\s*([\\d.]+)%\\)","i"));
-    return { raw, winner, expectedDifference: diff ? Number(diff[1]) : null, homeExpected: first ? Number(first[1]) : null, awayExpected: first ? Number(first[2]) : null, homeWinPct: perc ? Number(perc[1])/100 : null, awayWinPct: perc ? Number(perc[2])/100 : null };
+    return { raw, winner, overtimeWin, expectedDifference: diff ? Number(diff[1]) : null, homeExpected: first ? Number(first[1]) : null, awayExpected: first ? Number(first[2]) : null, homeWinPct: perc ? Number(perc[1])/100 : null, awayWinPct: perc ? Number(perc[2])/100 : null };
   }
   function easternDateKey() {
     const parts = new Intl.DateTimeFormat("en-CA", { timeZone: "America/New_York", year: "numeric", month: "2-digit", day: "2-digit" }).formatToParts(new Date());
@@ -262,7 +263,8 @@
       const modelValue = num(parts[0]);
       const percentText = typeof parts[1] === "string" ? parts[1].trim() : "";
       const percentValue = percentText ? Number(percentText.replace("%","")) : null;
-      return { name, modelValue, percentText: percentText || (Number.isFinite(percentValue) ? percentValue.toFixed(2)+"%" : "—"), percentValue: Number.isFinite(percentValue) ? percentValue : null };
+      const expectedShots = num(parts[2]);
+      return { name, modelValue, percentText: percentText || (Number.isFinite(percentValue) ? percentValue.toFixed(2)+"%" : "—"), percentValue: Number.isFinite(percentValue) ? percentValue : null, expectedShots };
     }).sort((a,b) => (b.percentValue ?? -1) - (a.percentValue ?? -1) || a.name.localeCompare(b.name));
   }
   function scorerNameSet(value) {
@@ -490,7 +492,7 @@
     if (!players.length) return '<section class="player-team-section"><div class="player-team-header"><strong>'+esc(team)+'</strong><span>0 players</span></div><div class="player-empty">No player prediction data stored for this team.</div></section>';
     return '<section class="player-team-section"><div class="player-team-header"><strong>'+esc(team)+'</strong><span>'+players.length+' players</span></div><div class="player-list">'+players.map(player => {
       const badge=scorerNames.has(player.name)?'<span class="player-badge">Expected scorer</span>':'';
-      return '<div class="player-row"><div class="player-name"><div class="player-name-line">'+esc(player.name)+badge+'</div></div><div class="player-value"><span>Model value</span><strong>'+esc(Number.isFinite(player.modelValue)?fixed(player.modelValue,4):"—")+'</strong></div><div class="player-percent"><span>Point %</span><strong>'+esc(player.percentText||"—")+'</strong></div></div>';
+      return '<div class="player-row"><div class="player-name"><div class="player-name-line">'+esc(player.name)+badge+'</div></div><div class="player-value"><span>Model value</span><strong>'+esc(Number.isFinite(player.modelValue)?fixed(player.modelValue,4):"—")+'</strong></div><div class="player-percent"><span>Point %</span><strong>'+esc(player.percentText||"—")+'</strong></div><div class="player-value"><span>Expected Shots</span><strong>'+esc(Number.isFinite(player.expectedShots)?fixed(player.expectedShots,2):"—")+'</strong></div></div>';
     }).join("")+'</div></section>';
   }
   function playerPredictionsBlock(g,index) {
@@ -514,7 +516,7 @@
 
   function todayCard(g,index){
     const confidence=g.outcome.winner===g.home?g.outcome.homeWinPct:g.outcome.winner===g.away?g.outcome.awayWinPct:null,scorers=[...g.awayScorersList,...g.homeScorersList];
-    return'<article class="game-card"><div class="matchup"><div class="club"><strong>'+esc(g.away)+'</strong><span>'+esc(g.awayGoalie)+'</span></div><span class="at">@</span><div class="club" style="text-align:right"><strong>'+esc(g.home)+'</strong><span>'+esc(g.homeGoalie)+'</span></div></div><div class="prediction"><strong>Prediction: '+esc(g.outcome.winner||"Unavailable")+(Number.isFinite(confidence)?" · "+pct(confidence):"")+'</strong></div><div class="game-details"><div class="detail"><label>Start</label><p>'+esc(formatStartTimeForViewer(g.startingTime,g.date))+'</p></div><div class="detail"><label>Last Model Run</label><p>'+esc(formatStartTimeForViewer(g.timeLastRun,g.date))+'</p></div><div class="detail"><label>Betting</label><p>'+esc(g.bets.join("; ")||"No betting line stored")+'</p></div><div class="detail"><label>Expected Difference</label><p>'+esc(Number.isFinite(g.outcome.expectedDifference)?fixed(g.outcome.expectedDifference/GOAL_VALUE,2)+" goals":"—")+'</p></div><div class="detail scorers"><label>Expected Point Scorers</label>'+(scorers.length?'<div class="chips">'+scorers.map(s=>'<span class="chip">'+esc(expectedScorerDisplayName(s))+'</span>').join("")+'</div>':'<p>No scorer prediction stored for this game.</p>')+'</div></div>'+renderModelPicks(g,index)+playerPredictionsBlock(g,index)+'</article>';
+    return'<article class="game-card"><div class="matchup"><div class="club"><strong>'+esc(g.away)+'</strong><span>'+esc(g.awayGoalie)+'</span></div><span class="at">@</span><div class="club" style="text-align:right"><strong>'+esc(g.home)+'</strong><span>'+esc(g.homeGoalie)+'</span></div></div><div class="prediction"><strong>Prediction: '+esc(g.outcome.winner||"Unavailable")+(g.outcome.overtimeWin?" — Overtime Win":"")+(Number.isFinite(confidence)?" · "+pct(confidence):"")+'</strong></div><div class="game-details"><div class="detail"><label>Start</label><p>'+esc(formatStartTimeForViewer(g.startingTime,g.date))+'</p></div><div class="detail"><label>Last Model Run</label><p>'+esc(formatStartTimeForViewer(g.timeLastRun,g.date))+'</p></div><div class="detail"><label>Betting</label><p>'+esc(g.bets.join("; ")||"No betting line stored")+'</p></div><div class="detail"><label>Expected Difference</label><p>'+esc(Number.isFinite(g.outcome.expectedDifference)?fixed(g.outcome.expectedDifference/GOAL_VALUE,2)+" goals":"—")+'</p></div><div class="detail scorers"><label>Expected Point Scorers</label>'+(scorers.length?'<div class="chips">'+scorers.map(s=>'<span class="chip">'+esc(expectedScorerDisplayName(s))+'</span>').join("")+'</div>':'<p>No scorer prediction stored for this game.</p>')+'</div></div>'+renderModelPicks(g,index)+playerPredictionsBlock(g,index)+'</article>';
   }
   function populateTeamFilter(){const teams=[...new Set(state.games.flatMap(g=>[g.home,g.away]).filter(t=>t&&t!=="?"))].sort(),select=$("teamFilter"),current=select.value;select.innerHTML='<option value="">All teams</option>'+teams.map(t=>'<option value="'+esc(t)+'">'+esc(t)+'</option>').join("");select.value=teams.includes(current)?current:"";}
   function applyGameFilters(){const q=$("gameSearch").value.trim().toLowerCase(),team=$("teamFilter").value,from=$("dateFrom").value,to=$("dateTo").value;state.filtered=seasonFilteredGames().filter(g=>{if(team&&g.home!==team&&g.away!==team)return false;if(from&&g.date<from)return false;if(to&&g.date>to)return false;if(q){const text=[g.home,g.away,g.homeGoalie,g.awayGoalie,g.outcome.raw,g.bets.join(" "),...g.homeScorersList,...g.awayScorersList].join(" ").toLowerCase();if(!text.includes(q))return false;}return true;});state.shown=100;renderGamesTable();}
