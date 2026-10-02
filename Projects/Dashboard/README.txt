@@ -627,11 +627,13 @@ PROJECT CHANGELOG · 2026-10-02
 ==============================
 NHL Analytics · Version 0.3.9: Model vs User Analytics Separation
 
-Finalizes the NHL Analytics split so Overview is entirely model-generated performance for the selected season, while Betting is entirely the signed-in user’s selected-pick performance and history; administrator access and Model Diagnostics remain unchanged.
+Finalizes the NHL Analytics split so Overview is entirely model-generated performance for the selected season—including overall, moneyline, player-pick, 7-day, and 30-day accuracy—while Betting is entirely the signed-in user’s selected-pick performance and history; administrator access and Model Diagnostics remain unchanged.
 
 - Overview is now entirely model-generated analytics for the selected season:
   model accuracy cards, model-pick graph, model Recent Windows, and tracked
   model betting predictions.
+- Overview top cards also show Last 7 Days and Last 30 Days model-pick accuracy,
+  while the Recent Windows table continues to show 7 / 14 / 30 / 60 days.
 - Betting is now entirely user-selected analytics: personal performance cards,
   My Pick Accuracy Over Time, personal Recent Windows, and Latest Selected Picks.
 - Removed the obsolete Overview All Model Results / My Picks selector because
