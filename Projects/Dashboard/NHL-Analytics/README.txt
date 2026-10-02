@@ -1,7 +1,7 @@
 NHL ANALYTICS PROJECT
 
 Current version
-0.3.8
+0.3.9
 
 Version 0.2.0: Roster Simulation & Admin Model Diagnostics
 
@@ -175,6 +175,22 @@ VERSION 0.3.8 CHANGES
 - The underlying NHL-Predictions output and raw outcome string are unchanged.
 - Existing season selectors, personal/admin Overview modes, Model Picks, and
   Player Predictions remain unchanged.
+
+Version 0.3.9: Overview & Betting Metric Swap
+
+Moves the overall Moneyline, Player Pick, and Overall Accuracy cards to Overview, and moves the signed-in user’s selected-pick performance cards to Betting, without changing administrator controls or permissions.
+
+VERSION 0.3.9 CHANGES
+=====================
+- Overview now shows Moneyline Accuracy, Player Pick Accuracy, and Overall
+  Accuracy in its top metric cards.
+- Those Overview cards use all model betting results within the selected season.
+- Betting now shows the signed-in user's Overall Accuracy, Picks, Scored Picks,
+  Last 7 Days, and Last 30 Days for their selected model picks.
+- Administrator-only controls, the All Model Results / My Picks switch, and
+  permissions are unchanged.
+- Existing season filtering, personal pick history, Expected Difference scaling,
+  charts, tables, and model logic remain unchanged.
 
 PURPOSE
 =======
