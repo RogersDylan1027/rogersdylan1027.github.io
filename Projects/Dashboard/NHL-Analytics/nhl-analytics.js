@@ -376,6 +376,9 @@
     const result=game.correctBettingResults[index];
     return Number.isFinite(result)?(result===1?1:0):null;
   }
+  function allPersonalPickRecords() {
+    return state.pickHistory.map(p=>({...p,correct:scorePersonalPick(p)})).sort((a,b)=>b.date.localeCompare(a.date));
+  }
   function personalPickRecords() {
     return state.pickHistory.filter(p=>!state.selectedSeason||seasonKeyFromDate(p.date)===state.selectedSeason).map(p=>({...p,correct:scorePersonalPick(p)})).sort((a,b)=>b.date.localeCompare(a.date));
   }
@@ -414,8 +417,8 @@
     if($("overviewChartNote"))$("overviewChartNote").textContent=mine?"Daily accuracy for your scored selections":"Daily correct lines ÷ total lines";
     if($("overviewWindowTitle"))$("overviewWindowTitle").textContent="Recent Windows";
     if($("overviewWindowNote"))$("overviewWindowNote").textContent=mine?"Based on your latest selected-pick date":"Based on latest stored date";
-    if($("overviewLatestTitle"))$("overviewLatestTitle").textContent=mine?"Latest Selected Picks":"Latest Completed Games";
-    if($("overviewLatestNote"))$("overviewLatestNote").textContent=mine?"Your most recent tracked selections":"Most recent historical results";
+    if($("overviewLatestTitle"))$("overviewLatestTitle").textContent=mine?"Tracked Betting Predictions":"Latest Completed Games";
+    if($("overviewLatestNote"))$("overviewLatestNote").textContent=mine?"Historical records with bettingLines for the selected season":"Most recent historical results";
   }
   function renderOverallBettingMetricCards(targetId,games=state.games) {
     const accuracy=bettingAccuracyBreakdown(games);
@@ -439,7 +442,7 @@
     const records=personalPickRecords();
     lineChart("accuracyChart",personalDailySeries(records),[{label:"My Accuracy",value:r=>Number.isFinite(r.accuracy)?r.accuracy*100:null}],100);
     $("recentWindows").innerHTML=personalWindowRows(records);
-    $("latestGames").innerHTML=personalPickTable(records);
+    $("latestGames").innerHTML=historicalBettingTable(seasonFilteredGames());
   }
 
   function aggregateLineAccuracy(games){const correct=sum(games.map(g=>g.correct)),total=sum(games.map(g=>g.total));return{correct,total,accuracy:total>0?correct/total:null};}
@@ -517,11 +520,15 @@
     const teams=teamAggregates();$("teamModelTable").innerHTML=teams.length?'<div class="table-wrap"><table class="data-table" style="min-width:0"><thead><tr><th>Team</th><th>MSE</th><th>Log Loss</th></tr></thead><tbody>'+teams.map(r=>'<tr><td class="team">'+esc(r.team)+'</td><td>'+fixed(r.mseAvg,4)+'</td><td>'+fixed(r.llAvg,4)+'</td></tr>').join("")+'</tbody></table></div>':'<div class="empty">No team model metrics are available.</div>';
     $("teamCards").innerHTML=teams.map(r=>'<article class="team-card"><div class="team-card-head"><h4>'+esc(r.team)+'</h4><span class="big">'+pct(r.accuracy)+'</span></div><dl><dt>Games</dt><dd>'+r.games+'</dd><dt>Correct / Total Lines</dt><dd>'+r.correct+' / '+r.total+'</dd><dt>Average MSE</dt><dd>'+fixed(r.mseAvg,4)+'</dd><dt>Average Log Loss</dt><dd>'+fixed(r.llAvg,4)+'</dd></dl></article>').join("")||'<div class="empty">No team data available.</div>';
   }
+  function historicalBettingTable(games) {
+    const rows=(games||[]).filter(g=>g.bets.length||g.correctBettingResults.length);
+    return rows.length?'<div class="table-wrap"><table class="data-table"><thead><tr><th>Date</th><th>Matchup</th><th>Betting Selection</th><th>Correct Picks</th><th>Game Line Accuracy</th></tr></thead><tbody>'+rows.slice(0,500).map(g=>'<tr><td class="nowrap">'+esc(formatDate(g.date))+'</td><td><span class="team">'+esc(g.away)+'</span> @ <span class="team">'+esc(g.home)+'</span></td><td>'+esc(g.bets.join("; ")||"—")+'</td><td>'+esc(g.correctBettingResults.length?g.correctBets+" / "+g.correctBettingResults.length:"—")+'</td><td>'+pct(g.lineAccuracy)+'</td></tr>').join("")+'</tbody></table></div>':'<div class="empty">No historical betting fields are available yet.</div>';
+  }
+
   function renderBetting(){
     renderSelectedModelPicks();
     renderPersonalPickMetricCards("bettingMetrics");
-    const games=state.games.filter(g=>g.bets.length||g.correctBettingResults.length);
-    $("bettingTable").innerHTML=games.length?'<div class="table-wrap"><table class="data-table"><thead><tr><th>Date</th><th>Matchup</th><th>Betting Selection</th><th>Correct Picks</th><th>Game Line Accuracy</th></tr></thead><tbody>'+games.slice(0,500).map(g=>'<tr><td class="nowrap">'+esc(formatDate(g.date))+'</td><td><span class="team">'+esc(g.away)+'</span> @ <span class="team">'+esc(g.home)+'</span></td><td>'+esc(g.bets.join("; ")||"—")+'</td><td>'+esc(g.correctBettingResults.length?g.correctBets+" / "+g.correctBettingResults.length:"—")+'</td><td>'+pct(g.lineAccuracy)+'</td></tr>').join("")+'</tbody></table></div>':'<div class="empty">No historical betting fields are available yet.</div>';
+    $("bettingTable").innerHTML=personalPickTable(allPersonalPickRecords());
   }
   function renderAll(){state.filtered=[...seasonFilteredGames()];renderOverview();renderToday();renderGames();renderBetting();if(state.isAdmin)renderModel();}
   function switchView(id){if(id==="model"&&!state.isAdmin)id="overview";document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id===id));document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b.dataset.view===id));history.replaceState(null,"","#"+id);window.scrollTo({top:0,behavior:"smooth"});}
