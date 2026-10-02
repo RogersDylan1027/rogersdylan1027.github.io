@@ -1,7 +1,7 @@
 NHL ANALYTICS PROJECT
 
 Current version
-0.3.7
+0.3.8
 
 Version 0.2.0: Roster Simulation & Admin Model Diagnostics
 
@@ -163,6 +163,19 @@ VERSION 0.3.7 FEATURES
 - The My Picks view calculates accuracy only from selections the signed-in user
   actually chose and shows pending picks separately from scored picks.
 
+Version 0.3.8: Goal-Scaled Expected Difference
+
+Converts the Today page’s Expected Difference from the model’s raw score into an estimated goal margin by dividing by the prediction model’s 0.6 goalValue, while leaving the underlying model output unchanged.
+
+VERSION 0.3.8 CHANGES
+=====================
+- Today now displays Expected Difference as an estimated goal margin.
+- Converts the raw expected-difference model value by dividing by goalValue 0.6.
+- Displays the result to two decimal places with a "goals" label.
+- The underlying NHL-Predictions output and raw outcome string are unchanged.
+- Existing season selectors, personal/admin Overview modes, Model Picks, and
+  Player Predictions remain unchanged.
+
 PURPOSE
 =======
 NHL Analytics is the Dashboard visualization and analysis layer for the existing
@@ -209,7 +222,7 @@ Today
 - Expected point scorers.
 - Betting selections.
 - Start time and timeLastRun.
-- Expected difference from the model outcome string.
+- Expected difference from the model outcome string, displayed as an estimated goal margin using raw difference / 0.6.
 
 Games
 - Historical game table.
