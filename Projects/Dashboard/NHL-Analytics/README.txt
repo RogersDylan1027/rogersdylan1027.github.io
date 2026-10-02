@@ -176,9 +176,9 @@ VERSION 0.3.8 CHANGES
 - Existing season selectors, personal/admin Overview modes, Model Picks, and
   Player Predictions remain unchanged.
 
-Version 0.3.9: Overview & Betting Metric Swap
+Version 0.3.9: Overview & Betting Analytics Swap
 
-Moves the overall Moneyline, Player Pick, and Overall Accuracy cards to Overview, and moves the signed-in user’s selected-pick performance cards to Betting, without changing administrator controls or permissions.
+Swaps the Overview and Betting analytics so Overview shows overall betting accuracy and season-filtered tracked betting predictions, while Betting shows the signed-in user’s selected-pick performance and latest selected picks, without changing administrator controls or permissions.
 
 VERSION 0.3.9 CHANGES
 =====================
@@ -189,8 +189,12 @@ VERSION 0.3.9 CHANGES
   Last 7 Days, and Last 30 Days for their selected model picks.
 - Administrator-only controls, the All Model Results / My Picks switch, and
   permissions are unchanged.
-- Existing season filtering, personal pick history, Expected Difference scaling,
-  charts, tables, and model logic remain unchanged.
+- Overview My Picks bottom table now shows Tracked Betting Predictions and
+  follows the existing Overview season selector.
+- Betting bottom table now shows the signed-in user's Latest Selected Picks.
+- Overview All Model Results still keeps Latest Completed Games.
+- Existing personal pick history, Expected Difference scaling, charts, model
+  logic, administrator controls, and permissions remain unchanged.
 
 PURPOSE
 =======
