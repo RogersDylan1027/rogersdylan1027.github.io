@@ -666,3 +666,25 @@ Adds each player’s expected shots to the expandable player-prediction tables u
   output and does not introduce new data collection or wagering integration.
 - My Dashboard remains Version 0.10.11 because the Dashboard itself only
   receives this project changelog entry.
+
+
+PROJECT CHANGELOG · 2026-10-02
+==============================
+NHL Analytics · Version 0.3.11: Recent Window Card Cleanup
+
+Removes the redundant Last 7 Days and Last 30 Days metric cards from both Overview and Betting, keeping Recent Windows as the single place for rolling-period performance while preserving the model-versus-user analytics split.
+
+- Overview now shows only Moneyline Accuracy, Player Pick Accuracy, and Overall
+  Accuracy as top metric cards.
+- Betting now shows only Overall Accuracy, Picks, and Scored Picks as top metric
+  cards.
+- Last 7 Days and Last 30 Days cards were removed from both pages because the
+  Recent Windows tables already provide rolling-period performance.
+- Model Recent Windows on Overview and user Recent Windows on Betting remain
+  unchanged.
+- Expected Shots and overtime prediction detail from 0.3.10 remain unchanged.
+- Dashboard/projects.json was checked and does not require a change.
+- Documents/privacy.html and Documents/tos.html were checked; no legal-text
+  change is required because this release only removes redundant presentation.
+- My Dashboard remains Version 0.10.11 because the Dashboard itself only
+  receives this project changelog entry.
