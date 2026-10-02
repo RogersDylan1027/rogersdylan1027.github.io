@@ -192,6 +192,9 @@ VERSION 0.3.9 CHANGES
 - Overview My Picks bottom table now shows Tracked Betting Predictions and
   follows the existing Overview season selector.
 - Betting bottom table now shows the signed-in user's Latest Selected Picks.
+- Overview accuracy graph now tracks the model's scored betting picks over time
+  for the selected season.
+- The user's My Pick Accuracy Over Time graph has moved to Betting.
 - Overview All Model Results still keeps Latest Completed Games.
 - Existing personal pick history, Expected Difference scaling, charts, model
   logic, administrator controls, and permissions remain unchanged.
