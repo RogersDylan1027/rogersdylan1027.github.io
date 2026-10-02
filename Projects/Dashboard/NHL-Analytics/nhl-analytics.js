@@ -1,6 +1,6 @@
 (() => {
   "use strict";
-  const VERSION = "0.3.8";
+  const VERSION = "0.3.9";
   const HISTORY_URL = "/All%20Results.json";
   const TODAY_URL = "/Game%20Results.json";
   const PICKS_STORAGE_KEY = "nhlAnalyticsModelPicks:v1";
@@ -216,6 +216,7 @@
     else if(!state.pickHistory.some(p=>p.id===pick.id)) state.pickHistory.push(pick);
     renderToday();
     renderSelectedModelPicks();
+    renderBetting();
     renderOverview();
     try {
       if(removing) await deleteModelPickFromAccount(pick.id);
@@ -244,7 +245,7 @@
     if(!picks.length){host.innerHTML='<div class="selected-picks-empty">No model picks selected yet.</div>';return;}
     host.innerHTML='<div class="selected-picks-list">'+picks.map(p=>'<div class="selected-pick-row"><div><strong>'+esc(p.label)+'</strong><span>'+esc(p.matchup)+' · '+esc(p.type)+(p.detail?' · '+esc(p.detail):'')+'</span></div><button type="button" class="selected-pick-remove" data-remove-pick="'+esc(p.id)+'">Remove</button></div>').join("")+'</div>';
     host.querySelectorAll("[data-remove-pick]").forEach(button=>button.addEventListener("click",()=>{
-      const id=button.dataset.removePick; state.selectedPicks.delete(id); state.pickHistory=state.pickHistory.filter(p=>p.id!==id); saveSelectedPicks(); renderSelectedModelPicks(); renderToday(); renderOverview(); deleteModelPickFromAccount(id).catch(error=>console.warn("NHL Analytics pick removal sync failed.",error));
+      const id=button.dataset.removePick; state.selectedPicks.delete(id); state.pickHistory=state.pickHistory.filter(p=>p.id!==id); saveSelectedPicks(); renderSelectedModelPicks(); renderToday(); renderBetting(); renderOverview(); deleteModelPickFromAccount(id).catch(error=>console.warn("NHL Analytics pick removal sync failed.",error));
     }));
   }
 
@@ -416,15 +417,26 @@
     if($("overviewLatestTitle"))$("overviewLatestTitle").textContent=mine?"Latest Selected Picks":"Latest Completed Games";
     if($("overviewLatestNote"))$("overviewLatestNote").textContent=mine?"Your most recent tracked selections":"Most recent historical results";
   }
-  function renderPersonalOverview() {
+  function renderOverallBettingMetricCards(targetId,games=state.games) {
+    const accuracy=bettingAccuracyBreakdown(games);
+    $(targetId).innerHTML=
+      metric("Moneyline Accuracy",pct(accuracy.moneyline.accuracy),accuracy.moneyline.total?accuracy.moneyline.correct+" of "+accuracy.moneyline.total+" moneylines":"No scored moneylines")+
+      metric("Player Pick Accuracy",pct(accuracy.player.accuracy),accuracy.player.total?accuracy.player.correct+" of "+accuracy.player.total+" player picks":"No scored player picks")+
+      metric("Overall Accuracy",pct(accuracy.overall.accuracy),accuracy.overall.total?accuracy.overall.correct+" of "+accuracy.overall.total+" model picks":"No scored model picks");
+  }
+  function renderPersonalPickMetricCards(targetId) {
     const records=personalPickRecords(),all=personalAggregate(records),last7=personalAggregate(personalInLastDays(7,records)),last30=personalAggregate(personalInLastDays(30,records));
     const scored=records.filter(r=>Number.isFinite(r.correct)).length;
-    $("overviewMetrics").innerHTML=
+    $(targetId).innerHTML=
       metric("Overall Accuracy",pct(all.accuracy),all.total?all.correct+" of "+all.total+" scored picks":"No scored picks")+
       metric("Picks",all.picks.toLocaleString(),"Model picks you selected")+
       metric("Scored Picks",scored.toLocaleString(),(all.picks-scored)+" pending")+
       metric("Last 7 Days",pct(last7.accuracy),last7.total?last7.correct+" of "+last7.total+" picks":"No scored picks")+
       metric("Last 30 Days",pct(last30.accuracy),last30.total?last30.correct+" of "+last30.total+" picks":"No scored picks");
+  }
+
+  function renderPersonalOverview() {
+    const records=personalPickRecords();
     lineChart("accuracyChart",personalDailySeries(records),[{label:"My Accuracy",value:r=>Number.isFinite(r.accuracy)?r.accuracy*100:null}],100);
     $("recentWindows").innerHTML=personalWindowRows(records);
     $("latestGames").innerHTML=personalPickTable(records);
@@ -437,9 +449,10 @@
     const mode=state.isAdmin?(state.overviewMode||"all"):"mine";
     if($("overviewMode"))$("overviewMode").value=mode;
     setOverviewLabels(mode);
+    const seasonGames=seasonFilteredGames();
+    renderOverallBettingMetricCards("overviewMetrics",seasonGames);
     if(mode==="mine"){renderPersonalOverview();return;}
-    const seasonGames=seasonFilteredGames(),all=aggregateLineAccuracy(seasonGames),last7=aggregateLineAccuracy(gamesInLastDays(7,seasonGames)),last30=aggregateLineAccuracy(gamesInLastDays(30,seasonGames));
-    $("overviewMetrics").innerHTML=metric("Overall Accuracy",pct(all.accuracy),all.correct+" of "+all.total+" tracked lines")+metric("Bets",all.total.toLocaleString(),"Total prediction lines tracked")+metric("Prediction Days",new Set(seasonGames.map(g=>g.date).filter(Boolean)).size.toLocaleString(),"Historical dates stored")+metric("Last 7 Days",pct(last7.accuracy),last7.total?last7.correct+" of "+last7.total+" lines":"No stored lines")+metric("Last 30 Days",pct(last30.accuracy),last30.total?last30.correct+" of "+last30.total+" lines":"No stored lines");
+    const all=aggregateLineAccuracy(seasonGames),last7=aggregateLineAccuracy(gamesInLastDays(7,seasonGames)),last30=aggregateLineAccuracy(gamesInLastDays(30,seasonGames));
     renderAccuracyChart(seasonGames);$("recentWindows").innerHTML=windowRows([7,14,30,60].map(days=>({days,data:aggregateLineAccuracy(gamesInLastDays(days,seasonGames))})));renderLatestGames(seasonGames);
   }
   function windowRows(rows){if(!state.games.length)return'<div class="empty">No historical results are available.</div>';return'<div class="table-wrap"><table class="data-table" style="min-width:0"><thead><tr><th>Window</th><th>Accuracy</th><th>Lines</th></tr></thead><tbody>'+rows.map(r=>'<tr><td>Last '+r.days+' days</td><td><strong>'+pct(r.data.accuracy)+'</strong></td><td>'+r.data.correct+' / '+r.data.total+'</td></tr>').join("")+'</tbody></table></div>';}
@@ -506,11 +519,7 @@
   }
   function renderBetting(){
     renderSelectedModelPicks();
-    const accuracy=bettingAccuracyBreakdown(state.games);
-    $("bettingMetrics").innerHTML=
-      metric("Moneyline Accuracy",pct(accuracy.moneyline.accuracy),accuracy.moneyline.total?accuracy.moneyline.correct+" of "+accuracy.moneyline.total+" moneylines":"No scored moneylines")+
-      metric("Player Pick Accuracy",pct(accuracy.player.accuracy),accuracy.player.total?accuracy.player.correct+" of "+accuracy.player.total+" player picks":"No scored player picks")+
-      metric("Overall Accuracy",pct(accuracy.overall.accuracy),accuracy.overall.total?accuracy.overall.correct+" of "+accuracy.overall.total+" model picks":"No scored model picks");
+    renderPersonalPickMetricCards("bettingMetrics");
     const games=state.games.filter(g=>g.bets.length||g.correctBettingResults.length);
     $("bettingTable").innerHTML=games.length?'<div class="table-wrap"><table class="data-table"><thead><tr><th>Date</th><th>Matchup</th><th>Betting Selection</th><th>Correct Picks</th><th>Game Line Accuracy</th></tr></thead><tbody>'+games.slice(0,500).map(g=>'<tr><td class="nowrap">'+esc(formatDate(g.date))+'</td><td><span class="team">'+esc(g.away)+'</span> @ <span class="team">'+esc(g.home)+'</span></td><td>'+esc(g.bets.join("; ")||"—")+'</td><td>'+esc(g.correctBettingResults.length?g.correctBets+" / "+g.correctBettingResults.length:"—")+'</td><td>'+pct(g.lineAccuracy)+'</td></tr>').join("")+'</tbody></table></div>':'<div class="empty">No historical betting fields are available yet.</div>';
   }
