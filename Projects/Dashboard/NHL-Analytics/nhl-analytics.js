@@ -410,10 +410,14 @@
 
   function renderOverallBettingMetricCards(targetId,games=state.games) {
     const accuracy=bettingAccuracyBreakdown(games);
+    const last7=bettingAccuracyBreakdown(gamesInLastDays(7,games)).overall;
+    const last30=bettingAccuracyBreakdown(gamesInLastDays(30,games)).overall;
     $(targetId).innerHTML=
       metric("Moneyline Accuracy",pct(accuracy.moneyline.accuracy),accuracy.moneyline.total?accuracy.moneyline.correct+" of "+accuracy.moneyline.total+" moneylines":"No scored moneylines")+
       metric("Player Pick Accuracy",pct(accuracy.player.accuracy),accuracy.player.total?accuracy.player.correct+" of "+accuracy.player.total+" player picks":"No scored player picks")+
-      metric("Overall Accuracy",pct(accuracy.overall.accuracy),accuracy.overall.total?accuracy.overall.correct+" of "+accuracy.overall.total+" model picks":"No scored model picks");
+      metric("Overall Accuracy",pct(accuracy.overall.accuracy),accuracy.overall.total?accuracy.overall.correct+" of "+accuracy.overall.total+" model picks":"No scored model picks")+
+      metric("Last 7 Days",pct(last7.accuracy),last7.total?last7.correct+" of "+last7.total+" model picks":"No scored model picks")+
+      metric("Last 30 Days",pct(last30.accuracy),last30.total?last30.correct+" of "+last30.total+" model picks":"No scored model picks");
   }
   function renderPersonalPickMetricCards(targetId) {
     const records=allPersonalPickRecords(),all=personalAggregate(records),last7=personalAggregate(personalInLastDays(7,records)),last30=personalAggregate(personalInLastDays(30,records));
