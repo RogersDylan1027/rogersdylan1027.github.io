@@ -6,7 +6,7 @@
   const PICKS_STORAGE_KEY = "nhlAnalyticsModelPicks:v1";
   const GOAL_VALUE = 0.6;
   const $ = id => document.getElementById(id);
-  const state = { history: [], games: [], today: [], filtered: [], shown: 100, loadedAt: null, isAdmin: false, selectedPicks: new Map(), selectedSeason: "", overviewMode: "", pickHistory: [] };
+  const state = { history: [], games: [], today: [], filtered: [], shown: 100, loadedAt: null, isAdmin: false, selectedPicks: new Map(), selectedSeason: "", pickHistory: [] };
   const esc = value => String(value ?? "").replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
   const num = value => { const n = Number(value); return Number.isFinite(n) ? n : null; };
   const pct = value => Number.isFinite(value) ? (value * 100).toFixed(1) + "%" : "—";
@@ -300,9 +300,6 @@
   }
   function applyAdminAccess() {
     document.querySelectorAll("[data-admin-only='true']").forEach(el => el.classList.toggle("hidden", !state.isAdmin));
-    if (!state.isAdmin) state.overviewMode="mine";
-    else if(!state.overviewMode) state.overviewMode="all";
-    if ($("overviewMode")) $("overviewMode").value=state.overviewMode||"mine";
     if (!state.isAdmin && location.hash === "#model") switchView("overview");
   }
   function setupRosterSimulation() {
@@ -410,16 +407,7 @@
     if(!records.length)return'<div class="empty">No model picks selected for this season yet.</div>';
     return '<div class="table-wrap"><table class="data-table" style="min-width:620px"><thead><tr><th>Date</th><th>Matchup</th><th>Pick</th><th>Result</th></tr></thead><tbody>'+records.slice(0,50).map(r=>'<tr><td class="nowrap">'+esc(formatDate(r.date))+'</td><td>'+esc(r.matchup)+'</td><td><strong>'+esc(r.label)+'</strong></td><td>'+(!Number.isFinite(r.correct)?'Pending':r.correct===1?'Correct':'Incorrect')+'</td></tr>').join("")+'</tbody></table></div>';
   }
-  function setOverviewLabels(mode) {
-    const mine=mode==="mine";
-    if($("overviewDescription"))$("overviewDescription").textContent=mine?"Historical performance for the model picks you selected.":"Historical line accuracy and model performance across completed prediction days.";
-    if($("overviewChartTitle"))$("overviewChartTitle").textContent="Model Pick Accuracy Over Time";
-    if($("overviewChartNote"))$("overviewChartNote").textContent="Daily accuracy across scored model betting picks";
-    if($("overviewWindowTitle"))$("overviewWindowTitle").textContent="Recent Windows";
-    if($("overviewWindowNote"))$("overviewWindowNote").textContent=mine?"Based on your latest selected-pick date":"Based on latest stored date";
-    if($("overviewLatestTitle"))$("overviewLatestTitle").textContent=mine?"Tracked Betting Predictions":"Latest Completed Games";
-    if($("overviewLatestNote"))$("overviewLatestNote").textContent=mine?"Historical records with bettingLines for the selected season":"Most recent historical results";
-  }
+
   function renderOverallBettingMetricCards(targetId,games=state.games) {
     const accuracy=bettingAccuracyBreakdown(games);
     $(targetId).innerHTML=
@@ -428,7 +416,7 @@
       metric("Overall Accuracy",pct(accuracy.overall.accuracy),accuracy.overall.total?accuracy.overall.correct+" of "+accuracy.overall.total+" model picks":"No scored model picks");
   }
   function renderPersonalPickMetricCards(targetId) {
-    const records=personalPickRecords(),all=personalAggregate(records),last7=personalAggregate(personalInLastDays(7,records)),last30=personalAggregate(personalInLastDays(30,records));
+    const records=allPersonalPickRecords(),all=personalAggregate(records),last7=personalAggregate(personalInLastDays(7,records)),last30=personalAggregate(personalInLastDays(30,records));
     const scored=records.filter(r=>Number.isFinite(r.correct)).length;
     $(targetId).innerHTML=
       metric("Overall Accuracy",pct(all.accuracy),all.total?all.correct+" of "+all.total+" scored picks":"No scored picks")+
@@ -438,25 +426,20 @@
       metric("Last 30 Days",pct(last30.accuracy),last30.total?last30.correct+" of "+last30.total+" picks":"No scored picks");
   }
 
-  function renderPersonalOverview() {
-    const records=personalPickRecords();
-    renderModelBettingAccuracyChart(seasonFilteredGames());
-    $("recentWindows").innerHTML=personalWindowRows(records);
-    $("latestGames").innerHTML=historicalBettingTable(seasonFilteredGames());
-  }
 
   function aggregateLineAccuracy(games){const correct=sum(games.map(g=>g.correct)),total=sum(games.map(g=>g.total));return{correct,total,accuracy:total>0?correct/total:null};}
   function latestDatasetDate(games=state.games){return games.map(g=>g.date).filter(Boolean).sort().at(-1)||null;}
   function gamesInLastDays(days,games=state.games){const latest=latestDatasetDate(games);if(!latest)return[];const end=new Date(latest+"T12:00:00"),start=new Date(end);start.setDate(start.getDate()-(days-1));return games.filter(g=>{const d=new Date(g.date+"T12:00:00");return d>=start&&d<=end;});}
   function renderOverview(){
-    const mode=state.isAdmin?(state.overviewMode||"all"):"mine";
-    if($("overviewMode"))$("overviewMode").value=mode;
-    setOverviewLabels(mode);
     const seasonGames=seasonFilteredGames();
     renderOverallBettingMetricCards("overviewMetrics",seasonGames);
-    if(mode==="mine"){renderPersonalOverview();return;}
-    const all=aggregateLineAccuracy(seasonGames),last7=aggregateLineAccuracy(gamesInLastDays(7,seasonGames)),last30=aggregateLineAccuracy(gamesInLastDays(30,seasonGames));
-    renderModelBettingAccuracyChart(seasonGames);$("recentWindows").innerHTML=windowRows([7,14,30,60].map(days=>({days,data:aggregateLineAccuracy(gamesInLastDays(days,seasonGames))})));renderLatestGames(seasonGames);
+    renderModelBettingAccuracyChart(seasonGames);
+    $("recentWindows").innerHTML=modelBettingWindowRows(seasonGames);
+    $("latestGames").innerHTML=historicalBettingTable(seasonGames);
+  }
+  function modelBettingWindowRows(games){
+    if(!games.length)return'<div class="empty">No historical betting results are available for this season.</div>';
+    return '<div class="table-wrap"><table class="data-table" style="min-width:0"><thead><tr><th>Window</th><th>Accuracy</th><th>Picks</th></tr></thead><tbody>'+[7,14,30,60].map(days=>{const a=bettingAccuracyBreakdown(gamesInLastDays(days,games)).overall;return '<tr><td>Last '+days+' days</td><td><strong>'+pct(a.accuracy)+'</strong></td><td>'+a.correct+' / '+a.total+'</td></tr>';}).join("")+'</tbody></table></div>';
   }
   function windowRows(rows){if(!state.games.length)return'<div class="empty">No historical results are available.</div>';return'<div class="table-wrap"><table class="data-table" style="min-width:0"><thead><tr><th>Window</th><th>Accuracy</th><th>Lines</th></tr></thead><tbody>'+rows.map(r=>'<tr><td>Last '+r.days+' days</td><td><strong>'+pct(r.data.accuracy)+'</strong></td><td>'+r.data.correct+' / '+r.data.total+'</td></tr>').join("")+'</tbody></table></div>';}
   function modelBettingDailySeries(games=state.games){
@@ -548,10 +531,11 @@
 
   function renderBetting(){
     renderSelectedModelPicks();
+    const personalRecords=allPersonalPickRecords();
     renderPersonalPickMetricCards("bettingMetrics");
-    const personalRecords=personalPickRecords();
     lineChart("bettingAccuracyChart",personalDailySeries(personalRecords),[{label:"My Accuracy",value:r=>Number.isFinite(r.accuracy)?r.accuracy*100:null}],100);
-    $("bettingTable").innerHTML=personalPickTable(allPersonalPickRecords());
+    $("bettingRecentWindows").innerHTML=personalWindowRows(personalRecords);
+    $("bettingTable").innerHTML=personalPickTable(personalRecords);
   }
   function renderAll(){state.filtered=[...seasonFilteredGames()];renderOverview();renderToday();renderGames();renderBetting();if(state.isAdmin)renderModel();}
   function switchView(id){if(id==="model"&&!state.isAdmin)id="overview";document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id===id));document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b.dataset.view===id));history.replaceState(null,"","#"+id);window.scrollTo({top:0,behavior:"smooth"});}
@@ -559,7 +543,6 @@
   $("backBtn").addEventListener("click",()=>location.href="../");$("refreshBtn").addEventListener("click",loadData);
   ["gameSearch","teamFilter","dateFrom","dateTo"].forEach(id=>$(id).addEventListener(id==="gameSearch"?"input":"change",applyGameFilters));
   ["overviewSeason","gamesSeason"].forEach(id=>$(id).addEventListener("change",event=>setSelectedSeason(event.target.value)));
-  $("overviewMode").addEventListener("change",event=>{if(!state.isAdmin)return;state.overviewMode=event.target.value==="mine"?"mine":"all";renderOverview();});
   $("clearFilters").addEventListener("click",()=>{$("gameSearch").value="";$("teamFilter").value="";$("dateFrom").value="";$("dateTo").value="";applyGameFilters();});
   $("loadMoreGames").addEventListener("click",()=>{state.shown+=100;renderGamesTable();});
   const initial=location.hash.slice(1);if(["overview","today","games","model","betting","roster"].includes(initial))switchView(initial);
