@@ -761,50 +761,176 @@
     "homeScorers": {},
     "awayScorers": {},
     "allHomePoints": {
-      "Mikael Backlund": ["0.2517", "8.43%"],
-      "Matt Coronato": ["0.2751", "9.18%"],
-      "Joel Farabee": ["0.2131", "7.19%"],
-      "Morgan Frost": ["0.2117", "7.14%"],
-      "Matvei Gridin": ["0.1387", "4.74%"],
-      "Samuel Honzek": ["0.05", "1.73%"],
-      "Adam Klapka": ["0.0244", "0.85%"],
-      "Brennan Othmann": ["0.0248", "0.86%"],
-      "Martin Pospisil": ["0.0119", "0.42%"],
-      "Yegor Sharangovich": ["0.1675", "5.69%"],
-      "Ryan Strome": ["0.0669", "2.31%"],
-      "Maxim Tsyplakov": ["0.0095", "0.33%"],
-      "Connor Zary": ["0.1033", "3.55%"],
-      "Kevin Bahl": ["0.0258", "0.9%"],
-      "Joel Hanley": ["0", "0%"],
-      "Yan Kuznetsov": ["0.0472", "1.64%"],
-      "Jake Middleton": ["0.0094", "0.33%"],
-      "Simon Nemec": ["0.1409", "4.81%"],
-      "Brayden Pachal": ["0.0076", "0.27%"],
-      "Zayne Parekh": ["0.0732", "2.53%"],
-      "Zach Whitecloud": ["0.0133", "0.47%"]
+      "Mikael Backlund": [
+        "0.2517",
+        "8.43%"
+      ],
+      "Matt Coronato": [
+        "0.2751",
+        "9.18%"
+      ],
+      "Joel Farabee": [
+        "0.2131",
+        "7.19%"
+      ],
+      "Morgan Frost": [
+        "0.2117",
+        "7.14%"
+      ],
+      "Matvei Gridin": [
+        "0.1387",
+        "4.74%"
+      ],
+      "Samuel Honzek": [
+        "0.05",
+        "1.73%"
+      ],
+      "Adam Klapka": [
+        "0.0244",
+        "0.85%"
+      ],
+      "Brennan Othmann": [
+        "0.0248",
+        "0.86%"
+      ],
+      "Martin Pospisil": [
+        "0.0119",
+        "0.42%"
+      ],
+      "Yegor Sharangovich": [
+        "0.1675",
+        "5.69%"
+      ],
+      "Ryan Strome": [
+        "0.0669",
+        "2.31%"
+      ],
+      "Maxim Tsyplakov": [
+        "0.0095",
+        "0.33%"
+      ],
+      "Connor Zary": [
+        "0.1033",
+        "3.55%"
+      ],
+      "Kevin Bahl": [
+        "0.0258",
+        "0.9%"
+      ],
+      "Joel Hanley": [
+        "0",
+        "0%"
+      ],
+      "Yan Kuznetsov": [
+        "0.0472",
+        "1.64%"
+      ],
+      "Jake Middleton": [
+        "0.0094",
+        "0.33%"
+      ],
+      "Simon Nemec": [
+        "0.1409",
+        "4.81%"
+      ],
+      "Brayden Pachal": [
+        "0.0076",
+        "0.27%"
+      ],
+      "Zayne Parekh": [
+        "0.0732",
+        "2.53%"
+      ],
+      "Zach Whitecloud": [
+        "0.0133",
+        "0.47%"
+      ]
     },
     "allAwayPoints": {
-      "Matty Beniers": ["0.2609", "8.73%"],
-      "Berkly Catton": ["0.0495", "1.72%"],
-      "Curtis Douglas": ["0.0032", "0.11%"],
-      "Jordan Eberle": ["0.3852", "12.61%"],
-      "Frederick Gaudreau": ["0.0523", "1.81%"],
-      "Kaapo Kakko": ["0.1045", "3.59%"],
-      "Jared McCann": ["0.4344", "14.1%"],
-      "Bobby McMann": ["0.4245", "13.81%"],
-      "Jacob Melanson": ["0.0146", "0.51%"],
-      "Ben Meyers": ["0.0576", "1.99%"],
-      "Chandler Stephenson": ["0.1376", "4.7%"],
-      "Ryan Winterton": ["0.0275", "0.96%"],
-      "Shane Wright": ["0.0896", "3.09%"],
-      "Vince Dunn": ["0.1986", "6.71%"],
-      "Ryker Evans": ["0.0446", "1.55%"],
-      "Cale Fleury": ["0.0207", "0.72%"],
-      "Adam Larsson": ["0.072", "2.49%"],
-      "Ryan Lindgren": ["0.0093", "0.33%"],
-      "Josh Mahura": ["0.0136", "0.47%"],
-      "Brandon Montour": ["0.322", "10.66%"],
-      "Ville Ottavainen": ["0", "0%"]
+      "Matty Beniers": [
+        "0.2609",
+        "8.73%"
+      ],
+      "Berkly Catton": [
+        "0.0495",
+        "1.72%"
+      ],
+      "Curtis Douglas": [
+        "0.0032",
+        "0.11%"
+      ],
+      "Jordan Eberle": [
+        "0.3852",
+        "12.61%"
+      ],
+      "Frederick Gaudreau": [
+        "0.0523",
+        "1.81%"
+      ],
+      "Kaapo Kakko": [
+        "0.1045",
+        "3.59%"
+      ],
+      "Jared McCann": [
+        "0.4344",
+        "14.1%"
+      ],
+      "Bobby McMann": [
+        "0.4245",
+        "13.81%"
+      ],
+      "Jacob Melanson": [
+        "0.0146",
+        "0.51%"
+      ],
+      "Ben Meyers": [
+        "0.0576",
+        "1.99%"
+      ],
+      "Chandler Stephenson": [
+        "0.1376",
+        "4.7%"
+      ],
+      "Ryan Winterton": [
+        "0.0275",
+        "0.96%"
+      ],
+      "Shane Wright": [
+        "0.0896",
+        "3.09%"
+      ],
+      "Vince Dunn": [
+        "0.1986",
+        "6.71%"
+      ],
+      "Ryker Evans": [
+        "0.0446",
+        "1.55%"
+      ],
+      "Cale Fleury": [
+        "0.0207",
+        "0.72%"
+      ],
+      "Adam Larsson": [
+        "0.072",
+        "2.49%"
+      ],
+      "Ryan Lindgren": [
+        "0.0093",
+        "0.33%"
+      ],
+      "Josh Mahura": [
+        "0.0136",
+        "0.47%"
+      ],
+      "Brandon Montour": [
+        "0.322",
+        "10.66%"
+      ],
+      "Ville Ottavainen": [
+        "0",
+        "0%"
+      ]
     },
     "outcome": "SEA, CGY: 0.65311 v SEA: 0.95275      Expected difference: 0.29964, (CGY: 1.08852 v SEA: 1.58792) (CGY: 42.56% , SEA: 57.44%)",
     "startingTime": "21:05:00",
@@ -870,7 +996,7 @@
     },
     "outcome": "UTA, UTA: 1.07689 v CHI: 0.84199      Expected difference: 0.2349, (UTA: 1.79482 v CHI: 1.40332) (UTA: 55.85% , CHI: 44.15%)",
     "startingTime": "21:35:00",
-    "timeLastRun": "20:56:56",
+    "timeLastRun": "21:27:09",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
@@ -930,7 +1056,7 @@
     },
     "outcome": "EDM, VAN: 0.25213 v EDM: 0.71042      Expected difference: 0.45829, (VAN: 0.42022 v EDM: 1.18403) (VAN: 38.74% , EDM: 61.26%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "20:56:59",
+    "timeLastRun": "21:27:12",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
@@ -993,7 +1119,7 @@
     },
     "outcome": "SJS, SJS: 1.60089 v FLA: 1.21572      Expected difference: 0.38517, (SJS: 2.66815 v FLA: 2.0262) (SJS: 59.51% , FLA: 40.49%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "20:57:03",
+    "timeLastRun": "21:27:16",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
