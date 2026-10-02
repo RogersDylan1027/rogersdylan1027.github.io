@@ -1,3 +1,14 @@
+Version 0.6.4: Main Budget Layout Refinement
+
+Description:
+Reorders the Main Budget page so Budgets Included in Main appears above Budget Items, making included-budget context visible before the item list without changing any budget calculations or controls.
+
+Changes:
+- Moves Budgets Included in Main above Budget Items on the Budget page.
+- Preserves all existing include toggles, budget items, calculations, Car features, and Supabase sync behavior.
+- No Supabase schema or projects.json change is required.
+- Documents/privacy.html and Documents/tos.html were checked and do not require changes because this is a presentation-only update.
+
 Version 0.6.3: Estimated MPG Tracking
 
 Description:

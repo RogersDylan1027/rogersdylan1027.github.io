@@ -1,5 +1,5 @@
-Budget · Version 0.6.3
-Estimated MPG Tracking · 2026-09-24
+Budget · Version 0.6.4
+Main Budget Layout Refinement · 2026-10-02
 
 OVERVIEW
 ========
@@ -52,3 +52,19 @@ Version 0.6.3: Estimated MPG Tracking
 Adds optional odometer readings to Car fill-ups and calculates an estimated MPG
 from valid odometer checkpoints while still allowing users to skip odometer
 entry on any fill-up.
+
+
+CHANGELOG
+=========
+Version 0.6.4: Main Budget Layout Refinement
+
+Moves Budgets Included in Main above Budget Items so the Main Budget's included
+sources are visible before the item list. No calculations, sync behavior, or
+data model changed.
+
+
+LAYOUT · 0.6.4
+==============
+On the Budget page, Budgets Included in Main now appears above Budget Items.
+This is a presentation-only reorder; existing budget calculations and controls
+are unchanged.

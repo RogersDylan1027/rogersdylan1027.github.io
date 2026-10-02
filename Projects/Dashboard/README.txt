@@ -372,6 +372,22 @@ TEST CHECKLIST
    unchanged.
 
 
+PROJECT CHANGELOG · 2026-10-02
+==============================
+Budget · Version 0.6.4: Main Budget Layout Refinement
+
+Reorders the Budget page so Budgets Included in Main appears above Budget Items,
+making included-budget context visible before the item list.
+
+- Swapped the display order of Budgets Included in Main and Budget Items.
+- No Budget calculations, toggles, Car tracking, or Supabase sync behavior changed.
+- Dashboard/projects.json was checked and does not require a change.
+- Documents/privacy.html and Documents/tos.html were checked and do not require
+  changes because this release is presentation-only.
+- My Dashboard remains Version 0.10.11 because the Dashboard itself only receives
+  this project changelog entry.
+
+
 PROJECT CHANGELOG · 2026-09-24
 ==============================
 Budget · Version 0.6.3: Estimated MPG Tracking
