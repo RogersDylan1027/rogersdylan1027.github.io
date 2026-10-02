@@ -1,7 +1,7 @@
 NHL ANALYTICS PROJECT
 
 Current version
-0.3.9
+0.3.10
 
 Version 0.2.0: Roster Simulation & Admin Model Diagnostics
 
@@ -200,6 +200,25 @@ VERSION 0.3.9 CHANGES
 - Admin-only Model Diagnostics and administrator permissions are unchanged.
 - Existing Goal-Scaled Expected Difference, Games filters, Roster Simulation,
   model calculations, and prediction data sources are unchanged.
+
+Version 0.3.10: Expected Shots & Overtime Prediction Detail
+
+Adds each player’s expected shots to the expandable player-prediction tables using the third value already supplied by the NHL model, and preserves overtime-win predictions in the Today display without creating separate shot or overtime betting selections.
+
+VERSION 0.3.10 CHANGES
+======================
+- Expandable player-prediction rows now include Expected Shots.
+- Expected Shots is read directly from the third value in each allHomePoints /
+  allAwayPoints player array: [Model Value, Point %, Expected Shots].
+- Expected Shots is display-only in this release.
+- No shot-based selectable picks, bet tracking, result tracking, or shot
+  accuracy calculations were added.
+- Today predictions now preserve the model's OTW signal by displaying
+  "Overtime Win" beside the expected winner.
+- OTW remains informational only; the selectable team pick stays the same
+  Moneyline pick for the predicted winner.
+- Existing Overview = model analytics and Betting = user-selected analytics
+  separation remains unchanged.
 
 PURPOSE
 =======
