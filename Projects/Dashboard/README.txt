@@ -625,24 +625,20 @@ Converts the Today page’s Expected Difference from the model’s raw score int
 
 PROJECT CHANGELOG · 2026-10-02
 ==============================
-NHL Analytics · Version 0.3.9: Overview & Betting Analytics Swap
+NHL Analytics · Version 0.3.9: Model vs User Analytics Separation
 
-Swaps the Overview and Betting analytics so Overview shows overall betting accuracy, model-pick accuracy over time, and season-filtered tracked betting predictions, while Betting shows the signed-in user’s selected-pick performance, personal accuracy graph, and latest selected picks, without changing administrator controls or permissions.
+Finalizes the NHL Analytics split so Overview is entirely model-generated performance for the selected season, while Betting is entirely the signed-in user’s selected-pick performance and history; administrator access and Model Diagnostics remain unchanged.
 
-- Overview top metrics now show overall model Moneyline Accuracy, Player Pick
-  Accuracy, and Overall Accuracy for the selected season.
-- Betting top metrics now show the signed-in user's selected-pick performance:
-  Overall Accuracy, Picks, Scored Picks, Last 7 Days, and Last 30 Days.
-- Overview My Picks now shows season-filtered Tracked Betting Predictions in
-  the bottom table.
-- Betting now shows Latest Selected Picks in the bottom table.
-- Overview accuracy graph now shows model-pick accuracy over time for the
-  selected season.
-- My Pick Accuracy Over Time moved to Betting for the signed-in user's picks.
-- Overview All Model Results continues to show Latest Completed Games.
-- Administrator controls and permissions are unchanged.
+- Overview is now entirely model-generated analytics for the selected season:
+  model accuracy cards, model-pick graph, model Recent Windows, and tracked
+  model betting predictions.
+- Betting is now entirely user-selected analytics: personal performance cards,
+  My Pick Accuracy Over Time, personal Recent Windows, and Latest Selected Picks.
+- Removed the obsolete Overview All Model Results / My Picks selector because
+  user-selected analytics now live entirely on Betting.
+- Admin-only Model Diagnostics and administrator permissions remain unchanged.
 - Dashboard/projects.json was checked and does not require a change.
 - Documents/privacy.html and Documents/tos.html were checked; no legal-text
-  change is required because this release only reorganizes existing analytics.
+  change is required because this only reorganizes existing NHL analytics.
 - My Dashboard remains Version 0.10.11 because the Dashboard itself only
   receives this project changelog entry.
