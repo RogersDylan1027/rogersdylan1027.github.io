@@ -185,6 +185,8 @@ VERSION 0.3.9 CHANGES
 - Overview is now exclusively model-generated analytics.
 - Overview top cards show the model's Moneyline Accuracy, Player Pick Accuracy,
   and Overall Accuracy for the selected season.
+- Overview top cards also include Last 7 Days and Last 30 Days for the model's
+  scored picks within the selected season.
 - Overview's graph shows model-pick accuracy over time for the selected season.
 - Overview Recent Windows now uses all scored model betting picks rather than
   the signed-in user's selections.
