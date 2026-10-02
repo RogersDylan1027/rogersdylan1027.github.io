@@ -413,8 +413,8 @@
   function setOverviewLabels(mode) {
     const mine=mode==="mine";
     if($("overviewDescription"))$("overviewDescription").textContent=mine?"Historical performance for the model picks you selected.":"Historical line accuracy and model performance across completed prediction days.";
-    if($("overviewChartTitle"))$("overviewChartTitle").textContent=mine?"My Pick Accuracy Over Time":"Accuracy Over Time";
-    if($("overviewChartNote"))$("overviewChartNote").textContent=mine?"Daily accuracy for your scored selections":"Daily correct lines ÷ total lines";
+    if($("overviewChartTitle"))$("overviewChartTitle").textContent="Model Pick Accuracy Over Time";
+    if($("overviewChartNote"))$("overviewChartNote").textContent="Daily accuracy across scored model betting picks";
     if($("overviewWindowTitle"))$("overviewWindowTitle").textContent="Recent Windows";
     if($("overviewWindowNote"))$("overviewWindowNote").textContent=mine?"Based on your latest selected-pick date":"Based on latest stored date";
     if($("overviewLatestTitle"))$("overviewLatestTitle").textContent=mine?"Tracked Betting Predictions":"Latest Completed Games";
@@ -440,7 +440,7 @@
 
   function renderPersonalOverview() {
     const records=personalPickRecords();
-    lineChart("accuracyChart",personalDailySeries(records),[{label:"My Accuracy",value:r=>Number.isFinite(r.accuracy)?r.accuracy*100:null}],100);
+    renderModelBettingAccuracyChart(seasonFilteredGames());
     $("recentWindows").innerHTML=personalWindowRows(records);
     $("latestGames").innerHTML=historicalBettingTable(seasonFilteredGames());
   }
@@ -456,9 +456,30 @@
     renderOverallBettingMetricCards("overviewMetrics",seasonGames);
     if(mode==="mine"){renderPersonalOverview();return;}
     const all=aggregateLineAccuracy(seasonGames),last7=aggregateLineAccuracy(gamesInLastDays(7,seasonGames)),last30=aggregateLineAccuracy(gamesInLastDays(30,seasonGames));
-    renderAccuracyChart(seasonGames);$("recentWindows").innerHTML=windowRows([7,14,30,60].map(days=>({days,data:aggregateLineAccuracy(gamesInLastDays(days,seasonGames))})));renderLatestGames(seasonGames);
+    renderModelBettingAccuracyChart(seasonGames);$("recentWindows").innerHTML=windowRows([7,14,30,60].map(days=>({days,data:aggregateLineAccuracy(gamesInLastDays(days,seasonGames))})));renderLatestGames(seasonGames);
   }
   function windowRows(rows){if(!state.games.length)return'<div class="empty">No historical results are available.</div>';return'<div class="table-wrap"><table class="data-table" style="min-width:0"><thead><tr><th>Window</th><th>Accuracy</th><th>Lines</th></tr></thead><tbody>'+rows.map(r=>'<tr><td>Last '+r.days+' days</td><td><strong>'+pct(r.data.accuracy)+'</strong></td><td>'+r.data.correct+' / '+r.data.total+'</td></tr>').join("")+'</tbody></table></div>';}
+  function modelBettingDailySeries(games=state.games){
+    const map=new Map();
+    games.forEach(g=>{
+      if(!g.date)return;
+      const lines=Array.isArray(g.bets)?g.bets:[];
+      const scored=Array.isArray(g.correctBettingResults)?g.correctBettingResults:[];
+      const row=map.get(g.date)||{date:g.date,correct:0,total:0};
+      lines.forEach((line,index)=>{
+        const result=scored[index];
+        if(!Number.isFinite(result))return;
+        row.total+=1;
+        row.correct+=result===1?1:0;
+      });
+      map.set(g.date,row);
+    });
+    return [...map.values()].filter(r=>r.total>0).sort((a,b)=>a.date.localeCompare(b.date)).map(r=>({...r,accuracy:r.correct/r.total}));
+  }
+  function renderModelBettingAccuracyChart(games=state.games){
+    lineChart("accuracyChart",modelBettingDailySeries(games),[{label:"Model Pick Accuracy",value:r=>Number.isFinite(r.accuracy)?r.accuracy*100:null}],100);
+  }
+
   function dailySeries(games=state.games){const map=new Map();games.forEach(g=>{if(!g.date)return;const row=map.get(g.date)||{date:g.date,correct:0,total:0,mse:[],ll:[]};row.correct+=Number.isFinite(g.correct)?g.correct:0;row.total+=Number.isFinite(g.total)?g.total:0;row.mse.push(g.homeMSE,g.awayMSE);row.ll.push(g.homeLL,g.awayLL);map.set(g.date,row);});return[...map.values()].sort((a,b)=>a.date.localeCompare(b.date)).map(r=>({...r,accuracy:r.total?r.correct/r.total:null,mseAvg:avg(r.mse),llAvg:avg(r.ll)}));}
   function lineChart(containerId,series,accessors,yMaxOverride=null){
     const host=$(containerId),valid=series.filter(row=>accessors.some(a=>Number.isFinite(a.value(row))));
@@ -528,6 +549,8 @@
   function renderBetting(){
     renderSelectedModelPicks();
     renderPersonalPickMetricCards("bettingMetrics");
+    const personalRecords=personalPickRecords();
+    lineChart("bettingAccuracyChart",personalDailySeries(personalRecords),[{label:"My Accuracy",value:r=>Number.isFinite(r.accuracy)?r.accuracy*100:null}],100);
     $("bettingTable").innerHTML=personalPickTable(allPersonalPickRecords());
   }
   function renderAll(){state.filtered=[...seasonFilteredGames()];renderOverview();renderToday();renderGames();renderBetting();if(state.isAdmin)renderModel();}
