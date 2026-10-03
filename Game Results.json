@@ -1613,46 +1613,198 @@
     "homeScorers": "Bo Horvat, NYI: 0.3879      (0.6465)",
     "awayScorers": {},
     "allHomePoints": {
-      "Casey Cizikas": ["0.0498", "1.73%", "0.7529"],
-      "Anthony Duclair": ["0.1068", "3.67%", "0.9123"],
-      "Victor Eklund": ["0", "0%", "1.5257"],
-      "Emil Heineman": ["0.3293", "10.89%", "1.6181"],
-      "Simon Holmstrom": ["0.1804", "6.12%", "0.965"],
-      "Bo Horvat": ["1.1083", "32.15%", "2.5357"],
-      "Matias Maccelli": ["0.129", "4.42%", "0.9668"],
-      "Kyle MacLean": ["0.0091", "0.32%", "0.556"],
-      "Jean-Gabriel Pageau": ["0.1374", "4.69%", "0.8349"],
-      "Ondrej Palat": ["0.0289", "1%", "0.7919"],
-      "Kyle Palmieri": ["0.4507", "14.59%", "2.1683"],
-      "Calum Ritchie": ["0.116", "3.98%", "0.9276"],
-      "Brayden Schenn": ["0.1955", "6.61%", "1.1345"],
-      "Tony DeAngelo": ["0.0855", "2.95%", "1.4845"],
-      "Matthew Kessel": ["0.0209", "0.73%", "0.5261"],
-      "Scott Mayfield": ["0.0128", "0.45%", "0.677"],
-      "Adam Pelech": ["0.053", "1.84%", "1.1342"],
-      "Ryan Pulock": ["0.0349", "1.21%", "0.9328"],
-      "Alexander Romanov": ["0", "0%", "1.5257"],
-      "Matthew Schaefer": ["0.6617", "20.67%", "2.0654"],
-      "Logan Stanley": ["0.0871", "3%", "0.9629"]
+      "Casey Cizikas": [
+        "0.0498",
+        "1.73%",
+        "0.7529"
+      ],
+      "Anthony Duclair": [
+        "0.1068",
+        "3.67%",
+        "0.9123"
+      ],
+      "Victor Eklund": [
+        "0",
+        "0%",
+        "1.5257"
+      ],
+      "Emil Heineman": [
+        "0.3293",
+        "10.89%",
+        "1.6181"
+      ],
+      "Simon Holmstrom": [
+        "0.1804",
+        "6.12%",
+        "0.965"
+      ],
+      "Bo Horvat": [
+        "1.1083",
+        "32.15%",
+        "2.5357"
+      ],
+      "Matias Maccelli": [
+        "0.129",
+        "4.42%",
+        "0.9668"
+      ],
+      "Kyle MacLean": [
+        "0.0091",
+        "0.32%",
+        "0.556"
+      ],
+      "Jean-Gabriel Pageau": [
+        "0.1374",
+        "4.69%",
+        "0.8349"
+      ],
+      "Ondrej Palat": [
+        "0.0289",
+        "1%",
+        "0.7919"
+      ],
+      "Kyle Palmieri": [
+        "0.4507",
+        "14.59%",
+        "2.1683"
+      ],
+      "Calum Ritchie": [
+        "0.116",
+        "3.98%",
+        "0.9276"
+      ],
+      "Brayden Schenn": [
+        "0.1955",
+        "6.61%",
+        "1.1345"
+      ],
+      "Tony DeAngelo": [
+        "0.0855",
+        "2.95%",
+        "1.4845"
+      ],
+      "Matthew Kessel": [
+        "0.0209",
+        "0.73%",
+        "0.5261"
+      ],
+      "Scott Mayfield": [
+        "0.0128",
+        "0.45%",
+        "0.677"
+      ],
+      "Adam Pelech": [
+        "0.053",
+        "1.84%",
+        "1.1342"
+      ],
+      "Ryan Pulock": [
+        "0.0349",
+        "1.21%",
+        "0.9328"
+      ],
+      "Alexander Romanov": [
+        "0",
+        "0%",
+        "1.5257"
+      ],
+      "Matthew Schaefer": [
+        "0.6617",
+        "20.67%",
+        "2.0654"
+      ],
+      "Logan Stanley": [
+        "0.0871",
+        "3%",
+        "0.9629"
+      ]
     },
     "allAwayPoints": {
-      "Jesper Boqvist": ["0.0199", "0.69%", "0.6698"],
-      "Jesper Bratt": ["0.3857", "12.63%", "1.6604"],
-      "Luke Evangelista": ["0.1884", "6.38%", "1.661"],
-      "Cody Glass": ["0.1887", "6.39%", "1.136"],
-      "Arseny Gritsyuk": ["0.239", "8.03%", "1.7247"],
-      "Nico Hischier": ["0.6347", "19.92%", "1.9657"],
-      "Amadeus Lombardi": ["0", "0%", "0"],
-      "Anthony Mantha": ["0.3712", "12.18%", "1.4047"],
-      "Timo Meier": ["0.7027", "21.8%", "2.6694"],
-      "Dawson Mercer": ["0.2984", "9.92%", "1.4727"],
-      "Stefan Noesen": ["0.0433", "1.5%", "1.0441"],
-      "Evan Rodrigues": ["0.22", "7.41%", "1.7709"],
-      "Declan Chisholm": ["0.0143", "0.5%", "0.5896"],
-      "Brenden Dillon": ["0.0153", "0.53%", "0.5121"],
-      "Dougie Hamilton": ["0.3116", "10.33%", "2.016"],
-      "Brett Pesce": ["0.0233", "0.81%", "0.9279"],
-      "Jonas Siegenthaler": ["0", "0%", "0"]
+      "Jesper Boqvist": [
+        "0.0199",
+        "0.69%",
+        "0.6698"
+      ],
+      "Jesper Bratt": [
+        "0.3857",
+        "12.63%",
+        "1.6604"
+      ],
+      "Luke Evangelista": [
+        "0.1884",
+        "6.38%",
+        "1.661"
+      ],
+      "Cody Glass": [
+        "0.1887",
+        "6.39%",
+        "1.136"
+      ],
+      "Arseny Gritsyuk": [
+        "0.239",
+        "8.03%",
+        "1.7247"
+      ],
+      "Nico Hischier": [
+        "0.6347",
+        "19.92%",
+        "1.9657"
+      ],
+      "Amadeus Lombardi": [
+        "0",
+        "0%",
+        "0"
+      ],
+      "Anthony Mantha": [
+        "0.3712",
+        "12.18%",
+        "1.4047"
+      ],
+      "Timo Meier": [
+        "0.7027",
+        "21.8%",
+        "2.6694"
+      ],
+      "Dawson Mercer": [
+        "0.2984",
+        "9.92%",
+        "1.4727"
+      ],
+      "Stefan Noesen": [
+        "0.0433",
+        "1.5%",
+        "1.0441"
+      ],
+      "Evan Rodrigues": [
+        "0.22",
+        "7.41%",
+        "1.7709"
+      ],
+      "Declan Chisholm": [
+        "0.0143",
+        "0.5%",
+        "0.5896"
+      ],
+      "Brenden Dillon": [
+        "0.0153",
+        "0.53%",
+        "0.5121"
+      ],
+      "Dougie Hamilton": [
+        "0.3116",
+        "10.33%",
+        "2.016"
+      ],
+      "Brett Pesce": [
+        "0.0233",
+        "0.81%",
+        "0.9279"
+      ],
+      "Jonas Siegenthaler": [
+        "0",
+        "0%",
+        "0"
+      ]
     },
     "outcome": "NYI (OTW), NYI: 1.32906 v NJD: 1.27978      Expected difference: 0.0492799999999998, (NYI: 2.2151 v NJD: 2.13297) (NYI: 51.23% , NJD: 48.77%)",
     "startingTime": "19:35:00",
@@ -1661,15 +1813,21 @@
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
     "awayLogLoss": {},
-    "bettingLines": ["NYI: Money Line", "Bo Horvat: +1 Point"],
-    "correctBettingLines": [0, 0],
+    "bettingLines": [
+      "NYI: Money Line",
+      "Bo Horvat: +1 Point"
+    ],
+    "correctBettingLines": [
+      0,
+      0
+    ],
     "correctLines": 0,
     "totalLines": 2
   },
   {
     "homeABV": "NSH",
     "awayABV": "DAL",
-    "homeGoalie": {},
+    "homeGoalie": "NSH: Juuse Saros",
     "awayGoalie": {},
     "homeScorers": {},
     "awayScorers": "Jason Robertson, DAL: 0.43444      (0.724066666666667)",
@@ -1719,7 +1877,7 @@
     },
     "outcome": "NSH (OTW), NSH: 1.31315 v DAL: 1.31301      Expected difference: 0.000139999999999807, (NSH: 2.18858 v DAL: 2.18835) (NSH: 50% , DAL: 50%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "19:26:43",
+    "timeLastRun": "19:56:53",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
@@ -1782,7 +1940,7 @@
     },
     "outcome": "MIN, MIN: 1.87893 v BOS: 1.281      Expected difference: 0.597929999999999, (MIN: 3.13155 v BOS: 2.135) (MIN: 64.52% , BOS: 35.48%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "19:26:46",
+    "timeLastRun": "19:56:56",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
@@ -1841,7 +1999,7 @@
     },
     "outcome": "COL, COL: 2.34974 v STL: 0.58894      Expected difference: 1.7608, (COL: 3.91623 v STL: 0.98157) (COL: 85.33% , STL: 14.67%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "19:26:48",
+    "timeLastRun": "19:56:58",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
@@ -1903,7 +2061,7 @@
     },
     "outcome": "CGY, VAN: 0.18981 v CGY: 0.8322      Expected difference: 0.64239, (VAN: 0.31635 v CGY: 1.387) (VAN: 34.47% , CGY: 65.53%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "19:26:51",
+    "timeLastRun": "19:57:02",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
@@ -1965,7 +2123,7 @@
     },
     "outcome": "LAK, SJS: 0.38241 v LAK: 1.09136      Expected difference: 0.70895, (SJS: 0.63735 v LAK: 1.81893) (SJS: 32.98% , LAK: 67.02%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "19:26:54",
+    "timeLastRun": "19:57:05",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
