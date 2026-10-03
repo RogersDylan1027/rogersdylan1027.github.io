@@ -1,5 +1,5 @@
-Budget · Version 0.6.4
-Main Budget Layout Refinement · 2026-10-02
+Budget · Version 0.6.5
+Odometer-Only MPG Calculation · 2026-10-03
 
 OVERVIEW
 ========
@@ -16,10 +16,11 @@ CAR / GAS
   purchase date.
 - Odometer is optional. Users may enter it on any fill-up and skip it on others.
 - When at least two usable odometer checkpoints exist, Budget estimates MPG by
-  subtracting the checkpoint odometers and dividing those miles by all gallons
-  purchased after the earlier checkpoint through the later checkpoint.
+  subtracting consecutive checkpoint odometers and dividing by the gallons on
+  the later odometer-linked fill-up only.
+- Fill-ups without odometer readings do not contribute gallons to MPG.
 - Multiple valid odometer segments are combined using total miles / total
-  gallons rather than averaging displayed MPG values.
+  odometer-linked gallons rather than averaging displayed MPG values.
 - Average Gas Cost is a managed expense: it is created when missing and updated
   in place when it already exists.
 
@@ -68,3 +69,12 @@ LAYOUT · 0.6.4
 On the Budget page, Budgets Included in Main now appears above Budget Items.
 This is a presentation-only reorder; existing budget calculations and controls
 are unchanged.
+
+
+CHANGELOG
+=========
+Version 0.6.5: Odometer-Only MPG Calculation
+
+Corrects Estimated MPG so only fill-ups that include odometer readings
+participate in the MPG calculation. Non-odometer fill-ups still count toward
+the normal gas-cost and price averages.

@@ -1,3 +1,16 @@
+Version 0.6.5: Odometer-Only MPG Calculation
+
+Description:
+Corrects Estimated MPG so the calculation uses only fill-ups that include an odometer reading.
+
+Changes:
+- Uses the mileage difference between consecutive valid odometer entries.
+- Uses only the gallons from the later fill-up in each odometer-to-odometer MPG segment.
+- Fill-ups without an odometer reading no longer contribute gallons to MPG.
+- Fill-ups without odometer readings still remain part of gas cost, weighted gas price, fill-up history, and average gas spending calculations.
+- Multiple valid odometer segments are combined using total miles divided by total odometer-linked gallons.
+- No Supabase schema or projects.json change is required.
+
 Version 0.6.4: Main Budget Layout Refinement
 
 Description:

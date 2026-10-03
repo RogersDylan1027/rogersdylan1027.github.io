@@ -372,6 +372,24 @@ TEST CHECKLIST
    unchanged.
 
 
+PROJECT CHANGELOG · 2026-10-03
+==============================
+Budget · Version 0.6.5: Odometer-Only MPG Calculation
+
+Corrects Estimated MPG so only fill-ups that include odometer readings are used
+for MPG.
+
+- Mileage is measured between consecutive valid odometer entries.
+- Gallons for each MPG segment come only from the later odometer-linked fill-up.
+- Fill-ups without odometer readings remain included in normal gas cost, price,
+  and spending averages but are excluded from MPG.
+- Dashboard/projects.json was checked and does not require a change.
+- Documents/privacy.html and Documents/tos.html were checked and do not require
+  changes because this release only corrects an existing calculation.
+- My Dashboard remains Version 0.10.11 because this is a Budget project update
+  plus a Dashboard changelog entry only.
+
+
 PROJECT CHANGELOG · 2026-10-02
 ==============================
 Budget · Version 0.6.4: Main Budget Layout Refinement
