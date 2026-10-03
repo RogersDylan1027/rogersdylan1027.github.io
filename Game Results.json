@@ -228,10 +228,10 @@
     "outcome": "DET (OTW), DET: 1.24251 v NYR: 1.21713      Expected difference: 0.0253799999999997, (DET: 2.07085 v NYR: 2.02855) (DET: 50.63% , NYR: 49.37%)",
     "startingTime": "18:35:00",
     "timeLastRun": "18:27:43",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.1078,
+    "awayMeanSquaredError": 0.2608,
+    "homeLogLoss": "NaN",
+    "awayLogLoss": 0.75,
     "bettingLines": [
       "DET: Money Line",
       "Alex DeBrincat: +1 Point"
@@ -462,13 +462,13 @@
     "outcome": "WSH, CAR: 1.25809 v WSH: 2.0783      Expected difference: 0.82021, (CAR: 2.09682 v WSH: 3.46383) (CAR: 30.57% , WSH: 69.43%)",
     "startingTime": "19:05:00",
     "timeLastRun": "18:56:54",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.1734,
+    "awayMeanSquaredError": 0.5528,
+    "homeLogLoss": 0.5588,
+    "awayLogLoss": 0.4927,
     "bettingLines": "WSH: Money Line",
-    "correctBettingLines": 0,
-    "correctLines": 0,
+    "correctBettingLines": 1,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -695,19 +695,19 @@
     "outcome": "WPG, WPG: 1.39565 v BOS: 1.07045      Expected difference: 0.3252, (WPG: 2.32608 v BOS: 1.78408) (WPG: 58.06% , BOS: 41.94%)",
     "startingTime": "20:05:00",
     "timeLastRun": "19:57:03",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.407,
+    "awayMeanSquaredError": 0.5463,
+    "homeLogLoss": "NaN",
+    "awayLogLoss": "Inf",
     "bettingLines": [
       "WPG: Money Line",
       "Kyle Connor: +1 Point"
     ],
     "correctBettingLines": [
       0,
-      0
+      1
     ],
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 2
   },
   {
@@ -929,10 +929,10 @@
     "outcome": "DAL, DAL: 1.4568 v STL: 0.81509      Expected difference: 0.64171, (DAL: 2.428 v STL: 1.35848) (DAL: 65.51% , STL: 34.49%)",
     "startingTime": "21:05:00",
     "timeLastRun": "20:57:14",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.1558,
+    "awayMeanSquaredError": 0.5179,
+    "homeLogLoss": "NaN",
+    "awayLogLoss": 0.8941,
     "bettingLines": [
       "DAL: Money Line",
       "Jason Robertson: +1 Point"
@@ -1168,10 +1168,10 @@
     "outcome": "VGK, VGK: 1.66705 v ANA: 1.57875      Expected difference: 0.0882999999999994, (VGK: 2.77842 v ANA: 2.63125) (VGK: 52.21% , ANA: 47.79%)",
     "startingTime": "22:05:00",
     "timeLastRun": "21:57:06",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.4612,
+    "awayMeanSquaredError": 0.3122,
+    "homeLogLoss": "NaN",
+    "awayLogLoss": "NaN",
     "bettingLines": [
       "VGK: Money Line",
       "Trevor Connelly: +1 Point",
@@ -1180,9 +1180,9 @@
     "correctBettingLines": [
       0,
       0,
-      0
+      1
     ],
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 3
   }
 ]
