@@ -1,7 +1,7 @@
 NHL ANALYTICS PROJECT
 
 Current version
-0.3.12
+0.3.13
 
 Version 0.2.0: Roster Simulation & Admin Model Diagnostics
 
@@ -252,6 +252,25 @@ VERSION 0.3.12 CHANGES
   user's selected picks.
 - Expected Shots, overtime-win detail, Recent Windows, and all existing model
   calculations remain unchanged.
+
+Version 0.3.13: Expandable Game History
+
+Reworks the Games page into expandable per-game history cards, keeping the existing season, search, team, date, and load-more controls while revealing each game’s stored prediction details and model betting results on demand.
+
+VERSION 0.3.13 CHANGES
+======================
+- Games is no longer a flat historical table.
+- Each stored matchup is shown as its own expandable game row/card.
+- Collapsed games show date, matchup, predicted winner, and scored model-pick
+  accuracy summary.
+- Expanding a game shows prediction confidence, overtime-win detail when
+  present, expected goal difference, goalies, expected point scorers, and the
+  game’s model betting picks with Won / Lost / Pending results.
+- Games is intentionally not grouped by day.
+- Existing Season, search, Team, From, To, Clear, and Load More behavior is
+  preserved.
+- Overview’s Day → Game → Pick drilldown from 0.3.12 remains unchanged.
+- Betting remains user-selected analytics.
 
 PURPOSE
 =======
