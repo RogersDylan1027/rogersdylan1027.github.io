@@ -1,7 +1,7 @@
 NHL ANALYTICS PROJECT
 
 Current version
-0.3.11
+0.3.12
 
 Version 0.2.0: Roster Simulation & Admin Model Diagnostics
 
@@ -234,6 +234,24 @@ VERSION 0.3.11 CHANGES
 - User Recent Windows remains the single rolling-period summary on Betting.
 - Expected Shots, overtime-win display, model-vs-user analytics separation,
   and all existing tracking behavior remain unchanged.
+
+Version 0.3.12: Grouped Betting History Drilldown
+
+Groups Overview’s Tracked Betting Predictions by day, adds daily model-pick accuracy summaries, and lets each game expand to show every model-selected bet with its Won, Lost, or Pending result while preserving the existing season filter.
+
+VERSION 0.3.12 CHANGES
+======================
+- Tracked Betting Predictions on Overview is grouped by prediction day.
+- Each day shows the model's correct / total scored picks and accuracy.
+- Expanding a day shows every stored game from that date.
+- Each game shows its own correct / total scored picks and accuracy.
+- Expanding a game shows every model-generated betting selection individually.
+- Individual picks are labeled Won, Lost, or Pending from correctBettingLines.
+- The existing Overview season selector continues to control which days appear.
+- Overview remains model-only; Betting remains based only on the signed-in
+  user's selected picks.
+- Expected Shots, overtime-win detail, Recent Windows, and all existing model
+  calculations remain unchanged.
 
 PURPOSE
 =======
