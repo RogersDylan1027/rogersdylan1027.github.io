@@ -1,6 +1,6 @@
 (() => {
   "use strict";
-  const VERSION = "0.3.11";
+  const VERSION = "0.3.12";
   const HISTORY_URL = "/All%20Results.json";
   const TODAY_URL = "/Game%20Results.json";
   const PICKS_STORAGE_KEY = "nhlAnalyticsModelPicks:v1";
@@ -524,9 +524,47 @@
     const teams=teamAggregates();$("teamModelTable").innerHTML=teams.length?'<div class="table-wrap"><table class="data-table" style="min-width:0"><thead><tr><th>Team</th><th>MSE</th><th>Log Loss</th></tr></thead><tbody>'+teams.map(r=>'<tr><td class="team">'+esc(r.team)+'</td><td>'+fixed(r.mseAvg,4)+'</td><td>'+fixed(r.llAvg,4)+'</td></tr>').join("")+'</tbody></table></div>':'<div class="empty">No team model metrics are available.</div>';
     $("teamCards").innerHTML=teams.map(r=>'<article class="team-card"><div class="team-card-head"><h4>'+esc(r.team)+'</h4><span class="big">'+pct(r.accuracy)+'</span></div><dl><dt>Games</dt><dd>'+r.games+'</dd><dt>Correct / Total Lines</dt><dd>'+r.correct+' / '+r.total+'</dd><dt>Average MSE</dt><dd>'+fixed(r.mseAvg,4)+'</dd><dt>Average Log Loss</dt><dd>'+fixed(r.llAvg,4)+'</dd></dl></article>').join("")||'<div class="empty">No team data available.</div>';
   }
+  function scoredBettingSummary(games) {
+    let correct=0,total=0;
+    (games||[]).forEach(g=>{
+      const lines=Array.isArray(g.bets)?g.bets:[];
+      const scored=Array.isArray(g.correctBettingResults)?g.correctBettingResults:[];
+      lines.forEach((line,index)=>{
+        const result=scored[index];
+        if(!Number.isFinite(result))return;
+        total+=1;
+        if(result===1)correct+=1;
+      });
+    });
+    return {correct,total,accuracy:total?correct/total:null};
+  }
+  function bettingPickResultLabel(value) {
+    return !Number.isFinite(value)?{label:"Pending",className:"pending"}:value===1?{label:"Won",className:"won"}:{label:"Lost",className:"lost"};
+  }
   function historicalBettingTable(games) {
     const rows=(games||[]).filter(g=>g.bets.length||g.correctBettingResults.length);
-    return rows.length?'<div class="table-wrap"><table class="data-table"><thead><tr><th>Date</th><th>Matchup</th><th>Betting Selection</th><th>Correct Picks</th><th>Game Line Accuracy</th></tr></thead><tbody>'+rows.slice(0,500).map(g=>'<tr><td class="nowrap">'+esc(formatDate(g.date))+'</td><td><span class="team">'+esc(g.away)+'</span> @ <span class="team">'+esc(g.home)+'</span></td><td>'+esc(g.bets.join("; ")||"—")+'</td><td>'+esc(g.correctBettingResults.length?g.correctBets+" / "+g.correctBettingResults.length:"—")+'</td><td>'+pct(g.lineAccuracy)+'</td></tr>').join("")+'</tbody></table></div>':'<div class="empty">No historical betting fields are available yet.</div>';
+    if(!rows.length)return'<div class="empty">No historical betting fields are available yet.</div>';
+    const byDate=new Map();
+    rows.forEach(g=>{
+      const key=g.date||"";
+      if(!byDate.has(key))byDate.set(key,[]);
+      byDate.get(key).push(g);
+    });
+    const dates=[...byDate.keys()].sort((a,b)=>b.localeCompare(a));
+    return '<div class="bet-history">'+dates.map(date=>{
+      const dayGames=byDate.get(date);
+      const day=scoredBettingSummary(dayGames);
+      const dayMeta=day.total?day.correct+' / '+day.total+' · '+pct(day.accuracy):'No scored picks';
+      return '<details class="bet-day"><summary class="bet-day-summary"><strong><span class="bet-caret">›</span>'+esc(formatDate(date))+'</strong><span class="bet-summary-meta">'+esc(dayMeta)+'</span></summary><div class="bet-games">'+dayGames.map(g=>{
+        const game=scoredBettingSummary([g]);
+        const gameMeta=game.total?game.correct+' / '+game.total+' · '+pct(game.accuracy):'No scored picks';
+        const picks=(g.bets||[]).map((pick,index)=>{
+          const result=bettingPickResultLabel(g.correctBettingResults[index]);
+          return '<div class="bet-pick"><span class="bet-pick-name">'+esc(pick)+'</span><span class="bet-result '+result.className+'">'+esc(result.label)+'</span></div>';
+        }).join("")||'<div class="empty">No model picks stored for this game.</div>';
+        return '<details class="bet-game"><summary class="bet-game-summary"><span class="match"><span class="bet-caret">›</span>'+esc(g.away)+' @ '+esc(g.home)+'</span><span class="bet-summary-meta">'+esc(gameMeta)+'</span></summary><div class="bet-picks">'+picks+'</div></details>';
+      }).join("")+'</div></details>';
+    }).join("")+'</div>';
   }
 
   function renderBetting(){
