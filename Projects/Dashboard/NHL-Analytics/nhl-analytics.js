@@ -1,6 +1,6 @@
 (() => {
   "use strict";
-  const VERSION = "0.3.12";
+  const VERSION = "0.3.13";
   const HISTORY_URL = "/All%20Results.json";
   const TODAY_URL = "/Game%20Results.json";
   const PICKS_STORAGE_KEY = "nhlAnalyticsModelPicks:v1";
@@ -514,8 +514,24 @@
   }
   function populateTeamFilter(){const teams=[...new Set(state.games.flatMap(g=>[g.home,g.away]).filter(t=>t&&t!=="?"))].sort(),select=$("teamFilter"),current=select.value;select.innerHTML='<option value="">All teams</option>'+teams.map(t=>'<option value="'+esc(t)+'">'+esc(t)+'</option>').join("");select.value=teams.includes(current)?current:"";}
   function applyGameFilters(){const q=$("gameSearch").value.trim().toLowerCase(),team=$("teamFilter").value,from=$("dateFrom").value,to=$("dateTo").value;state.filtered=seasonFilteredGames().filter(g=>{if(team&&g.home!==team&&g.away!==team)return false;if(from&&g.date<from)return false;if(to&&g.date>to)return false;if(q){const text=[g.home,g.away,g.homeGoalie,g.awayGoalie,g.outcome.raw,g.bets.join(" "),...g.homeScorersList,...g.awayScorersList].join(" ").toLowerCase();if(!text.includes(q))return false;}return true;});state.shown=100;renderGamesTable();}
+  function expandableGameHistory(games){
+    if(!games.length)return'<div class="empty">No games match this view.</div>';
+    return '<div class="game-history-list">'+games.map(g=>{
+      const gameSummary=scoredBettingSummary([g]);
+      const accuracyMeta=gameSummary.total?gameSummary.correct+' / '+gameSummary.total+' · '+pct(gameSummary.accuracy):'No scored picks';
+      const confidence=g.outcome.winner===g.home?g.outcome.homeWinPct:g.outcome.winner===g.away?g.outcome.awayWinPct:null;
+      const prediction=(g.outcome.winner||"Unavailable")+(g.outcome.overtimeWin?" — Overtime Win":"")+(Number.isFinite(confidence)?" · "+pct(confidence):"");
+      const scorers=[...g.awayScorersList,...g.homeScorersList].map(expectedScorerDisplayName).filter(Boolean);
+      const picks=(g.bets||[]).map((pick,index)=>{
+        const result=bettingPickResultLabel(g.correctBettingResults[index]);
+        return '<div class="game-history-pick"><span>'+esc(pick)+'</span><span class="bet-result '+result.className+'">'+esc(result.label)+'</span></div>';
+      }).join("")||'<div class="empty">No model betting picks stored for this game.</div>';
+      return '<details class="game-history-item"><summary class="game-history-summary"><div class="game-history-main"><div class="game-history-match"><span class="bet-caret">›</span>'+esc(g.away)+' @ '+esc(g.home)+'</div><span class="game-history-date">'+esc(formatDate(g.date))+'</span></div><span class="game-history-meta">'+esc(g.outcome.winner||"No prediction")+' · '+esc(accuracyMeta)+'</span></summary><div class="game-history-details"><div class="game-history-block"><h4>Prediction</h4><p>'+esc(prediction)+'</p></div><div class="game-history-block"><h4>Expected Difference</h4><p>'+esc(Number.isFinite(g.outcome.expectedDifference)?fixed(g.outcome.expectedDifference/GOAL_VALUE,2)+" goals":"—")+'</p></div><div class="game-history-block"><h4>Away Goalie</h4><p>'+esc(g.awayGoalie||"Not confirmed")+'</p></div><div class="game-history-block"><h4>Home Goalie</h4><p>'+esc(g.homeGoalie||"Not confirmed")+'</p></div><div class="game-history-block full"><h4>Expected Point Scorers</h4><p>'+esc(scorers.length?scorers.join(", "):"No scorer prediction stored for this game.")+'</p></div><div class="game-history-block full"><h4>Model Betting Picks</h4><div class="game-history-picks">'+picks+'</div></div></div></details>';
+    }).join("")+'</div>';
+  }
+
   function renderGames(){const seasonGames=seasonFilteredGames();if(!state.filtered.length&&seasonGames.length)state.filtered=[...seasonGames];renderGamesTable();}
-  function renderGamesTable(){const shown=state.filtered.slice(0,state.shown);$("gameCountNote").textContent=state.filtered.length.toLocaleString()+" matching games";$("gamesTable").innerHTML=gameTable(shown);$("loadMoreGames").classList.toggle("hidden",shown.length>=state.filtered.length);}
+  function renderGamesTable(){const shown=state.filtered.slice(0,state.shown);$("gameCountNote").textContent=state.filtered.length.toLocaleString()+" matching games";$("gamesTable").innerHTML=expandableGameHistory(shown);$("loadMoreGames").classList.toggle("hidden",shown.length>=state.filtered.length);}
   function teamAggregates(){const map=new Map();state.games.forEach(g=>{[[g.home,g.homeMSE,g.homeLL],[g.away,g.awayMSE,g.awayLL]].forEach(([team,mse,ll])=>{if(!team||team==="?")return;const r=map.get(team)||{team,games:0,correct:0,total:0,mse:[],ll:[]};r.games++;if(Number.isFinite(g.correct))r.correct+=g.correct;if(Number.isFinite(g.total))r.total+=g.total;if(Number.isFinite(mse))r.mse.push(mse);if(Number.isFinite(ll))r.ll.push(ll);map.set(team,r);});});return[...map.values()].map(r=>({...r,accuracy:r.total?r.correct/r.total:null,mseAvg:avg(r.mse),llAvg:avg(r.ll)})).sort((a,b)=>a.team.localeCompare(b.team));}
   function renderModel(){
     const mse=state.games.flatMap(g=>[g.homeMSE,g.awayMSE]).filter(Number.isFinite),ll=state.games.flatMap(g=>[g.homeLL,g.awayLL]).filter(Number.isFinite),all=aggregateLineAccuracy(state.games);
