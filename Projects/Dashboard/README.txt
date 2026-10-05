@@ -722,3 +722,24 @@ Removes the redundant Last 7 Days and Last 30 Days metric cards from both Overvi
   change is required because this release only removes redundant presentation.
 - My Dashboard remains Version 0.10.11 because the Dashboard itself only
   receives this project changelog entry.
+
+
+PROJECT CHANGELOG · 2026-10-05
+==============================
+NHL Analytics · Version 0.3.12: Grouped Betting History Drilldown
+
+Groups Overview’s Tracked Betting Predictions by day, adds daily model-pick accuracy summaries, and lets each game expand to show every model-selected bet with its Won, Lost, or Pending result while preserving the existing season filter.
+
+- Overview Tracked Betting Predictions is now grouped by day.
+- Each day displays correct / total model picks and daily accuracy.
+- Days expand into games, and each game displays its own correct / total picks
+  and accuracy.
+- Games expand into individual model picks labeled Won, Lost, or Pending.
+- The Overview season selector continues to filter the grouped history.
+- Overview remains model-only and Betting remains user-selected analytics.
+- Dashboard/projects.json was checked and does not require a change.
+- Documents/privacy.html and Documents/tos.html were checked; no legal-text
+  change is required because this release reorganizes existing model-result
+  presentation only.
+- My Dashboard remains Version 0.10.11 because the Dashboard itself only
+  receives this project changelog entry.
