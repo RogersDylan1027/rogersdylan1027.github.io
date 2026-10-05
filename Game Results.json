@@ -218,19 +218,19 @@
     "outcome": "WPG, DET: 0.61577 v WPG: 1.39646      Expected difference: 0.78069, (DET: 1.02628 v WPG: 2.32743) (DET: 31.42% , WPG: 68.58%)",
     "startingTime": "13:05:00",
     "timeLastRun": "12:57:35",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.2139,
+    "awayMeanSquaredError": 0.6861,
+    "homeLogLoss": "Inf",
+    "awayLogLoss": "NaN",
     "bettingLines": [
       "WPG: Money Line",
       "Kyle Connor: +1 Point"
     ],
     "correctBettingLines": [
-      0,
-      0
+      1,
+      1
     ],
-    "correctLines": 0,
+    "correctLines": 2,
     "totalLines": 2
   },
   {
@@ -457,10 +457,10 @@
     "outcome": "UTA, NYR: 1.44231 v UTA: 1.67209      Expected difference: 0.22978, (NYR: 2.40385 v UTA: 2.78682) (NYR: 44.28% , UTA: 55.72%)",
     "startingTime": "18:05:00",
     "timeLastRun": "17:56:41",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.3629,
+    "awayMeanSquaredError": 0.1647,
+    "homeLogLoss": 0.7338,
+    "awayLogLoss": "NaN",
     "bettingLines": [
       "UTA: Money Line",
       "Dylan Guenther: +1 Point"
@@ -691,19 +691,19 @@
     "outcome": "ANA, ANA: 1.70524 v FLA: 1.32456      Expected difference: 0.380679999999999, (ANA: 2.84207 v FLA: 2.2076) (ANA: 59.4% , FLA: 40.6%)",
     "startingTime": "20:05:00",
     "timeLastRun": "19:56:57",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.4273,
+    "awayMeanSquaredError": 0.1598,
+    "homeLogLoss": "NaN",
+    "awayLogLoss": 0.5253,
     "bettingLines": [
       "ANA: Money Line",
       "Cutter Gauthier: +1 Point"
     ],
     "correctBettingLines": [
-      0,
-      0
+      1,
+      1
     ],
-    "correctLines": 0,
+    "correctLines": 2,
     "totalLines": 2
   },
   {
@@ -930,10 +930,10 @@
     "outcome": "CGY, SEA: 0.31118 v CGY: 0.85997      Expected difference: 0.54879, (SEA: 0.51863 v CGY: 1.43328) (SEA: 36.61% , CGY: 63.39%)",
     "startingTime": "20:05:00",
     "timeLastRun": "19:57:01",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 1.0056,
+    "awayMeanSquaredError": 0.0993,
+    "homeLogLoss": 2.1229,
+    "awayLogLoss": 0.2962,
     "bettingLines": "CGY: Money Line",
     "correctBettingLines": 0,
     "correctLines": 0,
@@ -1138,13 +1138,13 @@
     "outcome": "VGK (OTW), VAN: 0.41468 v VGK: 0.42975      Expected difference: 0.01507, (VAN: 0.69113 v VGK: 0.71625) (VAN: 49.62% , VGK: 50.38%)",
     "startingTime": "21:05:00",
     "timeLastRun": "20:57:01",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.3112,
+    "awayMeanSquaredError": 0.3637,
+    "homeLogLoss": 1.2345,
+    "awayLogLoss": 1.4083,
     "bettingLines": "VGK: Money Line",
-    "correctBettingLines": 0,
-    "correctLines": 0,
+    "correctBettingLines": 1,
+    "correctLines": 1,
     "totalLines": 1
   }
 ]
