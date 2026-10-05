@@ -51,7 +51,7 @@
     },
     "outcome": "PHI, TBL: 0.48675 v PHI: 1.29563      Expected difference: 0.80888, (TBL: 0.81125 v PHI: 2.15938) (TBL: 30.81% , PHI: 69.19%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "12:27:41",
+    "timeLastRun": "12:57:03",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
@@ -88,7 +88,6 @@
       "Connor Clifton": ["0.0171", "0.6%", "0.4651"],
       "Hampus Lindholm": ["0.0859", "2.96%", "0.981"],
       "Mason Lohrei": ["0.0586", "2.03%", "0.6381"],
-      "Charlie McAvoy": ["0.2324", "7.81%", "1.1214"],
       "Nikita Zadorov": ["0.0239", "0.83%", "0.8797"]
     },
     "allAwayPoints": {
@@ -112,9 +111,9 @@
       "Jordan Spence": ["0.0968", "3.33%", "1.0184"],
       "Carter Yakemchuk": ["0.1881", "6.37%", "1.1156"]
     },
-    "outcome": "OTT (OTW), BOS: 1.40024 v OTT: 1.43852      Expected difference: 0.0382800000000001, (BOS: 2.33373 v OTT: 2.39753) (BOS: 49.04% , OTT: 50.96%)",
+    "outcome": "OTT, BOS: 1.31891 v OTT: 1.43852      Expected difference: 0.11961, (BOS: 2.19818 v OTT: 2.39753) (BOS: 47.01% , OTT: 52.99%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "12:27:45",
+    "timeLastRun": "12:57:06",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
@@ -144,7 +143,6 @@
       "Evgeni Malkin": ["0.4726", "15.25%", "2.1188"],
       "Tommy Novak": ["0.1287", "4.4%", "1.3128"],
       "Rickard Rakell": ["0.6187", "19.47%", "2.3234"],
-      "Nick Robertson": ["0.1356", "4.64%", "1.3752"],
       "Elmer Soderblom": ["0.0485", "1.68%", "0.9854"],
       "Declan Carlile": ["0.0093", "0.32%", "0.659"],
       "Samuel Girard": ["0.0205", "0.72%", "0.5819"],
@@ -177,9 +175,9 @@
       "Dylan Samberg": ["0.0155", "0.54%", "0.9824"],
       "Jack St. Ivany": ["0", "0%", "0.6348"]
     },
-    "outcome": "WPG, PIT: 1.14976 v WPG: 1.31132      Expected difference: 0.16156, (PIT: 1.91627 v WPG: 2.18553) (PIT: 45.97% , WPG: 54.03%)",
+    "outcome": "WPG, PIT: 1.10229 v WPG: 1.31132      Expected difference: 0.20903, (PIT: 1.83715 v WPG: 2.18553) (PIT: 44.79% , WPG: 55.21%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "12:27:48",
+    "timeLastRun": "12:57:09",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
@@ -193,8 +191,8 @@
     "homeABV": "DAL",
     "awayABV": "SJS",
     "homeGoalie": "DAL: Jake Oettinger",
-    "awayGoalie": {},
-    "homeScorers": "Jason Robertson, DAL: 0.40972      (0.682866666666667)",
+    "awayGoalie": "SJS: Yaroslav Askarov",
+    "homeScorers": {},
     "awayScorers": "Macklin Celebrini, SJS: 0.56994      (0.9499)",
     "allHomePoints": {
       "Jamie Benn": ["0.0998", "3.43%", "1.1143"],
@@ -207,7 +205,6 @@
       "Wyatt Johnston": ["0.811", "24.71%", "2.3634"],
       "Joel Kiviranta": ["0.015", "0.52%", "0.9043"],
       "Mikko Rantanen": ["0.4084", "13.32%", "2.01"],
-      "Jason Robertson": ["1.1706", "33.62%", "3.3817"],
       "Tyler Seguin": ["0.1357", "4.64%", "1.0738"],
       "Sam Steel": ["0.0742", "2.56%", "1.0282"],
       "Lian Bichsel": ["0.0171", "0.6%", "0.5072"],
@@ -242,16 +239,16 @@
       "Dmitry Orlov": ["0.0335", "1.17%", "0.7401"],
       "Jacob Trouba": ["0.2189", "7.38%", "1.362"]
     },
-    "outcome": "SJS, DAL: 1.24511 v SJS: 1.86656      Expected difference: 0.62145, (DAL: 2.07518 v SJS: 3.11093) (DAL: 34.95% , SJS: 65.05%)",
+    "outcome": "SJS, DAL: 0.83539 v SJS: 1.86656      Expected difference: 1.03117, (DAL: 1.39232 v SJS: 3.11093) (DAL: 26.29% , SJS: 73.71%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "12:27:52",
+    "timeLastRun": "12:57:12",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
     "awayLogLoss": {},
-    "bettingLines": ["SJS: Money Line", "Jason Robertson: +1 Point", "Macklin Celebrini: +1 Point"],
-    "correctBettingLines": [0, 0, 0],
+    "bettingLines": ["SJS: Money Line", "Macklin Celebrini: +1 Point"],
+    "correctBettingLines": [0, 0],
     "correctLines": 0,
-    "totalLines": 3
+    "totalLines": 2
   }
 ]
