@@ -743,3 +743,26 @@ Groups Overview’s Tracked Betting Predictions by day, adds daily model-pick ac
   presentation only.
 - My Dashboard remains Version 0.10.11 because the Dashboard itself only
   receives this project changelog entry.
+
+
+PROJECT CHANGELOG · 2026-10-05
+==============================
+NHL Analytics · Version 0.3.13: Expandable Game History
+
+Reworks the Games page into expandable per-game history cards, keeping the existing season, search, team, date, and load-more controls while revealing each game’s stored prediction details and model betting results on demand.
+
+- Games now uses expandable per-game history instead of a flat table.
+- Each collapsed game shows its date, matchup, predicted winner, and model-pick
+  accuracy summary.
+- Opening a game shows prediction details, expected goal difference, goalies,
+  expected point scorers, and each model betting pick with Won / Lost / Pending.
+- Games is not grouped by day.
+- Existing season/search/team/date filters and Load More remain unchanged.
+- Overview’s grouped betting history and Betting’s user-specific analytics remain
+  unchanged.
+- Dashboard/projects.json was checked and does not require a change.
+- Documents/privacy.html and Documents/tos.html were checked; no legal-text
+  change is required because this release only reorganizes existing model-result
+  presentation.
+- My Dashboard remains Version 0.10.11 because the Dashboard itself only
+  receives this project changelog entry.
