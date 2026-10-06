@@ -1,7 +1,7 @@
 NHL ANALYTICS PROJECT
 
 Current version
-0.3.13
+0.3.14
 
 Version 0.2.0: Roster Simulation & Admin Model Diagnostics
 
@@ -271,6 +271,25 @@ VERSION 0.3.13 CHANGES
   preserved.
 - Overview’s Day → Game → Pick drilldown from 0.3.12 remains unchanged.
 - Betting remains user-selected analytics.
+
+Version 0.3.14: Daily Accuracy Charts
+
+Adds separate Accuracy by Day graphs to Overview and Betting while preserving Accuracy Over Time as a cumulative trend, with each daily point showing the percentage of scored bets that were correct on that calendar day using a fixed 0–100% scale.
+
+VERSION 0.3.14 CHANGES
+======================
+- Overview keeps Model Pick Accuracy Over Time as a cumulative accuracy trend.
+- Overview adds Model Accuracy by Day for each calendar day's standalone model
+  betting accuracy.
+- Betting keeps My Pick Accuracy Over Time as a cumulative accuracy trend.
+- Betting adds My Accuracy by Day for each calendar day's standalone accuracy
+  across the signed-in user's scored selected picks.
+- Daily and cumulative accuracy charts use a fixed 0–100% Y-axis with percentage
+  labels and date-based X-axis ticks.
+- The Overview season selector continues to control both model charts.
+- Betting charts continue to use the signed-in user's full selected-pick history.
+- Recent Windows, grouped betting history, expandable Games, Expected Shots,
+  overtime-win display, and existing bet tracking remain unchanged.
 
 PURPOSE
 =======
