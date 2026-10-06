@@ -484,7 +484,7 @@
   function lineChart(containerId,series,accessors,yMaxOverride=null,options={}){
     const host=$(containerId),valid=series.filter(row=>accessors.some(a=>Number.isFinite(a.value(row))));
     if(!valid.length){host.innerHTML='<div class="chart-empty">Not enough stored data to draw this chart.</div>';return;}
-    const recent=valid.slice(-60),width=900,height=260,pad={l:options.percentAxis?52:36,r:14,t:16,b:options.dayAxis?36:28},vals=recent.flatMap(r=>accessors.map(a=>a.value(r)).filter(Number.isFinite)),min=Math.min(...vals),max=yMaxOverride??Math.max(...vals),low=yMaxOverride!==null?0:Math.max(0,min-(max-min)*.12),high=max===low?low+1:max+(max-low)*.08,x=i=>pad.l+(recent.length===1?0:(i/(recent.length-1))*(width-pad.l-pad.r)),y=v=>pad.t+(high-v)/(high-low)*(height-pad.t-pad.b);
+    const recent=valid.slice(-60),width=900,height=260,pad={l:options.percentAxis?52:36,r:14,t:16,b:options.dayAxis?36:28},vals=recent.flatMap(r=>accessors.map(a=>a.value(r)).filter(Number.isFinite)),min=Math.min(...vals),max=yMaxOverride??Math.max(...vals),low=yMaxOverride!==null?0:Math.max(0,min-(max-min)*.12),high=yMaxOverride!==null?max:(max===low?low+1:max+(max-low)*.08),x=i=>pad.l+(recent.length===1?0:(i/(recent.length-1))*(width-pad.l-pad.r)),y=v=>pad.t+(high-v)/(high-low)*(height-pad.t-pad.b);
     let svg='<svg class="chart" viewBox="0 0 '+width+' '+height+'" role="img">';
     [0,.25,.5,.75,1].forEach(t=>{
       const yy=pad.t+t*(height-pad.t-pad.b),value=high-(high-low)*t;
