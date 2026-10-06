@@ -7,49 +7,213 @@
     "homeScorers": "Auston Matthews, TOR: 0.43761      (0.72935)",
     "awayScorers": "Filip Forsberg, NSH: 0.37031      (0.617183333333333)",
     "allHomePoints": {
-      "Teddy Blueger": ["0.2015", "6.81%", "1.0945"],
-      "Easton Cowan": ["0.1203", "4.12%", "1.0589"],
-      "Brandon Duhaime": ["0.0148", "0.52%", "0.5925"],
-      "Bo Groulx": ["0.1379", "4.71%", "0.8748"],
-      "Luke Haymes": ["0", "0%", "0.5699"],
-      "Zack MacEwen": ["0", "0%", "0"],
-      "Kirill Marchenko": ["0.6821", "21.24%", "2.1803"],
-      "Auston Matthews": ["1.2503", "35.44%", "2.8719"],
-      "Gavin McKenna": ["0", "0%", "0.7599"],
-      "William Nylander": ["0.7605", "23.37%", "1.8253"],
-      "Nick Paul": ["0.0779", "2.69%", "0.9976"],
-      "Jack Roslovic": ["0.3062", "10.16%", "1.5198"],
-      "Colton Sissons": ["0.0457", "1.59%", "0.8245"],
-      "John Tavares": ["0.5594", "17.78%", "1.7808"],
-      "Nick Blankenburg": ["0.0916", "3.16%", "0.8969"],
-      "Oliver Ekman-Larsson": ["0.0995", "3.42%", "1.0502"],
-      "Jake McCabe": ["0.0453", "1.57%", "0.7316"],
-      "Darren Raddysh": ["0.6915", "21.5%", "2.2796"],
-      "Morgan Rielly": ["0.1864", "6.32%", "1.3695"],
-      "Troy Stecher": ["0.031", "1.08%", "0.7578"],
-      "Chris Tanev": ["0", "0%", "0.2533"]
+      "Teddy Blueger": [
+        "0.2015",
+        "6.81%",
+        "1.0945"
+      ],
+      "Easton Cowan": [
+        "0.1203",
+        "4.12%",
+        "1.0589"
+      ],
+      "Brandon Duhaime": [
+        "0.0148",
+        "0.52%",
+        "0.5925"
+      ],
+      "Bo Groulx": [
+        "0.1379",
+        "4.71%",
+        "0.8748"
+      ],
+      "Luke Haymes": [
+        "0",
+        "0%",
+        "0.5699"
+      ],
+      "Zack MacEwen": [
+        "0",
+        "0%",
+        "0"
+      ],
+      "Kirill Marchenko": [
+        "0.6821",
+        "21.24%",
+        "2.1803"
+      ],
+      "Auston Matthews": [
+        "1.2503",
+        "35.44%",
+        "2.8719"
+      ],
+      "Gavin McKenna": [
+        "0",
+        "0%",
+        "0.7599"
+      ],
+      "William Nylander": [
+        "0.7605",
+        "23.37%",
+        "1.8253"
+      ],
+      "Nick Paul": [
+        "0.0779",
+        "2.69%",
+        "0.9976"
+      ],
+      "Jack Roslovic": [
+        "0.3062",
+        "10.16%",
+        "1.5198"
+      ],
+      "Colton Sissons": [
+        "0.0457",
+        "1.59%",
+        "0.8245"
+      ],
+      "John Tavares": [
+        "0.5594",
+        "17.78%",
+        "1.7808"
+      ],
+      "Nick Blankenburg": [
+        "0.0916",
+        "3.16%",
+        "0.8969"
+      ],
+      "Oliver Ekman-Larsson": [
+        "0.0995",
+        "3.42%",
+        "1.0502"
+      ],
+      "Jake McCabe": [
+        "0.0453",
+        "1.57%",
+        "0.7316"
+      ],
+      "Darren Raddysh": [
+        "0.6915",
+        "21.5%",
+        "2.2796"
+      ],
+      "Morgan Rielly": [
+        "0.1864",
+        "6.32%",
+        "1.3695"
+      ],
+      "Troy Stecher": [
+        "0.031",
+        "1.08%",
+        "0.7578"
+      ],
+      "Chris Tanev": [
+        "0",
+        "0%",
+        "0.2533"
+      ]
     },
     "allAwayPoints": {
-      "Mavrik Bourque": ["0.2625", "8.78%", "1.2827"],
-      "Ross Colton": ["0.126", "4.31%", "1.4397"],
-      "Jack Drury": ["0.0856", "2.95%", "0.8307"],
-      "Adam Edstrom": ["0.0284", "0.99%", "0.6271"],
-      "Filip Forsberg": ["1.058", "30.95%", "2.0972"],
-      "Nils Hoglander": ["0.0223", "0.78%", "0.6451"],
-      "Alexander Kerfoot": ["0.0743", "2.57%", "0.5782"],
-      "Jonathan Marchessault": ["0.2613", "8.74%", "1.4887"],
-      "Ryan O'Reilly": ["0.4557", "14.74%", "1.332"],
-      "Vitali Pinchuk": ["0", "0%", "0"],
-      "Reid Schaefer": ["0.0393", "1.36%", "0.581"],
-      "Steven Stamkos": ["0.8815", "26.55%", "1.7585"],
-      "Matthew Wood": ["0.1684", "5.72%", "1.0156"],
-      "Jack Ahcan": ["0", "0%", "0"],
-      "Nicolas Hague": ["0.0322", "1.12%", "0.63"],
-      "Roman Josi": ["0.4839", "15.58%", "1.8606"],
-      "Ilya Lyubushkin": ["0.0067", "0.23%", "0.4327"],
-      "Nick Perbix": ["0.0274", "0.96%", "0.699"],
-      "Brady Skjei": ["0.0419", "1.46%", "0.9469"],
-      "Adam Wilsby": ["0.0112", "0.39%", "0.7107"]
+      "Mavrik Bourque": [
+        "0.2625",
+        "8.78%",
+        "1.2827"
+      ],
+      "Ross Colton": [
+        "0.126",
+        "4.31%",
+        "1.4397"
+      ],
+      "Jack Drury": [
+        "0.0856",
+        "2.95%",
+        "0.8307"
+      ],
+      "Adam Edstrom": [
+        "0.0284",
+        "0.99%",
+        "0.6271"
+      ],
+      "Filip Forsberg": [
+        "1.058",
+        "30.95%",
+        "2.0972"
+      ],
+      "Nils Hoglander": [
+        "0.0223",
+        "0.78%",
+        "0.6451"
+      ],
+      "Alexander Kerfoot": [
+        "0.0743",
+        "2.57%",
+        "0.5782"
+      ],
+      "Jonathan Marchessault": [
+        "0.2613",
+        "8.74%",
+        "1.4887"
+      ],
+      "Ryan O'Reilly": [
+        "0.4557",
+        "14.74%",
+        "1.332"
+      ],
+      "Vitali Pinchuk": [
+        "0",
+        "0%",
+        "0"
+      ],
+      "Reid Schaefer": [
+        "0.0393",
+        "1.36%",
+        "0.581"
+      ],
+      "Steven Stamkos": [
+        "0.8815",
+        "26.55%",
+        "1.7585"
+      ],
+      "Matthew Wood": [
+        "0.1684",
+        "5.72%",
+        "1.0156"
+      ],
+      "Jack Ahcan": [
+        "0",
+        "0%",
+        "0"
+      ],
+      "Nicolas Hague": [
+        "0.0322",
+        "1.12%",
+        "0.63"
+      ],
+      "Roman Josi": [
+        "0.4839",
+        "15.58%",
+        "1.8606"
+      ],
+      "Ilya Lyubushkin": [
+        "0.0067",
+        "0.23%",
+        "0.4327"
+      ],
+      "Nick Perbix": [
+        "0.0274",
+        "0.96%",
+        "0.699"
+      ],
+      "Brady Skjei": [
+        "0.0419",
+        "1.46%",
+        "0.9469"
+      ],
+      "Adam Wilsby": [
+        "0.0112",
+        "0.39%",
+        "0.7107"
+      ]
     },
     "outcome": "TOR, TOR: 1.85566 v NSH: 1.42328      Expected difference: 0.43238, (TOR: 3.09277 v NSH: 2.37213) (TOR: 60.64% , NSH: 39.36%)",
     "startingTime": "19:05:00",
@@ -58,8 +222,16 @@
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
     "awayLogLoss": {},
-    "bettingLines": ["TOR: Money Line", "Auston Matthews: +1 Point", "Filip Forsberg: +1 Point"],
-    "correctBettingLines": [0, 0, 0],
+    "bettingLines": [
+      "TOR: Money Line",
+      "Auston Matthews: +1 Point",
+      "Filip Forsberg: +1 Point"
+    ],
+    "correctBettingLines": [
+      0,
+      0,
+      0
+    ],
     "correctLines": 0,
     "totalLines": 3
   },
@@ -71,47 +243,203 @@
     "homeScorers": {},
     "awayScorers": {},
     "allHomePoints": {
-      "Josh Anderson": ["0.1158", "3.97%", "1.1463"],
-      "Zachary Bolduc": ["0.0739", "2.55%", "1.0716"],
-      "Cole Caufield": ["0.9396", "28.03%", "2.6302"],
-      "Kirby Dach": ["0.0932", "3.21%", "1.0275"],
-      "Phillip Danault": ["0.0442", "1.54%", "1.0571"],
-      "Jake Evans": ["0.0824", "2.84%", "0.964"],
-      "Chris Kreider": ["0.2385", "8.01%", "1.5251"],
-      "Alex Newhook": ["0.2311", "7.77%", "1.3464"],
-      "Juraj Slafkovský": ["0.4479", "14.51%", "1.9712"],
-      "Nick Suzuki": ["0.4538", "14.69%", "1.9309"],
-      "Alexandre Texier": ["0.09", "3.1%", "1.2643"],
-      "Florian Xhekaj": ["0", "0%", "0.6991"],
-      "Alexandre Carrier": ["0.0347", "1.21%", "0.6001"],
-      "Noah Dobson": ["0.1655", "5.63%", "1.68"],
-      "Adam Engstrom": ["0", "0%", "0.6408"],
-      "Lane Hutson": ["0.164", "5.58%", "1.3323"],
-      "Mike Matheson": ["0.0962", "3.31%", "1.2454"],
-      "Jayden Struble": ["0.0051", "0.18%", "0.3926"],
-      "Arber Xhekaj": ["0.0052", "0.18%", "0.5362"]
+      "Josh Anderson": [
+        "0.1158",
+        "3.97%",
+        "1.1463"
+      ],
+      "Zachary Bolduc": [
+        "0.0739",
+        "2.55%",
+        "1.0716"
+      ],
+      "Cole Caufield": [
+        "0.9396",
+        "28.03%",
+        "2.6302"
+      ],
+      "Kirby Dach": [
+        "0.0932",
+        "3.21%",
+        "1.0275"
+      ],
+      "Phillip Danault": [
+        "0.0442",
+        "1.54%",
+        "1.0571"
+      ],
+      "Jake Evans": [
+        "0.0824",
+        "2.84%",
+        "0.964"
+      ],
+      "Chris Kreider": [
+        "0.2385",
+        "8.01%",
+        "1.5251"
+      ],
+      "Alex Newhook": [
+        "0.2311",
+        "7.77%",
+        "1.3464"
+      ],
+      "Juraj Slafkovský": [
+        "0.4479",
+        "14.51%",
+        "1.9712"
+      ],
+      "Nick Suzuki": [
+        "0.4538",
+        "14.69%",
+        "1.9309"
+      ],
+      "Alexandre Texier": [
+        "0.09",
+        "3.1%",
+        "1.2643"
+      ],
+      "Florian Xhekaj": [
+        "0",
+        "0%",
+        "0.6991"
+      ],
+      "Alexandre Carrier": [
+        "0.0347",
+        "1.21%",
+        "0.6001"
+      ],
+      "Noah Dobson": [
+        "0.1655",
+        "5.63%",
+        "1.68"
+      ],
+      "Adam Engstrom": [
+        "0",
+        "0%",
+        "0.6408"
+      ],
+      "Lane Hutson": [
+        "0.164",
+        "5.58%",
+        "1.3323"
+      ],
+      "Mike Matheson": [
+        "0.0962",
+        "3.31%",
+        "1.2454"
+      ],
+      "Jayden Struble": [
+        "0.0051",
+        "0.18%",
+        "0.3926"
+      ],
+      "Arber Xhekaj": [
+        "0.0052",
+        "0.18%",
+        "0.5362"
+      ]
     },
     "allAwayPoints": {
-      "Sebastian Aho": ["0.3694", "12.13%", "2.3819"],
-      "Jackson Blake": ["0.2558", "8.56%", "2.1762"],
-      "William Carrier": ["0.0209", "0.73%", "1.0696"],
-      "Nicolas Deslauriers": ["0", "0%", "0"],
-      "Nikolaj Ehlers": ["0.3362", "11.1%", "2.4653"],
-      "Taylor Hall": ["0.171", "5.81%", "1.9409"],
-      "Mark Jankowski": ["0.0327", "1.14%", "0.8818"],
-      "Jesperi Kotkaniemi": ["0.0128", "0.45%", "1.0024"],
-      "Jordan Martinook": ["0.0791", "2.73%", "1.5461"],
-      "Eric Robinson": ["0.0598", "2.07%", "1.2784"],
-      "Jordan Staal": ["0.1761", "5.98%", "1.5239"],
-      "Logan Stankoven": ["0.2732", "9.12%", "2.2178"],
-      "Andrei Svechnikov": ["0.4023", "13.13%", "2.6261"],
-      "Jalen Chatfield": ["0.0227", "0.79%", "1.4276"],
-      "Shayne Gostisbehere": ["0.1866", "6.32%", "1.9218"],
-      "K'Andre Miller": ["0.0735", "2.54%", "1.5552"],
-      "Mike Reilly": ["0.0116", "0.41%", "1.4803"],
-      "Jaccob Slavin": ["0.0134", "0.47%", "1.5082"],
-      "Juuso Välimäki": ["0", "0%", "0"],
-      "Sean Walker": ["0.0953", "3.28%", "2.0665"]
+      "Sebastian Aho": [
+        "0.3694",
+        "12.13%",
+        "2.3819"
+      ],
+      "Jackson Blake": [
+        "0.2558",
+        "8.56%",
+        "2.1762"
+      ],
+      "William Carrier": [
+        "0.0209",
+        "0.73%",
+        "1.0696"
+      ],
+      "Nicolas Deslauriers": [
+        "0",
+        "0%",
+        "0"
+      ],
+      "Nikolaj Ehlers": [
+        "0.3362",
+        "11.1%",
+        "2.4653"
+      ],
+      "Taylor Hall": [
+        "0.171",
+        "5.81%",
+        "1.9409"
+      ],
+      "Mark Jankowski": [
+        "0.0327",
+        "1.14%",
+        "0.8818"
+      ],
+      "Jesperi Kotkaniemi": [
+        "0.0128",
+        "0.45%",
+        "1.0024"
+      ],
+      "Jordan Martinook": [
+        "0.0791",
+        "2.73%",
+        "1.5461"
+      ],
+      "Eric Robinson": [
+        "0.0598",
+        "2.07%",
+        "1.2784"
+      ],
+      "Jordan Staal": [
+        "0.1761",
+        "5.98%",
+        "1.5239"
+      ],
+      "Logan Stankoven": [
+        "0.2732",
+        "9.12%",
+        "2.2178"
+      ],
+      "Andrei Svechnikov": [
+        "0.4023",
+        "13.13%",
+        "2.6261"
+      ],
+      "Jalen Chatfield": [
+        "0.0227",
+        "0.79%",
+        "1.4276"
+      ],
+      "Shayne Gostisbehere": [
+        "0.1866",
+        "6.32%",
+        "1.9218"
+      ],
+      "K'Andre Miller": [
+        "0.0735",
+        "2.54%",
+        "1.5552"
+      ],
+      "Mike Reilly": [
+        "0.0116",
+        "0.41%",
+        "1.4803"
+      ],
+      "Jaccob Slavin": [
+        "0.0134",
+        "0.47%",
+        "1.5082"
+      ],
+      "Juuso Välimäki": [
+        "0",
+        "0%",
+        "0"
+      ],
+      "Sean Walker": [
+        "0.0953",
+        "3.28%",
+        "2.0665"
+      ]
     },
     "outcome": "MTL, MTL: 1.14834 v CAR: 0.90733      Expected difference: 0.24101, (MTL: 1.9139 v CAR: 1.51222) (MTL: 56% , CAR: 44%)",
     "startingTime": "19:05:00",
@@ -130,50 +458,209 @@
     "awayABV": "OTT",
     "homeGoalie": "DET: John Gibson",
     "awayGoalie": "OTT: Samuel Ersson",
-    "homeScorers": ["Alex DeBrincat, DET: 0.43713      (0.72855)", "Dylan Larkin, DET: 0.38271      (0.63785)"],
+    "homeScorers": [
+      "Alex DeBrincat, DET: 0.43713      (0.72855)",
+      "Dylan Larkin, DET: 0.38271      (0.63785)"
+    ],
     "awayScorers": {},
     "allHomePoints": {
-      "Viktor Arvidsson": ["0.5341", "17.05%", "1.7835"],
-      "Michael Brandsegg-Nygård": ["0", "0%", "3.15"],
-      "Andrew Copp": ["0.1084", "3.72%", "1.0181"],
-      "Nate Danielson": ["0.0323", "1.12%", "0.7717"],
-      "Alex DeBrincat": ["1.2489", "35.41%", "2.4481"],
-      "Sheldon Dries": ["0", "0%", "0.28"],
-      "Emmitt Finnie": ["0.1379", "4.71%", "1.0245"],
-      "Keegan Kolesar": ["0.0224", "0.78%", "0.5425"],
-      "Dylan Larkin": ["1.0935", "31.8%", "2.1662"],
-      "Carter Mazur": ["0", "0%", "0.2625"],
-      "Michael Rasmussen": ["0.0469", "1.63%", "0.7133"],
-      "Lucas Raymond": ["0.4907", "15.78%", "1.5134"],
-      "Ben Chiarot": ["0.0598", "2.07%", "0.8788"],
-      "Andreas Englund": ["0", "0%", "0"],
-      "Justin Faulk": ["0.3233", "10.7%", "1.3284"],
-      "Albert Johansson": ["0.0164", "0.57%", "0.5203"],
-      "Anton Johansson": ["0", "0%", "0"],
-      "Axel Sandin-Pellikka": ["0.0636", "2.2%", "0.7034"],
-      "Moritz Seider": ["0.2711", "9.05%", "1.5968"],
-      "William Wallinder": ["0", "0%", "0"]
+      "Viktor Arvidsson": [
+        "0.5341",
+        "17.05%",
+        "1.7835"
+      ],
+      "Michael Brandsegg-Nygård": [
+        "0",
+        "0%",
+        "3.15"
+      ],
+      "Andrew Copp": [
+        "0.1084",
+        "3.72%",
+        "1.0181"
+      ],
+      "Nate Danielson": [
+        "0.0323",
+        "1.12%",
+        "0.7717"
+      ],
+      "Alex DeBrincat": [
+        "1.2489",
+        "35.41%",
+        "2.4481"
+      ],
+      "Sheldon Dries": [
+        "0",
+        "0%",
+        "0.28"
+      ],
+      "Emmitt Finnie": [
+        "0.1379",
+        "4.71%",
+        "1.0245"
+      ],
+      "Keegan Kolesar": [
+        "0.0224",
+        "0.78%",
+        "0.5425"
+      ],
+      "Dylan Larkin": [
+        "1.0935",
+        "31.8%",
+        "2.1662"
+      ],
+      "Carter Mazur": [
+        "0",
+        "0%",
+        "0.2625"
+      ],
+      "Michael Rasmussen": [
+        "0.0469",
+        "1.63%",
+        "0.7133"
+      ],
+      "Lucas Raymond": [
+        "0.4907",
+        "15.78%",
+        "1.5134"
+      ],
+      "Ben Chiarot": [
+        "0.0598",
+        "2.07%",
+        "0.8788"
+      ],
+      "Andreas Englund": [
+        "0",
+        "0%",
+        "0"
+      ],
+      "Justin Faulk": [
+        "0.3233",
+        "10.7%",
+        "1.3284"
+      ],
+      "Albert Johansson": [
+        "0.0164",
+        "0.57%",
+        "0.5203"
+      ],
+      "Anton Johansson": [
+        "0",
+        "0%",
+        "0"
+      ],
+      "Axel Sandin-Pellikka": [
+        "0.0636",
+        "2.2%",
+        "0.7034"
+      ],
+      "Moritz Seider": [
+        "0.2711",
+        "9.05%",
+        "1.5968"
+      ],
+      "William Wallinder": [
+        "0",
+        "0%",
+        "0"
+      ]
     },
     "allAwayPoints": {
-      "Michael Amadio": ["0.122", "4.18%", "0.8853"],
-      "Drake Batherson": ["0.5717", "18.14%", "1.5943"],
-      "Nick Cousins": ["0.0399", "1.39%", "0.7157"],
-      "Dylan Cozens": ["0.5359", "17.1%", "1.8896"],
-      "William Eklund": ["0.2838", "9.45%", "1.6983"],
-      "Warren Foegele": ["0.1427", "4.87%", "1.1573"],
-      "Claude Giroux": ["0.1651", "5.62%", "1.3043"],
-      "Ridly Greig": ["0.1624", "5.52%", "1.2718"],
-      "Stephen Halliday": ["0.0475", "1.65%", "0.8515"],
-      "Hayden Hodgson": ["0", "0%", "0"],
-      "Shane Pinto": ["0.4388", "14.24%", "1.6245"],
-      "Tim Stützle": ["0.7155", "22.15%", "1.8085"],
-      "Fabian Zetterlund": ["0.1464", "4.99%", "1.2064"],
-      "Thomas Chabot": ["0.1697", "5.77%", "1.3183"],
-      "Cameron Crotty": ["0", "0%", "0"],
-      "Tyler Kleven": ["0.0335", "1.16%", "0.9498"],
-      "Nikolas Matinpalo": ["0", "0%", "0.752"],
-      "Jordan Spence": ["0.0917", "3.16%", "1.0938"],
-      "Carter Yakemchuk": ["0.1678", "5.7%", "1.1839"]
+      "Michael Amadio": [
+        "0.122",
+        "4.18%",
+        "0.8853"
+      ],
+      "Drake Batherson": [
+        "0.5717",
+        "18.14%",
+        "1.5943"
+      ],
+      "Nick Cousins": [
+        "0.0399",
+        "1.39%",
+        "0.7157"
+      ],
+      "Dylan Cozens": [
+        "0.5359",
+        "17.1%",
+        "1.8896"
+      ],
+      "William Eklund": [
+        "0.2838",
+        "9.45%",
+        "1.6983"
+      ],
+      "Warren Foegele": [
+        "0.1427",
+        "4.87%",
+        "1.1573"
+      ],
+      "Claude Giroux": [
+        "0.1651",
+        "5.62%",
+        "1.3043"
+      ],
+      "Ridly Greig": [
+        "0.1624",
+        "5.52%",
+        "1.2718"
+      ],
+      "Stephen Halliday": [
+        "0.0475",
+        "1.65%",
+        "0.8515"
+      ],
+      "Hayden Hodgson": [
+        "0",
+        "0%",
+        "0"
+      ],
+      "Shane Pinto": [
+        "0.4388",
+        "14.24%",
+        "1.6245"
+      ],
+      "Tim Stützle": [
+        "0.7155",
+        "22.15%",
+        "1.8085"
+      ],
+      "Fabian Zetterlund": [
+        "0.1464",
+        "4.99%",
+        "1.2064"
+      ],
+      "Thomas Chabot": [
+        "0.1697",
+        "5.77%",
+        "1.3183"
+      ],
+      "Cameron Crotty": [
+        "0",
+        "0%",
+        "0"
+      ],
+      "Tyler Kleven": [
+        "0.0335",
+        "1.16%",
+        "0.9498"
+      ],
+      "Nikolas Matinpalo": [
+        "0",
+        "0%",
+        "0.752"
+      ],
+      "Jordan Spence": [
+        "0.0917",
+        "3.16%",
+        "1.0938"
+      ],
+      "Carter Yakemchuk": [
+        "0.1678",
+        "5.7%",
+        "1.1839"
+      ]
     },
     "outcome": "DET, DET: 1.5572 v OTT: 1.34199      Expected difference: 0.21521, (DET: 2.59533 v OTT: 2.23665) (DET: 55.36% , OTT: 44.64%)",
     "startingTime": "19:05:00",
@@ -182,8 +669,16 @@
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
     "awayLogLoss": {},
-    "bettingLines": ["DET: Money Line", "Alex DeBrincat: +1 Point", "Dylan Larkin: +1 Point"],
-    "correctBettingLines": [0, 0, 0],
+    "bettingLines": [
+      "DET: Money Line",
+      "Alex DeBrincat: +1 Point",
+      "Dylan Larkin: +1 Point"
+    ],
+    "correctBettingLines": [
+      0,
+      0,
+      0
+    ],
     "correctLines": 0,
     "totalLines": 3
   },
@@ -195,45 +690,193 @@
     "homeScorers": {},
     "awayScorers": {},
     "allHomePoints": {
-      "Jesper Boqvist": ["0.0221", "0.77%", "0.5999"],
-      "Jesper Bratt": ["0.4239", "13.79%", "1.4888"],
-      "Luke Evangelista": ["0.21", "7.09%", "1.4894"],
-      "Cody Glass": ["0.2072", "7%", "1.0178"],
-      "Arseny Gritsyuk": ["0.2643", "8.84%", "1.5443"],
-      "Nico Hischier": ["0.6997", "21.72%", "1.7607"],
-      "Amadeus Lombardi": ["0", "0%", "0.3422"],
-      "Anthony Mantha": ["0.41", "13.37%", "1.2562"],
-      "Timo Meier": ["0.781", "23.92%", "2.3936"],
-      "Dawson Mercer": ["0.3275", "10.83%", "1.3205"],
-      "Stefan Noesen": ["0.0471", "1.64%", "0.9349"],
-      "Evan Rodrigues": ["0.2424", "8.13%", "1.5839"],
-      "Declan Chisholm": ["0.0157", "0.55%", "0.5277"],
-      "Brenden Dillon": ["0.0167", "0.58%", "0.4577"],
-      "Dougie Hamilton": ["0.3472", "11.44%", "1.8077"],
-      "Brett Pesce": ["0.0256", "0.89%", "0.8314"],
-      "Jonas Siegenthaler": ["0", "0%", "0.6843"]
+      "Jesper Boqvist": [
+        "0.0221",
+        "0.77%",
+        "0.5999"
+      ],
+      "Jesper Bratt": [
+        "0.4239",
+        "13.79%",
+        "1.4888"
+      ],
+      "Luke Evangelista": [
+        "0.21",
+        "7.09%",
+        "1.4894"
+      ],
+      "Cody Glass": [
+        "0.2072",
+        "7%",
+        "1.0178"
+      ],
+      "Arseny Gritsyuk": [
+        "0.2643",
+        "8.84%",
+        "1.5443"
+      ],
+      "Nico Hischier": [
+        "0.6997",
+        "21.72%",
+        "1.7607"
+      ],
+      "Amadeus Lombardi": [
+        "0",
+        "0%",
+        "0.3422"
+      ],
+      "Anthony Mantha": [
+        "0.41",
+        "13.37%",
+        "1.2562"
+      ],
+      "Timo Meier": [
+        "0.781",
+        "23.92%",
+        "2.3936"
+      ],
+      "Dawson Mercer": [
+        "0.3275",
+        "10.83%",
+        "1.3205"
+      ],
+      "Stefan Noesen": [
+        "0.0471",
+        "1.64%",
+        "0.9349"
+      ],
+      "Evan Rodrigues": [
+        "0.2424",
+        "8.13%",
+        "1.5839"
+      ],
+      "Declan Chisholm": [
+        "0.0157",
+        "0.55%",
+        "0.5277"
+      ],
+      "Brenden Dillon": [
+        "0.0167",
+        "0.58%",
+        "0.4577"
+      ],
+      "Dougie Hamilton": [
+        "0.3472",
+        "11.44%",
+        "1.8077"
+      ],
+      "Brett Pesce": [
+        "0.0256",
+        "0.89%",
+        "0.8314"
+      ],
+      "Jonas Siegenthaler": [
+        "0",
+        "0%",
+        "0.6843"
+      ]
     },
     "allAwayPoints": {
-      "Daniil But": ["0.0687", "2.37%", "1.1021"],
-      "Michael Carcone": ["0.179", "6.07%", "1.3945"],
-      "Logan Cooley": ["0.5327", "17.01%", "1.4841"],
-      "Lawson Crouse": ["0.3191", "10.57%", "1.3211"],
-      "Dylan Guenther": ["0.9945", "29.39%", "2.3894"],
-      "Barrett Hayton": ["0.1371", "4.69%", "1.3406"],
-      "Clayton Keller": ["0.5756", "18.25%", "2.1066"],
-      "Anders Lee": ["0.3049", "10.12%", "1.8272"],
-      "Jack McBain": ["0.0779", "2.69%", "1.0437"],
-      "Nick Schmaltz": ["0.6801", "21.18%", "1.8757"],
-      "Kevin Stenlund": ["0.0253", "0.88%", "0.6477"],
-      "Vincent Trocheck": ["0.2872", "9.56%", "1.2784"],
-      "Kailer Yamamoto": ["0.0906", "3.12%", "0.7422"],
-      "Nick DeSimone": ["0.0221", "0.77%", "0.6596"],
-      "John Marino": ["0.0288", "1%", "0.517"],
-      "Andrew Peeke": ["0.0441", "1.53%", "0.8021"],
-      "Nate Schmidt": ["0.0429", "1.49%", "0.8049"],
-      "Mikhail Sergachev": ["0.2062", "6.96%", "1.496"],
-      "Dmitri Simashev": ["0", "0%", "0.5025"],
-      "MacKenzie Weegar": ["0.0772", "2.67%", "1.4646"]
+      "Daniil But": [
+        "0.0687",
+        "2.37%",
+        "1.1021"
+      ],
+      "Michael Carcone": [
+        "0.179",
+        "6.07%",
+        "1.3945"
+      ],
+      "Logan Cooley": [
+        "0.5327",
+        "17.01%",
+        "1.4841"
+      ],
+      "Lawson Crouse": [
+        "0.3191",
+        "10.57%",
+        "1.3211"
+      ],
+      "Dylan Guenther": [
+        "0.9945",
+        "29.39%",
+        "2.3894"
+      ],
+      "Barrett Hayton": [
+        "0.1371",
+        "4.69%",
+        "1.3406"
+      ],
+      "Clayton Keller": [
+        "0.5756",
+        "18.25%",
+        "2.1066"
+      ],
+      "Anders Lee": [
+        "0.3049",
+        "10.12%",
+        "1.8272"
+      ],
+      "Jack McBain": [
+        "0.0779",
+        "2.69%",
+        "1.0437"
+      ],
+      "Nick Schmaltz": [
+        "0.6801",
+        "21.18%",
+        "1.8757"
+      ],
+      "Kevin Stenlund": [
+        "0.0253",
+        "0.88%",
+        "0.6477"
+      ],
+      "Vincent Trocheck": [
+        "0.2872",
+        "9.56%",
+        "1.2784"
+      ],
+      "Kailer Yamamoto": [
+        "0.0906",
+        "3.12%",
+        "0.7422"
+      ],
+      "Nick DeSimone": [
+        "0.0221",
+        "0.77%",
+        "0.6596"
+      ],
+      "John Marino": [
+        "0.0288",
+        "1%",
+        "0.517"
+      ],
+      "Andrew Peeke": [
+        "0.0441",
+        "1.53%",
+        "0.8021"
+      ],
+      "Nate Schmidt": [
+        "0.0429",
+        "1.49%",
+        "0.8049"
+      ],
+      "Mikhail Sergachev": [
+        "0.2062",
+        "6.96%",
+        "1.496"
+      ],
+      "Dmitri Simashev": [
+        "0",
+        "0%",
+        "0.5025"
+      ],
+      "MacKenzie Weegar": [
+        "0.0772",
+        "2.67%",
+        "1.4646"
+      ]
     },
     "outcome": "UTA, NJD: 1.41415 v UTA: 1.64283      Expected difference: 0.22868, (NJD: 2.35692 v UTA: 2.73805) (NJD: 44.31% , UTA: 55.69%)",
     "startingTime": "19:05:00",
@@ -255,48 +898,208 @@
     "homeScorers": {},
     "awayScorers": {},
     "allHomePoints": {
-      "Zach Benson": ["0.2612", "8.74%", "1.2727"],
-      "Sam Carrick": ["0.0489", "1.7%", "0.7181"],
-      "Justin Danforth": ["0", "0%", "0.35"],
-      "Josh Doan": ["0.3857", "12.63%", "1.4882"],
-      "Konsta Helenius": ["0.219", "7.38%", "1.3529"],
-      "Tyson Kozak": ["0.0115", "0.4%", "0.4846"],
-      "Peyton Krebs": ["0.0844", "2.91%", "0.758"],
-      "Jiri Kulich": ["0.2541", "8.51%", "1.1582"],
-      "Beck Malenstyn": ["0.0299", "1.04%", "0.5952"],
-      "Ryan McLeod": ["0.1187", "4.07%", "0.7958"],
-      "Josh Norris": ["0.2484", "8.33%", "1.1002"],
-      "Noah Ostlund": ["0.1046", "3.6%", "0.7148"],
-      "Jack Quinn": ["0.3278", "10.84%", "1.5952"],
-      "Louis Crevier": ["0.0851", "2.93%", "1.0222"],
-      "Rasmus Dahlin": ["0.633", "19.87%", "1.8681"],
-      "Matt Grzelcyk": ["0", "0%", "0"],
-      "Zach Metsa": ["0.0151", "0.53%", "0.387"],
-      "Owen Power": ["0.0967", "3.33%", "0.9518"],
-      "Mattias Samuelsson": ["0.2139", "7.21%", "0.9839"],
-      "Olen Zellweger": ["0.1", "3.44%", "1.0808"]
+      "Zach Benson": [
+        "0.2612",
+        "8.74%",
+        "1.2727"
+      ],
+      "Sam Carrick": [
+        "0.0489",
+        "1.7%",
+        "0.7181"
+      ],
+      "Justin Danforth": [
+        "0",
+        "0%",
+        "0.35"
+      ],
+      "Josh Doan": [
+        "0.3857",
+        "12.63%",
+        "1.4882"
+      ],
+      "Konsta Helenius": [
+        "0.219",
+        "7.38%",
+        "1.3529"
+      ],
+      "Tyson Kozak": [
+        "0.0115",
+        "0.4%",
+        "0.4846"
+      ],
+      "Peyton Krebs": [
+        "0.0844",
+        "2.91%",
+        "0.758"
+      ],
+      "Jiri Kulich": [
+        "0.2541",
+        "8.51%",
+        "1.1582"
+      ],
+      "Beck Malenstyn": [
+        "0.0299",
+        "1.04%",
+        "0.5952"
+      ],
+      "Ryan McLeod": [
+        "0.1187",
+        "4.07%",
+        "0.7958"
+      ],
+      "Josh Norris": [
+        "0.2484",
+        "8.33%",
+        "1.1002"
+      ],
+      "Noah Ostlund": [
+        "0.1046",
+        "3.6%",
+        "0.7148"
+      ],
+      "Jack Quinn": [
+        "0.3278",
+        "10.84%",
+        "1.5952"
+      ],
+      "Louis Crevier": [
+        "0.0851",
+        "2.93%",
+        "1.0222"
+      ],
+      "Rasmus Dahlin": [
+        "0.633",
+        "19.87%",
+        "1.8681"
+      ],
+      "Matt Grzelcyk": [
+        "0",
+        "0%",
+        "0"
+      ],
+      "Zach Metsa": [
+        "0.0151",
+        "0.53%",
+        "0.387"
+      ],
+      "Owen Power": [
+        "0.0967",
+        "3.33%",
+        "0.9518"
+      ],
+      "Mattias Samuelsson": [
+        "0.2139",
+        "7.21%",
+        "0.9839"
+      ],
+      "Olen Zellweger": [
+        "0.1",
+        "3.44%",
+        "1.0808"
+      ]
     },
     "allAwayPoints": {
-      "Matt Boldy": ["0.9881", "29.24%", "3.4379"],
-      "Bobby Brink": ["0.1209", "4.14%", "1.5135"],
-      "Blake Coleman": ["0.3053", "10.13%", "2.5225"],
-      "Joel Eriksson Ek": ["0.3903", "12.77%", "2.8376"],
-      "Marcus Foligno": ["0.0489", "1.7%", "1.0632"],
-      "Nick Foligno": ["0.0213", "0.74%", "0.9004"],
-      "Ryan Hartman": ["0.2783", "9.28%", "2.2919"],
-      "Kirill Kaprizov": ["0.9816", "29.08%", "3.2684"],
-      "Michael McCarron": ["0.0481", "1.67%", "1.3727"],
-      "Maxim Shabanov": ["0.0481", "1.67%", "1.2532"],
-      "Nico Sturm": ["0.0229", "0.8%", "0.816"],
-      "Yakov Trenin": ["0.0236", "0.82%", "1.1114"],
-      "Danila Yurov": ["0.0547", "1.89%", "1.0739"],
-      "Zach Bogosian": ["0.0091", "0.32%", "0.6525"],
-      "Jonas Brodin": ["0.0359", "1.25%", "1.2072"],
-      "Viking Gustafsson Nyberg": ["0", "0%", "0"],
-      "Daemon Hunt": ["0", "0%", "0.4948"],
-      "Olli Maatta": ["0.0157", "0.55%", "0.781"],
-      "David Spacek": ["0", "0%", "0"],
-      "Jared Spurgeon": ["0.0365", "1.27%", "1.1103"]
+      "Matt Boldy": [
+        "0.9881",
+        "29.24%",
+        "3.4379"
+      ],
+      "Bobby Brink": [
+        "0.1209",
+        "4.14%",
+        "1.5135"
+      ],
+      "Blake Coleman": [
+        "0.3053",
+        "10.13%",
+        "2.5225"
+      ],
+      "Joel Eriksson Ek": [
+        "0.3903",
+        "12.77%",
+        "2.8376"
+      ],
+      "Marcus Foligno": [
+        "0.0489",
+        "1.7%",
+        "1.0632"
+      ],
+      "Nick Foligno": [
+        "0.0213",
+        "0.74%",
+        "0.9004"
+      ],
+      "Ryan Hartman": [
+        "0.2783",
+        "9.28%",
+        "2.2919"
+      ],
+      "Kirill Kaprizov": [
+        "0.9816",
+        "29.08%",
+        "3.2684"
+      ],
+      "Michael McCarron": [
+        "0.0481",
+        "1.67%",
+        "1.3727"
+      ],
+      "Maxim Shabanov": [
+        "0.0481",
+        "1.67%",
+        "1.2532"
+      ],
+      "Nico Sturm": [
+        "0.0229",
+        "0.8%",
+        "0.816"
+      ],
+      "Yakov Trenin": [
+        "0.0236",
+        "0.82%",
+        "1.1114"
+      ],
+      "Danila Yurov": [
+        "0.0547",
+        "1.89%",
+        "1.0739"
+      ],
+      "Zach Bogosian": [
+        "0.0091",
+        "0.32%",
+        "0.6525"
+      ],
+      "Jonas Brodin": [
+        "0.0359",
+        "1.25%",
+        "1.2072"
+      ],
+      "Viking Gustafsson Nyberg": [
+        "0",
+        "0%",
+        "0"
+      ],
+      "Daemon Hunt": [
+        "0",
+        "0%",
+        "0.4948"
+      ],
+      "Olli Maatta": [
+        "0.0157",
+        "0.55%",
+        "0.781"
+      ],
+      "David Spacek": [
+        "0",
+        "0%",
+        "0"
+      ],
+      "Jared Spurgeon": [
+        "0.0365",
+        "1.27%",
+        "1.1103"
+      ]
     },
     "outcome": "MIN, BUF: 1.13326 v MIN: 1.20023      Expected difference: 0.0669699999999995, (BUF: 1.88877 v MIN: 2.00038) (BUF: 48.33% , MIN: 51.67%)",
     "startingTime": "19:05:00",
@@ -365,7 +1168,7 @@
     },
     "outcome": "NYI (OTW), NYR: 1.41876 v NYI: 1.44487      Expected difference: 0.0261100000000001, (NYR: 2.3646 v NYI: 2.40812) (NYR: 49.35% , NYI: 50.65%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "18:58:06",
+    "timeLastRun": "19:26:42",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
@@ -426,7 +1229,7 @@
     },
     "outcome": "CHI, CHI: 1.00382 v STL: 0.59113      Expected difference: 0.41269, (CHI: 1.67303 v STL: 0.98522) (CHI: 60.17% , STL: 39.83%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "18:58:10",
+    "timeLastRun": "19:26:44",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
@@ -489,7 +1292,7 @@
     },
     "outcome": "VGK, SEA: 1.03924 v VGK: 1.72133      Expected difference: 0.68209, (SEA: 1.73207 v VGK: 2.86888) (SEA: 33.58% , VGK: 66.42%)",
     "startingTime": "21:45:00",
-    "timeLastRun": "18:58:14",
+    "timeLastRun": "19:26:47",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
@@ -549,7 +1352,7 @@
     },
     "outcome": "LAK, LAK: 1.26028 v FLA: 0.50216      Expected difference: 0.75812, (LAK: 2.10047 v FLA: 0.83693) (LAK: 68.09% , FLA: 31.91%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "18:58:18",
+    "timeLastRun": "19:26:49",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
