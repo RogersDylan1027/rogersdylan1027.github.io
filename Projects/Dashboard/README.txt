@@ -766,3 +766,25 @@ Reworks the Games page into expandable per-game history cards, keeping the exist
   presentation.
 - My Dashboard remains Version 0.10.11 because the Dashboard itself only
   receives this project changelog entry.
+
+
+PROJECT CHANGELOG · 2026-10-06
+==============================
+NHL Analytics · Version 0.3.14: Daily Accuracy Charts
+
+Adds separate Accuracy by Day graphs to Overview and Betting while preserving Accuracy Over Time as a cumulative trend, with each daily point showing the percentage of scored bets that were correct on that calendar day using a fixed 0–100% scale.
+
+- Overview now has separate cumulative Model Pick Accuracy Over Time and
+  standalone Model Accuracy by Day graphs.
+- Betting now has separate cumulative My Pick Accuracy Over Time and standalone
+  My Accuracy by Day graphs for the signed-in user's selected picks.
+- Accuracy graphs use date-based X-axis ticks and a fixed 0–100% percentage
+  Y-axis.
+- Overview's selected season controls both model graphs.
+- Recent Windows and all existing history/detail views remain unchanged.
+- Dashboard/projects.json was checked and does not require a change.
+- Documents/privacy.html and Documents/tos.html were checked; no legal-text
+  change is required because this release only adds visualizations of already
+  stored accuracy results.
+- My Dashboard remains Version 0.10.11 because the Dashboard itself only
+  receives this project changelog entry.
