@@ -208,10 +208,10 @@
     "outcome": "PHI, TBL: 0.48675 v PHI: 1.29563      Expected difference: 0.80888, (TBL: 0.81125 v PHI: 2.15938) (TBL: 30.81% , PHI: 69.19%)",
     "startingTime": "19:05:00",
     "timeLastRun": "18:57:16",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.6784,
+    "awayMeanSquaredError": 0.1614,
+    "homeLogLoss": 1.2519,
+    "awayLogLoss": 0.5228,
     "bettingLines": "PHI: Money Line",
     "correctBettingLines": 0,
     "correctLines": 0,
@@ -431,10 +431,10 @@
     "outcome": "BOS, BOS: 1.50818 v OTT: 1.43852      Expected difference: 0.0696600000000001, (BOS: 2.51363 v OTT: 2.39753) (BOS: 51.74% , OTT: 48.26%)",
     "startingTime": "19:35:00",
     "timeLastRun": "19:27:19",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.1558,
+    "awayMeanSquaredError": 0.55,
+    "homeLogLoss": "NaN",
+    "awayLogLoss": 0.4622,
     "bettingLines": [
       "BOS: Money Line",
       "David Pastrnak: +1 Point"
@@ -670,19 +670,19 @@
     "outcome": "WPG, PIT: 1.14835 v WPG: 1.31132      Expected difference: 0.162970000000001, (PIT: 1.91392 v WPG: 2.18553) (PIT: 45.93% , WPG: 54.07%)",
     "startingTime": "19:35:00",
     "timeLastRun": "19:27:22",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.4645,
+    "awayMeanSquaredError": 0.4176,
+    "homeLogLoss": 1.0084,
+    "awayLogLoss": "NaN",
     "bettingLines": [
       "WPG: Money Line",
       "Kyle Connor: +1 Point"
     ],
     "correctBettingLines": [
-      0,
+      1,
       0
     ],
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 2
   },
   {
@@ -909,10 +909,10 @@
     "outcome": "SJS, DAL: 1.24511 v SJS: 1.86656      Expected difference: 0.62145, (DAL: 2.07518 v SJS: 3.11093) (DAL: 34.95% , SJS: 65.05%)",
     "startingTime": "20:05:00",
     "timeLastRun": "19:57:01",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.6003,
+    "awayMeanSquaredError": 0.1944,
+    "homeLogLoss": "NaN",
+    "awayLogLoss": "NaN",
     "bettingLines": [
       "SJS: Money Line",
       "Jason Robertson: +1 Point",
@@ -920,10 +920,10 @@
     ],
     "correctBettingLines": [
       0,
-      0,
+      1,
       0
     ],
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 3
   }
 ]
