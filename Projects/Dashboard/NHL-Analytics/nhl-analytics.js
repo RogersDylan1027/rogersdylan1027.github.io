@@ -1,6 +1,6 @@
 (() => {
   "use strict";
-  const VERSION = "0.3.13";
+  const VERSION = "0.3.14";
   const HISTORY_URL = "/All%20Results.json";
   const TODAY_URL = "/Game%20Results.json";
   const PICKS_STORAGE_KEY = "nhlAnalyticsModelPicks:v1";
@@ -433,7 +433,9 @@
   function renderOverview(){
     const seasonGames=seasonFilteredGames();
     renderOverallBettingMetricCards("overviewMetrics",seasonGames);
-    renderModelBettingAccuracyChart(seasonGames);
+    const daily=modelBettingDailySeries(seasonGames);
+    percentageLineChart("accuracyChart",cumulativeAccuracySeries(daily),"Model Pick Accuracy");
+    percentageLineChart("overviewDailyAccuracyChart",daily,"Daily Model Accuracy");
     $("recentWindows").innerHTML=modelBettingWindowRows(seasonGames);
     $("latestGames").innerHTML=historicalBettingTable(seasonGames);
   }
@@ -459,18 +461,45 @@
     });
     return [...map.values()].filter(r=>r.total>0).sort((a,b)=>a.date.localeCompare(b.date)).map(r=>({...r,accuracy:r.correct/r.total}));
   }
+  function cumulativeAccuracySeries(daily){
+    let correct=0,total=0;
+    return (daily||[]).map(r=>{
+      correct+=Number.isFinite(r.correct)?r.correct:0;
+      total+=Number.isFinite(r.total)?r.total:0;
+      return {...r,cumulativeCorrect:correct,cumulativeTotal:total,cumulativeAccuracy:total?correct/total:null};
+    });
+  }
+  function percentageLineChart(containerId,series,label){
+    lineChart(containerId,series,[{label,value:r=>{
+      const value=Number.isFinite(r.cumulativeAccuracy)?r.cumulativeAccuracy:r.accuracy;
+      return Number.isFinite(value)?value*100:null;
+    }}],100,{percentAxis:true,dayAxis:true});
+  }
   function renderModelBettingAccuracyChart(games=state.games){
-    lineChart("accuracyChart",modelBettingDailySeries(games),[{label:"Model Pick Accuracy",value:r=>Number.isFinite(r.accuracy)?r.accuracy*100:null}],100);
+    const daily=modelBettingDailySeries(games);
+    percentageLineChart("accuracyChart",cumulativeAccuracySeries(daily),"Model Pick Accuracy");
   }
 
   function dailySeries(games=state.games){const map=new Map();games.forEach(g=>{if(!g.date)return;const row=map.get(g.date)||{date:g.date,correct:0,total:0,mse:[],ll:[]};row.correct+=Number.isFinite(g.correct)?g.correct:0;row.total+=Number.isFinite(g.total)?g.total:0;row.mse.push(g.homeMSE,g.awayMSE);row.ll.push(g.homeLL,g.awayLL);map.set(g.date,row);});return[...map.values()].sort((a,b)=>a.date.localeCompare(b.date)).map(r=>({...r,accuracy:r.total?r.correct/r.total:null,mseAvg:avg(r.mse),llAvg:avg(r.ll)}));}
-  function lineChart(containerId,series,accessors,yMaxOverride=null){
+  function lineChart(containerId,series,accessors,yMaxOverride=null,options={}){
     const host=$(containerId),valid=series.filter(row=>accessors.some(a=>Number.isFinite(a.value(row))));
     if(!valid.length){host.innerHTML='<div class="chart-empty">Not enough stored data to draw this chart.</div>';return;}
-    const recent=valid.slice(-60),width=900,height=245,pad={l:36,r:14,t:16,b:28},vals=recent.flatMap(r=>accessors.map(a=>a.value(r)).filter(Number.isFinite)),min=Math.min(...vals),max=yMaxOverride??Math.max(...vals),low=yMaxOverride!==null?0:Math.max(0,min-(max-min)*.12),high=max===low?low+1:max+(max-low)*.08,x=i=>pad.l+(recent.length===1?0:(i/(recent.length-1))*(width-pad.l-pad.r)),y=v=>pad.t+(high-v)/(high-low)*(height-pad.t-pad.b);
-    let svg='<svg class="chart" viewBox="0 0 '+width+' '+height+'" role="img">';[0,.25,.5,.75,1].forEach(t=>{const yy=pad.t+t*(height-pad.t-pad.b);svg+='<line class="chart-grid" x1="'+pad.l+'" x2="'+(width-pad.r)+'" y1="'+yy+'" y2="'+yy+'"/>';});
-    accessors.forEach((a,ai)=>{const points=recent.map((r,i)=>({x:x(i),y:Number.isFinite(a.value(r))?y(a.value(r)):null})).filter(p=>p.y!==null);if(points.length){const d=points.map((p,i)=>(i?"L":"M")+p.x.toFixed(1)+","+p.y.toFixed(1)).join(" ");svg+='<path d="'+d+'" fill="none" stroke="'+(ai===0?"#3769b0":"#9a6515")+'" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>'; }});
-    if(recent.length)svg+='<text class="chart-label" x="'+pad.l+'" y="'+(height-7)+'">'+esc(recent[0].date.slice(5))+'</text><text class="chart-label" text-anchor="end" x="'+(width-pad.r)+'" y="'+(height-7)+'">'+esc(recent.at(-1).date.slice(5))+'</text>';
+    const recent=valid.slice(-60),width=900,height=260,pad={l:options.percentAxis?52:36,r:14,t:16,b:options.dayAxis?36:28},vals=recent.flatMap(r=>accessors.map(a=>a.value(r)).filter(Number.isFinite)),min=Math.min(...vals),max=yMaxOverride??Math.max(...vals),low=yMaxOverride!==null?0:Math.max(0,min-(max-min)*.12),high=max===low?low+1:max+(max-low)*.08,x=i=>pad.l+(recent.length===1?0:(i/(recent.length-1))*(width-pad.l-pad.r)),y=v=>pad.t+(high-v)/(high-low)*(height-pad.t-pad.b);
+    let svg='<svg class="chart" viewBox="0 0 '+width+' '+height+'" role="img">';
+    [0,.25,.5,.75,1].forEach(t=>{
+      const yy=pad.t+t*(height-pad.t-pad.b),value=high-(high-low)*t;
+      svg+='<line class="chart-grid" x1="'+pad.l+'" x2="'+(width-pad.r)+'" y1="'+yy+'" y2="'+yy+'"/>';
+      if(options.percentAxis)svg+='<text class="chart-label" text-anchor="end" x="'+(pad.l-7)+'" y="'+(yy+4)+'">'+Math.round(value)+'%</text>';
+    });
+    accessors.forEach((a,ai)=>{const points=recent.map((r,i)=>({x:x(i),y:Number.isFinite(a.value(r))?y(a.value(r)):null})).filter(p=>p.y!==null);if(points.length){const d=points.map((p,i)=>(i?"L":"M")+p.x.toFixed(1)+","+p.y.toFixed(1)).join(" ");svg+='<path d="'+d+'" fill="none" stroke="'+(ai===0?"#3769b0":"#9a6515")+'" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>';points.forEach(p=>{svg+='<circle cx="'+p.x.toFixed(1)+'" cy="'+p.y.toFixed(1)+'" r="3" fill="'+(ai===0?"#3769b0":"#9a6515")+'"/>';});}});
+    if(recent.length){
+      const tickCount=Math.min(6,recent.length),seen=new Set();
+      for(let t=0;t<tickCount;t++){
+        const i=tickCount===1?0:Math.round(t*(recent.length-1)/(tickCount-1));
+        if(seen.has(i))continue;seen.add(i);
+        svg+='<text class="chart-label" text-anchor="'+(i===0?"start":i===recent.length-1?"end":"middle")+'" x="'+x(i)+'" y="'+(height-8)+'">'+esc(recent[i].date.slice(5))+'</text>';
+      }
+    }
     svg+='</svg><div class="panel-note">'+accessors.map((a,i)=>'<span style="margin-right:12px"><b style="color:'+(i===0?"#3769b0":"#9a6515")+'">●</b> '+esc(a.label)+'</span>').join("")+'</div>';host.innerHTML=svg;
   }
   function renderAccuracyChart(games=state.games){lineChart("accuracyChart",dailySeries(games),[{label:"Accuracy",value:r=>Number.isFinite(r.accuracy)?r.accuracy*100:null}],100);}
@@ -585,9 +614,10 @@
 
   function renderBetting(){
     renderSelectedModelPicks();
-    const personalRecords=allPersonalPickRecords();
+    const personalRecords=allPersonalPickRecords(),daily=personalDailySeries(personalRecords);
     renderPersonalPickMetricCards("bettingMetrics");
-    lineChart("bettingAccuracyChart",personalDailySeries(personalRecords),[{label:"My Accuracy",value:r=>Number.isFinite(r.accuracy)?r.accuracy*100:null}],100);
+    percentageLineChart("bettingAccuracyChart",cumulativeAccuracySeries(daily),"My Accuracy");
+    percentageLineChart("bettingDailyAccuracyChart",daily,"My Daily Accuracy");
     $("bettingRecentWindows").innerHTML=personalWindowRows(personalRecords);
     $("bettingTable").innerHTML=personalPickTable(personalRecords);
   }
