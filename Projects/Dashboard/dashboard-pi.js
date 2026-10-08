@@ -1,6 +1,6 @@
 /*
-  My Dashboard · Raspberry Pi Runtime · Version 0.11.0
-  Raspberry Pi Controls · 2026-10-08
+  My Dashboard · Raspberry Pi Runtime · Version 0.11.1
+  Raspberry Pi Temperature & Load Clarity · 2026-10-08
 
   Main Admin only. The tile is rendered only while an authenticated
   Main Admin can reach the Pi Control API over the local Pi host or Tailscale.
@@ -16,7 +16,7 @@
   const TILE_ID = "dashboard-raspberry-pi-tile";
   const VIEW_ID = "raspberry-pi-view";
   const CHECK_INTERVAL_MS = 30000;
-  const REQUEST_TIMEOUT_MS = 3500;
+  const REQUEST_TIMEOUT_MS = 3500;\n  const TEMP_REFERENCE_F = 120;
 
   let activeApiBase = null;
   let latestStatus = null;
@@ -165,6 +165,38 @@
     return Math.round((u / t) * 100) + "%";
   }
 
+  function toFahrenheit(celsius) {
+    const value = Number(celsius);
+    if (!Number.isFinite(value)) return null;
+    return (value * 9 / 5) + 32;
+  }
+
+  function formatTemperature(celsius) {
+    const fahrenheit = toFahrenheit(celsius);
+    if (fahrenheit == null) return "—";
+    const rounded = Math.round(fahrenheit);
+    const delta = rounded - TEMP_REFERENCE_F;
+    const deltaText = delta === 0 ? "±0°F" : `${delta > 0 ? "+" : ""}${delta}°F`;
+    return `${rounded}°F (${deltaText})`;
+  }
+
+  function temperatureStatus(celsius) {
+    const fahrenheit = toFahrenheit(celsius);
+    if (fahrenheit == null) return "—";
+    if (fahrenheit >= 176) return "Hot";
+    if (fahrenheit >= 158) return "Warm";
+    return "Normal";
+  }
+
+  function loadStatus(load) {
+    const value = Number(load);
+    if (!Number.isFinite(value)) return "—";
+    if (value < 0.5) return "Light";
+    if (value < 1.0) return "Moderate";
+    if (value < 1.5) return "Busy";
+    return "High";
+  }
+
   function ensureStyles() {
     if (document.getElementById("dashboard-pi-styles")) return;
     const style = document.createElement("style");
@@ -279,9 +311,9 @@
           </div>
 
           <div class="pi-stat-grid">
-            <div class="pi-stat-card"><span class="pi-stat-label">Temperature</span><span id="pi-temperature" class="pi-stat-value">—</span><span class="pi-stat-note">CPU temperature</span></div>
+            <div class="pi-stat-card"><span class="pi-stat-label">Temperature</span><span id="pi-temperature" class="pi-stat-value">—</span><span id="pi-temperature-note" class="pi-stat-note">Reference: 120°F</span></div>
             <div class="pi-stat-card"><span class="pi-stat-label">Uptime</span><span id="pi-uptime" class="pi-stat-value">—</span><span class="pi-stat-note">Since last boot</span></div>
-            <div class="pi-stat-card"><span class="pi-stat-label">Load</span><span id="pi-load" class="pi-stat-value">—</span><span class="pi-stat-note">1 / 5 / 15 minutes</span></div>
+            <div class="pi-stat-card"><span class="pi-stat-label">CPU Load</span><span id="pi-load" class="pi-stat-value">—</span><span id="pi-load-note" class="pi-stat-note">1 / 5 / 15 minute averages</span></div>
             <div class="pi-stat-card"><span class="pi-stat-label">RAM</span><span id="pi-memory" class="pi-stat-value">—</span><span id="pi-memory-note" class="pi-stat-note">—</span></div>
             <div class="pi-stat-card"><span class="pi-stat-label">Storage</span><span id="pi-storage" class="pi-stat-value">—</span><span id="pi-storage-note" class="pi-stat-note">—</span></div>
             <div class="pi-stat-card"><span class="pi-stat-label">Hostname</span><span id="pi-hostname" class="pi-stat-value">—</span><span class="pi-stat-note">Pi device</span></div>
@@ -341,7 +373,7 @@
     setText("pi-status-route", online && activeApiBase ? activeApiBase : "Connect to the Pi network or Tailscale.");
 
     if (!online || !status) {
-      ["pi-temperature","pi-uptime","pi-load","pi-memory","pi-storage","pi-hostname"].forEach(id => setText(id, "—"));
+      ["pi-temperature","pi-uptime","pi-load","pi-memory","pi-storage","pi-hostname"].forEach(id => setText(id, "—"));\n      setText("pi-temperature-note", "Reference: 120°F");\n      setText("pi-load-note", "1 / 5 / 15 minute averages");
       setText("pi-memory-note", "—");
       setText("pi-storage-note", "—");
       return;
@@ -351,9 +383,9 @@
     const storage = status.storage || {};
     const load = Array.isArray(status.load_average) ? status.load_average : [];
 
-    setText("pi-temperature", status.temperature_c == null ? "—" : status.temperature_c.toFixed(1) + " °C");
+    setText("pi-temperature", formatTemperature(status.temperature_c));\n    setText("pi-temperature-note", status.temperature_c == null ? "Reference: 120°F" : `${temperatureStatus(status.temperature_c)} · Reference: ${TEMP_REFERENCE_F}°F`);
     setText("pi-uptime", formatUptime(status.uptime_seconds));
-    setText("pi-load", load.length ? load.map(value => Number(value).toFixed(2)).join(" / ") : "—");
+    setText("pi-load", load.length ? loadStatus(load[0]) : "—");\n    setText("pi-load-note", load.length ? `${load.map(value => Number(value).toFixed(2)).join(" / ")} · 1 / 5 / 15 min` : "1 / 5 / 15 minute averages");
     setText("pi-memory", percent(memory.used, memory.total));
     setText("pi-memory-note", `${formatBytes(memory.used)} of ${formatBytes(memory.total)} used`);
     setText("pi-storage", percent(storage.used, storage.total));
