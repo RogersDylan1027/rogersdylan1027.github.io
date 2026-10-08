@@ -5,7 +5,7 @@ Current version
 
 Version 0.2.0: Roster Simulation & Admin Model Diagnostics
 
-Adds the existing NHL Shiny simulator directly inside NHL Analytics as the user-facing Roster Simulation view, keeping users inside the Dashboard while they build custom rosters and simulate matchups. Model Diagnostics is now restricted to administrators so MSE, Log Loss, team error summaries, and other technical model-development metrics remain available for model review without cluttering the regular-user experience.
+Adds the existing NHL Shiny simulator directly inside NHL Analytics as the user-facing Roster Simulation view, keeping users inside the Dashboard while they build custom rosters and simulate matchups. Model Diagnostics is now restricted to Main Admin so MSE, Log Loss, team error summaries, and other technical model-development metrics remain available for model review without cluttering the regular-user experience.
 
 Version 0.2.1: Prediction Card & Time Display Polish
 
@@ -20,7 +20,7 @@ VERSION 0.2.1 CHANGES
 - Start times use 12-hour AM/PM formatting.
 - Goalies Confirmed now displays confirmed goalies over total goalie slots.
 - The denominator is total current games × 2.
-- Existing Roster Simulation, Betting, Games, Overview, and admin-only Model
+- Existing Roster Simulation, Betting, Games, Overview, and Main-Admin-only Model
   Diagnostics behavior remain unchanged.
 
 Version 0.3.0: Per-Game Player Predictions
@@ -40,7 +40,7 @@ VERSION 0.3.0 FEATURES
 - Players present in homeScorers or awayScorers receive an Expected scorer badge
   when that scorer data is available.
 - Preserves Roster Simulation, local-time game starts, goalie confirmation
-  fractions, Betting, Games, Overview, and admin-only Model Diagnostics.
+  fractions, Betting, Games, Overview, and Main-Admin-only Model Diagnostics.
 
 Version 0.3.1: GitHub Model Refresh Timing
 
@@ -432,14 +432,15 @@ Roster Simulation
 Admin Model Diagnostics
 - Renames the former Model view to Model Diagnostics.
 - Restricts the Model Diagnostics navigation tab and view to administrators.
-- Uses the Dashboard's existing authenticated admin state, with the existing
-  is_admin RPC as a fallback.
+- Uses the Dashboard's existing authenticated Main Admin state, with the existing
+  is_admin RPC as a compatibility fallback; in Dashboard 0.10.12 that RPC grants
+  privileged access to Main Admin only.
 - Regular users do not render the MSE, Log Loss, or team model-error panels.
-- Direct navigation to #model falls back to Overview for non-admin users.
+- Direct navigation to #model falls back to Overview for non-Main-Admin users.
 
 Regular-user navigation
 Overview | Today | Games | Betting | Roster Simulation
 
-Admin navigation
+Main Admin navigation
 Overview | Today | Games | Betting | Roster Simulation | Model Diagnostics
 
