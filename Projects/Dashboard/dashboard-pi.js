@@ -189,13 +189,10 @@
     return "Normal";
   }
 
-  function loadStatus(load) {
+  function loadPercent(load) {
     const value = Number(load);
     if (!Number.isFinite(value)) return "—";
-    if (value < 0.5) return "Light";
-    if (value < 1.0) return "Moderate";
-    if (value < 1.5) return "Busy";
-    return "High";
+    return Math.max(0, Math.round(value * 100)) + "%";
   }
 
   function ensureStyles() {
@@ -314,7 +311,7 @@
           <div class="pi-stat-grid">
             <div class="pi-stat-card"><span class="pi-stat-label">Temperature</span><span id="pi-temperature" class="pi-stat-value">—</span><span id="pi-temperature-note" class="pi-stat-note">Reference: 120°F</span></div>
             <div class="pi-stat-card"><span class="pi-stat-label">Uptime</span><span id="pi-uptime" class="pi-stat-value">—</span><span class="pi-stat-note">Since last boot</span></div>
-            <div class="pi-stat-card"><span class="pi-stat-label">CPU Load</span><span id="pi-load" class="pi-stat-value">—</span><span id="pi-load-note" class="pi-stat-note">1 / 5 / 15 minute averages</span></div>
+            <div class="pi-stat-card"><span class="pi-stat-label">CPU Load</span><span id="pi-load" class="pi-stat-value">—</span><span id="pi-load-note" class="pi-stat-note">1 / 5 / 15 minute CPU load</span></div>
             <div class="pi-stat-card"><span class="pi-stat-label">RAM</span><span id="pi-memory" class="pi-stat-value">—</span><span id="pi-memory-note" class="pi-stat-note">—</span></div>
             <div class="pi-stat-card"><span class="pi-stat-label">Storage</span><span id="pi-storage" class="pi-stat-value">—</span><span id="pi-storage-note" class="pi-stat-note">—</span></div>
             <div class="pi-stat-card"><span class="pi-stat-label">Hostname</span><span id="pi-hostname" class="pi-stat-value">—</span><span class="pi-stat-note">Pi device</span></div>
@@ -376,7 +373,7 @@
     if (!online || !status) {
       ["pi-temperature","pi-uptime","pi-load","pi-memory","pi-storage","pi-hostname"].forEach(id => setText(id, "—"));
       setText("pi-temperature-note", "Reference: 120°F");
-      setText("pi-load-note", "1 / 5 / 15 minute averages");
+      setText("pi-load-note", "1 / 5 / 15 minute CPU load");
       setText("pi-memory-note", "—");
       setText("pi-storage-note", "—");
       return;
@@ -389,8 +386,8 @@
     setText("pi-temperature", formatTemperature(status.temperature_c));
     setText("pi-temperature-note", status.temperature_c == null ? "Reference: 120°F" : `${temperatureStatus(status.temperature_c)} · Reference: ${TEMP_REFERENCE_F}°F`);
     setText("pi-uptime", formatUptime(status.uptime_seconds));
-    setText("pi-load", load.length ? loadStatus(load[0]) : "—");
-    setText("pi-load-note", load.length ? `${load.map(value => Number(value).toFixed(2)).join(" / ")} · 1 / 5 / 15 min` : "1 / 5 / 15 minute averages");
+    setText("pi-load", load.length ? loadPercent(load[0]) : "—");
+    setText("pi-load-note", load.length ? `${load.map(value => loadPercent(value)).join(" / ")} · 1 / 5 / 15 min` : "1 / 5 / 15 minute CPU load");
     setText("pi-memory", percent(memory.used, memory.total));
     setText("pi-memory-note", `${formatBytes(memory.used)} of ${formatBytes(memory.total)} used`);
     setText("pi-storage", percent(storage.used, storage.total));
