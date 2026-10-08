@@ -1,5 +1,5 @@
-/* My Dashboard · Service Worker · Version 0.10.12 · Three-Tier Account Roles · 2026-10-08 */
-const CACHE_NAME = "my-dashboard-v0.10.12";
+/* My Dashboard · Service Worker · Version 0.11.0 · Raspberry Pi Controls · 2026-10-08 */
+const CACHE_NAME = "my-dashboard-v0.11.0";
 const BASE_PATH = "/Projects/Dashboard/";
 const CORE_ASSETS = [
   BASE_PATH,
@@ -10,6 +10,8 @@ const CORE_ASSETS = [
   BASE_PATH + "dashboard-auth.js",
   BASE_PATH + "dashboard-pwa.js",
   BASE_PATH + "dashboard-account-access.js",
+  BASE_PATH + "dashboard-pi.js",
+  BASE_PATH + "raspberry-pi.svg",
   BASE_PATH + "projects.json",
   BASE_PATH + "manifest.webmanifest",
   BASE_PATH + "logo-app.png",
@@ -80,8 +82,8 @@ self.addEventListener("push", event => {
   const title = payload.title || "My Dashboard";
   const options = {
     body: payload.body || "You have a new Dashboard notification.",
-    icon: BASE_PATH + "logo-app.png?v=0.10.12",
-    badge: BASE_PATH + "logo-app.png?v=0.10.12",
+    icon: BASE_PATH + "logo-app.png?v=0.11.0",
+    badge: BASE_PATH + "logo-app.png?v=0.11.0",
     tag: payload.tag || "my-dashboard-notification",
     data: { url: payload.url || BASE_PATH }
   };
