@@ -1,4 +1,4 @@
-/* My Dashboard · PWA Runtime · Version 0.10.11 · Runtime Changelog Injector Removal · 2026-09-30 */
+/* My Dashboard · PWA Runtime · Version 0.10.12 · Three-Tier Account Roles · 2026-10-08 */
 (function () {
   "use strict";
   const config = window.DashboardConfig;
@@ -67,7 +67,7 @@
     const { data: isAdmin, error: adminError } = await authClient.rpc("is_admin");
     if (adminError) throw adminError;
     if (isAdmin !== true) {
-      throw new Error("Administrator access is required to register notifications.");
+      throw new Error("Main Admin access is required to register notifications.");
     }
 
     return authClient;
