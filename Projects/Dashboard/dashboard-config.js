@@ -1,6 +1,6 @@
 /*
-  My Dashboard · Shared Configuration · Version 0.10.11
-  Runtime Changelog Injector Removal · 2026-09-30
+  My Dashboard · Shared Configuration · Version 0.10.12
+  Three-Tier Account Roles · 2026-10-08
 
   The Supabase publishable key is intentionally browser-safe.
   Never place a service_role key or another secret in browser JavaScript.
@@ -84,8 +84,8 @@
   }
 
   window.DashboardConfig = Object.freeze({
-    version: "0.10.11",
-    releaseTitle: "Runtime Changelog Injector Removal",
+    version: "0.10.12",
+    releaseTitle: "Three-Tier Account Roles",
     supabaseUrl: "https://pyefiovoicvhigkjhhts.supabase.co",
     supabasePublishableKey: "sb_publishable_sVrxppe8B1QkXYqAPm6ddQ_x4MA5j32",
     supabaseScriptUrl: "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.js",
@@ -93,19 +93,19 @@
     dashboardIndexUrl: BASE_PATH + "index.html",
     loginUrl: BASE_PATH + "login.html",
     projectsUrl: BASE_PATH + "projects.json",
-    manifestUrl: BASE_PATH + "manifest.webmanifest?v=0.10.11",
-    serviceWorkerUrl: BASE_PATH + "service-worker.js?v=0.10.11",
-    pwaRuntimeUrl: BASE_PATH + "dashboard-pwa.js?v=0.10.11",
-    accountAccessRuntimeUrl: BASE_PATH + "dashboard-account-access.js?v=0.10.11",
-    logoUrl: BASE_PATH + "logo-app.png?v=0.10.11",
-    appLogoUrl: BASE_PATH + "logo-app.png?v=0.10.11",
-    dashboardLogoUrl: BASE_PATH + "logo-dashboard.png?v=0.10.11",
-    professionalLogoUrl: BASE_PATH + "logo-professional.png?v=0.10.11",
+    manifestUrl: BASE_PATH + "manifest.webmanifest?v=0.10.12",
+    serviceWorkerUrl: BASE_PATH + "service-worker.js?v=0.10.12",
+    pwaRuntimeUrl: BASE_PATH + "dashboard-pwa.js?v=0.10.12",
+    accountAccessRuntimeUrl: BASE_PATH + "dashboard-account-access.js?v=0.10.12",
+    logoUrl: BASE_PATH + "logo-app.png?v=0.10.12",
+    appLogoUrl: BASE_PATH + "logo-app.png?v=0.10.12",
+    dashboardLogoUrl: BASE_PATH + "logo-dashboard.png?v=0.10.12",
+    professionalLogoUrl: BASE_PATH + "logo-professional.png?v=0.10.12",
     streamingUrl: BASE_PATH + "Streaming/",
     reviewsUrl: BASE_PATH + "Reviews/",
     budgetUrl: BASE_PATH + "Budget/",
-    streamingClientUrl: BASE_PATH + "dashboard-streaming.js?v=0.10.11",
-    streamingUiUrl: BASE_PATH + "dashboard-streaming-ui.js?v=0.10.11"
+    streamingClientUrl: BASE_PATH + "dashboard-streaming.js?v=0.10.12",
+    streamingUiUrl: BASE_PATH + "dashboard-streaming-ui.js?v=0.10.12"
   });
 
   function installRuntimeScript(src, marker) {
@@ -288,6 +288,11 @@
   }
 
   const runtimeChangelogEntries = [
+    {
+      version: "0.10.12",
+      title: "Three-Tier Account Roles",
+      description: "Introduces separate Regular, Admin, and Main Admin roles while keeping Regular and Admin permissions identical for now and reserving all existing privileged Dashboard controls for Main Admin only."
+    },
     {
       version: "0.10.11",
       title: "Runtime Changelog Injector Removal",
