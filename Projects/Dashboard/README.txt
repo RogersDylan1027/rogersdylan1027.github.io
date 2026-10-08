@@ -1,8 +1,90 @@
-My Dashboard · Version 0.10.11
-Runtime Changelog Injector Removal · 2026-09-30
+My Dashboard · Version 0.10.12
+Three-Tier Account Roles · 2026-10-08
 
 CHANGELOG
 =========
+Version 0.10.12: Three-Tier Account Roles
+
+Description:
+Introduces separate Regular, Admin, and Main Admin roles while keeping Regular and Admin permissions identical for now and reserving all existing privileged Dashboard controls for Main Admin only.
+
+ACCOUNT ROLES · 0.10.12
+=======================
+- Formalizes three account roles: Regular, Admin, and Main Admin.
+- Keeps Regular and Admin behavior identical for now so the Admin role can gain
+  dedicated permissions later without affecting today's user experience.
+- Main Admin is now the only role that satisfies the Dashboard's existing
+  privileged admin checks.
+- Existing Admin View, account approvals, account-role management, notification
+  management, group/project access controls, global Dashboard settings, and
+  other current admin-only controls remain Main Admin only.
+- Existing project features that use the shared Dashboard admin check, including
+  Streaming admin bypass behavior and NHL Analytics Model Diagnostics, now
+  resolve to Main Admin only.
+- The Main Admin account-management UI now labels the standard role as Regular,
+  keeps Admin as a separate selectable role, and displays Main Admin distinctly.
+- The access-state response now exposes the stored role plus explicit Regular,
+  Admin-role, and Main Admin state while preserving the legacy privileged
+  "admin" flag for compatibility with existing clients.
+- dashboard-push-config is updated so push registration remains a Main Admin
+  privilege.
+
+SUPABASE · 0.10.12
+==================
+- user_roles continues to store user, admin, and main_admin.
+- is_admin() now intentionally returns true only for main_admin so all existing
+  RLS policies and project privilege checks inherit the new permission model.
+- is_main_admin() remains the explicit Main Admin check.
+- dashboard_account_access_state() now distinguishes role identity from
+  privileged access.
+- Existing RLS policies for Dashboard groups, project access, and Dashboard
+  settings continue to use is_admin(), so they are now Main Admin only without
+  needing separate policy rewrites.
+
+HOME SCREEN APP · 0.10.12
+=========================
+- Advances PWA/service-worker/cache references to Version 0.10.12.
+- Preserves all existing Dashboard functionality from Version 0.10.11.
+
+FILES UPDATED
+=============
+Dashboard/index.html
+Dashboard/login.html
+Dashboard/dashboard-config.js
+Dashboard/dashboard-account-access.js
+Dashboard/dashboard-pwa.js
+Dashboard/service-worker.js
+Dashboard/manifest.webmanifest
+Dashboard/README.txt
+Dashboard/NHL-Analytics/README.txt
+Supabase functions: is_admin, dashboard_account_access_state
+Supabase Edge Function: dashboard-push-config (version 4)
+
+CHECKED / NO CHANGE NEEDED
+==========================
+Dashboard/projects.json
+Dashboard/Documents/privacy.html
+Dashboard/Documents/tos.html
+
+TEST CHECKLIST · 0.10.12
+========================
+1. Fully close and reopen My Dashboard and confirm Version 0.10.12.
+2. Sign in as Main Admin and confirm Admin View, the notification bell, account
+   approvals, role management, group/project controls, and admin-only settings
+   still work.
+3. Set a test account to Admin and sign in as that account.
+4. Confirm the Admin account behaves like a Regular account: no Admin View,
+   notification-management controls, account approvals, or privileged settings.
+5. Confirm the Admin account still signs in and uses normal Dashboard features.
+6. Return to Main Admin and switch the test account between Regular and Admin;
+   confirm the selected role persists in Supabase.
+7. Confirm Streaming's existing admin bypass and NHL Analytics Model Diagnostics
+   are available to Main Admin but not to the Admin test account.
+8. Confirm read-notification deletion, account approval/password setup, weather,
+   Calendar, Projects, Files, Streaming, Reviews, and Budget continue working.
+
+PREVIOUS RELEASE
+================
 Version 0.10.11: Runtime Changelog Injector Removal
 
 Description:
