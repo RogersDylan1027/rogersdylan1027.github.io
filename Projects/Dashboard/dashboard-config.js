@@ -294,7 +294,7 @@
     {
       version: "0.11.1",
       title: "Raspberry Pi Temperature & Load Clarity",
-      description: "Refines Raspberry Pi status with Fahrenheit temperature, a 120°F Dashboard reference delta, and plain-language CPU load labels while preserving the raw 1 / 5 / 15 minute load averages and all existing Pi controls."
+      description: "Refines Raspberry Pi status with Fahrenheit temperature, a 120°F Dashboard reference delta, and CPU load shown as percentages for the current 1 / 5 / 15 minute load values while preserving all existing Pi controls."
     },
     {
       version: "0.11.0",
