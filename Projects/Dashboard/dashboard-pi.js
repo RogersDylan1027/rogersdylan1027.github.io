@@ -16,7 +16,8 @@
   const TILE_ID = "dashboard-raspberry-pi-tile";
   const VIEW_ID = "raspberry-pi-view";
   const CHECK_INTERVAL_MS = 30000;
-  const REQUEST_TIMEOUT_MS = 3500;\n  const TEMP_REFERENCE_F = 120;
+  const REQUEST_TIMEOUT_MS = 3500;
+  const TEMP_REFERENCE_F = 120;
 
   let activeApiBase = null;
   let latestStatus = null;
@@ -373,7 +374,9 @@
     setText("pi-status-route", online && activeApiBase ? activeApiBase : "Connect to the Pi network or Tailscale.");
 
     if (!online || !status) {
-      ["pi-temperature","pi-uptime","pi-load","pi-memory","pi-storage","pi-hostname"].forEach(id => setText(id, "—"));\n      setText("pi-temperature-note", "Reference: 120°F");\n      setText("pi-load-note", "1 / 5 / 15 minute averages");
+      ["pi-temperature","pi-uptime","pi-load","pi-memory","pi-storage","pi-hostname"].forEach(id => setText(id, "—"));
+      setText("pi-temperature-note", "Reference: 120°F");
+      setText("pi-load-note", "1 / 5 / 15 minute averages");
       setText("pi-memory-note", "—");
       setText("pi-storage-note", "—");
       return;
@@ -383,9 +386,11 @@
     const storage = status.storage || {};
     const load = Array.isArray(status.load_average) ? status.load_average : [];
 
-    setText("pi-temperature", formatTemperature(status.temperature_c));\n    setText("pi-temperature-note", status.temperature_c == null ? "Reference: 120°F" : `${temperatureStatus(status.temperature_c)} · Reference: ${TEMP_REFERENCE_F}°F`);
+    setText("pi-temperature", formatTemperature(status.temperature_c));
+    setText("pi-temperature-note", status.temperature_c == null ? "Reference: 120°F" : `${temperatureStatus(status.temperature_c)} · Reference: ${TEMP_REFERENCE_F}°F`);
     setText("pi-uptime", formatUptime(status.uptime_seconds));
-    setText("pi-load", load.length ? loadStatus(load[0]) : "—");\n    setText("pi-load-note", load.length ? `${load.map(value => Number(value).toFixed(2)).join(" / ")} · 1 / 5 / 15 min` : "1 / 5 / 15 minute averages");
+    setText("pi-load", load.length ? loadStatus(load[0]) : "—");
+    setText("pi-load-note", load.length ? `${load.map(value => Number(value).toFixed(2)).join(" / ")} · 1 / 5 / 15 min` : "1 / 5 / 15 minute averages");
     setText("pi-memory", percent(memory.used, memory.total));
     setText("pi-memory-note", `${formatBytes(memory.used)} of ${formatBytes(memory.total)} used`);
     setText("pi-storage", percent(storage.used, storage.total));
