@@ -9,9 +9,9 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>My Dashboard · Version 0.10.12</title>
+  <title>My Dashboard · Version 0.11.0</title>
 
-  <!-- Version 0.10.12: Three-Tier Account Roles · 2026-10-08 -->
+  <!-- Version 0.11.0: Raspberry Pi Controls · 2026-10-08 -->
 
   <meta
     name="description"
@@ -25,9 +25,9 @@
 
   <!-- Shared Dashboard configuration and authentication guard. -->
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-  <script src="./dashboard-config.js?v=0.10.12"></script>
+  <script src="./dashboard-config.js?v=0.11.0"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="./dashboard-entry.js?v=0.10.12"></script>
+  <script src="./dashboard-entry.js?v=0.11.0"></script>
 
   <style>
     * { box-sizing: border-box; }
@@ -1288,7 +1288,7 @@
         if (error) throw error;
         currentDashboardUserIsAdmin = data === true;
 
-        // 0.10.12: Only verified Main Admins start in Admin View automatically.
+        // 0.11.0: Only verified Main Admins start in Admin View automatically.
         // They can still switch to Regular View from the account-bar toggle.
         if (shouldUseDefaultView) {
           adminViewEnabled = currentDashboardUserIsAdmin;
@@ -1578,7 +1578,7 @@
     }
 
     const dashboardChangelog=[
-      {version:"0.10.12",title:"Three-Tier Account Roles",description:"Introduces separate Regular, Admin, and Main Admin roles while keeping Regular and Admin permissions identical for now and reserving all existing privileged Dashboard controls for Main Admin only."},
+      {version:"0.11.0",title:"Three-Tier Account Roles",description:"Introduces separate Regular, Admin, and Main Admin roles while keeping Regular and Admin permissions identical for now and reserving all existing privileged Dashboard controls for Main Admin only."},
       {version:"NHL Analytics 0.3.14",title:"Daily Accuracy Charts",description:"Adds separate Accuracy by Day graphs to Overview and Betting while preserving Accuracy Over Time as a cumulative trend, with each daily point showing the percentage of scored bets that were correct on that calendar day using a fixed 0–100% scale."},
       {version:"NHL Analytics 0.3.13",title:"Expandable Game History",description:"Reworks the Games page into expandable per-game history cards, keeping the existing season, search, team, date, and load-more controls while revealing each game’s stored prediction details and model betting results on demand."},
       {version:"NHL Analytics 0.3.12",title:"Grouped Betting History Drilldown",description:"Groups Overview’s Tracked Betting Predictions by day, adds daily model-pick accuracy summaries, and lets each game expand to show every model-selected bet with its Won, Lost, or Pending result while preserving the existing season filter."},
