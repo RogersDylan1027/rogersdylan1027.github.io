@@ -1,6 +1,6 @@
 /*
-  My Dashboard · Account Approval Runtime · Version 0.10.12
-  Three-Tier Account Roles · 2026-10-08
+  My Dashboard · Account Approval Runtime · Version 0.11.0
+  Raspberry Pi Controls · 2026-10-08
 */
 (function () {
   "use strict";
