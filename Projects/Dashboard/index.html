@@ -9,9 +9,9 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>My Dashboard · Version 0.10.11</title>
+  <title>My Dashboard · Version 0.10.12</title>
 
-  <!-- Version 0.10.11: Runtime Changelog Injector Removal · 2026-09-30 -->
+  <!-- Version 0.10.12: Runtime Changelog Injector Removal · 2026-09-30 -->
 
   <meta
     name="description"
@@ -25,9 +25,9 @@
 
   <!-- Shared Dashboard configuration and authentication guard. -->
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-  <script src="./dashboard-config.js?v=0.10.11"></script>
+  <script src="./dashboard-config.js?v=0.10.12"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="./dashboard-entry.js?v=0.10.11"></script>
+  <script src="./dashboard-entry.js?v=0.10.12"></script>
 
   <style>
     * { box-sizing: border-box; }
@@ -692,7 +692,7 @@
     <div id="settings-view" class="internal-view-backdrop" role="dialog" aria-modal="true" aria-labelledby="settings-view-title" hidden><section class="internal-view"><header class="internal-view-header"><div class="internal-view-header-spacer" aria-hidden="true"></div><h2 id="settings-view-title">Settings</h2><button id="settings-close-button" class="internal-view-close-button" type="button" aria-label="Close settings" title="Close settings">×</button></header><div class="settings-content">
       <section class="settings-section"><h3>Connected Accounts</h3><p class="settings-section-description">Connect and manage the accounts used by apps inside your dashboard.</p><div class="settings-provider-block"><p class="settings-provider-title">Google</p><div class="settings-account-buttons"><button id="calendar-connect-button" class="calendar-action-button" type="button">Connect Google Account</button></div><p id="calendar-connection-status" class="calendar-connection-status" role="status" aria-live="polite">Connect Google to keep Calendar available across your devices.</p><div id="google-account-list" class="google-account-list" aria-label="Connected Google accounts"></div></div><div class="settings-provider-block"><p class="settings-provider-title">Microsoft</p><div class="settings-account-buttons"><button id="microsoft-connect-button" class="calendar-action-button microsoft" type="button">Connect Microsoft Account</button></div><p id="microsoft-connection-status" class="calendar-connection-status" role="status" aria-live="polite">Connect Microsoft now; Outlook Calendar access will be added next.</p><div id="microsoft-account-list" class="microsoft-account-list" aria-label="Connected Microsoft account"></div></div></section>
       <section class="settings-section"><h3>Calendar</h3><p class="settings-section-description">Choose which connected website accounts are allowed to contribute events to the dashboard Calendar. Turning an account off here does not disconnect it from the dashboard.</p><div id="calendar-account-preference-list" class="calendar-account-preference-list" aria-label="Calendar account preferences"></div><p id="calendar-account-preference-note" class="settings-selection-note" role="status" aria-live="polite">Connected accounts are enabled for Calendar by default.</p></section>
-      <section id="admin-settings-section" class="settings-section" hidden><h3>Admin</h3><p class="settings-section-description">Choose which dashboard tiles are visible to everyone and which are restricted to administrators. Admin-only tiles appear only for a verified administrator while Admin View is enabled.</p><p id="admin-tile-visibility-status" class="admin-settings-status" role="status" aria-live="polite">Loading tile visibility…</p><div id="admin-tile-visibility-list" class="admin-tile-visibility-list" aria-label="Dashboard tile visibility"></div></section>
+      <section id="admin-settings-section" class="settings-section" hidden><h3>Admin</h3><p class="settings-section-description">Choose which dashboard tiles are visible to everyone and which are restricted to Main Admin. Admin-only tiles appear only for a verified Main Admin while Admin View is enabled.</p><p id="admin-tile-visibility-status" class="admin-settings-status" role="status" aria-live="polite">Loading tile visibility…</p><div id="admin-tile-visibility-list" class="admin-tile-visibility-list" aria-label="Dashboard tile visibility"></div></section>
       <section
         id="admin-projects-settings-section"
         class="settings-section"
@@ -702,7 +702,7 @@
 
         <p class="settings-section-description">
           Control which My Dashboard accounts can see each project.
-          Projects can be visible to everyone, administrators only,
+          Projects can be visible to everyone, Main Admin only,
           or one or more groups.
         </p>
 
@@ -1288,7 +1288,7 @@
         if (error) throw error;
         currentDashboardUserIsAdmin = data === true;
 
-        // 0.4.2: Verified admins start in Admin View automatically.
+        // 0.10.12: Only verified Main Admins start in Admin View automatically.
         // They can still switch to Regular View from the account-bar toggle.
         if (shouldUseDefaultView) {
           adminViewEnabled = currentDashboardUserIsAdmin;
@@ -1578,6 +1578,7 @@
     }
 
     const dashboardChangelog=[
+      {version:"0.10.12",title:"Three-Tier Account Roles",description:"Introduces separate Regular, Admin, and Main Admin roles while keeping Regular and Admin permissions identical for now and reserving all existing privileged Dashboard controls for Main Admin only."},
       {version:"NHL Analytics 0.3.14",title:"Daily Accuracy Charts",description:"Adds separate Accuracy by Day graphs to Overview and Betting while preserving Accuracy Over Time as a cumulative trend, with each daily point showing the percentage of scored bets that were correct on that calendar day using a fixed 0–100% scale."},
       {version:"NHL Analytics 0.3.13",title:"Expandable Game History",description:"Reworks the Games page into expandable per-game history cards, keeping the existing season, search, team, date, and load-more controls while revealing each game’s stored prediction details and model betting results on demand."},
       {version:"NHL Analytics 0.3.12",title:"Grouped Betting History Drilldown",description:"Groups Overview’s Tracked Betting Predictions by day, adds daily model-pick accuracy summaries, and lets each game expand to show every model-selected bet with its Won, Lost, or Pending result while preserving the existing season filter."},
