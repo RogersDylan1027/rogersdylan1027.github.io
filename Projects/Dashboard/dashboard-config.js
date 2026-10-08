@@ -292,6 +292,11 @@
 
   const runtimeChangelogEntries = [
     {
+      version: "0.11.1",
+      title: "Raspberry Pi Temperature & Load Clarity",
+      description: "Refines Raspberry Pi status with Fahrenheit temperature, a 120°F Dashboard reference delta, and plain-language CPU load labels while preserving the raw 1 / 5 / 15 minute load averages and all existing Pi controls."
+    },
+    {
       version: "0.11.0",
       title: "Raspberry Pi Controls",
       description: "Adds a Main Admin-only Raspberry Pi tile to the main Dashboard when the Pi is reachable over Tailscale or the local Pi network. The popup shows live Pi health and provides authenticated Dashboard update, restart, reboot, and shutdown controls while keeping the Pi hidden from Regular and Admin accounts and whenever the Pi cannot be reached."
