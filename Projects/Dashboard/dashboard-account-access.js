@@ -321,6 +321,10 @@
 
         const userHeader = document.createElement("h4"); userHeader.style.margin="22px 0 8px"; userHeader.textContent="Account Roles";
         content.appendChild(userHeader);
+        const roleNote = document.createElement("p");
+        roleNote.style.cssText="margin:0 0 8px;color:#68707c;font-size:12px;line-height:1.45;";
+        roleNote.textContent="Regular and Admin currently have the same permissions. Main Admin retains all privileged Dashboard controls.";
+        content.appendChild(roleNote);
         const { data: users, error: userError } = await client.rpc("main_admin_list_dashboard_users");
         if (userError) throw userError;
         (users || []).forEach(user => {
