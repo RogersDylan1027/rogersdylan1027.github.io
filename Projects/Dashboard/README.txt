@@ -57,14 +57,18 @@ Dashboard/service-worker.js
 Dashboard/manifest.webmanifest
 Dashboard/README.txt
 Dashboard/NHL-Analytics/README.txt
+Dashboard/Documents/privacy.html
+Dashboard/Documents/tos.html
 Supabase functions: is_admin, dashboard_account_access_state
 Supabase Edge Function: dashboard-push-config (version 4)
 
-CHECKED / NO CHANGE NEEDED
-==========================
-Dashboard/projects.json
-Dashboard/Documents/privacy.html
-Dashboard/Documents/tos.html
+LEGAL / CATALOG CHECK
+=====================
+- Dashboard/projects.json was checked and does not need a role-related change.
+- Dashboard/Documents/privacy.html now refers to Main Admin decisions for account
+  access requests.
+- Dashboard/Documents/tos.html now states that account requests are approved or
+  declined by a Dashboard Main Admin.
 
 TEST CHECKLIST · 0.10.12
 ========================
