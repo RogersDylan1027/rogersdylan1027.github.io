@@ -6,7 +6,7 @@ CHANGELOG
 Version 0.11.1: Raspberry Pi Temperature & Load Clarity
 
 Description:
-Refines Raspberry Pi status so temperature is easier to read at a glance and CPU load no longer requires understanding Linux load-average numbers. Existing Pi controls and Main Admin-only access remain unchanged.
+Refines Raspberry Pi status so temperature is easier to read at a glance and CPU load is displayed as percentages instead of raw Linux load-average numbers. Existing Pi controls and Main Admin-only access remain unchanged.
 
 TEMPERATURE DISPLAY · 0.11.1
 ============================
@@ -21,8 +21,10 @@ TEMPERATURE DISPLAY · 0.11.1
 CPU LOAD · 0.11.1
 =================
 - Renames Load to CPU Load.
-- Shows a plain-language Light, Moderate, Busy, or High primary status.
-- Keeps the underlying 1 / 5 / 15 minute load averages visible underneath for detail.
+- Shows the current 1-minute CPU load as a percentage.
+- Shows the 1 / 5 / 15 minute CPU load values as percentages underneath.
+- On this single-core Pi, a load average of 1.00 corresponds to 100% load; values
+  above 100% mean work is waiting for CPU time.
 - No Pi API response format changes are required.
 
 PI CONTROLS · 0.11.1
@@ -54,7 +56,7 @@ TEST CHECKLIST · 0.11.1
 2. Connect to the Pi as Main Admin and open the Raspberry Pi tile.
 3. Confirm Temperature is shown in °F with the signed difference from 120°F.
 4. Confirm the temperature note shows Normal, Warm, or Hot plus the 120°F reference.
-5. Confirm CPU Load shows a plain-language status and still shows 1 / 5 / 15 minute averages.
+5. Confirm CPU Load shows a percentage and the 1 / 5 / 15 minute values are also shown as percentages.
 6. Confirm Update Dashboard and Restart Dashboard still work.
 7. Confirm Reboot Pi and Shut Down Pi still require confirmation.
 8. Confirm Regular and Admin accounts still cannot see or use Pi controls.
