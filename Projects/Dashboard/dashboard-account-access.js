@@ -1,6 +1,6 @@
 /*
-  My Dashboard · Account Approval Runtime · Version 0.10.11
-  Runtime Changelog Injector Removal · 2026-09-30
+  My Dashboard · Account Approval Runtime · Version 0.10.12
+  Three-Tier Account Roles · 2026-10-08
 */
 (function () {
   "use strict";
@@ -236,10 +236,8 @@
     if (error || !access?.admin) return false;
 
     const section = makeSection(
-      access.main_admin ? "Account Approvals & Administrators" : "Account Support",
-      access.main_admin
-        ? "Review account requests, control administrator access, and reply to support conversations assigned to you."
-        : "Reply to declined-account support conversations assigned to you."
+      "Account Approvals & Roles",
+      "Review account requests, assign Regular or Admin roles, and manage Main Admin support conversations."
     );
     section.id = "dashboard-account-admin-section";
     const content = document.createElement("div");
@@ -321,7 +319,7 @@
           actions.append(approve,decline); row.appendChild(actions); content.appendChild(row);
         });
 
-        const userHeader = document.createElement("h4"); userHeader.style.margin="22px 0 8px"; userHeader.textContent="Administrator Accounts";
+        const userHeader = document.createElement("h4"); userHeader.style.margin="22px 0 8px"; userHeader.textContent="Account Roles";
         content.appendChild(userHeader);
         const { data: users, error: userError } = await client.rpc("main_admin_list_dashboard_users");
         if (userError) throw userError;
@@ -333,7 +331,7 @@
             const badge=document.createElement("strong"); badge.textContent="Main Admin"; row.append(label,badge);
           } else {
             const select=document.createElement("select");
-            select.innerHTML='<option value="user">User</option><option value="admin">Admin</option>';
+            select.innerHTML='<option value="user">Regular</option><option value="admin">Admin</option>';
             select.value=user.role === "admin" ? "admin" : "user";
             select.addEventListener("change", async () => {
               select.disabled=true;
