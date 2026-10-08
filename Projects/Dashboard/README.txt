@@ -1,8 +1,67 @@
-My Dashboard · Version 0.11.0
-Raspberry Pi Controls · 2026-10-08
+My Dashboard · Version 0.11.1
+Raspberry Pi Temperature & Load Clarity · 2026-10-08
 
 CHANGELOG
 =========
+Version 0.11.1: Raspberry Pi Temperature & Load Clarity
+
+Description:
+Refines Raspberry Pi status so temperature is easier to read at a glance and CPU load no longer requires understanding Linux load-average numbers. Existing Pi controls and Main Admin-only access remain unchanged.
+
+TEMPERATURE DISPLAY · 0.11.1
+============================
+- Displays CPU temperature in Fahrenheit instead of Celsius.
+- Uses 120°F as the Dashboard reference temperature.
+- Shows the difference from that reference directly in the main value, for example:
+  125°F (+5°F) or 115°F (-5°F).
+- Shows a plain-language Normal, Warm, or Hot label under the temperature.
+- The 120°F reference is a Dashboard comparison point, not an official Raspberry Pi
+  thermal limit. Raspberry Pi thermal throttling begins around 176°F (80°C).
+
+CPU LOAD · 0.11.1
+=================
+- Renames Load to CPU Load.
+- Shows a plain-language Light, Moderate, Busy, or High primary status.
+- Keeps the underlying 1 / 5 / 15 minute load averages visible underneath for detail.
+- No Pi API response format changes are required.
+
+PI CONTROLS · 0.11.1
+====================
+- Update Dashboard, Restart Dashboard, Reboot Pi, and Shut Down Pi are unchanged.
+- Main Admin-only visibility and Tailscale/local-network availability checks are unchanged.
+
+FILES UPDATED
+=============
+Dashboard/index.html
+Dashboard/login.html
+Dashboard/dashboard-config.js
+Dashboard/dashboard-pi.js
+Dashboard/dashboard-pwa.js
+Dashboard/dashboard-account-access.js
+Dashboard/service-worker.js
+Dashboard/manifest.webmanifest
+Dashboard/README.txt
+
+FILES CHECKED · NO CHANGE REQUIRED
+==================================
+Dashboard/projects.json
+Dashboard/Documents/privacy.html
+Dashboard/Documents/tos.html
+
+TEST CHECKLIST · 0.11.1
+=======================
+1. Fully close and reopen My Dashboard and confirm Version 0.11.1.
+2. Connect to the Pi as Main Admin and open the Raspberry Pi tile.
+3. Confirm Temperature is shown in °F with the signed difference from 120°F.
+4. Confirm the temperature note shows Normal, Warm, or Hot plus the 120°F reference.
+5. Confirm CPU Load shows a plain-language status and still shows 1 / 5 / 15 minute averages.
+6. Confirm Update Dashboard and Restart Dashboard still work.
+7. Confirm Reboot Pi and Shut Down Pi still require confirmation.
+8. Confirm Regular and Admin accounts still cannot see or use Pi controls.
+9. Confirm all other Dashboard behavior is unchanged.
+
+PREVIOUS RELEASE
+================
 Version 0.11.0: Raspberry Pi Controls
 
 Description:
