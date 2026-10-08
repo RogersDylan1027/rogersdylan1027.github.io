@@ -218,13 +218,13 @@
     "outcome": "WSH, WSH: 1.73153 v PIT: 1.5479      Expected difference: 0.18363, (WSH: 2.88588 v PIT: 2.57983) (WSH: 54.58% , PIT: 45.42%)",
     "startingTime": "19:35:00",
     "timeLastRun": "19:12:22",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.6848,
+    "awayMeanSquaredError": 0.3117,
+    "homeLogLoss": 0.7669,
+    "awayLogLoss": 1.0053,
     "bettingLines": "WSH: Money Line",
-    "correctBettingLines": 0,
-    "correctLines": 0,
+    "correctBettingLines": 1,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -431,10 +431,10 @@
     "outcome": "COL, WPG: 1.15504 v COL: 1.53098      Expected difference: 0.37594, (WPG: 1.92507 v COL: 2.55163) (WPG: 40.71% , COL: 59.29%)",
     "startingTime": "19:35:00",
     "timeLastRun": "19:12:26",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.4019,
+    "awayMeanSquaredError": 0.7243,
+    "homeLogLoss": "NaN",
+    "awayLogLoss": "NaN",
     "bettingLines": [
       "COL: Money Line",
       "Kyle Connor: +1 Point",
@@ -442,10 +442,10 @@
     ],
     "correctBettingLines": [
       0,
-      0,
+      1,
       0
     ],
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 3
   },
   {
@@ -665,21 +665,21 @@
     "outcome": "EDM, ANA: 0.60404 v EDM: 1.4536      Expected difference: 0.84956, (ANA: 1.00673 v EDM: 2.42267) (ANA: 29.95% , EDM: 70.05%)",
     "startingTime": "22:05:00",
     "timeLastRun": "21:57:32",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.3817,
+    "awayMeanSquaredError": 0.9911,
+    "homeLogLoss": 0.5129,
+    "awayLogLoss": "NaN",
     "bettingLines": [
       "EDM: Money Line",
       "Leon Draisaitl: +1 Point",
       "Connor McDavid: +1 Point"
     ],
     "correctBettingLines": [
-      0,
-      0,
-      0
+      1,
+      1,
+      1
     ],
-    "correctLines": 0,
+    "correctLines": 3,
     "totalLines": 3
   }
 ]
