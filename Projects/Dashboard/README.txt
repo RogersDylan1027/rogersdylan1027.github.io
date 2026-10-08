@@ -1,8 +1,76 @@
-My Dashboard · Version 0.10.12
-Three-Tier Account Roles · 2026-10-08
+My Dashboard · Version 0.11.0
+Raspberry Pi Controls · 2026-10-08
 
 CHANGELOG
 =========
+Version 0.11.0: Raspberry Pi Controls
+
+Description:
+Adds Raspberry Pi as a first-class Dashboard tile for Main Admins while the Pi is reachable over Tailscale or the local Pi network. The tile opens a built-in Dashboard popup with live Pi health and authenticated control actions.
+
+RASPBERRY PI TILE · 0.11.0
+==========================
+- Adds Raspberry Pi to the main Dashboard tile area rather than Projects or Settings.
+- Uses the Raspberry Pi logo for the tile.
+- Only renders for a verified Main Admin.
+- Only renders while the authenticated browser can reach the Pi Control API.
+- Regular and Admin accounts never render the Raspberry Pi tile.
+- If Pi connectivity disappears, the tile is removed on the next availability check.
+- The Pi popup uses the Dashboard's existing internal-view/modal styling.
+
+PI STATUS · 0.11.0
+==================
+- Shows online state, hostname, CPU temperature, uptime, load averages, RAM usage,
+  and storage usage.
+- Refreshes Pi reachability in the background and supports manual status refresh.
+
+PI CONTROLS · 0.11.0
+====================
+- Adds Update Dashboard and Restart Dashboard actions.
+- Adds Reboot Pi and Shut Down Pi actions with confirmation prompts.
+- Uses the existing Supabase session access token for every Pi API request.
+- The Pi Control API independently verifies Main Admin status, so hiding the tile
+  is not the security boundary.
+- Remote access uses the private Tailscale Serve HTTPS endpoint.
+- Local Pi-hosted Dashboard sessions can use a local-network API endpoint when
+  the Pi API is listening on the LAN.
+
+SECURITY · 0.11.0
+=================
+- Does not expose a service-role key or shared Pi API secret in browser code.
+- Keeps Regular and Admin roles unable to use Pi controls.
+- Keeps the public Dashboard usable when the Pi is unavailable; the Pi tile is
+  simply omitted.
+- Reboot and shutdown require explicit confirmation.
+
+FILES UPDATED
+=============
+Dashboard/index.html
+Dashboard/login.html
+Dashboard/dashboard-config.js
+Dashboard/dashboard-pi.js
+Dashboard/raspberry-pi.svg
+Dashboard/dashboard-pwa.js
+Dashboard/dashboard-account-access.js
+Dashboard/service-worker.js
+Dashboard/manifest.webmanifest
+Dashboard/README.txt
+
+TEST CHECKLIST · 0.11.0
+=======================
+1. Fully close and reopen My Dashboard and confirm Version 0.11.0.
+2. Sign in as Regular and Admin accounts and confirm no Raspberry Pi tile appears.
+3. Sign in as Main Admin without Tailscale/local Pi access and confirm the tile stays hidden.
+4. Connect Tailscale as Main Admin and confirm the Raspberry Pi tile appears.
+5. Open the tile and confirm live Pi status loads.
+6. Test Update Dashboard and Restart Dashboard.
+7. Confirm Reboot and Shut Down both require confirmation.
+8. Confirm Pi API requests fail for non-Main-Admin sessions.
+9. Confirm the rest of Dashboard, Projects, Files, Calendar, Streaming, Reviews,
+   Budget, notifications, and account management are unchanged.
+
+PREVIOUS RELEASE
+================
 Version 0.10.12: Three-Tier Account Roles
 
 Description:
