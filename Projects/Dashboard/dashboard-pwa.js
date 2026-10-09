@@ -1,4 +1,4 @@
-/* My Dashboard · PWA Runtime · Version 0.11.1 · Raspberry Pi Temperature & Load Clarity · 2026-10-08 */
+/* My Dashboard · PWA Runtime · Version 0.11.2 · Raspberry Pi Scheduler · 2026-10-09 */
 (function () {
   "use strict";
   const config = window.DashboardConfig;
