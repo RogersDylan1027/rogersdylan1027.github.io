@@ -1,6 +1,6 @@
 /*
-  My Dashboard · Raspberry Pi Runtime · Version 0.11.1
-  Raspberry Pi Temperature & Load Clarity · 2026-10-08
+  My Dashboard · Raspberry Pi Runtime · Version 0.11.2
+  Raspberry Pi Scheduler · 2026-10-09
 
   Main Admin only. The tile is rendered only while an authenticated
   Main Admin can reach the Pi Control API over the local Pi host or Tailscale.
@@ -21,6 +21,8 @@
 
   let activeApiBase = null;
   let latestStatus = null;
+  let latestSchedulerStatus = null;
+  let latestSchedulerHistory = [];
   let checkTimer = null;
   let mutationTimer = null;
 
@@ -195,6 +197,57 @@
     return Math.max(0, Math.round(value * 100)) + "%";
   }
 
+  function formatDateTime(value) {
+    if (!value) return "—";
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return String(value);
+    return new Intl.DateTimeFormat(undefined, {
+      month: "short",
+      day: "numeric",
+      hour: "numeric",
+      minute: "2-digit"
+    }).format(date);
+  }
+
+  function describeSchedule(schedule = {}) {
+    const type = String(schedule.type || "cron").toLowerCase();
+
+    if (type === "interval") {
+      const units = ["weeks", "days", "hours", "minutes", "seconds"];
+      const parts = units
+        .filter(unit => Number(schedule[unit]) > 0)
+        .map(unit => {
+          const value = Number(schedule[unit]);
+          return `${value} ${unit.replace(/s$/, value === 1 ? "" : "s")}`;
+        });
+      return parts.length ? "Every " + parts.join(", ") : "Interval";
+    }
+
+    if (type === "date") {
+      return schedule.run_at ? "Once · " + formatDateTime(schedule.run_at) : "One-time";
+    }
+
+    const day = schedule.day_of_week ? `${schedule.day_of_week} · ` : "";
+    const hour = schedule.hour != null ? String(schedule.hour).padStart(2, "0") : "*";
+    const minute = schedule.minute != null ? String(schedule.minute).padStart(2, "0") : "*";
+
+    if (schedule.minute && String(schedule.minute).startsWith("*/") && schedule.hour == null) {
+      return `Every ${String(schedule.minute).slice(2)} minutes`;
+    }
+    if (schedule.hour != null && schedule.minute != null && !String(schedule.hour).includes("*") && !String(schedule.minute).includes("*")) {
+      const parsedHour = Number(schedule.hour);
+      const parsedMinute = Number(schedule.minute);
+      if (Number.isFinite(parsedHour) && Number.isFinite(parsedMinute)) {
+        const date = new Date();
+        date.setHours(parsedHour, parsedMinute, 0, 0);
+        const time = new Intl.DateTimeFormat(undefined, { hour: "numeric", minute: "2-digit" }).format(date);
+        return day + time;
+      }
+    }
+
+    return `${day}Cron · ${hour}:${minute}`;
+  }
+
   function ensureStyles() {
     if (document.getElementById("dashboard-pi-styles")) return;
     const style = document.createElement("style");
@@ -223,7 +276,34 @@
       .pi-control-section p{margin:0 0 13px;color:#68707c;font-size:13px;line-height:1.45}
       .pi-action-row{display:flex;align-items:center;flex-wrap:wrap;gap:9px}
       .pi-action-status{min-height:18px;margin:11px 0 0;color:#68707c;font-size:12px;white-space:pre-wrap}
+      .pi-scheduler-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px}
+      .pi-scheduler-header h3{margin:0}
+      .pi-scheduler-summary{margin:4px 0 0;color:#68707c;font-size:12px}
+      .pi-scheduler-list{display:grid;gap:10px}
+      .pi-automation-card{padding:14px;border:1px solid #dfe3e8;border-radius:13px;background:#f8f9fb}
+      .pi-automation-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+      .pi-automation-name{font-size:14px;font-weight:800;overflow-wrap:anywhere}
+      .pi-automation-state{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;color:#68707c;font-size:11px;font-weight:800}
+      .pi-automation-state::before{content:"";width:8px;height:8px;border-radius:50%;background:#9aa0a8}
+      .pi-automation-state.enabled::before{background:#2e8b57}
+      .pi-automation-meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px 14px;margin-top:10px;color:#68707c;font-size:12px}
+      .pi-automation-meta strong{display:block;margin-bottom:2px;color:#3f4752;font-size:10px;text-transform:uppercase;letter-spacing:.35px}
+      .pi-automation-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+      .pi-automation-actions .pi-action-button{min-height:34px;padding:6px 11px;font-size:12px}
+      .pi-scheduler-message{min-height:18px;margin:10px 0 0;color:#68707c;font-size:12px}
+      .pi-history{display:grid;gap:8px;margin-top:15px;padding-top:14px;border-top:1px solid #e3e6ea}
+      .pi-history-title{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:#68707c}
+      .pi-history-item{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid #eceef1;font-size:12px}
+      .pi-history-item:last-child{border-bottom:0}
+      .pi-history-main{min-width:0}
+      .pi-history-name{display:block;font-weight:800;color:#333;overflow-wrap:anywhere}
+      .pi-history-time{display:block;margin-top:2px;color:#777}
+      .pi-history-status{white-space:nowrap;font-weight:800;text-transform:capitalize}
+      .pi-history-status.success{color:#267348}
+      .pi-history-status.failed,.pi-history-status.configuration_error{color:#b3261e}
+      .pi-empty-state{padding:14px;border:1px dashed #cfd4db;border-radius:12px;color:#68707c;font-size:12px;text-align:center}
       @media(max-width:700px){.pi-stat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+      @media(max-width:520px){.pi-automation-meta{grid-template-columns:1fr}.pi-scheduler-header{align-items:stretch;flex-direction:column}.pi-scheduler-header .pi-refresh-button{align-self:flex-start}}
       @media(max-width:460px){.pi-stat-grid{grid-template-columns:1fr}.pi-view-content{padding:14px}.pi-status-banner{align-items:flex-start;flex-direction:column}}
     `;
     document.head.appendChild(style);
@@ -318,6 +398,26 @@
           </div>
 
           <section class="pi-control-section">
+            <div class="pi-scheduler-header">
+              <div>
+                <h3>Scheduler</h3>
+                <p id="pi-scheduler-summary" class="pi-scheduler-summary">Loading scheduler…</p>
+              </div>
+              <button id="pi-scheduler-refresh" class="pi-refresh-button" type="button">Refresh Scheduler</button>
+            </div>
+            <div id="pi-scheduler-list" class="pi-scheduler-list">
+              <div class="pi-empty-state">Loading automations…</div>
+            </div>
+            <div id="pi-scheduler-message" class="pi-scheduler-message" role="status"></div>
+            <div class="pi-history">
+              <div class="pi-history-title">Recent Runs</div>
+              <div id="pi-scheduler-history">
+                <div class="pi-empty-state">Loading history…</div>
+              </div>
+            </div>
+          </section>
+
+          <section class="pi-control-section">
             <h3>Dashboard</h3>
             <p>Update the Pi's local Dashboard files from GitHub or restart the Dashboard web service.</p>
             <div class="pi-action-row">
@@ -347,6 +447,7 @@
       if (event.target === backdrop) closeView();
     });
     backdrop.querySelector("#pi-refresh-status")?.addEventListener("click", refreshOpenView);
+    backdrop.querySelector("#pi-scheduler-refresh")?.addEventListener("click", refreshSchedulerData);
 
     backdrop.querySelectorAll("[data-pi-action]").forEach(button => {
       button.addEventListener("click", () => runAction(button));
@@ -395,6 +496,193 @@
     setText("pi-hostname", status.hostname || "dashboard-pi");
   }
 
+  function latestRunFor(automationId) {
+    return latestSchedulerHistory.find(item => item?.automation_id === automationId) || null;
+  }
+
+  function renderScheduler() {
+    const summary = document.getElementById("pi-scheduler-summary");
+    const list = document.getElementById("pi-scheduler-list");
+    const history = document.getElementById("pi-scheduler-history");
+    if (!summary || !list || !history) return;
+
+    const automations = Array.isArray(latestSchedulerStatus?.automations)
+      ? latestSchedulerStatus.automations
+      : [];
+
+    const running = latestSchedulerStatus?.running === true;
+    summary.textContent = latestSchedulerStatus
+      ? `${running ? "Running" : "Unavailable"} · ${automations.length} automation${automations.length === 1 ? "" : "s"} · ${latestSchedulerStatus.timezone || "Pi timezone"}`
+      : "Scheduler unavailable.";
+
+    list.innerHTML = "";
+
+    if (!automations.length) {
+      const empty = document.createElement("div");
+      empty.className = "pi-empty-state";
+      empty.textContent = "No YAML automations were found on the Pi.";
+      list.appendChild(empty);
+    } else {
+      automations.forEach(automation => {
+        const card = document.createElement("div");
+        card.className = "pi-automation-card";
+
+        const top = document.createElement("div");
+        top.className = "pi-automation-top";
+
+        const name = document.createElement("div");
+        name.className = "pi-automation-name";
+        name.textContent = automation.name || automation.id || "Automation";
+
+        const state = document.createElement("span");
+        state.className = "pi-automation-state" + (automation.enabled ? " enabled" : "");
+        state.textContent = automation.enabled ? "Enabled" : "Disabled";
+
+        top.append(name, state);
+
+        const meta = document.createElement("div");
+        meta.className = "pi-automation-meta";
+
+        const schedule = document.createElement("div");
+        schedule.innerHTML = "<strong>Schedule</strong>";
+        schedule.append(document.createTextNode(describeSchedule(automation.schedule || {})));
+
+        const next = document.createElement("div");
+        next.innerHTML = "<strong>Next Run</strong>";
+        next.append(document.createTextNode(automation.enabled ? formatDateTime(automation.next_run) : "Disabled"));
+
+        const lastRun = latestRunFor(automation.id);
+        const last = document.createElement("div");
+        last.innerHTML = "<strong>Last Run</strong>";
+        last.append(document.createTextNode(lastRun ? formatDateTime(lastRun.timestamp) : "—"));
+
+        const result = document.createElement("div");
+        result.innerHTML = "<strong>Last Result</strong>";
+        result.append(document.createTextNode(lastRun?.status ? String(lastRun.status).replaceAll("_", " ") : "—"));
+
+        meta.append(schedule, next, last, result);
+
+        const actions = document.createElement("div");
+        actions.className = "pi-automation-actions";
+
+        const runButton = document.createElement("button");
+        runButton.type = "button";
+        runButton.className = "pi-action-button";
+        runButton.textContent = "Run Now";
+        runButton.addEventListener("click", () => runSchedulerCommand(automation.id, "run", runButton));
+
+        const toggleButton = document.createElement("button");
+        toggleButton.type = "button";
+        toggleButton.className = "pi-action-button secondary";
+        toggleButton.textContent = automation.enabled ? "Disable" : "Enable";
+        toggleButton.addEventListener("click", () =>
+          runSchedulerCommand(automation.id, automation.enabled ? "disable" : "enable", toggleButton)
+        );
+
+        actions.append(runButton, toggleButton);
+        card.append(top, meta, actions);
+        list.appendChild(card);
+      });
+    }
+
+    history.innerHTML = "";
+    const recent = latestSchedulerHistory.slice(0, 8);
+    if (!recent.length) {
+      const empty = document.createElement("div");
+      empty.className = "pi-empty-state";
+      empty.textContent = "No scheduler runs recorded yet.";
+      history.appendChild(empty);
+    } else {
+      recent.forEach(item => {
+        const row = document.createElement("div");
+        row.className = "pi-history-item";
+
+        const main = document.createElement("div");
+        main.className = "pi-history-main";
+
+        const runName = document.createElement("span");
+        runName.className = "pi-history-name";
+        runName.textContent = item.name || item.automation_id || "Automation";
+
+        const time = document.createElement("span");
+        time.className = "pi-history-time";
+        time.textContent = formatDateTime(item.timestamp);
+
+        const status = document.createElement("span");
+        status.className = "pi-history-status " + String(item.status || "");
+        status.textContent = String(item.status || "unknown").replaceAll("_", " ");
+
+        main.append(runName, time);
+        row.append(main, status);
+        history.appendChild(row);
+      });
+    }
+  }
+
+  async function refreshSchedulerData() {
+    const refreshButton = document.getElementById("pi-scheduler-refresh");
+    if (refreshButton) refreshButton.disabled = true;
+
+    try {
+      if (!activeApiBase) throw new Error("Raspberry Pi is unavailable.");
+
+      const [schedulerStatus, historyPayload] = await Promise.all([
+        apiFetch(activeApiBase, "/api/scheduler"),
+        apiFetch(activeApiBase, "/api/scheduler/history?limit=50")
+      ]);
+
+      latestSchedulerStatus = schedulerStatus;
+      latestSchedulerHistory = Array.isArray(historyPayload?.history) ? historyPayload.history : [];
+      renderScheduler();
+    } catch (error) {
+      latestSchedulerStatus = null;
+      latestSchedulerHistory = [];
+      renderScheduler();
+      setText("pi-scheduler-message", error?.message || "Scheduler data could not be loaded.");
+    } finally {
+      if (refreshButton) refreshButton.disabled = false;
+    }
+  }
+
+  async function runSchedulerCommand(automationId, action, button) {
+    if (!activeApiBase || !automationId || !action) return;
+    const originalText = button?.textContent || "";
+
+    if (button) {
+      button.disabled = true;
+      button.textContent = action === "run" ? "Starting…" : "Saving…";
+    }
+
+    setText("pi-scheduler-message", action === "run" ? "Requesting manual run…" : "Updating automation…");
+
+    try {
+      await apiFetch(
+        activeApiBase,
+        `/api/scheduler/${encodeURIComponent(automationId)}/${action}`,
+        { method: "POST", body: "{}" }
+      );
+
+      setText(
+        "pi-scheduler-message",
+        action === "run"
+          ? "Run requested. The scheduler will execute it on the Pi."
+          : action === "enable"
+            ? "Automation enabled."
+            : "Automation disabled."
+      );
+
+      await new Promise(resolve => setTimeout(resolve, action === "run" ? 2300 : 1200));
+      await refreshSchedulerData();
+    } catch (error) {
+      setText("pi-scheduler-message", error?.message || "Scheduler action failed.");
+    } finally {
+      if (button) {
+        button.disabled = false;
+        button.textContent = originalText;
+      }
+    }
+  }
+
   async function refreshOpenView() {
     const button = document.getElementById("pi-refresh-status");
     if (button) button.disabled = true;
@@ -404,6 +692,7 @@
       const status = await apiFetch(activeApiBase, "/api/status");
       latestStatus = status;
       updateView(status, true);
+      await refreshSchedulerData();
     } catch {
       await discoverPi();
     } finally {
