@@ -1987,47 +1987,203 @@
     "homeScorers": {},
     "awayScorers": "Auston Matthews, TOR: 0.47666      (0.794433333333333)",
     "allHomePoints": {
-      "Ivan Barbashev": ["0.2045", "6.91%", "1.4875"],
-      "Braeden Bowman": ["0.0775", "2.68%", "1.2405"],
-      "Trevor Connelly": ["0.1214", "4.16%", "1.3621"],
-      "Nic Dowd": ["0.0226", "0.79%", "0.7946"],
-      "Jack Eichel": ["0.5856", "18.53%", "2.9396"],
-      "Marc Gatcomb": ["0.0207", "0.72%", "1.0352"],
-      "Tomas Hertl": ["0.3036", "10.08%", "2.1146"],
-      "Brett Howden": ["0.189", "6.4%", "1.2192"],
-      "William Karlsson": ["0.2032", "6.87%", "1.68"],
-      "Raphael Lavoie": ["0", "0%", "0"],
-      "Mitch Marner": ["0.4085", "13.32%", "1.9603"],
-      "Mark Stone": ["0.5325", "17%", "1.9675"],
-      "Rasmus Andersson": ["0.2835", "9.44%", "1.9851"],
-      "Dylan Coghlan": ["0.0238", "0.83%", "0.8513"],
-      "Noah Hanifin": ["0.0371", "1.29%", "1.5602"],
-      "Jeremy Lauzon": ["0.0059", "0.2%", "0.9025"],
-      "Brayden McNabb": ["0.0479", "1.66%", "1.079"],
-      "Shea Theodore": ["0.215", "7.25%", "1.7063"],
-      "Parker Wotherspoon": ["0.0166", "0.58%", "0.7802"]
+      "Ivan Barbashev": [
+        "0.2045",
+        "6.91%",
+        "1.4875"
+      ],
+      "Braeden Bowman": [
+        "0.0775",
+        "2.68%",
+        "1.2405"
+      ],
+      "Trevor Connelly": [
+        "0.1214",
+        "4.16%",
+        "1.3621"
+      ],
+      "Nic Dowd": [
+        "0.0226",
+        "0.79%",
+        "0.7946"
+      ],
+      "Jack Eichel": [
+        "0.5856",
+        "18.53%",
+        "2.9396"
+      ],
+      "Marc Gatcomb": [
+        "0.0207",
+        "0.72%",
+        "1.0352"
+      ],
+      "Tomas Hertl": [
+        "0.3036",
+        "10.08%",
+        "2.1146"
+      ],
+      "Brett Howden": [
+        "0.189",
+        "6.4%",
+        "1.2192"
+      ],
+      "William Karlsson": [
+        "0.2032",
+        "6.87%",
+        "1.68"
+      ],
+      "Raphael Lavoie": [
+        "0",
+        "0%",
+        "0"
+      ],
+      "Mitch Marner": [
+        "0.4085",
+        "13.32%",
+        "1.9603"
+      ],
+      "Mark Stone": [
+        "0.5325",
+        "17%",
+        "1.9675"
+      ],
+      "Rasmus Andersson": [
+        "0.2835",
+        "9.44%",
+        "1.9851"
+      ],
+      "Dylan Coghlan": [
+        "0.0238",
+        "0.83%",
+        "0.8513"
+      ],
+      "Noah Hanifin": [
+        "0.0371",
+        "1.29%",
+        "1.5602"
+      ],
+      "Jeremy Lauzon": [
+        "0.0059",
+        "0.2%",
+        "0.9025"
+      ],
+      "Brayden McNabb": [
+        "0.0479",
+        "1.66%",
+        "1.079"
+      ],
+      "Shea Theodore": [
+        "0.215",
+        "7.25%",
+        "1.7063"
+      ],
+      "Parker Wotherspoon": [
+        "0.0166",
+        "0.58%",
+        "0.7802"
+      ]
     },
     "allAwayPoints": {
-      "Teddy Blueger": ["0.2076", "7.01%", "1.0089"],
-      "Easton Cowan": ["0.1302", "4.45%", "0.9868"],
-      "Brandon Duhaime": ["0.0158", "0.55%", "0.5502"],
-      "Bo Groulx": ["0.1388", "4.74%", "0.8003"],
-      "Zack MacEwen": ["0", "0%", "0"],
-      "Kirill Marchenko": ["0.7352", "22.69%", "2.0241"],
-      "Auston Matthews": ["1.3619", "37.91%", "2.6649"],
-      "Gavin McKenna": ["0.2416", "8.11%", "1.2342"],
-      "William Nylander": ["0.8271", "25.14%", "1.691"],
-      "Nick Paul": ["0.0831", "2.87%", "0.9271"],
-      "Jack Roslovic": ["0.3341", "11.03%", "1.4151"],
-      "Colton Sissons": ["0.0496", "1.72%", "0.7686"],
-      "John Tavares": ["0.6062", "19.12%", "1.6611"],
-      "Nick Blankenburg": ["0.0984", "3.39%", "0.8324"],
-      "Oliver Ekman-Larsson": ["0.1049", "3.61%", "0.9708"],
-      "Jake McCabe": ["0.0482", "1.67%", "0.6791"],
-      "Darren Raddysh": ["0.7421", "22.87%", "2.1135"],
-      "Morgan Rielly": ["0.1986", "6.71%", "1.2699"],
-      "Troy Stecher": ["0.0329", "1.14%", "0.7025"],
-      "Chris Tanev": ["0", "0%", "0.1763"]
+      "Teddy Blueger": [
+        "0.2076",
+        "7.01%",
+        "1.0089"
+      ],
+      "Easton Cowan": [
+        "0.1302",
+        "4.45%",
+        "0.9868"
+      ],
+      "Brandon Duhaime": [
+        "0.0158",
+        "0.55%",
+        "0.5502"
+      ],
+      "Bo Groulx": [
+        "0.1388",
+        "4.74%",
+        "0.8003"
+      ],
+      "Zack MacEwen": [
+        "0",
+        "0%",
+        "0"
+      ],
+      "Kirill Marchenko": [
+        "0.7352",
+        "22.69%",
+        "2.0241"
+      ],
+      "Auston Matthews": [
+        "1.3619",
+        "37.91%",
+        "2.6649"
+      ],
+      "Gavin McKenna": [
+        "0.2416",
+        "8.11%",
+        "1.2342"
+      ],
+      "William Nylander": [
+        "0.8271",
+        "25.14%",
+        "1.691"
+      ],
+      "Nick Paul": [
+        "0.0831",
+        "2.87%",
+        "0.9271"
+      ],
+      "Jack Roslovic": [
+        "0.3341",
+        "11.03%",
+        "1.4151"
+      ],
+      "Colton Sissons": [
+        "0.0496",
+        "1.72%",
+        "0.7686"
+      ],
+      "John Tavares": [
+        "0.6062",
+        "19.12%",
+        "1.6611"
+      ],
+      "Nick Blankenburg": [
+        "0.0984",
+        "3.39%",
+        "0.8324"
+      ],
+      "Oliver Ekman-Larsson": [
+        "0.1049",
+        "3.61%",
+        "0.9708"
+      ],
+      "Jake McCabe": [
+        "0.0482",
+        "1.67%",
+        "0.6791"
+      ],
+      "Darren Raddysh": [
+        "0.7421",
+        "22.87%",
+        "2.1135"
+      ],
+      "Morgan Rielly": [
+        "0.1986",
+        "6.71%",
+        "1.2699"
+      ],
+      "Troy Stecher": [
+        "0.0329",
+        "1.14%",
+        "0.7025"
+      ],
+      "Chris Tanev": [
+        "0",
+        "0%",
+        "0.1763"
+      ]
     },
     "outcome": "TOR, VGK: 1.15457 v TOR: 2.08462      Expected difference: 0.93005, (VGK: 1.92428 v TOR: 3.47437) (VGK: 28.29% , TOR: 71.71%)",
     "startingTime": "22:05:00",
@@ -2036,8 +2192,14 @@
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
     "awayLogLoss": {},
-    "bettingLines": ["TOR: Money Line", "Auston Matthews: +1 Point"],
-    "correctBettingLines": [0, 0],
+    "bettingLines": [
+      "TOR: Money Line",
+      "Auston Matthews: +1 Point"
+    ],
+    "correctBettingLines": [
+      0,
+      0
+    ],
     "correctLines": 0,
     "totalLines": 2
   }
