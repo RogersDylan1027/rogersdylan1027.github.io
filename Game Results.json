@@ -218,19 +218,19 @@
     "outcome": "UTA (OTW), BOS: 1.46974 v UTA: 1.48375      Expected difference: 0.0140100000000001, (BOS: 2.44957 v UTA: 2.47292) (BOS: 49.65% , UTA: 50.35%)",
     "startingTime": "19:05:00",
     "timeLastRun": "18:57:36",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 1.0995,
+    "awayMeanSquaredError": 0.2319,
+    "homeLogLoss": "NaN",
+    "awayLogLoss": "Inf",
     "bettingLines": [
       "UTA: Money Line",
       "David Pastrnak: +1 Point"
     ],
     "correctBettingLines": [
       0,
-      0
+      1
     ],
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 2
   },
   {
@@ -447,10 +447,10 @@
     "outcome": "BUF, BUF: 1.13546 v DAL: 0.69222      Expected difference: 0.44324, (BUF: 1.89243 v DAL: 1.1537) (BUF: 60.9% , DAL: 39.1%)",
     "startingTime": "19:05:00",
     "timeLastRun": "18:57:40",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.0507,
+    "awayMeanSquaredError": 1.2175,
+    "homeLogLoss": 0.2,
+    "awayLogLoss": 0.9769,
     "bettingLines": "BUF: Money Line",
     "correctBettingLines": 0,
     "correctLines": 0,
@@ -660,10 +660,10 @@
     "outcome": "MTL, MTL: 0.92181 v NSH: 0.40564      Expected difference: 0.51617, (MTL: 1.53635 v NSH: 0.67607) (MTL: 62.63% , NSH: 37.37%)",
     "startingTime": "19:05:00",
     "timeLastRun": "18:57:43",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.1505,
+    "awayMeanSquaredError": 1.0209,
+    "homeLogLoss": 0.4361,
+    "awayLogLoss": 2.3624,
     "bettingLines": "MTL: Money Line",
     "correctBettingLines": 0,
     "correctLines": 0,
@@ -868,10 +868,10 @@
     "outcome": "PHI, OTT: 0.88694 v PHI: 1.35087      Expected difference: 0.46393, (OTT: 1.47823 v PHI: 2.25145) (OTT: 38.61% , PHI: 61.39%)",
     "startingTime": "19:05:00",
     "timeLastRun": "18:57:47",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.3008,
+    "awayMeanSquaredError": 0.1126,
+    "homeLogLoss": 0.9933,
+    "awayLogLoss": 0.3397,
     "bettingLines": "PHI: Money Line",
     "correctBettingLines": 0,
     "correctLines": 0,
@@ -1083,10 +1083,10 @@
     "outcome": "TBL, TBL: 2.0008 v MIN: 1.7593      Expected difference: 0.2415, (TBL: 3.33467 v MIN: 2.93217) (TBL: 56.01% , MIN: 43.99%)",
     "startingTime": "19:05:00",
     "timeLastRun": "18:57:51",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.2602,
+    "awayMeanSquaredError": 0.2683,
+    "homeLogLoss": "NaN",
+    "awayLogLoss": "NaN",
     "bettingLines": [
       "TBL: Money Line",
       "Jake Guentzel: +1 Point",
@@ -1096,14 +1096,14 @@
       "Kirill Kaprizov: +1 Point"
     ],
     "correctBettingLines": [
+      1,
+      1,
+      1,
+      1,
       0,
-      0,
-      0,
-      0,
-      0,
-      0
+      1
     ],
-    "correctLines": 0,
+    "correctLines": 5,
     "totalLines": 6
   },
   {
@@ -1315,10 +1315,10 @@
     "outcome": "VAN, CAR: 0.36472 v VAN: 0.76316      Expected difference: 0.39844, (CAR: 0.60787 v VAN: 1.27193) (CAR: 40.17% , VAN: 59.83%)",
     "startingTime": "19:05:00",
     "timeLastRun": "18:57:55",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 2.155,
+    "awayMeanSquaredError": 0.4399,
+    "homeLogLoss": 2.8878,
+    "awayLogLoss": 0.8574,
     "bettingLines": "VAN: Money Line",
     "correctBettingLines": 0,
     "correctLines": 0,
@@ -1528,10 +1528,10 @@
     "outcome": "CHI, NYI: 0.36783 v CHI: 0.955      Expected difference: 0.58717, (NYI: 0.61305 v CHI: 1.59167) (NYI: 35.73% , CHI: 64.27%)",
     "startingTime": "19:35:00",
     "timeLastRun": "19:27:35",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.6053,
+    "awayMeanSquaredError": 0.128,
+    "homeLogLoss": 1.4249,
+    "awayLogLoss": 0.3833,
     "bettingLines": "CHI: Money Line",
     "correctBettingLines": 0,
     "correctLines": 0,
@@ -1751,13 +1751,13 @@
     "outcome": "SJS, STL: 0.47347 v SJS: 1.2474      Expected difference: 0.77393, (STL: 0.78912 v SJS: 2.079) (STL: 31.56% , SJS: 68.44%)",
     "startingTime": "20:05:00",
     "timeLastRun": "19:56:48",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.1945,
+    "awayMeanSquaredError": 0.4444,
+    "homeLogLoss": "Inf",
+    "awayLogLoss": "Inf",
     "bettingLines": "SJS: Money Line",
-    "correctBettingLines": 0,
-    "correctLines": 0,
+    "correctBettingLines": 1,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -1964,19 +1964,19 @@
     "outcome": "COL, CGY: 0.64406 v COL: 1.74192      Expected difference: 1.09786, (CGY: 1.07343 v COL: 2.9032) (CGY: 25.01% , COL: 74.99%)",
     "startingTime": "21:05:00",
     "timeLastRun": "20:57:24",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.2753,
+    "awayMeanSquaredError": 1.4597,
+    "homeLogLoss": "Inf",
+    "awayLogLoss": "NaN",
     "bettingLines": [
       "COL: Money Line",
       "Nathan MacKinnon: +1 Point"
     ],
     "correctBettingLines": [
-      0,
-      0
+      1,
+      1
     ],
-    "correctLines": 0,
+    "correctLines": 2,
     "totalLines": 2
   },
   {
@@ -2188,19 +2188,19 @@
     "outcome": "TOR, VGK: 1.15457 v TOR: 2.08462      Expected difference: 0.93005, (VGK: 1.92428 v TOR: 3.47437) (VGK: 28.29% , TOR: 71.71%)",
     "startingTime": "22:05:00",
     "timeLastRun": "21:57:11",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.2893,
+    "awayMeanSquaredError": 0.2532,
+    "homeLogLoss": 0.5192,
+    "awayLogLoss": "NaN",
     "bettingLines": [
       "TOR: Money Line",
       "Auston Matthews: +1 Point"
     ],
     "correctBettingLines": [
       0,
-      0
+      1
     ],
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 2
   }
 ]
