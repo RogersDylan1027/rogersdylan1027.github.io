@@ -1,6 +1,6 @@
 /*
-  My Dashboard · Raspberry Pi Runtime · Version 0.11.2
-  Raspberry Pi Scheduler · 2026-10-09
+  My Dashboard · Raspberry Pi Runtime · Version 0.11.3
+  Raspberry Pi Scheduler Runtime Tracking · 2026-10-09
 
   Main Admin only. The tile is rendered only while an authenticated
   Main Admin can reach the Pi Control API over the local Pi host or Tailscale.
@@ -207,6 +207,34 @@
       hour: "numeric",
       minute: "2-digit"
     }).format(date);
+  }
+
+  function formatDuration(seconds) {
+    const value = Number(seconds);
+    if (!Number.isFinite(value) || value < 0) return "—";
+
+    let remaining = Math.round(value);
+    const hours = Math.floor(remaining / 3600);
+    remaining %= 3600;
+    const minutes = Math.floor(remaining / 60);
+    const secs = remaining % 60;
+
+    const parts = [];
+    if (hours) parts.push(hours + "h");
+    if (minutes || hours) parts.push(minutes + "m");
+    parts.push(secs + "s");
+    return parts.join(" ");
+  }
+
+  function averageRuntimeFor(automationId) {
+    const durations = latestSchedulerHistory
+      .filter(item => item?.automation_id === automationId)
+      .map(item => Number(item?.duration_seconds))
+      .filter(value => Number.isFinite(value) && value >= 0);
+
+    if (!durations.length) return null;
+
+    return durations.reduce((sum, value) => sum + value, 0) / durations.length;
   }
 
   function describeSchedule(schedule = {}) {
@@ -560,7 +588,22 @@
         result.innerHTML = "<strong>Last Result</strong>";
         result.append(document.createTextNode(lastRun?.status ? String(lastRun.status).replaceAll("_", " ") : "—"));
 
-        meta.append(schedule, next, last, result);
+        const lastDuration = document.createElement("div");
+        lastDuration.innerHTML = "<strong>Last Duration</strong>";
+        lastDuration.append(document.createTextNode(
+          lastRun && Number.isFinite(Number(lastRun.duration_seconds))
+            ? formatDuration(lastRun.duration_seconds)
+            : "—"
+        ));
+
+        const averageRuntime = document.createElement("div");
+        averageRuntime.innerHTML = "<strong>Average Runtime</strong>";
+        const averageSeconds = averageRuntimeFor(automation.id);
+        averageRuntime.append(document.createTextNode(
+          averageSeconds == null ? "—" : formatDuration(averageSeconds)
+        ));
+
+        meta.append(schedule, next, last, result, lastDuration, averageRuntime);
 
         const actions = document.createElement("div");
         actions.className = "pi-automation-actions";
@@ -606,7 +649,10 @@
 
         const time = document.createElement("span");
         time.className = "pi-history-time";
-        time.textContent = formatDateTime(item.timestamp);
+        const durationText = Number.isFinite(Number(item.duration_seconds))
+          ? " · Duration " + formatDuration(item.duration_seconds)
+          : "";
+        time.textContent = formatDateTime(item.timestamp) + durationText;
 
         const status = document.createElement("span");
         status.className = "pi-history-status " + String(item.status || "");
