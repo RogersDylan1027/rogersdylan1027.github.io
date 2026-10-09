@@ -1,6 +1,6 @@
 /*
-  My Dashboard · Shared Configuration · Version 0.11.2
-  Raspberry Pi Scheduler · 2026-10-09
+  My Dashboard · Shared Configuration · Version 0.11.3
+  Raspberry Pi Scheduler Runtime Tracking · 2026-10-09
 
   The Supabase publishable key is intentionally browser-safe.
   Never place a service_role key or another secret in browser JavaScript.
@@ -84,8 +84,8 @@
   }
 
   window.DashboardConfig = Object.freeze({
-    version: "0.11.2",
-    releaseTitle: "Raspberry Pi Scheduler",
+    version: "0.11.3",
+    releaseTitle: "Raspberry Pi Scheduler Runtime Tracking",
     supabaseUrl: "https://pyefiovoicvhigkjhhts.supabase.co",
     supabasePublishableKey: "sb_publishable_sVrxppe8B1QkXYqAPm6ddQ_x4MA5j32",
     supabaseScriptUrl: "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.js",
@@ -93,21 +93,21 @@
     dashboardIndexUrl: BASE_PATH + "index.html",
     loginUrl: BASE_PATH + "login.html",
     projectsUrl: BASE_PATH + "projects.json",
-    manifestUrl: BASE_PATH + "manifest.webmanifest?v=0.11.2",
-    serviceWorkerUrl: BASE_PATH + "service-worker.js?v=0.11.2",
-    pwaRuntimeUrl: BASE_PATH + "dashboard-pwa.js?v=0.11.2",
-    accountAccessRuntimeUrl: BASE_PATH + "dashboard-account-access.js?v=0.11.2",
-    piRuntimeUrl: BASE_PATH + "dashboard-pi.js?v=0.11.2",
-    raspberryPiLogoUrl: BASE_PATH + "raspberry-pi.svg?v=0.11.2",
-    logoUrl: BASE_PATH + "logo-app.png?v=0.11.2",
-    appLogoUrl: BASE_PATH + "logo-app.png?v=0.11.2",
-    dashboardLogoUrl: BASE_PATH + "logo-dashboard.png?v=0.11.2",
-    professionalLogoUrl: BASE_PATH + "logo-professional.png?v=0.11.2",
+    manifestUrl: BASE_PATH + "manifest.webmanifest?v=0.11.3",
+    serviceWorkerUrl: BASE_PATH + "service-worker.js?v=0.11.3",
+    pwaRuntimeUrl: BASE_PATH + "dashboard-pwa.js?v=0.11.3",
+    accountAccessRuntimeUrl: BASE_PATH + "dashboard-account-access.js?v=0.11.3",
+    piRuntimeUrl: BASE_PATH + "dashboard-pi.js?v=0.11.3",
+    raspberryPiLogoUrl: BASE_PATH + "raspberry-pi.svg?v=0.11.3",
+    logoUrl: BASE_PATH + "logo-app.png?v=0.11.3",
+    appLogoUrl: BASE_PATH + "logo-app.png?v=0.11.3",
+    dashboardLogoUrl: BASE_PATH + "logo-dashboard.png?v=0.11.3",
+    professionalLogoUrl: BASE_PATH + "logo-professional.png?v=0.11.3",
     streamingUrl: BASE_PATH + "Streaming/",
     reviewsUrl: BASE_PATH + "Reviews/",
     budgetUrl: BASE_PATH + "Budget/",
-    streamingClientUrl: BASE_PATH + "dashboard-streaming.js?v=0.11.2",
-    streamingUiUrl: BASE_PATH + "dashboard-streaming-ui.js?v=0.11.2"
+    streamingClientUrl: BASE_PATH + "dashboard-streaming.js?v=0.11.3",
+    streamingUiUrl: BASE_PATH + "dashboard-streaming-ui.js?v=0.11.3"
   });
 
   function installRuntimeScript(src, marker) {
