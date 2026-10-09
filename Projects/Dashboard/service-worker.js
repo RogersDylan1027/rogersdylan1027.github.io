@@ -1,5 +1,5 @@
-/* My Dashboard · Service Worker · Version 0.11.2 · Raspberry Pi Scheduler · 2026-10-09 */
-const CACHE_NAME = "my-dashboard-v0.11.2";
+/* My Dashboard · Service Worker · Version 0.11.3 · Raspberry Pi Scheduler Runtime Tracking · 2026-10-09 */
+const CACHE_NAME = "my-dashboard-v0.11.3";
 const BASE_PATH = "/Projects/Dashboard/";
 const CORE_ASSETS = [
   BASE_PATH,
@@ -82,8 +82,8 @@ self.addEventListener("push", event => {
   const title = payload.title || "My Dashboard";
   const options = {
     body: payload.body || "You have a new Dashboard notification.",
-    icon: BASE_PATH + "logo-app.png?v=0.11.2",
-    badge: BASE_PATH + "logo-app.png?v=0.11.2",
+    icon: BASE_PATH + "logo-app.png?v=0.11.3",
+    badge: BASE_PATH + "logo-app.png?v=0.11.3",
     tag: payload.tag || "my-dashboard-notification",
     data: { url: payload.url || BASE_PATH }
   };
