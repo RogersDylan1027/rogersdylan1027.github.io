@@ -1,8 +1,88 @@
-My Dashboard · Version 0.11.1
-Raspberry Pi Temperature & Load Clarity · 2026-10-08
+My Dashboard · Version 0.11.2
+Raspberry Pi Scheduler · 2026-10-09
 
 CHANGELOG
 =========
+Version 0.11.2: Raspberry Pi Scheduler
+
+Description:
+Adds an always-on Raspberry Pi YAML automation scheduler and a Main Admin Dashboard companion for monitoring schedules, starting automations manually, enabling or disabling them, viewing upcoming runs, and reviewing recent run results. Automation execution remains on the Pi even when the Dashboard and user devices are closed.
+
+PI SCHEDULER · 0.11.2
+=====================
+- Adds dashboard-scheduler.service as an always-on Raspberry Pi systemd service.
+- Stores YAML automation definitions under /home/dylan/pi-scheduler/automations.
+- Keeps YAML files as the source of truth for automation names, enabled state,
+  schedules, and actions.
+- Supports cron, interval, and one-time date scheduling through APScheduler.
+- Writes current scheduler state to data/status.json and run records to
+  data/history.jsonl.
+- Supports manual Run Now requests through the Pi scheduler request queue.
+- Run Now can execute an automation even when its automatic schedule is disabled.
+- The scheduler continues running independently of the Dashboard browser, iPhone,
+  Mac, or an active SSH connection.
+
+DASHBOARD COMPANION · 0.11.2
+============================
+- Adds a Scheduler section inside the existing Raspberry Pi popup.
+- Shows whether the scheduler is running, its timezone, and automation count.
+- Shows each automation's enabled or disabled state, human-readable schedule,
+  next run, most recent run, and most recent result.
+- Adds Run Now for manual execution.
+- Adds Enable / Disable controls for automatic scheduling.
+- Adds Recent Runs history for scheduler results.
+- Adds a dedicated Refresh Scheduler action.
+- Scheduler controls use the existing authenticated Pi Control API and remain
+  Main Admin only.
+
+PI CONTROL API · 0.11.2
+=======================
+- Extends the existing Pi Control API with scheduler status, history, Run Now,
+  enable, and disable endpoints.
+- Keeps the scheduler as the process that actually executes automations; Flask
+  only acts as the authenticated bridge between My Dashboard and the Pi scheduler.
+- Reuses the existing Supabase access-token/Main Admin verification.
+- No Supabase schema, policy, or authentication changes are required.
+
+FILES UPDATED
+=============
+Dashboard/index.html
+Dashboard/login.html
+Dashboard/dashboard-config.js
+Dashboard/dashboard-pi.js
+Dashboard/dashboard-pwa.js
+Dashboard/dashboard-account-access.js
+Dashboard/service-worker.js
+Dashboard/manifest.webmanifest
+Dashboard/README.txt
+
+PI FILES CONFIGURED LOCALLY
+===========================
+/home/dylan/pi-scheduler/scheduler.py
+/etc/systemd/system/dashboard-scheduler.service
+/home/dylan/pi-control/app.py
+
+FILES CHECKED · NO CHANGE REQUIRED
+==================================
+Dashboard/projects.json
+Dashboard/Documents/privacy.html
+Dashboard/Documents/tos.html
+
+TEST CHECKLIST · 0.11.2
+=======================
+1. Fully close and reopen My Dashboard and confirm Version 0.11.2.
+2. Connect to Tailscale and sign in as Main Admin.
+3. Open Raspberry Pi and confirm the existing Pi status cards still load.
+4. Confirm Scheduler shows Running and the Pi timezone.
+5. Confirm scheduler-test appears disabled with no automatic next run.
+6. Tap Run Now and confirm a new successful run appears in Recent Runs.
+7. Enable an automation and confirm its next run appears after the scheduler reloads.
+8. Disable it and confirm the next run becomes unavailable/disabled.
+9. Confirm Regular and Admin accounts cannot see or use the Raspberry Pi controls.
+10. Confirm Update Dashboard, Restart Dashboard, Reboot Pi, and Shut Down Pi are unchanged.
+
+PREVIOUS RELEASE
+================
 Version 0.11.1: Raspberry Pi Temperature & Load Clarity
 
 Description:
