@@ -1,8 +1,59 @@
-My Dashboard · Version 0.11.2
-Raspberry Pi Scheduler · 2026-10-09
+My Dashboard · Version 0.11.3
+Raspberry Pi Scheduler Runtime Tracking · 2026-10-09
 
 CHANGELOG
 =========
+Version 0.11.3: Raspberry Pi Scheduler Runtime Tracking
+
+Description:
+Adds runtime visibility to the Raspberry Pi Scheduler so slow Pi jobs are easier to monitor. Recent Runs now shows each completed run's duration, while every automation card shows its most recent duration and the average runtime calculated from recorded runs that include duration data.
+
+SCHEDULER RUNTIME TRACKING · 0.11.3
+===================================
+- Adds Duration beside the timestamp for each Recent Runs entry.
+- Adds Last Duration to each automation card.
+- Adds Average Runtime to each automation card.
+- Average Runtime is calculated from that automation's recorded scheduler history
+  entries that contain a valid duration_seconds value.
+- Durations are formatted for readability, including seconds, minutes, and hours.
+- Existing Run Now, Enable / Disable, schedules, next runs, results, and history
+  behavior remain unchanged.
+- No Raspberry Pi scheduler service or Pi Control API response changes are
+  required because duration_seconds was already recorded in scheduler history.
+- Main Admin-only access remains unchanged.
+
+FILES UPDATED
+=============
+Dashboard/index.html
+Dashboard/login.html
+Dashboard/dashboard-config.js
+Dashboard/dashboard-pi.js
+Dashboard/dashboard-pwa.js
+Dashboard/dashboard-account-access.js
+Dashboard/service-worker.js
+Dashboard/manifest.webmanifest
+Dashboard/README.txt
+
+FILES CHECKED · NO CHANGE REQUIRED
+==================================
+Dashboard/projects.json
+Dashboard/Documents/privacy.html
+Dashboard/Documents/tos.html
+
+TEST CHECKLIST · 0.11.3
+=======================
+1. Fully close and reopen My Dashboard and confirm Version 0.11.3.
+2. Open Raspberry Pi > Scheduler as Main Admin.
+3. Confirm Recent Runs shows a readable Duration when duration_seconds exists.
+4. Confirm each automation card shows Last Duration.
+5. Confirm each automation card shows Average Runtime after recorded runs exist.
+6. Confirm automations without runtime history show an em dash instead of an
+   incorrect average.
+7. Confirm Run Now, Enable / Disable, schedules, and existing Pi controls remain
+   unchanged.
+
+PREVIOUS RELEASE
+================
 Version 0.11.2: Raspberry Pi Scheduler
 
 Description:
