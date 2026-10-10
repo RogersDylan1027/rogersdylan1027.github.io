@@ -1,0 +1,19 @@
+# Runtime information must never be committed
+*.sqlite3
+*.sqlite3-*
+*.db
+*.db-*
+.env
+.env.*
+!*.env.example
+data/
+private/
+resumes/
+exports/
+*.csv
+jobs.json
+profile.json
+answers.json
+preferences.json
+activity.json
+__pycache__/
