@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Jobs v0.1.0: local-only JSON API + SQLite store. Put behind Tailscale Serve.
+"""Jobs v0.1.1: local-only private UI + JSON API + SQLite store. Put behind Tailscale Serve.
 Requirements: Python 3.10+; no third-party dependencies.
 """
 import hmac
@@ -10,6 +10,7 @@ import sqlite3
 from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
+from urllib.parse import unquote
 from urllib.parse import urlsplit
 
 HOST = os.environ.get("JOBS_BIND", "127.0.0.1")
@@ -20,6 +21,7 @@ DB = DATA / "jobs.sqlite3"
 STATES = {"pending_review", "accepted", "declined", "drafting", "answers_review", "ready_to_submit", "submitted", "interviewing", "offer", "rejected", "withdrawn"}
 COLLECTIONS = {"jobs", "answers", "preferences", "profile", "activity"}
 MAX_BODY = 1024 * 1024
+UI = Path(__file__).with_name("index.html")
 
 def now():
     return datetime.now(timezone.utc).isoformat()
@@ -81,12 +83,30 @@ class Handler(BaseHTTPRequestHandler):
         return None
 
     def do_GET(self):
+        # The UI is served only by this loopback-bound process, via the separately
+        # authorized Tailscale HTTPS endpoint. Never expose this port publicly.
+        if urlsplit(self.path).path in ("/", "/index.html") and not urlsplit(self.path).query:
+            try:
+                raw = UI.read_bytes()
+            except OSError:
+                return self.respond(503, {"error": "UI unavailable"})
+            self.send_response(200)
+            self.send_header("Content-Type", "text/html; charset=utf-8")
+            self.send_header("Cache-Control", "no-store")
+            self.send_header("X-Content-Type-Options", "nosniff")
+            self.send_header("Referrer-Policy", "no-referrer")
+            self.send_header("X-Frame-Options", "DENY")
+            self.send_header("Content-Security-Policy", "default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'")
+            self.send_header("Content-Length", str(len(raw)))
+            self.end_headers()
+            self.wfile.write(raw)
+            return
         route = self.route()
         if not route:
             return
         coll, identifier = route
         if coll == "health":
-            return self.respond(200, {"status":"ok", "version":"0.1.0"})
+            return self.respond(200, {"status":"ok", "version":"0.1.1"})
         with connect() as db:
             if identifier:
                 result = db.execute("SELECT payload FROM records WHERE collection=? AND id=?", (coll, identifier)).fetchone()
