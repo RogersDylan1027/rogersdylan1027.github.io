@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>My Dashboard · Streaming · Version 0.7.0</title>
-  <meta name="description" content="My Dashboard unified streaming hub. Version 0.7.0 improves startup and row-loading performance with short-lived request caching, duplicate-call reuse, batched availability processing, and smarter TV refresh checks while preserving existing Streaming features.">
+  <title>My Dashboard · Streaming · Version 0.7.1</title>
+  <meta name="description" content="My Dashboard unified streaming hub. Version 0.7.1 adds a dedicated logo loading screen and operation-backed progress with recovery controls.">
   <meta name="theme-color" content="#101218">
 
-  <script src="../dashboard-config.js?v=0.7.0"></script>
+  <script src="../dashboard-config.js?v=0.7.1"></script>
   <script
-    src="../dashboard-auth.js?v=0.7.0"
+    src="../dashboard-auth.js?v=0.7.1"
     data-dashboard-project="streaming">
   </script>
-  <script src="../dashboard-streaming.js?v=0.7.0"></script>
+  <script src="../dashboard-streaming.js?v=0.7.1"></script>
 
   <style>
     *{box-sizing:border-box}
@@ -52,7 +52,20 @@
     .status{padding:18px 22px;color:var(--muted);font-size:13px}
     .status[hidden]{display:none}
     .status.error{color:#ffaca7}
-    .streaming-loader{padding:10px 0 6px}
+    /* Streaming 0.7.1: an independent startup screen, not skeleton carousels. */
+    .streaming-loader{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;background:#101218;padding:calc(20px + env(safe-area-inset-top)) 22px calc(20px + env(safe-area-inset-bottom));overflow:auto}
+    .streaming-loader[hidden]{display:none}
+    .streaming-loader-card{width:min(100%,420px);display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px}
+    .streaming-loader-logo{width:96px;height:96px;object-fit:contain;border-radius:20px}
+    .streaming-loader-title{font-size:26px;font-weight:850;letter-spacing:-.04em}
+    .streaming-loader-message{font-size:13px;color:var(--muted);min-height:20px}
+    .streaming-progress-track{width:100%;height:12px;border-radius:100px;background:#283246;overflow:hidden}
+    .streaming-progress-fill{height:100%;width:0;background:#7ca1e6;border-radius:100px;transition:width .23s ease}
+    .streaming-loader-percent{font-size:24px;font-weight:800;font-variant-numeric:tabular-nums}
+    .streaming-loader-retry{min-height:44px;background:#28487e;color:#fff;border:1px solid #718ebf;border-radius:11px;padding:10px 22px;font-weight:800;cursor:pointer}
+    .streaming-loader-retry[hidden]{display:none}
+    @media(prefers-reduced-motion:reduce){.streaming-progress-fill{transition:none}}
+    /* Legacy skeleton styles below are retained but unused. */
     .streaming-loader[hidden]{display:none}
     .streaming-loading-summary{display:flex;align-items:center;gap:12px;padding:8px 22px 2px;color:var(--muted)}
     .streaming-loading-spinner{width:22px;height:22px;flex:0 0 auto;border:3px solid #343b49;border-top-color:#d8dfeb;border-radius:50%;animation:streaming-spin .85s linear infinite}
@@ -188,7 +201,7 @@
       .watchlist-sort-row,.watchlist-cover-search{grid-template-columns:1fr}.watchlist-sort-row select{width:100%}
     }
   </style>
-  <!-- Version 0.7.0: Dashboard Performance Optimization · 2026-08-23 -->
+  <!-- Version 0.7.1: Streaming Loading Reliability · 2026-10-10 -->
 </head>
 <body>
   <header class="topbar">
@@ -209,47 +222,15 @@
     </section>
 
     <section id="streaming-loader" class="streaming-loader" aria-live="polite" aria-label="Streaming is loading">
-      <div class="streaming-loading-summary">
-        <span class="streaming-loading-spinner" aria-hidden="true"></span>
-        <div class="streaming-loading-copy">
-          <strong>Loading Streaming</strong>
-          <span id="streaming-loading-message">Building your library…</span>
+      <div class="streaming-loader-card">
+        <img id="streaming-loader-logo" class="streaming-loader-logo" src="../logo-app.png" alt="My Dashboard logo">
+        <strong class="streaming-loader-title">Loading Streaming</strong>
+        <div id="streaming-loading-message" class="streaming-loader-message">Building your library…</div>
+        <div id="streaming-loading-percent" class="streaming-loader-percent" aria-label="Loading progress">0%</div>
+        <div id="streaming-progress-track" class="streaming-progress-track" role="progressbar" aria-label="Completed loading operations" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div id="streaming-progress-fill" class="streaming-progress-fill"></div>
         </div>
-      </div>
-      <div id="streaming-skeleton" aria-hidden="true">
-        <section class="streaming-skeleton-row">
-          <div class="streaming-skeleton-heading"></div>
-          <div class="streaming-skeleton-strip">
-            <div class="streaming-skeleton-card"><div class="streaming-skeleton-poster"></div><div class="streaming-skeleton-line"></div><div class="streaming-skeleton-line short"></div></div>
-            <div class="streaming-skeleton-card"><div class="streaming-skeleton-poster"></div><div class="streaming-skeleton-line"></div><div class="streaming-skeleton-line short"></div></div>
-            <div class="streaming-skeleton-card"><div class="streaming-skeleton-poster"></div><div class="streaming-skeleton-line"></div><div class="streaming-skeleton-line short"></div></div>
-            <div class="streaming-skeleton-card"><div class="streaming-skeleton-poster"></div><div class="streaming-skeleton-line"></div><div class="streaming-skeleton-line short"></div></div>
-            <div class="streaming-skeleton-card"><div class="streaming-skeleton-poster"></div><div class="streaming-skeleton-line"></div><div class="streaming-skeleton-line short"></div></div>
-            <div class="streaming-skeleton-card"><div class="streaming-skeleton-poster"></div><div class="streaming-skeleton-line"></div><div class="streaming-skeleton-line short"></div></div>
-          </div>
-        </section>
-        <section class="streaming-skeleton-row">
-          <div class="streaming-skeleton-heading" style="width:230px"></div>
-          <div class="streaming-skeleton-strip">
-            <div class="streaming-skeleton-card"><div class="streaming-skeleton-poster"></div><div class="streaming-skeleton-line"></div><div class="streaming-skeleton-line short"></div></div>
-            <div class="streaming-skeleton-card"><div class="streaming-skeleton-poster"></div><div class="streaming-skeleton-line"></div><div class="streaming-skeleton-line short"></div></div>
-            <div class="streaming-skeleton-card"><div class="streaming-skeleton-poster"></div><div class="streaming-skeleton-line"></div><div class="streaming-skeleton-line short"></div></div>
-            <div class="streaming-skeleton-card"><div class="streaming-skeleton-poster"></div><div class="streaming-skeleton-line"></div><div class="streaming-skeleton-line short"></div></div>
-            <div class="streaming-skeleton-card"><div class="streaming-skeleton-poster"></div><div class="streaming-skeleton-line"></div><div class="streaming-skeleton-line short"></div></div>
-            <div class="streaming-skeleton-card"><div class="streaming-skeleton-poster"></div><div class="streaming-skeleton-line"></div><div class="streaming-skeleton-line short"></div></div>
-          </div>
-        </section>
-        <section class="streaming-skeleton-row">
-          <div class="streaming-skeleton-heading" style="width:165px"></div>
-          <div class="streaming-skeleton-strip">
-            <div class="streaming-skeleton-card"><div class="streaming-skeleton-poster"></div><div class="streaming-skeleton-line"></div><div class="streaming-skeleton-line short"></div></div>
-            <div class="streaming-skeleton-card"><div class="streaming-skeleton-poster"></div><div class="streaming-skeleton-line"></div><div class="streaming-skeleton-line short"></div></div>
-            <div class="streaming-skeleton-card"><div class="streaming-skeleton-poster"></div><div class="streaming-skeleton-line"></div><div class="streaming-skeleton-line short"></div></div>
-            <div class="streaming-skeleton-card"><div class="streaming-skeleton-poster"></div><div class="streaming-skeleton-line"></div><div class="streaming-skeleton-line short"></div></div>
-            <div class="streaming-skeleton-card"><div class="streaming-skeleton-poster"></div><div class="streaming-skeleton-line"></div><div class="streaming-skeleton-line short"></div></div>
-            <div class="streaming-skeleton-card"><div class="streaming-skeleton-poster"></div><div class="streaming-skeleton-line"></div><div class="streaming-skeleton-line short"></div></div>
-          </div>
-        </section>
+        <button id="streaming-loader-retry" class="streaming-loader-retry" type="button" hidden>Retry Loading</button>
       </div>
     </section>
     <div id="status" class="status" hidden></div>
@@ -1629,23 +1610,48 @@
       }
     }
 
-    function showStreamingLoader(message = "Building your library…") {
+    // Percentages are completed startup operations divided by the known operation count.
+    // External TMDB/Supabase requests expose no reliable intermediate byte-level progress.
+    const LOADING_OPERATIONS = 15;
+    let loaderCompleted = 0;
+    let loaderTimer = null;
+    let loadingActive = false;
+    function setStreamingProgress(completed) {
+      loaderCompleted = Math.max(0, Math.min(LOADING_OPERATIONS, completed));
+      const percent = Math.round(loaderCompleted * 100 / LOADING_OPERATIONS);
+      document.getElementById("streaming-loading-percent").textContent = percent + "%";
+      document.getElementById("streaming-progress-fill").style.width = percent + "%";
+      document.getElementById("streaming-progress-track").setAttribute("aria-valuenow", String(percent));
+    }
+    function markStreamingProgress(message) {
+      setStreamingProgress(loaderCompleted + 1);
+      if (message) document.getElementById("streaming-loading-message").textContent = message;
+    }
+    function showStreamingLoader(message = "Building your library…", reset = false) {
       const loader = document.getElementById("streaming-loader");
       const status = document.getElementById("status");
-      const loadingMessage = document.getElementById("streaming-loading-message");
-      if (loadingMessage) loadingMessage.textContent = message;
-      if (loader) loader.hidden = false;
-      if (status) {
-        status.hidden = true;
-        status.textContent = "";
-        status.classList.remove("error");
-      }
+      document.getElementById("streaming-loading-message").textContent = message;
+      if (reset) setStreamingProgress(0);
+      loader.hidden = false;
+      document.getElementById("streaming-loader-retry").hidden = true;
+      if (status) { status.hidden = true; status.textContent = ""; status.classList.remove("error"); }
+      clearTimeout(loaderTimer);
+      loaderTimer = setTimeout(() => {
+        if (!loader.hidden) {
+          document.getElementById("streaming-loading-message").textContent =
+            "Loading is taking too long. Check your connection, then try again.";
+          document.getElementById("streaming-loader-retry").hidden = false;
+        }
+      }, 45000);
     }
-
     function hideStreamingLoader() {
-      const loader = document.getElementById("streaming-loader");
-      if (loader) loader.hidden = true;
+      clearTimeout(loaderTimer);
+      document.getElementById("streaming-loader").hidden = true;
     }
+    document.getElementById("streaming-loader-retry").addEventListener("click", () => {
+      if (loadingActive) { window.location.reload(); return; }
+      init();
+    });
 
     function showStreamingStatus(message, isError = false) {
       const status = document.getElementById("status");
@@ -1657,14 +1663,17 @@
 
     async function init() {
       const status = document.getElementById("status");
-      showStreamingLoader("Building your library…");
+      if (loadingActive) return;
+      if (!window.DashboardAuth?.client || !window.DashboardAuth?.user) return;
+      loadingActive = true;
+      showStreamingLoader("Building your library…", true);
       try {
-        if (!window.DashboardAuth?.client || !window.DashboardAuth?.user) return;
 
         [currentProviders,prefs] = await Promise.all([
           DashboardStreaming.loadUserProviders(),
           DashboardStreaming.loadPreferences()
         ]);
+        markStreamingProgress("Checking permissions…");
         try {
           currentUserIsAdmin =
             await DashboardStreaming.isAdminUser();
@@ -1675,10 +1684,12 @@
           );
           currentUserIsAdmin = false;
         }
+        markStreamingProgress("Loading your watch history…");
         titlesPerRow=[10,15,20,25,30].includes(Number(prefs?.titles_per_row))?Number(prefs.titles_per_row):20;
         document.getElementById("titles-per-row").value=String(titlesPerRow);
         document.getElementById("admin-full-catalog-status").hidden=!currentUserIsAdmin;
         await refreshTitleStates();
+        markStreamingProgress("Checking watched episodes…");
 
         const caughtUpChanged =
           await reconcileCaughtUpContinueWatchingShows();
@@ -1686,6 +1697,7 @@
         if (caughtUpChanged) {
           await refreshTitleStates();
         }
+        markStreamingProgress("Checking upcoming episodes…");
 
         const waitingChanged =
           await refreshWaitingTvShows();
@@ -1693,11 +1705,13 @@
         if (waitingChanged) {
           await refreshTitleStates();
         }
+        markStreamingProgress("Building your watchlists…");
 
         document.getElementById("rows").innerHTML = "";
         resetDiscoveryTitleAppearances();
 
         await renderWatchlistsRow();
+        markStreamingProgress("Preparing Continue Watching…");
 
         const continueStates = titleStates
           .filter(state =>
@@ -1786,14 +1800,16 @@
           );
         }
 
+        markStreamingProgress("Discovering movies and shows…");
         const [movies,tv,trendingMovies,trendingTv] = await Promise.all([
-          DashboardStreaming.discoverCombined({mediaType:"movie"}),
-          DashboardStreaming.discoverCombined({mediaType:"tv"}),
-          DashboardStreaming.tmdb("/trending/movie/week"),
-          DashboardStreaming.tmdb("/trending/tv/week")
+          DashboardStreaming.discoverCombined({mediaType:"movie"}).then(value => { markStreamingProgress(); return value; }),
+          DashboardStreaming.discoverCombined({mediaType:"tv"}).then(value => { markStreamingProgress(); return value; }),
+          DashboardStreaming.tmdb("/trending/movie/week").then(value => { markStreamingProgress(); return value; }),
+          DashboardStreaming.tmdb("/trending/tv/week").then(value => { markStreamingProgress(); return value; })
         ]);
         const serviceMovies=movies.results||[], serviceTv=tv.results||[];
         const recommendationPool=await buildRecommendationPool(serviceMovies,serviceTv);
+        markStreamingProgress("Organizing recommendations…");
 
         addMixedRow("Recommended for You",recommendationPool.slice(0,20));
         addRow("Popular Movies Across Your Services",serviceMovies,"movie");
@@ -1810,6 +1826,7 @@
 
         // Accurate "recently added" data requires provider availability events.
         const recentArrivals=await loadAvailabilityEventTitles({eventType:"arriving",startDate:isoDateOffset(-30),endDate:isoDateOffset(0),mode:"recent"});
+        markStreamingProgress("Loading upcoming releases…");
         addMixedRow("Recently Added to Your Services",recentArrivals,item=>{
           const d=item._availabilityEvent?.effective_date;
           return d ? "Added "+new Date(d+"T12:00:00").toLocaleDateString(undefined,{month:"short",day:"numeric"}) : "Recently Added";
@@ -1836,11 +1853,13 @@
           const d=item._availabilityEvent?.effective_date;
           return d ? "Coming "+new Date(d+"T12:00:00").toLocaleDateString(undefined,{month:"short",day:"numeric"}) : "Coming Soon";
         });
+        markStreamingProgress("Finishing your library…");
         addMixedRow("Leaving Soon",leavingSoon,item=>{
           const d=item._availabilityEvent?.effective_date;
           return d ? "Leaves "+new Date(d+"T12:00:00").toLocaleDateString(undefined,{month:"short",day:"numeric"}) : "Leaving Soon";
         });
 
+        markStreamingProgress("Ready.");
         hideStreamingLoader();
         showStreamingStatus(
           currentProviders.length
@@ -1851,6 +1870,8 @@
         console.error(error);
         hideStreamingLoader();
         showStreamingStatus(error.message||"Streaming could not load.", true);
+      } finally {
+        loadingActive = false;
       }
     }
 
@@ -2827,6 +2848,8 @@
         status.textContent = "";
       } catch(error) {
         status.textContent = error.message || "Search failed.";
+      } finally {
+        hideStreamingLoader();
       }
     });
 
