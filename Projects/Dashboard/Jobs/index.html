@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f7f8fa">
+<title>Jobs · My Dashboard · v0.1.1</title>
+<style>
+:root{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#233043;background:#f7f8fa}
+*{box-sizing:border-box}body{margin:0}button,input,select,textarea{font:inherit}button{cursor:pointer}a{color:#28487e}button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #9bbbdf}
+.shell{max-width:1120px;margin:auto;padding:22px}header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:15px;margin-bottom:24px}
+h1{font-size:29px;margin:0}h2{font-size:20px;margin:0 0 12px}.muted{color:#677386}.small{font-size:13px}.panel{background:#fff;border:1px solid #d8dee8;border-radius:18px;padding:20px;margin-bottom:18px;box-shadow:0 5px 22px #253c5c08}
+button{border:1px solid #cbd4e2;border-radius:9px;padding:9px 13px;color:#28487e;background:#fff;font-weight:650}
+button.primary{background:#28487e;border-color:#28487e;color:#fff}button.danger{color:#a33333;border-color:#e2bbbb}button:disabled{opacity:.55;cursor:not-allowed}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.right{margin-left:auto}
+input,select,textarea{width:100%;min-width:0;border:1px solid #bcc9dc;padding:10px 12px;border-radius:9px;background:#fff;color:#233043}
+label{font-size:13px;font-weight:700;display:grid;gap:5px}.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:15px 0}.fields .wide{grid-column:1/-1}
+.status{display:inline-block;background:#eef2f8;border-radius:25px;padding:5px 11px;font-size:12px;font-weight:700}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}.stat{background:#fff;border:1px solid #d8dee8;border-radius:14px;padding:17px}.number{font-size:25px;font-weight:750}
+.job{display:grid;gap:11px;border-top:1px solid #e3e7ee;padding:18px 0}.job:first-child{border-top:0}
+.job h3{margin:0;font-size:18px}.job p{margin:0}.notice{border:1px solid #d8dee8;border-radius:10px;padding:13px;background:#f4f7fb;margin-bottom:15px}
+#error{color:#a33333;min-height:1.4em}#success{color:#226346;min-height:1.2em}
+[hidden]{display:none!important}@media(max-width:700px){.shell{padding:14px}.fields{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="shell">
+<header><div><h1>💼 Jobs</h1><div class="muted small">My Dashboard · Nova the Recruiter · v0.1.1</div></div><div class="row"><span class="status">Private Pi / Tailscale</span><button id="lock" hidden>Lock</button></div></header>
+<div class="notice small">Your job records are stored on the Raspberry Pi, not GitHub. This is a temporary single-user key-protected interface. It does not yet use Dashboard account authentication. Never share your key or use this on an untrusted device. Nova cannot submit applications here.</div>
+<section id="login" class="panel"><h2>Unlock Jobs</h2><p class="muted">Enter your Jobs API key. It stays in this page's memory only and is cleared when you lock or close the tab.</p><form id="login-form" class="row"><label style="flex:1;min-width:220px">Jobs API key<input id="key" type="password" autocomplete="off" required></label><button class="primary" type="submit">Unlock</button></form></section>
+<main id="app" hidden>
+<div class="grid"><div class="stat"><div class="muted small">Review queue</div><div class="number" id="stat-pending">0</div></div><div class="stat"><div class="muted small">Accepted</div><div class="number" id="stat-accepted">0</div></div><div class="stat"><div class="muted small">In progress</div><div class="number" id="stat-progress">0</div></div><div class="stat"><div class="muted small">Declined</div><div class="number" id="stat-declined">0</div></div></div>
+<section class="panel"><div class="row"><h2>Add job</h2><span class="muted small">Manually add a lead or one Nova discovers</span></div>
+<form id="add-form"><div class="fields">
+<label>Company<input name="company" maxlength="180" required></label>
+<label>Position<input name="position" maxlength="180" required></label>
+<label>Location<input name="location" maxlength="180"></label>
+<label>Salary / compensation<input name="salary" maxlength="180"></label>
+<label class="wide">Original job URL<input name="source_url" type="url" maxlength="1000" placeholder="https://..."></label>
+<label class="wide">Notes<textarea name="notes" rows="2" maxlength="3000"></textarea></label>
+</div><button type="submit" class="primary">Add to review queue</button></form></section>
+<section class="panel"><div class="row"><h2>Jobs</h2><label class="right">Filter<select id="filter"><option value="active">Active & review</option><option value="all">All jobs</option><option value="pending_review">Pending review</option><option value="declined">Declined</option></select></label><button id="refresh">Refresh</button></div><div id="jobs"></div></section>
+<p class="small muted">Accept moves a lead into preparation, not submission. Decline retains the record and prevents accidental re-suggestion. Applications must be submitted separately after your explicit approval.</p>
+</main><div id="error" role="alert"></div><div id="success" role="status"></div>
+</div>
+<script>
+(()=>{'use strict';
+let token='',jobs=[];const el=id=>document.getElementById(id);
+const statuses=['pending_review','accepted','drafting','answers_review','ready_to_submit','submitted','interviewing','offer','rejected','withdrawn','declined'];
+const name=s=>s.replaceAll('_',' ').replace(/\b\w/g,c=>c.toUpperCase());
+const msg=(error='',success='')=>{el('error').textContent=error;el('success').textContent=success};
+async function request(url,options={}){const res=await fetch(url,{...options,headers:{...(options.body?{'Content-Type':'application/json'}:{}),'Authorization':'Bearer '+token},cache:'no-store'});if(!res.ok){if(res.status===401)lock();throw new Error('Request failed ('+res.status+')')}return res.json()}
+function lock(){token='';el('key').value='';el('app').hidden=true;el('login').hidden=false;el('lock').hidden=true;jobs=[];msg()}
+const make=(tag,txt,cls)=>{const n=document.createElement(tag);if(txt!=null)n.textContent=txt;if(cls)n.className=cls;return n}
+const button=(txt,fn,cls)=>{const b=make('button',txt,cls);b.type='button';b.addEventListener('click',fn);return b};
+async function update(job,status){if(status==='submitted'){msg('Submission requires separately verified human action.');return}
+const payload={...job,status};if(status==='accepted')payload.application={...(job.application||{}),submitted:false,approved:false,answers_reviewed:false};
+try{await request('/api/jobs/'+encodeURIComponent(job.id),{method:'PUT',body:JSON.stringify(payload)});await load();msg('',name(status)+' saved')}catch(e){msg(e.message)}}
+function render(){const filter=el('filter').value,root=el('jobs');root.replaceChildren();
+const counts=s=>jobs.filter(j=>j.status===s).length;
+el('stat-pending').textContent=counts('pending_review');el('stat-accepted').textContent=counts('accepted');
+el('stat-progress').textContent=jobs.filter(j=>['drafting','answers_review','ready_to_submit','interviewing','offer'].includes(j.status)).length;
+el('stat-declined').textContent=counts('declined');
+let shown=jobs.filter(j=>filter==='all'||(filter==='active'&&!['declined','rejected','withdrawn'].includes(j.status))||j.status===filter);
+if(!shown.length){root.append(make('p','No jobs match this filter yet.','muted'));return}
+for(const job of shown){const wrap=make('article',null,'job'),top=make('div',null,'row'),details=make('div'),h=make('h3',job.position||'Untitled job'),label=make('span',name(job.status||'pending_review'),'status');top.append(h,label);wrap.append(top);details.append(make('p',[job.company,job.location,job.salary].filter(Boolean).join(' · ')));wrap.append(details);
+if(job.notes)wrap.append(make('p',job.notes,'muted small'));
+if(job.source_url&&/^https?:\/\//.test(job.source_url)){const a=make('a','View original job ↗');a.href=job.source_url;a.target='_blank';a.rel='noopener noreferrer';wrap.append(a)}
+const actions=make('div',null,'row');if(job.status==='pending_review'){actions.append(button('Accept',()=>update(job,'accepted'),'primary'),button('Decline',()=>update(job,'declined'),'danger'))}
+else{const select=make('select');select.style.width='auto';select.setAttribute('aria-label','Status for '+(job.position||'job'));for(const state of statuses.filter(s=>s!=='submitted')){const opt=make('option',name(state));opt.value=state;opt.selected=(job.status===state);select.append(opt)}select.addEventListener('change',()=>update(job,select.value));actions.append(select)}
+wrap.append(actions);root.append(wrap)}
+}
+async function load(){const data=await request('/api/jobs');jobs=Array.isArray(data.items)?data.items:[];render()}
+el('login-form').addEventListener('submit',async e=>{e.preventDefault();token=el('key').value.trim();try{await load();el('key').value='';el('login').hidden=true;el('app').hidden=false;el('lock').hidden=false;msg('', 'Connected to the Pi jobs database')}catch(err){lock();msg('Could not unlock Jobs. Check the API key and server connection.')}});
+el('lock').addEventListener('click',lock);el('filter').addEventListener('change',render);el('refresh').addEventListener('click',()=>load().catch(e=>msg(e.message)));
+el('add-form').addEventListener('submit',async e=>{e.preventDefault();const f=new FormData(e.currentTarget),obj=Object.fromEntries(f.entries());obj.id='job-'+(globalThis.crypto?.randomUUID?.()||Date.now().toString(36));obj.status='pending_review';obj.application={submitted:false,approved:false,answers_reviewed:false};try{await request('/api/jobs/'+obj.id,{method:'PUT',body:JSON.stringify(obj)});e.currentTarget.reset();await load();msg('','Job added to review queue')}catch(err){msg(err.message)}});
+})();
+</script></body></html>
