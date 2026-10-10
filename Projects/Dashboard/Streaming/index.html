@@ -1868,8 +1868,11 @@
         );
       } catch(error) {
         console.error(error);
-        hideStreamingLoader();
-        showStreamingStatus(error.message||"Streaming could not load.", true);
+        document.getElementById("streaming-loading-message").textContent =
+          error?.message || "Streaming could not load. Please try again.";
+        document.getElementById("streaming-loader-retry").hidden = false;
+        document.getElementById("rows").innerHTML = "";
+        showStreamingStatus(error?.message || "Streaming could not load.", true);
       } finally {
         loadingActive = false;
       }
@@ -2836,7 +2839,7 @@
       if(!q) return;
       const status = document.getElementById("status");
       try {
-        showStreamingLoader("Searching movies and shows…");
+        showStreamingStatus("Searching movies and shows…");
         const [movies,tv] = await Promise.all([
           DashboardStreaming.tmdb("/search/movie",{query:q}),
           DashboardStreaming.tmdb("/search/tv",{query:q})
@@ -2849,7 +2852,7 @@
       } catch(error) {
         status.textContent = error.message || "Search failed.";
       } finally {
-        hideStreamingLoader();
+        if (!status.classList.contains("error")) showStreamingStatus("");
       }
     });
 
