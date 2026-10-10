@@ -1,0 +1,14 @@
+{
+  "id": "example-001",
+  "company": "Example Company",
+  "position": "Data Analyst",
+  "source_url": "https://example.com/jobs/example-001",
+  "location": "Example Location",
+  "status": "pending_review",
+  "compensation": null,
+  "application": {
+    "answers_reviewed": false,
+    "approved": false,
+    "submitted": false
+  }
+}
