@@ -1,3 +1,17 @@
+Version 0.1.1: Private Jobs Interface
+Date: 2026-10-10
+Project: Jobs
+
+- Added Pi-served Jobs page with review queue and job creation.
+- Added Accept, Decline and application status controls; no submission capability.
+- Added in-memory API-key unlock and lock; no browser key persistence.
+- Maintained server loopback binding and private Tailscale Serve endpoint on HTTPS 8443.
+- Registered Jobs project URL in Dashboard/projects.json so the tile links to the private Pi app.
+- Preserved main Dashboard homepage version 0.11.3; project-specific change only.
+- Not yet deployed on Pi: requires git pull and service restart.
+- No real Nova account integration or Dashboard account sign-in yet.
+- Privacy and terms checked; no policy change made as no private applicant data moves to GitHub or external services.
+
 Version 0.1.0: Private Recruiter Data Foundation
 Date: 2026-10-10
 Project: Jobs
