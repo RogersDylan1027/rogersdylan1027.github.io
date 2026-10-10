@@ -221,10 +221,10 @@
     "outcome": "DET, DET: 1.56512 v SEA: 1.08193      Expected difference: 0.48319, (DET: 2.60853 v SEA: 1.80322) (DET: 61.85% , SEA: 38.15%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:00:55",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.3531,
+    "awayMeanSquaredError": 1.3682,
+    "homeLogLoss": "NaN",
+    "awayLogLoss": 2.1169,
     "bettingLines": [
       "DET: Money Line",
       "Alex DeBrincat: +1 Point",
@@ -232,10 +232,10 @@
     ],
     "correctBettingLines": [
       0,
-      0,
+      1,
       0
     ],
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 3
   },
   {
@@ -457,13 +457,13 @@
     "outcome": "WSH, WSH: 2.08424 v NYR: 1.14452      Expected difference: 0.93972, (WSH: 3.47373 v NYR: 1.90753) (WSH: 71.9% , NYR: 28.1%)",
     "startingTime": "19:05:00",
     "timeLastRun": "19:05:00",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.3045,
+    "awayMeanSquaredError": 0.081,
+    "homeLogLoss": 1.0234,
+    "awayLogLoss": 0.2474,
     "bettingLines": "WSH: Money Line",
-    "correctBettingLines": 0,
-    "correctLines": 0,
+    "correctBettingLines": 1,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -690,13 +690,13 @@
     "outcome": "CBJ, CBJ: 0.95698 v PIT: 0.86803      Expected difference: 0.0889499999999998, (CBJ: 1.59497 v PIT: 1.44672) (CBJ: 52.22% , PIT: 47.78%)",
     "startingTime": "19:05:00",
     "timeLastRun": "18:39:09",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.2791,
+    "awayMeanSquaredError": 0.1326,
+    "homeLogLoss": 0.6108,
+    "awayLogLoss": 0.4555,
     "bettingLines": "CBJ: Money Line",
-    "correctBettingLines": 0,
-    "correctLines": 0,
+    "correctBettingLines": 1,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -918,19 +918,19 @@
     "outcome": "ANA, WPG: 0.77057 v ANA: 1.514      Expected difference: 0.74343, (WPG: 1.28428 v ANA: 2.52333) (WPG: 32.23% , ANA: 67.77%)",
     "startingTime": "20:05:00",
     "timeLastRun": "20:00:55",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.0714,
+    "awayMeanSquaredError": 1.0694,
+    "homeLogLoss": 0.3035,
+    "awayLogLoss": "NaN",
     "bettingLines": [
       "ANA: Money Line",
       "Cutter Gauthier: +1 Point"
     ],
     "correctBettingLines": [
-      0,
+      1,
       0
     ],
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 2
   }
 ]
