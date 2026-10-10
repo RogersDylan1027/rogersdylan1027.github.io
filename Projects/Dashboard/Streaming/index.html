@@ -2850,7 +2850,7 @@
         addRow("TV Results",tv.results||[],"tv",null,{includeWatched:true,allowRepeat:true});
         status.textContent = "";
       } catch(error) {
-        status.textContent = error.message || "Search failed.";
+        showStreamingStatus(error.message || "Search failed.", true);
       } finally {
         if (!status.classList.contains("error")) showStreamingStatus("");
       }
