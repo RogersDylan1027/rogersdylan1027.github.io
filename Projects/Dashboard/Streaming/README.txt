@@ -1,5 +1,5 @@
 My Dashboard — Streaming
-Version: 0.7.1 (review branch; not published)
+Version: 0.7.1
 Last reviewed: 2026-10-10
 
 Streaming lives at Projects/Dashboard/Streaming/index.html and uses the shared
