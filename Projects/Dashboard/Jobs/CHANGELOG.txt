@@ -1,0 +1,12 @@
+Version 0.1.0: Private Recruiter Data Foundation
+Date: 2026-10-10
+Project: Jobs
+
+- Added a local-only Raspberry Pi jobs JSON API backed by SQLite.
+- Added authentication token requirement, body-size limits, input checks, persistent status history and soft-decline records.
+- Explicitly disallowed automatic marking of job applications as submitted.
+- Documented private Tailscale Serve deployment and verification requirements.
+- Kept personal data, resumes, application answers, and credentials out of public GitHub.
+- Deferred the public Dashboard registry tile and private UI until the Tailscale hostname and access enforcement are verified.
+- No Dashboard index version bump; homepage remains 0.11.3.
+- Privacy and Terms pages require review before handling real applicant information.
