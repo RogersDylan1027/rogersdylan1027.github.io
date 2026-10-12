@@ -227,6 +227,7 @@
     "allHomePoints": {
       "Jesper Boqvist": ["0.0228", "0.8%", "0.6182"],
       "Jesper Bratt": ["0.4166", "13.57%", "1.5328"],
+      "Luke Evangelista": ["0.2157", "7.27%", "1.528"],
       "Cody Glass": ["0.1998", "6.75%", "1.0377"],
       "Arseny Gritsyuk": ["0.2508", "8.4%", "1.575"],
       "Nico Hischier": ["0.6921", "21.51%", "1.7985"],
@@ -263,9 +264,9 @@
       "Jordan Spence": ["0.0246", "0.86%", "1.8839"],
       "Carter Yakemchuk": ["0.0469", "1.63%", "2.015"]
     },
-    "outcome": "NJD, NJD: 1.2985 v OTT: 0.34402      Expected difference: 0.95448, (NJD: 2.16417 v OTT: 0.57337) (NJD: 72.2% , OTT: 27.8%)",
+    "outcome": "NJD, NJD: 1.37399 v OTT: 0.34402      Expected difference: 1.02997, (NJD: 2.28998 v OTT: 0.57337) (NJD: 73.69% , OTT: 26.31%)",
     "startingTime": "19:05:00",
-    "timeLastRun": "18:27:34",
+    "timeLastRun": "18:57:23",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
@@ -329,7 +330,7 @@
     },
     "outcome": "VGK, MIN: 1.68152 v VGK: 1.75776      Expected difference: 0.0762400000000003, (MIN: 2.80253 v VGK: 2.9296) (MIN: 48.09% , VGK: 51.91%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "18:27:38",
+    "timeLastRun": "18:57:26",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
