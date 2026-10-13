@@ -208,10 +208,10 @@
     "outcome": "FLA, BUF: 1.19319 v FLA: 1.27572      Expected difference: 0.0825299999999998, (BUF: 1.98865 v FLA: 2.1262) (BUF: 47.94% , FLA: 52.06%)",
     "startingTime": "13:05:00",
     "timeLastRun": "12:56:57",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.6741,
+    "awayMeanSquaredError": 0.4232,
+    "homeLogLoss": 1.0504,
+    "awayLogLoss": 0.6723,
     "bettingLines": "FLA: Money Line",
     "correctBettingLines": 0,
     "correctLines": 0,
@@ -411,10 +411,10 @@
     "outcome": "NJD, NJD: 1.37399 v OTT: 0.34402      Expected difference: 1.02997, (NJD: 2.28998 v OTT: 0.57337) (NJD: 73.69% , OTT: 26.31%)",
     "startingTime": "19:05:00",
     "timeLastRun": "18:57:23",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.1275,
+    "awayMeanSquaredError": 0.5811,
+    "homeLogLoss": 0.3696,
+    "awayLogLoss": 1.6575,
     "bettingLines": "NJD: Money Line",
     "correctBettingLines": 0,
     "correctLines": 0,
@@ -637,10 +637,10 @@
     "outcome": "VGK (OTW), MIN: 1.71397 v VGK: 1.74988      Expected difference: 0.0359100000000003, (MIN: 2.85662 v VGK: 2.91647) (MIN: 49.1% , VGK: 50.9%)",
     "startingTime": "20:05:00",
     "timeLastRun": "19:57:02",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.265,
+    "awayMeanSquaredError": 0.2316,
+    "homeLogLoss": "NaN",
+    "awayLogLoss": "Inf",
     "bettingLines": [
       "VGK: Money Line",
       "Matt Boldy: +1 Point",
@@ -648,10 +648,10 @@
     ],
     "correctBettingLines": [
       0,
-      0,
-      0
+      1,
+      1
     ],
-    "correctLines": 0,
+    "correctLines": 2,
     "totalLines": 3
   }
 ]
