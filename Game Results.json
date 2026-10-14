@@ -48,7 +48,7 @@
     },
     "outcome": "MTL, WSH: 0.47697 v MTL: 1.36239      Expected difference: 0.88542, (WSH: 0.79495 v MTL: 2.27065) (WSH: 29.21% , MTL: 70.79%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "18:57:06",
+    "timeLastRun": "19:27:31",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
@@ -66,6 +66,7 @@
     "homeScorers": "Nathan MacKinnon, COL: 0.77624      (1.29373333333333)",
     "awayScorers": {},
     "allHomePoints": {
+      "Gavin Brindley": ["0.0423", "1.47%", "0.793"],
       "Nazem Kadri": ["0.3974", "12.99%", "1.9866"],
       "Parker Kelly": ["0.1438", "4.91%", "0.9113"],
       "Gabriel Landeskog": ["0.3835", "12.56%", "1.6342"],
@@ -105,9 +106,9 @@
       "Nils Lundkvist": ["0.0174", "0.61%", "0.8586"],
       "Tyler Myers": ["0.0067", "0.23%", "1.185"]
     },
-    "outcome": "COL, COL: 2.2604 v DAL: 0.81699      Expected difference: 1.44341, (COL: 3.76733 v DAL: 1.36165) (COL: 80.9% , DAL: 19.1%)",
+    "outcome": "COL, COL: 2.2752 v DAL: 0.81699      Expected difference: 1.45821, (COL: 3.792 v DAL: 1.36165) (COL: 81.13% , DAL: 18.87%)",
     "startingTime": "20:35:00",
-    "timeLastRun": "18:57:09",
+    "timeLastRun": "19:27:35",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
