@@ -48,7 +48,7 @@
     },
     "outcome": "MTL, WSH: 0.47697 v MTL: 1.36239      Expected difference: 0.88542, (WSH: 0.79495 v MTL: 2.27065) (WSH: 29.21% , MTL: 70.79%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "17:57:18",
+    "timeLastRun": "18:27:42",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
@@ -78,6 +78,7 @@
       "Brent Burns": ["0.1706", "5.8%", "1.4597"],
       "Noah Juulsen": ["0.0041", "0.14%", "0.3396"],
       "Brett Kulak": ["0.0092", "0.32%", "0.8095"],
+      "Cale Makar": ["0.6788", "21.15%", "1.8981"],
       "Sam Malinski": ["0.1239", "4.24%", "1.4173"],
       "Josh Manson": ["0.0616", "2.13%", "1.1308"],
       "Devon Toews": ["0.0951", "3.28%", "1.1729"]
@@ -104,9 +105,9 @@
       "Nils Lundkvist": ["0.0174", "0.61%", "0.8586"],
       "Tyler Myers": ["0.0067", "0.23%", "1.185"]
     },
-    "outcome": "COL, COL: 2.02283 v DAL: 0.81699      Expected difference: 1.20584, (COL: 3.37138 v DAL: 1.36165) (COL: 76.96% , DAL: 23.04%)",
+    "outcome": "COL, COL: 2.2604 v DAL: 0.81699      Expected difference: 1.44341, (COL: 3.76733 v DAL: 1.36165) (COL: 80.9% , DAL: 19.1%)",
     "startingTime": "20:35:00",
-    "timeLastRun": "17:57:22",
+    "timeLastRun": "18:27:46",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
