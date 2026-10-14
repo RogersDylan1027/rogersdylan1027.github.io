@@ -203,10 +203,10 @@
     "outcome": "DET, DET: 1.20418 v NJD: 0.80324      Expected difference: 0.40094, (DET: 2.00697 v NJD: 1.33873) (DET: 59.89% , NJD: 40.11%)",
     "startingTime": "18:05:00",
     "timeLastRun": "17:57:09",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.8145,
+    "awayMeanSquaredError": 1.0177,
+    "homeLogLoss": "Inf",
+    "awayLogLoss": "Inf",
     "bettingLines": "DET: Money Line",
     "correctBettingLines": 0,
     "correctLines": 0,
@@ -416,13 +416,13 @@
     "outcome": "FLA, CBJ: 0.65314 v FLA: 1.5059      Expected difference: 0.85276, (CBJ: 1.08857 v FLA: 2.50983) (CBJ: 29.89% , FLA: 70.11%)",
     "startingTime": "18:20:00",
     "timeLastRun": "17:57:13",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.2267,
+    "awayMeanSquaredError": 2.8856,
+    "homeLogLoss": 0.722,
+    "awayLogLoss": 0.1449,
     "bettingLines": "FLA: Money Line",
-    "correctBettingLines": 0,
-    "correctLines": 0,
+    "correctBettingLines": 1,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -614,10 +614,10 @@
     "outcome": "BUF, MTL: 0.79875 v BUF: 0.92139      Expected difference: 0.12264, (MTL: 1.33125 v BUF: 1.53565) (MTL: 46.94% , BUF: 53.06%)",
     "startingTime": "18:35:00",
     "timeLastRun": "18:26:44",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.6964,
+    "awayMeanSquaredError": 0.6957,
+    "homeLogLoss": 0.9536,
+    "awayLogLoss": "Inf",
     "bettingLines": "BUF: Money Line",
     "correctBettingLines": 0,
     "correctLines": 0,
@@ -827,10 +827,10 @@
     "outcome": "WSH, CAR: 0.9294 v WSH: 1.92548      Expected difference: 0.99608, (CAR: 1.549 v WSH: 3.20913) (CAR: 26.97% , WSH: 73.03%)",
     "startingTime": "18:50:00",
     "timeLastRun": "18:26:47",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.7217,
+    "awayMeanSquaredError": 0.3497,
+    "homeLogLoss": 0.9344,
+    "awayLogLoss": 0.6448,
     "bettingLines": "WSH: Money Line",
     "correctBettingLines": 0,
     "correctLines": 0,
@@ -1045,10 +1045,10 @@
     "outcome": "PHI, PHI: 0.99826 v SEA: 0.31076      Expected difference: 0.6875, (PHI: 1.66377 v SEA: 0.51793) (PHI: 66.54% , SEA: 33.46%)",
     "startingTime": "19:05:00",
     "timeLastRun": "18:57:10",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.1383,
+    "awayMeanSquaredError": 0.4054,
+    "homeLogLoss": 0.41,
+    "awayLogLoss": "Inf",
     "bettingLines": "PHI: Money Line",
     "correctBettingLines": 0,
     "correctLines": 0,
@@ -1281,10 +1281,10 @@
     "outcome": "TBL, NYR: 1.1677 v TBL: 1.9938      Expected difference: 0.8261, (NYR: 1.94617 v TBL: 3.323) (NYR: 30.45% , TBL: 69.55%)",
     "startingTime": "19:20:00",
     "timeLastRun": "18:57:14",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.7787,
+    "awayMeanSquaredError": 0.3575,
+    "homeLogLoss": 1.2593,
+    "awayLogLoss": "NaN",
     "bettingLines": [
       "TBL: Money Line",
       "Brandon Hagel: +1 Point",
@@ -1492,10 +1492,10 @@
     "outcome": "OTT, OTT: 1.34831 v STL: 0.72439      Expected difference: 0.62392, (OTT: 2.24718 v STL: 1.20732) (OTT: 65.11% , STL: 34.89%)",
     "startingTime": "19:35:00",
     "timeLastRun": "19:27:19",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.1921,
+    "awayMeanSquaredError": 1.9375,
+    "homeLogLoss": 0.592,
+    "awayLogLoss": "Inf",
     "bettingLines": "OTT: Money Line",
     "correctBettingLines": 0,
     "correctLines": 0,
@@ -1705,19 +1705,19 @@
     "outcome": "NYI, NYI: 1.46162 v VAN: 0.7582      Expected difference: 0.70342, (NYI: 2.43603 v VAN: 1.26367) (NYI: 66.89% , VAN: 33.11%)",
     "startingTime": "19:50:00",
     "timeLastRun": "19:27:22",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.4627,
+    "awayMeanSquaredError": 0.268,
+    "homeLogLoss": "NaN",
+    "awayLogLoss": 0.9664,
     "bettingLines": [
       "NYI: Money Line",
       "Bo Horvat: +1 Point"
     ],
     "correctBettingLines": [
-      0,
-      0
+      1,
+      1
     ],
-    "correctLines": 0,
+    "correctLines": 2,
     "totalLines": 2
   },
   {
@@ -1934,13 +1934,13 @@
     "outcome": "CHI, CHI: 0.89304 v PIT: 0.64118      Expected difference: 0.25186, (CHI: 1.4884 v PIT: 1.06863) (CHI: 56.26% , PIT: 43.74%)",
     "startingTime": "20:05:00",
     "timeLastRun": "19:57:16",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 1.1262,
+    "awayMeanSquaredError": 0.4913,
+    "homeLogLoss": 1.4426,
+    "awayLogLoss": 1.0099,
     "bettingLines": "CHI: Money Line",
-    "correctBettingLines": 0,
-    "correctLines": 0,
+    "correctBettingLines": 1,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -2155,10 +2155,10 @@
     "outcome": "MIN (OTW), WPG: 1.19351 v MIN: 1.23867      Expected difference: 0.0451600000000005, (WPG: 1.98918 v MIN: 2.06445) (WPG: 48.87% , MIN: 51.13%)",
     "startingTime": "20:20:00",
     "timeLastRun": "19:57:20",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.7424,
+    "awayMeanSquaredError": 0.1742,
+    "homeLogLoss": "NaN",
+    "awayLogLoss": "NaN",
     "bettingLines": [
       "MIN: Money Line",
       "Kyle Connor: +1 Point",
@@ -2167,11 +2167,11 @@
     ],
     "correctBettingLines": [
       0,
+      1,
       0,
-      0,
-      0
+      1
     ],
-    "correctLines": 0,
+    "correctLines": 2,
     "totalLines": 4
   },
   {
@@ -2363,19 +2363,19 @@
     "outcome": "COL, DAL: 0.71725 v COL: 2.09947      Expected difference: 1.38222, (DAL: 1.19542 v COL: 3.49912) (DAL: 20.07% , COL: 79.93%)",
     "startingTime": "20:35:00",
     "timeLastRun": "20:27:31",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.4066,
+    "awayMeanSquaredError": 0.2693,
+    "homeLogLoss": 0.5458,
+    "awayLogLoss": "NaN",
     "bettingLines": [
       "COL: Money Line",
       "Nathan MacKinnon: +1 Point"
     ],
     "correctBettingLines": [
-      0,
-      0
+      1,
+      1
     ],
-    "correctLines": 0,
+    "correctLines": 2,
     "totalLines": 2
   },
   {
@@ -2597,13 +2597,13 @@
     "outcome": "VGK (OTW), NSH: 1.08943 v VGK: 1.10826      Expected difference: 0.0188299999999999, (NSH: 1.81572 v VGK: 1.8471) (NSH: 49.53% , VGK: 50.47%)",
     "startingTime": "20:50:00",
     "timeLastRun": "20:27:35",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.256,
+    "awayMeanSquaredError": 0.651,
+    "homeLogLoss": 0.5605,
+    "awayLogLoss": "Inf",
     "bettingLines": "VGK: Money Line",
-    "correctBettingLines": 0,
-    "correctLines": 0,
+    "correctBettingLines": 1,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -2820,19 +2820,19 @@
     "outcome": "TOR, UTA: 1.2589 v TOR: 1.8747      Expected difference: 0.6158, (UTA: 2.09817 v TOR: 3.1245) (UTA: 35.07% , TOR: 64.93%)",
     "startingTime": "21:05:00",
     "timeLastRun": "20:57:08",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.6621,
+    "awayMeanSquaredError": 0.2059,
+    "homeLogLoss": 1.4351,
+    "awayLogLoss": "NaN",
     "bettingLines": [
       "TOR: Money Line",
       "Auston Matthews: +1 Point"
     ],
     "correctBettingLines": [
       0,
-      0
+      1
     ],
-    "correctLines": 0,
+    "correctLines": 1,
     "totalLines": 2
   },
   {
@@ -3049,13 +3049,13 @@
     "outcome": "CGY, ANA: 0.25958 v CGY: 0.54151      Expected difference: 0.28193, (ANA: 0.43263 v CGY: 0.90252) (ANA: 43% , CGY: 57%)",
     "startingTime": "21:50:00",
     "timeLastRun": "21:26:42",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.1567,
+    "awayMeanSquaredError": 0.5767,
+    "homeLogLoss": 0.5025,
+    "awayLogLoss": 1.8167,
     "bettingLines": "CGY: Money Line",
-    "correctBettingLines": 0,
-    "correctLines": 0,
+    "correctBettingLines": 1,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -3247,10 +3247,10 @@
     "outcome": "LAK, LAK: 0.70731 v EDM: 0.61463      Expected difference: 0.0926799999999999, (LAK: 1.17885 v EDM: 1.02438) (LAK: 52.32% , EDM: 47.68%)",
     "startingTime": "22:35:00",
     "timeLastRun": "22:27:00",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.1356,
+    "awayMeanSquaredError": 1.2373,
+    "homeLogLoss": 0.4316,
+    "awayLogLoss": 0.9045,
     "bettingLines": "LAK: Money Line",
     "correctBettingLines": 0,
     "correctLines": 0,
@@ -3264,62 +3264,240 @@
     "homeScorers": "Macklin Celebrini, SJS: 0.5185      (0.864166666666667)",
     "awayScorers": {},
     "allHomePoints": {
-      "Alex Barré-Boulet": ["0", "0%", "0"],
-      "Macklin Celebrini": ["1.4814", "40.46%", "2.6021"],
-      "Igor Chernyshov": ["0.2777", "9.26%", "1.1858"],
-      "Ty Dellandrea": ["0.0239", "0.83%", "0.8058"],
-      "Adam Gaudette": ["0.1549", "5.28%", "1.0811"],
-      "Barclay Goodrow": ["0.0199", "0.69%", "0.5952"],
-      "Collin Graf": ["0.2163", "7.29%", "1.0759"],
-      "Mason Marchment": ["0.3001", "9.97%", "1.3051"],
-      "Michael Misa": ["0.1155", "3.96%", "0.945"],
-      "Zack Ostapchuk": ["0.0183", "0.64%", "0.5595"],
-      "Kiefer Sherwood": ["0.4495", "14.56%", "1.7521"],
-      "Will Smith": ["0.548", "17.45%", "1.7704"],
-      "Ivar Stenberg": ["0", "0%", "0.7432"],
-      "Tyler Toffoli": ["0.2778", "9.27%", "1.6216"],
-      "Alexander Wennberg": ["0.188", "6.37%", "0.8676"],
-      "Nolan Allan": ["0.4964", "15.95%", "1.1148"],
-      "Luca Cagnoni": ["0.0677", "2.34%", "1.0618"],
-      "Sam Dickinson": ["0.0083", "0.29%", "0.7396"],
-      "Michael Kesselring": ["0", "0%", "0.7432"],
-      "Darnell Nurse": ["0.1266", "4.34%", "1.5113"],
-      "Dmitry Orlov": ["0.0291", "1.01%", "0.8173"],
-      "Jacob Trouba": ["0.1927", "6.52%", "1.5126"]
+      "Alex Barré-Boulet": [
+        "0",
+        "0%",
+        "0"
+      ],
+      "Macklin Celebrini": [
+        "1.4814",
+        "40.46%",
+        "2.6021"
+      ],
+      "Igor Chernyshov": [
+        "0.2777",
+        "9.26%",
+        "1.1858"
+      ],
+      "Ty Dellandrea": [
+        "0.0239",
+        "0.83%",
+        "0.8058"
+      ],
+      "Adam Gaudette": [
+        "0.1549",
+        "5.28%",
+        "1.0811"
+      ],
+      "Barclay Goodrow": [
+        "0.0199",
+        "0.69%",
+        "0.5952"
+      ],
+      "Collin Graf": [
+        "0.2163",
+        "7.29%",
+        "1.0759"
+      ],
+      "Mason Marchment": [
+        "0.3001",
+        "9.97%",
+        "1.3051"
+      ],
+      "Michael Misa": [
+        "0.1155",
+        "3.96%",
+        "0.945"
+      ],
+      "Zack Ostapchuk": [
+        "0.0183",
+        "0.64%",
+        "0.5595"
+      ],
+      "Kiefer Sherwood": [
+        "0.4495",
+        "14.56%",
+        "1.7521"
+      ],
+      "Will Smith": [
+        "0.548",
+        "17.45%",
+        "1.7704"
+      ],
+      "Ivar Stenberg": [
+        "0",
+        "0%",
+        "0.7432"
+      ],
+      "Tyler Toffoli": [
+        "0.2778",
+        "9.27%",
+        "1.6216"
+      ],
+      "Alexander Wennberg": [
+        "0.188",
+        "6.37%",
+        "0.8676"
+      ],
+      "Nolan Allan": [
+        "0.4964",
+        "15.95%",
+        "1.1148"
+      ],
+      "Luca Cagnoni": [
+        "0.0677",
+        "2.34%",
+        "1.0618"
+      ],
+      "Sam Dickinson": [
+        "0.0083",
+        "0.29%",
+        "0.7396"
+      ],
+      "Michael Kesselring": [
+        "0",
+        "0%",
+        "0.7432"
+      ],
+      "Darnell Nurse": [
+        "0.1266",
+        "4.34%",
+        "1.5113"
+      ],
+      "Dmitry Orlov": [
+        "0.0291",
+        "1.01%",
+        "0.8173"
+      ],
+      "Jacob Trouba": [
+        "0.1927",
+        "6.52%",
+        "1.5126"
+      ]
     },
     "allAwayPoints": {
-      "Morgan Geekie": ["0.2917", "9.71%", "2.5228"],
-      "James Hagens": ["0.0305", "1.06%", "1.4792"],
-      "Tanner Jeannot": ["0.0181", "0.63%", "1.1837"],
-      "Mark Kastelic": ["0.0336", "1.17%", "1.3947"],
-      "Marat Khusnutdinov": ["0.0415", "1.44%", "1.1202"],
-      "Sean Kuraly": ["0.0221", "0.77%", "1.4854"],
-      "Elias Lindholm": ["0.119", "4.08%", "1.9066"],
-      "Fraser Minten": ["0.0722", "2.5%", "1.6475"],
-      "Casey Mittelstadt": ["0.0564", "1.95%", "1.3309"],
-      "David Pastrnak": ["0.442", "14.33%", "3.9456"],
-      "JJ Peterka": ["0.1408", "4.81%", "2.1421"],
-      "Matthew Poitras": ["0.1595", "5.43%", "2.7862"],
-      "Pavel Zacha": ["0.176", "5.98%", "1.9481"],
-      "Jonathan Aspirot": ["0.0096", "0.33%", "0.8998"],
-      "Will Borgen": ["0.0175", "0.61%", "1.0382"],
-      "Frederic Brunet": ["0", "0%", "1.9215"],
-      "Connor Clifton": ["0.0073", "0.26%", "0.8002"],
-      "Hampus Lindholm": ["0.0359", "1.25%", "1.6498"],
-      "Mason Lohrei": ["0.0274", "0.96%", "1.0879"],
-      "Charlie McAvoy": ["0.0981", "3.38%", "1.9061"],
-      "Nikita Zadorov": ["0.01", "0.35%", "1.5041"]
+      "Morgan Geekie": [
+        "0.2917",
+        "9.71%",
+        "2.5228"
+      ],
+      "James Hagens": [
+        "0.0305",
+        "1.06%",
+        "1.4792"
+      ],
+      "Tanner Jeannot": [
+        "0.0181",
+        "0.63%",
+        "1.1837"
+      ],
+      "Mark Kastelic": [
+        "0.0336",
+        "1.17%",
+        "1.3947"
+      ],
+      "Marat Khusnutdinov": [
+        "0.0415",
+        "1.44%",
+        "1.1202"
+      ],
+      "Sean Kuraly": [
+        "0.0221",
+        "0.77%",
+        "1.4854"
+      ],
+      "Elias Lindholm": [
+        "0.119",
+        "4.08%",
+        "1.9066"
+      ],
+      "Fraser Minten": [
+        "0.0722",
+        "2.5%",
+        "1.6475"
+      ],
+      "Casey Mittelstadt": [
+        "0.0564",
+        "1.95%",
+        "1.3309"
+      ],
+      "David Pastrnak": [
+        "0.442",
+        "14.33%",
+        "3.9456"
+      ],
+      "JJ Peterka": [
+        "0.1408",
+        "4.81%",
+        "2.1421"
+      ],
+      "Matthew Poitras": [
+        "0.1595",
+        "5.43%",
+        "2.7862"
+      ],
+      "Pavel Zacha": [
+        "0.176",
+        "5.98%",
+        "1.9481"
+      ],
+      "Jonathan Aspirot": [
+        "0.0096",
+        "0.33%",
+        "0.8998"
+      ],
+      "Will Borgen": [
+        "0.0175",
+        "0.61%",
+        "1.0382"
+      ],
+      "Frederic Brunet": [
+        "0",
+        "0%",
+        "1.9215"
+      ],
+      "Connor Clifton": [
+        "0.0073",
+        "0.26%",
+        "0.8002"
+      ],
+      "Hampus Lindholm": [
+        "0.0359",
+        "1.25%",
+        "1.6498"
+      ],
+      "Mason Lohrei": [
+        "0.0274",
+        "0.96%",
+        "1.0879"
+      ],
+      "Charlie McAvoy": [
+        "0.0981",
+        "3.38%",
+        "1.9061"
+      ],
+      "Nikita Zadorov": [
+        "0.01",
+        "0.35%",
+        "1.5041"
+      ]
     },
     "outcome": "SJS, SJS: 1.74722 v BOS: 0.63319      Expected difference: 1.11403, (SJS: 2.91203 v BOS: 1.05532) (SJS: 75.29% , BOS: 24.71%)",
     "startingTime": "23:05:00",
     "timeLastRun": "22:56:52",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
-    "bettingLines": ["SJS: Money Line", "Macklin Celebrini: +1 Point"],
-    "correctBettingLines": [0, 0],
-    "correctLines": 0,
+    "homeMeanSquaredError": 0.452,
+    "awayMeanSquaredError": 0.7398,
+    "homeLogLoss": "NaN",
+    "awayLogLoss": 1.8058,
+    "bettingLines": [
+      "SJS: Money Line",
+      "Macklin Celebrini: +1 Point"
+    ],
+    "correctBettingLines": [
+      0,
+      1
+    ],
+    "correctLines": 1,
     "totalLines": 2
   }
 ]
