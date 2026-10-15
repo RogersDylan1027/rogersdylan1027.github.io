@@ -193,10 +193,10 @@
     "outcome": "MTL, WSH: 0.47697 v MTL: 1.36239      Expected difference: 0.88542, (WSH: 0.79495 v MTL: 2.27065) (WSH: 29.21% , MTL: 70.79%)",
     "startingTime": "19:35:00",
     "timeLastRun": "19:27:31",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.9512,
+    "awayMeanSquaredError": 0.7684,
+    "homeLogLoss": 1.3785,
+    "awayLogLoss": "NaN",
     "bettingLines": [
       "MTL: Money Line",
       "Cole Caufield: +1 Point"
@@ -407,10 +407,10 @@
     "outcome": "COL, COL: 2.2752 v DAL: 0.80039      Expected difference: 1.47481, (COL: 3.792 v DAL: 1.33398) (COL: 81.38% , DAL: 18.62%)",
     "startingTime": "20:35:00",
     "timeLastRun": "20:27:23",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.6178,
+    "awayMeanSquaredError": 0.2202,
+    "homeLogLoss": "NaN",
+    "awayLogLoss": 0.6858,
     "bettingLines": [
       "COL: Money Line",
       "Nathan MacKinnon: +1 Point"
