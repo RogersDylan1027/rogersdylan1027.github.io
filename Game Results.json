@@ -26,7 +26,6 @@
       "Devon Toews": ["0.0759", "2.62%", "1.4387"]
     },
     "allAwayPoints": {
-      "Egor Chinakhov": ["0.2042", "6.9%", "1.8572"],
       "Sidney Crosby": ["0.4888", "15.72%", "2.3226"],
       "Connor Dewar": ["0.0945", "3.25%", "1.3566"],
       "Ben Kindel": ["0.1658", "5.64%", "1.8666"],
@@ -48,9 +47,9 @@
       "Kris Letang": ["0.048", "1.66%", "1.4065"],
       "Spencer Stastney": ["0.0102", "0.36%", "0.8111"]
     },
-    "outcome": "COL, COL: 1.78798 v PIT: 1.10282      Expected difference: 0.68516, (COL: 2.97997 v PIT: 1.83803) (COL: 66.49% , PIT: 33.51%)",
+    "outcome": "COL, COL: 1.78798 v PIT: 1.03136      Expected difference: 0.75662, (COL: 2.97997 v PIT: 1.71893) (COL: 68.06% , PIT: 31.94%)",
     "startingTime": "21:05:00",
-    "timeLastRun": "20:27:01",
+    "timeLastRun": "20:57:14",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
@@ -114,7 +113,7 @@
     },
     "outcome": "BOS, ANA: 0.85543 v BOS: 1.09393      Expected difference: 0.2385, (ANA: 1.42572 v BOS: 1.82322) (ANA: 44.07% , BOS: 55.93%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "20:27:04",
+    "timeLastRun": "20:57:18",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
