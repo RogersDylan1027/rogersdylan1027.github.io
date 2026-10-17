@@ -1,4 +1,4 @@
-/* My Dashboard · PWA Runtime · Version 0.11.3 · Raspberry Pi Scheduler Runtime Tracking · 2026-10-09 */
+/* My Dashboard · PWA Runtime · Version 0.11.4 · Jobs Supabase Navigation · 2026-10-17 */
 (function () {
   "use strict";
   const config = window.DashboardConfig;

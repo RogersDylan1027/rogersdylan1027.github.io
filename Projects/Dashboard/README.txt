@@ -1,3 +1,27 @@
+Version 0.11.4: Jobs Supabase Navigation
+
+- Jobs now opens at /Projects/Dashboard/Jobs/ on the public Dashboard origin; removes the Tailscale redirect and private Jobs API dependency from this route.
+- Jobs v0.3.1 reuses the Supabase Dashboard session, verifies account approval and project access, and opens the role-appropriate workspace. Main Admin application data remains protected by existing RLS and action RPC checks.
+- Employer listing details are read-only. Answers and cover letters can be edited and approved; input markers and outstanding questions require documented review or resolution before Ready to Apply. Edits clear the affected approval and return the application to review.
+- Application actions retain optimistic version checks and transactional activity history. The existing submission safety constraint remains in place; manual submission recording is unavailable and the workspace never submits applications.
+- Updates Dashboard/login version labels, asset cache references, PWA cache and Jobs documentation/privacy/terms. Preserves existing calendar, connected accounts, files, streaming, scheduler and other project code.
+- Preserves the eight private Jobs records and Nova preparation draft without publishing their contents. Nova pipeline replacement, SQL, credentials, runtime databases, Pi configuration and unrelated Jobs development are excluded.
+
+Release scope: public Dashboard and authenticated Jobs browser interface only.
+Jobs uses the existing Supabase project; no data or database migration is included.
+The project registry points to the same-origin Jobs folder. Existing project
+access rules remain in force; this release does not grant AI Helpers or other
+accounts additional project access. Account approval and project authorization
+are checked before data is loaded. Private jobs/drafts/tokens are never part of
+this repository. The separately managed Pi services remain unchanged.
+
+Manual submission recording remains blocked by the existing database CHECK.
+Nova's direct-to-Supabase preparation pipeline and PDF export remain pending.
+Test authenticated desktop/iPhone/PWA behavior after cache refresh. Keep all
+existing integration capabilities and private Pi control access requirements.
+
+Earlier release history follows.
+
 My Dashboard · Version 0.11.3
 Raspberry Pi Scheduler Runtime Tracking · 2026-10-09
 

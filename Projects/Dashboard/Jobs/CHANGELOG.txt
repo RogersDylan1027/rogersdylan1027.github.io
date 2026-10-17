@@ -1,3 +1,12 @@
+Version 0.3.1: Public Supabase Workspace
+Date: 2026-10-17
+- Replaced the standalone private-API page with an authenticated Supabase entry point at /Projects/Dashboard/Jobs/.
+- Removed the Dashboard registry's private-network redirect; kept Dashboard v0.11.4 and Jobs v0.3.1.
+- Reused the approved Supabase workspace with read-only employer fields, answer/letter edits, input/question review, separate approvals, version checks and activity history.
+- Enforced Dashboard approval and project access before loading role-specific data; existing RLS and RPC permissions remain unchanged.
+- Preserved the existing submission safety constraint; no automatic submission or manual submission recording is enabled.
+- Kept private records, Nova drafts, credentials, databases, pipeline development and Pi-only changes out of the release.
+
 Version 0.1.1: Private Jobs Interface
 Date: 2026-10-10
 Project: Jobs
