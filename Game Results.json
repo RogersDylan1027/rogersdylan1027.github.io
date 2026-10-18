@@ -7,48 +7,208 @@
     "homeScorers": {},
     "awayScorers": {},
     "allHomePoints": {
-      "Matt Boldy": ["0.5663", "17.98%", "4.2962"],
-      "Bobby Brink": ["0.0591", "2.05%", "1.8733"],
-      "Blake Coleman": ["0.1607", "5.47%", "3.0619"],
-      "Joel Eriksson Ek": ["0.2107", "7.11%", "3.498"],
-      "Hunter Haight": ["0.0233", "0.81%", "1.7612"],
-      "Ryan Hartman": ["0.131", "4.48%", "2.7203"],
-      "Kirill Kaprizov": ["0.5645", "17.93%", "4.0241"],
-      "Rieger Lorenz": ["0", "0%", "0.3048"],
-      "Michael McCarron": ["0.0246", "0.86%", "1.6916"],
-      "Tyler Pitlick": ["0.0053", "0.18%", "0.9965"],
-      "Maxim Shabanov": ["0.0311", "1.08%", "1.5488"],
-      "Yakov Trenin": ["0.0123", "0.43%", "1.3754"],
-      "Danila Yurov": ["0.0335", "1.17%", "1.345"],
-      "Zach Bogosian": ["0.005", "0.18%", "0.8216"],
-      "Jonas Brodin": ["0.0186", "0.65%", "1.4721"],
-      "Daemon Hunt": ["0", "0%", "0.6096"],
-      "Matt Kiersted": ["0", "0%", "0"],
-      "Carson Lambos": ["0", "0%", "1.2193"],
-      "David Spacek": ["0", "0%", "1.8289"]
+      "Matt Boldy": [
+        "0.5663",
+        "17.98%",
+        "4.2962"
+      ],
+      "Bobby Brink": [
+        "0.0591",
+        "2.05%",
+        "1.8733"
+      ],
+      "Blake Coleman": [
+        "0.1607",
+        "5.47%",
+        "3.0619"
+      ],
+      "Joel Eriksson Ek": [
+        "0.2107",
+        "7.11%",
+        "3.498"
+      ],
+      "Hunter Haight": [
+        "0.0233",
+        "0.81%",
+        "1.7612"
+      ],
+      "Ryan Hartman": [
+        "0.131",
+        "4.48%",
+        "2.7203"
+      ],
+      "Kirill Kaprizov": [
+        "0.5645",
+        "17.93%",
+        "4.0241"
+      ],
+      "Rieger Lorenz": [
+        "0",
+        "0%",
+        "0.3048"
+      ],
+      "Michael McCarron": [
+        "0.0246",
+        "0.86%",
+        "1.6916"
+      ],
+      "Tyler Pitlick": [
+        "0.0053",
+        "0.18%",
+        "0.9965"
+      ],
+      "Maxim Shabanov": [
+        "0.0311",
+        "1.08%",
+        "1.5488"
+      ],
+      "Yakov Trenin": [
+        "0.0123",
+        "0.43%",
+        "1.3754"
+      ],
+      "Danila Yurov": [
+        "0.0335",
+        "1.17%",
+        "1.345"
+      ],
+      "Zach Bogosian": [
+        "0.005",
+        "0.18%",
+        "0.8216"
+      ],
+      "Jonas Brodin": [
+        "0.0186",
+        "0.65%",
+        "1.4721"
+      ],
+      "Daemon Hunt": [
+        "0",
+        "0%",
+        "0.6096"
+      ],
+      "Matt Kiersted": [
+        "0",
+        "0%",
+        "0"
+      ],
+      "Carson Lambos": [
+        "0",
+        "0%",
+        "1.2193"
+      ],
+      "David Spacek": [
+        "0",
+        "0%",
+        "1.8289"
+      ]
     },
     "allAwayPoints": {
-      "Charlie Coyle": ["0.2709", "9.05%", "1.3225"],
-      "Luca Del Bel Belluz": ["0", "0%", "0"],
-      "Adam Fantilli": ["0.5208", "16.66%", "1.9679"],
-      "Conor Garland": ["0.1749", "5.94%", "1.4224"],
-      "Danton Heinen": ["0.0477", "1.66%", "0.7211"],
-      "Kent Johnson": ["0.0883", "3.04%", "1.1651"],
-      "Matthew Knies": ["0.3432", "11.32%", "1.3343"],
-      "Ryan Lomberg": ["0.0207", "0.72%", "0.7287"],
-      "Sean Monahan": ["0.1707", "5.8%", "1.2629"],
-      "Valeri Nichushkin": ["0.289", "9.62%", "1.5886"],
-      "Mathieu Olivier": ["0.1944", "6.58%", "1.1611"],
-      "Cole Sillinger": ["0.1016", "3.49%", "1.2625"],
-      "Dmitri Voronkov": ["0.2185", "7.36%", "1.3026"],
-      "Emil Andrae": ["0.0086", "0.3%", "0.4245"],
-      "Jake Christiansen": ["0", "0%", "0.1504"],
-      "Dante Fabbro": ["0.0366", "1.27%", "0.6911"],
-      "Erik Gudbranson": ["0.0147", "0.51%", "0.6869"],
-      "Denton Mateychuk": ["0.1543", "5.26%", "0.9114"],
-      "Ivan Provorov": ["0.1869", "6.33%", "1.4492"],
-      "Carson Soucy": ["0.0305", "1.06%", "0.6133"],
-      "Zach Werenski": ["0.95", "28.29%", "2.5749"]
+      "Charlie Coyle": [
+        "0.2709",
+        "9.05%",
+        "1.3225"
+      ],
+      "Luca Del Bel Belluz": [
+        "0",
+        "0%",
+        "0"
+      ],
+      "Adam Fantilli": [
+        "0.5208",
+        "16.66%",
+        "1.9679"
+      ],
+      "Conor Garland": [
+        "0.1749",
+        "5.94%",
+        "1.4224"
+      ],
+      "Danton Heinen": [
+        "0.0477",
+        "1.66%",
+        "0.7211"
+      ],
+      "Kent Johnson": [
+        "0.0883",
+        "3.04%",
+        "1.1651"
+      ],
+      "Matthew Knies": [
+        "0.3432",
+        "11.32%",
+        "1.3343"
+      ],
+      "Ryan Lomberg": [
+        "0.0207",
+        "0.72%",
+        "0.7287"
+      ],
+      "Sean Monahan": [
+        "0.1707",
+        "5.8%",
+        "1.2629"
+      ],
+      "Valeri Nichushkin": [
+        "0.289",
+        "9.62%",
+        "1.5886"
+      ],
+      "Mathieu Olivier": [
+        "0.1944",
+        "6.58%",
+        "1.1611"
+      ],
+      "Cole Sillinger": [
+        "0.1016",
+        "3.49%",
+        "1.2625"
+      ],
+      "Dmitri Voronkov": [
+        "0.2185",
+        "7.36%",
+        "1.3026"
+      ],
+      "Emil Andrae": [
+        "0.0086",
+        "0.3%",
+        "0.4245"
+      ],
+      "Jake Christiansen": [
+        "0",
+        "0%",
+        "0.1504"
+      ],
+      "Dante Fabbro": [
+        "0.0366",
+        "1.27%",
+        "0.6911"
+      ],
+      "Erik Gudbranson": [
+        "0.0147",
+        "0.51%",
+        "0.6869"
+      ],
+      "Denton Mateychuk": [
+        "0.1543",
+        "5.26%",
+        "0.9114"
+      ],
+      "Ivan Provorov": [
+        "0.1869",
+        "6.33%",
+        "1.4492"
+      ],
+      "Carson Soucy": [
+        "0.0305",
+        "1.06%",
+        "0.6133"
+      ],
+      "Zach Werenski": [
+        "0.95",
+        "28.29%",
+        "2.5749"
+      ]
     },
     "outcome": "CBJ, MIN: 0.64606 v CBJ: 1.33788      Expected difference: 0.69182, (MIN: 1.07677 v CBJ: 2.2298) (MIN: 33.36% , CBJ: 66.64%)",
     "startingTime": "18:05:00",
@@ -115,7 +275,7 @@
     },
     "outcome": "CGY, CGY: 0.52621 v CAR: 0.33442      Expected difference: 0.19179, (CGY: 0.87702 v CAR: 0.55737) (CGY: 54.78% , CAR: 45.22%)",
     "startingTime": "20:05:00",
-    "timeLastRun": "17:58:26",
+    "timeLastRun": "18:27:49",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
