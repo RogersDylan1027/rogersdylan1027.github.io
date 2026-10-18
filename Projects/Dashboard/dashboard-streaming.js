@@ -820,7 +820,7 @@
     const items = [];
     for (const raw of sourceItems) {
       const tmdbId = Number(raw?.tmdbId ?? raw?.tmdb_id);
-      const mediaType = String(raw?.mediaType ?? raw?.media_type || "").toLowerCase();
+      const mediaType = String((raw?.mediaType ?? raw?.media_type) || "").toLowerCase();
       if (!Number.isInteger(tmdbId) || tmdbId <= 0 || !["movie","tv"].includes(mediaType)) {
         continue;
       }
@@ -837,7 +837,7 @@
 
     const rawCover = playlist.cover && typeof playlist.cover === "object" ? playlist.cover : null;
     const coverTmdbId = Number(rawCover?.tmdbId ?? rawCover?.tmdb_id);
-    const coverMediaType = String(rawCover?.mediaType ?? rawCover?.media_type || "").toLowerCase();
+    const coverMediaType = String((rawCover?.mediaType ?? rawCover?.media_type) || "").toLowerCase();
     const cover = Number.isInteger(coverTmdbId) && coverTmdbId > 0 && ["movie","tv"].includes(coverMediaType)
       ? {
           tmdbId: coverTmdbId,
