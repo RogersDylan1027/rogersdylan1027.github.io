@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>My Dashboard · Streaming · Version 0.7.1</title>
-  <meta name="description" content="My Dashboard unified streaming hub. Version 0.7.1 adds a dedicated logo loading screen and operation-backed progress with recovery controls.">
+  <title>My Dashboard · Streaming · Version 0.7.2</title>
+  <meta name="description" content="My Dashboard unified streaming hub. Version 0.7.2 adds portable .DD playlist sharing with independent-copy imports and exports.">
   <meta name="theme-color" content="#101218">
 
-  <script src="../dashboard-config.js?v=0.7.1"></script>
+  <script src="../dashboard-config.js?v=0.7.2"></script>
   <script
-    src="../dashboard-auth.js?v=0.7.1"
+    src="../dashboard-auth.js?v=0.7.2"
     data-dashboard-project="streaming">
   </script>
-  <script src="../dashboard-streaming.js?v=0.7.1"></script>
+  <script src="../dashboard-streaming.js?v=0.7.2"></script>
 
   <style>
     *{box-sizing:border-box}
@@ -170,6 +170,7 @@
     .watchlist-dialog-header h2{margin:0;font-size:20px}.watchlist-dialog-header button{width:44px;height:44px;border:0;border-radius:50%;background:#fff;color:#111;font-size:24px;cursor:pointer}
     .watchlist-dialog-body{overflow:auto;padding:18px;-webkit-overflow-scrolling:touch}
     .watchlist-create{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;margin-bottom:14px}.watchlist-create input{min-height:44px;padding:9px 11px;border:1px solid #485269;border-radius:10px;background:#181b23;color:#fff;font:inherit;font-size:16px}.watchlist-create button{min-height:44px;padding:9px 13px;border:1px solid var(--accent);border-radius:10px;background:var(--accent);color:#fff;font-weight:800;cursor:pointer}
+    .watchlist-dd-tools{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 14px;padding:11px;border:1px solid #343b4b;border-radius:12px;background:#181b23}.watchlist-dd-tools button{min-height:42px;padding:8px 11px;border:1px solid #536079;border-radius:9px;background:#252a36;color:#fff;font-weight:800;cursor:pointer}.watchlist-dd-tools small{flex:1 1 220px;color:var(--muted);line-height:1.4}.watchlist-import-status{width:100%;color:#cbd7ed;font-size:11px;line-height:1.4}.watchlist-import-status.error{color:#ffaca7}
     .watchlist-list{display:grid;gap:10px}.watchlist-list-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;padding:12px;border:1px solid #3a4254;border-radius:12px;background:var(--panel2)}.watchlist-list-row strong{display:block}.watchlist-list-row small{display:block;margin-top:3px;color:var(--muted)}.watchlist-list-actions{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}.watchlist-list-actions button,.watchlist-editor-actions button,.watchlist-item-actions button{min-height:40px;padding:8px 10px;border:1px solid #536079;border-radius:9px;background:#252a36;color:#fff;font-weight:800;cursor:pointer}.watchlist-list-actions .primary,.watchlist-editor-actions .primary{border-color:var(--accent);background:var(--accent)}
     .watchlist-editor-tools{display:grid;gap:10px;margin-bottom:14px}.watchlist-name-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px}.watchlist-name-row input{min-height:44px;padding:9px 11px;border:1px solid #485269;border-radius:10px;background:#181b23;color:#fff;font-size:16px}.watchlist-editor-actions{display:flex;gap:8px;flex-wrap:wrap}.watchlist-editor-actions .danger{border-color:#8f3d3d;color:#ffc1bd}.watchlist-queue{display:grid;gap:9px}.watchlist-item{display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:10px;align-items:center;padding:9px;border:1px solid #343b4b;border-radius:12px;background:#181b23}.watchlist-item.completed{opacity:.62}.watchlist-item-thumb{width:52px;aspect-ratio:2/3;object-fit:cover;border-radius:7px;background:#252a36}.watchlist-item-copy strong{display:block;font-size:13px}.watchlist-item-copy small{display:block;margin-top:3px;color:var(--muted);font-size:11px}.watchlist-item-actions{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}.watchlist-item-actions button{min-width:40px;padding:7px 8px}.watchlist-empty{padding:18px;border:1px dashed #3a4254;border-radius:12px;color:var(--muted);text-align:center;line-height:1.5}
     @media(max-width:600px){.watchlist-create,.watchlist-name-row{grid-template-columns:1fr}.watchlist-list-row{grid-template-columns:1fr}.watchlist-list-actions{justify-content:stretch}.watchlist-list-actions button{flex:1}.watchlist-item{grid-template-columns:44px minmax(0,1fr)}.watchlist-item-thumb{width:44px}.watchlist-item-actions{grid-column:1/-1;justify-content:flex-end}.watchlist-dialog{width:100%;max-height:100dvh;border-radius:0}}
@@ -201,7 +202,7 @@
       .watchlist-sort-row,.watchlist-cover-search{grid-template-columns:1fr}.watchlist-sort-row select{width:100%}
     }
   </style>
-  <!-- Version 0.7.1: Streaming Loading Reliability · 2026-10-10 -->
+  <!-- Version 0.7.2: .DD Playlist Sharing & Independent Imports · 2026-10-17 -->
 </head>
 <body>
   <header class="topbar">
@@ -349,6 +350,12 @@
       <div class="watchlist-dialog-body">
         <p id="watchlists-copy" class="project-settings-copy">Create named collections, mix movies and TV shows, and keep them in the order you want to watch.</p>
         <div class="watchlist-create"><input id="new-watchlist-name" type="text" maxlength="80" placeholder="Watchlist name" aria-label="New watchlist name"><button id="create-watchlist-button" type="button">Create Watchlist</button></div>
+        <div class="watchlist-dd-tools">
+          <button id="import-watchlist-dd-button" type="button">Import .DD Playlist</button>
+          <input id="import-watchlist-dd-file" type="file" accept=".DD,.dd,application/json,application/octet-stream" hidden>
+          <small>Every import creates a new editable copy. Imported playlists never stay linked or synced to the original.</small>
+          <span id="watchlist-import-status" class="watchlist-import-status" role="status"></span>
+        </div>
         <div id="watchlists-list" class="watchlist-list"></div>
       </div>
     </section>
@@ -362,7 +369,7 @@
           <div class="watchlist-name-row"><input id="watchlist-name-input" type="text" maxlength="80" aria-label="Watchlist name"><button id="save-watchlist-name" class="watchlist-head-action" type="button">Save Name</button></div>
           <div class="watchlist-sort-row"><label for="watchlist-sort-mode">Sort collection</label><select id="watchlist-sort-mode"><option value="custom">Custom Order</option><option value="release">Release Order · Episodes + Movies</option><option value="release_unwatched">Next Unwatched · Release Order</option><option value="newest">Newest First</option><option value="continue">Continue First</option><option value="unwatched">Unwatched First</option><option value="series">Series First</option></select></div>
           <section class="watchlist-cover-tools"><h3>Collection Cover</h3><p>Choose any movie or TV show poster as this watchlist cover. The title does not need to be in the watchlist.</p><div class="watchlist-cover-search"><input id="watchlist-cover-search" type="search" placeholder="Search movies & shows" aria-label="Search for a watchlist cover"><button id="watchlist-cover-search-button" type="button">Search Covers</button></div><div id="watchlist-cover-results" class="watchlist-cover-results"></div></section>
-          <div class="watchlist-editor-actions"><button id="watchlist-back" type="button">All Watchlists</button><button id="delete-watchlist" class="danger" type="button">Delete Watchlist</button></div>
+          <div class="watchlist-editor-actions"><button id="watchlist-back" type="button">All Watchlists</button><button id="export-watchlist-dd" type="button">Export .DD</button><button id="delete-watchlist" class="danger" type="button">Delete Watchlist</button></div>
         </div>
         <div id="watchlist-queue" class="watchlist-queue"></div>
       </div>
@@ -710,6 +717,63 @@
         const actions=document.createElement("div");actions.className="watchlist-list-actions";
         if(pendingWatchlistTitle){const existing=items.find(x=>Number(x.tmdb_id)===Number(pendingWatchlistTitle.item.id)&&x.media_type===pendingWatchlistTitle.mediaType);const add=document.createElement("button");add.type="button";add.className="primary";add.textContent=existing?"Remove":"Add";add.addEventListener("click",async()=>{if(existing)await DashboardStreaming.removeWatchlistItem(existing.id);else await DashboardStreaming.addTitleToWatchlist(list.id,pendingWatchlistTitle.item.id,pendingWatchlistTitle.mediaType);await renderWatchlistsManager();await init()});actions.appendChild(add)}
         const open=document.createElement("button");open.type="button";open.textContent="Open";open.addEventListener("click",()=>openWatchlistEditor(list.id));actions.appendChild(open);row.append(info,actions);listEl.appendChild(row);
+      }
+    }
+
+    function safeDDPlaylistFileName(name){
+      const clean=String(name||"Streaming Playlist")
+        .replace(/[\\/:*?"<>|]+/g,"-")
+        .replace(/\s+/g," ")
+        .trim() || "Streaming Playlist";
+      return clean.replace(/\.dd$/i,"")+".DD";
+    }
+
+    async function exportActiveWatchlistDD(){
+      if(!activeWatchlist)return;
+      const payload=await DashboardStreaming.exportWatchlistDD(activeWatchlist.id);
+      const body=JSON.stringify(payload,null,2);
+      const blob=new Blob([body],{type:"application/octet-stream"});
+      const url=URL.createObjectURL(blob);
+      try{
+        const link=document.createElement("a");
+        link.href=url;
+        link.download=safeDDPlaylistFileName(activeWatchlist.name);
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+      }finally{
+        setTimeout(()=>URL.revokeObjectURL(url),1000);
+      }
+    }
+
+    async function importStreamingPlaylistDDFile(file){
+      const status=document.getElementById("watchlist-import-status");
+      status.classList.remove("error");
+      status.textContent="";
+      if(!file)return;
+      if(!/\.dd$/i.test(file.name||"")){
+        status.classList.add("error");
+        status.textContent="Choose a .DD Streaming Playlist file.";
+        return;
+      }
+
+      try{
+        const text=await file.text();
+        let payload;
+        try{
+          payload=JSON.parse(text);
+        }catch{
+          throw new Error("That .DD file could not be read as a My Dashboard file.");
+        }
+
+        const imported=await DashboardStreaming.importWatchlistDD(payload);
+        status.textContent=`Imported “${imported.name}” as a new independent copy with ${Number(imported.imported_item_count)||0} item${Number(imported.imported_item_count)===1?"":"s"}.`;
+        await renderWatchlistsManager();
+        await init();
+      }catch(error){
+        console.error("Streaming Playlist .DD import:",error);
+        status.classList.add("error");
+        status.textContent=error?.message||"The Streaming Playlist could not be imported.";
       }
     }
 
@@ -2773,10 +2837,17 @@
     document.getElementById("watchlists-close").addEventListener("click",closeWatchlists);
     document.getElementById("watchlists-overlay").addEventListener("click",event=>{if(event.target===event.currentTarget)closeWatchlists()});
     document.getElementById("create-watchlist-button").addEventListener("click",()=>createWatchlistFromInput().catch(console.error));
+    document.getElementById("import-watchlist-dd-button").addEventListener("click",()=>document.getElementById("import-watchlist-dd-file").click());
+    document.getElementById("import-watchlist-dd-file").addEventListener("change",async event=>{
+      const input=event.currentTarget;
+      const file=input.files?.[0]||null;
+      try{await importStreamingPlaylistDDFile(file)}finally{input.value=""}
+    });
     document.getElementById("new-watchlist-name").addEventListener("keydown",event=>{if(event.key==="Enter")createWatchlistFromInput().catch(console.error)});
     document.getElementById("watchlist-editor-close").addEventListener("click",closeWatchlistEditor);
     document.getElementById("watchlist-editor-overlay").addEventListener("click",event=>{if(event.target===event.currentTarget)closeWatchlistEditor()});
     document.getElementById("watchlist-back").addEventListener("click",async()=>{closeWatchlistEditor();await openWatchlists()});
+    document.getElementById("export-watchlist-dd").addEventListener("click",()=>exportActiveWatchlistDD().catch(error=>{console.error("Streaming Playlist .DD export:",error);window.alert(error?.message||"The playlist could not be exported.")}));
     document.getElementById("save-watchlist-name").addEventListener("click",async()=>{if(!activeWatchlist)return;activeWatchlist=await DashboardStreaming.updateWatchlist(activeWatchlist.id,{name:document.getElementById("watchlist-name-input").value});document.getElementById("watchlist-editor-title").textContent=activeWatchlist.name;await init()});
     document.getElementById("watchlist-sort-mode").addEventListener("change",async event=>{if(!activeWatchlist)return;activeWatchlist=await DashboardStreaming.updateWatchlist(activeWatchlist.id,{sort_mode:event.target.value});await renderWatchlistEditor();await init()});
     document.getElementById("watchlist-cover-search-button").addEventListener("click",()=>searchWatchlistCovers());
