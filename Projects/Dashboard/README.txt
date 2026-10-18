@@ -20,6 +20,26 @@ Nova's direct-to-Supabase preparation pipeline and PDF export remain pending.
 Test authenticated desktop/iPhone/PWA behavior after cache refresh. Keep all
 existing integration capabilities and private Pi control access requirements.
 
+PROJECT CHANGELOG · 2026-10-17
+==============================
+Streaming · Version 0.7.2: .DD Playlist Sharing & Independent Imports
+
+Adds portable .DD files for Streaming watchlists. Users can export a collection
+and import it into another Dashboard account as a brand-new editable copy.
+Repeated imports always create separate copies rather than overwriting or
+synchronizing an existing playlist.
+
+The .DD file preserves playlist order, sort mode, cover metadata, TMDB IDs, and
+movie/TV type. It intentionally excludes personal watch/completion state,
+Continue Watching progress, reactions, provider subscriptions, account IDs,
+credentials, and other account-specific data. Imports begin queued/unwatched for
+the recipient. Streaming rejects Whiteboard and unsupported .DD file types.
+
+Existing streaming_watchlists and streaming_watchlist_items storage is reused;
+no Supabase schema or policy change is required. projects.json,
+Documents/privacy.html, and Documents/tos.html were reviewed and do not require
+changes for this release. AirPlay remains planned for Streaming 0.7.3.
+
 Earlier release history follows.
 
 My Dashboard · Version 0.11.3
