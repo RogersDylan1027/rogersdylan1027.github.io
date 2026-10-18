@@ -1,4 +1,41 @@
 My Dashboard — Streaming
+Version: 0.7.2
+Last reviewed: 2026-10-17
+
+0.7.2 — .DD Playlist Sharing & Independent Imports
+- Adds portable .DD files for Streaming watchlists.
+- Export .DD is available from the watchlist editor and includes the collection
+  name, order, sort mode, cover metadata, TMDB IDs, and movie/TV type.
+- Personal viewing state is intentionally excluded: watched/completed state,
+  Continue Watching progress, likes/dislikes, provider subscriptions, account IDs,
+  credentials, and other account-specific data are not written into the .DD file.
+- Import .DD Playlist is available from the Watchlists manager.
+- Every import creates a new watchlist owned by the importing Dashboard account.
+  Nothing is linked or synchronized to the creator after import.
+- Importing the same .DD file again creates another independent copy. If the
+  original name already exists, the new list is named Copy, Copy 2, and so on.
+- Imported titles begin queued/unwatched for the recipient while retaining the
+  shared playlist order, sorting choice, and cover where available.
+- Streaming rejects Whiteboard .DD files and other unsupported .DD types with a
+  clear wrong-file-type message.
+- Uses the existing streaming_watchlists and streaming_watchlist_items tables;
+  no Supabase schema or policy change is required.
+- AirPlay remains planned for Streaming 0.7.3 and is not part of 0.7.2.
+
+Manual verification before publishing:
+1. Export a mixed movie/TV watchlist and confirm the downloaded filename ends in .DD.
+2. Inspect the exported file and confirm no user ID, credentials, providers,
+   viewing progress, likes/dislikes, or completion state are present.
+3. Import the file into another account and confirm a new editable watchlist is created.
+4. Import the same file again and confirm a second independent copy is created.
+5. Rename/reorder/edit one imported copy and confirm the other copy is unchanged.
+6. Try importing a Whiteboard .DD file and confirm Streaming rejects it.
+7. Confirm existing watchlists, loading, player, search, Continue Watching,
+   settings, and provider behavior remain unchanged.
+
+Previous release
+================
+My Dashboard — Streaming
 Version: 0.7.1
 Last reviewed: 2026-10-10
 
