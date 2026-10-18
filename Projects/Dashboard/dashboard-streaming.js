@@ -1,5 +1,5 @@
 /*
-  My Dashboard · Streaming Client · Version 0.7.0
+  My Dashboard · Streaming Client · Version 0.7.2
   Dashboard Performance Optimization · 2026-08-23
 
   Load after dashboard-config.js and after the Dashboard's authenticated
@@ -14,6 +14,10 @@
 
   // 0.7.0: short-lived request caches prevent duplicate Supabase/TMDB work
   // during one Streaming render while still allowing fresh data after writes.
+  const DD_STREAMING_PLAYLIST_TYPE = "streaming_playlist";
+  const DD_FORMAT_VERSION = 1;
+  const STREAMING_VERSION = "0.7.2";
+
   const requestCache = new Map();
   function cachedRequest(key, factory, ttlMs = 60000) {
     const now = Date.now();
@@ -782,6 +786,154 @@
     return data;
   }
 
+  function normalizeStreamingPlaylistDD(payload) {
+    if (!payload || typeof payload !== "object" || Array.isArray(payload)) {
+      throw new Error("That .DD file is not a valid Streaming Playlist.");
+    }
+
+    if (String(payload.type || "").toLowerCase() !== DD_STREAMING_PLAYLIST_TYPE) {
+      throw new Error("This .DD file belongs to another My Dashboard feature. Choose a Streaming Playlist .DD file.");
+    }
+
+    const ddVersion = Number(payload.ddVersion ?? payload.dd_version);
+    if (ddVersion !== DD_FORMAT_VERSION) {
+      throw new Error("This Streaming Playlist .DD version is not supported yet.");
+    }
+
+    const playlist = payload.playlist;
+    if (!playlist || typeof playlist !== "object" || Array.isArray(playlist)) {
+      throw new Error("This Streaming Playlist .DD file is missing playlist data.");
+    }
+
+    const name = String(playlist.name || "Imported Playlist").trim().slice(0, 80) || "Imported Playlist";
+    const allowedSortModes = new Set(["custom","release","release_unwatched","newest","continue","unwatched","series"]);
+    const sortMode = allowedSortModes.has(String(playlist.sortMode || playlist.sort_mode || "custom"))
+      ? String(playlist.sortMode || playlist.sort_mode || "custom")
+      : "custom";
+
+    const sourceItems = Array.isArray(playlist.items) ? playlist.items : [];
+    if (sourceItems.length > 1000) {
+      throw new Error("This Streaming Playlist contains too many items to import.");
+    }
+
+    const seen = new Set();
+    const items = [];
+    for (const raw of sourceItems) {
+      const tmdbId = Number(raw?.tmdbId ?? raw?.tmdb_id);
+      const mediaType = String(raw?.mediaType ?? raw?.media_type || "").toLowerCase();
+      if (!Number.isInteger(tmdbId) || tmdbId <= 0 || !["movie","tv"].includes(mediaType)) {
+        continue;
+      }
+      const key = mediaType + ":" + tmdbId;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      items.push({
+        tmdbId,
+        mediaType,
+        position: Math.max(1, Number(raw?.position) || items.length + 1),
+      });
+    }
+    items.sort((a, b) => a.position - b.position);
+
+    const rawCover = playlist.cover && typeof playlist.cover === "object" ? playlist.cover : null;
+    const coverTmdbId = Number(rawCover?.tmdbId ?? rawCover?.tmdb_id);
+    const coverMediaType = String(rawCover?.mediaType ?? rawCover?.media_type || "").toLowerCase();
+    const cover = Number.isInteger(coverTmdbId) && coverTmdbId > 0 && ["movie","tv"].includes(coverMediaType)
+      ? {
+          tmdbId: coverTmdbId,
+          mediaType: coverMediaType,
+          posterPath: rawCover?.posterPath ?? rawCover?.poster_path ?? null,
+          title: rawCover?.title == null ? null : String(rawCover.title).slice(0, 200),
+        }
+      : null;
+
+    return { name, sortMode, cover, items };
+  }
+
+  async function uniqueImportedWatchlistName(baseName) {
+    const lists = await listWatchlists();
+    const existing = new Set(lists.map(row => String(row.name || "").trim().toLowerCase()));
+    if (!existing.has(baseName.toLowerCase())) return baseName;
+
+    for (let copyNumber = 1; copyNumber < 1000; copyNumber += 1) {
+      const suffix = copyNumber === 1 ? " (Copy)" : ` (Copy ${copyNumber})`;
+      const candidate = baseName.slice(0, Math.max(1, 80 - suffix.length)).trimEnd() + suffix;
+      if (!existing.has(candidate.toLowerCase())) return candidate;
+    }
+    return (baseName.slice(0, 67).trimEnd() + " (Imported Copy)").slice(0, 80);
+  }
+
+  async function exportWatchlistDD(watchlistId) {
+    const lists = await listWatchlists();
+    const list = lists.find(row => String(row.id) === String(watchlistId));
+    if (!list) throw new Error("Watchlist not found.");
+
+    const items = await loadWatchlistItems(watchlistId);
+    return {
+      type: DD_STREAMING_PLAYLIST_TYPE,
+      ddVersion: DD_FORMAT_VERSION,
+      streamingVersion: STREAMING_VERSION,
+      exportedAt: new Date().toISOString(),
+      playlist: {
+        name: list.name,
+        sortMode: list.sort_mode || "custom",
+        cover: list.cover_tmdb_id
+          ? {
+              tmdbId: Number(list.cover_tmdb_id),
+              mediaType: list.cover_media_type,
+              posterPath: list.cover_poster_path || null,
+              title: list.cover_title || null,
+            }
+          : null,
+        items: [...items]
+          .sort((a, b) => Number(a.position) - Number(b.position))
+          .map((row, index) => ({
+            tmdbId: Number(row.tmdb_id),
+            mediaType: row.media_type,
+            position: index + 1,
+          })),
+      },
+    };
+  }
+
+  async function importWatchlistDD(payload) {
+    const normalized = normalizeStreamingPlaylistDD(payload);
+    const importName = await uniqueImportedWatchlistName(normalized.name);
+    let created = null;
+
+    try {
+      created = await createWatchlist(importName);
+      const changes = { sort_mode: normalized.sortMode };
+
+      if (normalized.cover) {
+        changes.cover_tmdb_id = normalized.cover.tmdbId;
+        changes.cover_media_type = normalized.cover.mediaType;
+        changes.cover_poster_path = normalized.cover.posterPath;
+        changes.cover_title = normalized.cover.title;
+      }
+
+      created = await updateWatchlist(created.id, changes);
+
+      for (const item of normalized.items) {
+        await addTitleToWatchlist(created.id, item.tmdbId, item.mediaType);
+      }
+
+      return {
+        ...created,
+        imported_item_count: normalized.items.length,
+      };
+    } catch (error) {
+      if (created?.id) {
+        try {
+          await deleteWatchlist(created.id);
+        } catch (cleanupError) {
+          console.warn("Streaming Playlist import cleanup failed:", cleanupError);
+        }
+      }
+      throw error;
+    }
+  }
+
   async function updateWatchlist(watchlistId, changes = {}) {
     const client = requireClient();
     const user = requireUser();
@@ -1180,7 +1332,7 @@
   window.DashboardStreaming = Object.freeze({
     getAvailableProvidersForTitle,
     isAdminUser,
-    version: "0.7.0",
+    version: "0.7.2",
     listProviders,
     loadUserProviders,
     addProvider,
@@ -1195,6 +1347,8 @@
     setTitleReaction,
     setWatchlist,
     listWatchlists,
+    exportWatchlistDD,
+    importWatchlistDD,
     createWatchlist,
     updateWatchlist,
     deleteWatchlist,
