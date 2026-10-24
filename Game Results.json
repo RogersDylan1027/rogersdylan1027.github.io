@@ -220,47 +220,203 @@
     "homeScorers": "Nathan MacKinnon, COL: 0.61826      (1.03043333333333)",
     "awayScorers": {},
     "allHomePoints": {
-      "Nazem Kadri": ["0.2964", "9.85%", "2.419"],
-      "Parker Kelly": ["0.1087", "3.73%", "1.1107"],
-      "Gabriel Landeskog": ["0.3111", "10.32%", "1.9334"],
-      "Artturi Lehkonen": ["0.4", "13.07%", "1.8019"],
-      "Nathan MacKinnon": ["1.7665", "46.11%", "3.7544"],
-      "Taylor Makar": ["0", "0%", "0.5115"],
-      "Martin Necas": ["0.6978", "21.67%", "2.266"],
-      "Brock Nelson": ["0.4529", "14.66%", "1.9308"],
-      "Logan O'Connor": ["0.0139", "0.48%", "0.9443"],
-      "Jaden Schwartz": ["0.1724", "5.86%", "1.4468"],
-      "Fedor Svechkov": ["0.0241", "0.84%", "0.8769"],
-      "Brent Burns": ["0.1173", "4.02%", "1.737"],
-      "Noah Juulsen": ["0.0028", "0.1%", "0.4173"],
-      "Brett Kulak": ["0.0066", "0.23%", "0.9712"],
-      "Cale Makar": ["0.5274", "16.86%", "2.3258"],
-      "Sam Malinski": ["0.0884", "3.05%", "1.6966"],
-      "Josh Manson": ["0.047", "1.63%", "1.3601"],
-      "Devon Toews": ["0.0803", "2.77%", "1.4165"]
+      "Nazem Kadri": [
+        "0.2964",
+        "9.85%",
+        "2.419"
+      ],
+      "Parker Kelly": [
+        "0.1087",
+        "3.73%",
+        "1.1107"
+      ],
+      "Gabriel Landeskog": [
+        "0.3111",
+        "10.32%",
+        "1.9334"
+      ],
+      "Artturi Lehkonen": [
+        "0.4",
+        "13.07%",
+        "1.8019"
+      ],
+      "Nathan MacKinnon": [
+        "1.7665",
+        "46.11%",
+        "3.7544"
+      ],
+      "Taylor Makar": [
+        "0",
+        "0%",
+        "0.5115"
+      ],
+      "Martin Necas": [
+        "0.6978",
+        "21.67%",
+        "2.266"
+      ],
+      "Brock Nelson": [
+        "0.4529",
+        "14.66%",
+        "1.9308"
+      ],
+      "Logan O'Connor": [
+        "0.0139",
+        "0.48%",
+        "0.9443"
+      ],
+      "Jaden Schwartz": [
+        "0.1724",
+        "5.86%",
+        "1.4468"
+      ],
+      "Fedor Svechkov": [
+        "0.0241",
+        "0.84%",
+        "0.8769"
+      ],
+      "Brent Burns": [
+        "0.1173",
+        "4.02%",
+        "1.737"
+      ],
+      "Noah Juulsen": [
+        "0.0028",
+        "0.1%",
+        "0.4173"
+      ],
+      "Brett Kulak": [
+        "0.0066",
+        "0.23%",
+        "0.9712"
+      ],
+      "Cale Makar": [
+        "0.5274",
+        "16.86%",
+        "2.3258"
+      ],
+      "Sam Malinski": [
+        "0.0884",
+        "3.05%",
+        "1.6966"
+      ],
+      "Josh Manson": [
+        "0.047",
+        "1.63%",
+        "1.3601"
+      ],
+      "Devon Toews": [
+        "0.0803",
+        "2.77%",
+        "1.4165"
+      ]
     },
     "allAwayPoints": {
-      "Anthony Cirelli": ["0.1886", "6.39%", "1.7034"],
-      "Conor Geekie": ["0.0151", "0.53%", "0.8489"],
-      "Zemgus Girgensons": ["0.0403", "1.4%", "1.1797"],
-      "Gage Goncalves": ["0.0461", "1.6%", "1.0819"],
-      "Jake Guentzel": ["0.5492", "17.49%", "2.7904"],
-      "Brandon Hagel": ["0.8094", "24.67%", "3.2406"],
-      "Pontus Holmberg": ["0.0665", "2.3%", "1.3669"],
-      "Dominic James": ["0.0663", "2.29%", "1.4022"],
-      "Nikita Kucherov": ["0.7743", "23.74%", "3.2412"],
-      "Ilya Mikheyev": ["0.1325", "4.53%", "1.6278"],
-      "Brayden Point": ["0.2117", "7.14%", "2.0703"],
-      "Scott Sabourin": ["0.0025", "0.09%", "0.4074"],
-      "Jeffrey Viel": ["0.0202", "0.71%", "1.3829"],
-      "John Carlson": ["0.2249", "7.57%", "2.3102"],
-      "Erik Cernak": ["0.015", "0.52%", "0.9554"],
-      "Max Crozier": ["0.0124", "0.43%", "1.3816"],
-      "Charle-Edouard D'Astous": ["0.0379", "1.32%", "1.2187"],
-      "Victor Hedman": ["0.0367", "1.28%", "1.5533"],
-      "Emil Lilleberg": ["0.0201", "0.7%", "0.8289"],
-      "Ryan McDonagh": ["0.029", "1.01%", "0.7943"],
-      "J.J. Moser": ["0.0516", "1.79%", "1.4014"]
+      "Anthony Cirelli": [
+        "0.1886",
+        "6.39%",
+        "1.7034"
+      ],
+      "Conor Geekie": [
+        "0.0151",
+        "0.53%",
+        "0.8489"
+      ],
+      "Zemgus Girgensons": [
+        "0.0403",
+        "1.4%",
+        "1.1797"
+      ],
+      "Gage Goncalves": [
+        "0.0461",
+        "1.6%",
+        "1.0819"
+      ],
+      "Jake Guentzel": [
+        "0.5492",
+        "17.49%",
+        "2.7904"
+      ],
+      "Brandon Hagel": [
+        "0.8094",
+        "24.67%",
+        "3.2406"
+      ],
+      "Pontus Holmberg": [
+        "0.0665",
+        "2.3%",
+        "1.3669"
+      ],
+      "Dominic James": [
+        "0.0663",
+        "2.29%",
+        "1.4022"
+      ],
+      "Nikita Kucherov": [
+        "0.7743",
+        "23.74%",
+        "3.2412"
+      ],
+      "Ilya Mikheyev": [
+        "0.1325",
+        "4.53%",
+        "1.6278"
+      ],
+      "Brayden Point": [
+        "0.2117",
+        "7.14%",
+        "2.0703"
+      ],
+      "Scott Sabourin": [
+        "0.0025",
+        "0.09%",
+        "0.4074"
+      ],
+      "Jeffrey Viel": [
+        "0.0202",
+        "0.71%",
+        "1.3829"
+      ],
+      "John Carlson": [
+        "0.2249",
+        "7.57%",
+        "2.3102"
+      ],
+      "Erik Cernak": [
+        "0.015",
+        "0.52%",
+        "0.9554"
+      ],
+      "Max Crozier": [
+        "0.0124",
+        "0.43%",
+        "1.3816"
+      ],
+      "Charle-Edouard D'Astous": [
+        "0.0379",
+        "1.32%",
+        "1.2187"
+      ],
+      "Victor Hedman": [
+        "0.0367",
+        "1.28%",
+        "1.5533"
+      ],
+      "Emil Lilleberg": [
+        "0.0201",
+        "0.7%",
+        "0.8289"
+      ],
+      "Ryan McDonagh": [
+        "0.029",
+        "1.01%",
+        "0.7943"
+      ],
+      "J.J. Moser": [
+        "0.0516",
+        "1.79%",
+        "1.4014"
+      ]
     },
     "outcome": "COL, COL: 1.78974 v TBL: 1.17254      Expected difference: 0.6172, (COL: 2.9829 v TBL: 1.95423) (COL: 64.96% , TBL: 35.04%)",
     "startingTime": "21:05:00",
@@ -269,8 +425,14 @@
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
     "awayLogLoss": {},
-    "bettingLines": ["COL: Money Line", "Nathan MacKinnon: +1 Point"],
-    "correctBettingLines": [0, 0],
+    "bettingLines": [
+      "COL: Money Line",
+      "Nathan MacKinnon: +1 Point"
+    ],
+    "correctBettingLines": [
+      0,
+      0
+    ],
     "correctLines": 0,
     "totalLines": 2
   }
