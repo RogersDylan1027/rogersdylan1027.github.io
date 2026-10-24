@@ -203,10 +203,10 @@
     "outcome": "CHI, CHI: 1.14167 v MTL: 0.32638      Expected difference: 0.81529, (CHI: 1.90278 v MTL: 0.54397) (CHI: 69.32% , MTL: 30.68%)",
     "startingTime": "20:05:00",
     "timeLastRun": "19:57:48",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.0475,
+    "awayMeanSquaredError": 0.9901,
+    "homeLogLoss": 0.1707,
+    "awayLogLoss": 2.4625,
     "bettingLines": "CHI: Money Line",
     "correctBettingLines": 0,
     "correctLines": 0,
@@ -421,19 +421,19 @@
     "outcome": "COL, COL: 1.78974 v TBL: 1.17254      Expected difference: 0.6172, (COL: 2.9829 v TBL: 1.95423) (COL: 64.96% , TBL: 35.04%)",
     "startingTime": "21:05:00",
     "timeLastRun": "20:57:56",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 1.0922,
+    "awayMeanSquaredError": 0.5616,
+    "homeLogLoss": "NaN",
+    "awayLogLoss": 0.9486,
     "bettingLines": [
       "COL: Money Line",
       "Nathan MacKinnon: +1 Point"
     ],
     "correctBettingLines": [
-      0,
-      0
+      1,
+      1
     ],
-    "correctLines": 0,
+    "correctLines": 2,
     "totalLines": 2
   }
 ]
