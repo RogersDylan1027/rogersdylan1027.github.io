@@ -22,7 +22,7 @@ existing integration capabilities and private Pi control access requirements.
 
 PROJECT CHANGELOG · 2026-10-17
 ==============================
-Streaming · Version 0.7.2: .DD Playlist Sharing & Independent Imports
+Streaming · Version 0.7.2: .DD Playlist Sharing & Provider Fallback Reliability
 
 Adds portable .DD files for Streaming watchlists. Users can export a collection
 and import it into another Dashboard account as a brand-new editable copy.
@@ -38,7 +38,19 @@ the recipient. Streaming rejects Whiteboard and unsupported .DD file types.
 Existing streaming_watchlists and streaming_watchlist_items storage is reused;
 no Supabase schema or policy change is required. projects.json,
 Documents/privacy.html, and Documents/tos.html were reviewed and do not require
-changes for this release. AirPlay remains planned for Streaming 0.7.3.
+changes for this release.
+
+Dashboard Playback now uses a centralized hidden provider order: vidsrc.sh
+primary, vidsrc.mov fallback. The primary provider's documented CORS-enabled
+availability endpoint is used for reliable preflight checks. Network failures,
+non-success responses, bounded preflight timeouts, iframe load timeouts, and
+iframe error events can trigger one fallback attempt. Cross-origin iframe
+restrictions remain intact: iframe load does not prove video playback, and a
+silent in-player failure after load cannot be detected unless the provider
+emits a reliable signal. Ordinary viewers are not shown provider names or
+fallback notices. Admin diagnostics record only provider-stage evidence and
+avoid title/account identifiers. No Dashboard application version bump is
+required. AirPlay remains planned for Streaming 0.7.3.
 
 Earlier release history follows.
 

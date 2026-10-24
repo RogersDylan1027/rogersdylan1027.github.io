@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>My Dashboard · Streaming · Version 0.7.2</title>
-  <meta name="description" content="My Dashboard unified streaming hub. Version 0.7.2 adds portable .DD playlist sharing with independent-copy imports and exports.">
+  <meta name="description" content="My Dashboard unified streaming hub. Version 0.7.2 includes portable .DD playlist sharing and hidden automatic playback-provider fallback.">
   <meta name="theme-color" content="#101218">
 
   <script src="../dashboard-config.js?v=0.7.2"></script>
@@ -202,7 +202,7 @@
       .watchlist-sort-row,.watchlist-cover-search{grid-template-columns:1fr}.watchlist-sort-row select{width:100%}
     }
   </style>
-  <!-- Version 0.7.2: .DD Playlist Sharing & Independent Imports · 2026-10-17 -->
+  <!-- Version 0.7.2: .DD Playlist Sharing & Provider Fallback Reliability · 2026-10-24 -->
 </head>
 <body>
   <header class="topbar">
@@ -404,7 +404,30 @@
       episodeNumber: null,
       episodes: []
     };
-    const PLAYER_ORIGIN = "https://vidsrcme.ru";
+    const DASHBOARD_PLAYBACK_CONFIG = Object.freeze({
+      availabilityTimeoutMs: 6000,
+      iframeLoadTimeoutMs: 15000,
+      providers: Object.freeze([
+        Object.freeze({
+          key: "primary",
+          origin: "https://vidsrc.sh",
+          supportsInfoEndpoint: true,
+          supportsPlayerEvents: true,
+          supportsStartAt: true,
+          defaultSubtitleLanguage: "en"
+        }),
+        Object.freeze({
+          key: "fallback",
+          origin: "https://vidsrc.mov",
+          supportsInfoEndpoint: false,
+          supportsPlayerEvents: false,
+          supportsStartAt: false,
+          defaultSubtitleLanguage: null
+        })
+      ])
+    });
+    const playbackDiagnostics = [];
+    let playerLoadTimer = null;
 
     /*
       0.6.8 playback: the embedded player keeps its native fullscreen permission.
@@ -2388,13 +2411,177 @@
       return h ? `${h}:${String(m).padStart(2,"0")}:${String(sec).padStart(2,"0")}` : `${m}:${String(sec).padStart(2,"0")}`;
     }
 
-    function buildPlayerUrl({tmdbId,mediaType,seasonNumber=null,episodeNumber=null,startAt=null}) {
-      let url = mediaType === "tv" ? `${PLAYER_ORIGIN}/embed/tv/${Number(tmdbId)}` : `${PLAYER_ORIGIN}/embed/movie/${Number(tmdbId)}`;
-      if (mediaType === "tv" && seasonNumber !== null && episodeNumber !== null) url += `/${Number(seasonNumber)}/${Number(episodeNumber)}`;
+    function getPlaybackProvider(providerIndex) {
+      return DASHBOARD_PLAYBACK_CONFIG.providers[Number(providerIndex)] || null;
+    }
+
+    function recordPlaybackDiagnostic(eventName, detail = {}) {
+      if (!currentUserIsAdmin) return;
+      const entry = {
+        at: new Date().toISOString(),
+        event: String(eventName || ""),
+        provider: detail.provider || null,
+        reason: detail.reason || null,
+        evidence: detail.evidence || null
+      };
+      playbackDiagnostics.push(entry);
+      if (playbackDiagnostics.length > 100) playbackDiagnostics.shift();
+      console.debug("[Streaming playback]", entry);
+    }
+
+    function buildPlayerUrl(provider, {tmdbId,mediaType,seasonNumber=null,episodeNumber=null,startAt=null}) {
+      if (!provider) throw new Error("Playback provider is not configured.");
+      let url = mediaType === "tv"
+        ? `${provider.origin}/embed/tv/${Number(tmdbId)}`
+        : `${provider.origin}/embed/movie/${Number(tmdbId)}`;
+      if (mediaType === "tv" && seasonNumber !== null && episodeNumber !== null) {
+        url += `/${Number(seasonNumber)}/${Number(episodeNumber)}`;
+      }
       const params = new URLSearchParams();
-      params.set("ds_lang","en");
-      if (Number(startAt) > 5) params.set("startAt",String(Math.floor(Number(startAt))));
-      return `${url}?${params.toString()}`;
+      if (provider.defaultSubtitleLanguage) params.set("ds_lang", provider.defaultSubtitleLanguage);
+      if (provider.supportsStartAt && Number(startAt) > 5) {
+        params.set("startAt", String(Math.floor(Number(startAt))));
+      }
+      const query = params.toString();
+      return query ? `${url}?${query}` : url;
+    }
+
+    function buildProviderInfoUrl(provider, playback) {
+      if (!provider?.supportsInfoEndpoint || !playback) return null;
+      if (playback.mediaType === "tv") {
+        if (playback.seasonNumber !== null && playback.episodeNumber !== null) {
+          return `${provider.origin}/info/tv/${playback.tmdbId}/${playback.seasonNumber}/${playback.episodeNumber}.json`;
+        }
+        return `${provider.origin}/info/tv/${playback.tmdbId}.json`;
+      }
+      return `${provider.origin}/info/movie/${playback.tmdbId}.json`;
+    }
+
+    async function fetchWithTimeout(url, timeoutMs) {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), timeoutMs);
+      try {
+        return await fetch(url, { method:"GET", mode:"cors", cache:"no-store", signal:controller.signal });
+      } finally {
+        clearTimeout(timer);
+      }
+    }
+
+    async function checkPlaybackProviderAvailability(provider, playback) {
+      const infoUrl = buildProviderInfoUrl(provider, playback);
+      if (!infoUrl) {
+        return { supported:false, available:null, evidence:"unsupported" };
+      }
+      try {
+        const response = await fetchWithTimeout(infoUrl, DASHBOARD_PLAYBACK_CONFIG.availabilityTimeoutMs);
+        if (response.ok) return { supported:true, available:true, evidence:"info_200" };
+        if (response.status === 404) return { supported:true, available:false, evidence:"info_404" };
+        return { supported:true, available:false, evidence:`info_http_${response.status}` };
+      } catch (error) {
+        return {
+          supported:true,
+          available:false,
+          evidence:error?.name === "AbortError" ? "info_timeout" : "info_network_error"
+        };
+      }
+    }
+
+    function clearPlayerLoadTimer() {
+      clearTimeout(playerLoadTimer);
+      playerLoadTimer = null;
+    }
+
+    function showDashboardPlaybackError() {
+      clearPlayerLoadTimer();
+      const status = document.getElementById("player-status");
+      if (status) status.textContent = "Dashboard playback could not be loaded. Please try again.";
+    }
+
+    async function attemptPlaybackProvider(providerIndex, {startAt=null, reason="initial"} = {}) {
+      if (!activePlayback) return false;
+      const provider = getPlaybackProvider(providerIndex);
+      if (!provider) {
+        showDashboardPlaybackError();
+        return false;
+      }
+
+      activePlayback.attemptedProviders ||= [];
+      if (activePlayback.attemptedProviders.includes(provider.key)) {
+        showDashboardPlaybackError();
+        return false;
+      }
+      activePlayback.attemptedProviders.push(provider.key);
+      activePlayback.providerIndex = providerIndex;
+      activePlayback.providerKey = provider.key;
+      activePlayback.playerEventConfirmed = false;
+
+      recordPlaybackDiagnostic("provider_attempt", {
+        provider: provider.key,
+        reason,
+        evidence: provider.supportsInfoEndpoint ? "preflight_supported" : "preflight_unsupported"
+      });
+
+      const availability = await checkPlaybackProviderAvailability(provider, activePlayback);
+      if (availability.supported && availability.available === false) {
+        recordPlaybackDiagnostic("provider_failure", {
+          provider: provider.key,
+          reason: "availability_check_failed",
+          evidence: availability.evidence
+        });
+        return attemptPlaybackProvider(providerIndex + 1, {
+          startAt,
+          reason: "fallback_after_primary_preflight_failure"
+        });
+      }
+
+      const iframe = document.getElementById("player-frame");
+      if (!iframe) {
+        showDashboardPlaybackError();
+        return false;
+      }
+
+      clearPlayerLoadTimer();
+      iframe.src = buildPlayerUrl(provider, {
+        tmdbId:activePlayback.tmdbId,
+        mediaType:activePlayback.mediaType,
+        seasonNumber:activePlayback.seasonNumber,
+        episodeNumber:activePlayback.episodeNumber,
+        startAt
+      });
+
+      playerLoadTimer = setTimeout(() => {
+        if (!activePlayback || activePlayback.providerKey !== provider.key) return;
+        recordPlaybackDiagnostic("provider_failure", {
+          provider: provider.key,
+          reason: "iframe_load_timeout",
+          evidence: "no_load_event"
+        });
+        attemptPlaybackProvider(providerIndex + 1, {
+          startAt: pendingProgress?.progressSeconds || startAt,
+          reason: "fallback_after_iframe_timeout"
+        }).catch(error => {
+          console.error("Playback fallback:", error);
+          showDashboardPlaybackError();
+        });
+      }, DASHBOARD_PLAYBACK_CONFIG.iframeLoadTimeoutMs);
+
+      return true;
+    }
+
+    async function handleCurrentProviderFailure(reason, evidence = null) {
+      if (!activePlayback) return;
+      const provider = getPlaybackProvider(activePlayback.providerIndex);
+      if (!provider) return;
+      recordPlaybackDiagnostic("provider_failure", {
+        provider: provider.key,
+        reason,
+        evidence
+      });
+      const started = await attemptPlaybackProvider(activePlayback.providerIndex + 1, {
+        startAt: pendingProgress?.progressSeconds || activePlayback.initialStartAt,
+        reason: "fallback_after_detected_failure"
+      });
+      if (!started) showDashboardPlaybackError();
     }
 
 
@@ -2548,16 +2735,23 @@
 
       pendingProgress = null;
 
-      document.getElementById("player-frame").src =
-        buildPlayerUrl({
-          tmdbId:item.id,
-          mediaType,
-          seasonNumber:season,
-          episodeNumber:episode,
-          startAt:resume?.progress_seconds
-        });
+      activePlayback.initialStartAt =
+        Number(resume?.progress_seconds) > 5
+          ? Number(resume.progress_seconds)
+          : 0;
+      activePlayback.attemptedProviders = [];
+      activePlayback.providerIndex = -1;
+      activePlayback.providerKey = null;
+      activePlayback.playerEventConfirmed = false;
 
       document.getElementById("player-wrap").hidden = false;
+      const providerStarted = await attemptPlaybackProvider(0, {
+        startAt:activePlayback.initialStartAt,
+        reason:"initial"
+      });
+      if (!providerStarted) {
+        showDashboardPlaybackError();
+      }
       updatePictureInPictureControl();
 
       const episodeLabel =
@@ -2586,10 +2780,36 @@
       } catch(error){ console.error("Playback progress save:",error); }
     }
 
+    document.getElementById("player-frame").addEventListener("load", () => {
+      if (!activePlayback) return;
+      clearPlayerLoadTimer();
+      const provider = getPlaybackProvider(activePlayback.providerIndex);
+      if (!provider) return;
+      recordPlaybackDiagnostic(
+        activePlayback.providerIndex > 0 ? "fallback_embed_loaded" : "primary_embed_loaded",
+        {
+          provider: provider.key,
+          reason: "iframe_load",
+          evidence: provider.supportsPlayerEvents
+            ? "embed_loaded_waiting_for_player_event"
+            : "embed_loaded_playback_confirmation_unsupported"
+        }
+      );
+    });
+
+    document.getElementById("player-frame").addEventListener("error", () => {
+      if (!activePlayback) return;
+      handleCurrentProviderFailure("iframe_error", "browser_error_event").catch(error => {
+        console.error("Playback fallback:", error);
+        showDashboardPlaybackError();
+      });
+    });
+
     window.addEventListener("message", async event => {
-      if (event.origin !== PLAYER_ORIGIN) return;
+      const eventProvider = DASHBOARD_PLAYBACK_CONFIG.providers.find(provider => provider.origin === event.origin);
+      if (!eventProvider || !activePlayback || eventProvider.key !== activePlayback.providerKey) return;
       if (event.source !== document.getElementById("player-frame")?.contentWindow) return;
-      if (event.data?.type !== "PLAYER_EVENT" || !activePlayback) return;
+      if (event.data?.type !== "PLAYER_EVENT") return;
       const data=event.data?.data||{}, info=data.player_info||{}, status=String(data.player_status||"");
       const progress=Number(data.player_progress)||0, duration=Number(data.player_duration)||0;
       const reportedTmdb=Number(info.tmdb); if (reportedTmdb>0 && reportedTmdb!==activePlayback.tmdbId) return;
@@ -2600,6 +2820,18 @@
       document.getElementById("player-status").textContent=activePlayback.mediaType==="tv"&&activePlayback.seasonNumber!==null?`S${activePlayback.seasonNumber} E${activePlayback.episodeNumber} · ${formatTime(progress)} / ${formatTime(duration)}`:`${formatTime(progress)} / ${formatTime(duration)}`;
 
       if(status==="playing") {
+        clearPlayerLoadTimer();
+        if (!activePlayback.playerEventConfirmed) {
+          activePlayback.playerEventConfirmed = true;
+          recordPlaybackDiagnostic(
+            activePlayback.providerIndex > 0 ? "fallback_playback_confirmed" : "primary_playback_confirmed",
+            {
+              provider: activePlayback.providerKey,
+              reason: "player_event",
+              evidence: "playing"
+            }
+          );
+        }
         await flushProgress(false,false);
       } else if(
         status==="paused" ||
@@ -2622,6 +2854,7 @@
       document.getElementById("player-wrap").hidden = true;
       document.getElementById("player-frame").src = "about:blank";
       document.getElementById("player-status").textContent = "";
+      clearPlayerLoadTimer();
       activePlayback = null; pendingProgress = null;
       document.getElementById("detail-title").textContent = mediaTitle(item);
       document.getElementById("detail-overview").textContent =

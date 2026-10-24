@@ -1,8 +1,8 @@
 My Dashboard — Streaming
 Version: 0.7.2
-Last reviewed: 2026-10-17
+Last reviewed: 2026-10-24
 
-0.7.2 — .DD Playlist Sharing & Independent Imports
+0.7.2 — .DD Playlist Sharing & Provider Fallback Reliability
 - Adds portable .DD files for Streaming watchlists.
 - Export .DD is available from the watchlist editor and includes the collection
   name, order, sort mode, cover metadata, TMDB IDs, and movie/TV type.
@@ -21,6 +21,43 @@ Last reviewed: 2026-10-17
 - Uses the existing streaming_watchlists and streaming_watchlist_items tables;
   no Supabase schema or policy change is required.
 - AirPlay remains planned for Streaming 0.7.3 and is not part of 0.7.2.
+
+PLAYBACK PROVIDER FALLBACK · 0.7.2
+==================================
+- Dashboard Playback now centralizes its hidden provider priority:
+    1. https://vidsrc.sh
+    2. https://vidsrc.mov
+- Ordinary viewers continue to see one My Dashboard player. Provider names,
+  URLs, fallback state, and provider selection are not shown in the player UI.
+- The primary provider is preflighted through its documented CORS-enabled
+  /info endpoint. A 404, non-success status, network failure, or bounded
+  preflight timeout is treated as a detectable failure and causes one fallback
+  attempt.
+- A 15-second iframe load timeout and browser iframe error event can also trigger
+  the single fallback attempt when the player document itself does not load.
+- Infinite retry loops are prevented by recording which configured providers
+  have already been attempted for the current playback session.
+- Movie TMDB IDs and TV TMDB ID / season / episode mappings are preserved across
+  provider attempts.
+- vidsrc.sh keeps the existing startAt resume behavior because that provider
+  documents the parameter. vidsrc.mov does not currently document an equivalent
+  resume parameter, so My Dashboard does not invent one for fallback playback.
+- vidsrc.sh PLAYER_EVENT messages continue to confirm actual playback and save
+  progress. If a fallback provider emits the same event contract, My Dashboard
+  can process it, but vidsrc.mov does not document that contract and is not
+  assumed to support it.
+- An iframe load event is recorded only as embed-loaded evidence. It is never
+  treated as proof that video playback started.
+- Silent failures that occur after a cross-origin player document loads cannot
+  be detected reliably unless the provider exposes an error/playback signal.
+  My Dashboard intentionally does not switch providers simply because a viewer
+  has not pressed Play within an arbitrary amount of time.
+- Internal diagnostics are written only for users already recognized by the
+  Streaming admin check. Diagnostics record provider stage/reason/evidence but
+  avoid title IDs, titles, account IDs, credentials, and unnecessary viewing data.
+- If every configured provider produces a detectable failure, the existing
+  Dashboard player area shows a normal playback failure message.
+
 
 Manual verification before publishing:
 1. Export a mixed movie/TV watchlist and confirm the downloaded filename ends in .DD.
