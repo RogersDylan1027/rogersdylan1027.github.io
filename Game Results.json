@@ -7,47 +7,203 @@
     "homeScorers": {},
     "awayScorers": {},
     "allHomePoints": {
-      "Oliver Bjorkstrand": ["0.0333", "1.16%", "2.0571"],
-      "Will Cuylle": ["0.0771", "2.66%", "2.5952"],
-      "Pavel Dorofeyev": ["0.195", "6.6%", "3.7124"],
-      "Luke Glendening": ["0.0019", "0.07%", "0.9334"],
-      "Tye Kartye": ["0.0208", "0.72%", "1.353"],
-      "Noah Laba": ["0.0117", "0.41%", "1.2437"],
-      "Alexis Lafrenière": ["0.136", "4.65%", "2.7042"],
-      "J.T. Miller": ["0.081", "2.79%", "2.4629"],
-      "Gabe Perreault": ["0.0673", "2.33%", "2.1995"],
-      "Taylor Raddysh": ["0.0104", "0.36%", "1.0177"],
-      "Matt Rempe": ["0.0017", "0.06%", "0.7528"],
-      "Eeli Tolvanen": ["0.0366", "1.27%", "2.1597"],
-      "Mika Zibanejad": ["0.1788", "6.07%", "3.2252"],
-      "Sean Durzi": ["0.0214", "0.75%", "1.5859"],
-      "Adam Fox": ["0.0344", "1.2%", "1.9007"],
-      "Vladislav Gavrikov": ["0.0444", "1.54%", "1.8989"],
-      "Scott Morrow": ["0", "0%", "1.0812"],
-      "Marcus Pettersson": ["0.0043", "0.15%", "1.018"],
-      "Braden Schneider": ["0.0042", "0.15%", "1.7126"],
-      "Alberts Smits": ["0", "0%", "0.5025"]
+      "Oliver Bjorkstrand": [
+        "0.0333",
+        "1.16%",
+        "2.0571"
+      ],
+      "Will Cuylle": [
+        "0.0771",
+        "2.66%",
+        "2.5952"
+      ],
+      "Pavel Dorofeyev": [
+        "0.195",
+        "6.6%",
+        "3.7124"
+      ],
+      "Luke Glendening": [
+        "0.0019",
+        "0.07%",
+        "0.9334"
+      ],
+      "Tye Kartye": [
+        "0.0208",
+        "0.72%",
+        "1.353"
+      ],
+      "Noah Laba": [
+        "0.0117",
+        "0.41%",
+        "1.2437"
+      ],
+      "Alexis Lafrenière": [
+        "0.136",
+        "4.65%",
+        "2.7042"
+      ],
+      "J.T. Miller": [
+        "0.081",
+        "2.79%",
+        "2.4629"
+      ],
+      "Gabe Perreault": [
+        "0.0673",
+        "2.33%",
+        "2.1995"
+      ],
+      "Taylor Raddysh": [
+        "0.0104",
+        "0.36%",
+        "1.0177"
+      ],
+      "Matt Rempe": [
+        "0.0017",
+        "0.06%",
+        "0.7528"
+      ],
+      "Eeli Tolvanen": [
+        "0.0366",
+        "1.27%",
+        "2.1597"
+      ],
+      "Mika Zibanejad": [
+        "0.1788",
+        "6.07%",
+        "3.2252"
+      ],
+      "Sean Durzi": [
+        "0.0214",
+        "0.75%",
+        "1.5859"
+      ],
+      "Adam Fox": [
+        "0.0344",
+        "1.2%",
+        "1.9007"
+      ],
+      "Vladislav Gavrikov": [
+        "0.0444",
+        "1.54%",
+        "1.8989"
+      ],
+      "Scott Morrow": [
+        "0",
+        "0%",
+        "1.0812"
+      ],
+      "Marcus Pettersson": [
+        "0.0043",
+        "0.15%",
+        "1.018"
+      ],
+      "Braden Schneider": [
+        "0.0042",
+        "0.15%",
+        "1.7126"
+      ],
+      "Alberts Smits": [
+        "0",
+        "0%",
+        "0.5025"
+      ]
     },
     "allAwayPoints": {
-      "Joel Armia": ["0.0869", "3%", "1.2377"],
-      "Quinton Byfield": ["0.3478", "11.46%", "2.2129"],
-      "Erik Haula": ["0.1179", "4.04%", "1.5057"],
-      "Samuel Helenius": ["0.0138", "0.48%", "0.7071"],
-      "Adrian Kempe": ["0.6257", "19.67%", "2.5807"],
-      "Alex Laferriere": ["0.3087", "10.24%", "2.384"],
-      "Scott Laughton": ["0.1191", "4.08%", "1.4112"],
-      "Andre Lee": ["0.0202", "0.71%", "0.7175"],
-      "Artemi Panarin": ["0.6321", "19.85%", "2.7243"],
-      "Corey Perry": ["0.1156", "3.97%", "1.4365"],
-      "Taylor Ward": ["0.0214", "0.75%", "0.9895"],
-      "Jared Wright": ["0", "0%", "1.8775"],
-      "Mikey Anderson": ["0.0163", "0.57%", "0.681"],
-      "Cody Ceci": ["0.0038", "0.13%", "0.6844"],
-      "Brandt Clarke": ["0.1047", "3.6%", "1.8053"],
-      "Drew Doughty": ["0.047", "1.63%", "1.2408"],
-      "Brian Dumoulin": ["0.0102", "0.36%", "0.6911"],
-      "Joel Edmundson": ["0.0195", "0.68%", "1.2148"],
-      "Erik Gustafsson": ["0.0504", "1.75%", "1.0139"]
+      "Joel Armia": [
+        "0.0869",
+        "3%",
+        "1.2377"
+      ],
+      "Quinton Byfield": [
+        "0.3478",
+        "11.46%",
+        "2.2129"
+      ],
+      "Erik Haula": [
+        "0.1179",
+        "4.04%",
+        "1.5057"
+      ],
+      "Samuel Helenius": [
+        "0.0138",
+        "0.48%",
+        "0.7071"
+      ],
+      "Adrian Kempe": [
+        "0.6257",
+        "19.67%",
+        "2.5807"
+      ],
+      "Alex Laferriere": [
+        "0.3087",
+        "10.24%",
+        "2.384"
+      ],
+      "Scott Laughton": [
+        "0.1191",
+        "4.08%",
+        "1.4112"
+      ],
+      "Andre Lee": [
+        "0.0202",
+        "0.71%",
+        "0.7175"
+      ],
+      "Artemi Panarin": [
+        "0.6321",
+        "19.85%",
+        "2.7243"
+      ],
+      "Corey Perry": [
+        "0.1156",
+        "3.97%",
+        "1.4365"
+      ],
+      "Taylor Ward": [
+        "0.0214",
+        "0.75%",
+        "0.9895"
+      ],
+      "Jared Wright": [
+        "0",
+        "0%",
+        "1.8775"
+      ],
+      "Mikey Anderson": [
+        "0.0163",
+        "0.57%",
+        "0.681"
+      ],
+      "Cody Ceci": [
+        "0.0038",
+        "0.13%",
+        "0.6844"
+      ],
+      "Brandt Clarke": [
+        "0.1047",
+        "3.6%",
+        "1.8053"
+      ],
+      "Drew Doughty": [
+        "0.047",
+        "1.63%",
+        "1.2408"
+      ],
+      "Brian Dumoulin": [
+        "0.0102",
+        "0.36%",
+        "0.6911"
+      ],
+      "Joel Edmundson": [
+        "0.0195",
+        "0.68%",
+        "1.2148"
+      ],
+      "Erik Gustafsson": [
+        "0.0504",
+        "1.75%",
+        "1.0139"
+      ]
     },
     "outcome": "LAK, NYR: 0.33603 v LAK: 0.93135      Expected difference: 0.59532, (NYR: 0.56005 v LAK: 1.55225) (NYR: 35.54% , LAK: 64.46%)",
     "startingTime": "19:05:00",
@@ -114,7 +270,7 @@
     },
     "outcome": "TOR, CGY: 0.22123 v TOR: 0.72834      Expected difference: 0.50711, (CGY: 0.36872 v TOR: 1.2139) (CGY: 37.59% , TOR: 62.41%)",
     "startingTime": "20:35:00",
-    "timeLastRun": "18:58:28",
+    "timeLastRun": "19:27:53",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
@@ -177,7 +333,7 @@
     },
     "outcome": "EDM, EDM: 2.37027 v DET: 0.43415      Expected difference: 1.93612, (EDM: 3.95045 v DET: 0.72358) (EDM: 87.39% , DET: 12.61%)",
     "startingTime": "21:35:00",
-    "timeLastRun": "18:59:02",
+    "timeLastRun": "19:28:29",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
