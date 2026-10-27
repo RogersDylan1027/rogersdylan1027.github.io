@@ -208,13 +208,13 @@
     "outcome": "LAK, NYR: 0.33603 v LAK: 0.93135      Expected difference: 0.59532, (NYR: 0.56005 v LAK: 1.55225) (NYR: 35.54% , LAK: 64.46%)",
     "startingTime": "19:05:00",
     "timeLastRun": "18:57:50",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.4047,
+    "awayMeanSquaredError": 1.259,
+    "homeLogLoss": 1.079,
+    "awayLogLoss": 2.1236,
     "bettingLines": "LAK: Money Line",
-    "correctBettingLines": 0,
-    "correctLines": 0,
+    "correctBettingLines": 1,
+    "correctLines": 1,
     "totalLines": 1
   },
   {
@@ -436,10 +436,10 @@
     "outcome": "TOR, CGY: 0.2121 v TOR: 0.72834      Expected difference: 0.51624, (CGY: 0.3535 v TOR: 1.2139) (CGY: 37.37% , TOR: 62.63%)",
     "startingTime": "20:35:00",
     "timeLastRun": "20:27:51",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 1.2691,
+    "awayMeanSquaredError": 0.2077,
+    "homeLogLoss": 2.1701,
+    "awayLogLoss": 0.6841,
     "bettingLines": "TOR: Money Line",
     "correctBettingLines": 0,
     "correctLines": 0,
@@ -663,10 +663,10 @@
     "outcome": "EDM, EDM: 2.37027 v DET: 0.43415      Expected difference: 1.93612, (EDM: 3.95045 v DET: 0.72358) (EDM: 87.39% , DET: 12.61%)",
     "startingTime": "21:35:00",
     "timeLastRun": "21:27:50",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.486,
+    "awayMeanSquaredError": 0.7219,
+    "homeLogLoss": "NaN",
+    "awayLogLoss": 0.9018,
     "bettingLines": [
       "EDM: Money Line",
       "Leon Draisaitl: +1 Point",
@@ -675,11 +675,11 @@
     ],
     "correctBettingLines": [
       0,
+      1,
       0,
-      0,
-      0
+      1
     ],
-    "correctLines": 0,
+    "correctLines": 2,
     "totalLines": 4
   }
 ]
