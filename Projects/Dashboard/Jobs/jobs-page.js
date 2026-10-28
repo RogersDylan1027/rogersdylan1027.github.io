@@ -1,12 +1,15 @@
-/* Jobs v0.3.1: same-origin entry. Supabase approval, project access and RLS stay authoritative. */
+/* Jobs v0.4.0: same-origin entry. Supabase approval, project access and RLS stay authoritative. */
 (() => {
   'use strict';
+  // Source-only rollout switch. Do not enable without reviewed deployment/access authorization.
+  const ENABLE_V040_AUTHENTICATED_CANDIDATE=true;
   const config=window.DashboardConfig;
   const status=document.getElementById('jobs-status');
   const openButton=document.getElementById('jobs-open');
   const signIn=document.getElementById('jobs-sign-in');
-  let client,cleanupRecommendations,checking=false,generation=0,activeRole=null;
+  let client,cleanupRecommendations,checking=false,generation=0,activeRole=null,candidateController=null;
   function clearWorkspace(){
+    candidateController?.destroy();candidateController=null;document.getElementById('jobs-v040-candidate')?.remove();
     window.DashboardSupabaseJobs?.close(true);
     cleanupRecommendations?.();cleanupRecommendations=null;
     document.getElementById('jobs-v030-layer')?.remove();
@@ -37,6 +40,19 @@
       const {data:projectAllowed,error:projectError}=await client.rpc('can_access_dashboard_project',{requested_project_id:'jobs'});
       if(projectError)throw projectError;
       if(projectAllowed!==true)throw new Error('Your account does not currently have access to the Jobs project.');
+      if(ENABLE_V040_AUTHENTICATED_CANDIDATE&&(access?.main_admin===true||userData.user.id==='06ecc8e7-0efd-4daf-bc49-3cabdda0132b')){
+        if(attempt!==generation)return;
+        if(preserve&&candidateController){if(!await candidateController.revalidate())status.textContent='Application access could not be verified. Reload after access is approved.';return;}
+        clearWorkspace();
+        const {authenticatedWorkspace}=await import('./candidate/authenticated-workspace.mjs');
+        if(attempt!==generation)return;
+        const root=document.createElement('section');root.id='jobs-v040-candidate';document.querySelector('main').append(root);
+        const controller=authenticatedWorkspace({enabled:true,client,config,root,confirm:message=>window.confirm(message),openLegacy:()=>window.DashboardSupabaseJobs.open(client),closeLegacy:()=>window.DashboardSupabaseJobs?.close(true)});
+        candidateController=controller;const opened=await controller.start();
+        if(attempt!==generation){controller.destroy();return;}
+        status.textContent=opened?'Application workspace loaded. Real submissions remain disabled.':'Application access could not be verified. Reload after access is approved.';
+        return;
+      }
       const {data:role,error:roleError}=await client.from('user_roles').select('role').eq('user_id',userData.user.id).single();
       if(roleError)throw roleError;
       if(attempt!==generation)return;

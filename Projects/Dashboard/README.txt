@@ -1190,3 +1190,16 @@ Adds separate Accuracy by Day graphs to Overview and Betting while preserving Ac
   stored accuracy results.
 - My Dashboard remains Version 0.10.11 because the Dashboard itself only
   receives this project changelog entry.
+
+
+PROJECT CHANGELOG
+=================
+Version 0.4.0: Nova-Assisted Job Applications
+- Enables the authenticated application review workspace at /Projects/Dashboard/Jobs/ using Supabase; no Tailscale or private Pi Jobs API required.
+- Main Admin explicitly assigns eligible jobs and immutable application requirements to the verified Nova account, requests corrections, approves the exact final revision and revokes assignments.
+- Nova reads and prepares only her authorized assignments. Other AI Helpers do not inherit application access. Employer listing snapshots remain read-only.
+- Required answers, sources, documents, cover letters, unresolved questions/input markers, consent and attestation review gate final approval. Optional questions explicitly choose Answer or Skip.
+- Saved edits invalidate final approval; optimistic version checks reject stale edits. Approval is bound to content, version and expiry. Assignment, edits, corrections, approvals and revocation are recorded in activity history.
+- Preserves the Main Admin legacy Jobs workspace, all eight existing jobs and Nova's existing preparation draft. No automatic draft import or status synchronization between legacy and new application tables.
+- Real submissions, employer-site automation and recurring preparation tasks remain disabled. No submission controls or mock execution controls are exposed in the authenticated interface.
+- Dashboard stays 0.11.4 and Streaming stays 0.7.2. No new database migration, permission grant, credentials or private records are part of this static release.

@@ -1,0 +1,11 @@
+.jobs-v040-authenticated label{display:block;margin:12px 0}
+.jobs-v040-authenticated input:not([type=checkbox]),.jobs-v040-authenticated textarea,.jobs-v040-authenticated select{display:block;width:100%;font:inherit}
+.jobs-v040-authenticated pre{white-space:pre-wrap;overflow-wrap:anywhere}
+.jobs-v040-authenticated fieldset,.jobs-v040-authenticated section{margin:16px 0}
+.jobs-v040-authenticated button{margin:5px}
+.jobs-v040-authenticated input[role=switch]{appearance:none;position:relative;width:46px;height:26px;border:1px solid #8290a2;border-radius:15px;background:#778395;vertical-align:middle;cursor:pointer}
+.jobs-v040-authenticated input[role=switch]::before{content:"";position:absolute;width:20px;height:20px;left:2px;top:2px;border-radius:50%;background:white}
+.jobs-v040-authenticated input[role=switch]:checked{background:#28487e}
+.jobs-v040-authenticated input[role=switch]:checked::before{left:22px}
+.jobs-v040-authenticated input[role=switch]:focus-visible{outline:3px solid #568bd4;outline-offset:3px}
+.jobs-v040-authenticated input[role=switch]:disabled{opacity:.5;cursor:default}
