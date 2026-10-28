@@ -1214,3 +1214,16 @@ Version 0.4.0: Main Admin Listing Availability Review
 - Preserves Horizon Media on hold, its original preparation draft, revoked assignment and audit. Nova cannot delete jobs or read recovery backups. No synthetic listing is deployed.
 - Documents private backup/evidence retention, operator recovery and the distinction between active-list removal and complete data erasure.
 - Keeps Dashboard 0.11.4, Jobs 0.4.0 and Streaming 0.7.2. No new migration or permission change needed for this static release. No automatic search, preparation schedule or employer submission enabled.
+
+
+PROJECT CHANGELOG
+=================
+Version 0.4.1: Clearer Jobs Workspace
+- Adds direct navigation between Applications, Recommendations, Saved jobs and listing availability, with sections staying on one page instead of nested overlays.
+- Adds searchable recommendation cards, friendly status filters and a mobile saved-job picker; preserves accepted decisions and prompts before discarding unsaved recommendation edits.
+- Replaces pipe-separated assignment syntax with a guided form for the actual employer questions/documents. No practice defaults or preselected job; explicit requirement review and selected-company confirmation are required before assignment.
+- Shows company/job names, plain-language application status, next steps and readiness checks. Employer information stays read-only under expandable job details; history uses readable dates and action names.
+- Hides revoked assignments by default while keeping past assignments/history available. Jobs with application records show a clear protection message instead of an unusable removal form.
+- Improves touch targets, input sizing, keyboard focus, narrow-screen wrapping, sticky navigation and desktop layouts; keeps unsaved work when switching sections or receiving same-account sign-in notifications.
+- Retains existing Supabase RPCs, version conflicts, approval invalidation, Main Admin/Nova boundaries, private data and disabled real submissions. No database migration, new permission, recurring task or automated search is added.
+- Keeps Dashboard at 0.11.4 and Streaming at 0.7.2. Updates Jobs and Dashboard documentation/changelog; projects.json and privacy/terms reviewed without changing their behavior or data-processing scope.

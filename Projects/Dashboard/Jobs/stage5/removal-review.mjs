@@ -3,7 +3,7 @@ import {assessAvailability} from './availability.mjs';
 /** Inactive review controller. No endpoint/key creation or background execution.
  * The server repeats all actor/version/evidence checks. Only enable after review.
  */
-export function removalReview({enabled=false,client,root,now=()=>Date.now()}){
+export function removalReview({enabled=false,client,root,now=()=>Date.now(),protectedJobIds=[]}){
  let destroyed=false,generation=0,busy=false,locked=false,subscription=null,identity=null;
  const clear=message=>{root.replaceChildren();const p=root.ownerDocument.createElement('p');p.textContent=message;p.setAttribute('role','status');root.append(p);};
  const call=async(name,args)=>{const r=await client.rpc(name,args);if(r.error)throw r.error;return r.data;};
@@ -33,7 +33,9 @@ export function removalReview({enabled=false,client,root,now=()=>Date.now()}){
   const reload=el('button','Reload listings');reload.onclick=()=>{if(!busy&&!destroyed)void load();};
   function show(){
    body.replaceChildren();status.textContent='';const job=jobs.find(j=>j.id===select.value);if(!job){el('p','No listings.',body);return;}
-   el('h3',job.payload.company+' · '+job.payload.position,body);el('p',`Job ID: ${job.id} · Version: ${job.version}`,body);
+   el('h3',job.payload.company+' · '+job.payload.position,body);
+   if(protectedJobIds.includes(job.id)){el('p','This job has an application record. It cannot be removed here, even if the assignment was revoked. Keep it unchanged and request a separate review if needed.',body);return;}
+   el('p',`Confirmation ID: ${job.id} · Revision: ${job.version}`,body);
    const url=job.payload.source_url;
    // Invalid/private URLs never become clickable and cannot produce a removal plan.
    let validUrl=false;try{assessAvailability({id:job.id,listing_id:job.id,employer_listing_url:url},null,{now:now()});validUrl=true;}catch{}

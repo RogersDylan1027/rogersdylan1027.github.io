@@ -1,4 +1,4 @@
-/* Jobs v0.4.0: same-origin entry. Supabase approval, project access and RLS stay authoritative. */
+/* Jobs v0.4.1: same-origin entry. Supabase approval, project access and RLS stay authoritative. */
 (() => {
   'use strict';
   // Source-only rollout switch. Do not enable without reviewed deployment/access authorization.
@@ -10,7 +10,7 @@
   let client,cleanupRecommendations,checking=false,generation=0,activeRole=null,candidateController=null;
   function clearWorkspace(){
     candidateController?.destroy();candidateController=null;document.getElementById('jobs-v040-candidate')?.remove();
-    window.DashboardSupabaseJobs?.close(true);
+    window.DashboardSupabaseJobs?.close(true);document.querySelector('.panel')?.classList.remove('jobs-connected');
     cleanupRecommendations?.();cleanupRecommendations=null;
     document.getElementById('jobs-v030-layer')?.remove();
     document.body.style.overflow='';
@@ -44,13 +44,14 @@
         if(attempt!==generation)return;
         if(preserve&&candidateController){if(!await candidateController.revalidate())status.textContent='Application access could not be verified. Reload after access is approved.';return;}
         clearWorkspace();
-        const {authenticatedWorkspace}=await import('./candidate/authenticated-workspace.mjs?closed-review=20261028-r2');
+        const {authenticatedWorkspace}=await import('./candidate/authenticated-workspace.mjs?v=0.4.1');
         if(attempt!==generation)return;
         const root=document.createElement('section');root.id='jobs-v040-candidate';document.querySelector('main').append(root);
-        const controller=authenticatedWorkspace({enabled:true,enableRemovalReview:true,client,config,root,confirm:message=>window.confirm(message),openLegacy:()=>window.DashboardSupabaseJobs.open(client),closeLegacy:()=>window.DashboardSupabaseJobs?.close(true)});
+        const controller=authenticatedWorkspace({enabled:true,enableRemovalReview:true,client,config,root,confirm:message=>window.confirm(message),openLegacy:options=>window.DashboardSupabaseJobs.open(client,options),openRecommendations:options=>window.DashboardJobRecommendations.open(client,'main_admin',undefined,options),hasLegacyEdits:()=>window.DashboardSupabaseJobs?.hasUnsavedEdits()??false,isLegacyBusy:()=>window.DashboardSupabaseJobs?.isBusy()??false,closeLegacy:()=>window.DashboardSupabaseJobs?.close(true)});
         candidateController=controller;const opened=await controller.start();
         if(attempt!==generation){controller.destroy();return;}
-        status.textContent=opened?'Application workspace loaded. Real submissions remain disabled.':'Application access could not be verified. Reload after access is approved.';
+        document.querySelector('.panel')?.classList.toggle('jobs-connected',opened);openButton.textContent='Refresh workspace';
+        status.textContent=opened?'Connected · Nothing is submitted automatically.':'Application access could not be verified. Reload after access is approved.';
         return;
       }
       const {data:role,error:roleError}=await client.from('user_roles').select('role').eq('user_id',userData.user.id).single();
@@ -76,7 +77,7 @@
         if(event==='SIGNED_OUT'){signedOut();return;}
         if(['TOKEN_REFRESHED','USER_UPDATED'].includes(event))setTimeout(()=>openWorkspace(true),0);
       });
-      openButton.onclick=openWorkspace;
+      openButton.onclick=async()=>{if(candidateController){if(candidateController.isBusy())return;if(candidateController.hasUnsavedEdits()&&!window.confirm('Discard unsaved Jobs edits and refresh?'))return;await candidateController.revalidate({refresh:true});}else await openWorkspace();};
       await openWorkspace();
     }catch(error){status.textContent=error.message||'Jobs could not start. Reload this page.';}
   })();

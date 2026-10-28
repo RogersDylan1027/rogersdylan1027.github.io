@@ -1,4 +1,53 @@
-# Jobs — v0.4.0
+# Jobs — v0.4.1
+
+## Version 0.4.1: Clearer Jobs Workspace
+
+This release simplifies the existing Jobs interface for phones and desktop
+browsers. It does not change Supabase schema, account permissions or automation.
+Publication approved by Dylan after Pi installation and iPhone usability review on 2026-10-28.
+
+Main Admin sections:
+- **Recommendations:** open the original listing, search/filter suggestions and
+  review their details/decision. A URL-only recommendation shows its source site
+  until company/title details are added; the UI does not invent them.
+- **Saved jobs:** see existing listings and earlier preparation drafts. Search
+  without losing the current editor; use the job picker on mobile.
+- **Applications:** review assigned drafts, read the next step/readiness checks,
+  request corrections or approve the exact saved revision. Past assignments are
+  hidden by default but remain available under Show past assignments.
+- **Check listing availability:** review closure evidence. A listing with any
+  application record is clearly protected and cannot be removed through this form.
+
+To assign a job, expand Start an application with Nova, deliberately choose the
+job, add its actual questions/documents, select required/optional and confirm the
+requirements were checked. No practice question, CV filename or job is preselected.
+Assignment prepares work; it does not approve or submit an application.
+
+Nova retains only her existing assigned-application interface and recommendation
+URL submission. She does not receive Main Admin navigation or deletion/approval
+controls. All existing server authorization, question/input gates, optimistic
+versions, separate approval rules and edit invalidation remain authoritative.
+
+Switching sections keeps their loaded content and unfinished edits. Explicit
+refresh checks for unsaved edits across applications, saved jobs and recommendations.
+Logout/account changes clear private views. A verified same-account sign-in
+notification preserves work while rechecking authorization. Failed/uncertain
+mutations do not automatically retry.
+
+467 automated local checks passed, including 49 new guided-form/section tests and
+one same-account Auth-event check. Browser preview uses only synthetic data and
+was checked at phone/tablet/desktop widths. Dylan also confirmed the installed
+Pi redesign and all three new recommendations on iPhone, and reported navigation
+feels good. This was a usability review, not a fresh complete authenticated security
+audit. Existing native Auth/REST evidence is historical; no SQL or new
+authenticated endpoint was introduced here.
+
+Horizon and its original draft remain on hold, the revoked assignment/history are
+preserved, and the six recommendations (including Nova’s three latest) are not
+changed by this redesign. Real submissions and recurring work remain disabled.
+
+### Prior 0.4.0 workflow documentation
+
 
 ## Version 0.4.0: Main Admin Listing Availability Review
 
