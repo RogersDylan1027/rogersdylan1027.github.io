@@ -4,9 +4,9 @@ const novaId='06ecc8e7-0efd-4daf-bc49-3cabdda0132b';
 /** Inactive authenticated UI integration. Reuse Dashboard's normal client, never create keys/users.
  * Feature flags are rollout switches, not permissions; RPC/RLS remain authoritative.
  */
-export function authenticatedWorkspace({enabled=false,client,config,root,confirm=()=>false,openLegacy=()=>{},closeLegacy=()=>{}}){
- let generation=0,view=null,subscription=null,destroyed=false,identity=null,active=false,style=null;
- const clear=()=>{view?.destroy();view=null;root.replaceChildren();closeLegacy();active=false;};
+export function authenticatedWorkspace({enabled=false,enableRemovalReview=false,client,config,root,confirm=()=>false,openLegacy=()=>{},closeLegacy=()=>{}}){
+ let generation=0,view=null,subscription=null,destroyed=false,identity=null,active=false,style=null,removal=null;
+ const clear=()=>{removal?.destroy();removal=null;view?.destroy();view=null;root.replaceChildren();closeLegacy();active=false;};
  const notice=message=>{const p=root.ownerDocument.createElement('p');p.setAttribute('role','status');p.textContent=message;root.replaceChildren(p);};
  async function allowed(){
   const {data,error}=await client.auth.getUser();if(error||!data?.user)throw new Error('Sign in to Dashboard to continue.');
@@ -28,6 +28,17 @@ export function authenticatedWorkspace({enabled=false,client,config,root,confirm
    view=workspace({client,root:body,confirm,mode:'authenticated'});await view.start();
    if(destroyed||attempt!==generation)return false;
    if(verified.admin){const legacy=root.ownerDocument.createElement('button');legacy.type='button';legacy.textContent='Existing Jobs workspace';legacy.onclick=async()=>{if(destroyed)return;const epoch=generation,current=await allowed().catch(()=>null);if(destroyed||epoch!==generation)return;if(!current?.admin||current.id!==identity?.id){generation++;clear();notice('Access changed. Reload to verify your account.');return;}try{await openLegacy();if(destroyed||epoch!==generation)closeLegacy();}catch{if(!destroyed&&epoch===generation)notice('Existing Jobs workspace could not load. Reload to retry.');}};root.append(legacy);}
+   if(verified.admin&&enableRemovalReview){
+    const review=root.ownerDocument.createElement('button');review.type='button';review.textContent='Check listing availability';
+    review.onclick=async()=>{
+     if(destroyed||removal)return;const epoch=generation,current=await allowed().catch(()=>null);
+     if(destroyed||epoch!==generation)return;
+     if(!current?.admin||current.id!==identity?.id){generation++;clear();notice('Access changed. Reload to verify your account.');return;}
+     const {removalReview}=await import('../stage5/removal-review.mjs');if(destroyed||epoch!==generation)return;
+     const region=root.ownerDocument.createElement('section');root.append(region);
+     removal=removalReview({enabled:true,client,root:region});await removal.start();
+    };root.append(review);
+   }
    active=true;return true;
   }catch{
    if(!destroyed&&attempt===generation){clear();identity=null;notice('Jobs application access could not be verified. Sign in or reload after access is approved.');}
@@ -54,7 +65,7 @@ export function authenticatedWorkspace({enabled=false,client,config,root,confirm
    return revalidate();
   },
   revalidate,
-  isBusy:()=>view?.isBusy()??false,
+  isBusy:()=>Boolean(view?.isBusy()||removal?.isBusy()),
   hasUnsavedEdits:()=>view?.hasUnsavedEdits()??false,
   destroy(){destroyed=true;generation++;subscription?.unsubscribe();subscription=null;identity=null;clear();style?.remove();style=null;root.classList.remove('jobs-v040-authenticated');}
  };

@@ -1,5 +1,43 @@
 # Jobs — v0.4.0
 
+## Version 0.4.0: Main Admin Listing Availability Review
+
+Main Admin can open **Check listing availability**. The selector shows saved jobs,
+not a list of confirmed closures. Keep open/on-hold jobs unchanged. Before removal,
+review the exact original employer or authorized ATS position, record the check
+time and closure excerpt, confirm readable/matched/nonconflicting evidence and
+type the exact REMOVE CLOSED job-ID confirmation. Errors, login/CAPTCHA, 404s,
+search snippets and uncertain results do not prove closure.
+
+The existing reviewed Supabase RPC checks fresh Main Admin authorization, source,
+loaded version and evidence freshness. It creates a private recovery snapshot of
+the entire record, legacy history, evidence, reviewer and time before removing the
+active listing, in one transaction. A failed backup preserves the active listing.
+Any application/attempt record (even revoked) blocks this operation for separate
+reconciliation. Nova has no removal or private-backup-read access. Backups remain
+until an authorized operator removes them; no automatic purge or offsite backup.
+
+Do not retry an uncertain outcome. Reload and reconcile the listing/private backup
+through authorized operator support. A restore is deliberate maintenance, not a
+Nova/browser action. Source evidence is human-reviewed, not independently verified
+by the form. No crawler, scheduled deletion or automatic searching is activated.
+
+Current operational state: earlier user-authorized cleanup removed seven closed
+listings. Horizon Media is the sole remaining job, on hold; its existing draft and
+revoked assignment/audit are preserved. Older eight-job counts below are historical
+validation baselines. Nothing assigns Horizon or removes it by publishing this UI.
+
+417 local checks and 46 previously completed native Auth/REST checks cover the
+candidate. Added connected UI/PostgreSQL tests cover exact selection, application
+protection, Nova denial and a committed lost-response outcome without retry. Pi
+backend smoke/export/restore/cleanup passed, and the user confirmed empty-field
+removal is disabled. Public post-publication checks remain a distinct step.
+
+No new database migration, account grant, version bump, paid service, recurring
+preparation or real employer submission is part of this static release.
+
+## Earlier 0.4.0 application workflow documentation
+
 ## Version 0.4.0: Nova-Assisted Job Applications
 
 Open `/Projects/Dashboard/Jobs/` on the public Dashboard origin. GitHub Pages

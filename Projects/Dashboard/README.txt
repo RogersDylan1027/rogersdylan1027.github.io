@@ -1203,3 +1203,14 @@ Version 0.4.0: Nova-Assisted Job Applications
 - Preserves the Main Admin legacy Jobs workspace, all eight existing jobs and Nova's existing preparation draft. No automatic draft import or status synchronization between legacy and new application tables.
 - Real submissions, employer-site automation and recurring preparation tasks remain disabled. No submission controls or mock execution controls are exposed in the authenticated interface.
 - Dashboard stays 0.11.4 and Streaming stays 0.7.2. No new database migration, permission grant, credentials or private records are part of this static release.
+
+
+PROJECT CHANGELOG
+Version 0.4.0: Main Admin Listing Availability Review
+- Adds Main Admin-only Check listing availability controls at the public Jobs route. Saved jobs are explicitly not labeled as confirmed-closed listings; on-hold jobs remain unchanged.
+- Requires review of the exact original employer/authorized ATS closure notice, a recent timestamp, explicit confirmations and typed job ID before removal. Open listings are kept; inaccessible, ambiguous or contradictory evidence cannot authorize removal.
+- Uses the already-installed Main Admin-guarded RPC to create a private full-record/history recovery backup and remove only that selected listing atomically. Stale versions, non-admin callers and application-linked jobs stop the operation.
+- Adds frozen in-flight controls, no automatic retry after unknown outcomes, explicit reload/reconciliation, and immediate clearing on account/session changes.
+- Preserves Horizon Media on hold, its original preparation draft, revoked assignment and audit. Nova cannot delete jobs or read recovery backups. No synthetic listing is deployed.
+- Documents private backup/evidence retention, operator recovery and the distinction between active-list removal and complete data erasure.
+- Keeps Dashboard 0.11.4, Jobs 0.4.0 and Streaming 0.7.2. No new migration or permission change needed for this static release. No automatic search, preparation schedule or employer submission enabled.

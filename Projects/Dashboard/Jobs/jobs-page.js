@@ -44,10 +44,10 @@
         if(attempt!==generation)return;
         if(preserve&&candidateController){if(!await candidateController.revalidate())status.textContent='Application access could not be verified. Reload after access is approved.';return;}
         clearWorkspace();
-        const {authenticatedWorkspace}=await import('./candidate/authenticated-workspace.mjs');
+        const {authenticatedWorkspace}=await import('./candidate/authenticated-workspace.mjs?closed-review=20261028-r2');
         if(attempt!==generation)return;
         const root=document.createElement('section');root.id='jobs-v040-candidate';document.querySelector('main').append(root);
-        const controller=authenticatedWorkspace({enabled:true,client,config,root,confirm:message=>window.confirm(message),openLegacy:()=>window.DashboardSupabaseJobs.open(client),closeLegacy:()=>window.DashboardSupabaseJobs?.close(true)});
+        const controller=authenticatedWorkspace({enabled:true,enableRemovalReview:true,client,config,root,confirm:message=>window.confirm(message),openLegacy:()=>window.DashboardSupabaseJobs.open(client),closeLegacy:()=>window.DashboardSupabaseJobs?.close(true)});
         candidateController=controller;const opened=await controller.start();
         if(attempt!==generation){controller.destroy();return;}
         status.textContent=opened?'Application workspace loaded. Real submissions remain disabled.':'Application access could not be verified. Reload after access is approved.';
