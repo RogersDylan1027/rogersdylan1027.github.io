@@ -1227,3 +1227,14 @@ Version 0.4.1: Clearer Jobs Workspace
 - Improves touch targets, input sizing, keyboard focus, narrow-screen wrapping, sticky navigation and desktop layouts; keeps unsaved work when switching sections or receiving same-account sign-in notifications.
 - Retains existing Supabase RPCs, version conflicts, approval invalidation, Main Admin/Nova boundaries, private data and disabled real submissions. No database migration, new permission, recurring task or automated search is added.
 - Keeps Dashboard at 0.11.4 and Streaming at 0.7.2. Updates Jobs and Dashboard documentation/changelog; projects.json and privacy/terms reviewed without changing their behavior or data-processing scope.
+
+
+PROJECT CHANGELOG
+Version 0.5.0: Quick Decisions and Nova Preparation
+- Adds Approve and Decline directly to recommendation cards; no expanded decision form is needed.
+- Approve atomically records the Main Admin decision and a request assigned only to verified Nova. Decline withdraws pending preparation; started applications require explicit application revocation instead.
+- Nova records a fresh exact-listing open check and discovers actual requirements before creating draft fields. Main Admin no longer has to transcribe those requirements to start preparation.
+- Preserves existing final review, required-input gates, approval invalidation, optimistic revisions and disabled real submissions. Approval of preparation is never approval of submission.
+- Adds a disabled-by-default private queue and guarded RPC prototype with audit history, same-request replay handling and duplicate-source protection. The additive migration is installed with its feature off; existing policies and function grants are preserved.
+- Shows honest queue status: Nova sees work on opening/refreshing Jobs. Automatic wake-up, scheduled work, a custom connector and employer-site submission are not implemented or enabled.
+- Keeps Dashboard 0.11.4 and Streaming 0.7.2; existing Jobs records, drafts and recommendations remain untouched in production.

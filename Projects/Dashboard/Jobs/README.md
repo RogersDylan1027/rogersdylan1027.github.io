@@ -1,3 +1,27 @@
+# Jobs — v0.5.0 controlled rollout
+
+## Version 0.5.0: Quick Decisions and Nova Preparation
+
+Supabase migration 20261029215506 is installed with quick decisions disabled. Static release targets the public Dashboard; no Pi testing dependency. Main Dashboard stays 0.11.4 and Streaming stays 0.7.2.
+
+When enabled, Main Admin gets Approve and Decline on every recommendation card. Approve means preparation only: an atomic server action accepts the exact loaded recommendation and creates a Nova-only request. Decline queues no work and removes pending Nova access. Started applications cannot be silently declined; use explicit application revocation. Existing jobs with the exact source URL and duplicate queued sources are protected.
+
+Nova opens/refreshes Jobs to see assigned preparation requests. She reviews the exact original employer listing, records fresh open-position evidence, transcribes the actual questions/documents and creates the draft fields. No job or practice requirement is preselected. The original approved employer snapshot stays read-only. This evidence is an authorized observer’s statement, not independent website verification. An inaccessible or closed page must stop preparation; nothing claims a CAPTCHA/404 means closure.
+
+Existing application draft editing, optional Answer/Skip, unresolved-input gates, corrections, separate exact-revision final approval, audit and revocation remain unchanged. Any edit invalidates approval. Real employer submissions remain disabled; a Submit control is not part of this stage.
+
+Automatic wake-up/notification is **not connected**. A saved Muse browser login cannot receive Dashboard events. No API connector, polling, recurring task, secret or external transmission has been created. Queue visibility is ready for a later separately authorized integration.
+
+### Backend review required
+The reviewed additive SQL was installed after native PostgreSQL testing and dependency backup. The local `stage6/queue-prototype.sql` remains development material and must not be rerun against hosted Supabase. It adds three private RLS-enabled, browser-inaccessible tables and four RPCs guarded by the existing fresh Main Admin/verified-Nova checks. The feature defaults off. Existing functions and their permissions are not replaced. Private queue snapshots, reviewer IDs, revisions and audit are retained without automatic purge, matching the existing manual retention model. Existing acceptance triggers remain untouched: the new path uses an internal reviewing status plus the private approval record, avoiding the old acceptance publisher.
+
+The old publisher/shared prep-agent queue is not reused or granted to Nova. No existing job/application/draft/recommendation data changed during installation (full-row fingerprints matched). The new private flag row defaults false; request and event tables are empty.
+
+### Testing and package
+Run `node --run test` and `node --run test:quick-decisions` from the local `stage1` test harness using its pinned dependencies. Tests use synthetic in-memory PostgreSQL and simulated browser transport. 538 local assertions, 42 native PostgreSQL assertions, five simultaneous-session native checks and four hosted anonymous denial checks passed. Positive hosted Main Admin/Nova browser checks and authenticated iPhone testing of 0.5.0 remain pending; no account credentials were used by these tests. A development ZIP includes original file paths plus separately marked prototype/tests; it is not safe to publish wholesale to GitHub Pages.
+
+## Earlier release documentation
+
 # Jobs — v0.4.1
 
 ## Version 0.4.1: Clearer Jobs Workspace

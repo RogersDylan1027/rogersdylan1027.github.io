@@ -1,10 +1,11 @@
-import {workspace} from '../stage2/nova-workspace.mjs?v=0.4.1';
+import {preparationQueue} from './preparation-queue.mjs?v=0.5.0';
+import {workspace} from '../stage2/nova-workspace.mjs?v=0.5.0';
 const project='https://pyefiovoicvhigkjhhts.supabase.co';
 const novaId='06ecc8e7-0efd-4daf-bc49-3cabdda0132b';
 /** Shared Dashboard session; each mutation still requires server authorization. */
 export function authenticatedWorkspace({enabled=false,enableRemovalReview=false,client,config,root,confirm=()=>false,openLegacy=()=>{},closeLegacy=()=>{},openRecommendations=()=>{},hasLegacyEdits=()=>false,isLegacyBusy=()=>false}){
- let generation=0,view=null,subscription=null,destroyed=false,identity=null,active=false,style=null,removal=null,recommendationCleanup=null;
- const clear=()=>{removal?.destroy();removal=null;view?.destroy();view=null;recommendationCleanup?.();recommendationCleanup=null;root.replaceChildren();closeLegacy();active=false;};
+ let generation=0,view=null,subscription=null,destroyed=false,identity=null,active=false,style=null,removal=null,recommendationCleanup=null,prep=null;
+ const clear=()=>{prep?.destroy();prep=null;removal?.destroy();removal=null;view?.destroy();view=null;recommendationCleanup?.();recommendationCleanup=null;root.replaceChildren();closeLegacy();active=false;};
  const notice=message=>{const p=root.ownerDocument.createElement('p');p.setAttribute('role','status');p.textContent=message;root.replaceChildren(p);};
  async function allowed(){
   const {data,error}=await client.auth.getUser();if(error||!data?.user)throw Error('Sign in to Dashboard to continue.');
@@ -31,7 +32,7 @@ export function authenticatedWorkspace({enabled=false,enableRemovalReview=false,
     const button=doc.createElement('button');button.type='button';button.textContent=label;button.setAttribute('aria-pressed',String(key==='applications'));buttons[key]=button;nav.append(button);
     const panel=doc.createElement('section');panel.className='jobs-section';panel.id='jobs-section-'+key;panel.hidden=key!=='applications';panel.setAttribute('aria-label',label);panels[key]=panel;root.append(panel);
     button.onclick=async()=>{
-     if(destroyed||navigating||view?.isBusy()||removal?.isBusy()||isLegacyBusy()||recommendationCleanup?.isBusy?.())return;
+     if(destroyed||navigating||view?.isBusy()||prep?.isBusy()||removal?.isBusy()||isLegacyBusy()||recommendationCleanup?.isBusy?.())return;
      navigating=true;button.disabled=true;const epoch=generation;
      try{
       const current=await allowed();if(destroyed||epoch!==generation)return;
@@ -41,7 +42,7 @@ export function authenticatedWorkspace({enabled=false,enableRemovalReview=false,
        if(key==='saved'){await openLegacy({container:panel});}
        if(key==='recommendations'){const cleanup=await openRecommendations({container:panel});if(destroyed||epoch!==generation){cleanup?.();return;}recommendationCleanup=cleanup;}
        if(key==='availability'){
-        const {removalReview}=await import('../stage5/removal-review.mjs?v=0.4.1');if(destroyed||epoch!==generation)return;
+        const {removalReview}=await import('../stage5/removal-review.mjs?v=0.5.0');if(destroyed||epoch!==generation)return;
         removal=removalReview({enabled:true,client,root:panel,protectedJobIds:view?.getLinkedJobIds?.()||[]});await removal.start();
        }
        loaded.add(key);
@@ -52,7 +53,9 @@ export function authenticatedWorkspace({enabled=false,enableRemovalReview=false,
      finally{navigating=false;if(root.contains(button))button.disabled=false;}
     };
    }
-   view=workspace({client,root:panels.applications,confirm,mode:'authenticated'});await view.start();loaded.add('applications');
+   const prepRoot=doc.createElement('section'),applicationRoot=doc.createElement('section');panels.applications.append(prepRoot,applicationRoot);
+   view=workspace({client,root:applicationRoot,confirm,mode:'authenticated'});await view.start();
+   prep=preparationQueue({client,root:prepRoot,canStart:()=>!view.hasUnsavedEdits(),onStarted:async()=>{await view.refresh(true);}});await prep.start();loaded.add('applications');
    if(destroyed||attempt!==generation)return false;
    active=true;return true;
   }catch{
@@ -74,10 +77,10 @@ export function authenticatedWorkspace({enabled=false,enableRemovalReview=false,
    if(config?.supabaseUrl!==project||!/^sb_publishable_[A-Za-z0-9_-]+$/.test(config?.supabasePublishableKey??'')||!client?.auth?.getUser||!client.auth.onAuthStateChange)throw Error('Verified Dashboard public configuration and authenticated client required');
    if(client.supabaseUrl&&new URL(client.supabaseUrl).origin!==project)throw Error('Supabase client project mismatch');
    root.classList.add('jobs-v040-authenticated');
-   if(!style){style=root.ownerDocument.createElement('link');style.rel='stylesheet';style.href=new URL('./workspace.css?v=0.4.1',import.meta.url).href;root.ownerDocument.head.append(style);}
+   if(!style){style=root.ownerDocument.createElement('link');style.rel='stylesheet';style.href=new URL('./workspace.css?v=0.5.0',import.meta.url).href;root.ownerDocument.head.append(style);}
    if(!subscription)subscription=client.auth.onAuthStateChange(onAuth)?.data?.subscription;
    return revalidate();
-  },revalidate,isBusy:()=>Boolean(view?.isBusy()||removal?.isBusy()||isLegacyBusy()||recommendationCleanup?.isBusy?.()),hasUnsavedEdits:()=>Boolean(view?.hasUnsavedEdits()||hasLegacyEdits()||recommendationCleanup?.hasUnsavedEdits?.()),
+  },revalidate,isBusy:()=>Boolean(prep?.isBusy()||view?.isBusy()||removal?.isBusy()||isLegacyBusy()||recommendationCleanup?.isBusy?.()),hasUnsavedEdits:()=>Boolean(prep?.hasUnsavedEdits()||view?.hasUnsavedEdits()||hasLegacyEdits()||recommendationCleanup?.hasUnsavedEdits?.()),
   destroy(){destroyed=true;generation++;subscription?.unsubscribe();subscription=null;identity=null;clear();style?.remove();style=null;root.classList.remove('jobs-v040-authenticated');}
  };
 }

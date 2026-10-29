@@ -1,3 +1,12 @@
+Version 0.5.0: Quick Decisions and Nova Preparation
+- Adds Approve and Decline directly to recommendation cards; no expanded decision form is needed.
+- Approve atomically records the Main Admin decision and a request assigned only to verified Nova. Decline withdraws pending preparation; started applications require explicit application revocation instead.
+- Nova records a fresh exact-listing open check and discovers actual requirements before creating draft fields. Main Admin no longer has to transcribe those requirements to start preparation.
+- Preserves existing final review, required-input gates, approval invalidation, optimistic revisions and disabled real submissions. Approval of preparation is never approval of submission.
+- Adds a disabled-by-default private queue and guarded RPC prototype with audit history, same-request replay handling and duplicate-source protection. The additive migration is installed with its feature off; existing policies and function grants are preserved.
+- Shows honest queue status: Nova sees work on opening/refreshing Jobs. Automatic wake-up, scheduled work, a custom connector and employer-site submission are not implemented or enabled.
+- Keeps Dashboard 0.11.4 and Streaming 0.7.2; existing Jobs records, drafts and recommendations remain untouched in production.
+
 Version 0.4.1: Clearer Jobs Workspace
 - Adds direct navigation between Applications, Recommendations, Saved jobs and listing availability, with sections staying on one page instead of nested overlays.
 - Adds searchable recommendation cards, friendly status filters and a mobile saved-job picker; preserves accepted decisions and prompts before discarding unsaved recommendation edits.

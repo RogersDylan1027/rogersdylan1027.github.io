@@ -39,3 +39,5 @@
 .jobs-v040-authenticated label:has(>input[type=checkbox]){min-height:44px;display:flex;align-items:center;justify-content:space-between;gap:12px}
 .jobs-v040-authenticated .j31-mobile-picker{display:none}
 @media(max-width:700px){.jobs-v040-authenticated .j31-mobile-picker{display:block}}
+
+.jobs-preparation-card{padding:18px;margin:16px 0;background:white;border:1px solid #d5deea;border-radius:14px}.jobs-preparation-card fieldset{margin-top:16px}.jobs-preparation-card label{display:block;margin:12px 0}

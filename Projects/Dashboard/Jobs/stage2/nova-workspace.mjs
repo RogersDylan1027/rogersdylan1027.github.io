@@ -1,4 +1,4 @@
-import {assignmentForm} from '../candidate/assignment-form.mjs?v=0.4.1';
+import {assignmentForm} from '../candidate/assignment-form.mjs?v=0.5.0';
 import {novaApplications} from '../stage1/nova-applications.mjs';
 import {createMockIntent,claimMockIntent} from '../stage4/mock-preflight.mjs';
 export function workspace({client,root,confirm=()=>false,mode='mock'}){
@@ -33,7 +33,7 @@ export function workspace({client,root,confirm=()=>false,mode='mock'}){
    const selected=shown.find(a=>a.id===current)||shown[0];
    if(selected){current=selected.id;events=await call(client.from('jobs_v040_events').select('*').eq('application_id',current).order('happened_at'));attempts=await call(client.from('jobs_v040_attempts').select('*').eq('application_id',current).order('created_at'));}}
   if(dead||sequence!==refreshSequence)return;root.replaceChildren();assignmentView=null;dirty=false;assignmentDirty=false;needsReload=false;intent=null;
-  const toolbar=el('header');toolbar.className='jobs-app-toolbar';el('h2',mock?'Nova-Assisted Applications · Jobs 0.4.1 preview':'Applications',toolbar);button(mock?'Reload':'Refresh applications',()=>refresh(),toolbar);
+  const toolbar=el('header');toolbar.className='jobs-app-toolbar';el('h2',mock?'Nova-Assisted Applications · Jobs 0.5.0 preview':'Applications',toolbar);button(mock?'Reload':'Refresh applications',()=>refresh(),toolbar);
   const safety=el('p',mock?'LOCAL MOCK DATABASE — synthetic identities and records. Real submissions disabled.':'Application review — real submissions disabled.');safety.className='jobs-safety';el('p','',root).setAttribute('role','status');
   if(!admin&&!nova){el('p','Access denied. This account cannot access Nova’s assignments.');return;}
   const roleNote=el('p',admin?(mock?'Synthetic Main Admin review':'Main Admin review'):(mock?'Synthetic Nova assigned applications':'Nova assigned applications'));roleNote.className=admin&&!mock?'jobs-sr-only':'jobs-section-help';
