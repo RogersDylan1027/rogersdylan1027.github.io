@@ -41,3 +41,7 @@
 @media(max-width:700px){.jobs-v040-authenticated .j31-mobile-picker{display:block}}
 
 .jobs-preparation-card{padding:18px;margin:16px 0;background:white;border:1px solid #d5deea;border-radius:14px}.jobs-preparation-card fieldset{margin-top:16px}.jobs-preparation-card label{display:block;margin:12px 0}
+
+.jobs-form-verification{padding:18px;border:2px solid #b9c9d9;border-radius:14px;margin:18px 0}.jobs-application-workspace pre{white-space:pre-wrap;overflow-wrap:anywhere}
+
+.jobs-application-workspace p{overflow-wrap:anywhere}

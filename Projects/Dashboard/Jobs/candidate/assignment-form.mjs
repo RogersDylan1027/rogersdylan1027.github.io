@@ -1,3 +1,4 @@
+import {jobLabel} from './job-label.mjs?v=0.5.1';
 /** Guided requirement entry. Only the caller performs the existing assignment RPC. */
 export function assignmentForm({root,jobs,button,onAssign,onDirty=()=>{},onCancel=()=>{},isBusy=()=>false,labels={}}){
  const doc=root.ownerDocument;
@@ -7,7 +8,7 @@ export function assignmentForm({root,jobs,button,onAssign,onDirty=()=>{},onCance
  el('p',labels.help||'Choose a saved job, then enter the employer’s actual questions and documents. This assigns preparation only. Nothing is submitted.',details);
  const label=el('label','1. Choose a saved job',details),select=el('select',undefined,label);select.setAttribute('aria-label','Job to assign');
  const placeholder=el('option','Choose a job…',select);placeholder.value='';
- for(const j of jobs){const o=el('option',`${j.payload.company} · ${j.payload.position||'Untitled role'}`,select);o.value=j.id;}
+ for(const j of jobs){const o=el('option',jobLabel(j.payload),select);o.value=j.id;}
  if(!jobs.length){el('p','No saved jobs are available for a new assignment. Review your recommendations or check existing applications.',details);select.disabled=true;}
  const selection=el('p','No job selected.',details);selection.className='jobs-assignment-selection';
  el('h3','2. Confirm what the employer asks for',details);
@@ -37,7 +38,7 @@ export function assignmentForm({root,jobs,button,onAssign,onDirty=()=>{},onCance
   await onAssign(job,requirements);
  },details);
  button('Cancel setup',()=>{questions.replaceChildren();documents.replaceChildren();qrows.length=0;drows.length=0;select.value='';reviewed.checked=false;cover.checked=false;details.open=false;onCancel();update();},details);
- function update(){const j=jobs.find(j=>j.id===select.value);selection.textContent=j?`Selected: ${j.payload.company} · ${j.payload.position||'Untitled role'}`:'No job selected.';assign.disabled=isBusy()||!j||!reviewed.checked;}
+ function update(){const j=jobs.find(j=>j.id===select.value);selection.textContent=j?`Selected: ${jobLabel(j.payload)}`:'No job selected.';assign.disabled=isBusy()||!j||!reviewed.checked;}
  details.addEventListener('input',()=>{onDirty();update();});select.addEventListener('change',()=>{reviewed.checked=false;onDirty();update();});update();
  return {destroy:()=>details.remove(),refreshControls:update};
 }

@@ -1,4 +1,4 @@
-/* Jobs v0.5.0: same-origin entry. Supabase approval, project access and RLS stay authoritative. */
+/* Jobs v0.5.1: same-origin entry. Supabase approval, project access and RLS stay authoritative. */
 (() => {
   'use strict';
   // Source-only rollout switch. Do not enable without reviewed deployment/access authorization.
@@ -44,7 +44,7 @@
         if(attempt!==generation)return;
         if(preserve&&candidateController){if(!await candidateController.revalidate())status.textContent='Application access could not be verified. Reload after access is approved.';return;}
         clearWorkspace();
-        const {authenticatedWorkspace}=await import('./candidate/authenticated-workspace.mjs?v=0.5.0');
+        const {authenticatedWorkspace}=await import('./candidate/authenticated-workspace.mjs?v=0.5.1');
         if(attempt!==generation)return;
         const root=document.createElement('section');root.id='jobs-v040-candidate';document.querySelector('main').append(root);
         const controller=authenticatedWorkspace({enabled:true,enableRemovalReview:true,client,config,root,confirm:message=>window.confirm(message),openLegacy:options=>window.DashboardSupabaseJobs.open(client,options),openRecommendations:options=>window.DashboardJobRecommendations.open(client,'main_admin',undefined,options),hasLegacyEdits:()=>window.DashboardSupabaseJobs?.hasUnsavedEdits()??false,isLegacyBusy:()=>window.DashboardSupabaseJobs?.isBusy()??false,closeLegacy:()=>window.DashboardSupabaseJobs?.close(true)});

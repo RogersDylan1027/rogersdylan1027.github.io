@@ -1,5 +1,5 @@
-import {preparationQueue} from './preparation-queue.mjs?v=0.5.0';
-import {workspace} from '../stage2/nova-workspace.mjs?v=0.5.0';
+import {preparationQueue} from './preparation-queue.mjs?v=0.5.1';
+import {workspace} from '../stage2/nova-workspace.mjs?v=0.5.1';
 const project='https://pyefiovoicvhigkjhhts.supabase.co';
 const novaId='06ecc8e7-0efd-4daf-bc49-3cabdda0132b';
 /** Shared Dashboard session; each mutation still requires server authorization. */
@@ -42,7 +42,7 @@ export function authenticatedWorkspace({enabled=false,enableRemovalReview=false,
        if(key==='saved'){await openLegacy({container:panel});}
        if(key==='recommendations'){const cleanup=await openRecommendations({container:panel});if(destroyed||epoch!==generation){cleanup?.();return;}recommendationCleanup=cleanup;}
        if(key==='availability'){
-        const {removalReview}=await import('../stage5/removal-review.mjs?v=0.5.0');if(destroyed||epoch!==generation)return;
+        const {removalReview}=await import('../stage5/removal-review.mjs?v=0.5.1');if(destroyed||epoch!==generation)return;
         removal=removalReview({enabled:true,client,root:panel,protectedJobIds:view?.getLinkedJobIds?.()||[]});await removal.start();
        }
        loaded.add(key);
@@ -77,7 +77,7 @@ export function authenticatedWorkspace({enabled=false,enableRemovalReview=false,
    if(config?.supabaseUrl!==project||!/^sb_publishable_[A-Za-z0-9_-]+$/.test(config?.supabasePublishableKey??'')||!client?.auth?.getUser||!client.auth.onAuthStateChange)throw Error('Verified Dashboard public configuration and authenticated client required');
    if(client.supabaseUrl&&new URL(client.supabaseUrl).origin!==project)throw Error('Supabase client project mismatch');
    root.classList.add('jobs-v040-authenticated');
-   if(!style){style=root.ownerDocument.createElement('link');style.rel='stylesheet';style.href=new URL('./workspace.css?v=0.5.0',import.meta.url).href;root.ownerDocument.head.append(style);}
+   if(!style){style=root.ownerDocument.createElement('link');style.rel='stylesheet';style.href=new URL('./workspace.css?v=0.5.1',import.meta.url).href;root.ownerDocument.head.append(style);}
    if(!subscription)subscription=client.auth.onAuthStateChange(onAuth)?.data?.subscription;
    return revalidate();
   },revalidate,isBusy:()=>Boolean(prep?.isBusy()||view?.isBusy()||removal?.isBusy()||isLegacyBusy()||recommendationCleanup?.isBusy?.()),hasUnsavedEdits:()=>Boolean(prep?.hasUnsavedEdits()||view?.hasUnsavedEdits()||hasLegacyEdits()||recommendationCleanup?.hasUnsavedEdits?.()),

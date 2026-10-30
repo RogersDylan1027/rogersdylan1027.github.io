@@ -1238,3 +1238,14 @@ Version 0.5.0: Quick Decisions and Nova Preparation
 - Adds a disabled-by-default private queue and guarded RPC prototype with audit history, same-request replay handling and duplicate-source protection. The additive migration is installed with its feature off; existing policies and function grants are preserved.
 - Shows honest queue status: Nova sees work on opening/refreshing Jobs. Automatic wake-up, scheduled work, a custom connector and employer-site submission are not implemented or enabled.
 - Keeps Dashboard 0.11.4 and Streaming 0.7.2; existing Jobs records, drafts and recommendations remain untouched in production.
+
+
+PROJECT CHANGELOG
+Version 0.5.1: Verified Application Requirements
+- Replaces null/untitled application labels with a safe source-host fallback and a visible application reference; employer snapshots remain read-only and are not guessed from URL paths.
+- Separates listing-based preliminary research from requirements actually observed in the employer application form. New Nova queue drafts cannot pass final approval solely by clearing outstanding questions.
+- Adds explicit actual-form evidence and version-checked requirement reconciliation. Earlier requirements and research drafts are retained in private application history before revision, with approvals cleared.
+- Requires Main Admin review of full document text rather than treating a nonblank resume summary as a complete document. Text editing does not upload a resume file; any later content edit invalidates document review and final approval.
+- Keeps unverified cover-letter, question, consent and attestation requirements visibly unknown. Blocks final approval and mock dispatch server-side until the new verification gates pass.
+- Preserves the existing Mets draft and legacy Main Admin-defined workflow. No new table/RLS policy, real submission, automatic wake-up, recurring task or Pi service change.
+- Keeps Dashboard 0.11.4 and Streaming 0.7.2. Matching function updates installed and public publication approved; existing draft records are not rewritten.

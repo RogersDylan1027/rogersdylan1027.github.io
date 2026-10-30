@@ -1,3 +1,27 @@
+# Jobs — v0.5.1
+
+## Version 0.5.1: Verified Application Requirements
+
+Approved release. Dashboard remains 0.11.4 and Streaming remains 0.7.2. Matching Supabase guards are installed; existing real application/draft/queue fingerprints matched the pre-install backup. No new tables or RLS policy changes.
+
+### Research is not an application form
+For the new Nova queue workflow (`nova050_` job IDs), listing qualifications and document summaries are preliminary research. A boolean checked while viewing the listing does not establish actual-form provenance. The application panel and chooser show unverified research clearly; cover-letter, consent and hidden-question requirements remain unknown. The original snapshot is read-only. Missing company/title information displays a source host and application reference rather than null or an invented role; this does not fill the missing employer metadata.
+
+Nova can create provisional research after an open-listing check. To reconcile it into actual form fields, she or Main Admin must inspect the actual application form, supply its same-host HTTPS URL, fresh timestamp and evidence, explicitly confirm it was the form rather than the listing, and record every observed question/document. Hidden/login-only questions cannot be inferred. Stop at unauthorized employer login, consent, attestations or submission. Evidence is an observer's statement, not independent website verification.
+
+Recording actual form requirements saves the previous requirements and draft in private activity history, preserves current draft text, increments the revision and clears approval. If question IDs/documents differ, the current editor must be reconciled with the new fields; earlier research remains readable under Preserved earlier research drafts. No automatic answer mapping or fabricated content is introduced.
+
+Required document text must be complete and explicitly reviewed by Main Admin, not merely a summary of resume facts. The text editor stores no binary attachment and never uploads a file to an employer. Document review is bound to exact content and revision; saving any content change invalidates it. Final approval remains separate and server-checked. Existing unresolved questions/input flags still block readiness.
+
+These provenance/document gates target the new Nova-discovered workflow. The existing legacy Main Admin-defined assignment contract remains unchanged. Normal account/project/verified-Nova restrictions, optimistic concurrency, revocation and disabled real submission remain authoritative.
+
+### Validation and installation boundary
+590 local assertions passed: 538 regression/queue checks plus 31 new database and 21 new UI assertions. The new 31 checks also passed in native disposable PostgreSQL, with four additional simultaneous-session checks. Synthetic mobile/desktop preview and runtime syntax/whitespace checks cover the candidate. Positive hosted Auth/REST and real iPhone verification of 0.5.1 remain pending. No Main Admin or service credential was used for routine AI sign-in.
+
+Three guarded authenticated RPCs and two browser-inaccessible private helpers are installed, alongside the approved save/admin/mock/start function updates with existing signatures and ACLs retained. No table or RLS change is needed. The local stage7 SQL is historical review material and must not be rerun against this installed project. Do not publish backend SQL/tests/private backups in the static ZIP. The migration was completed in separately verified steps after expired tool requests. Three correctly shaped anonymous hosted RPC requests were denied with HTTP 401/42501. Positive authenticated 0.5.1 browser checks remain a separate user validation step.
+
+## Earlier release documentation (historical rollout states)
+
 # Jobs — v0.5.0 controlled rollout
 
 ## Version 0.5.0: Quick Decisions and Nova Preparation

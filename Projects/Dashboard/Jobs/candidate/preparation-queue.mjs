@@ -1,4 +1,5 @@
-import {assignmentForm} from './assignment-form.mjs?v=0.5.0';
+import {jobLabel} from './job-label.mjs?v=0.5.1';
+import {assignmentForm} from './assignment-form.mjs?v=0.5.1';
 /** Reads only the authorized queue. No polling, notification, keys or employer submission. */
 export function preparationQueue({client,root,onStarted=async()=>{},canStart=()=>true}){
  let dead=false,busy=false,dirty=false,locked=false,sequence=0,forms=[],edited=new Set();
@@ -14,23 +15,24 @@ export function preparationQueue({client,root,onStarted=async()=>{},canStart=()=
    const reload=el('button','Refresh preparation queue');reload.onclick=()=>void refresh();
    const message=el('p','');message.setAttribute('role','status');
    const queued=requests.filter(q=>q.state==='queued');if(!queued.length)el('p','No pending preparation requests.');
-   for(const q of requests){if(!nova&&q.state!=='queued')continue;const card=el('article');card.className='jobs-preparation-card';el('h3',[q.snapshot.company,q.snapshot.position].filter(Boolean).join(' · ')||'Job recommendation',card);el('p','Awaiting Nova’s requirements check',card);
+   for(const q of requests){if(!nova&&q.state!=='queued')continue;const card=el('article');card.className='jobs-preparation-card';el('h3',jobLabel(q.snapshot),card);el('p','Awaiting Nova’s requirements check',card);
     const a=el('a','Open original listing',card);try{const url=new URL(q.snapshot.source_url);if(url.protocol==='https:'){a.href=url.href;a.target='_blank';a.rel='noopener noreferrer';}}catch{}
     if(!nova)continue;
-    const evidence=el('fieldset',undefined,card);el('legend','Verify the real application',evidence);
+    const evidence=el('fieldset',undefined,card);el('legend','Verify listing availability · not application-form requirements',evidence);
     function field(label,multi=false){const wrap=el('label',label,evidence),n=el(multi?'textarea':'input',undefined,wrap);n.setAttribute('aria-label',label);return n;}
-    const checked=field('Listing checked at (ISO time with timezone)'),excerpt=field('Evidence that this exact listing is open and requirements were checked',true),open=field('I verified this exact listing is open');open.type='checkbox';
+    const checked=field('Listing checked at (ISO time with timezone)'),excerpt=field('Evidence that this exact listing is open',true),open=field('I verified this exact listing is open');open.type='checkbox';
+    el('p','A job listing’s qualifications are preliminary research, not actual application questions. Creating these research fields does not verify the form or authorize final approval.',card);
     const area=el('section',undefined,card);
     const button=(label,action,parent=area)=>{const b=el('button',label,parent);b.type='button';b.onclick=async()=>{
      if(busy||dead||locked)return;busy=true;const previous=[...root.querySelectorAll('button,input,textarea,select')].map(n=>[n,n.disabled]);for(const [n] of previous)n.disabled=true;
      try{await action();}catch(error){if(dead)return;if(!error.code||error.code==='40001')locked=true;message.textContent='Stopped: '+(error.code==='40001'?'Request changed. Reload the workspace to reconcile.':error.message||'Outcome unavailable. Reload the workspace before another attempt.');}
      finally{busy=false;if(!dead&&!locked){for(const [n,disabled] of previous)if(root.contains(n))n.disabled=disabled;for(const f of forms)f.refreshControls();}}
     };return b;};
-    const form=assignmentForm({root:area,jobs:[{id:q.recommendation_id,payload:q.snapshot}],button,onDirty:()=>{edited.add(q.recommendation_id);dirty=true;},onCancel:()=>{edited.delete(q.recommendation_id);dirty=edited.size>0;},isBusy:()=>busy||locked,labels:{heading:'Record application requirements',help:'Use the employer’s actual questions and documents. Leave unsupported answers for Dylan. This creates draft fields only; no approval or submission.',action:'Create application fields'},onAssign:async(_job,requirements)=>{
+    const form=assignmentForm({root:area,jobs:[{id:q.recommendation_id,payload:q.snapshot}],button,onDirty:()=>{edited.add(q.recommendation_id);dirty=true;},onCancel:()=>{edited.delete(q.recommendation_id);dirty=edited.size>0;},isBusy:()=>busy||locked,labels:{heading:'Prepare preliminary research',help:'Record only what you actually know. Listing-based questions/documents remain provisional until the real application form is inspected in Applications. Do not claim that a hidden form has been checked.',action:'Create preliminary research fields'},onAssign:async(_job,requirements)=>{
      if(!canStart()){const error=Error('Save or discard your existing application edits before creating another application.');error.code='VALIDATION';throw error;}
      if(!open.checked||!checked.value.trim()||!excerpt.value.trim()){const error=Error('Check the original listing and complete the evidence fields first.');error.code='VALIDATION';throw error;}
-     const id=await call('jobs_v050_start',{p_id:q.recommendation_id,p_expected_version:q.version,p_requirements:requirements,p_evidence:{url:q.snapshot.source_url,availability:'open',checked_at:checked.value,excerpt:excerpt.value,requirements_complete:true}});
-     if(dead)return;locked=true;edited.delete(q.recommendation_id);dirty=edited.size>0;await onStarted(id);message.textContent='Application fields created. Use Refresh workspace to open the assigned draft; answer honestly and flag missing facts.';
+     const id=await call('jobs_v050_start',{p_id:q.recommendation_id,p_expected_version:q.version,p_requirements:requirements,p_evidence:{url:q.snapshot.source_url,availability:'open',checked_at:checked.value,excerpt:excerpt.value,requirements_complete:false,source_type:'job_listing'}});
+     if(dead)return;locked=true;edited.delete(q.recommendation_id);dirty=edited.size>0;await onStarted(id);message.textContent='Preliminary research created. Actual application-form verification is still required before final approval.';
     }});
     forms.push(form);evidence.addEventListener('input',()=>{edited.add(q.recommendation_id);dirty=true;});
    }
