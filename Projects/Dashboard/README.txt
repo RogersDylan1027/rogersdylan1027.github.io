@@ -1256,3 +1256,10 @@ Version 0.6.0: Employer Account Setup
 - Account blockers use existing outstanding questions, preserving server-side final-approval gates, revision checks and activity history. Saving any account update clears previous approval.
 - Preserves application answers, documents, other outstanding questions and employer snapshots. No passwords, credential relay, automatic wake-up, account creation or real submission is implemented.
 - No database migration or permission change. Dashboard stays 0.11.4; Streaming stays 0.7.2. Publication approved; authenticated handoff testing remains pending.
+
+Version 0.6.1: Reliable Account Setup Confirmation
+- Replaces native browser pop-ups for account updates with visible on-page Confirm account update / Cancel account update controls.
+- Request secure account setup now opens a review panel; only confirmation saves. Shows saving, cancellation, version-conflict and uncertain-save feedback instead of silently returning.
+- Protects pending account edits during navigation and prevents a separate draft save from overwriting a pending request. Cancelling clears the unsaved URL; failed saves preserve it.
+- Preserves existing questions, application content, version checks, approval invalidation and server-side access controls. No database, credential, permission, wake-up or submission change.
+- Keeps Dashboard 0.11.4 and Streaming 0.7.2. Publication approved; authenticated Muse/iPhone verification pending.

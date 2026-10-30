@@ -1,3 +1,13 @@
+# Jobs — v0.6.1
+
+## Version 0.6.1: Reliable Account Setup Confirmation
+
+Publication approved; authenticated verification pending. Account-access actions no longer call window.confirm. Select Request secure account setup (or the appropriate existing-request action), review the on-page panel, then select Confirm account update. Cancel account update changes nothing on the server and clears an unsaved account URL. Do not click Save draft separately: account confirmation uses the existing version-checked save RPC directly. Pending account edits are included in unsaved-navigation checks; a separate draft save is blocked while they are pending.
+
+A successful save reloads the application and displays Account-access update saved. A conflict preserves input and reports the stale revision. Transport failures report that the outcome could not be confirmed: cancel local staging and refresh to inspect the saved state before retrying; do not assume a failed response means no save happened. Existing browser pop-up confirmations elsewhere in Jobs are unchanged.
+
+645 local synthetic checks passed (590 prior regressions, 29 account component/integration checks and 26 new native-confirmation-suppressed flow checks). No real credentials or employer site was used. Hosted Muse/iPhone checks remain pending. No database or authorization migration is required. Privacy/terms and projects.json reviewed: their existing account-access statements and route remain accurate, so no change is needed.
+
 # Jobs — v0.6.0
 
 ## Version 0.6.0: Employer Account Setup

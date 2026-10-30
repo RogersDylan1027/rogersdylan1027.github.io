@@ -45,3 +45,5 @@
 .jobs-form-verification{padding:18px;border:2px solid #b9c9d9;border-radius:14px;margin:18px 0}.jobs-application-workspace pre{white-space:pre-wrap;overflow-wrap:anywhere}
 
 .jobs-application-workspace p{overflow-wrap:anywhere}
+
+.jobs-account-setup [aria-label="Confirm account-access update"]{margin-top:16px;padding:16px;border:2px solid #7298c7;border-radius:12px;background:#edf3fb}.jobs-account-setup [role="status"]{font-weight:600}

@@ -1,5 +1,5 @@
-import {jobLabel} from './job-label.mjs?v=0.6.0';
-import {assignmentForm} from './assignment-form.mjs?v=0.6.0';
+import {jobLabel} from './job-label.mjs?v=0.6.1';
+import {assignmentForm} from './assignment-form.mjs?v=0.6.1';
 /** Reads only the authorized queue. No polling, notification, keys or employer submission. */
 export function preparationQueue({client,root,onStarted=async()=>{},canStart=()=>true}){
  let dead=false,busy=false,dirty=false,locked=false,sequence=0,forms=[],edited=new Set();

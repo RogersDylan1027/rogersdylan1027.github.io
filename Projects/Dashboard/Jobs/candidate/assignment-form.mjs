@@ -1,4 +1,4 @@
-import {jobLabel} from './job-label.mjs?v=0.6.0';
+import {jobLabel} from './job-label.mjs?v=0.6.1';
 /** Guided requirement entry. Only the caller performs the existing assignment RPC. */
 export function assignmentForm({root,jobs,button,onAssign,onDirty=()=>{},onCancel=()=>{},isBusy=()=>false,labels={}}){
  const doc=root.ownerDocument;

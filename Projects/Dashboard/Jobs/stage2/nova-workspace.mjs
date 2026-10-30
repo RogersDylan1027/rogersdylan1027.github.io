@@ -1,13 +1,13 @@
-import {accountSetup,accountRequest} from '../candidate/account-setup.mjs?v=0.6.0';
-import {formVerification} from '../candidate/form-verification.mjs?v=0.6.0';
-import {jobLabel} from '../candidate/job-label.mjs?v=0.6.0';
-import {assignmentForm} from '../candidate/assignment-form.mjs?v=0.6.0';
+import {accountSetup,accountRequest} from '../candidate/account-setup.mjs?v=0.6.1';
+import {formVerification} from '../candidate/form-verification.mjs?v=0.6.1';
+import {jobLabel} from '../candidate/job-label.mjs?v=0.6.1';
+import {assignmentForm} from '../candidate/assignment-form.mjs?v=0.6.1';
 import {novaApplications} from '../stage1/nova-applications.mjs';
 import {createMockIntent,claimMockIntent} from '../stage4/mock-preflight.mjs';
 export function workspace({client,root,confirm=()=>false,mode='mock'}){
  if(!['mock','authenticated'].includes(mode))throw new Error('Unknown workspace mode');
  const mock=mode==='mock';root.classList.add('jobs-application-workspace');
- const doc=root.ownerDocument,api=novaApplications(client);let dirty=false,busy=false,dead=false,current=null,intent=null,refreshSequence=0,needsReload=false,assignmentDirty=false,showPast=false,linkedJobIds=[],assignmentView=null;
+ const doc=root.ownerDocument,api=novaApplications(client);let dirty=false,busy=false,dead=false,current=null,intent=null,refreshSequence=0,needsReload=false,assignmentDirty=false,showPast=false,linkedJobIds=[],assignmentView=null,accountView=null;
  const el=(tag,text,parent=root)=>{const n=doc.createElement(tag);if(text!==undefined)n.textContent=text;parent.append(n);return n;};
  const input=(label,value,parent,multiline=false)=>{const l=el('label',label,parent),n=el(multiline?'textarea':'input',undefined,l);n.value=value??'';if(multiline)n.rows=5;return n;};
  const status=()=>root.querySelector('[role=status]');
@@ -15,7 +15,7 @@ export function workspace({client,root,confirm=()=>false,mode='mock'}){
  const call=async request=>{const {data,error}=await request;if(error)throw error;return data;};
  function button(label,fn,parent=root){const b=el('button',label,parent);b.type='button';b.addEventListener('click',async()=>{if(busy||dead)return;busy=true;const controls=[...root.querySelectorAll('input,textarea,select,button')].map(n=>[n,n.disabled]);for(const [n] of controls)n.disabled=true;try{await fn();}catch(e){message((e.code==='40001'?'Version conflict. Your unsaved work is preserved. ': 'Action stopped. ')+e.message);}finally{for(const [n,disabled] of controls)if(root.contains(n))n.disabled=needsReload?true:disabled;busy=false;assignmentView?.refreshControls?.();}});return b;}
  async function assignApplication(job,requirements){
-  if(dirty)throw Error('Save your application edits before starting another assignment.');
+  if(dirty||accountView?.hasUnsavedEdits())throw Error('Save or cancel pending application/account edits before starting another assignment.');
   if(!confirm(`Assign ${jobLabel(job.payload)} to Nova for preparation? This does not approve or submit an application.`))return;
   let result;
   try{result=await api.assign(job.id,job.version,requirements);}catch(error){
@@ -26,7 +26,7 @@ export function workspace({client,root,confirm=()=>false,mode='mock'}){
   try{await refresh(true);}catch(error){button('Reload after completed assignment',()=>refresh(true));throw error;}
  }
  async function refresh(force=false){
-  if(dead)return;if((dirty||assignmentDirty)&&!force&&!confirm('Discard unsaved changes and reload?'))return;
+  if(dead)return;if((dirty||assignmentDirty||accountView?.hasUnsavedEdits())&&!force&&!confirm('Discard unsaved changes and reload?'))return;
   const sequence=++refreshSequence;
   // Read everything before replacing the view, preserving buffers on network failure.
   const admin=await call(client.rpc('jobs_v040_is_admin')),nova=await call(client.rpc('jobs_v040_is_nova'));
@@ -35,13 +35,13 @@ export function workspace({client,root,confirm=()=>false,mode='mock'}){
    linkedJobIds=apps.map(a=>a.job_id);shown=mock||showPast?apps:apps.filter(a=>!a.revoked);
    const selected=shown.find(a=>a.id===current)||shown[0];
    if(selected){current=selected.id;events=await call(client.from('jobs_v040_events').select('*').eq('application_id',current).order('happened_at'));attempts=await call(client.from('jobs_v040_attempts').select('*').eq('application_id',current).order('created_at'));if(!mock&&selected.job_id.startsWith('nova050_')){try{verification=await call(client.rpc('jobs_v051_verification',{p_id:current}));if(!verification||typeof verification.form_verified!=='boolean'||typeof verification.documents_verified!=='boolean')throw Error('Missing verification');}catch{verification={scope:'nova_discovered',form_verified:false,documents_verified:false,unavailable:true};}}}}
-  if(dead||sequence!==refreshSequence)return;root.replaceChildren();assignmentView=null;dirty=false;assignmentDirty=false;needsReload=false;intent=null;
-  const toolbar=el('header');toolbar.className='jobs-app-toolbar';el('h2',mock?'Nova-Assisted Applications · Jobs 0.6.0 preview':'Applications',toolbar);button(mock?'Reload':'Refresh applications',()=>refresh(),toolbar);
+  if(dead||sequence!==refreshSequence)return;root.replaceChildren();assignmentView=null;accountView=null;dirty=false;assignmentDirty=false;needsReload=false;intent=null;
+  const toolbar=el('header');toolbar.className='jobs-app-toolbar';el('h2',mock?'Nova-Assisted Applications · Jobs 0.6.1 preview':'Applications',toolbar);button(mock?'Reload':'Refresh applications',()=>refresh(),toolbar);
   const safety=el('p',mock?'LOCAL MOCK DATABASE — synthetic identities and records. Real submissions disabled.':'Application review — real submissions disabled.');safety.className='jobs-safety';el('p','',root).setAttribute('role','status');
   if(!admin&&!nova){el('p','Access denied. This account cannot access Nova’s assignments.');return;}
   const roleNote=el('p',admin?(mock?'Synthetic Main Admin review':'Main Admin review'):(mock?'Synthetic Nova assigned applications':'Nova assigned applications'));roleNote.className=admin&&!mock?'jobs-sr-only':'jobs-section-help';
   if(!mock){const tip=el('p',admin?'Review drafts here. Use Recommendations to find your next job, or start an application below.':'Complete only the applications assigned to you. Save your work and flag anything you cannot answer.');tip.className='jobs-section-help';}
-  if(admin&&!mock){const historyToggle=input('Show past assignments','',root);historyToggle.type='checkbox';historyToggle.checked=showPast;historyToggle.addEventListener('change',async()=>{if(busy||dead){historyToggle.checked=showPast;return;}if((dirty||assignmentDirty)&&!confirm('Discard unsaved changes?')){historyToggle.checked=showPast;return;}showPast=historyToggle.checked;try{await refresh(true);}catch(e){message(e.message);}});}
+  if(admin&&!mock){const historyToggle=input('Show past assignments','',root);historyToggle.type='checkbox';historyToggle.checked=showPast;historyToggle.addEventListener('change',async()=>{if(busy||dead){historyToggle.checked=showPast;return;}if((dirty||assignmentDirty||accountView?.hasUnsavedEdits())&&!confirm('Discard unsaved changes?')){historyToggle.checked=showPast;return;}showPast=historyToggle.checked;try{await refresh(true);}catch(e){message(e.message);}});}
   if(nova){const discovery=el('section');el('h3','Recommend a job',discovery);const url=input('Public listing URL','',discovery);button('Recommend listing',async()=>{const id=await api.recommend(url.value);url.value='';message('Recommendation recorded: '+id+'. Assignment still requires Main Admin approval.');},discovery);}
   if(admin&&mock){const section=el('section');el('h3','Approve an assignment',section);const eligible=jobs.filter(j=>['accepted','answers_review','ready_to_apply'].includes(j.payload.status)&&!apps.some(a=>a.job_id===j.id&&!a.revoked));
    const select=el('select',undefined,section);for(const j of eligible){const o=el('option',j.id+' · '+j.payload.company,select);o.value=j.id;}
@@ -55,11 +55,11 @@ export function workspace({client,root,confirm=()=>false,mode='mock'}){
     current=await api.assign(job.id,job.version,requirements);await refresh(true);},section);
   }
   if(admin&&!mock){const section=el('section');assignmentView=assignmentForm({root:section,jobs:jobs.filter(j=>['accepted','answers_review','ready_to_apply'].includes(j.payload.status)&&!apps.some(a=>a.job_id===j.id&&!a.revoked)),button,onDirty:()=>{assignmentDirty=true;},onCancel:()=>{assignmentDirty=false;message('Assignment setup cleared. No assignment was created.');},isBusy:()=>busy||needsReload,onAssign:assignApplication});}
-  if(admin&&!mock){const requests=shown.filter(a=>!a.revoked&&accountRequest(a.draft?.open_questions));if(requests.length){const notices=el('section');notices.className='jobs-next-step';el('h3','Account setup needs your attention',notices);for(const item of requests)button(jobLabel(item.job_snapshot)+' · Open account setup',async()=>{if(dirty||assignmentDirty)throw Error('Save or discard edits first.');current=item.id;await refresh(true);root.querySelector('.jobs-account-setup')?.scrollIntoView?.({block:'start'});},notices);}}
+  if(admin&&!mock){const requests=shown.filter(a=>!a.revoked&&accountRequest(a.draft?.open_questions));if(requests.length){const notices=el('section');notices.className='jobs-next-step';el('h3','Account setup needs your attention',notices);for(const item of requests)button(jobLabel(item.job_snapshot)+' · Open account setup',async()=>{if(dirty||assignmentDirty||accountView?.hasUnsavedEdits())throw Error('Save or discard edits first.');current=item.id;await refresh(true);root.querySelector('.jobs-account-setup')?.scrollIntoView?.({block:'start'});},notices);}}
   if(!shown.length){const empty=el('section');empty.className='jobs-empty';el('h3',admin?'No active applications':'No assigned applications.',empty);el('p',admin?'Start with Recommendations, or assign a saved job when you are ready. Past assignments and their history are kept under Show past assignments.':'An application will appear here after Main Admin assigns it to you. Nothing runs automatically.',empty);return;}
 
   const selectorLabel=el('label','Choose an application'),select=el('select',undefined,selectorLabel);select.setAttribute('aria-label','Choose an application');for(const a of shown){const o=el('option',mock?a.job_id+' · '+a.state:`${jobLabel(a.job_snapshot)} — ${a.job_id.startsWith('nova050_')?(a.id===current?(!verification.form_verified?'Actual form unverified':!verification.documents_verified?'Document review required':stateLabel(a.state)):'Open to check verification'):stateLabel(a.state)}`,select);o.value=a.id;}select.value=current;
-  select.addEventListener('change',async()=>{if(busy||dead){select.value=current;return;}const previous=current;if(dirty&&!confirm('Discard unsaved changes?')){select.value=previous;return;}current=select.value;try{await refresh(true);}catch(e){current=previous;select.value=previous;message(e.message);}});
+  select.addEventListener('change',async()=>{if(busy||dead){select.value=current;return;}const previous=current;if((dirty||assignmentDirty||accountView?.hasUnsavedEdits())&&!confirm('Discard unsaved changes?')){select.value=previous;return;}current=select.value;try{await refresh(true);}catch(e){current=previous;select.value=previous;message(e.message);}});
   const a=shown.find(a=>a.id===current);if(!a)return;
   el('h3',jobLabel(a.job_snapshot));if(!mock)el('p','Application reference: '+a.id);
   if(mock){el('pre',JSON.stringify(a.job_snapshot,null,2));el('p',`State: ${a.state} · Version: ${a.version}`);}else{
@@ -88,10 +88,10 @@ export function workspace({client,root,confirm=()=>false,mode='mock'}){
   const approveControls=[];form.addEventListener('input',()=>{dirty=true;for(const b of approveControls)b.disabled=true;message(mock?'Unsaved changes. Save before approval or a mock attempt.':'Unsaved changes. Save this draft before approval.');});
   for(const n of form.querySelectorAll('input,textarea'))n.disabled=locked;for(const update of optionalControls)update();
   const mutate=async fn=>{if(assignmentDirty)throw Error('Finish or discard the new assignment setup before changing another application.');await fn();if(dead)return;dirty=false;needsReload=true;/* Lock stale controls if the subsequent refresh fails. */for(const b of root.querySelectorAll('button'))b.disabled=true;try{await refresh(true);}catch(e){button('Reload after completed action',()=>refresh(true));throw e;}};
-  if(!mock){const accounts=el('section');accountSetup({root:accounts,application:a,admin,button,onQuestions:async open_questions=>{if(dirty||assignmentDirty)throw Error('Save or discard edits before changing account setup.');if(!confirm('Save this account-access update? Application content is preserved and any final approval is cleared.'))return;await mutate(()=>api.save(a.id,a.version,{...structuredClone(a.draft),open_questions}));}});}
-  const save=button('Save draft',()=>mutate(()=>api.save(a.id,a.version,{answers:Object.fromEntries(answerFields.filter(f=>f.required||f.choice.checked).map(f=>[f.id,{text:f.text.value,source:f.source.value,needs_dylan_input:f.flag.checked}])),documents:Object.fromEntries(documentFields.filter(f=>f.required||f.content.value.trim()||f.source.value.trim()).map(f=>[f.name,{content:f.content.value,source:f.source.value}])),cover_letter:cover.value,open_questions:questions.value.split('\n').map(s=>s.trim()).filter(Boolean),requires_consent:consent.checked,requires_attestation:attestation.checked})),form);save.disabled=locked;
+  if(!mock){const accounts=el('section');accountView=accountSetup({root:accounts,application:a,admin,button,onQuestions:async open_questions=>{if(dirty||assignmentDirty)throw Error('Save or discard edits before changing account setup.');await mutate(()=>api.save(a.id,a.version,{...structuredClone(a.draft),open_questions}));message('Account-access update saved.');}});}
+  const save=button('Save draft',()=>{if(accountView?.hasUnsavedEdits())throw Error('Confirm or cancel the pending account update before saving the draft.');return mutate(()=>api.save(a.id,a.version,{answers:Object.fromEntries(answerFields.filter(f=>f.required||f.choice.checked).map(f=>[f.id,{text:f.text.value,source:f.source.value,needs_dylan_input:f.flag.checked}])),documents:Object.fromEntries(documentFields.filter(f=>f.required||f.content.value.trim()||f.source.value.trim()).map(f=>[f.name,{content:f.content.value,source:f.source.value}])),cover_letter:cover.value,open_questions:questions.value.split('\n').map(s=>s.trim()).filter(Boolean),requires_consent:consent.checked,requires_attestation:attestation.checked}));},form);save.disabled=locked;
   if(admin){const note=input('Correction request','',root);button('Request corrections',()=>{if(dirty)throw new Error('Save or discard edits first');return mutate(()=>api.requestCorrections(a.id,a.version,note.value));});
-   const approve=button('Approve final application',async()=>{if(dirty)throw new Error('Save edits first');if(!confirm(mock?'Approve this exact saved application version for a mock attempt, expiring in 15 minutes?':'Approve this exact saved application version for 15 minutes? Real submissions remain disabled.'))return;await mutate(()=>api.approveFinal(a.id,a.version));});approve.disabled=a.state!=='review'||!verification.form_verified||!verification.documents_verified;approveControls.push(approve);
+   const approve=button('Approve final application',async()=>{if(dirty||accountView?.hasUnsavedEdits())throw new Error('Save or cancel pending edits first');if(!confirm(mock?'Approve this exact saved application version for a mock attempt, expiring in 15 minutes?':'Approve this exact saved application version for 15 minutes? Real submissions remain disabled.'))return;await mutate(()=>api.approveFinal(a.id,a.version));});approve.disabled=a.state!=='review'||!verification.form_verified||!verification.documents_verified;approveControls.push(approve);
    button('Revoke assignment',async()=>{if(confirm('Revoke Nova access to this assignment?'))await mutate(()=>api.revoke(a.id,a.version));});
   }
   if(nova&&mock){el('h3','Synthetic mock observation');el('p','These inputs simulate a mock form; they are not an employer-site inspection.');const observedCover=input('Observed mock cover letter',draft.cover_letter,root,true);const blockers=input('Unexpected questions, consent or attestations (one per line)','',root,true);const observedConsent=input('Mock form requests consent','',root);observedConsent.type='checkbox';observedConsent.checked=false;const observedAttestation=input('Mock form requests attestation','',root);observedAttestation.type='checkbox';observedAttestation.checked=false;
@@ -121,7 +121,7 @@ export function workspace({client,root,confirm=()=>false,mode='mock'}){
   if(mock||attempts.length){el('h3',mock?'Mock attempts':'Test history');for(const attempt of attempts)el('p',`${attempt.id} · ${attempt.result}`);}
 
  }
- return {start:()=>refresh(true),refresh,hasUnsavedEdits:()=>dirty||assignmentDirty,getLinkedJobIds:()=>[...linkedJobIds],isBusy:()=>busy,destroy(){dead=true;refreshSequence++;root.replaceChildren();}};
+ return {start:()=>refresh(true),refresh,hasUnsavedEdits:()=>dirty||assignmentDirty||Boolean(accountView?.hasUnsavedEdits()),getLinkedJobIds:()=>[...linkedJobIds],isBusy:()=>busy,destroy(){dead=true;refreshSequence++;root.replaceChildren();}};
 }
 
 const stateLabel=value=>({assigned:'Assigned to Nova',drafting:'Draft in progress',review:'Ready for your review',corrections:'Corrections requested',approved:'Final review approved',revoked:'Assignment revoked',mock_pending:'Test in progress',mock_verified:'Test complete',mock_failed:'Test failed',blocked:'Needs investigation'}[value]||value);
