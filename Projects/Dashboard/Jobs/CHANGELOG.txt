@@ -1,3 +1,10 @@
+Version 0.6.0: Employer Account Setup
+- Adds an account-setup attention list for Main Admin and per-application guidance to use Muse’s secure credential card.
+- Nova can record an employer-account blocker; Dylan can report setup completed; only Nova’s access-confirmation control removes that blocker after an explicit successful-sign-in confirmation.
+- Account blockers use existing outstanding questions, preserving server-side final-approval gates, revision checks and activity history. Saving any account update clears previous approval.
+- Preserves application answers, documents, other outstanding questions and employer snapshots. No passwords, credential relay, automatic wake-up, account creation or real submission is implemented.
+- No database migration or permission change. Dashboard stays 0.11.4; Streaming stays 0.7.2. Publication approved; authenticated handoff testing remains pending.
+
 Version 0.5.1: Verified Application Requirements
 - Replaces null/untitled application labels with a safe source-host fallback and a visible application reference; employer snapshots remain read-only and are not guessed from URL paths.
 - Separates listing-based preliminary research from requirements actually observed in the employer application form. New Nova queue drafts cannot pass final approval solely by clearing outstanding questions.

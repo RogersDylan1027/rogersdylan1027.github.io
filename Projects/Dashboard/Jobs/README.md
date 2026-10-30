@@ -1,3 +1,13 @@
+# Jobs — v0.6.0
+
+## Version 0.6.0: Employer Account Setup
+
+Approved static release; authenticated handoff testing remains pending. Account notices use blocking `open_questions` entries, not a new credentials database. Nova uses Request secure account setup with a same-origin HTTPS account URL (no query or fragment). Main Admin sees an attention list and an application notice with a ready-to-copy Muse prompt. Complete Muse’s secure card, then optionally select I completed the secure setup. This is a report, not proof of access. Nova must explicitly confirm successful sign-in before clearing the blocker. Confirmation is a human/agent assertion, not independent employer verification. Existing authorization permits Main Admin to edit outstanding questions as before.
+
+Passwords, verification codes and recovery links must never be entered in Dashboard fields. No API into Muse’s vault, wake-up, recurring task or terminal credential relay exists. Employer account creation, terms and consent require separate user decisions. Existing final approval, actual-form and document verification remain required; real submissions stay disabled.
+
+Account updates use the existing version-checked save RPC and audit event; stale updates do not overwrite drafts. Save/discard other edits first. Original listing snapshots and unrelated questions are preserved. Reviewers should test mobile Safari and authenticated Nova/Main Admin flows before publishing. No production data or policies have been changed.
+
 # Jobs — v0.5.1
 
 ## Version 0.5.1: Verified Application Requirements

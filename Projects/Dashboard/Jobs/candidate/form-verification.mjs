@@ -1,4 +1,4 @@
-import {assignmentForm} from './assignment-form.mjs?v=0.5.1';
+import {assignmentForm} from './assignment-form.mjs?v=0.6.0';
 /** Explicit observation only; never fetches a form, guesses its fields or submits. */
 export function formVerification({root,application,button,isBusy,onDirty,onCancel,onRecord}){
  const doc=root.ownerDocument,el=(t,s,p=root)=>{const n=doc.createElement(t);if(s!==undefined)n.textContent=s;p.append(n);return n;};

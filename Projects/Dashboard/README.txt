@@ -1249,3 +1249,10 @@ Version 0.5.1: Verified Application Requirements
 - Keeps unverified cover-letter, question, consent and attestation requirements visibly unknown. Blocks final approval and mock dispatch server-side until the new verification gates pass.
 - Preserves the existing Mets draft and legacy Main Admin-defined workflow. No new table/RLS policy, real submission, automatic wake-up, recurring task or Pi service change.
 - Keeps Dashboard 0.11.4 and Streaming 0.7.2. Matching function updates installed and public publication approved; existing draft records are not rewritten.
+
+Version 0.6.0: Employer Account Setup
+- Adds an account-setup attention list for Main Admin and per-application guidance to use Muse’s secure credential card.
+- Nova can record an employer-account blocker; Dylan can report setup completed; only Nova’s access-confirmation control removes that blocker after an explicit successful-sign-in confirmation.
+- Account blockers use existing outstanding questions, preserving server-side final-approval gates, revision checks and activity history. Saving any account update clears previous approval.
+- Preserves application answers, documents, other outstanding questions and employer snapshots. No passwords, credential relay, automatic wake-up, account creation or real submission is implemented.
+- No database migration or permission change. Dashboard stays 0.11.4; Streaming stays 0.7.2. Publication approved; authenticated handoff testing remains pending.
