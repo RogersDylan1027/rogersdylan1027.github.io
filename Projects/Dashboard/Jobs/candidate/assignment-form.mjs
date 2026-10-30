@@ -1,4 +1,4 @@
-import {jobLabel} from './job-label.mjs?v=0.6.1';
+import {jobLabel} from './job-label.mjs?v=0.6.2';
 /** Guided requirement entry. Only the caller performs the existing assignment RPC. */
 export function assignmentForm({root,jobs,button,onAssign,onDirty=()=>{},onCancel=()=>{},isBusy=()=>false,labels={}}){
  const doc=root.ownerDocument;
@@ -30,8 +30,8 @@ export function assignmentForm({root,jobs,button,onAssign,onDirty=()=>{},onCance
  }
  button('Add a question',()=>{addQuestion();onDirty();},details);button('Add a document',()=>{addDocument();onDirty();},details);
  const cover=field('The employer requires a cover letter',details);cover.type='checkbox';cover.checked=false;
- const reviewed=field('I checked the actual application requirements',details);reviewed.type='checkbox';reviewed.checked=false;
- el('p','Requirements are fixed after assignment. Double-check the selected job before continuing.',details);
+ const reviewed=field(labels.reviewed||'I checked the actual application requirements',details);reviewed.type='checkbox';reviewed.checked=false;
+ el('p',labels.fixedHelp||'Requirements are fixed after assignment. Double-check the selected job before continuing.',details);
  const assign=button(labels.action||'Approve assignment to Nova',async()=>{
   const job=jobs.find(j=>j.id===select.value);if(!job||!reviewed.checked)throw Error('Choose a job and confirm its actual requirements first.');
   const requirements={questions:qrows.filter(r=>!r.removed&&r.text.value.trim()).map(r=>({id:r.id,text:r.text.value.trim(),required:r.required.checked})),documents:drows.filter(r=>!r.removed&&r.name.value.trim()).map(r=>({name:r.name.value.trim(),required:r.required.checked})),cover_letter_required:cover.checked};

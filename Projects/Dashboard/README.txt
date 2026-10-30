@@ -1263,3 +1263,11 @@ Version 0.6.1: Reliable Account Setup Confirmation
 - Protects pending account edits during navigation and prevents a separate draft save from overwriting a pending request. Cancelling clears the unsaved URL; failed saves preserve it.
 - Preserves existing questions, application content, version checks, approval invalidation and server-side access controls. No database, credential, permission, wake-up or submission change.
 - Keeps Dashboard 0.11.4 and Streaming 0.7.2. Publication approved; authenticated Muse/iPhone verification pending.
+
+Version 0.6.2: Partial Application Form Inspections
+- Separates partial observations from complete inspection. Partial is the default and stores observed fields in private history without replacing active requirements or draft content.
+- Requires explicit complete coverage, inspected/total step counts, all-question/document confirmation and no unknown sections before a new form inspection can satisfy verification.
+- Adds protocol-checked, server-side verification. Older clients can no longer silently certify a partial form through the legacy recording RPC. Existing Nova-discovered form proofs require explicit reinspection; legacy Main Admin-defined assignments retain their workflow.
+- Adds a Main Admin-only, version-checked correction action that labels earlier incomplete coverage as partial, preserves current fields and all draft/research text, clears approval and records the reason and snapshots in history.
+- Shows partial observations and unknown sections separately, retains earlier research, and fails closed when the matching backend is unavailable.
+- Keeps Dashboard 0.11.4, Streaming 0.7.2, disabled submissions and existing RLS boundaries. Matching function update installed; static publication approved. The revision-7 application correction remains a separate Main Admin action.

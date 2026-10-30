@@ -1,7 +1,7 @@
-import {accountSetup,accountRequest} from '../candidate/account-setup.mjs?v=0.6.1';
-import {formVerification} from '../candidate/form-verification.mjs?v=0.6.1';
-import {jobLabel} from '../candidate/job-label.mjs?v=0.6.1';
-import {assignmentForm} from '../candidate/assignment-form.mjs?v=0.6.1';
+import {accountSetup,accountRequest} from '../candidate/account-setup.mjs?v=0.6.2';
+import {formVerification} from '../candidate/form-verification.mjs?v=0.6.2';
+import {jobLabel} from '../candidate/job-label.mjs?v=0.6.2';
+import {assignmentForm} from '../candidate/assignment-form.mjs?v=0.6.2';
 import {novaApplications} from '../stage1/nova-applications.mjs';
 import {createMockIntent,claimMockIntent} from '../stage4/mock-preflight.mjs';
 export function workspace({client,root,confirm=()=>false,mode='mock'}){
@@ -34,9 +34,9 @@ export function workspace({client,root,confirm=()=>false,mode='mock'}){
   if(admin||nova){apps=await api.assigned();if(admin)jobs=await call(client.from('dashboard_job_records').select('*'));
    linkedJobIds=apps.map(a=>a.job_id);shown=mock||showPast?apps:apps.filter(a=>!a.revoked);
    const selected=shown.find(a=>a.id===current)||shown[0];
-   if(selected){current=selected.id;events=await call(client.from('jobs_v040_events').select('*').eq('application_id',current).order('happened_at'));attempts=await call(client.from('jobs_v040_attempts').select('*').eq('application_id',current).order('created_at'));if(!mock&&selected.job_id.startsWith('nova050_')){try{verification=await call(client.rpc('jobs_v051_verification',{p_id:current}));if(!verification||typeof verification.form_verified!=='boolean'||typeof verification.documents_verified!=='boolean')throw Error('Missing verification');}catch{verification={scope:'nova_discovered',form_verified:false,documents_verified:false,unavailable:true};}}}}
+   if(selected){current=selected.id;events=await call(client.from('jobs_v040_events').select('*').eq('application_id',current).order('happened_at'));attempts=await call(client.from('jobs_v040_attempts').select('*').eq('application_id',current).order('created_at'));if(!mock&&selected.job_id.startsWith('nova050_')){try{verification=await call(client.rpc('jobs_v051_verification',{p_id:current}));if(!verification||typeof verification.form_verified!=='boolean'||typeof verification.documents_verified!=='boolean')throw Error('Missing verification');if(verification.inspection_protocol!==2)verification={...verification,form_verified:false,inspection_scope:'unverified',unavailable:true};}catch{verification={scope:'nova_discovered',form_verified:false,documents_verified:false,unavailable:true};}}}}
   if(dead||sequence!==refreshSequence)return;root.replaceChildren();assignmentView=null;accountView=null;dirty=false;assignmentDirty=false;needsReload=false;intent=null;
-  const toolbar=el('header');toolbar.className='jobs-app-toolbar';el('h2',mock?'Nova-Assisted Applications · Jobs 0.6.1 preview':'Applications',toolbar);button(mock?'Reload':'Refresh applications',()=>refresh(),toolbar);
+  const toolbar=el('header');toolbar.className='jobs-app-toolbar';el('h2',mock?'Nova-Assisted Applications · Jobs 0.6.2 preview':'Applications',toolbar);button(mock?'Reload':'Refresh applications',()=>refresh(),toolbar);
   const safety=el('p',mock?'LOCAL MOCK DATABASE — synthetic identities and records. Real submissions disabled.':'Application review — real submissions disabled.');safety.className='jobs-safety';el('p','',root).setAttribute('role','status');
   if(!admin&&!nova){el('p','Access denied. This account cannot access Nova’s assignments.');return;}
   const roleNote=el('p',admin?(mock?'Synthetic Main Admin review':'Main Admin review'):(mock?'Synthetic Nova assigned applications':'Nova assigned applications'));roleNote.className=admin&&!mock?'jobs-sr-only':'jobs-section-help';
@@ -63,7 +63,7 @@ export function workspace({client,root,confirm=()=>false,mode='mock'}){
   const a=shown.find(a=>a.id===current);if(!a)return;
   el('h3',jobLabel(a.job_snapshot));if(!mock)el('p','Application reference: '+a.id);
   if(mock){el('pre',JSON.stringify(a.job_snapshot,null,2));el('p',`State: ${a.state} · Version: ${a.version}`);}else{
-   const state=el('p',verification.scope==='nova_discovered'&&!verification.form_verified?'Preliminary research · actual application form unverified':stateLabel(a.state));state.className='jobs-state';state.dataset.state=a.state;
+   const state=el('p',verification.scope==='nova_discovered'&&!verification.form_verified?'Research or partial inspection · actual application form unverified':stateLabel(a.state));state.className='jobs-state';state.dataset.state=a.state;
    const next=el('section');next.className='jobs-next-step';el('h4','Next step',next);el('p',verification.scope==='nova_discovered'&&!verification.form_verified?'Preserve this research. Inspect and record the actual form before treating these as application questions. Final approval remains blocked.':nextStep(a.state,admin),next);
    const info=el('details');el('summary','Job details · read-only',info);const dl=el('dl',undefined,info);
    for(const [key,label] of [['company','Company'],['position','Role'],['location','Location'],['work_arrangement','Work arrangement'],['description','Description']])if(a.job_snapshot[key]){el('dt',label,dl);el('dd',String(a.job_snapshot[key]),dl);}
@@ -104,7 +104,7 @@ export function workspace({client,root,confirm=()=>false,mode='mock'}){
    const observation=el('section');observation.className='jobs-form-verification';
    formVerification({root:observation,application:a,button,isBusy:()=>busy||needsReload,onDirty:()=>{assignmentDirty=true;},onCancel:()=>{assignmentDirty=false;},onRecord:async(requirements,evidence)=>{
     if(dirty)throw Error('Save or discard the current draft edits before recording form requirements.');
-    try{await call(client.rpc('jobs_v051_record_form',{p_id:a.id,p_expected_version:a.version,p_requirements:requirements,p_evidence:evidence}));}
+    try{await call(client.rpc('jobs_v062_record_inspection',{p_id:a.id,p_expected_version:a.version,p_requirements:requirements,p_evidence:evidence}));}
     catch(error){if(!error.code){needsReload=true;button('Reload to reconcile form verification',()=>refresh(true));}throw error;}
     assignmentDirty=false;needsReload=true;await refresh(true);
    }});
@@ -113,7 +113,13 @@ export function workspace({client,root,confirm=()=>false,mode='mock'}){
     const reviewed=button('Confirm full document contents',async()=>{if(dirty||assignmentDirty)throw Error('Save or discard edits and requirement setup first.');if(!checks.length||checks.some(x=>!x.check.checked))throw Error('Explicitly review each supplied document; a summary is insufficient.');await mutate(()=>call(client.rpc('jobs_v051_review_documents',{p_id:a.id,p_expected_version:a.version,p_confirmed_names:checks.map(x=>x.name)})));},section);reviewed.disabled=!verification.form_verified||!checks.length;
    }
   }
-  const archived=events.filter(e=>e.action==='actual_form_requirements_recorded'&&e.detail?.previous_draft);
+  if(!mock&&verification.scope==='nova_discovered'){
+   const inspections=events.filter(e=>e.action==='form_inspection_recorded');
+   if(verification.unavailable)el('p','Updated inspection service unavailable. Form verification fails closed; do not use the older recording flow.');
+   for(const event of inspections){const pane=el('details');el('summary',(event.detail.inspection_scope==='partial'?'Partial form observations':'Complete inspection record')+' · revision '+event.application_version,pane);el('p',event.detail.evidence?.excerpt||event.detail.reason||'',pane);if(event.detail.evidence?.unknown_sections)el('p','Still unknown: '+event.detail.evidence.unknown_sections,pane);for(const q of event.detail.observed_requirements?.questions||[])el('p',q.text+(q.required?' (required)':' (optional)'),pane);for(const d of event.detail.observed_requirements?.documents||[])el('p','Document: '+d.name,pane);}
+   if(admin&&!a.revoked&&!['mock_pending','mock_verified','blocked'].includes(a.state)){const pane=el('section');el('h4','Correct an earlier incomplete form inspection',pane);el('p','Retain the active fields, all answers and earlier research; mark coverage partial, clear approval and record your reason in history.',pane);const reason=input('Why is the earlier inspection partial?','',pane),check=input('I confirm the current form coverage is incomplete','',pane);check.type='checkbox';const action=button('Mark current form coverage partial',async()=>{if(dirty||assignmentDirty||accountView?.hasUnsavedEdits())throw Error('Save or cancel pending edits first.');if(!check.checked||reason.value.trim().length<10)throw Error('Confirm incomplete coverage and provide a reason.');await mutate(()=>call(client.rpc('jobs_v062_reclassify_partial',{p_id:a.id,p_expected_version:a.version,p_note:reason.value.trim()})));});action.disabled=verification.unavailable;}
+  }
+  const archived=events.filter(e=>['actual_form_requirements_recorded','form_inspection_recorded'].includes(e.action)&&e.detail?.previous_draft);
   if(!mock&&archived.length){const backup=el('details');el('summary','Preserved earlier research drafts',backup);for(const e of archived){el('h4','Before requirements revision '+e.application_version,backup);const old=e.detail.previous_draft;for(const [key,value] of Object.entries(old.answers||{})){el('h5',key,backup);el('p',value.text||'',backup);el('p','Source: '+(value.source||'not supplied'),backup);}for(const [name,value] of Object.entries(old.documents||{})){el('h5',name,backup);el('pre',value.content||'',backup);}if(old.cover_letter)el('p',old.cover_letter,backup);}}
   const history=mock?root:el('details');if(!mock)el('summary','Activity history',history);else el('h3','Activity history');
   for(const e of events)el('p',mock?`${e.happened_at} · ${e.action} · version ${e.application_version}`:`${readableTime(e.happened_at)} · ${eventLabel(e.action)} · revision ${e.application_version}`,history);
@@ -129,7 +135,7 @@ const nextStep=(state,admin)=>state==='revoked'?'This assignment is closed. Its 
 const readableTime=value=>{const d=new Date(value);return Number.isNaN(d.getTime())?String(value):d.toLocaleString(undefined,{dateStyle:'medium',timeStyle:'short'});};
 const eventLabel=value=>({job_approved_and_assigned:'Assigned to Nova',draft_saved_approval_invalidated:'Draft saved; any previous approval cleared',approve_final:'Final application review approved',request_corrections:'Corrections requested',revoke:'Assignment revoked'}[value]||String(value).replaceAll('_',' '));
 function readiness(a,verification={scope:'admin_defined',form_verified:true,documents_verified:true}){const d=a.draft||{},text=v=>typeof v==='string'&&!!v.trim();return [
- ...(verification.scope==='nova_discovered'?[{label:'Actual application form requirements verified (listing qualifications do not count)',done:verification.form_verified}]:[]),
+ ...(verification.scope==='nova_discovered'?[{label:'Complete application-form inspection verified — all steps, questions and documents',done:verification.form_verified}]:[]),
  {label:verification.scope==='nova_discovered'&&!verification.form_verified?'Preliminary answer text and sources (not verified form answers)':'Required answers, sources and input review',done:a.requirements.questions.every(q=>{const x=d.answers?.[q.id];return !q.required&&!x||text(x?.text)&&text(x?.source)&&x?.needs_dylan_input===false;})},
  {label:verification.scope==='nova_discovered'?'Full document contents reviewed by Main Admin (not a summary)':'Required documents and sources',done:verification.documents_verified&&a.requirements.documents.every(x=>{const v=d.documents?.[x.name];return !x.required&&!v||text(v?.content)&&text(v?.source);})},
  {label:!verification.form_verified?'Cover letter requirement unknown until actual form verification':a.requirements.cover_letter_required?'Required cover letter':'Cover letter not required by recorded requirements',done:verification.form_verified&&(!a.requirements.cover_letter_required||text(d.cover_letter))},

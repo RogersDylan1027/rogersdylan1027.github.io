@@ -1,3 +1,24 @@
+# Jobs — v0.6.2
+
+## Version 0.6.2: Partial Application Form Inspections
+
+Matching function update installed as migration 20261030212327. Static publication approved; no application correction has been applied. Dashboard stays 0.11.4 and Streaming stays 0.7.2.
+
+### Partial is not complete
+Record actual observed form fields with partial coverage by default, inspected/total step counts, URL/time/evidence and a description of unknown sections. Partial observations are stored in existing private activity without replacing active requirements or any draft content. Approval is cleared, form verification becomes false, and existing final-approval and mock-dispatch guards enforce that result even if other outstanding questions are cleared. Unknown documents, consent and attestations remain unknown, not absent.
+
+Complete coverage requires every step inspected, explicit all-questions/documents confirmation, equal positive step counts (up to 50) and no unknown sections. These are authorized observer assertions, not independent employer verification. Never guess hidden steps or advance employer save/consent/upload/submission steps without separate authorization. Complete inspection replaces active requirements, retains prior requirements and draft in private history, leaves current draft text intact for reconciliation, and clears approval.
+
+### Correction and compatibility
+Main Admin can use Mark current form coverage partial after entering a reason and explicitly confirming incomplete coverage. It uses the loaded application version, increments once, clears approval, keeps requirements/answers/documents/questions unchanged, and appends history with previous snapshots. Nova cannot call that Main Admin correction RPC. No history is deleted or rewritten. For the paused Mets application, the proposed correction is revision 7 to 8 if still current; the 14 observed fields and 11 questions would remain intact, along with earlier research. Codex does not impersonate Main Admin to execute the correction.
+
+The reviewed function-only update adds jobs_v062_record_inspection and jobs_v062_reclassify_partial, updates the existing private form_verified and public jobs_v051_verification, and makes jobs_v051_record_form reject old clients with a refresh instruction. No new table, RLS policy or broader table access. Anonymous execution is revoked; Main Admin/assigned verified Nova checks run inside the RPC. Existing Nova-discovered pre-0.6.2 form assertions are no longer accepted as complete; legacy admin-defined assignment behavior is preserved. Missing protocol 2 fails closed in the new UI.
+
+stage9/install-reviewed.sql is historical private review material for the installed update, with dependency hashes, transaction boundaries and duplicate-install refusal. Do not rerun it. It is not a generated migration and must not be included in public static hosting. Create the actual managed migration only after approval, using the approved tool workflow. No Supabase branch or paid resource is needed.
+
+### Validation
+718 local checks passed: 645 regression/account suites (with the existing 21 verification UI checks updated for explicit coverage), 45 new synthetic PostgreSQL security/workflow/preservation checks, and 28 new partial/full/protocol/correction UI checks. Release JavaScript syntax and whitespace checks passed. These are isolated synthetic tests, not hosted positive Auth, actual Muse or physical iPhone validation. Native simultaneous-session tests were not rerun for this change. Those checks and approved install/advisors/fingerprint verification remain next steps.
+
 # Jobs — v0.6.1
 
 ## Version 0.6.1: Reliable Account Setup Confirmation
