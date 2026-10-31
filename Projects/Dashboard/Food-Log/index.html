@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Food Log · Version 0.5.2</title>
+  <title>Food Log · Version 0.5.3</title>
 
   <!-- Dashboard Dylan shared authentication and project access guard -->
   <script src="../dashboard-config.js"></script>
@@ -521,6 +521,39 @@
       margin-left: 2px;
     }
 
+    .water-manual {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .water-manual input {
+      width: 100%;
+      min-width: 0;
+      border: 1px solid var(--water-border);
+      border-radius: 9px;
+      background: #fff;
+      color: var(--text);
+      padding: 8px 9px;
+      outline: none;
+    }
+
+    .water-manual input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-soft);
+    }
+
+    .water-manual button {
+      border: 1px solid var(--water-border);
+      border-radius: 9px;
+      background: var(--water);
+      color: var(--text);
+      padding: 8px 10px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
     .water-buttons {
       display: grid;
       gap: 6px;
@@ -821,6 +854,10 @@
         width: 100%;
       }
 
+      .water-manual {
+        grid-template-columns: 1fr auto;
+      }
+
       .water-buttons {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
@@ -1053,7 +1090,7 @@
     </div>
   </dialog>
 
-  <!-- Food Log · Version 0.5.2 · Export Cleanup & Unified Meal Rows · 2026-08-13 -->
+  <!-- Food Log · Version 0.5.3 · Export Cleanup & Unified Meal Rows · 2026-08-13 -->
   <script>
     const ROWS = [
       "Meal / Snack 1",
@@ -1888,6 +1925,48 @@
           </div>
         `;
 
+        const manual = document.createElement("div");
+        manual.className = "water-manual";
+
+        const manualInput = document.createElement("input");
+        manualInput.type = "number";
+        manualInput.min = "0.1";
+        manualInput.step = "0.1";
+        manualInput.inputMode = "decimal";
+        manualInput.placeholder = "Enter fl oz";
+        manualInput.setAttribute(
+          "aria-label",
+          `Manual water amount, ${date.toLocaleDateString()}`
+        );
+
+        const manualAdd = document.createElement("button");
+        manualAdd.type = "button";
+        manualAdd.textContent = "Add";
+
+        async function submitManualWater() {
+          const amount = Number(manualInput.value);
+
+          if (!Number.isFinite(amount) || amount <= 0) {
+            manualInput.focus();
+            return;
+          }
+
+          await addWater(dKey, amount);
+          manualInput.value = "";
+        }
+
+        manualAdd.addEventListener("click", submitManualWater);
+
+        manualInput.addEventListener("keydown", event => {
+          if (event.key === "Enter") {
+            event.preventDefault();
+            submitManualWater();
+          }
+        });
+
+        manual.appendChild(manualInput);
+        manual.appendChild(manualAdd);
+
         const buttons = document.createElement("div");
         buttons.className = "water-buttons";
 
@@ -1921,6 +2000,7 @@
         actions.appendChild(clear);
 
         card.appendChild(heading);
+        card.appendChild(manual);
         card.appendChild(buttons);
         card.appendChild(actions);
         grid.appendChild(card);
