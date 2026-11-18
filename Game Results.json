@@ -24,7 +24,8 @@
       "Ben Chiarot": ["0", "0%", "0.813"],
       "Andreas Englund": ["0.009", "0.31%", "0.3313"],
       "Justin Faulk": ["0.1253", "4.29%", "1.1788"],
-      "Moritz Seider": ["0.0723", "2.5%", "1.6259"]
+      "Moritz Seider": ["0.0723", "2.5%", "1.6259"],
+      "William Wallinder": ["0.0647", "2.24%", "0.8536"]
     },
     "allAwayPoints": {
       "Michael Eyssimont": ["0.109", "3.74%", "1.3466"],
@@ -48,9 +49,9 @@
       "Charlie McAvoy": ["0.1819", "6.17%", "1.1783"],
       "Nikita Zadorov": ["0", "0%", "0.63"]
     },
-    "outcome": "BOS, DET: 1.09792 v BOS: 1.35244      Expected difference: 0.25452, (DET: 1.82987 v BOS: 2.25407) (DET: 43.67% , BOS: 56.33%)",
+    "outcome": "BOS, DET: 1.12058 v BOS: 1.35244      Expected difference: 0.23186, (DET: 1.86763 v BOS: 2.25407) (DET: 44.23% , BOS: 55.77%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "10:28:55",
+    "timeLastRun": "10:58:52",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
@@ -112,7 +113,7 @@
     },
     "outcome": "NJD, NJD: 0.95321 v MTL: 0.67028      Expected difference: 0.28293, (NJD: 1.58868 v MTL: 1.11713) (NJD: 57.03% , MTL: 42.97%)",
     "startingTime": "19:35:00",
-    "timeLastRun": "10:29:50",
+    "timeLastRun": "10:59:44",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
@@ -142,6 +143,7 @@
       "Kevin Stenlund": ["0.012", "0.42%", "0.9506"],
       "Vincent Trocheck": ["0.1389", "4.75%", "1.9963"],
       "Kailer Yamamoto": ["0.0892", "3.07%", "1.3607"],
+      "Gregor Biber": ["0", "0%", "0"],
       "Nick DeSimone": ["0.0108", "0.38%", "0.8811"],
       "Artem Duda": ["0", "0%", "1.22"],
       "Zac Jones": ["0.5353", "17.08%", "2.7885"],
@@ -173,7 +175,7 @@
     },
     "outcome": "UTA, UTA: 0.83289 v COL: 0.6553      Expected difference: 0.17759, (UTA: 1.38815 v COL: 1.09217) (UTA: 54.43% , COL: 45.57%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "10:30:38",
+    "timeLastRun": "11:00:34",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
