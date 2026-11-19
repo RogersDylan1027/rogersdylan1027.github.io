@@ -203,19 +203,19 @@
     "outcome": "BOS, DET: 0.958 v BOS: 1.35244      Expected difference: 0.39444, (DET: 1.59667 v BOS: 2.25407) (DET: 40.26% , BOS: 59.74%)",
     "startingTime": "19:35:00",
     "timeLastRun": "19:28:57",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.153,
+    "awayMeanSquaredError": 0.5492,
+    "homeLogLoss": 0.611,
+    "awayLogLoss": "NaN",
     "bettingLines": [
       "BOS: Money Line",
       "David Pastrnak: +1 Point"
     ],
     "correctBettingLines": [
-      0,
-      0
+      1,
+      1
     ],
-    "correctLines": 0,
+    "correctLines": 2,
     "totalLines": 2
   },
   {
@@ -432,10 +432,10 @@
     "outcome": "NJD, NJD: 1.64352 v MTL: 1.06897      Expected difference: 0.57455, (NJD: 2.7392 v MTL: 1.78162) (NJD: 63.98% , MTL: 36.02%)",
     "startingTime": "19:35:00",
     "timeLastRun": "19:29:50",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.3019,
+    "awayMeanSquaredError": 0.6143,
+    "homeLogLoss": "NaN",
+    "awayLogLoss": "NaN",
     "bettingLines": [
       "NJD: Money Line",
       "Jack Hughes: +1 Point",
@@ -658,13 +658,13 @@
     "outcome": "UTA, UTA: 1.12851 v COL: 0.66175      Expected difference: 0.46676, (UTA: 1.88085 v COL: 1.10292) (UTA: 61.46% , COL: 38.54%)",
     "startingTime": "22:05:00",
     "timeLastRun": "21:58:53",
-    "homeMeanSquaredError": {},
-    "awayMeanSquaredError": {},
-    "homeLogLoss": {},
-    "awayLogLoss": {},
+    "homeMeanSquaredError": 0.5915,
+    "awayMeanSquaredError": 0.1141,
+    "homeLogLoss": 1.2105,
+    "awayLogLoss": 0.3746,
     "bettingLines": "UTA: Money Line",
-    "correctBettingLines": 0,
-    "correctLines": 0,
+    "correctBettingLines": 1,
+    "correctLines": 1,
     "totalLines": 1
   }
 ]
