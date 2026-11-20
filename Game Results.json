@@ -2224,49 +2224,213 @@
     "homeScorers": {},
     "awayScorers": {},
     "allHomePoints": {
-      "Matty Beniers": ["0.0761", "2.63%", "1.343"],
-      "Berkly Catton": ["0.0843", "2.91%", "1.7458"],
-      "Jordan Eberle": ["0.1347", "4.6%", "2.5516"],
-      "Jagger Firkus": ["0", "0%", "0"],
-      "Frederick Gaudreau": ["0.1127", "3.87%", "1.4101"],
-      "Kaapo Kakko": ["0.0293", "1.02%", "1.0744"],
-      "Bobby McMann": ["0.1005", "3.46%", "3.0888"],
-      "Jacob Melanson": ["0", "0%", "1.2087"],
-      "Ben Meyers": ["0.0089", "0.31%", "0.982"],
-      "Jani Nyman": ["0", "0%", "1.5108"],
-      "Mackie Samoskevich": ["0.1253", "4.29%", "1.9907"],
-      "Chandler Stephenson": ["0.0208", "0.73%", "0.9401"],
-      "Ryan Winterton": ["0.0276", "0.96%", "1.6787"],
-      "Vince Dunn": ["0.1064", "3.66%", "2.4173"],
-      "Ryker Evans": ["0.0377", "1.31%", "0.8729"],
-      "Cale Fleury": ["0", "0%", "1.036"],
-      "Adam Larsson": ["0", "0%", "1.1415"],
-      "Ryan Lindgren": ["0", "0%", "0.7252"],
-      "Josh Mahura": ["0.0078", "0.27%", "0.6907"],
-      "Brandon Montour": ["0.111", "3.81%", "2.2751"],
-      "Ville Ottavainen": ["0.0196", "0.68%", "1.6482"]
+      "Matty Beniers": [
+        "0.0761",
+        "2.63%",
+        "1.343"
+      ],
+      "Berkly Catton": [
+        "0.0843",
+        "2.91%",
+        "1.7458"
+      ],
+      "Jordan Eberle": [
+        "0.1347",
+        "4.6%",
+        "2.5516"
+      ],
+      "Jagger Firkus": [
+        "0",
+        "0%",
+        "0"
+      ],
+      "Frederick Gaudreau": [
+        "0.1127",
+        "3.87%",
+        "1.4101"
+      ],
+      "Kaapo Kakko": [
+        "0.0293",
+        "1.02%",
+        "1.0744"
+      ],
+      "Bobby McMann": [
+        "0.1005",
+        "3.46%",
+        "3.0888"
+      ],
+      "Jacob Melanson": [
+        "0",
+        "0%",
+        "1.2087"
+      ],
+      "Ben Meyers": [
+        "0.0089",
+        "0.31%",
+        "0.982"
+      ],
+      "Jani Nyman": [
+        "0",
+        "0%",
+        "1.5108"
+      ],
+      "Mackie Samoskevich": [
+        "0.1253",
+        "4.29%",
+        "1.9907"
+      ],
+      "Chandler Stephenson": [
+        "0.0208",
+        "0.73%",
+        "0.9401"
+      ],
+      "Ryan Winterton": [
+        "0.0276",
+        "0.96%",
+        "1.6787"
+      ],
+      "Vince Dunn": [
+        "0.1064",
+        "3.66%",
+        "2.4173"
+      ],
+      "Ryker Evans": [
+        "0.0377",
+        "1.31%",
+        "0.8729"
+      ],
+      "Cale Fleury": [
+        "0",
+        "0%",
+        "1.036"
+      ],
+      "Adam Larsson": [
+        "0",
+        "0%",
+        "1.1415"
+      ],
+      "Ryan Lindgren": [
+        "0",
+        "0%",
+        "0.7252"
+      ],
+      "Josh Mahura": [
+        "0.0078",
+        "0.27%",
+        "0.6907"
+      ],
+      "Brandon Montour": [
+        "0.111",
+        "3.81%",
+        "2.2751"
+      ],
+      "Ville Ottavainen": [
+        "0.0196",
+        "0.68%",
+        "1.6482"
+      ]
     },
     "allAwayPoints": {
-      "Arshdeep Bains": ["0.0192", "0.67%", "0.5194"],
-      "Brock Boeser": ["0.2721", "9.08%", "1.5666"],
-      "Filip Chytil": ["0.3335", "11.02%", "2.2398"],
-      "Paul Cotter": ["0.044", "1.53%", "0.664"],
-      "Jake DeBrusk": ["0.2899", "9.65%", "2.365"],
-      "Brendan Gallagher": ["0", "0%", "1.2659"],
-      "Linus Karlsson": ["0.1816", "6.16%", "1.8629"],
-      "Jonathan Lekkerimäki": ["0.1975", "6.68%", "1.6512"],
-      "Drew O'Connor": ["0.0668", "2.31%", "1.3125"],
-      "Liam Ohgren": ["0.126", "4.31%", "1.2837"],
-      "Elias Pettersson": ["0.0627", "2.17%", "0.9738"],
-      "Jacob Quillan": ["0", "0%", "0.6492"],
-      "Marco Rossi": ["0.0929", "3.2%", "1.6694"],
-      "Max Sasson": ["0.0702", "2.43%", "1.0161"],
-      "Zeev Buium": ["0", "0%", "0.7621"],
-      "Cameron Crotty": ["0", "0%", "0.3246"],
-      "Filip Hronek": ["0.0353", "1.23%", "1.1855"],
-      "Jamie Oleksiak": ["0.0289", "1.01%", "0.6956"],
-      "Luke Schenn": ["0", "0%", "0.4869"],
-      "Tom Willander": ["0", "0%", "0.8713"]
+      "Arshdeep Bains": [
+        "0.0192",
+        "0.67%",
+        "0.5194"
+      ],
+      "Brock Boeser": [
+        "0.2721",
+        "9.08%",
+        "1.5666"
+      ],
+      "Filip Chytil": [
+        "0.3335",
+        "11.02%",
+        "2.2398"
+      ],
+      "Paul Cotter": [
+        "0.044",
+        "1.53%",
+        "0.664"
+      ],
+      "Jake DeBrusk": [
+        "0.2899",
+        "9.65%",
+        "2.365"
+      ],
+      "Brendan Gallagher": [
+        "0",
+        "0%",
+        "1.2659"
+      ],
+      "Linus Karlsson": [
+        "0.1816",
+        "6.16%",
+        "1.8629"
+      ],
+      "Jonathan Lekkerimäki": [
+        "0.1975",
+        "6.68%",
+        "1.6512"
+      ],
+      "Drew O'Connor": [
+        "0.0668",
+        "2.31%",
+        "1.3125"
+      ],
+      "Liam Ohgren": [
+        "0.126",
+        "4.31%",
+        "1.2837"
+      ],
+      "Elias Pettersson": [
+        "0.0627",
+        "2.17%",
+        "0.9738"
+      ],
+      "Jacob Quillan": [
+        "0",
+        "0%",
+        "0.6492"
+      ],
+      "Marco Rossi": [
+        "0.0929",
+        "3.2%",
+        "1.6694"
+      ],
+      "Max Sasson": [
+        "0.0702",
+        "2.43%",
+        "1.0161"
+      ],
+      "Zeev Buium": [
+        "0",
+        "0%",
+        "0.7621"
+      ],
+      "Cameron Crotty": [
+        "0",
+        "0%",
+        "0.3246"
+      ],
+      "Filip Hronek": [
+        "0.0353",
+        "1.23%",
+        "1.1855"
+      ],
+      "Jamie Oleksiak": [
+        "0.0289",
+        "1.01%",
+        "0.6956"
+      ],
+      "Luke Schenn": [
+        "0",
+        "0%",
+        "0.4869"
+      ],
+      "Tom Willander": [
+        "0",
+        "0%",
+        "0.8713"
+      ]
     },
     "outcome": "VAN, SEA: 0.351 v VAN: 0.69253      Expected difference: 0.34153, (SEA: 0.585 v VAN: 1.15422) (SEA: 41.54% , VAN: 58.46%)",
     "startingTime": "21:45:00",
@@ -2330,7 +2494,7 @@
     },
     "outcome": "VGK, VGK: 1.56762 v DAL: 0.5917      Expected difference: 0.97592, (VGK: 2.6127 v DAL: 0.98617) (VGK: 72.63% , DAL: 27.37%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "21:29:48",
+    "timeLastRun": "21:58:49",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
