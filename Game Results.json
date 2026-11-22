@@ -2476,48 +2476,208 @@
     "homeScorers": {},
     "awayScorers": "Cutter Gauthier, ANA: 0.73955      (1.23258333333333)",
     "allHomePoints": {
-      "Daniil But": ["0.0244", "0.85%", "1.0473"],
-      "Michael Carcone": ["0.0409", "1.42%", "2.2441"],
-      "Logan Cooley": ["0.3801", "12.46%", "1.7803"],
-      "Lawson Crouse": ["0.0499", "1.73%", "1.8213"],
-      "Barrett Hayton": ["0.1054", "3.62%", "2.0035"],
-      "Anders Lee": ["0.0717", "2.48%", "1.9124"],
-      "Jack McBain": ["0.0377", "1.31%", "1.0928"],
-      "Ben McCartney": ["0", "0%", "0"],
-      "Kevin Stenlund": ["0.0243", "0.85%", "1.0017"],
-      "Vincent Trocheck": ["0.1705", "5.79%", "2.049"],
-      "Kailer Yamamoto": ["0.1583", "5.39%", "2.2441"],
-      "Gregor Biber": ["0", "0%", "0"],
-      "Nick DeSimone": ["0", "0%", "0.6284"],
-      "Artem Duda": ["0", "0%", "1.2218"],
-      "Zac Jones": ["0.3932", "12.86%", "2.6182"],
-      "Andrew Peeke": ["0.0292", "1.02%", "0.9107"],
-      "Mikhail Sergachev": ["0.3608", "11.86%", "2.732"],
-      "Dmitri Simashev": ["0.0795", "2.75%", "1.0928"],
-      "MacKenzie Weegar": ["0.0719", "2.49%", "1.8213"]
+      "Daniil But": [
+        "0.0244",
+        "0.85%",
+        "1.0473"
+      ],
+      "Michael Carcone": [
+        "0.0409",
+        "1.42%",
+        "2.2441"
+      ],
+      "Logan Cooley": [
+        "0.3801",
+        "12.46%",
+        "1.7803"
+      ],
+      "Lawson Crouse": [
+        "0.0499",
+        "1.73%",
+        "1.8213"
+      ],
+      "Barrett Hayton": [
+        "0.1054",
+        "3.62%",
+        "2.0035"
+      ],
+      "Anders Lee": [
+        "0.0717",
+        "2.48%",
+        "1.9124"
+      ],
+      "Jack McBain": [
+        "0.0377",
+        "1.31%",
+        "1.0928"
+      ],
+      "Ben McCartney": [
+        "0",
+        "0%",
+        "0"
+      ],
+      "Kevin Stenlund": [
+        "0.0243",
+        "0.85%",
+        "1.0017"
+      ],
+      "Vincent Trocheck": [
+        "0.1705",
+        "5.79%",
+        "2.049"
+      ],
+      "Kailer Yamamoto": [
+        "0.1583",
+        "5.39%",
+        "2.2441"
+      ],
+      "Gregor Biber": [
+        "0",
+        "0%",
+        "0"
+      ],
+      "Nick DeSimone": [
+        "0",
+        "0%",
+        "0.6284"
+      ],
+      "Artem Duda": [
+        "0",
+        "0%",
+        "1.2218"
+      ],
+      "Zac Jones": [
+        "0.3932",
+        "12.86%",
+        "2.6182"
+      ],
+      "Andrew Peeke": [
+        "0.0292",
+        "1.02%",
+        "0.9107"
+      ],
+      "Mikhail Sergachev": [
+        "0.3608",
+        "11.86%",
+        "2.732"
+      ],
+      "Dmitri Simashev": [
+        "0.0795",
+        "2.75%",
+        "1.0928"
+      ],
+      "MacKenzie Weegar": [
+        "0.0719",
+        "2.49%",
+        "1.8213"
+      ]
     },
     "allAwayPoints": {
-      "Leo Carlsson": ["0.2451", "8.22%", "1.6423"],
-      "Judd Caulfield": ["0.0782", "2.7%", "1.0342"],
-      "Sam Colangelo": ["0.022", "0.77%", "1.1804"],
-      "Cutter Gauthier": ["2.113", "52.27%", "4.2065"],
-      "Mikael Granlund": ["0.3694", "12.13%", "1.7598"],
-      "Alex Killorn": ["0.0781", "2.7%", "1.3138"],
-      "Jeff Malott": ["0.0756", "2.61%", "1.4165"],
-      "Roger McQueen": ["0.0448", "1.56%", "1.2066"],
-      "Nico Myatovic": ["0", "0%", "0.4722"],
-      "Nikita Nesterenko": ["0.061", "2.11%", "1.0342"],
-      "Troy Terry": ["0", "0%", "1.1332"],
-      "Frank Vatrano": ["0.0595", "2.06%", "0.9443"],
-      "Tim Washe": ["0.0687", "2.38%", "0.9443"],
-      "Drew Helleson": ["0", "0%", "0.9443"],
-      "Tyson Hinds": ["0", "0%", "1.2984"],
-      "Jackson LaCombe": ["0.0266", "0.93%", "0.8211"],
-      "Tristan Luneau": ["0.1293", "4.43%", "1.3138"],
-      "Pavel Mintyukov": ["0.057", "1.97%", "0.994"],
-      "Travis Mitchell": ["0", "0%", "0.4722"],
-      "Stian Solberg": ["0", "0%", "0.9443"],
-      "Noah Warren": ["0", "0%", "0.6159"]
+      "Leo Carlsson": [
+        "0.2451",
+        "8.22%",
+        "1.6423"
+      ],
+      "Judd Caulfield": [
+        "0.0782",
+        "2.7%",
+        "1.0342"
+      ],
+      "Sam Colangelo": [
+        "0.022",
+        "0.77%",
+        "1.1804"
+      ],
+      "Cutter Gauthier": [
+        "2.113",
+        "52.27%",
+        "4.2065"
+      ],
+      "Mikael Granlund": [
+        "0.3694",
+        "12.13%",
+        "1.7598"
+      ],
+      "Alex Killorn": [
+        "0.0781",
+        "2.7%",
+        "1.3138"
+      ],
+      "Jeff Malott": [
+        "0.0756",
+        "2.61%",
+        "1.4165"
+      ],
+      "Roger McQueen": [
+        "0.0448",
+        "1.56%",
+        "1.2066"
+      ],
+      "Nico Myatovic": [
+        "0",
+        "0%",
+        "0.4722"
+      ],
+      "Nikita Nesterenko": [
+        "0.061",
+        "2.11%",
+        "1.0342"
+      ],
+      "Troy Terry": [
+        "0",
+        "0%",
+        "1.1332"
+      ],
+      "Frank Vatrano": [
+        "0.0595",
+        "2.06%",
+        "0.9443"
+      ],
+      "Tim Washe": [
+        "0.0687",
+        "2.38%",
+        "0.9443"
+      ],
+      "Drew Helleson": [
+        "0",
+        "0%",
+        "0.9443"
+      ],
+      "Tyson Hinds": [
+        "0",
+        "0%",
+        "1.2984"
+      ],
+      "Jackson LaCombe": [
+        "0.0266",
+        "0.93%",
+        "0.8211"
+      ],
+      "Tristan Luneau": [
+        "0.1293",
+        "4.43%",
+        "1.3138"
+      ],
+      "Pavel Mintyukov": [
+        "0.057",
+        "1.97%",
+        "0.994"
+      ],
+      "Travis Mitchell": [
+        "0",
+        "0%",
+        "0.4722"
+      ],
+      "Stian Solberg": [
+        "0",
+        "0%",
+        "0.9443"
+      ],
+      "Noah Warren": [
+        "0",
+        "0%",
+        "0.6159"
+      ]
     },
     "outcome": "ANA, UTA: 0.69922 v ANA: 1.19988      Expected difference: 0.50066, (UTA: 1.16537 v ANA: 1.9998) (UTA: 37.74% , ANA: 62.26%)",
     "startingTime": "21:05:00",
@@ -2526,8 +2686,14 @@
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
     "awayLogLoss": {},
-    "bettingLines": ["ANA: Money Line", "Cutter Gauthier: +1 Point"],
-    "correctBettingLines": [0, 0],
+    "bettingLines": [
+      "ANA: Money Line",
+      "Cutter Gauthier: +1 Point"
+    ],
+    "correctBettingLines": [
+      0,
+      0
+    ],
     "correctLines": 0,
     "totalLines": 2
   },
@@ -2581,7 +2747,7 @@
     },
     "outcome": "MIN, VAN: 0.86305 v MIN: 1.10554      Expected difference: 0.24249, (VAN: 1.43842 v MIN: 1.84257) (VAN: 43.97% , MIN: 56.03%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "20:59:55",
+    "timeLastRun": "21:28:59",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
@@ -2644,7 +2810,7 @@
     },
     "outcome": "SJS, SJS: 0.89188 v SEA: 0.55447      Expected difference: 0.33741, (SJS: 1.48647 v SEA: 0.92412) (SJS: 58.36% , SEA: 41.64%)",
     "startingTime": "22:05:00",
-    "timeLastRun": "21:00:48",
+    "timeLastRun": "21:29:59",
     "homeMeanSquaredError": {},
     "awayMeanSquaredError": {},
     "homeLogLoss": {},
